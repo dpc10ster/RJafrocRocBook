@@ -1,0 +1,30 @@
+---
+title: With Latex Header File
+output:
+  pdf_document:
+    fig_caption: yes        
+    includes:  
+      in_header: my_header.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Here is a histogram of the poisson distribution:
+
+```{r cars, fig.cap="my caption"}
+hist(rpois(100,3))
+```
+
+The thing below is a table:
+
+```{r}
+knitr::kable(mtcars[1:5, 1:5], caption = "I need this to be the third thing that appears. But it comes out first???")
+```
+
+The thing below is a bigger table:
+
+```{r}
+knitr::kable(mtcars[1:6, 1:6], caption = "I need this to be the fourth thing that appears. But it comes out second???")
+```

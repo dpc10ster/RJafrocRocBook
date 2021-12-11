@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+_publish.R
+_book
+_RJafroc_files
+rsconnect
+docs/
+_bookdown_files
+

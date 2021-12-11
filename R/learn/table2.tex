@@ -1,0 +1,136 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Untitled},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+
+\title{Untitled}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\hypertarget{table-including--symbol-escapef-not-set}{%
+\section{Table including \%-symbol, escape=F not set}\label{table-including--symbol-escapef-not-set}}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-1}Caption}
+\centering
+\begin{threeparttable}
+\begin{tabular}[t]{lcccc}
+\toprule
+Variable & \textbackslash{}makecell[c]\{All\textbackslash{}\textbackslash{}(n = 300)\} & \textbackslash{}makecell[c]\{Group1\textbackslash{}\textbackslash{}(n = 120)\} & \textbackslash{}makecell[c]\{Group2\textbackslash{}\textbackslash{}(n = 100)\} & \textbackslash{}makecell[c]\{Group3\textbackslash{}\textbackslash{}(n = 80)\}\\
+\midrule
+Var1 & 31\% & 79\% & 51\% & 14\%\\
+Var2 & 67\% & 42\% & 50\% & 43\%\\
+Var3 & 14\% & 25\% & 90\% & 91\%\\
+Var4 & 69\% & 91\% & 57\% & 92\%\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Anmerkung:} 
+\item * This is a note to show what * shows in this table plus some addidtional words to make this string a bit longer. Still a bit more
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\hypertarget{table-including--symbol-escapef}{%
+\section{Table including \%-symbol, escape=F}\label{table-including--symbol-escapef}}
+
+\begin{verbatim}
+This leads to an Error, see pic below
+\end{verbatim}
+
+\begin{table}[!h]
+
+\caption{\label{tab:unnamed-chunk-2}Caption}
+\centering
+\begin{threeparttable}
+\begin{tabular}[t]{lcccc}
+\toprule
+Variable & \makecell[c]{All\\(n = 300)} & \makecell[c]{Group1\\(n = 120)} & \makecell[c]{Group2\\(n = 100)} & \makecell[c]{Group3\\(n = 80)}\\
+\midrule
+Var1 & 31\% & 79\% & 51\% & 14\%\\
+Var2 & 67\% & 42\% & 50\% & 43\%\\
+Var3 & 14\% & 25\% & 90\% & 91\%\\
+Var4 & 69\% & 91\% & 57\% & 92\%\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Anmerkung:} 
+\item * This is a note to show what * shows in this table plus some addidtional words to make this string a bit longer. Still a bit more
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\end{document}
