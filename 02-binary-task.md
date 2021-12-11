@@ -1,0 +1,397 @@
+# The Binary Task {#binary-task}
+
+
+
+
+
+## TBA How much finished {#binary-task-how-much-finished}
+85%
+
+
+## Introduction {#binary-taskIntro}
+In the previous chapter four observer performance paradigms were introduced: the receiver operating characteristic (ROC), the free-response ROC (FROC), the location ROC (LROC) and the region of interest (ROI). The next few chapters focus on the ROC paradigm, where each case is rated for confidence in presence of disease. While a multiple point rating scale is generally used, in this chapter it is assumed that the ratings are binary, and the allowed values are "1" vs. "2". Equivalently, the ratings could be "non-diseased" vs. "diseased", "negative" vs. "positive", etc. In the literature this method of data acquisition is also termed the "yes/no" procedure [@RN298; @RN346]. The reason for restricting, for now, to the binary task is that the multiple rating task can be shown to be equivalent to a number of simultaneously conducted binary tasks. Therefore, understanding the simpler method is a good starting point.
+
+Since the truth is also binary, this chapter could be named the binary-truth binary-decision task. The starting point is a 2 x 2 table summarizing the outcomes in such studies and useful fractions that can be defined from the counts in this table, the most important ones being true positive fraction (TPF) and false positive fraction (FPF). These are used to construct measures of performance, some of which are desirable from the researcher's point of view, but others are more relevant to radiologists. The concept of disease prevalence is introduced and used to formulate relations between the different types of measures. An R example of calculation of these quantities is given that is only slightly more complicated than the demonstration in the prior chapter. 
+
+## The fundamental 2x2 table {#binary-taskTruth}
+In this book, the term case is used for images obtained for diagnostic purposes, of a patient; often multiple images of a patient, sometimes from different modalities, are involved in an interpretation; all images of a single patient, that are used in the interpretation, are collectively referred to as a case. A familiar example is the 4-view presentation used in screening mammography, where two views of each breast are available for viewing.
+
+Let $D$ represent the radiologist’s decision, with $D=1$  representing the decision “case is non-diseased” and $D=2$ representing the decision “case is diseased”. Let $T$ denote the truth with $T=1$ representing “case is actually non-diseased” and $T=2$ representing “case is actually diseased”. Each decision, one of two values, will be associated with one of two truth states, resulting in an entry in one of 4 cells arranged in a 2 x 2 layout, termed the decision vs. truth table, Table \@ref(tab:binary-tasktruthTable), which is of fundamental importance in observer performance. The cells are labeled as follows. The abbreviation $TN$, for true negative, represents a  $D=1$  decision on a  $T=1$ case. $FN$, for false negative, represents a  $D=1$ decision on a $T=2$ case (also termed a "miss"). $FP$, for false positive, represents a $D=2$  decision on a $T=1$  case (a "false-alarm") and $TP$, for true positive, represents a  $D=2$ decision on a $T=2$ case (a "hit"). 
+
+
+
+<table>
+<caption>(\#tab:binary-tasktruthTable)Truth Table.</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;"> T=1 </th>
+   <th style="text-align:left;"> T=2 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> D=1 </td>
+   <td style="text-align:left;"> TN </td>
+   <td style="text-align:left;"> FN </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> D=2 </td>
+   <td style="text-align:left;"> FP </td>
+   <td style="text-align:left;"> TP </td>
+  </tr>
+</tbody>
+</table>
+
+Table \@ref(tab:binary-tasktruthTable2) shows the numbers of decisions in each of the four categories defined in Table \@ref(tab:binary-tasktruthTable). Specifically, $n(TN)$ is the number of true negative decisions, $n(FN)$ is the number of false negative decisions, etc. The last row is the sum of the corresponding columns. The sum of the number of true negative decisions $n(TN)$ and the number of false positive decisions $n(FP)$ must equal the total number of non-diseased cases, denoted $K_1$. Likewise, the sum of the number of false negative decisions $n(FN)$ and the number of true positive decisions $n(TP)$ must equal the total number of diseased cases, denoted $K_2$. The last column is the sum of the corresponding rows. The sum of the number of true negative $n(TN)$ and false negative $n(FN)$ decisions is the total number of negative decisions, denoted $n(N)$. Likewise, the sum of the number of false positive $n(FP)$ and true positive $n(TP)$ decisions is the total number of positive decisions, denoted $n(P)$. Since each case yields a decision, the bottom-right corner cell is $n(N) + n(P)$, which must also equal $K_1+K_2$, the total number of cases $K$. These statements are summarized in Eqn. \@ref(eq:binary-taskTruthTableEqns).
+
+\begin{equation} 
+\left.\begin{aligned}
+K_1&=n(TN)+n(FP)\\ 
+K_2&=n(FN)+n(TN)\\ 
+n(N)&=n(TN)+n(FN)\\ 
+n(P)&=n(TP)+n(FP)\\
+K=K_1+K_2&=n(N)+n(P)
+\end{aligned}\right\}
+(\#eq:binary-taskTruthTableEqns)
+\end{equation} 
+
+
+
+<table>
+<caption>(\#tab:binary-tasktruthTable2)Cell counts.</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;"> T=1 </th>
+   <th style="text-align:left;"> T=2 </th>
+   <th style="text-align:left;"> RowSums </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> D=1 </td>
+   <td style="text-align:left;"> n(TN) </td>
+   <td style="text-align:left;"> n(FN) </td>
+   <td style="text-align:left;"> n(N)=n(TN)+n(FN) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> D=2 </td>
+   <td style="text-align:left;"> n(FP) </td>
+   <td style="text-align:left;"> n(TP) </td>
+   <td style="text-align:left;"> n(P)=n(FP)+n(TP) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ColSums </td>
+   <td style="text-align:left;"> $K_1$=n(TN)+n(FP) </td>
+   <td style="text-align:left;"> $K_2$=n(FN)+n(TP) </td>
+   <td style="text-align:left;"> $K=K_1+K_2$=n(N)+n(P) </td>
+  </tr>
+</tbody>
+</table>
+
+## Sensitivity and specificity
+The notation $P(D|T)$ indicates the probability of diagnosis D given truth state T (the vertical bar symbol is used to denote a conditional probability, i.e., what is to the left of the vertical bar depends on the condition appearing to the right of the vertical bar being true). 
+
+\begin{equation} 
+P(D|T) = P(\text{diagnosis is D} | \text{truth is T})
+(\#eq:binary-taskPDGivenT)
+\end{equation} 
+
+Therefore the probability that the radiologist will diagnose "case is diseased" when the case is actually diseased is $P(D=2|T=2)$, which is the probability of a true positive  $P(TP)$. 
+
+\begin{equation} 
+P(TP) = P(\text{D = 2} | \text{T = 2})
+(\#eq:binary-taskPTP)
+\end{equation} 
+
+Likewise, the probability that the radiologist will diagnose "case is non-diseased" when the case is actually diseased is $P(D=1|T=2)$, which is the probability of a false negative $P(FN)$.
+
+\begin{equation} 
+P(FN) = P(\text{D = 1} | \text{T = 2})
+(\#eq:binary-taskPFN)
+\end{equation} 
+
+The corresponding probabilities for non-diseased cases, $P(TN)$ and $P(FP)$, are defined by:
+
+\begin{equation} 
+\left.\begin{aligned}
+P(TN)&=P(D=1|T=1)\\ 
+\\
+P(FP)&=P(D=2|T=1)
+\end{aligned}\right\}
+(\#eq:binary-taskPTNFP)
+\end{equation} 
+
+Since the diagnosis must be either $D=1$  or  $D=2$, for each truth state the probabilities on non-diseased and diseased cases must sum to unity: 
+
+\begin{equation} 
+\left.\begin{matrix}
+P(D=1|T=1)+P(D=2|T=1)=1\\ 
+\\  
+P(D=1|T=2)+P(D=2|T=2)=1
+\end{matrix}\right\}
+(\#eq:binary-taskPSumsToUnity)
+\end{equation} 
+
+Equivalently, these equations can be written:
+
+\begin{equation} 
+\left.\begin{matrix}
+P(TN)+P(FP)=1\\ 
+\\
+P(FN)+P(TP)=1
+\end{matrix}\right\}
+(\#eq:binary-taskPSumsToUnity2)
+\end{equation} 
+
+Comments:
+
+* An easy way to remember Eqn. \@ref(eq:binary-taskPSumsToUnity2) is to start by writing down the probability of one of the four probabilities, e.g., $P(TN)$, and “reversing” both terms inside the parentheses, i.e., $T \Rightarrow F$, and $N \Rightarrow P$. This yields the term $P(FP)$ which when added to the previous probability, $P(TN)$, yields unity, i.e., the 1st equation in Eqn. \@ref(eq:binary-taskPSumsToUnity2).
+* Because there are two equations in four unknowns, only two of the four probabilities, one per equation, are independent. By tradition these are chosen to be $P(D=1|T=1)$  and  $P(D=2|T=2)$, i.e., $P(TN)$ and $P(TP)$, which happen to be the probabilities of correct decisions on non-diseased and diseased cases, respectively. The two basic probabilities are so important that they have names:  $P(D=2|T=2)=P(TP)$  is termed sensitivity (Se) and $P(D=1|T=1)=P(TN)$  is termed specificity (Sp): 
+
+\begin{equation} 
+\left.\begin{matrix}
+\text{Se}=P(TP)=P(D=2|T=2)\\ 
+\\
+\text{Sp}=P(TN)=P(D=1|T=1)
+\end{matrix}\right\}
+(\#eq:binary-taskSeSp)
+\end{equation} 
+
+The radiologist can be regarded as a diagnostic "test" yielding a binary decision under the binary truth condition. More generally, any test (e.g., a blood test for HIV) yielding a binary result (positive or negative) under a binary truth condition is said to be sensitive if it correctly detects the diseased condition most of the time. The test is said to be specific if it correctly detects the non-diseased condition most of the time. Sensitivity is how correct the test is at detecting a diseased condition, and specificity is how correct the test is at detecting a non-diseased condition.
+
+### Reasons for the names sensitivity and specificity
+It is important to understand the reason for these names and an analogy may be helpful. Most of us are sensitive to temperature, especially if the choice is between ice-cold vs. steaming hot. The sense of touch is said to be sensitive to temperature. One can imagine some neurological condition rendering a person hypersensitive to temperature, such that the person responds "hot" no matter what is being touched. For such a person the sense of touch is not very specific, as it is unable to distinguish between the two temperatures. This person would be characterized by unit sensitivity (since the response is “hot” to all steaming hot objects) and zero specificity (since the response is never “cold” to ice-cold objects). Likewise, a different neurological condition could render a person hypersensitive to cold, and the response is "cold" no matter what is being touched. Such a person would have zero sensitivity (since the response is never “hot” when touching steaming hot) and unit specificity (since the response is “cold” when touching ice-cold). Already one suspects that there is an inverse relation between sensitivity and specificity.
+
+### Estimating sensitivity and specificity
+Sensitivity and specificity are the probabilities of correct decisions, over diseased and non-diseased cases, respectively. The true values of these probabilities would require interpreting all diseased and non-diseased cases in the entire population of cases. In reality, one has a finite sample of cases and the corresponding quantities, calculated from this finite sample, are termed estimates. Population values are fixed, and in general unknown, while estimates are random variables. Intuitively, an estimate calculated over a larger number of cases is expected to be closer to the true or population value than an estimate calculated over a smaller number of cases.
+
+Estimates of sensitivity and specificity follow from counting the numbers of TP and TN decisions in Table 2.2 and dividing by the appropriate denominators. For sensitivity, the appropriate denominator is the number of actually diseased cases, namely  , and for specificity, the appropriate denominator is the number of actually non-diseased cases, namely  . The estimation equations for sensitivity specificity are (estimates are denoted by the “hat” or circumflex symbol ^):
+
+\begin{equation} 
+\left.\begin{matrix}
+\widehat{\text{Se}}=\widehat{P(TP)}=\frac{n(TP)}{K_2}\\
+\\ 
+\widehat{\text{Sp}}=\widehat{P(TN)}=\frac{n(TN)}{K_1}
+\end{matrix}\right\}
+(\#eq:binary-taskSeSpEstimates)
+\end{equation} 
+
+The ratio of the number of TP decisions to the number of actually diseased cases is termed true positive fraction $\widehat{TPF}$, which is an estimate of sensitivity, or equivalently, an estimate of $\widehat{P(TP)}$. Likewise, the ratio of the number of TN decisions to the number of actually non-diseased cases is termed true negative fraction $\widehat{TNF}$, which is an estimate of specificity, or equivalently, an estimate of  $\widehat{P(TN)}$. The complements of $\widehat{TPF}$ and $\widehat{TNF}$ are termed false negative fraction  $\widehat{FNF}$ and false positive fraction $\widehat{FPF}$, respectively.
+
+## Disease prevalence
+Disease prevalence, often abbreviated to prevalence, is defined as the actual or true probability that a randomly sampled case is of a diseased patient, i.e., the fraction of the entire population that is diseased. It is denoted $P(D|pop)$  when patients are randomly sampled from the population ("pop") and otherwise it is denoted $P(D|lab)$, where the condition “lab” stands for a laboratory study, where cases may be artificially enriched, and thus not representative of the population value:
+
+\begin{equation} 
+\left.\begin{matrix}
+P(D|\text{pop})=P(T=2|\text{pop})\\
+\\ 
+P(D|\text{lab})=P(T=2|\text{lab})
+\end{matrix}\right\}
+(\#eq:binary-taskDisPrev)
+\end{equation} 
+
+Since the patients must be either diseased on non-diseased, it follows with either sampling method, that:
+
+\begin{equation} 
+\left.\begin{aligned}
+P(T=1|\text{pop})+P(T=2|\text{pop})&=1\\
+\\
+P(T=1|\text{lab})+P(T=2|\text{lab})&=1
+\end{aligned}\right\}
+\end{equation} 
+
+If a finite number of patients are sampled randomly from the population the fraction of diseased patients in the sample is an estimate of true disease prevalence.
+
+\begin{equation} 
+\left.\begin{matrix}
+\widehat{P(D|\text{pop})}=
+\frac{K_2}{K_1+K_2}
+\end{matrix}\right|_{pop}
+(\#eq:binary-taskDisPrevEst)
+\end{equation} 
+
+It is important to appreciate the distinction between true (population) prevalence and laboratory prevalence. As an example, true disease prevalence for breast cancer is about five per 1000 patients in the US, but most mammography studies are conducted with comparable numbers of non-diseased and diseased cases:
+
+\begin{equation} 
+\left.\begin{aligned}
+\widehat{P(D|\text{pop})}&\sim 0.005\\
+\\
+\widehat{P(D|\text{lab})}&\sim 0.5\gg \widehat{P(D|\text{pop})}
+\end{aligned}\right\}
+(\#eq:binary-taskDisPrevLabVsPop)
+\end{equation} 
+
+## Accuracy
+Accuracy is defined as the fraction of all decisions that are in fact correct. Denoting it by $Ac$ one has for the corresponding estimate:
+
+\begin{equation} 
+\widehat{Ac}=\frac{n(TN)+n(TP)}{n(TN)+n(TP)+n(FP)+n(FN)}
+(\#eq:binary-taskAccuracyEst)
+\end{equation} 
+
+The numerator is the total number of correct decisions and the denominator is the total number of decisions. An equivalent expression is:
+
+\begin{equation} 
+\widehat{Ac}=\widehat{Sp}\widehat{P(!D)}+\widehat{Se}\widehat{P(D)}
+(\#eq:binary-taskAccuracyEst2)
+\end{equation} 
+
+The exclamation mark symbol is used to denote the “not” or negation operator. For example, $P(!D)$  means the probability that the patient is not diseased. Eqn. \@ref(eq:binary-taskAccuracyEst2) applies equally to laboratory or population studies, *provided sensitivity and specificity are estimated consistently*. One cannot combine a population estimate of prevalence with a laboratory measurement of sensitivity and / or specificity. 
+
+Eqn. \@ref(eq:binary-taskAccuracyEst2) can be understood from the following argument. $\widehat{Sp}$  is the fraction of correct (i.e., negative) decisions on non-diseased cases. Multiplying this by $\widehat{P(!D)}$ yields $\widehat{Sp} \widehat{P(!D)}$, the fraction of correct negative decisions on all cases. Similarly, $\widehat{Sp}$  is the fraction of correct positive decisions on all cases. Therefore, their sum is the fraction of (all, i.e., negative and positive) correct decisions on all cases. A formal mathematical derivation follows. The terms on the right hand side of Eqn. \@ref(eq:binary-taskSeSpEstimates) can be “turned around” yielding:
+
+\begin{equation} 
+\left.\begin{matrix}
+n(TP)=K_2 \widehat{Se}\\ 
+\\
+n(TN)=K_1 \widehat{Sp}
+\end{matrix}\right\}
+(\#eq:binary-tasknTpnTN)
+\end{equation} 
+
+Therefore,
+
+\begin{equation} 
+\begin{aligned}
+\widehat{Ac}&=\frac{n(TN)+n(TP)}{K}\\
+\\
+&=\frac{K_1 \widehat{Sp}+K_2 \widehat{Se}}{K}\\
+\\
+&=\widehat{Sp} \widehat{P(!D)}+\widehat{Se}\widehat{P(D)}
+\end{aligned}
+(\#eq:binary-taskAccuracyDeriv)
+\end{equation} 
+
+## Negative and positive predictive values 
+Sensitivity and specificity have desirable characteristics insofar as they reward the observer for correct decisions on actually diseased and actually non-diseased cases, respectively, so these quantities are expected to be independent of disease prevalence; one is dividing by the relevant denominator, so increased numbers of non-diseased cases are balanced by a corresponding increased number of correct decisions on non-diseased cases, and likewise for diseased cases. However, radiologists interpret cases in a “mixed” situation where cases could be positive or negative for disease and disease prevalence plays a crucial role in their decision-making – this point will be clarified shortly. Therefore, a measure of performance that is desirable from the researcher's point of view is not necessarily desirable from the radiologist's point of view. It should be obvious that if most cases are non-diseased, i.e., disease prevalence is close to zero, specificity, being correct on non-diseased cases, is more important to the radiologist than sensitivity. Otherwise, the radiologist would figuratively be crying "wolf" most of the time. The radiologist who makes too many FPs would discover it from subsequent clinical audits or daily case conferences, which are held in most large imaging departments. There is a cost to unnecessary false positives – the cost of additional imaging and / or needle-biopsy to rule out cancer, not to mention the pain and emotional trauma inflicted on the patient. Conversely, if disease prevalence is high, then sensitivity, being correct on diseased cases, is more important to the radiologist than specificity. With intermediate disease prevalence a weighted average of sensitivity and specificity, where the weighting involves disease prevalence, would appear to be desirable from the radiologist's point of view. 
+
+The radiologist is less interested in the normalized probability of a correct decision on non-diseased cases. Rather interest is in the probability that a patient diagnosed as non-diseased is actually non-diseased. The reader should notice how the two probability definitions are "turned around" - more on this below. Likewise, the radiologist is less interested in the normalized probability of correct decisions on diseased cases; rather interest is in the probability that a patient diagnosed as diseased is actually diseased. These are termed negative and positive predictive values, respectively, and denoted $NPV$ and $PPV$.
+
+$NPV$ is defined as the probability, given a non-diseased diagnosis, that the patient is actually non-diseased:
+
+\begin{equation} 
+NPV = P(T=1|D=1)
+(\#eq:binary-taskNPV1)
+\end{equation}
+
+PPV is defined as the probability, given a diseased diagnosis, that the patient is actually diseased:
+
+\begin{equation} 
+PPV = P(T=2|D=2)
+(\#eq:binary-taskPPV1)
+\end{equation}
+
+Note that both equations are "turned around" from the definition of specificity and sensitivity, Eqn. \@ref(eq:binary-taskSeSp), i.e., specificity = $P(D=1|T=1)$ and sensitivity = $P(D=2|T=2)$. 
+
+For now we focus on $NPV$. To estimate $NPV$ one divides the number of correct negative decisions $n(TN)$ by the total number of negative decisions $n(N)$. The latter is the sum of the number of correct negative decisions $n(TN)$ and the number of incorrect negative decisions $n(FN)$. Therefore,
+
+\begin{equation} 
+\widehat{NPV}=\frac{n(TN)}{n(TN)+n(FN)}
+(\#eq:binary-taskNPV2)
+\end{equation}
+
+Dividing the numerator and denominator by the total number of negative cases, one gets:
+
+\begin{equation} 
+\widehat{NPV}=\frac{\widehat{P(TN)}}{\widehat{P(TN)}+\widehat{P(FN)}}
+(\#eq:binary-taskNPV3)
+\end{equation}
+
+The estimate of the probability of a TN equals the estimate of true negative fraction $1-\widehat{FPF}$ multiplied by the estimate that the patient is non-diseased, i.e.,  $\widehat{P(!D)}$:
+
+\begin{equation} 
+\widehat{P(TN)}=\widehat{P(!D)}(1-\widehat{FPF})
+(\#eq:binary-taskPTNEst)
+\end{equation}
+
+Explanation: A similar logic to that used earlier applies:  $(1-\widehat{FPF})$ is the probability of being correct on non-diseased cases. Multiplying this by the estimate of probability of disease absence yields the estimate of $\widehat{P(TN)}$.
+
+Likewise, the estimate of the probability of a FN equals the estimate of false negative fraction, which is $(1-\widehat{TPF})$, multiplied by the estimate of the probability that the patient is diseased, i.e., $(\widehat{P(D)}$ : 
+
+\begin{equation} 
+\widehat{P(FN)}=\widehat{P(D)}(1-\widehat{TPF})
+(\#eq:binary-taskPFNEst)
+\end{equation}
+
+Putting this all together, one has:
+
+\begin{equation} 
+\widehat{NPV}=\frac{\widehat{P(!D)}(1-\widehat{FPF})}{(\widehat{P(!D)}(1-\widehat{FPF})+(\widehat{P(D)}(1-\widehat{TPF})}
+(\#eq:binary-taskNPVFormula)
+\end{equation}
+
+For the population, 
+
+\begin{equation} 
+NPV=\frac{P(!D)(1-FPF)}{(P(!D)(1-FPF)+(P(D)(1-TPF)}
+(\#eq:binary-taskNPVFormula-pop)
+\end{equation}
+
+Likewise, it can be shown that $PPV$ is given by:
+
+\begin{equation} 
+PPV =\frac{P(D)(TPF)}{P(D)(TPF)+P(!D)FPF}
+(\#eq:binary-taskPPV)
+\end{equation}
+
+The equations defining NPV and PPV are actually special cases of Bayes’ theorem [@RN1492]. The general theorem is:
+
+\begin{equation} 
+\begin{aligned}
+P(A|B)&=\frac{P(B|A)P(A)}{P(B)} \\
+\\
+&=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
+\end{aligned}
+(\#eq:binary-taskBayesTheorem)
+\end{equation}
+
+
+An easy way to remember Eqn. \@ref(eq:binary-taskBayesTheorem) is to start with the numerator on the right hand side, which is the "reversed" form of the desired probability on the left hand side, multiplied by an appropriate probability. For example, if the desired probability is $P(A|B)$, one starts with the "reversed" form, i.e.,  $P(B|A)$, multiplied by $P(A)$. This yields the numerator. The denominator is the sum of two probabilities: the probability of B given A, i.e.,  $P(B|A)$, multiplied by $P(A)$  plus the probability of B given $!A$, i.e.,  $P(B|!A)$, multiplied by $P(!A)$.
+
+### Example calculation of PPV, NPV and accuracy {#binary-taskNpvPpvCode}
+* Typical disease prevalence in the US in screening mammography is 0.005. 
+* A typical operating point, for an expert mammographer, is FPF = 0.1, TPF = 0.8. What are NPV and PPV?
+
+
+
+```r
+# disease prevalence in 
+# USA screening mammography 
+prevalence <- 0.005 # Line 3 
+FPF <- 0.1 # typical operating point 
+TPF <- 0.8 #        do: 
+specificity <- 1-FPF 
+sensitivity <- TPF 
+NPV <- (1-prevalence)*(specificity)/((1-prevalence)*(specificity) + prevalence*(1-sensitivity)) 
+PPV <- prevalence*sensitivity/(prevalence*sensitivity + (1-prevalence)*(1-specificity)) 
+cat("NPV = ", NPV, "\nPPV = ", PPV, "\n")
+#> NPV =  0.9988846 
+#> PPV =  0.03864734
+accuracy <-(1-prevalence)*(specificity)+(prevalence)*(sensitivity) 
+cat("accuracy = ", accuracy, "\n")
+#> accuracy =  0.8995
+```
+
+
+* Line 3 initializes the variable `prevalence`, the disease prevalence, to 0.005. 
+* Line 4 assigns `0.1` to `FPF` and line 5 assigns `0.8` to `TPF`. 
+* Lines 6 and 7 initialize the variables specificity and sensitivity, respectively. 
+* Line 8 calculates `NPV` using Eqn. \@ref(eq:binary-taskNPVFormula-pop). 
+* Line 9 calculates `PPV` using Eqn. \@ref(eq:binary-taskPPV). 
+
+### Comments {#binary-taskNpvPpvComments}
+If a woman has a negative diagnosis, chances are very small that she has breast cancer: the probability that the radiologist is incorrect in the negative diagnosis is 1 - NPV = 0.0011154. Even is she has a positive diagnosis, the probability that she actually has cancer is still only 0.0386473. That is why following a positive screening diagnosis the woman is recalled for further imaging, and if that reveals cause for reasonable suspicion, then additional imaging is performed, perhaps augmented with a needle-biopsy to confirm actual disease status. If the biopsy turns out positive, only then is the woman referred for cancer therapy. Overall, accuracy is 0.8995. The numbers in this illustration are for expert radiologists. In practice there is wide variability in radiologist performance.
+
+
+### PPV and NPV are irrelevant to laboratory tasks {#binary-taskNpvPpvIrrel2LabTasks}
+According to the hierarchy of assessment methods described in (book) Chapter 01, Table 1.1, PPV and NPV are level- 3 measurements, which are calculated from "live" interpretations (recall that the higher the level the greater the clinical relevance). In the clinic, the radiologist adjusts the operating point to achieve a balance between sensitivity and specificity. The balance depends critically on the known disease prevalence. Based on geographical location and type of practice, the radiologist over time develops an idea of actual disease prevalence, or it can be found in various databases. For example, a breast-imaging clinic that specializes in imaging high-risk women will have higher disease prevalence than the general population and the radiologist is expected to err more on the side of reduced specificity because of the expected benefit of increased sensitivity. However, in the context of a laboratory study, where one uses enriched case sets, the concepts of NPV and PPV are meaningless. For example, it would be rather difficult to perform a laboratory study with 10,000 randomly sampled women, which would ensure about 50 actually diseased patients, which is large enough to get a reasonably precise estimate of sensitivity (estimating specificity is inherently more precise because most women are actually non-diseased). Rather, in a laboratory study one uses enriched data sets where the numbers of diseased-cases is much larger than in the general population, Eqn. \@ref(eq:binary-taskDisPrevLabVsPop). The radiologist cannot interpret these cases pretending that the actual prevalence is very low. Negative and positive predictive values, while they can be calculated from laboratory data, have very little, if any, clinical meanings, since they have no effect on radiologist thinking. As noted in (book) Chapter 01 the purpose of level-3 measurements is to determine the effect on radiologist thinking. There are no diagnostic decisions riding on laboratory ROC interpretations of retrospectively acquired patient images. However, PPV and NPV do have clinical meanings when calculated from very large population based "live" studies. For example, the [@RN1902] study sampled 684,956 women and used the results of "live" interpretations of their images. In contrast, laboratory ROC studies are typically conducted with 50-100 non-diseased and 50-100 diseased cases. A study using about 300 cases total would be considered a "large" ROC study.
+
+
+## Summary{#binary-task-Summary}
+This chapter introduced the terms sensitivity (identical to TPF), specificity (the complement of FPF), disease prevalence, and positive and negative predictive values and accuracy. It is shown that, due to its strong dependence on disease prevalence, accuracy is a relatively poor measure of performance. Radiologists generally have a good, almost visceral, understanding of positive and negative predictive values, as these terms are relevant in the clinical context, being in effect, their "batting averages". A caveat on the use of PPV and NPV calculated from laboratory studies is noted; these quantities only make sense in the context of "live" clinical interpretations.
+
+## Discussion{#binary-task-Discussion}
+## References {#binary-task-references}
+

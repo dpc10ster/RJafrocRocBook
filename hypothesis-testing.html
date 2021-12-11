@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Hypothesis Testing | The RJafroc Roc Book</title>
+  <meta name="description" content="TBA Artificial intelligence and observer performance book based on RJafroc." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Hypothesis Testing | The RJafroc Roc Book" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="TBA Artificial intelligence and observer performance book based on RJafroc." />
+  <meta name="github-repo" content="dpc10ster/RJafrocRocBook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Hypothesis Testing | The RJafroc Roc Book" />
+  
+  <meta name="twitter:description" content="TBA Artificial intelligence and observer performance book based on RJafroc." />
+  
+
+<meta name="author" content="Dev P. Chakraborty, PhD" />
+
+
+<meta name="date" content="2021-12-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="sources-of-variability.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">RJafroc documentation</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#tba-how-much-finished"><i class="fa fa-check"></i>TBA How much finished</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-pdf-file-of-the-book"><i class="fa fa-check"></i>The pdf file of the book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-html-version-of-the-book"><i class="fa fa-check"></i>The html version of the book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#a-note-on-the-online-distribution-mechanism-of-the-book"><i class="fa fa-check"></i>A note on the online distribution mechanism of the book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i>Structure of the book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#contributing-to-this-book"><i class="fa fa-check"></i>Contributing to this book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#is-this-book-relevant-to-you-and-what-are-the-alternatives"><i class="fa fa-check"></i>Is this book relevant to you and what are the alternatives?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#todos-tba"><i class="fa fa-check"></i>ToDos TBA</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#chapters-needing-heavy-edits"><i class="fa fa-check"></i>Chapters needing heavy edits</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#shelved-vs.-removed-vs.-parked-folders-needing-heavy-edits"><i class="fa fa-check"></i>Shelved vs. removed vs. parked folders needing heavy edits</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#coding-aids"><i class="fa fa-check"></i>Coding aids</a></li>
+</ul></li>
+<li class="part"><span><b>ROC paradigm</b></span></li>
+<li class="chapter" data-level="1" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>1</b> Preliminaries</a><ul>
+<li class="chapter" data-level="1.1" data-path="preliminaries.html"><a href="preliminaries.html#preliminaries-how-much-finished"><i class="fa fa-check"></i><b>1.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="1.2" data-path="preliminaries.html"><a href="preliminaries.html#preliminariesIntro"><i class="fa fa-check"></i><b>1.2</b> Introduction</a></li>
+<li class="chapter" data-level="1.3" data-path="preliminaries.html"><a href="preliminaries.html#clinical-tasks"><i class="fa fa-check"></i><b>1.3</b> Clinical tasks</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="preliminaries.html"><a href="preliminaries.html#workflow-in-an-imaging-study"><i class="fa fa-check"></i><b>1.3.1</b> Workflow in an imaging study</a></li>
+<li class="chapter" data-level="1.3.2" data-path="preliminaries.html"><a href="preliminaries.html#the-screening-and-diagnostic-workup-tasks"><i class="fa fa-check"></i><b>1.3.2</b> The screening and diagnostic workup tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="preliminaries.html"><a href="preliminaries.html#imaging-device-development-and-its-clinical-deployment"><i class="fa fa-check"></i><b>1.4</b> Imaging device development and its clinical deployment</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="preliminaries.html"><a href="preliminaries.html#physical-measurements"><i class="fa fa-check"></i><b>1.4.1</b> Physical measurements</a></li>
+<li class="chapter" data-level="1.4.2" data-path="preliminaries.html"><a href="preliminaries.html#quality-control-and-image-quality-optimization"><i class="fa fa-check"></i><b>1.4.2</b> Quality Control and Image quality optimization</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="preliminaries.html"><a href="preliminaries.html#image-quality-vs.-task-performance"><i class="fa fa-check"></i><b>1.5</b> Image quality vs. task performance</a></li>
+<li class="chapter" data-level="1.6" data-path="preliminaries.html"><a href="preliminaries.html#why-physical-measures-of-image-quality-are-not-enough"><i class="fa fa-check"></i><b>1.6</b> Why physical measures of image quality are not enough</a></li>
+<li class="chapter" data-level="1.7" data-path="preliminaries.html"><a href="preliminaries.html#model-observers"><i class="fa fa-check"></i><b>1.7</b> Model observers</a></li>
+<li class="chapter" data-level="1.8" data-path="preliminaries.html"><a href="preliminaries.html#measuring-observer-performance-four-paradigms"><i class="fa fa-check"></i><b>1.8</b> Measuring observer performance: four paradigms</a><ul>
+<li class="chapter" data-level="1.8.1" data-path="preliminaries.html"><a href="preliminaries.html#basic-approach-to-the-analysis"><i class="fa fa-check"></i><b>1.8.1</b> Basic approach to the analysis</a></li>
+<li class="chapter" data-level="1.8.2" data-path="preliminaries.html"><a href="preliminaries.html#historical-notes"><i class="fa fa-check"></i><b>1.8.2</b> Historical notes</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="preliminaries.html"><a href="preliminaries.html#hierarchy-of-assessment-methods"><i class="fa fa-check"></i><b>1.9</b> Hierarchy of assessment methods</a></li>
+<li class="chapter" data-level="1.10" data-path="preliminaries.html"><a href="preliminaries.html#overview-of-the-book-and-how-to-use-it"><i class="fa fa-check"></i><b>1.10</b> Overview of the book and how to use it</a><ul>
+<li class="chapter" data-level="1.10.1" data-path="preliminaries.html"><a href="preliminaries.html#overview-of-the-book"><i class="fa fa-check"></i><b>1.10.1</b> Overview of the book</a></li>
+<li class="chapter" data-level="1.10.2" data-path="preliminaries.html"><a href="preliminaries.html#how-to-use-the-book"><i class="fa fa-check"></i><b>1.10.2</b> How to use the book</a></li>
+</ul></li>
+<li class="chapter" data-level="1.11" data-path="preliminaries.html"><a href="preliminaries.html#preliminaries-Summary"><i class="fa fa-check"></i><b>1.11</b> Summary</a></li>
+<li class="chapter" data-level="1.12" data-path="preliminaries.html"><a href="preliminaries.html#preliminaries-Discussion"><i class="fa fa-check"></i><b>1.12</b> Discussion</a></li>
+<li class="chapter" data-level="1.13" data-path="preliminaries.html"><a href="preliminaries.html#preliminaries-references"><i class="fa fa-check"></i><b>1.13</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="binary-task.html"><a href="binary-task.html"><i class="fa fa-check"></i><b>2</b> The Binary Task</a><ul>
+<li class="chapter" data-level="2.1" data-path="binary-task.html"><a href="binary-task.html#binary-task-how-much-finished"><i class="fa fa-check"></i><b>2.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="2.2" data-path="binary-task.html"><a href="binary-task.html#binary-taskIntro"><i class="fa fa-check"></i><b>2.2</b> Introduction</a></li>
+<li class="chapter" data-level="2.3" data-path="binary-task.html"><a href="binary-task.html#binary-taskTruth"><i class="fa fa-check"></i><b>2.3</b> The fundamental 2x2 table</a></li>
+<li class="chapter" data-level="2.4" data-path="binary-task.html"><a href="binary-task.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4</b> Sensitivity and specificity</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="binary-task.html"><a href="binary-task.html#reasons-for-the-names-sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4.1</b> Reasons for the names sensitivity and specificity</a></li>
+<li class="chapter" data-level="2.4.2" data-path="binary-task.html"><a href="binary-task.html#estimating-sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4.2</b> Estimating sensitivity and specificity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="binary-task.html"><a href="binary-task.html#disease-prevalence"><i class="fa fa-check"></i><b>2.5</b> Disease prevalence</a></li>
+<li class="chapter" data-level="2.6" data-path="binary-task.html"><a href="binary-task.html#accuracy"><i class="fa fa-check"></i><b>2.6</b> Accuracy</a></li>
+<li class="chapter" data-level="2.7" data-path="binary-task.html"><a href="binary-task.html#negative-and-positive-predictive-values"><i class="fa fa-check"></i><b>2.7</b> Negative and positive predictive values</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvCode"><i class="fa fa-check"></i><b>2.7.1</b> Example calculation of PPV, NPV and accuracy</a></li>
+<li class="chapter" data-level="2.7.2" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvComments"><i class="fa fa-check"></i><b>2.7.2</b> Comments</a></li>
+<li class="chapter" data-level="2.7.3" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvIrrel2LabTasks"><i class="fa fa-check"></i><b>2.7.3</b> PPV and NPV are irrelevant to laboratory tasks</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="binary-task.html"><a href="binary-task.html#binary-task-Summary"><i class="fa fa-check"></i><b>2.8</b> Summary</a></li>
+<li class="chapter" data-level="2.9" data-path="binary-task.html"><a href="binary-task.html#binary-task-Discussion"><i class="fa fa-check"></i><b>2.9</b> Discussion</a></li>
+<li class="chapter" data-level="2.10" data-path="binary-task.html"><a href="binary-task.html#binary-task-references"><i class="fa fa-check"></i><b>2.10</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="binary-task-model.html"><a href="binary-task-model.html"><i class="fa fa-check"></i><b>3</b> Modeling the Binary Task</a><ul>
+<li class="chapter" data-level="3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-how-much-finished"><i class="fa fa-check"></i><b>3.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-intro"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
+<li class="chapter" data-level="3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-z-sample-model"><i class="fa fa-check"></i><b>3.3</b> Decision variable and decision threshold</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-decision-variable"><i class="fa fa-check"></i><b>3.3.1</b> Existence of a decision variable</a></li>
+<li class="chapter" data-level="3.3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-decision-threshold"><i class="fa fa-check"></i><b>3.3.2</b> Existence of a decision threshold</a></li>
+<li class="chapter" data-level="3.3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#adequacy-of-the-training-session"><i class="fa fa-check"></i><b>3.3.3</b> Adequacy of the training session</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-example-1"><i class="fa fa-check"></i><b>3.4</b> Changing the decision threshold: Example I</a></li>
+<li class="chapter" data-level="3.5" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-example-2"><i class="fa fa-check"></i><b>3.5</b> Changing the decision threshold: Example II</a></li>
+<li class="chapter" data-level="3.6" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-equal-variance-binormal-model"><i class="fa fa-check"></i><b>3.6</b> The equal-variance binormal model</a></li>
+<li class="chapter" data-level="3.7" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-normal-distribution"><i class="fa fa-check"></i><b>3.7</b> The normal distribution</a></li>
+<li class="chapter" data-level="3.8" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity"><i class="fa fa-check"></i><b>3.8</b> Analytic expressions for specificity and sensitivity</a></li>
+<li class="chapter" data-level="3.9" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity-demo"><i class="fa fa-check"></i><b>3.9</b> Demonstration of the concepts of sensitivity and specificity</a><ul>
+<li class="chapter" data-level="3.9.1" data-path="binary-task-model.html"><a href="binary-task-model.html#estimating-mu-from-a-finite-sample"><i class="fa fa-check"></i><b>3.9.1</b> Estimating mu from a finite sample</a></li>
+<li class="chapter" data-level="3.9.2" data-path="binary-task-model.html"><a href="binary-task-model.html#changing-the-seed-variable-case-sampling-variability"><i class="fa fa-check"></i><b>3.9.2</b> Changing the seed variable: case-sampling variability</a></li>
+<li class="chapter" data-level="3.9.3" data-path="binary-task-model.html"><a href="binary-task-model.html#increasing-the-numbers-of-cases"><i class="fa fa-check"></i><b>3.9.3</b> Increasing the numbers of cases</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity-inverse-variation"><i class="fa fa-check"></i><b>3.10</b> Inverse variation of sensitivity and specificity and the need for a single FOM</a></li>
+<li class="chapter" data-level="3.11" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-roc-curve"><i class="fa fa-check"></i><b>3.11</b> The ROC curve</a><ul>
+<li class="chapter" data-level="3.11.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-chance-diagonal"><i class="fa fa-check"></i><b>3.11.1</b> The chance diagonal</a></li>
+<li class="chapter" data-level="3.11.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-guessing-observer"><i class="fa fa-check"></i><b>3.11.2</b> The guessing observer</a></li>
+<li class="chapter" data-level="3.11.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-symmetry-wrt-negative-diagonal"><i class="fa fa-check"></i><b>3.11.3</b> Symmetry with respect to negative diagonal</a></li>
+<li class="chapter" data-level="3.11.4" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-auc-roc-important"><i class="fa fa-check"></i><b>3.11.4</b> Area under the ROC curve</a></li>
+<li class="chapter" data-level="3.11.5" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-properties-roc"><i class="fa fa-check"></i><b>3.11.5</b> Properties of the equal-variance binormal model ROC curve</a></li>
+<li class="chapter" data-level="3.11.6" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-comments"><i class="fa fa-check"></i><b>3.11.6</b> Comments</a></li>
+<li class="chapter" data-level="3.11.7" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-mu-parameter-intepretation"><i class="fa fa-check"></i><b>3.11.7</b> Physical interpretation of the mu-parameter</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-confidence-intervals"><i class="fa fa-check"></i><b>3.12</b> Assigning confidence intervals to an operating point</a></li>
+<li class="chapter" data-level="3.13" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-beam-study"><i class="fa fa-check"></i><b>3.13</b> Variability in sensitivity and specificity: the Beam et al study</a></li>
+<li class="chapter" data-level="3.14" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-summary"><i class="fa fa-check"></i><b>3.14</b> Summary</a></li>
+<li class="chapter" data-level="3.15" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-references"><i class="fa fa-check"></i><b>3.15</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html"><i class="fa fa-check"></i><b>4</b> Ratings Paradigm</a><ul>
+<li class="chapter" data-level="4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-how-much-finished"><i class="fa fa-check"></i><b>4.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
+<li class="chapter" data-level="4.3" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-roc-counts-table"><i class="fa fa-check"></i><b>4.3</b> The ROC counts table</a></li>
+<li class="chapter" data-level="4.4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-operating-points-from-counts-table"><i class="fa fa-check"></i><b>4.4</b> Operating points from counts table</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#labeling-the-points"><i class="fa fa-check"></i><b>4.4.1</b> Labeling the points</a></li>
+<li class="chapter" data-level="4.4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-examples"><i class="fa fa-check"></i><b>4.4.2</b> Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-automating"><i class="fa fa-check"></i><b>4.5</b> Automating all this</a></li>
+<li class="chapter" data-level="4.6" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-relation-to-rating"><i class="fa fa-check"></i><b>4.6</b> Relation between ratings paradigm and the binary paradigm</a></li>
+<li class="chapter" data-level="4.7" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-ratings-not-numerical-values"><i class="fa fa-check"></i><b>4.7</b> Ratings are not numerical values</a></li>
+<li class="chapter" data-level="4.8" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-clinical-operating-point"><i class="fa fa-check"></i><b>4.8</b> A single “clinical” operating point from ratings data</a></li>
+<li class="chapter" data-level="4.9" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-2afc"><i class="fa fa-check"></i><b>4.9</b> The forced choice paradigm</a></li>
+<li class="chapter" data-level="4.10" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-observer-studies-as-simulations"><i class="fa fa-check"></i><b>4.10</b> Observer performance studies as laboratory simulations of clinical tasks</a></li>
+<li class="chapter" data-level="4.11" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-discrete-vs-continuous-ratings"><i class="fa fa-check"></i><b>4.11</b> Discrete vs. continuous ratings: the Miller study</a></li>
+<li class="chapter" data-level="4.12" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale"><i class="fa fa-check"></i><b>4.12</b> The BI-RADS ratings scale and ROC studies</a></li>
+<li class="chapter" data-level="4.13" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale-controversy"><i class="fa fa-check"></i><b>4.13</b> The controversy</a></li>
+<li class="chapter" data-level="4.14" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-discussion"><i class="fa fa-check"></i><b>4.14</b> Discussion</a></li>
+<li class="chapter" data-level="4.15" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-references"><i class="fa fa-check"></i><b>4.15</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="empirical-auc.html"><a href="empirical-auc.html"><i class="fa fa-check"></i><b>5</b> Empirical AUC</a><ul>
+<li class="chapter" data-level="5.1" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-how-much-finished"><i class="fa fa-check"></i><b>5.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="5.2" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-introduction"><i class="fa fa-check"></i><b>5.2</b> Introduction</a></li>
+<li class="chapter" data-level="5.3" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-roc-plot"><i class="fa fa-check"></i><b>5.3</b> The empirical ROC plot</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="empirical-auc.html"><a href="empirical-auc.html#notation-for-cases"><i class="fa fa-check"></i><b>5.3.1</b> Notation for cases</a></li>
+<li class="chapter" data-level="5.3.2" data-path="empirical-auc.html"><a href="empirical-auc.html#an-empirical-operating-point"><i class="fa fa-check"></i><b>5.3.2</b> An empirical operating point</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-operating-points"><i class="fa fa-check"></i><b>5.4</b> Empirical operating points from ratings data</a></li>
+<li class="chapter" data-level="5.5" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-area-under"><i class="fa fa-check"></i><b>5.5</b> AUC under the empirical ROC plot</a></li>
+<li class="chapter" data-level="5.6" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon"><i class="fa fa-check"></i><b>5.6</b> The Wilcoxon statistic</a></li>
+<li class="chapter" data-level="5.7" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem"><i class="fa fa-check"></i><b>5.7</b> Bamber’s Equivalence theorem</a></li>
+<li class="chapter" data-level="5.8" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem-importance"><i class="fa fa-check"></i><b>5.8</b> Importance of Bamber’s theorem</a></li>
+<li class="chapter" data-level="5.9" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-discussion-summary"><i class="fa fa-check"></i><b>5.9</b> Discussion / Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-appendix-details-bamber-theorem"><i class="fa fa-check"></i><b>5.10</b> Appendix 5.A: Details of Wilcoxon theorem</a><ul>
+<li class="chapter" data-level="5.10.1" data-path="empirical-auc.html"><a href="empirical-auc.html#upper-triangle"><i class="fa fa-check"></i><b>5.10.1</b> Upper triangle</a></li>
+<li class="chapter" data-level="5.10.2" data-path="empirical-auc.html"><a href="empirical-auc.html#lowest-trapezoid"><i class="fa fa-check"></i><b>5.10.2</b> Lowest trapezoid</a></li>
+</ul></li>
+<li class="chapter" data-level="5.11" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-references"><i class="fa fa-check"></i><b>5.11</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="binormal-model.html"><a href="binormal-model.html"><i class="fa fa-check"></i><b>6</b> Binormal model</a><ul>
+<li class="chapter" data-level="6.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-how-much-finished"><i class="fa fa-check"></i><b>6.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="6.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-introduction"><i class="fa fa-check"></i><b>6.2</b> TBA Introduction</a></li>
+<li class="chapter" data-level="6.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-definition"><i class="fa fa-check"></i><b>6.3</b> Binormal model</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="binormal-model.html"><a href="binormal-model.html#the-basic-model"><i class="fa fa-check"></i><b>6.3.1</b> The basic model</a></li>
+<li class="chapter" data-level="6.3.2" data-path="binormal-model.html"><a href="binormal-model.html#additional-parameters-for-binned-data"><i class="fa fa-check"></i><b>6.3.2</b> Additional parameters for binned data</a></li>
+<li class="chapter" data-level="6.3.3" data-path="binormal-model.html"><a href="binormal-model.html#sensitivity-and-specificity-1"><i class="fa fa-check"></i><b>6.3.3</b> Sensitivity and specificity</a></li>
+<li class="chapter" data-level="6.3.4" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-in-conventional-notation"><i class="fa fa-check"></i><b>6.3.4</b> Binormal model in conventional notation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-roc-curve"><i class="fa fa-check"></i><b>6.4</b> Binormal ROC curve</a></li>
+<li class="chapter" data-level="6.5" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-scalar-measure"><i class="fa fa-check"></i><b>6.5</b> Scalar threshold-independent measure</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc"><i class="fa fa-check"></i><b>6.5.1</b> Partial AUC</a></li>
+<li class="chapter" data-level="6.5.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-full-auc"><i class="fa fa-check"></i><b>6.5.2</b> Full AUC</a></li>
+<li class="chapter" data-level="6.5.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-d-prime"><i class="fa fa-check"></i><b>6.5.3</b> The d’ measure</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-true"><i class="fa fa-check"></i><b>6.6</b> Partial AUC vs. true performance</a></li>
+<li class="chapter" data-level="6.7" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-illustrative-plots"><i class="fa fa-check"></i><b>6.7</b> Illustrative plots</a></li>
+<li class="chapter" data-level="6.8" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-geometrical-argument"><i class="fa fa-check"></i><b>6.8</b> Geometrical argument</a></li>
+<li class="chapter" data-level="6.9" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-optimal-op-pt"><i class="fa fa-check"></i><b>6.9</b> Optimal operating point on ROC</a></li>
+<li class="chapter" data-level="6.10" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-discussion"><i class="fa fa-check"></i><b>6.10</b> Discussion</a></li>
+<li class="chapter" data-level="6.11" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-pdf-curves-appendix-1"><i class="fa fa-check"></i><b>6.11</b> Appendix I: Density functions</a></li>
+<li class="chapter" data-level="6.12" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-appendix-2"><i class="fa fa-check"></i><b>6.12</b> Appendix II: Area under binormal ROC</a><ul>
+<li class="chapter" data-level="6.12.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-appendix-1-partial-auc"><i class="fa fa-check"></i><b>6.12.1</b> General case (partial-area)</a></li>
+<li class="chapter" data-level="6.12.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-appendix-1-total-auc"><i class="fa fa-check"></i><b>6.12.2</b> Special case (total area)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.13" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-invariance-property-appendix-3"><i class="fa fa-check"></i><b>6.13</b> Appendix III: Invariance property of pdfs</a></li>
+<li class="chapter" data-level="6.14" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting-appendix-4"><i class="fa fa-check"></i><b>6.14</b> Appendix IV: Fitting an ROC curve</a><ul>
+<li class="chapter" data-level="6.14.1" data-path="binormal-model.html"><a href="binormal-model.html#java-fitted-roc-curve"><i class="fa fa-check"></i><b>6.14.1</b> JAVA fitted ROC curve</a></li>
+<li class="chapter" data-level="6.14.2" data-path="binormal-model.html"><a href="binormal-model.html#simplistic-straight-line-fit-to-the-roc-curve"><i class="fa fa-check"></i><b>6.14.2</b> Simplistic straight line fit to the ROC curve</a></li>
+<li class="chapter" data-level="6.14.3" data-path="binormal-model.html"><a href="binormal-model.html#maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>6.14.3</b> Maximum likelihood estimation (MLE)</a></li>
+<li class="chapter" data-level="6.14.4" data-path="binormal-model.html"><a href="binormal-model.html#code-implementing-mle"><i class="fa fa-check"></i><b>6.14.4</b> Code implementing MLE</a></li>
+</ul></li>
+<li class="chapter" data-level="6.15" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting-validation-appendix-5"><i class="fa fa-check"></i><b>6.15</b> Appendix V: Validating fitting model</a><ul>
+<li class="chapter" data-level="6.15.1" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-covariance-matrix"><i class="fa fa-check"></i><b>6.15.1</b> Estimating the covariance matrix</a></li>
+<li class="chapter" data-level="6.15.2" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-variance-of-az"><i class="fa fa-check"></i><b>6.15.2</b> Estimating the variance of Az</a></li>
+</ul></li>
+<li class="chapter" data-level="6.16" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-references"><i class="fa fa-check"></i><b>6.16</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sources-of-variability.html"><a href="sources-of-variability.html"><i class="fa fa-check"></i><b>7</b> Sources of AUC variability</a><ul>
+<li class="chapter" data-level="7.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability-how-much-finished"><i class="fa fa-check"></i><b>7.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="7.2" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityIntro"><i class="fa fa-check"></i><b>7.2</b> Introduction</a></li>
+<li class="chapter" data-level="7.3" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability3sources"><i class="fa fa-check"></i><b>7.3</b> Three sources of variability</a></li>
+<li class="chapter" data-level="7.4" data-path="sources-of-variability.html"><a href="sources-of-variability.html#dependence-of-auc-on-the-case-sample"><i class="fa fa-check"></i><b>7.4</b> Dependence of AUC on the case sample</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#case-sampling-variability-of-auc"><i class="fa fa-check"></i><b>7.4.1</b> Case sampling variability of AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityDeLong"><i class="fa fa-check"></i><b>7.5</b> DeLong method</a></li>
+<li class="chapter" data-level="7.6" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityBootstrap"><i class="fa fa-check"></i><b>7.6</b> Bootstrap method</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#demonstration-of-the-bootstrap-method"><i class="fa fa-check"></i><b>7.6.1</b> Demonstration of the bootstrap method</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityJackknife"><i class="fa fa-check"></i><b>7.7</b> Jackknife method</a></li>
+<li class="chapter" data-level="7.8" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityCalSimulator"><i class="fa fa-check"></i><b>7.8</b> Calibrated simulator</a><ul>
+<li class="chapter" data-level="7.8.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#the-need-for-a-calibrated-simulator"><i class="fa fa-check"></i><b>7.8.1</b> The need for a calibrated simulator</a></li>
+<li class="chapter" data-level="7.8.2" data-path="sources-of-variability.html"><a href="sources-of-variability.html#implementation-of-a-simple-calibrated-simulator"><i class="fa fa-check"></i><b>7.8.2</b> Implementation of a simple calibrated simulator</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability-Discussion"><i class="fa fa-check"></i><b>7.9</b> Discussion</a></li>
+<li class="chapter" data-level="7.10" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability-references"><i class="fa fa-check"></i><b>7.10</b> References</a></li>
+</ul></li>
+<li class="part"><span><b>Significance Testing</b></span></li>
+<li class="chapter" data-level="8" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>8</b> Hypothesis Testing</a><ul>
+<li class="chapter" data-level="8.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testing-how-much-finished"><i class="fa fa-check"></i><b>8.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="8.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testing-introduction"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
+<li class="chapter" data-level="8.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#single-modality-single-reader-roc-study"><i class="fa fa-check"></i><b>8.3</b> Single-modality single-reader ROC study</a></li>
+<li class="chapter" data-level="8.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-i-errors"><i class="fa fa-check"></i><b>8.4</b> Type-I errors</a></li>
+<li class="chapter" data-level="8.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#one-vs.-two-sided-tests"><i class="fa fa-check"></i><b>8.5</b> One vs. two sided tests</a></li>
+<li class="chapter" data-level="8.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#statistical-power"><i class="fa fa-check"></i><b>8.6</b> Statistical power</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#factors-affecting-statistical-power"><i class="fa fa-check"></i><b>8.6.1</b> Factors affecting statistical power</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testingComments"><i class="fa fa-check"></i><b>8.7</b> Comments</a></li>
+<li class="chapter" data-level="8.8" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#why-alpha-is-chosen-as-5"><i class="fa fa-check"></i><b>8.8</b> Why alpha is chosen as 5%</a></li>
+<li class="chapter" data-level="8.9" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testingDiscussion"><i class="fa fa-check"></i><b>8.9</b> Discussion</a></li>
+<li class="chapter" data-level="8.10" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testing-references"><i class="fa fa-check"></i><b>8.10</b> References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The RJafroc Roc Book</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="hypothesis-testing" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Hypothesis Testing</h1>
+<div id="hypothesis-testing-how-much-finished" class="section level2">
+<h2><span class="header-section-number">8.1</span> TBA How much finished</h2>
+<p>60%</p>
+</div>
+<div id="hypothesis-testing-introduction" class="section level2">
+<h2><span class="header-section-number">8.2</span> Introduction</h2>
+<p>The problem addressed here is how to decide whether an estimate of AUC is consistent with a pre-specified value. One example of this is when a single-reader rates a set of cases in a single-modality, from which one estimates AUC, and the question is whether the estimate is statistically consistent with a pre-specified value. From a clinical point of view, this is generally not a useful exercise, but its simplicity is conducive to illustrating the broader concepts involved in this and later chapters. The clinically more useful analysis is when multiple readers interpret the same cases in two or more modalities. [With two modalities, for example, one obtains an estimate AUC for each reader in each modality, averages the AUC values over all readers within each modality, and computes the inter-modality difference in reader-averaged AUC values. The question forming the main subject of this book is whether the observed difference is consistent with zero.]</p>
+<p>Each situation outlined above admits a binary (yes/no) answer, which is different from the estimation problem that was dealt with in connection with the maximum likelihood method in (book) Chapter 06, where one computed numerical estimates (and confidence intervals) of the parameters of the fitting model.</p>
+<p><strong>Hypothesis testing is the process of dichotomizing the possible outcomes of a statistical study and then using probabilistic arguments to choose one option over the other.</strong></p>
+<p>The two options are termed the <em>null hypothesis</em> (NH) and the <em>alternative hypothesis</em> (AH). The hypothesis testing procedure is analogous to the jury trial system in the US, with 20 instead of 12 jurors, with the NH being the presumption of innocence and the AH being the defendant is guilty. The decision rule is to assume the defendant is innocent unless all 20 jurors agree the defendant is guilty. If even one juror disagrees, the defendant is deemed innocent (equivalent to choosing an <span class="math inline">\(\alpha\)</span> – defined below - of 0.05, or 1/20).</p>
+</div>
+<div id="single-modality-single-reader-roc-study" class="section level2">
+<h2><span class="header-section-number">8.3</span> Single-modality single-reader ROC study</h2>
+<p>The binormal model described in Chapter 06 can be used to generate sets of ratings to illustrate the methods being described in this chapter. To recapitulate, the model is described by:</p>
+<p><span class="math display">\[\begin{align*} 
+Z_{k_11} &amp;\sim N\left ( 0,1 \right ) \\ 
+Z_{k_22} &amp;\sim N\left ( \mu,\sigma^2 \right )
+\end{align*}\]</span></p>
+<p>The following code chunk encodes the <code>Wilcoxon</code> function:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="hypothesis-testing.html#cb52-1"></a>Wilcoxon &lt;-<span class="st"> </span><span class="cf">function</span> (zk1, zk2)</span>
+<span id="cb52-2"><a href="hypothesis-testing.html#cb52-2"></a>{</span>
+<span id="cb52-3"><a href="hypothesis-testing.html#cb52-3"></a>  K1 =<span class="st"> </span><span class="kw">length</span>(zk1)</span>
+<span id="cb52-4"><a href="hypothesis-testing.html#cb52-4"></a>  K2 =<span class="st"> </span><span class="kw">length</span>(zk2)</span>
+<span id="cb52-5"><a href="hypothesis-testing.html#cb52-5"></a>  W &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb52-6"><a href="hypothesis-testing.html#cb52-6"></a>  <span class="cf">for</span> (k1 <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K1) {</span>
+<span id="cb52-7"><a href="hypothesis-testing.html#cb52-7"></a>    W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">&lt;</span><span class="st"> </span>zk2)</span>
+<span id="cb52-8"><a href="hypothesis-testing.html#cb52-8"></a>    W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">==</span><span class="st"> </span>zk2)</span>
+<span id="cb52-9"><a href="hypothesis-testing.html#cb52-9"></a>  }</span>
+<span id="cb52-10"><a href="hypothesis-testing.html#cb52-10"></a>  W &lt;-<span class="st"> </span>W<span class="op">/</span>K1<span class="op">/</span>K2</span>
+<span id="cb52-11"><a href="hypothesis-testing.html#cb52-11"></a>  <span class="kw">return</span> (W)</span>
+<span id="cb52-12"><a href="hypothesis-testing.html#cb52-12"></a>}</span></code></pre></div>
+<p>In the next code chunk we set <span class="math inline">\(\mu = 1.5\)</span> and <span class="math inline">\(\sigma = 1.3\)</span> and simulate <span class="math inline">\(K_1 = 50\)</span> non-diseased cases and <span class="math inline">\(K_2 = 52\)</span> diseased cases. The <code>for</code>-loop draws 50 samples from the <span class="math inline">\(N(0,1)\)</span> distribution and 52 samples from the <span class="math inline">\(N(\mu,\sigma^2)\)</span> distribution, calculates the empirical AUC using the Wilcoxon, and the process is repeated 10,000 times, the AUC values are saved to a huge array <code>AUC_c</code> (the c-subscript is for case sample, where each case sample represents 102 cases). After exit from the <code>for</code>-loop we calculate the mean and standard deviation of the <code>AUC</code> values.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="hypothesis-testing.html#cb53-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
+<span id="cb53-2"><a href="hypothesis-testing.html#cb53-2"></a>mu &lt;-<span class="st"> </span><span class="fl">1.5</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span></span>
+<span id="cb53-3"><a href="hypothesis-testing.html#cb53-3"></a></span>
+<span id="cb53-4"><a href="hypothesis-testing.html#cb53-4"></a><span class="co"># cheat to find the population mean and std. dev.</span></span>
+<span id="cb53-5"><a href="hypothesis-testing.html#cb53-5"></a>AUC_c &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="dv">10000</span>)</span>
+<span id="cb53-6"><a href="hypothesis-testing.html#cb53-6"></a><span class="cf">for</span> (c <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(AUC_c)) {</span>
+<span id="cb53-7"><a href="hypothesis-testing.html#cb53-7"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)  </span>
+<span id="cb53-8"><a href="hypothesis-testing.html#cb53-8"></a>  AUC_c[c] &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
+<span id="cb53-9"><a href="hypothesis-testing.html#cb53-9"></a>}</span>
+<span id="cb53-10"><a href="hypothesis-testing.html#cb53-10"></a>meanAUC   &lt;-<span class="st">  </span><span class="kw">mean</span>(AUC_c);sigmaAUC  &lt;-<span class="st">  </span><span class="kw">sd</span>(AUC_c)</span>
+<span id="cb53-11"><a href="hypothesis-testing.html#cb53-11"></a><span class="kw">cat</span>(<span class="st">&quot;pop mean AUC_c = &quot;</span>, meanAUC, </span>
+<span id="cb53-12"><a href="hypothesis-testing.html#cb53-12"></a>    <span class="st">&quot;, pop sigma AUC_c = &quot;</span>, sigmaAUC, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb53-13"><a href="hypothesis-testing.html#cb53-13"></a><span class="co">#&gt; pop mean AUC_c =  0.819178 , pop sigma AUC_c =  0.04176683</span></span></code></pre></div>
+<p>By the simple (if unimaginative) approach of sampling 10,000 times, one has estimates of the <em>population</em> mean and standard deviation of empirical AUC, denoted below by <span class="math inline">\(AUC_{pop}\)</span> and <span class="math inline">\(\sigma_{\text{AUC}}\)</span>, respectively.</p>
+<p>The next code-chunk simulates one more independent ROC study with the same numbers of cases, and the resulting area under the empirical curve is denoted AUC in the code.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="hypothesis-testing.html#cb54-1"></a><span class="co"># one more trial, this is the one we want </span></span>
+<span id="cb54-2"><a href="hypothesis-testing.html#cb54-2"></a><span class="co"># to compare to meanAUC</span></span>
+<span id="cb54-3"><a href="hypothesis-testing.html#cb54-3"></a>zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma) </span>
+<span id="cb54-4"><a href="hypothesis-testing.html#cb54-4"></a>AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
+<span id="cb54-5"><a href="hypothesis-testing.html#cb54-5"></a><span class="kw">cat</span>(<span class="st">&quot;New AUC = &quot;</span>, AUC, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb54-6"><a href="hypothesis-testing.html#cb54-6"></a><span class="co">#&gt; New AUC =  0.8626923</span></span>
+<span id="cb54-7"><a href="hypothesis-testing.html#cb54-7"></a></span>
+<span id="cb54-8"><a href="hypothesis-testing.html#cb54-8"></a>z &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
+<span id="cb54-9"><a href="hypothesis-testing.html#cb54-9"></a><span class="kw">cat</span>(<span class="st">&quot;z-statistic = &quot;</span>, z, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb54-10"><a href="hypothesis-testing.html#cb54-10"></a><span class="co">#&gt; z-statistic =  1.04184</span></span></code></pre></div>
+<p>Is the new value, 0.8626923, sufficiently different from the population mean, 0.819178, to reject the null hypothesis <span class="math inline">\(NH: \text{AUC} = \text{AUC}_{pop}\)</span>? Note that the answer to this question can be either yes or no: equivocation is not allowed!</p>
+<p>The new value is “somewhat close” to the population mean, but how does one decide if “somewhat close” is close enough? Needed is the statistical distribution of the random variable <span class="math inline">\(\text{AUC}\)</span> under the hypothesis that the true mean is <span class="math inline">\(\text{AUC}_{pop}\)</span>. In the limit of a large number of cases, the pdf of <span class="math inline">\(\text{AUC}\)</span> under the null hypothesis is a normal distribution <span class="math inline">\(N\left ( \text{AUC}_{pop}, \sigma_{\text{AUC}}^{2} \right )\)</span>:</p>
+<p><span class="math display">\[\begin{equation*} 
+\text{pdf}_{\text{AUC}}\left ( \text{AUC}\mid \text{AUC}_{pop}, \sigma_{\text{AUC}} \right )=\frac{1}{\sigma_{\text{AUC}}\sqrt{2\pi}}exp\left ( -\frac{1}{2} \left ( \frac{\text{AUC}-\text{AUC}_{pop}}{\sigma_{\text{AUC}}} \right )^2\right )
+\end{equation*}\]</span></p>
+<p>The translated and scaled value is distributed as a unit normal distribution, i.e.,</p>
+<p><span class="math display">\[\begin{equation*} 
+Z \equiv \frac{\text{AUC}-\text{AUC}_{pop}}{\sigma_{\text{AUC}}}\sim N\left ( 0,1 \right )
+\end{equation*}\]</span></p>
+<p>[The <span class="math inline">\(Z\)</span> notation here should not be confused with z-sample, decision variable or rating of a case in an ROC study; the latter, when sampled over a set of non-diseased and diseased cases, yield a realization of <span class="math inline">\(\text{AUC}\)</span>. The author trusts the distinction will be clear from the context.] The observed magnitude of <span class="math inline">\(z\)</span> is 1.0418397. [Upper-case for random variable, lower-case for realized or observed value.]</p>
+<p><strong>The ubiquitous p-value is the probability that the observed magnitude of <span class="math inline">\(z\)</span>, or larger, occurs under the null hypothesis (NH) that the true mean of <span class="math inline">\(Z\)</span> is zero.</strong> Stated somewhat differently, but equivalently, it is the probability that a random sample from <span class="math inline">\(N(0,1)\)</span> exceeds <span class="math inline">\(z\)</span>.</p>
+<p>The p-value corresponding to an observed <span class="math inline">\(z\)</span> of 1.0418397 is given by:</p>
+<p><span class="math display">\[\begin{align*} 
+\Pr\left ( \lvert Z \rvert \geq \lvert z \rvert \mid Z\sim N\left ( 0,1 \right )\right )&amp;=\Pr\left ( \lvert Z \rvert \geq 1.042 \mid Z\sim N\left ( 0,1 \right )\right )\\
+&amp;= 2\Phi\left ( -1.042 \right )\\
+&amp;= 0.2975
+\end{align*}\]</span></p>
+<p>To recapitulate statistical notation, <span class="math inline">\(\Pr\left ( \lvert Z \rvert \geq \lvert z \rvert \mid Z\sim N\left ( 0,1 \right )\right )\)</span> is parsed as <span class="math inline">\(\Pr\left ( A\mid B \right )\)</span>, that is, the probability <span class="math inline">\(\lvert Z \rvert \geq \lvert z \rvert\)</span> given that <span class="math inline">\(Z\sim N\left ( 0,1 \right )\)</span>. The second line in the preceding equation follows from the symmetry of the unit normal distribution, i.e., the area above 1.042 must equal the area below -1.042.</p>
+<p>Since <span class="math inline">\(z\)</span> is a continuous variable, there is zero probability that a sampled value will exactly equal the observed value. Therefore, one must pose the statement as above, namely the probability that <span class="math inline">\(Z\)</span> is at least as extreme as the observed value (by “extreme” I mean further from zero, in either positive or negative directions). If the observed was <span class="math inline">\(z\)</span> = 2.5 then the corresponding p-value would be <span class="math inline">\(2\Phi(-2.5)\)</span>=0.01242, which is smaller than 0.2975. Under the zero-mean null hypothesis, the larger the magnitude of the observed value <span class="math inline">\(z\)</span>, the smaller the p-value, and the more unlikely that the data supports the NH. <strong>The p-value can be interpreted as the degree of unlikelihood that the data is consistent with the NH.</strong></p>
+<p>By convention one adopts a fixed value of the probability, denoted and usually <span class="math inline">\(\alpha\)</span> = 0.05, which is termed <em>the significance level</em> of the test, and the decision rule is to reject the null hypothesis if the observed p-value &lt; <span class="math inline">\(\alpha\)</span>. <span class="math inline">\(\alpha\)</span> is also referred to as the <em>size</em> of the test.</p>
+<p><span class="math display">\[\begin{equation*} 
+p &lt; \alpha \Rightarrow \text{Reject NH}
+\end{equation*}\]</span></p>
+<p>If the p-value is exactly 0.05 (unlikely with ROC analysis, but one needs to account for it), then one does not reject the NH. In the 20-juror analogy, of one juror insists the defendant is not guilty, the observed p-value is 0.05, and one does not reject the NH that the defendant is innocent (the double negatives, very common in statistics, can be confusing; in plain English, the defendant goes home).</p>
+<p>According to the previous discussion, the critical magnitude of <span class="math inline">\(z\)</span> that determines whether to reject the null hypothesis is given by:</p>
+<p><span class="math display">\[\begin{equation*} 
+z_{\alpha / 2}=-\Phi^{-1}\left ( {\alpha/2} \right )
+\end{equation*}\]</span></p>
+<p>For <span class="math inline">\(\alpha\)</span> = 0.05 this evaluates to 1.95996 (which is sometimes rounded up to two, good enough for “government work” as the saying goes) and the decision rule is to reject the null hypothesis only if the observed magnitude of <span class="math inline">\(z\)</span> is larger than <span class="math inline">\(z_{\alpha/2}\)</span>.</p>
+<p><strong>The decision rule based on comparing the observed z to a critical value is equivalent to a decision rule based on comparing the observed p-value to <span class="math inline">\(\alpha\)</span>. It is also equivalent, as will be shown later, to a decision rule based on a <span class="math inline">\(\left ( 1-\alpha \right )\)</span> confidence interval for the observed statistic. One rejects the NH if the closed confidence interval does not include zero.</strong></p>
+</div>
+<div id="type-i-errors" class="section level2">
+<h2><span class="header-section-number">8.4</span> Type-I errors</h2>
+<p>Just because one rejects the null hypothesis does not mean that the null hypothesis is false. Following the decision rule puts an upper limit on, or “caps”, the probability of incorrectly rejecting the null hypothesis at <span class="math inline">\(\alpha\)</span>. In other words, by agreeing to reject the NH only if <span class="math inline">\(p \leq \alpha\)</span>, one has set an upper limit, namely <span class="math inline">\(\alpha\)</span>, on errors of this type, termed <em>Type-I</em> errors. These could be termed false positives in the hypothesis testing sense, not to be confused with false positive occurring on individual case-level decisions. According to the definition of <span class="math inline">\(\alpha\)</span>:</p>
+<p><span class="math display">\[\begin{equation*} 
+\Pr( \text{Type I error} \mid \text{NH} )=\alpha
+\end{equation*}\]</span></p>
+<p>To demonstrate the ideas one needs to have a very cooperative reader interpreting new sets of independent cases not just one more time, but 2000 more times (the reason for the 2000 trials will be explained below). The simulation code follows:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="hypothesis-testing.html#cb55-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
+<span id="cb55-2"><a href="hypothesis-testing.html#cb55-2"></a>mu &lt;-<span class="st"> </span><span class="fl">1.5</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span></span>
+<span id="cb55-3"><a href="hypothesis-testing.html#cb55-3"></a></span>
+<span id="cb55-4"><a href="hypothesis-testing.html#cb55-4"></a>nTrials &lt;-<span class="st"> </span><span class="dv">2000</span></span>
+<span id="cb55-5"><a href="hypothesis-testing.html#cb55-5"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span> <span class="co"># size of test</span></span>
+<span id="cb55-6"><a href="hypothesis-testing.html#cb55-6"></a>reject =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="dt">dim =</span> nTrials)</span>
+<span id="cb55-7"><a href="hypothesis-testing.html#cb55-7"></a><span class="cf">for</span> (trial <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(reject)) {  </span>
+<span id="cb55-8"><a href="hypothesis-testing.html#cb55-8"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)  </span>
+<span id="cb55-9"><a href="hypothesis-testing.html#cb55-9"></a>  AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)  </span>
+<span id="cb55-10"><a href="hypothesis-testing.html#cb55-10"></a>  z &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
+<span id="cb55-11"><a href="hypothesis-testing.html#cb55-11"></a>  p &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(z)) <span class="co"># p value for individual trial</span></span>
+<span id="cb55-12"><a href="hypothesis-testing.html#cb55-12"></a>  <span class="cf">if</span> (p <span class="op">&lt;</span><span class="st"> </span>alpha) reject[trial] =<span class="st"> </span><span class="dv">1</span> </span>
+<span id="cb55-13"><a href="hypothesis-testing.html#cb55-13"></a>}</span>
+<span id="cb55-14"><a href="hypothesis-testing.html#cb55-14"></a></span>
+<span id="cb55-15"><a href="hypothesis-testing.html#cb55-15"></a>CI &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>); width &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">qnorm</span>(alpha<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb55-16"><a href="hypothesis-testing.html#cb55-16"></a>ObsvdTypeIErrRate &lt;-<span class="st"> </span><span class="kw">sum</span>(reject)<span class="op">/</span><span class="kw">length</span>(reject)</span>
+<span id="cb55-17"><a href="hypothesis-testing.html#cb55-17"></a>CI[<span class="dv">1</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">-</span><span class="st"> </span></span>
+<span id="cb55-18"><a href="hypothesis-testing.html#cb55-18"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>nTrials)</span>
+<span id="cb55-19"><a href="hypothesis-testing.html#cb55-19"></a>CI[<span class="dv">2</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">+</span><span class="st"> </span></span>
+<span id="cb55-20"><a href="hypothesis-testing.html#cb55-20"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>nTrials)</span>
+<span id="cb55-21"><a href="hypothesis-testing.html#cb55-21"></a><span class="kw">cat</span>(<span class="st">&quot;alpha = &quot;</span>, alpha, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb55-22"><a href="hypothesis-testing.html#cb55-22"></a><span class="co">#&gt; alpha =  0.05</span></span>
+<span id="cb55-23"><a href="hypothesis-testing.html#cb55-23"></a><span class="kw">cat</span>(<span class="st">&quot;ObsvdTypeIErrRate = &quot;</span>, ObsvdTypeIErrRate, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb55-24"><a href="hypothesis-testing.html#cb55-24"></a><span class="co">#&gt; ObsvdTypeIErrRate =  0.0535</span></span>
+<span id="cb55-25"><a href="hypothesis-testing.html#cb55-25"></a><span class="kw">cat</span>(<span class="st">&quot;95% confidence interval = &quot;</span>, CI, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb55-26"><a href="hypothesis-testing.html#cb55-26"></a><span class="co">#&gt; 95% confidence interval =  0.04363788 0.06336212</span></span>
+<span id="cb55-27"><a href="hypothesis-testing.html#cb55-27"></a>exact &lt;-<span class="st"> </span><span class="kw">binom.test</span>(<span class="kw">sum</span>(reject),<span class="dt">n =</span> <span class="dv">2000</span>,<span class="dt">p =</span> alpha)</span>
+<span id="cb55-28"><a href="hypothesis-testing.html#cb55-28"></a><span class="kw">cat</span>(<span class="st">&quot;exact 95% CI = &quot;</span>, <span class="kw">as.numeric</span>(exact<span class="op">$</span>conf.int), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb55-29"><a href="hypothesis-testing.html#cb55-29"></a><span class="co">#&gt; exact 95% CI =  0.04404871 0.06428544</span></span></code></pre></div>
+<p>The population means were calculated in an earlier code chunk. One initializes <code>NTrials</code> to 2000 and <span class="math inline">\(\alpha\)</span> to 0.05. The <code>for-loop</code> describes our captive reader interpreting independent sets of cases 2000 times. <em>Each completed interpretation of 102 cases is termed a trial.</em> For each trial one calculates the observed value of <code>AUC</code>, the observed <code>z</code> statistic and the the observed p-value. The observed p-value is compared against the fixed value <span class="math inline">\(\alpha\)</span> and one sets the corresponding <code>reject[trial]</code> flag to unity if <span class="math inline">\(p &lt; \alpha\)</span>. In other words, if the trial-specific p-value is less than <span class="math inline">\(\alpha\)</span> one counts an instance of rejection of the null hypothesis. The process is repeated 2000 times.</p>
+<p>Upon exit from the for-loop, one calculates the observed Type-I error rate, denoted <code>ObsvdTypeIErrRate</code> by summing the reject array and dividing by 2000. One calculates a 95% confidence interval for <code>ObsvdTypeIErrRate</code> based on the binomial distribution, as in (book) Chapter 03.</p>
+<p>The observed Type-I error rate is a realization of a random variable, as is the estimated 95% confidence interval. The fact that the confidence interval includes <span class="math inline">\(\alpha\)</span> = 0.05 is no coincidence - it shows that the hypothesis testing procedure is working as expected. To distinguish between the selected <span class="math inline">\(\alpha\)</span> (a fixed value) and that observed in a simulation study (a realization of a random variable), the term <em>empirical <span class="math inline">\(\alpha\)</span></em> is sometimes used to denote the observed rejection rate.</p>
+<p>It is a mistake to state that one wishes to minimize the Type-I error probability. The minimum value of <span class="math inline">\(\alpha\)</span> (a probability) is zero. Run the software with this value of <span class="math inline">\(\alpha\)</span>: one finds that the NH is never rejected. The downside of minimizing the expected Type-I error rate is that the NH will never be rejected, even when the NH is patently false. The aim of a valid method of analyzing the data is not minimizing the Type-I error rate, rather, the observed Type-I error rate should equal the specified value of <span class="math inline">\(\alpha\)</span> (0.05 in our example), allowance being made for the inherent variability in it’s estimate. This is the reason 2000 trials were chosen for testing the validity of the NH testing procedure. With this choice, the 95% confidence interval, assuming that observed value is close to 0.05, is roughly ±0.01 as explained next.</p>
+<p>Following analogous reasoning to (book) Chapter 03, Eqn. (3.10.10), and defining <span class="math inline">\(f\)</span> as the observed rejection fraction over <span class="math inline">\(T\)</span> trials, and as usual, <span class="math inline">\(F\)</span> is a random variable and <span class="math inline">\(f\)</span> a realized value,</p>
+<p><span class="math display">\[\begin{equation*} 
+\sigma_f = \sqrt{f(1-f)/T} \\
+F \sim N\left ( f,\sigma_{f}^{2} \right )
+\end{equation*}\]</span></p>
+<p>An approximate <span class="math inline">\((1-\alpha)100\)</span> percent CI for <span class="math inline">\(f\)</span> is:</p>
+<p><span class="math display">\[\begin{equation*} 
+{CI}_f = \left [ f-z_{\alpha/2}\sigma_f, f+z_{\alpha/2}\sigma_f \right ]
+\end{equation*}\]</span></p>
+<p>If <span class="math inline">\(f\)</span> is close to 0.05, then for 2000 trials, the 95% CI for <span class="math inline">\(f\)</span> is <span class="math inline">\(f \pm 0.01\)</span>, i.e., <code>qnorm(alpha/2) * sqrt(.05*(.95)/2000)</code> = 0.009551683 ~ 0.01.</p>
+<p>The only way to reduce the width of the CI, and thereby run a more stringent test of the validity of the analysis, is to increase the number of trials <span class="math inline">\(T\)</span>. Since the width of the CI depends on the inverse square root of the number of trials, one soon reaches a point of diminishing returns. Usually <span class="math inline">\(T = 2000\)</span> trials are enough for most statisticians and me, but studies using more simulations have been published.</p>
+</div>
+<div id="one-vs.-two-sided-tests" class="section level2">
+<h2><span class="header-section-number">8.5</span> One vs. two sided tests</h2>
+<p>The test described above is termed 2-tailed. Here, briefly, is the distinction between 2-tailed vs. 1-tailed p-values:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="hypothesis-testing.html#cb56-1"></a>alpha  &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
+<span id="cb56-2"><a href="hypothesis-testing.html#cb56-2"></a><span class="co"># Example 1</span></span>
+<span id="cb56-3"><a href="hypothesis-testing.html#cb56-3"></a><span class="co"># p value for two-sided AH</span></span>
+<span id="cb56-4"><a href="hypothesis-testing.html#cb56-4"></a>p2tailed &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(z)) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="kw">abs</span>(z))) </span>
+<span id="cb56-5"><a href="hypothesis-testing.html#cb56-5"></a><span class="kw">cat</span>(<span class="st">&quot;pvalue 2-tailed, AH: z ne 0 = &quot;</span>, p2tailed, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb56-6"><a href="hypothesis-testing.html#cb56-6"></a><span class="co">#&gt; pvalue 2-tailed, AH: z ne 0 =  0.2943993</span></span>
+<span id="cb56-7"><a href="hypothesis-testing.html#cb56-7"></a></span>
+<span id="cb56-8"><a href="hypothesis-testing.html#cb56-8"></a><span class="co"># Example 2</span></span>
+<span id="cb56-9"><a href="hypothesis-testing.html#cb56-9"></a><span class="co"># p value for one-sided AH gt 0</span></span>
+<span id="cb56-10"><a href="hypothesis-testing.html#cb56-10"></a>p1tailedGT &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(z) </span>
+<span id="cb56-11"><a href="hypothesis-testing.html#cb56-11"></a><span class="kw">cat</span>(<span class="st">&quot;pvalue 1-tailed, AH: z gt 0 = &quot;</span>, p1tailedGT, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb56-12"><a href="hypothesis-testing.html#cb56-12"></a><span class="co">#&gt; pvalue 1-tailed, AH: z gt 0 =  0.8528004</span></span>
+<span id="cb56-13"><a href="hypothesis-testing.html#cb56-13"></a></span>
+<span id="cb56-14"><a href="hypothesis-testing.html#cb56-14"></a><span class="co"># Example 2</span></span>
+<span id="cb56-15"><a href="hypothesis-testing.html#cb56-15"></a><span class="co"># p value for one-sided AH lt 0 </span></span>
+<span id="cb56-16"><a href="hypothesis-testing.html#cb56-16"></a>p1tailedLT &lt;-<span class="st"> </span><span class="kw">pnorm</span>(z)</span>
+<span id="cb56-17"><a href="hypothesis-testing.html#cb56-17"></a><span class="kw">cat</span>(<span class="st">&quot;pvalue 1-tailed, AH: z lt 0 = &quot;</span>, p1tailedGT, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb56-18"><a href="hypothesis-testing.html#cb56-18"></a><span class="co">#&gt; pvalue 1-tailed, AH: z lt 0 =  0.8528004</span></span>
+<span id="cb56-19"><a href="hypothesis-testing.html#cb56-19"></a></span>
+<span id="cb56-20"><a href="hypothesis-testing.html#cb56-20"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">p2tailed =</span> p2tailed,</span>
+<span id="cb56-21"><a href="hypothesis-testing.html#cb56-21"></a>                 <span class="dt">p1tailedGT =</span> p1tailedGT,</span>
+<span id="cb56-22"><a href="hypothesis-testing.html#cb56-22"></a>                 <span class="dt">p1tailedGT =</span> p1tailedGT)</span>
+<span id="cb56-23"><a href="hypothesis-testing.html#cb56-23"></a><span class="kw">print</span>(df)</span>
+<span id="cb56-24"><a href="hypothesis-testing.html#cb56-24"></a><span class="co">#&gt;    p2tailed p1tailedGT p1tailedGT.1</span></span>
+<span id="cb56-25"><a href="hypothesis-testing.html#cb56-25"></a><span class="co">#&gt; 1 0.2943993  0.8528004    0.8528004</span></span></code></pre></div>
+<p>The only difference between these tests is in how the alternative hypotheses is stated.</p>
+<ul>
+<li>For a two-tailed test the alternative hypothesis is <span class="math inline">\(\text{AUC} \ne \text{AUC}_{pop}\)</span>. Large deviations, in either direction, cause rejection of the NH.</li>
+<li>For the first one-tailed test the alternative hypothesis is <span class="math inline">\(\text{AUC} &gt; \text{AUC}_{pop}\)</span>. Large positive observed values of <span class="math inline">\(z\)</span> result in rejection of the NH. Large negative values do not.</li>
+<li>For the second one-tailed test the alternative hypothesis is <span class="math inline">\(\text{AUC} &lt; \text{AUC}_{pop}\)</span>. Large negative observed values of <span class="math inline">\(z\)</span> result in rejection of the NH. Large positive values do not.</li>
+<li>The last two statements are illustrated below with the following code-fragments:</li>
+</ul>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="hypothesis-testing.html#cb57-1"></a><span class="co"># p1tailedGT</span></span>
+<span id="cb57-2"><a href="hypothesis-testing.html#cb57-2"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">1</span>) <span class="co"># do not reject</span></span>
+<span id="cb57-3"><a href="hypothesis-testing.html#cb57-3"></a><span class="co">#&gt; [1] 0.1586553</span></span>
+<span id="cb57-4"><a href="hypothesis-testing.html#cb57-4"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>) <span class="co"># reject</span></span>
+<span id="cb57-5"><a href="hypothesis-testing.html#cb57-5"></a><span class="co">#&gt; [1] 0.02275013</span></span>
+<span id="cb57-6"><a href="hypothesis-testing.html#cb57-6"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">2</span>) <span class="co"># do not reject</span></span>
+<span id="cb57-7"><a href="hypothesis-testing.html#cb57-7"></a><span class="co">#&gt; [1] 0.9772499</span></span>
+<span id="cb57-8"><a href="hypothesis-testing.html#cb57-8"></a></span>
+<span id="cb57-9"><a href="hypothesis-testing.html#cb57-9"></a><span class="co"># p1tailedGT</span></span>
+<span id="cb57-10"><a href="hypothesis-testing.html#cb57-10"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">1</span>) <span class="co"># do not reject</span></span>
+<span id="cb57-11"><a href="hypothesis-testing.html#cb57-11"></a><span class="co">#&gt; [1] 0.1586553</span></span>
+<span id="cb57-12"><a href="hypothesis-testing.html#cb57-12"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">2</span>) <span class="co"># reject</span></span>
+<span id="cb57-13"><a href="hypothesis-testing.html#cb57-13"></a><span class="co">#&gt; [1] 0.02275013</span></span>
+<span id="cb57-14"><a href="hypothesis-testing.html#cb57-14"></a><span class="kw">pnorm</span>(<span class="dv">2</span>) <span class="co"># do not reject</span></span>
+<span id="cb57-15"><a href="hypothesis-testing.html#cb57-15"></a><span class="co">#&gt; [1] 0.9772499</span></span></code></pre></div>
+<p>Note that the p-value of the 1-tailed tests are half that of the 2-tailed test. Further discussion of the difference between 2-tailed and 1-tailed tests, and when the latter might be appropriate, is given below.</p>
+<p>If the null hypothesis is rejected anytime the magnitude of the observed value of <span class="math inline">\(z\)</span> exceeded the critical value <span class="math inline">\(-\Phi^{-1}\left ( {\alpha/2} \right)\)</span>. This is a statement of the alternative hypothesis (AH) <span class="math inline">\(\text{AUC}\neq \text{AUC}_{pop}\)</span>, in other words too high or too low values of <span class="math inline">\(z\)</span> <em>both</em> result in rejection of the null hypothesis. This is referred to as a two-sided AH and the resulting p-value is termed a <em>two-sided</em> p-value. This is the most common one used in the literature.</p>
+<p>Suppose the additional trial performed by the radiologist was performed after an intervention following which the radiologist’s performance is expected to increase. To make matters clearer, assume the interpretations in the 10,000 trials used to estimate <span class="math inline">\(\text{AUC}_{pop}\)</span> were performed with the radiologist wearing an old pair of eye-glasses, possibly out of proper strength, and the additional trial is performed after the radiologist gets a new set of prescription eye-glasses. Because the radiologist’s eyesight has improved, the expectation is that performance should increase. In this situation, it is appropriate to use the one-sided alternative hypothesis <span class="math inline">\(\text{AUC} &gt; \text{AUC}_{pop}\)</span>. Now, large positive values of <span class="math inline">\(z\)</span> result in rejection of the null hypothesis, but large negative values do not. The critical value of <span class="math inline">\(z\)</span> is defined by <span class="math inline">\(z_\alpha = \Phi\left ( 1-\alpha \right )\)</span>, which for <span class="math inline">\(\alpha\)</span> = 0.05 is 1.645 (i.e., <code>qnorm(1-alpha) = 1.644854</code>). Compare 1.64 to the critical value <span class="math inline">\(-\Phi^{-1}\left ( {\alpha/2} \right)\)</span> = 1.96 for a two-sided test. If the change is in the expected direction, it is more likely that one will reject the NH with a one-sided than with a two-sided test. The p-value for a one-sided test is given by:</p>
+<p><span class="math display">\[\begin{equation*} 
+\Pr\left ( Z \geq 1.042 \mid \text{NH} \right ) = \Phi \left (-1.042  \right ) = 0.1487
+\end{equation*}\]</span></p>
+<p>Notice that this is half the corresponding two-sided test p-value; this is because one is only interested in the area under the unit normal that is above the observed value of <span class="math inline">\(z\)</span>. If the intent is to obtain a significant finding, it is tempting to use one-sided tests. The down side of a one-sided test is that even with a large excursion of the observed <span class="math inline">\(z\)</span> in the other direction one cannot reject the null hypothesis. So if the new eye-glasses are so bad as to render the radiologist practically blind (think of a botched cataract surgery) the observed <span class="math inline">\(z\)</span> would be large and negative, but one cannot reject the null hypothesis <span class="math inline">\(\text{AUC}=\text{AUC}_{pop}\)</span>.</p>
+<p>The one-sided test could be run the other way, with the alternative hypothesis being stated as <span class="math inline">\(\text{AUC}&lt;\text{AUC}_{pop}\)</span>. Now, large negative excursions of the observed value of AUC cause rejection of the null hypothesis, but large positive excursions do not. The critical value is defined by <span class="math inline">\(z_\alpha = \Phi^{-1}\left (\alpha \right )\)</span>, which for <span class="math inline">\(\alpha\)</span> = 0.05 is -1.645. The p-value is given by (note the reversed sign compared to the previous one-sided test:</p>
+<p><span class="math display">\[\begin{equation*} 
+\Pr\left ( Z \leq 1.042 \mid \text{NH}  \right ) = \Phi(1.042) = 1 - 0.1487 = 0.8513
+\end{equation*}\]</span></p>
+<p>This is the complement of the value for a one-sided test with the alternative hypothesis going the other way: obviously the probability that <span class="math inline">\(Z\)</span> is smaller than the observed value (1.042) plus the probability that <span class="math inline">\(Z\)</span> is larger than the same value must equal one.</p>
+</div>
+<div id="statistical-power" class="section level2">
+<h2><span class="header-section-number">8.6</span> Statistical power</h2>
+<p>So far, focus has been on the null hypothesis. The Type-I error probability was introduced, defined as the probability of incorrectly rejecting the null hypothesis, the control, or “cap” on which is <span class="math inline">\(\alpha\)</span>, usually set to 0.05. What if the null hypothesis is actually false and the study fails to reject it? This is termed a Type-II error, the control on which is denoted <span class="math inline">\(\beta\)</span>, the probability of a Type-II error. <strong>The complement of <span class="math inline">\(\beta\)</span> is called statistical power.</strong></p>
+<p>The following table summarizes the two types of errors and the two correct decisions that can occur in hypothesis testing. In the context of hypothesis testing, a Type-II error could be termed a false negative, not to be confused with false negatives occurring on individual case-level decisions.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Truth</th>
+<th align="left">Fail to reject NH</th>
+<th align="left">Reject NH</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">NH is True</td>
+<td align="left">1 - <span class="math inline">\(\alpha\)</span></td>
+<td align="left"><span class="math inline">\(\alpha\)</span> (FPF)</td>
+</tr>
+<tr class="even">
+<td align="left">NH is False</td>
+<td align="left"><span class="math inline">\(\beta\)</span> (FNF)</td>
+<td align="left">Power = 1 - <span class="math inline">\(\beta\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>This resembles the 2 x 2 table encountered in (book) Chapter 02, which led to the concepts of <span class="math inline">\(FPF\)</span>, <span class="math inline">\(TPF\)</span> and the ROC curve. Indeed, it is possible think of an analogous plot of empirical (i.e., observed) power vs. empirical <span class="math inline">\(\alpha\)</span>, which looks like an ROC plot, with empirical <span class="math inline">\(\alpha\)</span> playing the role of <span class="math inline">\(FPF\)</span> and empirical power playing the role of <span class="math inline">\(TPF\)</span>, see below. If <span class="math inline">\(\alpha\)</span> = 0, then power = 0; i.e., if Type-I errors are minimized all the way to zero, then power is zero and one makes Type-II errors all the time. On the other hand, if <span class="math inline">\(\alpha\)</span> = 1 then Power = 1, and one makes Type-I errors all the time.</p>
+<p>A little history is due at this point. The author’s first FROC study, which led to his entry into this field <span class="citation">(Chakraborty et al. <a href="#ref-Chakraborty1986DigitalVsConv" role="doc-biblioref">1986</a>)</span>, was published in Radiology in 1986 after a lot of help from a reviewer, who we (correctly) guessed was the late Prof. Charles E. Metz. Prof. Gary T. Barnes (my mentor at that time at the University of Alabama at Birmingham) and I visited Prof. Charles Metz in Chicago for a day ca. 1986, to figuratively “pick Charlie’s brain”. Prof. Metz referred to the concept outlined in the previous paragraph, as an <em>ROC within an ROC</em>.</p>
+<p>This curve does not summarize the result of a single ROC study. Rather it summarizes the probabilistic behavior of the two types of errors that occur when one conducts thousands of such studies, under both NH and AH conditions, each time with different values of <span class="math inline">\(\alpha\)</span>, with each trial ending in a decision to reject or not reject the null hypothesis. The long sentence is best explained with an example.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="hypothesis-testing.html#cb58-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
+<span id="cb58-2"><a href="hypothesis-testing.html#cb58-2"></a>muNH &lt;-<span class="st"> </span><span class="fl">1.5</span>;muAH &lt;-<span class="st"> </span><span class="fl">2.1</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span><span class="co"># Line 6</span></span>
+<span id="cb58-3"><a href="hypothesis-testing.html#cb58-3"></a></span>
+<span id="cb58-4"><a href="hypothesis-testing.html#cb58-4"></a><span class="co"># cheat to find the population mean and std. dev.</span></span>
+<span id="cb58-5"><a href="hypothesis-testing.html#cb58-5"></a>AUC &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="dv">10000</span>) <span class="co"># line 8</span></span>
+<span id="cb58-6"><a href="hypothesis-testing.html#cb58-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(AUC)) {</span>
+<span id="cb58-7"><a href="hypothesis-testing.html#cb58-7"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> muNH, <span class="dt">sd =</span> sigma)  </span>
+<span id="cb58-8"><a href="hypothesis-testing.html#cb58-8"></a>  AUC[i] &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
+<span id="cb58-9"><a href="hypothesis-testing.html#cb58-9"></a>}</span>
+<span id="cb58-10"><a href="hypothesis-testing.html#cb58-10"></a>sigmaAUC &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(AUC));meanAUC &lt;-<span class="st"> </span><span class="kw">mean</span>(AUC) <span class="co"># Line 14</span></span>
+<span id="cb58-11"><a href="hypothesis-testing.html#cb58-11"></a></span>
+<span id="cb58-12"><a href="hypothesis-testing.html#cb58-12"></a>T &lt;-<span class="st"> </span><span class="dv">2000</span>  <span class="co"># Line 16</span></span>
+<span id="cb58-13"><a href="hypothesis-testing.html#cb58-13"></a>mu &lt;-<span class="st"> </span><span class="kw">c</span>(muNH,muAH) <span class="co"># Line 17</span></span>
+<span id="cb58-14"><a href="hypothesis-testing.html#cb58-14"></a>alphaArr &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">length.out =</span> <span class="dv">10</span>)</span>
+<span id="cb58-15"><a href="hypothesis-testing.html#cb58-15"></a>EmpAlpha &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">length</span>(alphaArr))</span>
+<span id="cb58-16"><a href="hypothesis-testing.html#cb58-16"></a>EmpPower &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">length</span>(alphaArr))</span>
+<span id="cb58-17"><a href="hypothesis-testing.html#cb58-17"></a><span class="cf">for</span> (a <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(alphaArr)) { <span class="co"># Line 20</span></span>
+<span id="cb58-18"><a href="hypothesis-testing.html#cb58-18"></a>  alpha &lt;-<span class="st"> </span>alphaArr[a] </span>
+<span id="cb58-19"><a href="hypothesis-testing.html#cb58-19"></a>  reject &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>, T))</span>
+<span id="cb58-20"><a href="hypothesis-testing.html#cb58-20"></a>  <span class="cf">for</span> (h <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>) {  </span>
+<span id="cb58-21"><a href="hypothesis-testing.html#cb58-21"></a>    <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(reject[h,])) {  </span>
+<span id="cb58-22"><a href="hypothesis-testing.html#cb58-22"></a>      zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu[h], <span class="dt">sd =</span> sigma)  </span>
+<span id="cb58-23"><a href="hypothesis-testing.html#cb58-23"></a>      AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)  </span>
+<span id="cb58-24"><a href="hypothesis-testing.html#cb58-24"></a>      obsvdZ &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
+<span id="cb58-25"><a href="hypothesis-testing.html#cb58-25"></a>      p &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(obsvdZ)) <span class="co"># p value for individual t</span></span>
+<span id="cb58-26"><a href="hypothesis-testing.html#cb58-26"></a>      <span class="cf">if</span> (p <span class="op">&lt;</span><span class="st"> </span>alpha) reject[h,t] =<span class="st"> </span><span class="dv">1</span> </span>
+<span id="cb58-27"><a href="hypothesis-testing.html#cb58-27"></a>    }</span>
+<span id="cb58-28"><a href="hypothesis-testing.html#cb58-28"></a>  }</span>
+<span id="cb58-29"><a href="hypothesis-testing.html#cb58-29"></a>  EmpAlpha[a] &lt;-<span class="st"> </span><span class="kw">sum</span>(reject[<span class="dv">1</span>,])<span class="op">/</span><span class="kw">length</span>(reject[<span class="dv">1</span>,])</span>
+<span id="cb58-30"><a href="hypothesis-testing.html#cb58-30"></a>  EmpPower[a] &lt;-<span class="st"> </span><span class="kw">sum</span>(reject[<span class="dv">2</span>,])<span class="op">/</span><span class="kw">length</span>(reject[<span class="dv">2</span>,])</span>
+<span id="cb58-31"><a href="hypothesis-testing.html#cb58-31"></a>}</span>
+<span id="cb58-32"><a href="hypothesis-testing.html#cb58-32"></a>EmpAlpha &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,EmpAlpha,<span class="dv">1</span>); EmpPower &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,EmpPower,<span class="dv">1</span>) <span class="co"># Line 19</span></span>
+<span id="cb58-33"><a href="hypothesis-testing.html#cb58-33"></a></span>
+<span id="cb58-34"><a href="hypothesis-testing.html#cb58-34"></a>pointData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">EmpAlpha =</span> EmpAlpha, <span class="dt">EmpPower =</span> EmpPower)</span>
+<span id="cb58-35"><a href="hypothesis-testing.html#cb58-35"></a>zetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb58-36"><a href="hypothesis-testing.html#cb58-36"></a>muRoc &lt;-<span class="st"> </span><span class="fl">1.8</span></span>
+<span id="cb58-37"><a href="hypothesis-testing.html#cb58-37"></a>curveData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">EmpAlpha =</span> <span class="kw">pnorm</span>(<span class="op">-</span>zetas),</span>
+<span id="cb58-38"><a href="hypothesis-testing.html#cb58-38"></a>  <span class="dt">EmpPower =</span> <span class="kw">pnorm</span>(muRoc <span class="op">-</span><span class="st"> </span>zetas))</span>
+<span id="cb58-39"><a href="hypothesis-testing.html#cb58-39"></a>alphaPowerPlot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> EmpAlpha, <span class="dt">y =</span> EmpPower)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb58-40"><a href="hypothesis-testing.html#cb58-40"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> pointData, <span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb58-41"><a href="hypothesis-testing.html#cb58-41"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> curveData)</span>
+<span id="cb58-42"><a href="hypothesis-testing.html#cb58-42"></a><span class="kw">print</span>(alphaPowerPlot)</span></code></pre></div>
+<p><img src="08-hypothesis-testing_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Relevant line numbers are shown above as comments. Line 6 creates two variables, <code>muNH</code> = 1.5 (the binormal model separation parameter under the NH) and <code>muAH</code> = 2.1 (the separation parameter under the AH). Under either hypotheses, the same diseased case standard deviation <code>sigma</code> = 1.3 and 50 non-diseased and 52 diseased cases are assumed. As before, lines 8 – 14 use the “brute force” technique to determine population AUC and standard deviation of AUC under the NH condition. Line 16 defines the number of trials <code>T</code> = 2000. Line 17 creates a vector <code>mu</code> containing the NH and AH values defined at line 6. Line 18 creates <code>alphaArr</code>, a sequence of 10 equally spaced values in the range 0.05 to 0.95, which represent 10 values for <span class="math inline">\(\alpha\)</span>. Line 19 creates two arrays of length 10 each, named <code>EmpAlpha</code> and <code>EmpPower</code>, to hold the values of the observed Type-I error rate, i.e., empirical <span class="math inline">\(\alpha\)</span>, and the empirical power, respectively. The program will run <code>T</code> = 2000 NH and <code>T</code> = 2000 AH trials using as <span class="math inline">\(\alpha\)</span> each successive value in <code>alphaArr</code> and save the observed Type-I error rates and observed powers to the arrays <code>EmpAlpha</code> and <code>EmpPower</code>, respectively.</p>
+<p>Line 20 begins a for-loop in <code>a</code>, an index into <code>alphaArr.</code> Line 21 selects the appropriate value for <code>alpha</code> (0.05 on the first pass, 0.15 on the next pass, etc.). Line 22 initializes <code>reject[2,2000]</code> with zeroes, to hold the result of each trial; the first index corresponds to hypothesis <code>h</code> and the second to trial <code>t</code>. Line 23 begins a for-loop in <code>h</code>, with <code>h</code> = 1 corresponding to the NH and <code>h</code> = 2 to the AH. Line 24 begins a for-loop in <code>t</code>, the trial index. The code within this block is similar to previous examples. It simulates ratings, computes AUC, calculates the p-value, and saves a rejection of the NH as a one at the appropriate array location <code>reject[h,t]</code>. Lines 32 – 33 calculate the empirical <span class="math inline">\(\alpha\)</span> and empirical power for each value of <span class="math inline">\(\alpha\)</span> in <code>alphaArr</code>. After padding the ends with zero and ones (the trivial points), the remaining lines plot the “ROC within an ROC”.</p>
+<p>Each of the circles in the figure corresponds to a specific value of <span class="math inline">\(\alpha\)</span>. For example the lowest non-trivial corresponds to <span class="math inline">\(\alpha\)</span> = 0.05, for which the empirical <span class="math inline">\(\alpha\)</span> is 0.049 and the corresponding empirical Power is 0.4955. True <span class="math inline">\(\alpha\)</span> increases as the operating point moves up the plot, with empirical <span class="math inline">\(\alpha\)</span> and empirical power increasing correspondingly. The <span class="math inline">\(\text{AUC}\)</span> under this curve is determined by the effect size, defined as the difference between the AH and NH values of the separation parameter. If the effect size is zero, then the circles will scatter around the chance diagonal; the scatter will be consistent with the 2000 trials used to generate each coordinate of a point. As the effect size increases, the plot approaches the perfect “ROC”, i.e., approaching the top-left corner. One could use AUC under this “ROC” as a measure of the incremental performance, the advantage being that it would be totally independent of <span class="math inline">\(\alpha\)</span>, but this would not be practical as it requires replication of the study under NH and AH conditions about 2000 times each and the entire process has to be repeated for several values of <span class="math inline">\(\alpha\)</span>. The purpose of this demonstration was to illustrate the concept behind Metz’s profound remark.</p>
+<p>It is time to move on to factors affecting statistical power in a single study.</p>
+<div id="factors-affecting-statistical-power" class="section level3">
+<h3><span class="header-section-number">8.6.1</span> Factors affecting statistical power</h3>
+<ul>
+<li>Effect size: effect size is defined as the difference in <span class="math inline">\(\text{AUC}_{pop}\)</span> values between the alternative hypothesis condition and the null hypothesis condition. Recall that <span class="math inline">\(\text{AUC}_{pop}\)</span> is defined as the true or population value of the empirical ROC-AUC for the relevant hypothesis. One can use the “cheat method” to estimate it under the alternative hypothesis. The formalism is easier if one assumes it is equal to the asymptotic binormal model predicted value. The binormal model yields an estimate of the parameters, which only approach the population values in the asymptotic limit of a large number of cases. In the following, it is assumed that the parameters on the right hand side are the population values)
+It follows that effect size (ES) is given by (all quantities on the right hand side of Eqn. (8.13) are population values):</li>
+</ul>
+<p><span class="math display">\[\begin{equation*} 
+\text{AUC} = \Phi\left ( \frac{ \mu }{\sqrt{ 1 + \sigma^2}} \right )
+\end{equation*}\]</span></p>
+<p>It follows that effect size (ES) is given by (all quantities on the right hand side of above equation are population values):</p>
+<p><span class="math display">\[\begin{equation*} 
+ES = \Phi\left ( \frac{\mu_{AH}}{\sqrt{1+\sigma^2}} \right ) - \Phi\left ( \frac{\mu_{NH}}{\sqrt{1+\sigma^2}} \right )
+\end{equation*}\]</span></p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="hypothesis-testing.html#cb59-1"></a>EffectSize &lt;-<span class="st"> </span><span class="cf">function</span> (muNH, sigmaNH, muAH, sigmaAH)</span>
+<span id="cb59-2"><a href="hypothesis-testing.html#cb59-2"></a>{</span>
+<span id="cb59-3"><a href="hypothesis-testing.html#cb59-3"></a>  ES &lt;-<span class="st"> </span><span class="kw">pnorm</span>(muAH<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>sigmaAH<span class="op">^</span><span class="dv">2</span>)) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(muNH<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>sigmaNH<span class="op">^</span><span class="dv">2</span>))</span>
+<span id="cb59-4"><a href="hypothesis-testing.html#cb59-4"></a>  <span class="kw">return</span> (ES)</span>
+<span id="cb59-5"><a href="hypothesis-testing.html#cb59-5"></a>}</span>
+<span id="cb59-6"><a href="hypothesis-testing.html#cb59-6"></a></span>
+<span id="cb59-7"><a href="hypothesis-testing.html#cb59-7"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
+<span id="cb59-8"><a href="hypothesis-testing.html#cb59-8"></a>muAH &lt;-<span class="st"> </span><span class="fl">2.1</span> <span class="co"># NH value, defined previously, was mu = 1.5</span></span>
+<span id="cb59-9"><a href="hypothesis-testing.html#cb59-9"></a></span>
+<span id="cb59-10"><a href="hypothesis-testing.html#cb59-10"></a>T &lt;-<span class="st"> </span><span class="dv">2000</span></span>
+<span id="cb59-11"><a href="hypothesis-testing.html#cb59-11"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span> <span class="co"># size of test</span></span>
+<span id="cb59-12"><a href="hypothesis-testing.html#cb59-12"></a>reject =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="dt">dim =</span> T)</span>
+<span id="cb59-13"><a href="hypothesis-testing.html#cb59-13"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(reject)) {  </span>
+<span id="cb59-14"><a href="hypothesis-testing.html#cb59-14"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> muAH, <span class="dt">sd =</span> sigma)  </span>
+<span id="cb59-15"><a href="hypothesis-testing.html#cb59-15"></a>  AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)  </span>
+<span id="cb59-16"><a href="hypothesis-testing.html#cb59-16"></a>  obsvdZ &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
+<span id="cb59-17"><a href="hypothesis-testing.html#cb59-17"></a>  p &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(obsvdZ)) <span class="co"># p value for individual t</span></span>
+<span id="cb59-18"><a href="hypothesis-testing.html#cb59-18"></a>  <span class="cf">if</span> (p <span class="op">&lt;</span><span class="st"> </span>alpha) reject[t] =<span class="st"> </span><span class="dv">1</span> </span>
+<span id="cb59-19"><a href="hypothesis-testing.html#cb59-19"></a>}</span>
+<span id="cb59-20"><a href="hypothesis-testing.html#cb59-20"></a></span>
+<span id="cb59-21"><a href="hypothesis-testing.html#cb59-21"></a>ObsvdTypeIErrRate &lt;-<span class="st"> </span><span class="kw">sum</span>(reject)<span class="op">/</span><span class="kw">length</span>(reject)</span>
+<span id="cb59-22"><a href="hypothesis-testing.html#cb59-22"></a>CI &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>);width &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">qnorm</span>(alpha<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb59-23"><a href="hypothesis-testing.html#cb59-23"></a>CI[<span class="dv">1</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">-</span><span class="st"> </span></span>
+<span id="cb59-24"><a href="hypothesis-testing.html#cb59-24"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>T)</span>
+<span id="cb59-25"><a href="hypothesis-testing.html#cb59-25"></a>CI[<span class="dv">2</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">+</span><span class="st"> </span></span>
+<span id="cb59-26"><a href="hypothesis-testing.html#cb59-26"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>T)</span>
+<span id="cb59-27"><a href="hypothesis-testing.html#cb59-27"></a><span class="kw">cat</span>(<span class="st">&quot;obsvdPower = &quot;</span>, ObsvdTypeIErrRate, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb59-28"><a href="hypothesis-testing.html#cb59-28"></a><span class="co">#&gt; obsvdPower =  0.489</span></span>
+<span id="cb59-29"><a href="hypothesis-testing.html#cb59-29"></a><span class="kw">cat</span>(<span class="st">&quot;95% confidence interval = &quot;</span>, CI, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb59-30"><a href="hypothesis-testing.html#cb59-30"></a><span class="co">#&gt; 95% confidence interval =  0.4670922 0.5109078</span></span>
+<span id="cb59-31"><a href="hypothesis-testing.html#cb59-31"></a><span class="kw">cat</span>(<span class="st">&quot;Effect Size = &quot;</span>, <span class="kw">EffectSize</span>(mu, sigma, muAH, sigma), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb59-32"><a href="hypothesis-testing.html#cb59-32"></a><span class="co">#&gt; Effect Size =  0.08000617 0</span></span></code></pre></div>
+<p>The ES for the code above is 0.08 (in AUC units). It should be obvious that if effect size is zero, then power equals <span class="math inline">\(\alpha\)</span>. This is because then there is no distinction between the null and alternative hypotheses conditions. Conversely, as effect size increases, statistical power increases, the limiting value being unity, when every trial results in rejection of the null hypothesis. The reader should experiment with different values of <code>muAH</code> to be convinced of the truth of these statements.</p>
+<ul>
+<li>Sample size: increase the number of cases by a factor of two, and run the above code chunk.</li>
+</ul>
+<pre><code>#&gt; pop NH mean AUC =  0.8594882 , pop NH sigma AUC =  0.02568252
+#&gt; num. non-diseased images =  100 num. diseased images =  104
+#&gt; obsvdPower =  0.313
+#&gt; 95% confidence interval =  0.2926772 0.3333228
+#&gt; Effect Size =  0.08000617 0</code></pre>
+<p>So doubling the numbers of cases (both non-diseased and diseased) results in statistical power increasing from 0.509 to 0.844. Increasing the numbers of cases decreases <span class="math inline">\(\sigma_{\text{AUC}}\)</span>, the standard deviation of the empirical AUC. The new value of <span class="math inline">\(\sigma_{\text{AUC}}\)</span> is 0.02947, which should be compared to the value 0.04177 for K1 = 50, K2 = 52. Recall that <span class="math inline">\(\sigma_{\text{AUC}}\)</span> enters the denominator of the Z-statistic, so decreasing it will increase the probability of rejecting the null hypothesis.</p>
+<ul>
+<li>Alpha: Statistical power depends on <span class="math inline">\(alpha\)</span>. The results below are for two runs of the code, the first with the original value <span class="math inline">\(\alpha\)</span> = 0.05, the second with <span class="math inline">\(\alpha\)</span> = 0.01:</li>
+</ul>
+<pre><code>#&gt; alpha =  0.05 obsvdPower =  0.1545 
+#&gt; alpha =  0.01 obsvdPower =  0.0265</code></pre>
+<p>Decreasing <span class="math inline">\(\alpha\)</span> results in decreased statistical power.</p>
+</div>
+</div>
+<div id="hypothesis-testingComments" class="section level2">
+<h2><span class="header-section-number">8.7</span> Comments</h2>
+<p>The Wilcoxon statistic was used to estimate the area under the ROC curve. One could have used the binormal model, introduced in Chapter 06, to obtain maximum likelihood estimates of the area under the binormal model fitted ROC curve. The reasons for choosing the simpler empirical area are as follows. (1) With continuous ratings and 102 operating points, the area under the empirical ROC curve is expected to be a close approximation to the fitted area. (2) With maximum likelihood estimation, the code would be more complex – in addition to the fitting routine one would require a binning routine and that would introduce yet another variable in the analysis, namely the number of bins and how the bin boundaries were chosen. (3) The maximum likelihood fitting code can sometimes fail to converge, while the Wilcoxon method is always guaranteed to yield a result. The non-convergence issue is overcome by modern methods of curve fitting described in later chapters. (4) The aim was to provide an understanding of null hypothesis testing and statistical power without being bogged down in the details of curve fitting.</p>
+</div>
+<div id="why-alpha-is-chosen-as-5" class="section level2">
+<h2><span class="header-section-number">8.8</span> Why alpha is chosen as 5%</h2>
+<p>One might ask why <span class="math inline">\(\alpha\)</span> is traditionally chosen to be 5%. It is not a magical number, rather the result of a cost benefit tradeoff. Choosing too small a value of <span class="math inline">\(\alpha\)</span> would result in greater probability <span class="math inline">\((1-\alpha)\)</span> of the NH not being rejected, even when it is false. Sometimes it is important to detect a true difference between the measured AUC and the postulated value. For example, a new eye-laser surgery procedure is invented and the number of patients is necessarily small as one does not wish to subject a large number of patients to an untried procedure. One seeks some leeway on the Type-I error probability, possibly increasing it to <span class="math inline">\(\alpha\)</span> = 0.1, in order to have a reasonable chance of success in detecting an improvement in performance due to better eyesight after the surgery. If the NH is rejected and the change is in the right direction, then that is good news for the researcher. One might then consider a larger clinical trial and set <span class="math inline">\(\alpha\)</span> at the traditional 0.05, making up the lost statistical power by increasing the number of patients on which the surgery is tried.</p>
+<p>If a whole branch of science hinges on the results of a study, such as discovering the Higg’s Boson in particle physics, statistical significance is often expressed in multiples of the standard deviation (<span class="math inline">\(\sigma\)</span>) of the normal distribution, with the significance threshold set at a much stricter level (e.g. <span class="math inline">\(5\sigma\)</span>). This corresponds to <span class="math inline">\(\alpha\)</span> ~ 1 in 3.5 million (<code>1/pnorm(-5)</code> = 3.5 x 10^6, a one-sided test of significance). There is an article in Scientific American (<a href="https://blogs.scientificamerican.com/observations/five-sigmawhats-that/" class="uri">https://blogs.scientificamerican.com/observations/five-sigmawhats-that/</a>) on the use of <span class="math inline">\(n\sigma\)</span>, where <code>n</code> is an integer, e.g. 5, to denote the significance level of a study, and some interesting anecdotes on why such high significance levels (ie., small <span class="math inline">\(\alpha\)</span>) are used in some fields of research.</p>
+<p>Similar concerns apply to manufacturing where the cost of a mistake could be the very expensive recall of an entire product line. For background on Six Sigma Performance, see <a href="http://www.six-sigma-material.com/Six-Sigma.html" class="uri">http://www.six-sigma-material.com/Six-Sigma.html</a>. An article downloaded 3/30/17 from <a href="https://en.wikipedia.org/wiki/Six_Sigma" class="uri">https://en.wikipedia.org/wiki/Six_Sigma</a> is included as supplemental material to this chapter (Six Sigma.pdf). It has an explanation of why <span class="math inline">\(6\sigma\)</span> translates to one defect per 3.4 million opportunities (it has to do with short-term and long-term drifts in a process). In my opinion, looking at other fields offers a deeper understanding of this material than simply stating that by tradition one adopts alpha = 5%.</p>
+<p>Most observer performance studies, while important in the search for better imaging methods, are not of such “earth-shattering” importance, and it is somewhat important to detect true differences at a reasonable alpha, so alpha = 5% and beta = 20% represent a good compromise. If one adopted a <span class="math inline">\(5\sigma\)</span> criterion, the NH would never be rejected, and progress in image quality optimization would come to a grinding halt. That is not to say that a <span class="math inline">\(5\sigma\)</span> criterion cannot be used; rather if used, the number of patients needed to detect a reasonable difference (effect size) with 80% probability would be astronomically large. Truth-proven cases are a precious commodity in observer performance studies. Particle physicists working on discovering the Higg’s Boson can get away with <span class="math inline">\(5\sigma\)</span> criterion because the number of independent observations and/or effect size is much larger than corresponding numbers in observer performance research.</p>
+</div>
+<div id="hypothesis-testingDiscussion" class="section level2">
+<h2><span class="header-section-number">8.9</span> Discussion</h2>
+<p>In most statistics books, the subject of hypothesis testing is demonstrated in different (i.e., non-ROC) contexts. That is to be expected since the ROC-analysis field is a small sub-specialty of statistics (Prof. Howard E. Rockette, private communication, ca. 2002). Since this book is about ROC analysis, I decided to use a demonstration using ROC analysis. Using a data simulator, one can “cheat” by conducting a very large number of simulations to estimate the population <span class="math inline">\(\text{AUC}\)</span> under the null hypothesis. This permitted us to explore the related concepts of Type-I and Type-II errors within the context of ROC analysis. Ideally, both errors should be zero, but the nature of statistics leads one to two compromises. Usually one accepts a Type-I error capped at 5% and a Type-II error capped at 20%. These translate to <span class="math inline">\(\alpha\)</span> = 0.05 and desired statistical power = 80%. The dependence of statistical power on <span class="math inline">\(\alpha\)</span>, the numbers of cases and the effect size was explored.</p>
+<p>In TBA Chapter 11 sample-size calculations are described that allow one to estimate the numbers of readers and cases needed to detect a specified difference in inter-modality AUCs with expected statistical power = <span class="math inline">\(1-\beta\)</span>. The word “detect” in the preceding sentence is shorthand for “reject the NH with incorrect rejection probability capped at <span class="math inline">\(\alpha\)</span>”.</p>
+<p>This chapter also gives the first example of validation of a hypothesis testing method. Statisticians sometimes refer to this as showing a proposed test is a “5% test”. What is meant is that one needs to be assured that when the NH is true the probability of NH rejection is consistent with the expected value. Since the observed NH rejection rate over 2000 simulations is a random variable, one does not expect the NH rejection rate to exactly equal 5%, rather the constructed 95% confidence interval (also a random interval variable) should include the NH value with probability 1 - <span class="math inline">\(\alpha\)</span>.</p>
+<p>Comparing a single reader’s performance to a specified value is not a clinically interesting problem. The next few chapters describe methods for significance testing of multiple-reader multiple-case (MRMC) ROC datasets, consisting of interpretations by a group of readers of a common set of cases in typically two modalities. It turns out that the analyses yield variability estimates that permit sample size calculation. After all, sample size calculation is all about estimation of variability, the denominator of the z-statistic. The formulae will look more complex, as interest is not in determining the standard deviation of AUC, but in the standard deviation of the inter-modality reader-averaged AUC difference. However, the basic concepts remain the same.</p>
+</div>
+<div id="hypothesis-testing-references" class="section level2">
+<h2><span class="header-section-number">8.10</span> References</h2>
+
+<div id="refs" class="references">
+<div>
+<p>Bamber, Donald. 1975. “The Area Above the Ordinal Dominance Graph and the Area Below the Receiver Operating Characteristic Graph.” Journal Article. <em>Journal of Mathematical Psychology</em> 12 (4): 387–415. <a href="https://doi.org/10.1016/0022-2496(75)90001-2">https://doi.org/10.1016/0022-2496(75)90001-2</a>.</p>
+</div>
+<div>
+<p>Barlow, William E., Chen Chi, Patricia A. Carney, Stephen H. Taplin, Carl D’Orsi, Gary Cutter, R. Edward Hendrick, and Joann G. Elmore. 2004. “Accuracy of Screening Mammography Interpretation by Characteristics of Radiologists.” Journal Article. <em>Journal of the National Cancer Institute</em> 96 (24): 1840–50. <a href="https://doi.org/10.1093/jnci/djh333">https://doi.org/10.1093/jnci/djh333</a>.</p>
+</div>
+<div>
+<p>Barnes, GT, EA Sabbagh, DP Chakraborty, PH Nath, RF Luna, C Sanders, and RG Fraser. 1989. “A Comparison of Dual-Energy Digital Radiography and Screen-Film Imaging in the Detection of Subtle Interstitial Pulmonary Disease.” <em>Investigative Radiology</em> 24 (8): 585–91. <a href="https://doi.org/10.1097/00004424-198908000-00003">https://doi.org/10.1097/00004424-198908000-00003</a>.</p>
+</div>
+<div>
+<p>Beam, C. A., Peter M. Layde, and Daniel C. Sullivan. 1996. “Variability in the Interpretation of Screening Mammograms by Us Radiologists. Findings from a National Sample.” Journal Article. <em>Archives of Internal Medicine</em> 156 (2): 209–13.</p>
+</div>
+<div>
+<p>Berbaum, Kevin S., Donald D. Dorfman, E. A. Franken, and Robert T. Caldwell. 2002. “An Empirical Comparison of Discrete Ratings and Subjective Probability Ratings.” Journal Article. <em>Academic Radiology</em> 9 (7): 756–63. <a href="https://doi.org/10.1016/s1076-6332(03)80344-6">https://doi.org/10.1016/s1076-6332(03)80344-6</a>.</p>
+</div>
+<div>
+<p>Bochud, F. O., C. K. Abbey, and M. P. Eckstein. 1999. “Visual Signal Detection in Structured Backgrounds Iv, Calculation of Figures of Merit for Model Observers in Non-Stationary Backgrounds.” Journal Article. <em>Journal of the Optical Society of America, A, Optics, Image Science, and Vision</em> 17 (2): 206–17.</p>
+</div>
+<div>
+<p>Burgess, Arthur E. 2011. “Visual Perception Studies and Observer Models in Medical Imaging.” In <em>Seminars in Nuclear Medicine</em>, 41:419–36. 6. Elsevier.</p>
+</div>
+<div>
+<p>Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging: Foundations, Modeling, and Applications with R-Based Examples</em>. Boca Raton, FL: CRC Press.</p>
+</div>
+<div>
+<p>Chakraborty, Dev, Peter Phillips, and Xuetong Zhai. 2020. <em>RJafroc: Artificial Intelligence Systems and Observer Performance</em>. <a href="https://dpc10ster.github.io/RJafroc/">https://dpc10ster.github.io/RJafroc/</a>.</p>
+</div>
+<div>
+<p>Chakraborty, D. P., E. S. Breatnach, M. V. Yester, B. Soto, G. T. Barnes, and R. G. Fraser. 1986. “Digital and Conventional Chest Imaging: A Modified ROC Study of Observer Performance Using Simulated Nodules.” Journal Article. <em>Radiology</em> 158: 35–39. <a href="https://doi.org/10.1148/radiology.158.1.3940394">https://doi.org/10.1148/radiology.158.1.3940394</a>.</p>
+</div>
+<div>
+<p>DeLong, E. R., D. M. DeLong, and D. L. Clarke-Pearson. 1988. “Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.” Journal Article. <em>Biometrics</em> 44: 837–45. <a href="https://doi.org/10.2307/2531595">https://doi.org/10.2307/2531595</a>.</p>
+</div>
+<div>
+<p>Dorfman, D. D., and E. Alf. 1969. “Maximum-Likelihood Estimation of Parameters of Signal-Detection Theory and Determination of Confidence Intervals - Rating-Method Data.” Journal Article. <em>Journal of Mathematical Psychology</em> 6: 487–96.</p>
+</div>
+<div>
+<p>Dorfman, D. D., K. S. Berbaum, C. E. Metz, R. V. Lenth, J. A. Hanley, and H. Abu Dagga. 1997. “Proper Receiving Operating Characteristic Analysis: The Bigamma Model.” Journal Article. <em>Acad. Radiol.</em> 4 (2): 138–49. <a href="https://doi.org/10.1016/S1076-6332(97)80013-X">https://doi.org/10.1016/S1076-6332(97)80013-X</a>.</p>
+</div>
+<div>
+<p>Efron, Bradley, and Robert J. Tibshirani. 1993. <em>An Introduction to the Bootstrap</em>. Book. Vol. 57. Monographs on Statistics and Applied Probability. Boca Raton: Chapman; Hall/CRC.</p>
+</div>
+<div>
+<p>Egan, James P. 1975. <em>Signal Detection Theory and ROC Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.</p>
+</div>
+<div>
+<p>Fenton, J. J. 2015. “Is It Time to Stop Paying for Computer-Aided Mammography?” Journal Article. <em>JAMA Intern Med</em>. <a href="https://doi.org/10.1001/jamainternmed.2015.5319.">https://doi.org/10.1001/jamainternmed.2015.5319.</a></p>
+</div>
+<div>
+<p>Fenton, Joshua J., Stephen H. Taplin, Patricia A. Carney, Linn Abraham, Edward A. Sickles, Carl D’Orsi, Eric A. Berns, et al. 2007. “Influence of Computer-Aided Detection on Performance of Screening Mammography.” Journal Article. <em>N Engl J Med</em> 356 (14): 1399–1409. <a href="https://doi.org/10.1056/NEJMoa066099">https://doi.org/10.1056/NEJMoa066099</a>.</p>
+</div>
+<div>
+<p>Green, D. M., and J. A. Swets. 1966. <em>Signal Detection Theory and Psychophysics</em>. Book. New York: John Wiley; Sons.</p>
+</div>
+<div>
+<p>Gur, David, Andriy I. Bandos, Cathy S. Cohen, Christiane M. Hakim, Lara A. Hardesty, Marie A. Ganott, Ronald L. Perrin, et al. 2008. “The "Laboratory" Effect: Comparing Radiologists’ Performance and Variability During Prospective Clinical and Laboratory Mammography Interpretations.” Journal Article. <em>Radiology</em> 249 (1): 47–53. <a href="https://doi.org/10.1148/radiol.2491072025">https://doi.org/10.1148/radiol.2491072025</a>.</p>
+</div>
+<div>
+<p>Hanley, J. A., and B. J. McNeil. 1982. “The Meaning and Use of the Area Under a Receiver Operating Characteristic (ROC) Curve.” Journal Article. <em>Radiology</em> 143 (1): 29–36. <a href="http://radiology.rsnajnls.org/cgi/content/abstract/143/1/29">http://radiology.rsnajnls.org/cgi/content/abstract/143/1/29</a>.</p>
+</div>
+<div>
+<p>Hanley, James A. 1988. “The Robustness of the "Binormal" Assumptions Used in Fitting ROC Curves.” Journal Article. <em>Med. Decis. Making</em> 8 (3): 197–203. <a href="https://doi.org/10.1177/0272989X8800800308">https://doi.org/10.1177/0272989X8800800308</a>.</p>
+</div>
+<div>
+<p>Hanley, James A., and Karim O. Hajian-Tilaki. 1997. “Sampling Variability of Nonparametric Estimates of the Areas Under Receiver Operating Characteristic Curves: An Update.” Journal Article. <em>Academic Radiology</em> 4 (1): 49–58. <a href="https://doi.org/10.1016/s1076-6332(97)80161-4">https://doi.org/10.1016/s1076-6332(97)80161-4</a>.</p>
+</div>
+<div>
+<p>Hartmann, Lynn C, Thomas A Sellers, Marlene H Frost, Wilma L Lingle, Amy C Degnim, Karthik Ghosh, Robert A Vierkant, et al. 2005. “Benign Breast Disease and the Risk of Breast Cancer.” <em>New England Journal of Medicine</em> 353 (3): 229–37.</p>
+</div>
+<div>
+<p>Jiang, Yulei, and Charles E. Metz. 2010. “BI-RADS Data Should Not Be Used to Estimate ROC Curves.” Journal Article. <em>Radiology</em> 256 (1): 29–31. <a href="https://doi.org/10.1148/radiol.10091394">https://doi.org/10.1148/radiol.10091394</a>.</p>
+</div>
+<div>
+<p>Kundel, H. L., K. S. Berbaum, D. D. Dorfman, D. Gur, C. E. Metz, and R. G. Swensson. 2008. “Receiver Operating Characteristic Analysis in Medical Imaging (Icru Report 79).” Report. International Commission on Radiation Units; Measurments.</p>
+</div>
+<div>
+<p>Larsen, Richard J., and Morris L. Marx. 2001. <em>An Introduction to Mathematical Statistics and Its Applications</em>. Book. 3rd ed. Upper Saddle River, NJ: Prentice-Hall Inc.</p>
+</div>
+<div>
+<p>Lusted, L. B. 1971. “Signal Detectability and Medical Decision Making.” Journal Article. <em>Science</em> 171: 1217–1219. <a href="https://doi.org/10.1126/science.171.3977.1217">https://doi.org/10.1126/science.171.3977.1217</a>.</p>
+</div>
+<div>
+<p>Macmillan, N. A., and C. D. Creelman. 1991. <em>Detection Theory: A User’s Guide</em>. Book. New York: Cambridge University Press.</p>
+</div>
+<div>
+<p>Mann, H. B., and D. R. Whitney. 1947. “On a Test of Whether One of Two Random Variables Is Stochastically Larger Than the Other.” Journal Article. <em>Annals of Mathematical Statistics</em> 18: 50−60.</p>
+</div>
+<div>
+<p>Metz, C. E. 1978. “Basic Principles of ROC Analysis.” Journal Article. <em>Seminars in Nuclear Medicine</em> 8 (4): 283–98. <a href="https://doi.org/10.1016/s0001-2998(78)80014-2">https://doi.org/10.1016/s0001-2998(78)80014-2</a>.</p>
+</div>
+<div>
+<p>———. 1989. “Some Practical Issues of Experimental Design and Data Analysis in Radiological ROC Studies.” Journal Article. <em>Investigative Radiology</em> 24: 234–45.</p>
+</div>
+<div>
+<p>Metz, Charles E. 1986. “ROC Methodology in Radiologic Imaging.” Journal Article. <em>Investigative Radiology</em> 21 (9): 720–33. <a href="http://journals.lww.com/investigativeradiology/Fulltext/1986/09000/ROC_Methodology_in_Radiologic_Imaging.9.aspx">http://journals.lww.com/investigativeradiology/Fulltext/1986/09000/ROC_Methodology_in_Radiologic_Imaging.9.aspx</a>.</p>
+</div>
+<div>
+<p>Miller, George A. 1956. “The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information.” Journal Article. <em>The Psychological Review</em> 63 (2): 81–97.</p>
+</div>
+<div>
+<p>Nishikawa, Robert. 2012. “Estimating Sensitivity and Specificity in an ROC Experiment.” Journal Article. <em>Breast Imaging</em>, 690–96.</p>
+</div>
+<div>
+<p>Noether, Gottfried E. 1967. “Elements of Nonparametric Statistics.” Report. Wiley; Sons.</p>
+</div>
+<div>
+<p>Pearson, Karl. 1900. “X. On the Criterion That a Given System of Deviations from the Probable in the Case of a Correlated System of Variables Is Such That It Can Be Reasonably Supposed to Have Arisen from Random Sampling.” Journal Article. <em>The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science</em> 50 (302): 157–75. <a href="https://doi.org/10.1080/14786440009463897">https://doi.org/10.1080/14786440009463897</a>.</p>
+</div>
+<div>
+<p>Philpotts, Liane E. 2009. “Can Computer-Aided Detection Be Detrimental to Mammographic Interpretation?” Journal Article. <em>Radiology</em> 253 (1): 17–22. <a href="https://doi.org/10.1148/radiol.2531090689">https://doi.org/10.1148/radiol.2531090689</a>.</p>
+</div>
+<div>
+<p>Pisano, E. D., C. Gatsonis, E. Hendrick, M. Yaffe, J. K. Baum, S. Acharyya, E. F. Conant, et al. 2005. “Diagnostic Performance of Digital Versus Film Mammography for Breast-Cancer Screening.” Journal Article. <em>N Engl J Med</em> 353 (17): 1773–83. <a href="https://doi.org/10.1056/NEJMoa052911">https://doi.org/10.1056/NEJMoa052911</a>.</p>
+</div>
+<div>
+<p>Pollack, Irwin. 1952. “The Information of Elementary Auditory Displays.” Journal Article. <em>The Journal of the Acoustical Society of America</em> 24 (6): 745–49.</p>
+</div>
+<div>
+<p>———. 1953. “The Information of Elementary Auditory Displays. II.” Journal Article. <em>The Journal of the Acoustical Society of America</em> 25 (4): 765–69.</p>
+</div>
+<div>
+<p>Press, W. H., S. A. Teukolsky, W. T. Vetterling, and B. P. Flannery. 2007. <em>Numerical Recipes: The Art of Scientific Computing</em>. Book. 3rd ed. Cambridge: Cambridge University Press.</p>
+</div>
+<div>
+<p>Rockette, H. E., D. Gur, and C. E. Metz. 1992. “The Use of Continous and Discrete Confidence Judgments in Receiver Operating Characteristic Studies of Diagnostic Imaging Techniques.” Journal Article. <em>Investigative Radiology</em> 27: 169–72.</p>
+</div>
+<div>
+<p>Skaane, Per, Andriy I Bandos, Randi Gullien, Ellen B Eben, Ulrika Ekseth, Unni Haakenaasen, Mina Izadi, Ingvild N Jebsen, Gunnar Jahr, and Mona Krager. 2013. “Comparison of Digital Mammography Alone and Digital Mammography Plus Tomosynthesis in a Population-Based Screening Program.” Journal Article. <em>Radiology</em> 267 (1): 47–56.</p>
+</div>
+<div>
+<p>Soh, BaoLin P, Warwick Lee, Mark F McEntee, Peter L Kench, Warren M Reed, Rob Heard, Dev P Chakraborty, and Patrick C Brennan. 2013. “Screening Mammography: Test Set Data Can Reasonably Describe Actual Clinical Reporting.” Journal Article. <em>Radiology</em> 268 (1): 46–53.</p>
+</div>
+<div>
+<p>Stein, Sherman K., and Anthony Barcellos. 1992. <em>Calculus and Analytic Geometry</em>. Book. 5th ed. McGraw-Hill Companies.</p>
+</div>
+<div>
+<p>Swets, John A., and Ronald M. Pickett. 1982. <em>Evaluation of Diagnostic Systems: Methods from Signal Detection Theory</em>. Book. First. Series in Cognition and Perception. New York: Academic Press.</p>
+</div>
+<div>
+<p>Thompson, Mary Lou, and Walter Zucchini. 1989. “On the Statistical Analysis of Roc Curves.” <em>Statistics in Medicine</em> 8 (10): 1277–90.</p>
+</div>
+<div>
+<p>USAirForce, Report. 1947. “A Statistical Theory of Target Detection by Pulsed Radar.” Santa Monica, CA, US Air Force report.</p>
+</div>
+<div>
+<p>Wagner, Robert F., Sergey V. Beiden, and Charles E. Metz. 2001. “Continuous Versus Categorical Data for ROC Analysis: Some Quantitative Considerations.” Journal Article. <em>Academic Radiology</em> 8 (4): 328–34. <a href="https://doi.org/10.1016/s1076-6332(03)80502-0">https://doi.org/10.1016/s1076-6332(03)80502-0</a>.</p>
+</div>
+<div>
+<p>Wilcoxon, F. 1945. “Individual Comparison by Ranking Methods.” Journal Article. <em>Biometrics</em> 1: 80–83.</p>
+</div>
+<div>
+<p>Youden, William J. 1950. “Index for Rating Diagnostic Tests.” <em>Cancer</em> 3 (1): 32–35.</p>
+</div>
+<div>
+<p>Zhou, Xiao-Hua, Nancy A. Obuchowski, and Donna K. McClish. 2002. <em>Statistical Methods in Diagnostic Medicine</em>. Book. New York: John Wiley; Sons.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Chakraborty1986DigitalVsConv">
+<p>Chakraborty, D. P., E. S. Breatnach, M. V. Yester, B. Soto, G. T. Barnes, and R. G. Fraser. 1986. “Digital and Conventional Chest Imaging: A Modified ROC Study of Observer Performance Using Simulated Nodules.” Journal Article. <em>Radiology</em> 158: 35–39. <a href="https://doi.org/10.1148/radiology.158.1.3940394">https://doi.org/10.1148/radiology.158.1.3940394</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="sources-of-variability.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["RJafrocRocBook.pdf", "RJafrocRocBook.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
