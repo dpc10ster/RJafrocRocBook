@@ -1,7 +1,7 @@
 --- 
 title: "The RJafroc Roc Book"
 author: "Dev P. Chakraborty, PhD"
-date: "2021-12-11"
+date: "2021-12-13"
 site: bookdown::bookdown_site
 output: 
    bookdown::pdf_document: default
@@ -19,15 +19,19 @@ description: "TBA Artificial intelligence and observer performance book based on
 
 # Preface {-}
 
-* This book is currently (as of November 2021) in preparation. 
-* It is intended as an online update to my "physical" book [@chakraborty2017observer]. Since its publication in 2017 the `RJafroc` package, on which the `R` code examples in the book depend, has evolved considerably, causing many of the examples to "break". This also gives me the opportunity to improve on the book and include additional material.
-* The physical book chapters are referred to as *book-chapters*, to distinguish them from the chapters in this online book.
+* It is intended as an online update to my "physical" book [@chakraborty2017observer]. 
+* Since its publication in 2017 the `RJafroc` package, on which the `R` code examples in the book depend, has evolved considerably, causing many of the examples to "break". 
+* This also gives me the opportunity to improve on the book and include additional material.
 
 
 
 ## TBA How much finished {-}
 
-10%
+* HMF approximately 70%
+* This book is currently (as of December 2021) in preparation. 
+* Parts labeled TBA and TODOLAST need to be updated on final revision.
+
+
 
 ## The pdf file of the book {-}
 Go [here](https://github.com/dpc10ster/RJafrocRocBook/blob/gh-pages/RJafrocRocBook.pdf) and then click on `Download` to get the `RJafrocRocBook.pdf` file.
@@ -45,6 +49,7 @@ Go [here](https://dpc10ster.github.io/RJafrocRocBook/) to view the `html` versio
 * For these reasons I have switched to `GitHub`. All previous instructions pertaining to `BitBucket` are obsolete.
 * In order to access `GitHub` material one needs to create a (free) `GitHub` account. 
 * Go to [this link](https://github.com) and click on `Sign Up`.
+
 
 ## Structure of the book {-}
 
@@ -73,8 +78,8 @@ I appreciate constructive feedback on this document. To do this raise an `Issue`
 ## ToDos TBA {-}
 
 * Check Bamber theorem derivation.
-* Parts labeled TBA and TODOLAST need to be updated on final revision.
-* Change third person to first person in references to myself.
+
+
 
 ## Chapters needing heavy edits {-}
 
@@ -83,6 +88,7 @@ TBA
 
 
 ## Shelved vs. removed vs. parked folders needing heavy edits {-}
+
 * replace functions with \text{}; eg. erf and exp in all of document
 * Also for TPF, FPF etc.
 * Temporarily shelved 17c-rsm-evidence.Rmd in removed folder
