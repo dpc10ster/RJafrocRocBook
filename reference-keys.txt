@@ -90,7 +90,7 @@ eq:empirical-OperatingPointFPF-TPF-4
 fig:empirical-auc-EmpiricalPlot
 fig:empirical-auc-EmpiricalAUC
 eq:empirical-auc-Wilcoxon
-eq:empirical-auc-PsiFunction
+eq:empirical-auc-psi
 eq:empirical-auc-BambersTheorem
 fig:empirical-auc-BambersTheorem
 eq:empirical-auc-BambersTheoremProof1

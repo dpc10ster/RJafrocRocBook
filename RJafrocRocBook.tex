@@ -134,7 +134,7 @@
 
 \title{The RJafroc Roc Book}
 \author{Dev P. Chakraborty, PhD}
-\date{2021-12-13}
+\date{2021-12-22}
 
 \begin{document}
 \maketitle
@@ -2808,7 +2808,7 @@ The function \(\psi\left ( x, y \right )\) is defined by:
 \psi(x,y)&=0  & x>y
 \end{aligned}
 \right \}
-\label{eq:empirical-auc-PsiFunction}
+\label{eq:empirical-auc-psi}
 \end{equation}
 
 The function \(\psi\left ( x, y \right )\) is sometimes called the kernel function. It is unity if the diseased case is rated higher, 0.5 if the two are rated the same and zero otherwise. Each evaluation of the kernel function results from a comparison of a case from the non-diseased set with one from the diseased set. In Eqn. \eqref{eq:empirical-auc-Wilcoxon} the two summations and division by the total number of comparisons yields the observed, i.e., empirical, probability that diseased cases are rated higher than non-diseased ones. Since it is a probability, it can range from zero to one. However, if the observer has any discrimination ability at all, one expects diseased cases to be rated equal or greater than non-diseased ones, so in practice one expects \(0.5 \leq W \leq 1\). The limit 0.5 corresponds to a guessing observer, whose operating point lies on the chance diagonal of the ROC plot.
@@ -3378,9 +3378,9 @@ The following code prints the predicted and observed full areas under the ROCs f
 
 \begin{verbatim}
 #> A_z predicted =  0.9213504 
-#> A_z observed =  0.9210101
+#> A_z observed =  0.9240115
 #> A_z{c;true} predicted =  0.8244498 
-#> A_z{c;true} observed =  0.8237306
+#> A_z{c;true} observed =  0.8261358
 \end{verbatim}
 
 Note that:
