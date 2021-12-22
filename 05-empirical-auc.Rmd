@@ -249,7 +249,7 @@ The function $\psi\left ( x,  y \right )$ is defined by:
 \psi(x,y)&=0  & x>y
 \end{aligned}
 \right \}
-(\#eq:empirical-auc-PsiFunction)
+(\#eq:empirical-auc-psi)
 \end{equation}
 
 The function $\psi\left ( x,  y \right )$ is sometimes called the kernel function. It is unity if the diseased case is rated higher, 0.5 if the two are rated the same and zero otherwise. Each evaluation of the kernel function results from a comparison of a case from the non-diseased set with one from the diseased set. In Eqn. \@ref(eq:empirical-auc-Wilcoxon) the two summations and division by the total number of comparisons yields the observed, i.e., empirical, probability that diseased cases are rated higher than non-diseased ones. Since it is a probability, it can range from zero to one. However, if the observer has any discrimination ability at all, one expects diseased cases to be rated equal or greater than non-diseased ones, so in practice one expects $0.5 \leq W \leq 1$. The limit 0.5 corresponds to a guessing observer, whose operating point lies on the chance diagonal of the ROC plot. 
