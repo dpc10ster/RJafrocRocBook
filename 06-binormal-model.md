@@ -282,9 +282,9 @@ The d' index corresponding to the above binormal parameters is 2. The transforma
 
 * A *partial-area observer* such as in Section \@ref(binormal-model-partial-auc) rates cases as follows: for the sub-set of cases defined by $z \ge \zeta_1$ the observer reports *explicit* ratings exactly equal to the observed z-samples (or some monotonic transformation of the z-samples). For the remaining cases the observer assigns a *fixed value rating that is smaller than $\zeta_1$* (the exact value does not matter; these cases are said to be assigned *implicit* ratings). 
 
-* In contrast, the *full-area observer* reports explcit ratings *for all cases*. 
+* In contrast, the *full-area observer* reports explicit ratings *for all cases*. 
 
-*To measure true performance of the partial-area observer one must, of course, include all cases.* The ROC curve extends continously from the origin to the solid dot *plus the area under the dotted line* extending from the solid dot to (1,1). True performance, the area under the continuous section plus that under the straight line extension, is denoted $A_{z;c,TRUE}$ and is defined by:
+*To measure true performance of the partial-area observer one must, of course, include all cases.* The ROC curve extends continuously from the origin to the solid dot *plus the area under the dotted line* extending from the solid dot to (1,1). True performance, the area under the continuous section plus that under the straight line extension, is denoted $A_{z;c,TRUE}$ and is defined by:
 
 
 \begin{equation} 
@@ -348,9 +348,9 @@ The following code prints the predicted and observed full areas under the ROCs f
 
 ```
 #> A_z predicted =  0.9213504 
-#> A_z observed =  0.9227046
+#> A_z observed =  0.9219683
 #> A_z{c;true} predicted =  0.8244498 
-#> A_z{c;true} observed =  0.8255782
+#> A_z{c;true} observed =  0.8233239
 ```
 
 

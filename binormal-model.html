@@ -24,7 +24,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2021-12-22" />
+<meta name="date" content="2022-01-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -562,9 +562,9 @@ d&#39;=\sqrt{2}\Phi^{-1}\left ( A_z \right )
 <h2><span class="header-section-number">6.6</span> Partial AUC vs. true performance</h2>
 <ul>
 <li><p>A <em>partial-area observer</em> such as in Section <a href="binormal-model.html#binormal-model-partial-auc">6.5.1</a> rates cases as follows: for the sub-set of cases defined by <span class="math inline">\(z \ge \zeta_1\)</span> the observer reports <em>explicit</em> ratings exactly equal to the observed z-samples (or some monotonic transformation of the z-samples). For the remaining cases the observer assigns a <em>fixed value rating that is smaller than <span class="math inline">\(\zeta_1\)</span></em> (the exact value does not matter; these cases are said to be assigned <em>implicit</em> ratings).</p></li>
-<li><p>In contrast, the <em>full-area observer</em> reports explcit ratings <em>for all cases</em>.</p></li>
+<li><p>In contrast, the <em>full-area observer</em> reports explicit ratings <em>for all cases</em>.</p></li>
 </ul>
-<p><em>To measure true performance of the partial-area observer one must, of course, include all cases.</em> The ROC curve extends continously from the origin to the solid dot <em>plus the area under the dotted line</em> extending from the solid dot to (1,1). True performance, the area under the continuous section plus that under the straight line extension, is denoted <span class="math inline">\(A_{z;c,TRUE}\)</span> and is defined by:</p>
+<p><em>To measure true performance of the partial-area observer one must, of course, include all cases.</em> The ROC curve extends continuously from the origin to the solid dot <em>plus the area under the dotted line</em> extending from the solid dot to (1,1). True performance, the area under the continuous section plus that under the straight line extension, is denoted <span class="math inline">\(A_{z;c,TRUE}\)</span> and is defined by:</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-true-performance">\[\begin{equation} 
 A_{z;c,\text{TRUE}} = A_{z;c} + \frac {\left ( 1 - FPF \right ) \left ( 1 + TPF \right )}{2}
 \tag{6.20}
@@ -598,9 +598,9 @@ A_{z;c,\text{TRUE}} \le A_{z}
 <span id="cb30-7"><a href="binormal-model.html#cb30-7"></a>zc[<span class="dv">2</span>,z[<span class="dv">2</span>,] <span class="op">&lt;</span><span class="st"> </span>zeta1] &lt;-<span class="st"> </span><span class="dv">-100</span> <span class="co"># do:</span></span></code></pre></div>
 <p>The following code prints the predicted and observed full areas under the ROCs followed by the predicted and observed true performances. With this many cases sampling variability is small and the predicted and observed values are close.</p>
 <pre><code>#&gt; A_z predicted =  0.9213504 
-#&gt; A_z observed =  0.9227046
+#&gt; A_z observed =  0.9219683
 #&gt; A_z{c;true} predicted =  0.8244498 
-#&gt; A_z{c;true} observed =  0.8255782</code></pre>
+#&gt; A_z{c;true} observed =  0.8233239</code></pre>
 <p>Note that:</p>
 <ul>
 <li><span class="math inline">\(A_{z;c,\text{TRUE}} &lt; A_z\)</span>, because ordering information is lost for all cases with z-samples less than <span class="math inline">\(\zeta_1\)</span>.</li>
