@@ -1,0 +1,265 @@
+# Obuchowski Rockette (OR) Analysis {#or-analysis-st}
+
+
+
+
+
+## TBA How much finished {#or-analysis-st-how-much-finished}
+80%
+
+
+## Introduction {#or-analysis-st-introduction}
+In previous chapters the DBM significance testing procedure [@RN204] for analyzing MRMC ROC data, along with improvements [@RN2508], has been described. Because the method assumes that jackknife pseudovalues can be regarded as independent and identically distributed case-level figures of merit, it has been rightly criticized by Hillis and others [@zhou2009statistical]. Hillis states that the method "works" but lacks firm statistical foundations [@RN1772; @RN1865; @RN1866]. I would add that it "works" as long as one restricts to the empirical AUC figure of merit. In my book I gave a justification for why the method "works". Specifically, the *empirical AUC pseudovalues qualify as case-level FOMs* - this property has also been noted by [@RN1395]. However, this property applies *only* to the empirical AUC, so an alternate approach that applies to any figure of merit is highly desirable. 
+
+Hillis' has proposed that a method based on an earlier publication [@RN1450], which does not depend on pseudovalues, is preferable from both conceptual and practical points of view. This chapter is named "OR Analysis", where OR stands for Obuchowski and Rockette. The OR method has advantages in being able to handle more complex study designs [@RN2508] that are addressed in subsequent chapters, and applications to other FOMs (e.g., the FROC paradigm uses a rather different FOM from empirical ROC-AUC) are best performed with the OR method.
+
+This chapter delves into the significance testing procedure employed in OR analysis. 
+
+Multiple readers interpreting a case-set in multiple treatments is analyzed and the results, DBM vs. OR, are compared for the same dataset. The special cases of fixed-reader and fixed-case analyses are described. Single treatment analysis, where interest is in comparing average performance of readers to a fixed value, is described. Three methods of estimating the covariance matrix are described.
+
+Before proceeding, it is understood that datasets analyzed in this chapter follow a _factorial_ design, sometimes call fully-factorial or fully-crossed design. Basically, the data structure is symmetric, e.g., all readers interpret all cases in all modalities. The next chapter will describe the analysis of _split-plot_ datasets, where, for example, some readers interpret all cases in one modality, while the remaining readers interpret all cases in the other modality.
+
+## Random-reader random-case {#or-analysis-st-rrrc}
+In conventional ANOVA models, such as used in DBM, the covariance matrix of the error term is diagonal with all diagonal elements equal to a common variance, represented in the DBM model by the scalar $\epsilon$ term. Because of the correlated structure of the error term, in OR analysis, a customized ANOVA is needed. The null hypothesis (NH) is that the true figures-of-merit of all treatments are identical, i.e., 
+
+\begin{equation}
+NH:\tau_i=0\;\; (i=1,2,...,I)
+(\#eq:ORModelNH)
+\end{equation}
+
+The analysis described next considers both readers and cases as random effects. The F-statistic is denoted $F_{ORH}$, defined by: 
+
+\begin{equation}
+F_{ORH}=\frac{MS(T)}{MS(TR)+J\max(\text{Cov2}-\text{Cov3},0)}
+(\#eq:F-ORH-RRRC)
+\end{equation}
+
+Eqn. \@ref(eq:F-ORH-RRRC) incorporates Hillis’ modification of the original OR F-statistic. The modification ensures that the constraint Eqn. \@ref(eq:CovOrderings) is always obeyed and also avoids a possibly negative (and hence illegal) F-statistic. The relevant mean squares are defined by (note that these are calculated using *FOM* values, not *pseudovalues*):
+
+\begin{align}
+\left.\begin{array}{rcl}
+MS(T)&=&\frac{J}{I-1}\sum_{i=1}^{I}(\theta_{i\bullet}-\theta_{\bullet\bullet})^2\\
+\\ 
+MS(R)&=&\frac{I}{J-1}\sum_{j=1}^{J}(\theta_{\bullet j}-\theta_{\bullet\bullet})^2\\
+\\
+MS(TR)&=&\frac{1}{(I-1)(J-1)}\sum_{i=1}^{I}\sum_{j=1}^{J}(\theta_{ij}-\theta_{i\bullet}-\theta_{\bullet j}+\theta_{\bullet\bullet})
+\end{array}\right\}
+(\#eq:MS-OR)
+\end{align}
+
+The original paper [@RN1450] actually proposed a different test statistic $F_{OR}$:
+
+\begin{equation}
+F_{OR}=\frac{MS(T)}{MS(TR)+J(\text{Cov2}-\text{Cov3})}
+(\#eq:F-OR)
+\end{equation}
+
+Note that Eqn. \@ref(eq:F-OR) lacks the constraint, subsequently proposed by Hillis, which ensures that the denominator cannot be negative. The following distribution was proposed for the test statistic. 
+
+\begin{equation}
+F_{OR}\sim F_{\text{ndf},\text{ddf}}
+(\#eq:SamplingDistr-F-OR)
+\end{equation}
+
+The original degrees of freedom were defined by:
+
+\begin{align}
+\begin{split}
+\text{ndf}&=I-1\\
+\text{ddf}&=(I-1)\times(J-1)
+\end{split}
+(\#eq:ORdegreesOfFreedom)
+\end{align}
+
+It turns out that the Obuchowski-Rockette test statistic is very conservative, meaning it is highly biased against rejecting the null hypothesis (the data simulator used in the validation described in their publication did not detect this behavior). Because of the conservative behavior, the predicted sample sizes tended to be quite large (if the test statistic does not reject the NH as often as it should, one way to overcome this tendency is to use a larger sample size). In this connection I have two informative anecdotes.
+
+### Two anecdotes {#TwoAnecdotes}
+
+* The late Dr. Robert F. Wagner once stated to me (ca. 2001) that the sample-size tables published by Obuchowski [@RN1971;@RN1972], using the version of Eqn. \@ref(eq:F-ORH-RRRC) with the *ddf* as originally suggested by Obuchowski and Rockette, predicted such high number of readers and cases that he was doubtful about the chances of anyone conducting a practical ROC study! 
+
+* The second story is that I once conducted NH simulations and analyses using a Roe-Metz simulator [@RN1125] and the significance testing described in the Obuchowski-Rockette paper: the method did not reject the null hypothesis even once in 2000 trials! Recall that with $\alpha = 0.05$ a valid test should reject the null hypothesis about $100\pm20$ times in 2000 trials. I recalls (ca. 2004) telling Dr. Steve Hillis about this issue, and he suggested a different denominator degrees of freedom *ddf*, see next, substitution of which magically solved the problem, i.e., the simulations rejected the null hypothesis 5% of the time. 
+
+### Hillis ddf {#Hills-ddf}
+Hillis' proposed new *ddf* is shown below (*ndf* is unchanged), with the subscript $H$ denoting the Hillis modification:
+
+\begin{equation}
+\text{ddf}_H = \frac{\left [ MS(TR) + J \max(\text{Cov2}-\text{Cov3},0)\right ]^2}{\frac{\left [ MS(TR) \right ]^2}{(I-1)(J-1)}}
+(\#eq:ddfH-RRRC)
+\end{equation}
+
+From the previous chapter, the ordering of the covariances is as follows:
+
+\begin{equation*}
+\text{Cov3} \leq  \text{Cov2} \leq  \text{Cov1} \leq  \text{Var}
+\end{equation*}
+
+If $\text{Cov2} < \text{Cov3}$ (which is the *exact opposite* of the expected ordering), $\text{ddf}_H$ reduces to $(I-1)\times(J-1)$, the value originally proposed by Obuchowski and Rockette. With Hillis' proposed changes, under the null hypothesis the observed statistic $F_{ORH}$, defined in Eqn. \@ref(eq:F-ORH-RRRC), is distributed as an F-statistic with $\text{ndf} = I-1$ and *ddf* = $\text{ddf}_H$ degrees of freedom [@RN1772;@RN1865;@RN1866]: 
+
+\begin{equation}
+F_{ORH}\sim F_{\text{ndf},\text{ddf}_H}
+(\#eq:SamplingDistr-F-ORH-RRRC)
+\end{equation}
+
+If the expected ordering is true, i.e., $\text{Cov2} > \text{Cov3}$ , which is the more likely situation, then $\text{ddf}_H$ is *larger* than $(I-1)\times(J-1)$, i.e., the Obuchowski-Rockette *ddf*, and the p-value decreases and there is a larger probability of rejecting the NH. The modified OR method is more likely to have the correct NH behavior, i.e, it will reject the NH 5% of the time when alpha is set to 0.05 (statisticians refer to this as "passing the 5% test"). The correct NH behavior has been confirmed in simulation testing using the Roe-Metz simulator (@RN1866).
+
+### Decision rule, p-value and confidence interval
+The critical value of the F-statistic for rejection of the null hypothesis is $F_{1-\alpha,\text{ndf},\text{ddf}_H}$, i.e., that value such that fraction $(1-\alpha)$ of the area under the distribution lies to the left of the critical value. From Eqn. \@ref(eq:F-ORH-RRRC):
+
+* Rejection of the NH is more likely if $MS(T)$ increases, meaning the treatment effect is larger; 
+
+* $MS(TR)$ is smaller, meaning there is less contamination of the treatment effect by treatment-reader variability; 
+* The greater of $\text{Cov2}$ or $\text{Cov3}$, which is usually $\text{Cov2}$, decreases, meaning there is less "noise" in the measurement due to between-reader variability. Recall that $\text{Cov2}$ involves different-reader same-treatment pairings.  
+* $\alpha$ increases, meaning one is allowing a greater probability of Type I errors; 
+* $\text{ndf}$ increases, as this lowers the critical value of the F-statistic. With more treatment pairings, the chance that at least one paired-difference will reject the NH is larger. 
+* $\text{ddf}_H$ increases, as this lowers the critical value of the F-statistic. 
+
+The p-value of the test is the probability, under the NH, that an equal or larger value of the F-statistic than $F_{ORH}$ could be observed by chance. In other words, it is the area under the F-distribution $F_{\text{ndf},\text{ddf}_H}$ that lies above the observed value $F_{ORH}$:
+
+\begin{equation}
+p=\Pr(F>F_{ORH} \mid F\sim F_{\text{ndf},\text{ddf}_H})
+(\#eq:pValueOR-RRRC)
+\end{equation}
+
+The $(1-\alpha)$ confidence interval for $\theta_{i \bullet} - \theta_{i' \bullet}$ is given by:
+
+\begin{equation}
+\begin{split}
+CI_{1-\alpha,RRRC,\theta_{i \bullet} - \theta_{i' \bullet}} =& \theta_{i \bullet} - \theta_{i' \bullet} \\ 
+&\pm t_{\alpha/2, \text{ddf}_H}\sqrt{\textstyle\frac{2}{J}(MS(TR)+J\max(\text{Cov2}-\text{Cov3},0))}
+\end{split}
+(\#eq:CI-DiffFomRRRC)
+\end{equation}
+
+Define $\text{df}_i$, the degrees of freedom for modality $i$: 
+
+\begin{equation}
+\text{df}_i = (\text{MS(R)}_i + J\max(\text{Cov2}_{i}, 0))^2/\text{MS(R)}_i^2 * (J - 1)
+(\#eq:CI-RRRC-df-IndvlTrt)
+\end{equation}
+
+Here $\text{MS(R)}_i$ is the reader mean-square for modality $i$, and $\text{Cov2}_i$ is $\text{Cov2}$ for modality $i$. Note that all quantities with an $i$ index are calculated using data from modality $i$ only.
+
+The $(1-\alpha)$ confidence interval for $\theta_{i \bullet}$, i.e., $CI_{1-\alpha,RRRC,\theta_{i \bullet}}$, is given by:
+
+\begin{equation}
+CI_{1-\alpha,RRRC,\theta_{i \bullet}} = \theta_{i \bullet} \pm t_{\alpha/2, \text{df}_i}\sqrt{\textstyle\frac{1}{J}(\text{MS(R)}_i + J\max(\text{Cov2}_{i}, 0))}
+(\#eq:CI-RRRC-IndvlTrt)
+\end{equation}
+
+## Fixed-reader random-case {#or-analysis-st-frrc}
+Using the vertical bar notation $\mid R$ to denote that reader is regarded as a fixed effect [@RN1124], the F -statistic for testing the null hypothesis $NH: \tau_i = 0 \; (i=1,1,2,...I)$ is [@RN1865]: 
+
+\begin{equation}
+F_{ORH \mid R}=\frac{MS(T)}{\text{Var}-\text{Cov1}+(J-1)\max(\text{Cov2}-\text{Cov3},0)}
+(\#eq:DefFStatFRRC-OR)
+\end{equation}
+
+[For $J$ = 1, Eqn. \@ref(eq:DefFStatFRRC-OR) reduces to Eqn. \@ref(eq:or-sampling-model-def-f-single-reader), i.e., the single-reader analysis described in the previous chapter.] 
+
+$F_{ORH \mid R}$ is distributed as an F-statistic with $\text{ndf} = I-1$ and $\text{ddf} = \infty$:
+
+\begin{equation}
+F_{ORH \mid R} \sim F_{I-1,\infty}
+(\#eq:FStatDistrFRRC-OR)
+\end{equation}
+
+One can get rid of the infinite denominator degrees of freedom by recognizing, as in the previous chapter, that $(I-1) F_{I-1,\infty}$ is distributed as a $\chi^2$ distribution with $I-1$ degrees of freedom, i.e., as $\chi^2_{I-1}$. Therefore, one has, analogous to Eqn. \@ref(eq:F-1RMT),
+
+\begin{equation}
+\chi^2_{ORH \mid R} \equiv (I-1)F_{ORH \mid R} \sim \chi^2_{I-1}
+(\#eq:ChisqStatFRRC-OR)
+\end{equation}
+
+The critical value of the $\chi^2$ statistic is $\chi^2_{1-\alpha,I-1}$, which is that value such that fraction $(1-\alpha)$ of the area under the $\chi^2_{I-1}$ distribution lies to the left of the critical value. The null hypothesis is rejected if the observed value of the $\chi^2$ statistic exceeds the critical value, i.e.,
+
+$$\chi^2_{ORH \mid R} > \chi^2_{1-\alpha,I-1}$$
+
+The p-value of the test is the probability that a random sample from the chi-square distribution $\chi^2_{I-1}$ exceeds the observed value of the test statistic $\chi^2_{ORH \mid R}$ statistic defined in Eqn. \@ref(eq:ChisqStatFRRC-OR):
+
+\begin{equation}
+p=\Pr(\chi^2 > \chi^2_{ORH \mid R} \mid \chi^2 \sim \chi^2_{I-1})
+(\#eq:pValueFRRC-OR)
+\end{equation}
+
+The $(1-\alpha)$ (symmetric) confidence interval for the difference figure of merit is given by:
+
+\begin{equation}
+\begin{split}
+CI_{1-\alpha,FRRC,\theta_{i \bullet} - \theta_{i' \bullet}} =&(\theta_{i \bullet} - \theta_{i' \bullet}) \\ 
+&\pm t_{\alpha/2, \infty}\sqrt{\textstyle\frac{2}{J}(\text{Var}-\text{Cov1}+(J-1)\max(\text{Cov2}-\text{Cov3},0))}
+\end{split}
+(\#eq:CIDiffFomFRRC-OR)
+\end{equation}
+
+The NH is rejected if any of the following equivalent conditions is met (these statements are also true for `RRRC` analysis, and `RRFC` analysis to be described next):
+
+* The observed value of the $\chi^2$ statistic exceeds the critical value $\chi^2_{1-\alpha,I-1}$.
+* The p-value is less than $\alpha$.
+* The $(1-\alpha)$ confidence interval for at least one treatment-pairing does not include zero.
+
+Additional confidence intervals are stated below: 
+
+* The confidence interval for the reader-averaged FOM for each treatment, denoted $CI_{1-\alpha,FRRC,\theta_{i \bullet}}$. 
+* The confidence interval for treatment FOM differences for each reader, denoted $CI_{1-\alpha,FRRC,\theta_{i j} - \theta_{i' j}}$.  
+
+\begin{equation}
+CI_{1-\alpha,FRRC,\theta_{i \bullet}} = \theta_{i \bullet} \pm z_{\alpha/2}\sqrt{\textstyle\frac{1}{J}(\text{Var}_i+(J-1)\max(\text{Cov2}_i,0)}
+(\#eq:CIIndTrtFomFRRC-OR)
+\end{equation}
+
+\begin{equation}
+CI_{1-\alpha,FRRC,\theta_{i j} - \theta_{i' j}} = (\theta_{i j} - \theta_{i' j}) \pm z_{\alpha/2}\sqrt{2(\text{Var}_j - \text{Cov1}_j)}
+(\#eq:CIIndRdrDiffFomFRRC-OR)
+\end{equation}
+
+In these equations $\text{Var}_i$ and $\text{Cov2}_i$ are computed using the data for treatment $i$ only, and $\text{Var}_j$ and $\text{Cov1}_j$ are computed using the data for reader $j$ only.  
+
+## Random-reader fixed-case {#or-analysis-st-rrfc}
+When case is treated as a fixed factor, the appropriate F-statistic for testing the null hypothesis $NH: \tau_i = 0 \; (i=1,1,2,...I)$ is: 
+
+\begin{equation}
+F_{ORH \mid C}=\frac{MS(T)}{MS(TR)}
+(\#eq:DefFStatRRFC)
+\end{equation}
+
+$F_{ORH \mid C}$ is distributed as an F-statistic with $ndf = I-1$ and $ddf = (I-1)(J-1)$:
+
+\begin{equation}
+\left.\begin{array}{rcl}
+\text{ndf}&=&I-1\\ 
+\text{ddf}&=&(I-1)(J-1)\\
+F_{ORH \mid C} &\sim& F_{\text{ndf},\text{ddf}}
+\end{array}\right\}
+(\#eq:FStatRRFC)
+\end{equation}
+
+Here is a situation where the degrees of freedom agree with those originally proposed by Obuchowski-Rockette. The critical value of the statistic is $F_{1-\alpha,I-1,(I-1)(J-1)}$, which is that value such that fraction $(1-\alpha)$ of the distribution lies to the left of the critical value. The null hypothesis is rejected if the observed value of the F statistic exceeds the critical value:
+
+$$F_{ORH \mid C}>F_{1-\alpha,I-1,(I-1)(J-1)}$$
+
+The p-value of the test is the probability that a random sample from the distribution exceeds the observed value:
+
+$$p=\Pr(F>F_{ORH \mid C} \mid F \sim F_{1-\alpha,I-1,(I-1)(J-1)})$$
+
+The $(1-\alpha)$ confidence interval for the reader-averaged difference FOM, $CI_{1-\alpha,RRFC,\theta_{i \bullet} - \theta_{i' \bullet}}$, is given by:
+
+\begin{equation}
+CI_{1-\alpha,RRFC,\theta_{i \bullet} - \theta_{i' \bullet}} = (\theta_{i \bullet} - \theta_{i' \bullet}) \pm t_{\alpha/2, (I-1)(J-1)}\sqrt{\textstyle\frac{2}{J}MS(TR)}
+(\#eq:CIDiffFomRRFC)
+\end{equation}
+
+The $(1-\alpha)$ confidence interval for the reader-averaged FOM for each treatment, $CI_{1-\alpha,RRFC,\theta_{i \bullet}}$, is given by:
+
+\begin{equation}
+CI_{1-\alpha,RRFC,\theta_{i \bullet}} = \theta_{i \bullet} \pm t_{\alpha/2, J-1}\sqrt{\textstyle\frac{1}{J}\text{MS(R)}_i}
+(\#eq:CIRRFCIndTrt)
+\end{equation}
+
+Here $\text{MS(R)}_i$ is the reader mean-square for modality $i$.
+
+## Single treatment analysis {#or-analysis-st-single-treatment}
+TBA
+## Summary{#or-analysis-st-summary}
+## Discussion{#or-analysis-st-discussion}
+## References {#or-analysis-st-references}
+

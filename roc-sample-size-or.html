@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 The Binary Task | The RJafroc Roc Book</title>
+  <title>Chapter 16 Sample size estimation for ROC studies OR method | The RJafroc Roc Book</title>
   <meta name="description" content="TBA Artificial intelligence and observer performance book based on RJafroc." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 The Binary Task | The RJafroc Roc Book" />
+  <meta property="og:title" content="Chapter 16 Sample size estimation for ROC studies OR method | The RJafroc Roc Book" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dpc10ster/RJafrocRocBook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 The Binary Task | The RJafroc Roc Book" />
+  <meta name="twitter:title" content="Chapter 16 Sample size estimation for ROC studies OR method | The RJafroc Roc Book" />
   
   <meta name="twitter:description" content="TBA Artificial intelligence and observer performance book based on RJafroc." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="preliminaries.html"/>
-<link rel="next" href="binary-task-model.html"/>
+<link rel="prev" href="roc-sample-size-dbm.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -535,410 +535,454 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="binary-task" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Chapter 2</span> The Binary Task<a href="binary-task.html#binary-task" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="binary-task-how-much-finished" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.1</span> TBA How much finished<a href="binary-task.html#binary-task-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>85%</p>
+<div id="roc-sample-size-or" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 16</span> Sample size estimation for ROC studies OR method<a href="roc-sample-size-or.html#roc-sample-size-or" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="roc-sample-size-or-how-much-finished" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.1</span> TBA How much finished<a href="roc-sample-size-or.html#roc-sample-size-or-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>70%</p>
 </div>
-<div id="binary-taskIntro" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.2</span> Introduction<a href="binary-task.html#binary-taskIntro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In the previous chapter four observer performance paradigms were introduced: the receiver operating characteristic (ROC), the free-response ROC (FROC), the location ROC (LROC) and the region of interest (ROI). The next few chapters focus on the ROC paradigm, where each case is rated for confidence in presence of disease. While a multiple point rating scale is generally used, in this chapter it is assumed that the ratings are binary, and the allowed values are “1” vs. “2”. Equivalently, the ratings could be “non-diseased” vs. “diseased”, “negative” vs. “positive”, etc. In the literature this method of data acquisition is also termed the “yes/no” procedure <span class="citation">(Green and Swets <a href="#ref-RN298" role="doc-biblioref">1966</a>; Egan <a href="#ref-RN346" role="doc-biblioref">1975</a>)</span>. The reason for restricting, for now, to the binary task is that the multiple rating task can be shown to be equivalent to a number of simultaneously conducted binary tasks. Therefore, understanding the simpler method is a good starting point.</p>
-<p>Since the truth is also binary, this chapter could be named the binary-truth binary-decision task. The starting point is a 2 x 2 table summarizing the outcomes in such studies and useful fractions that can be defined from the counts in this table, the most important ones being true positive fraction (TPF) and false positive fraction (FPF). These are used to construct measures of performance, some of which are desirable from the researcher’s point of view, but others are more relevant to radiologists. The concept of disease prevalence is introduced and used to formulate relations between the different types of measures. An R example of calculation of these quantities is given that is only slightly more complicated than the demonstration in the prior chapter.</p>
+<div id="roc-sample-size-or-introduction" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.2</span> Introduction<a href="roc-sample-size-or.html#roc-sample-size-or-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div id="binary-taskTruth" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.3</span> The fundamental 2x2 table<a href="binary-task.html#binary-taskTruth" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this book, the term case is used for images obtained for diagnostic purposes, of a patient; often multiple images of a patient, sometimes from different modalities, are involved in an interpretation; all images of a single patient, that are used in the interpretation, are collectively referred to as a case. A familiar example is the 4-view presentation used in screening mammography, where two views of each breast are available for viewing.</p>
-<p>Let <span class="math inline">\(D\)</span> represent the radiologist’s decision, with <span class="math inline">\(D=1\)</span> representing the decision “case is non-diseased” and <span class="math inline">\(D=2\)</span> representing the decision “case is diseased”. Let <span class="math inline">\(T\)</span> denote the truth with <span class="math inline">\(T=1\)</span> representing “case is actually non-diseased” and <span class="math inline">\(T=2\)</span> representing “case is actually diseased”. Each decision, one of two values, will be associated with one of two truth states, resulting in an entry in one of 4 cells arranged in a 2 x 2 layout, termed the decision vs. truth table, Table <a href="binary-task.html#tab:binary-tasktruthTable">2.1</a>, which is of fundamental importance in observer performance. The cells are labeled as follows. The abbreviation <span class="math inline">\(TN\)</span>, for true negative, represents a <span class="math inline">\(D=1\)</span> decision on a <span class="math inline">\(T=1\)</span> case. <span class="math inline">\(FN\)</span>, for false negative, represents a <span class="math inline">\(D=1\)</span> decision on a <span class="math inline">\(T=2\)</span> case (also termed a “miss”). <span class="math inline">\(FP\)</span>, for false positive, represents a <span class="math inline">\(D=2\)</span> decision on a <span class="math inline">\(T=1\)</span> case (a “false-alarm”) and <span class="math inline">\(TP\)</span>, for true positive, represents a <span class="math inline">\(D=2\)</span> decision on a <span class="math inline">\(T=2\)</span> case (a “hit”).</p>
-<table>
-<caption>
-<span id="tab:binary-tasktruthTable">TABLE 2.1: </span>Truth Table.
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-T=1
-</th>
-<th style="text-align:left;">
-T=2
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-D=1
-</td>
-<td style="text-align:left;">
-TN
-</td>
-<td style="text-align:left;">
-FN
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-D=2
-</td>
-<td style="text-align:left;">
-FP
-</td>
-<td style="text-align:left;">
-TP
-</td>
-</tr>
-</tbody>
-</table>
-<p>Table <a href="binary-task.html#tab:binary-tasktruthTable2">2.2</a> shows the numbers of decisions in each of the four categories defined in Table <a href="binary-task.html#tab:binary-tasktruthTable">2.1</a>. Specifically, <span class="math inline">\(n(TN)\)</span> is the number of true negative decisions, <span class="math inline">\(n(FN)\)</span> is the number of false negative decisions, etc. The last row is the sum of the corresponding columns. The sum of the number of true negative decisions <span class="math inline">\(n(TN)\)</span> and the number of false positive decisions <span class="math inline">\(n(FP)\)</span> must equal the total number of non-diseased cases, denoted <span class="math inline">\(K_1\)</span>. Likewise, the sum of the number of false negative decisions <span class="math inline">\(n(FN)\)</span> and the number of true positive decisions <span class="math inline">\(n(TP)\)</span> must equal the total number of diseased cases, denoted <span class="math inline">\(K_2\)</span>. The last column is the sum of the corresponding rows. The sum of the number of true negative <span class="math inline">\(n(TN)\)</span> and false negative <span class="math inline">\(n(FN)\)</span> decisions is the total number of negative decisions, denoted <span class="math inline">\(n(N)\)</span>. Likewise, the sum of the number of false positive <span class="math inline">\(n(FP)\)</span> and true positive <span class="math inline">\(n(TP)\)</span> decisions is the total number of positive decisions, denoted <span class="math inline">\(n(P)\)</span>. Since each case yields a decision, the bottom-right corner cell is <span class="math inline">\(n(N) + n(P)\)</span>, which must also equal <span class="math inline">\(K_1+K_2\)</span>, the total number of cases <span class="math inline">\(K\)</span>. These statements are summarized in Eqn. <a href="binary-task.html#eq:binary-taskTruthTableEqns">(2.1)</a>.</p>
-<p><span class="math display" id="eq:binary-taskTruthTableEqns">\[\begin{equation} 
-\left.\begin{aligned}
-K_1&amp;=n(TN)+n(FP)\\ 
-K_2&amp;=n(FN)+n(TN)\\ 
-n(N)&amp;=n(TN)+n(FN)\\ 
-n(P)&amp;=n(TP)+n(FP)\\
-K=K_1+K_2&amp;=n(N)+n(P)
-\end{aligned}\right\}
-\tag{2.1}
+<div id="StatPower2" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.3</span> Statistical Power<a href="roc-sample-size-or.html#StatPower2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display" id="eq:DefinitionStatPower1">\[\begin{equation}
+Power = 1 - \beta
+\tag{16.1}
 \end{equation}\]</span></p>
-<table>
-<caption>
-<span id="tab:binary-tasktruthTable2">TABLE 2.2: </span>Cell counts.
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-T=1
-</th>
-<th style="text-align:left;">
-T=2
-</th>
-<th style="text-align:left;">
-RowSums
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-D=1
-</td>
-<td style="text-align:left;">
-n(TN)
-</td>
-<td style="text-align:left;">
-n(FN)
-</td>
-<td style="text-align:left;">
-n(N)=n(TN)+n(FN)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-D=2
-</td>
-<td style="text-align:left;">
-n(FP)
-</td>
-<td style="text-align:left;">
-n(TP)
-</td>
-<td style="text-align:left;">
-n(P)=n(FP)+n(TP)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ColSums
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K_1\)</span>=n(TN)+n(FP)
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K_2\)</span>=n(FN)+n(TP)
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K=K_1+K_2\)</span>=n(N)+n(P)
-</td>
-</tr>
-</tbody>
-</table>
+<div id="sample-size-estimation-for-random-reader-random-cases" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.3.1</span> Sample size estimation for random-reader random-cases<a href="roc-sample-size-or.html#sample-size-estimation-for-random-reader-random-cases" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For convenience the OR model is repeated below with the case-set index suppressed:</p>
+<p><span class="math display" id="eq:ORModelSsOR">\[\begin{equation}
+Y_{n(ijk)}=\mu+\tau_i+R_j+C_k+(\tau R)_{ij}+(\tau C)_{ik}+(RC)_{jk}+(\tau RC)_{ijk}+\epsilon_ {n(ijk)}
+\tag{16.2}
+\end{equation}\]</span></p>
+<p>As usual, the treatment effects <span class="math inline">\(\tau_i\)</span> are subject to the constraint that they sum to zero. The observed effect size (a random variable) is defined by:</p>
+<p><span class="math display" id="eq:EffectSize1">\[\begin{equation}
+d=\theta_{1\bullet}-\theta_{2\bullet}
+\tag{16.3}
+\end{equation}\]</span></p>
+<p>It is a realization of a random variable, so one has some leeway in the choice of anticipated effect size. In the significance-testing procedure described in TBA Chapter 09 interest was in the distribution of the F-statistic when the NH is true. For sample size estimation, one needs to know the distribution of the statistic when the NH is false. It was shown that then the observed F-statistic TBA Eqn. (9.35) is distributed as a non-central F-distribution <span class="math inline">\(F_{ndf,ddf,\Delta}\)</span> with non-centrality parameter <span class="math inline">\(\Delta\)</span>:</p>
+<p><span class="math display" id="eq:FDBMSampling1">\[\begin{equation}
+F_{DBM|AH} \sim F_{ndf,ddf,\Delta}
+\tag{16.4}
+\end{equation}\]</span></p>
+<p>The non-centrality parameter was defined, Eqn. TBA (9.34), by:</p>
+<p><span class="math display" id="eq:DefDelta1">\[\begin{equation}
+\Delta=\frac{JK\sigma_{Y;\tau}^2}{\left ( \sigma_{Y;\epsilon}^2 + \sigma_{Y;\tau RC}^2 \right )+K\sigma_{Y;\tau R}^2+J\sigma_{Y;\tau C}^2}
+\tag{16.5}
+\end{equation}\]</span></p>
+<p>To minimize confusion, this equation has been rewritten here using the subscript <span class="math inline">\(Y\)</span> to explicitly denote pseudo-value derived quantities (in TBA Chapter 09 this subscript was suppressed.</p>
+<p>The estimate of <span class="math inline">\(\sigma_{Y;\tau C}^2\)</span> can turn out to bee negative. To avoid a negative denominator, Hillis suggests the following modification:</p>
+<p><span class="math display" id="eq:DefDeltaHillis1">\[\begin{equation}
+\Delta=\frac{JK\sigma_{Y;\tau}^2}{\left ( \sigma_{Y;\epsilon}^2 + \sigma_{Y;\tau RC}^2 \right )+K\sigma_{Y;\tau R}^2+\max \left (J\sigma_{Y;\tau C}^2 ,0 \right )}
+\tag{16.6}
+\end{equation}\]</span></p>
+<p>This expression depends on three variance components, <span class="math inline">\((\sigma_{Y;\epsilon}^2 + \sigma_{Y;\tau RC}^2)\)</span> - the two terms are inseparable - <span class="math inline">\(\sigma_{Y;\tau R}^2\)</span> and <span class="math inline">\(\sigma_{Y;\tau C}^2\)</span>. The <span class="math inline">\(ddf\)</span> term appearing in TBA Eqn. (11.4) was defined by TBA Eqn. (9.24) - this quantity does not change between NH and AH:</p>
+<p><span class="math display" id="eq:ddfH1">\[\begin{equation}
+ddf_H=\frac{\left [MSTR+\max(MSTR-MSTRC,0)  \right ]^2}{\frac{[MSTR]^2}{(I-1)(J-1)}}
+\tag{16.7}
+\end{equation}\]</span></p>
+<p>The mean squares in this expression can be expressed in terms of the three variance-components appearing in TBA Eqn. (11.6). Hillis and Berbaum <span class="citation">(Hillis and Berbaum <a href="#ref-RN1476" role="doc-biblioref">2004</a>)</span> have derived these expression and they will not be repeated here (Eqn. 4 in the cited reference). RJafroc implements a function to calculate the mean squares, <code>UtilMeanSquares()</code>, which allows ddf to be calculated using Eqn. TBA (11.7). The sample size functions in this package need only the three variance-components (the formula for <span class="math inline">\(ddf_H\)</span> is implemented internally).</p>
+<p>For two treatments, since the individual treatment effects must be the negatives of each other (because they sum to zero), it is easily shown that:</p>
+<p><span class="math display" id="eq:sigma2Tau1">\[\begin{equation}
+\sigma_{Y;\tau}^2=\frac{d^2}{2}
+\tag{16.8}
+\end{equation}\]</span></p>
 </div>
-<div id="sensitivity-and-specificity" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.4</span> Sensitivity and specificity<a href="binary-task.html#sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The notation <span class="math inline">\(P(D|T)\)</span> indicates the probability of diagnosis D given truth state T (the vertical bar symbol is used to denote a conditional probability, i.e., what is to the left of the vertical bar depends on the condition appearing to the right of the vertical bar being true).</p>
-<p><span class="math display" id="eq:binary-taskPDGivenT">\[\begin{equation} 
-P(D|T) = P(\text{diagnosis is D} | \text{truth is T})
-\tag{2.2}
-\end{equation}\]</span></p>
-<p>Therefore the probability that the radiologist will diagnose “case is diseased” when the case is actually diseased is <span class="math inline">\(P(D=2|T=2)\)</span>, which is the probability of a true positive <span class="math inline">\(P(TP)\)</span>.</p>
-<p><span class="math display" id="eq:binary-taskPTP">\[\begin{equation} 
-P(TP) = P(\text{D = 2} | \text{T = 2})
-\tag{2.3}
-\end{equation}\]</span></p>
-<p>Likewise, the probability that the radiologist will diagnose “case is non-diseased” when the case is actually diseased is <span class="math inline">\(P(D=1|T=2)\)</span>, which is the probability of a false negative <span class="math inline">\(P(FN)\)</span>.</p>
-<p><span class="math display" id="eq:binary-taskPFN">\[\begin{equation} 
-P(FN) = P(\text{D = 1} | \text{T = 2})
-\tag{2.4}
-\end{equation}\]</span></p>
-<p>The corresponding probabilities for non-diseased cases, <span class="math inline">\(P(TN)\)</span> and <span class="math inline">\(P(FP)\)</span>, are defined by:</p>
-<p><span class="math display" id="eq:binary-taskPTNFP">\[\begin{equation} 
-\left.\begin{aligned}
-P(TN)&amp;=P(D=1|T=1)\\ 
-\\
-P(FP)&amp;=P(D=2|T=1)
-\end{aligned}\right\}
-\tag{2.5}
-\end{equation}\]</span></p>
-<p>Since the diagnosis must be either <span class="math inline">\(D=1\)</span> or <span class="math inline">\(D=2\)</span>, for each truth state the probabilities on non-diseased and diseased cases must sum to unity:</p>
-<p><span class="math display" id="eq:binary-taskPSumsToUnity">\[\begin{equation} 
-\left.\begin{matrix}
-P(D=1|T=1)+P(D=2|T=1)=1\\ 
-\\  
-P(D=1|T=2)+P(D=2|T=2)=1
-\end{matrix}\right\}
-\tag{2.6}
-\end{equation}\]</span></p>
-<p>Equivalently, these equations can be written:</p>
-<p><span class="math display" id="eq:binary-taskPSumsToUnity2">\[\begin{equation} 
-\left.\begin{matrix}
-P(TN)+P(FP)=1\\ 
-\\
-P(FN)+P(TP)=1
-\end{matrix}\right\}
-\tag{2.7}
-\end{equation}\]</span></p>
-<p>Comments:</p>
+<div id="roc-sample-size-or-dependence-of-stats-power" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.3.2</span> Dependence of statistical power on estimates of model parameters<a href="roc-sample-size-or.html#roc-sample-size-or-dependence-of-stats-power" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Examination of the expression for , Eqn. (11.5), shows that statistical power increases if:</p>
 <ul>
-<li>An easy way to remember Eqn. <a href="binary-task.html#eq:binary-taskPSumsToUnity2">(2.7)</a> is to start by writing down the probability of one of the four probabilities, e.g., <span class="math inline">\(P(TN)\)</span>, and “reversing” both terms inside the parentheses, i.e., <span class="math inline">\(T \Rightarrow F\)</span>, and <span class="math inline">\(N \Rightarrow P\)</span>. This yields the term <span class="math inline">\(P(FP)\)</span> which when added to the previous probability, <span class="math inline">\(P(TN)\)</span>, yields unity, i.e., the 1st equation in Eqn. <a href="binary-task.html#eq:binary-taskPSumsToUnity2">(2.7)</a>.</li>
-<li>Because there are two equations in four unknowns, only two of the four probabilities, one per equation, are independent. By tradition these are chosen to be <span class="math inline">\(P(D=1|T=1)\)</span> and <span class="math inline">\(P(D=2|T=2)\)</span>, i.e., <span class="math inline">\(P(TN)\)</span> and <span class="math inline">\(P(TP)\)</span>, which happen to be the probabilities of correct decisions on non-diseased and diseased cases, respectively. The two basic probabilities are so important that they have names: <span class="math inline">\(P(D=2|T=2)=P(TP)\)</span> is termed sensitivity (Se) and <span class="math inline">\(P(D=1|T=1)=P(TN)\)</span> is termed specificity (Sp):</li>
-</ul>
-<p><span class="math display" id="eq:binary-taskSeSp">\[\begin{equation} 
-\left.\begin{matrix}
-\text{Se}=P(TP)=P(D=2|T=2)\\ 
-\\
-\text{Sp}=P(TN)=P(D=1|T=1)
-\end{matrix}\right\}
-\tag{2.8}
-\end{equation}\]</span></p>
-<p>The radiologist can be regarded as a diagnostic “test” yielding a binary decision under the binary truth condition. More generally, any test (e.g., a blood test for HIV) yielding a binary result (positive or negative) under a binary truth condition is said to be sensitive if it correctly detects the diseased condition most of the time. The test is said to be specific if it correctly detects the non-diseased condition most of the time. Sensitivity is how correct the test is at detecting a diseased condition, and specificity is how correct the test is at detecting a non-diseased condition.</p>
-<div id="reasons-for-the-names-sensitivity-and-specificity" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.4.1</span> Reasons for the names sensitivity and specificity<a href="binary-task.html#reasons-for-the-names-sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>It is important to understand the reason for these names and an analogy may be helpful. Most of us are sensitive to temperature, especially if the choice is between ice-cold vs. steaming hot. The sense of touch is said to be sensitive to temperature. One can imagine some neurological condition rendering a person hypersensitive to temperature, such that the person responds “hot” no matter what is being touched. For such a person the sense of touch is not very specific, as it is unable to distinguish between the two temperatures. This person would be characterized by unit sensitivity (since the response is “hot” to all steaming hot objects) and zero specificity (since the response is never “cold” to ice-cold objects). Likewise, a different neurological condition could render a person hypersensitive to cold, and the response is “cold” no matter what is being touched. Such a person would have zero sensitivity (since the response is never “hot” when touching steaming hot) and unit specificity (since the response is “cold” when touching ice-cold). Already one suspects that there is an inverse relation between sensitivity and specificity.</p>
-</div>
-<div id="estimating-sensitivity-and-specificity" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.4.2</span> Estimating sensitivity and specificity<a href="binary-task.html#estimating-sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Sensitivity and specificity are the probabilities of correct decisions, over diseased and non-diseased cases, respectively. The true values of these probabilities would require interpreting all diseased and non-diseased cases in the entire population of cases. In reality, one has a finite sample of cases and the corresponding quantities, calculated from this finite sample, are termed estimates. Population values are fixed, and in general unknown, while estimates are random variables. Intuitively, an estimate calculated over a larger number of cases is expected to be closer to the true or population value than an estimate calculated over a smaller number of cases.</p>
-<p>Estimates of sensitivity and specificity follow from counting the numbers of TP and TN decisions in Table 2.2 and dividing by the appropriate denominators. For sensitivity, the appropriate denominator is the number of actually diseased cases, namely , and for specificity, the appropriate denominator is the number of actually non-diseased cases, namely . The estimation equations for sensitivity specificity are (estimates are denoted by the “hat” or circumflex symbol ^):</p>
-<p><span class="math display" id="eq:binary-taskSeSpEstimates">\[\begin{equation} 
-\left.\begin{matrix}
-\widehat{\text{Se}}=\widehat{P(TP)}=\frac{n(TP)}{K_2}\\
-\\ 
-\widehat{\text{Sp}}=\widehat{P(TN)}=\frac{n(TN)}{K_1}
-\end{matrix}\right\}
-\tag{2.9}
-\end{equation}\]</span></p>
-<p>The ratio of the number of TP decisions to the number of actually diseased cases is termed true positive fraction <span class="math inline">\(\widehat{TPF}\)</span>, which is an estimate of sensitivity, or equivalently, an estimate of <span class="math inline">\(\widehat{P(TP)}\)</span>. Likewise, the ratio of the number of TN decisions to the number of actually non-diseased cases is termed true negative fraction <span class="math inline">\(\widehat{TNF}\)</span>, which is an estimate of specificity, or equivalently, an estimate of <span class="math inline">\(\widehat{P(TN)}\)</span>. The complements of <span class="math inline">\(\widehat{TPF}\)</span> and <span class="math inline">\(\widehat{TNF}\)</span> are termed false negative fraction <span class="math inline">\(\widehat{FNF}\)</span> and false positive fraction <span class="math inline">\(\widehat{FPF}\)</span>, respectively.</p>
-</div>
-</div>
-<div id="disease-prevalence" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.5</span> Disease prevalence<a href="binary-task.html#disease-prevalence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Disease prevalence, often abbreviated to prevalence, is defined as the actual or true probability that a randomly sampled case is of a diseased patient, i.e., the fraction of the entire population that is diseased. It is denoted <span class="math inline">\(P(D|pop)\)</span> when patients are randomly sampled from the population (“pop”) and otherwise it is denoted <span class="math inline">\(P(D|lab)\)</span>, where the condition “lab” stands for a laboratory study, where cases may be artificially enriched, and thus not representative of the population value:</p>
-<p><span class="math display" id="eq:binary-taskDisPrev">\[\begin{equation} 
-\left.\begin{matrix}
-P(D|\text{pop})=P(T=2|\text{pop})\\
-\\ 
-P(D|\text{lab})=P(T=2|\text{lab})
-\end{matrix}\right\}
-\tag{2.10}
-\end{equation}\]</span></p>
-<p>Since the patients must be either diseased on non-diseased, it follows with either sampling method, that:</p>
-<p><span class="math display">\[\begin{equation} 
-\left.\begin{aligned}
-P(T=1|\text{pop})+P(T=2|\text{pop})&amp;=1\\
-\\
-P(T=1|\text{lab})+P(T=2|\text{lab})&amp;=1
-\end{aligned}\right\}
-\end{equation}\]</span></p>
-<p>If a finite number of patients are sampled randomly from the population the fraction of diseased patients in the sample is an estimate of true disease prevalence.</p>
-<p><span class="math display" id="eq:binary-taskDisPrevEst">\[\begin{equation} 
-\left.\begin{matrix}
-\widehat{P(D|\text{pop})}=
-\frac{K_2}{K_1+K_2}
-\end{matrix}\right|_{pop}
-\tag{2.11}
-\end{equation}\]</span></p>
-<p>It is important to appreciate the distinction between true (population) prevalence and laboratory prevalence. As an example, true disease prevalence for breast cancer is about five per 1000 patients in the US, but most mammography studies are conducted with comparable numbers of non-diseased and diseased cases:</p>
-<p><span class="math display" id="eq:binary-taskDisPrevLabVsPop">\[\begin{equation} 
-\left.\begin{aligned}
-\widehat{P(D|\text{pop})}&amp;\sim 0.005\\
-\\
-\widehat{P(D|\text{lab})}&amp;\sim 0.5\gg \widehat{P(D|\text{pop})}
-\end{aligned}\right\}
-\tag{2.12}
-\end{equation}\]</span></p>
-</div>
-<div id="accuracy" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.6</span> Accuracy<a href="binary-task.html#accuracy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Accuracy is defined as the fraction of all decisions that are in fact correct. Denoting it by <span class="math inline">\(Ac\)</span> one has for the corresponding estimate:</p>
-<p><span class="math display" id="eq:binary-taskAccuracyEst">\[\begin{equation} 
-\widehat{Ac}=\frac{n(TN)+n(TP)}{n(TN)+n(TP)+n(FP)+n(FN)}
-\tag{2.13}
-\end{equation}\]</span></p>
-<p>The numerator is the total number of correct decisions and the denominator is the total number of decisions. An equivalent expression is:</p>
-<p><span class="math display" id="eq:binary-taskAccuracyEst2">\[\begin{equation} 
-\widehat{Ac}=\widehat{Sp}\widehat{P(!D)}+\widehat{Se}\widehat{P(D)}
-\tag{2.14}
-\end{equation}\]</span></p>
-<p>The exclamation mark symbol is used to denote the “not” or negation operator. For example, <span class="math inline">\(P(!D)\)</span> means the probability that the patient is not diseased. Eqn. <a href="binary-task.html#eq:binary-taskAccuracyEst2">(2.14)</a> applies equally to laboratory or population studies, <em>provided sensitivity and specificity are estimated consistently</em>. One cannot combine a population estimate of prevalence with a laboratory measurement of sensitivity and / or specificity.</p>
-<p>Eqn. <a href="binary-task.html#eq:binary-taskAccuracyEst2">(2.14)</a> can be understood from the following argument. <span class="math inline">\(\widehat{Sp}\)</span> is the fraction of correct (i.e., negative) decisions on non-diseased cases. Multiplying this by <span class="math inline">\(\widehat{P(!D)}\)</span> yields <span class="math inline">\(\widehat{Sp} \widehat{P(!D)}\)</span>, the fraction of correct negative decisions on all cases. Similarly, <span class="math inline">\(\widehat{Sp}\)</span> is the fraction of correct positive decisions on all cases. Therefore, their sum is the fraction of (all, i.e., negative and positive) correct decisions on all cases. A formal mathematical derivation follows. The terms on the right hand side of Eqn. <a href="binary-task.html#eq:binary-taskSeSpEstimates">(2.9)</a> can be “turned around” yielding:</p>
-<p><span class="math display" id="eq:binary-tasknTpnTN">\[\begin{equation} 
-\left.\begin{matrix}
-n(TP)=K_2 \widehat{Se}\\ 
-\\
-n(TN)=K_1 \widehat{Sp}
-\end{matrix}\right\}
-\tag{2.15}
-\end{equation}\]</span></p>
-<p>Therefore,</p>
-<p><span class="math display" id="eq:binary-taskAccuracyDeriv">\[\begin{equation} 
-\begin{aligned}
-\widehat{Ac}&amp;=\frac{n(TN)+n(TP)}{K}\\
-\\
-&amp;=\frac{K_1 \widehat{Sp}+K_2 \widehat{Se}}{K}\\
-\\
-&amp;=\widehat{Sp} \widehat{P(!D)}+\widehat{Se}\widehat{P(D)}
-\end{aligned}
-\tag{2.16}
-\end{equation}\]</span></p>
-</div>
-<div id="negative-and-positive-predictive-values" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.7</span> Negative and positive predictive values<a href="binary-task.html#negative-and-positive-predictive-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Sensitivity and specificity have desirable characteristics insofar as they reward the observer for correct decisions on actually diseased and actually non-diseased cases, respectively, so these quantities are expected to be independent of disease prevalence; one is dividing by the relevant denominator, so increased numbers of non-diseased cases are balanced by a corresponding increased number of correct decisions on non-diseased cases, and likewise for diseased cases. However, radiologists interpret cases in a “mixed” situation where cases could be positive or negative for disease and disease prevalence plays a crucial role in their decision-making – this point will be clarified shortly. Therefore, a measure of performance that is desirable from the researcher’s point of view is not necessarily desirable from the radiologist’s point of view. It should be obvious that if most cases are non-diseased, i.e., disease prevalence is close to zero, specificity, being correct on non-diseased cases, is more important to the radiologist than sensitivity. Otherwise, the radiologist would figuratively be crying “wolf” most of the time. The radiologist who makes too many FPs would discover it from subsequent clinical audits or daily case conferences, which are held in most large imaging departments. There is a cost to unnecessary false positives – the cost of additional imaging and / or needle-biopsy to rule out cancer, not to mention the pain and emotional trauma inflicted on the patient. Conversely, if disease prevalence is high, then sensitivity, being correct on diseased cases, is more important to the radiologist than specificity. With intermediate disease prevalence a weighted average of sensitivity and specificity, where the weighting involves disease prevalence, would appear to be desirable from the radiologist’s point of view.</p>
-<p>The radiologist is less interested in the normalized probability of a correct decision on non-diseased cases. Rather interest is in the probability that a patient diagnosed as non-diseased is actually non-diseased. The reader should notice how the two probability definitions are “turned around” - more on this below. Likewise, the radiologist is less interested in the normalized probability of correct decisions on diseased cases; rather interest is in the probability that a patient diagnosed as diseased is actually diseased. These are termed negative and positive predictive values, respectively, and denoted <span class="math inline">\(NPV\)</span> and <span class="math inline">\(PPV\)</span>.</p>
-<p><span class="math inline">\(NPV\)</span> is defined as the probability, given a non-diseased diagnosis, that the patient is actually non-diseased:</p>
-<p><span class="math display" id="eq:binary-taskNPV1">\[\begin{equation} 
-NPV = P(T=1|D=1)
-\tag{2.17}
-\end{equation}\]</span></p>
-<p>PPV is defined as the probability, given a diseased diagnosis, that the patient is actually diseased:</p>
-<p><span class="math display" id="eq:binary-taskPPV1">\[\begin{equation} 
-PPV = P(T=2|D=2)
-\tag{2.18}
-\end{equation}\]</span></p>
-<p>Note that both equations are “turned around” from the definition of specificity and sensitivity, Eqn. <a href="binary-task.html#eq:binary-taskSeSp">(2.8)</a>, i.e., specificity = <span class="math inline">\(P(D=1|T=1)\)</span> and sensitivity = <span class="math inline">\(P(D=2|T=2)\)</span>.</p>
-<p>For now we focus on <span class="math inline">\(NPV\)</span>. To estimate <span class="math inline">\(NPV\)</span> one divides the number of correct negative decisions <span class="math inline">\(n(TN)\)</span> by the total number of negative decisions <span class="math inline">\(n(N)\)</span>. The latter is the sum of the number of correct negative decisions <span class="math inline">\(n(TN)\)</span> and the number of incorrect negative decisions <span class="math inline">\(n(FN)\)</span>. Therefore,</p>
-<p><span class="math display" id="eq:binary-taskNPV2">\[\begin{equation} 
-\widehat{NPV}=\frac{n(TN)}{n(TN)+n(FN)}
-\tag{2.19}
-\end{equation}\]</span></p>
-<p>Dividing the numerator and denominator by the total number of negative cases, one gets:</p>
-<p><span class="math display" id="eq:binary-taskNPV3">\[\begin{equation} 
-\widehat{NPV}=\frac{\widehat{P(TN)}}{\widehat{P(TN)}+\widehat{P(FN)}}
-\tag{2.20}
-\end{equation}\]</span></p>
-<p>The estimate of the probability of a TN equals the estimate of true negative fraction <span class="math inline">\(1-\widehat{FPF}\)</span> multiplied by the estimate that the patient is non-diseased, i.e., <span class="math inline">\(\widehat{P(!D)}\)</span>:</p>
-<p><span class="math display" id="eq:binary-taskPTNEst">\[\begin{equation} 
-\widehat{P(TN)}=\widehat{P(!D)}(1-\widehat{FPF})
-\tag{2.21}
-\end{equation}\]</span></p>
-<p>Explanation: A similar logic to that used earlier applies: <span class="math inline">\((1-\widehat{FPF})\)</span> is the probability of being correct on non-diseased cases. Multiplying this by the estimate of probability of disease absence yields the estimate of <span class="math inline">\(\widehat{P(TN)}\)</span>.</p>
-<p>Likewise, the estimate of the probability of a FN equals the estimate of false negative fraction, which is <span class="math inline">\((1-\widehat{TPF})\)</span>, multiplied by the estimate of the probability that the patient is diseased, i.e., <span class="math inline">\((\widehat{P(D)}\)</span> :</p>
-<p><span class="math display" id="eq:binary-taskPFNEst">\[\begin{equation} 
-\widehat{P(FN)}=\widehat{P(D)}(1-\widehat{TPF})
-\tag{2.22}
-\end{equation}\]</span></p>
-<p>Putting this all together, one has:</p>
-<p><span class="math display" id="eq:binary-taskNPVFormula">\[\begin{equation} 
-\widehat{NPV}=\frac{\widehat{P(!D)}(1-\widehat{FPF})}{(\widehat{P(!D)}(1-\widehat{FPF})+(\widehat{P(D)}(1-\widehat{TPF})}
-\tag{2.23}
-\end{equation}\]</span></p>
-<p>For the population,</p>
-<p><span class="math display" id="eq:binary-taskNPVFormula-pop">\[\begin{equation} 
-NPV=\frac{P(!D)(1-FPF)}{(P(!D)(1-FPF)+(P(D)(1-TPF)}
-\tag{2.24}
-\end{equation}\]</span></p>
-<p>Likewise, it can be shown that <span class="math inline">\(PPV\)</span> is given by:</p>
-<p><span class="math display" id="eq:binary-taskPPV">\[\begin{equation} 
-PPV =\frac{P(D)(TPF)}{P(D)(TPF)+P(!D)FPF}
-\tag{2.25}
-\end{equation}\]</span></p>
-<p>The equations defining NPV and PPV are actually special cases of Bayes’ theorem <span class="citation">(Larsen and Marx <a href="#ref-RN1492" role="doc-biblioref">2001</a>)</span>. The general theorem is:</p>
-<p><span class="math display" id="eq:binary-taskBayesTheorem">\[\begin{equation} 
-\begin{aligned}
-P(A|B)&amp;=\frac{P(B|A)P(A)}{P(B)} \\
-\\
-&amp;=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
-\end{aligned}
-\tag{2.26}
-\end{equation}\]</span></p>
-<p>An easy way to remember Eqn. <a href="binary-task.html#eq:binary-taskBayesTheorem">(2.26)</a> is to start with the numerator on the right hand side, which is the “reversed” form of the desired probability on the left hand side, multiplied by an appropriate probability. For example, if the desired probability is <span class="math inline">\(P(A|B)\)</span>, one starts with the “reversed” form, i.e., <span class="math inline">\(P(B|A)\)</span>, multiplied by <span class="math inline">\(P(A)\)</span>. This yields the numerator. The denominator is the sum of two probabilities: the probability of B given A, i.e., <span class="math inline">\(P(B|A)\)</span>, multiplied by <span class="math inline">\(P(A)\)</span> plus the probability of B given <span class="math inline">\(!A\)</span>, i.e., <span class="math inline">\(P(B|!A)\)</span>, multiplied by <span class="math inline">\(P(!A)\)</span>.</p>
-<div id="binary-taskNpvPpvCode" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.7.1</span> Example calculation of PPV, NPV and accuracy<a href="binary-task.html#binary-taskNpvPpvCode" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>Typical disease prevalence in the US in screening mammography is 0.005.</li>
-<li>A typical operating point, for an expert mammographer, is FPF = 0.1, TPF = 0.8. What are NPV and PPV?</li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="binary-task.html#cb1-1"></a><span class="co"># disease prevalence in </span></span>
-<span id="cb1-2"><a href="binary-task.html#cb1-2"></a><span class="co"># USA screening mammography </span></span>
-<span id="cb1-3"><a href="binary-task.html#cb1-3"></a>prevalence &lt;-<span class="st"> </span><span class="fl">0.005</span> <span class="co"># Line 3 </span></span>
-<span id="cb1-4"><a href="binary-task.html#cb1-4"></a>FPF &lt;-<span class="st"> </span><span class="fl">0.1</span> <span class="co"># typical operating point </span></span>
-<span id="cb1-5"><a href="binary-task.html#cb1-5"></a>TPF &lt;-<span class="st"> </span><span class="fl">0.8</span> <span class="co">#        do: </span></span>
-<span id="cb1-6"><a href="binary-task.html#cb1-6"></a>specificity &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span>FPF </span>
-<span id="cb1-7"><a href="binary-task.html#cb1-7"></a>sensitivity &lt;-<span class="st"> </span>TPF </span>
-<span id="cb1-8"><a href="binary-task.html#cb1-8"></a>NPV &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>prevalence)<span class="op">*</span>(specificity)<span class="op">/</span>((<span class="dv">1</span><span class="op">-</span>prevalence)<span class="op">*</span>(specificity) <span class="op">+</span><span class="st"> </span>prevalence<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>sensitivity)) </span>
-<span id="cb1-9"><a href="binary-task.html#cb1-9"></a>PPV &lt;-<span class="st"> </span>prevalence<span class="op">*</span>sensitivity<span class="op">/</span>(prevalence<span class="op">*</span>sensitivity <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>prevalence)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>specificity)) </span>
-<span id="cb1-10"><a href="binary-task.html#cb1-10"></a><span class="kw">cat</span>(<span class="st">&quot;NPV = &quot;</span>, NPV, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">PPV = &quot;</span>, PPV, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1-11"><a href="binary-task.html#cb1-11"></a><span class="co">#&gt; NPV =  0.9988846 </span></span>
-<span id="cb1-12"><a href="binary-task.html#cb1-12"></a><span class="co">#&gt; PPV =  0.03864734</span></span>
-<span id="cb1-13"><a href="binary-task.html#cb1-13"></a>accuracy &lt;-(<span class="dv">1</span><span class="op">-</span>prevalence)<span class="op">*</span>(specificity)<span class="op">+</span>(prevalence)<span class="op">*</span>(sensitivity) </span>
-<span id="cb1-14"><a href="binary-task.html#cb1-14"></a><span class="kw">cat</span>(<span class="st">&quot;accuracy = &quot;</span>, accuracy, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1-15"><a href="binary-task.html#cb1-15"></a><span class="co">#&gt; accuracy =  0.8995</span></span></code></pre></div>
-<ul>
-<li>Line 3 initializes the variable <code>prevalence</code>, the disease prevalence, to 0.005.</li>
-<li>Line 4 assigns <code>0.1</code> to <code>FPF</code> and line 5 assigns <code>0.8</code> to <code>TPF</code>.</li>
-<li>Lines 6 and 7 initialize the variables specificity and sensitivity, respectively.</li>
-<li>Line 8 calculates <code>NPV</code> using Eqn. <a href="binary-task.html#eq:binary-taskNPVFormula-pop">(2.24)</a>.</li>
-<li>Line 9 calculates <code>PPV</code> using Eqn. <a href="binary-task.html#eq:binary-taskPPV">(2.25)</a>.</li>
+<li>The numerator is large. This occurs if: (a) the anticipated effect-size <span class="math inline">\(d\)</span> is large. Since effect-size enters as the <em>square</em>, TBA Eqn. (11.8), it is has a particularly strong effect; (b) If <span class="math inline">\(J \times K\)</span> is large. Both of these results should be obvious, as a large effect size and a large sample size should result in increased probability of rejecting the NH.</li>
+<li>The denominator is small. The first term in the denominator is <span class="math inline">\(\left ( \sigma_{Y;\epsilon}^2 + \sigma_{Y;\tau RC}^2 \right )\)</span>. These two terms cannot be separated. This is the residual variability of the jackknife pseudovalues. It should make sense that the smaller the variability, the larger is the non-centrality parameter and the statistical power.</li>
+<li>The next term in the denominator is <span class="math inline">\(K\sigma_{Y;\tau R}^2\)</span>, the treatment-reader variance component multiplied by the total number of cases. The reader variance <span class="math inline">\(\sigma_{Y;R}^2\)</span> has no effect on statistical power, because it has an equal effect on both treatments and cancels out in the difference. Instead, it is the treatment-reader variance <span class="math inline">\(\sigma_{Y;R}^2\)</span> that contributes “noise” tending to confound the estimate of the effect-size.</li>
+<li>The variance components estimated by the ANOVA procedure are realizations of random variables and as such subject to noise (there actually exists a beast such as variance of a variance). The presence of the <span class="math inline">\(K\)</span> term, usually large, can amplify the effect of noise in the estimate of <span class="math inline">\(\sigma_{Y;R}^2\)</span>, making the sample size estimation procedure less accurate.</li>
+<li>The final term in the denominator is <span class="math inline">\(J\sigma_{Y;\tau C}^2\)</span>. The variance <span class="math inline">\(\sigma_{Y;C}^2\)</span> has no impact on statistical power, as it cancels out in the difference. The treatment-case variance component introduces “noise” into the estimate of the effect size, thereby decreasing power. Since it is multiplied by J, the number of readers, and typically <span class="math inline">\(J&lt;&lt;K\)</span>, the error amplification effect on accuracy of the sample size estimate is not as bad as with the treatment-reader variance component.</li>
+<li>Accuracy of sample size estimation, essentially estimating confidence intervals for statistical power, is addressed in <span class="citation">(Chakraborty <a href="#ref-RN2027" role="doc-biblioref">2010</a>)</span>.</li>
 </ul>
 </div>
-<div id="binary-taskNpvPpvComments" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.7.2</span> Comments<a href="binary-task.html#binary-taskNpvPpvComments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If a woman has a negative diagnosis, chances are very small that she has breast cancer: the probability that the radiologist is incorrect in the negative diagnosis is 1 - NPV = 0.0011154. Even is she has a positive diagnosis, the probability that she actually has cancer is still only 0.0386473. That is why following a positive screening diagnosis the woman is recalled for further imaging, and if that reveals cause for reasonable suspicion, then additional imaging is performed, perhaps augmented with a needle-biopsy to confirm actual disease status. If the biopsy turns out positive, only then is the woman referred for cancer therapy. Overall, accuracy is 0.8995. The numbers in this illustration are for expert radiologists. In practice there is wide variability in radiologist performance.</p>
+<div id="roc-sample-size-or-RRRC-sample-size-estimation" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.3.3</span> Formulae for random-reader random-case (RRRC) sample size estimation<a href="roc-sample-size-or.html#roc-sample-size-or-RRRC-sample-size-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="binary-taskNpvPpvIrrel2LabTasks" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.7.3</span> PPV and NPV are irrelevant to laboratory tasks<a href="binary-task.html#binary-taskNpvPpvIrrel2LabTasks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>According to the hierarchy of assessment methods described in (book) Chapter 01, Table 1.1, PPV and NPV are level- 3 measurements, which are calculated from “live” interpretations (recall that the higher the level the greater the clinical relevance). In the clinic, the radiologist adjusts the operating point to achieve a balance between sensitivity and specificity. The balance depends critically on the known disease prevalence. Based on geographical location and type of practice, the radiologist over time develops an idea of actual disease prevalence, or it can be found in various databases. For example, a breast-imaging clinic that specializes in imaging high-risk women will have higher disease prevalence than the general population and the radiologist is expected to err more on the side of reduced specificity because of the expected benefit of increased sensitivity. However, in the context of a laboratory study, where one uses enriched case sets, the concepts of NPV and PPV are meaningless. For example, it would be rather difficult to perform a laboratory study with 10,000 randomly sampled women, which would ensure about 50 actually diseased patients, which is large enough to get a reasonably precise estimate of sensitivity (estimating specificity is inherently more precise because most women are actually non-diseased). Rather, in a laboratory study one uses enriched data sets where the numbers of diseased-cases is much larger than in the general population, Eqn. <a href="binary-task.html#eq:binary-taskDisPrevLabVsPop">(2.12)</a>. The radiologist cannot interpret these cases pretending that the actual prevalence is very low. Negative and positive predictive values, while they can be calculated from laboratory data, have very little, if any, clinical meanings, since they have no effect on radiologist thinking. As noted in (book) Chapter 01 the purpose of level-3 measurements is to determine the effect on radiologist thinking. There are no diagnostic decisions riding on laboratory ROC interpretations of retrospectively acquired patient images. However, PPV and NPV do have clinical meanings when calculated from very large population based “live” studies. For example, the <span class="citation">(Fenton et al. <a href="#ref-RN1902" role="doc-biblioref">2007</a>)</span> study sampled 684,956 women and used the results of “live” interpretations of their images. In contrast, laboratory ROC studies are typically conducted with 50-100 non-diseased and 50-100 diseased cases. A study using about 300 cases total would be considered a “large” ROC study.</p>
+<div id="roc-sample-size-or-sig-testing" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.3.4</span> Significance testing<a href="roc-sample-size-or.html#roc-sample-size-or-sig-testing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="roc-sample-size-or-pvalue-ci" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.3.5</span> p-value and confidence interval<a href="roc-sample-size-or.html#roc-sample-size-or-pvalue-ci" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="roc-sample-size-or-CompareDBM2OR" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.3.6</span> Comparing DBM to Obuchowski and Rockette for single-reader multiple-treatments<a href="roc-sample-size-or.html#roc-sample-size-or-CompareDBM2OR" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Having performed a pilot study and planning to perform a pivotal study, sample size estimation follows the following procedure, which assumes that both reader and case are treated as random factors. Different formulae, described later, apply when either reader or case is treated as a fixed factor.</p>
+<ul>
+<li>Perform OR analysis on the pilot data. This yields the observed effect size as well as estimates of all relevant variance components and mean squares appearing in TBA Eqn. (11.5) and Eqn. (11.7).</li>
+<li>This is the difficult but critical part: make an educated guess regarding the effect-size, <span class="math inline">\(d\)</span>, that one is interested in “detecting” (i.e., hoping to reject the NH with probability <span class="math inline">\(1-\beta\)</span>). The author prefers the term “anticipated” effect-size to “true” effect-size (the latter implies knowledge of the true difference between the modalities which, as noted earlier, would obviate the need for a pivotal study).</li>
+<li>Two scenarios are considered below. In the first scenario, the effect-size is assumed equal to that observed in the pilot study, i.e., <span class="math inline">\(d = d_{obs}\)</span>.</li>
+<li>In the second, so-called “best-case” scenario, one assumes that the anticipate value of <span class="math inline">\(d\)</span> is the observed value plus two-sigma of the confidence interval, in the correct direction, of course, i.e., <span class="math inline">\(d=\left | d_{obs} \right |+2\sigma\)</span>. Here <span class="math inline">\(\sigma\)</span> is one-fourth the width of the 95% confidence interval for <span class="math inline">\(d_{obs}\)</span>. Anticipating more than <span class="math inline">\(2\sigma\)</span> greater than the observed effect-size would be overly optimistic. The width of the CI implies that chances are less than 2.5% that the anticipated value is at or beyond the overly optimistic value. These points will become clearer when example datasets are analyzed below.</li>
+<li>Calculate statistical power using the distribution implied by Eqn. (11.4), to calculate the probability that a random value of the relevant F-statistic will exceed the critical value, as in §11.3.2.</li>
+<li>If power is below the desired or “target” power, one tries successively larger value of <span class="math inline">\(J\)</span> and / or <span class="math inline">\(K\)</span> until the target power is reached.</li>
+</ul>
 </div>
 </div>
-<div id="binary-task-Summary" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.8</span> Summary<a href="binary-task.html#binary-task-Summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This chapter introduced the terms sensitivity (identical to TPF), specificity (the complement of FPF), disease prevalence, and positive and negative predictive values and accuracy. It is shown that, due to its strong dependence on disease prevalence, accuracy is a relatively poor measure of performance. Radiologists generally have a good, almost visceral, understanding of positive and negative predictive values, as these terms are relevant in the clinical context, being in effect, their “batting averages”. A caveat on the use of PPV and NPV calculated from laboratory studies is noted; these quantities only make sense in the context of “live” clinical interpretations.</p>
+<div id="roc-sample-size-or-FRRC-sample-size-estimation" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.4</span> Formulae for fixed-reader random-case (FRRC) sample size estimation<a href="roc-sample-size-or.html#roc-sample-size-or-FRRC-sample-size-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>It was shown in TBA §9.8.2 that for fixed-reader analysis the non-centrality parameter is defined by:</p>
+<p><span class="math display" id="eq:DeltaFRRC1">\[\begin{equation}
+\Delta=\frac{JK\sigma_{Y;\tau}^2}{\sigma_{Y;\epsilon}^2+\sigma_{Y;\tau RC}^2+J\sigma_{Y;\tau C}^2}
+\tag{16.9}
+\end{equation}\]</span></p>
+<p>The sampling distribution of the F-statistic under the AH is:</p>
+<p><span class="math display" id="eq:SamplingFFRRC1">\[\begin{equation}
+F_{AH|R}\equiv \frac{MST}{MSTC}\sim F_{I-1,(I-1)(K-1),\Delta}
+\tag{16.10}
+\end{equation}\]</span></p>
+<div id="roc-sample-size-or-RRFC-sample-size-estimation" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.4.1</span> Formulae for random-reader fixed-case (RRFC) sample size estimation<a href="roc-sample-size-or.html#roc-sample-size-or-RRFC-sample-size-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>It is shown in TBA §9.9 that for fixed-case analysis the non-centrality parameter is defined by:</p>
+<p><span class="math display" id="eq:DeltaFRRFC1">\[\begin{equation}
+\Delta=\frac{JK\sigma_{Y;\tau}^2}{\sigma_{Y;\epsilon}^2+\sigma_{Y;\tau RC}^2+K\sigma_{Y;\tau R}^2}
+\tag{16.11}
+\end{equation}\]</span></p>
+<p>Under the AH, the test statistic is distributed as a non-central F-distribution as follows:</p>
+<p><span class="math display" id="eq:SamplingFRRFC1">\[\begin{equation}
+F_{AH|C}\equiv \frac{MST}{MSTR}\sim F_{I-1,(I-1)(J-1),\Delta}
+\tag{16.12}
+\end{equation}\]</span></p>
 </div>
-<div id="binary-task-Discussion" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.9</span> Discussion<a href="binary-task.html#binary-task-Discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example-1" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.4.2</span> Example 1<a href="roc-sample-size-or.html#example-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the first example the Van Dyke dataset is regarded as a pilot study. Two implementations are shown, a direct application of the relevant formulae, including usage of the mean squares, which in principle can be calculated from the three variance-components. This is then compared to the <code>RJafroc</code> implementation.</p>
+<p>Shown first is the “open” implementation.</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="roc-sample-size-or.html#cb151-1"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span>;<span class="kw">cat</span>(<span class="st">&quot;alpha = &quot;</span>, alpha, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb151-2"><a href="roc-sample-size-or.html#cb151-2"></a><span class="co">#&gt; alpha =  0.05</span></span>
+<span id="cb151-3"><a href="roc-sample-size-or.html#cb151-3"></a>rocData &lt;-<span class="st"> </span>dataset02 <span class="co"># select Van Dyke dataset</span></span>
+<span id="cb151-4"><a href="roc-sample-size-or.html#cb151-4"></a>retDbm &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(<span class="dt">dataset =</span> rocData, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;DBM&quot;</span>) </span>
+<span id="cb151-5"><a href="roc-sample-size-or.html#cb151-5"></a>varYTR &lt;-<span class="st"> </span>retDbm<span class="op">$</span>ANOVA<span class="op">$</span>VarCom[<span class="st">&quot;VarTR&quot;</span>,<span class="st">&quot;Estimates&quot;</span>]</span>
+<span id="cb151-6"><a href="roc-sample-size-or.html#cb151-6"></a>varYTC &lt;-<span class="st"> </span>retDbm<span class="op">$</span>ANOVA<span class="op">$</span>VarCom[<span class="st">&quot;VarTC&quot;</span>,<span class="st">&quot;Estimates&quot;</span>]</span>
+<span id="cb151-7"><a href="roc-sample-size-or.html#cb151-7"></a>varYEps &lt;-<span class="st"> </span>retDbm<span class="op">$</span>ANOVA<span class="op">$</span>VarCom[<span class="st">&quot;VarErr&quot;</span>,<span class="st">&quot;Estimates&quot;</span>]</span>
+<span id="cb151-8"><a href="roc-sample-size-or.html#cb151-8"></a>effectSize &lt;-<span class="st"> </span>retDbm<span class="op">$</span>FOMs<span class="op">$</span>trtMeanDiffs[<span class="st">&quot;trt0-trt1&quot;</span>,<span class="st">&quot;Estimate&quot;</span>]</span>
+<span id="cb151-9"><a href="roc-sample-size-or.html#cb151-9"></a><span class="kw">cat</span>(<span class="st">&quot;effect size = &quot;</span>, effectSize, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb151-10"><a href="roc-sample-size-or.html#cb151-10"></a><span class="co">#&gt; effect size =  -0.043800322</span></span>
+<span id="cb151-11"><a href="roc-sample-size-or.html#cb151-11"></a></span>
+<span id="cb151-12"><a href="roc-sample-size-or.html#cb151-12"></a><span class="co">#RRRC</span></span>
+<span id="cb151-13"><a href="roc-sample-size-or.html#cb151-13"></a>J &lt;-<span class="st"> </span><span class="dv">10</span>; K &lt;-<span class="st"> </span><span class="dv">163</span></span>
+<span id="cb151-14"><a href="roc-sample-size-or.html#cb151-14"></a>ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(K<span class="op">*</span>varYTR<span class="op">+</span><span class="kw">max</span>(J<span class="op">*</span>varYTC,<span class="dv">0</span>)<span class="op">+</span>varYEps)</span>
+<span id="cb151-15"><a href="roc-sample-size-or.html#cb151-15"></a>MS &lt;-<span class="st"> </span><span class="kw">UtilMeanSquares</span>(rocData, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;DBM&quot;</span>)</span>
+<span id="cb151-16"><a href="roc-sample-size-or.html#cb151-16"></a>ddf &lt;-<span class="st"> </span>(MS<span class="op">$</span>msTR<span class="op">+</span><span class="kw">max</span>(MS<span class="op">$</span>msTC<span class="op">-</span>MS<span class="op">$</span>msTRC,<span class="dv">0</span>))<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(MS<span class="op">$</span>msTR<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span>(J<span class="dv">-1</span>)</span>
+<span id="cb151-17"><a href="roc-sample-size-or.html#cb151-17"></a>FCrit &lt;-<span class="st"> </span><span class="kw">qf</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha, <span class="dv">1</span>, ddf)</span>
+<span id="cb151-18"><a href="roc-sample-size-or.html#cb151-18"></a>Power &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(FCrit, <span class="dv">1</span>, ddf, <span class="dt">ncp =</span> ncp)</span>
+<span id="cb151-19"><a href="roc-sample-size-or.html#cb151-19"></a><span class="kw">data.frame</span>(<span class="st">&quot;J&quot;</span>=<span class="st"> </span>J,  <span class="st">&quot;K&quot;</span> =<span class="st"> </span>K, <span class="st">&quot;FCrit&quot;</span> =<span class="st"> </span>FCrit, <span class="st">&quot;ddf&quot;</span> =<span class="st"> </span>ddf, <span class="st">&quot;ncp&quot;</span> =<span class="st"> </span>ncp, <span class="st">&quot;RRRCPower&quot;</span> =<span class="st"> </span>Power)</span>
+<span id="cb151-20"><a href="roc-sample-size-or.html#cb151-20"></a><span class="co">#&gt;    J   K     FCrit       ddf       ncp  RRRCPower</span></span>
+<span id="cb151-21"><a href="roc-sample-size-or.html#cb151-21"></a><span class="co">#&gt; 1 10 163 4.1270572 34.334268 8.1269825 0.79111255</span></span>
+<span id="cb151-22"><a href="roc-sample-size-or.html#cb151-22"></a></span>
+<span id="cb151-23"><a href="roc-sample-size-or.html#cb151-23"></a><span class="co">#FRRC</span></span>
+<span id="cb151-24"><a href="roc-sample-size-or.html#cb151-24"></a>J &lt;-<span class="st"> </span><span class="dv">10</span>; K &lt;-<span class="st"> </span><span class="dv">133</span></span>
+<span id="cb151-25"><a href="roc-sample-size-or.html#cb151-25"></a>ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="kw">max</span>(J<span class="op">*</span>varYTC,<span class="dv">0</span>)<span class="op">+</span>varYEps)</span>
+<span id="cb151-26"><a href="roc-sample-size-or.html#cb151-26"></a>ddf &lt;-<span class="st"> </span>(K<span class="dv">-1</span>)</span>
+<span id="cb151-27"><a href="roc-sample-size-or.html#cb151-27"></a>FCrit &lt;-<span class="st"> </span><span class="kw">qf</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha, <span class="dv">1</span>, ddf)</span>
+<span id="cb151-28"><a href="roc-sample-size-or.html#cb151-28"></a>Power &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(FCrit, <span class="dv">1</span>, ddf, <span class="dt">ncp =</span> ncp)</span>
+<span id="cb151-29"><a href="roc-sample-size-or.html#cb151-29"></a><span class="kw">data.frame</span>(<span class="st">&quot;J&quot;</span>=<span class="st"> </span>J,  <span class="st">&quot;K&quot;</span> =<span class="st"> </span>K, <span class="st">&quot;FCrit&quot;</span> =<span class="st"> </span>FCrit, <span class="st">&quot;ddf&quot;</span> =<span class="st"> </span>ddf, <span class="st">&quot;ncp&quot;</span> =<span class="st"> </span>ncp, <span class="st">&quot;RRRCPower&quot;</span> =<span class="st"> </span>Power)</span>
+<span id="cb151-30"><a href="roc-sample-size-or.html#cb151-30"></a><span class="co">#&gt;    J   K    FCrit ddf       ncp  RRRCPower</span></span>
+<span id="cb151-31"><a href="roc-sample-size-or.html#cb151-31"></a><span class="co">#&gt; 1 10 133 3.912875 132 7.9873835 0.80111671</span></span>
+<span id="cb151-32"><a href="roc-sample-size-or.html#cb151-32"></a></span>
+<span id="cb151-33"><a href="roc-sample-size-or.html#cb151-33"></a><span class="co">#RRFC</span></span>
+<span id="cb151-34"><a href="roc-sample-size-or.html#cb151-34"></a>J &lt;-<span class="st"> </span><span class="dv">10</span>; K &lt;-<span class="st"> </span><span class="dv">53</span></span>
+<span id="cb151-35"><a href="roc-sample-size-or.html#cb151-35"></a>ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(K<span class="op">*</span>varYTR<span class="op">+</span>varYEps)</span>
+<span id="cb151-36"><a href="roc-sample-size-or.html#cb151-36"></a>ddf &lt;-<span class="st"> </span>(J<span class="dv">-1</span>)</span>
+<span id="cb151-37"><a href="roc-sample-size-or.html#cb151-37"></a>FCrit &lt;-<span class="st"> </span><span class="kw">qf</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha, <span class="dv">1</span>, ddf)</span>
+<span id="cb151-38"><a href="roc-sample-size-or.html#cb151-38"></a>Power &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(FCrit, <span class="dv">1</span>, ddf, <span class="dt">ncp =</span> ncp)</span>
+<span id="cb151-39"><a href="roc-sample-size-or.html#cb151-39"></a><span class="kw">data.frame</span>(<span class="st">&quot;J&quot;</span>=<span class="st"> </span>J,  <span class="st">&quot;K&quot;</span> =<span class="st"> </span>K, <span class="st">&quot;FCrit&quot;</span> =<span class="st"> </span>FCrit, <span class="st">&quot;ddf&quot;</span> =<span class="st"> </span>ddf, <span class="st">&quot;ncp&quot;</span> =<span class="st"> </span>ncp, <span class="st">&quot;RRRCPower&quot;</span> =<span class="st"> </span>Power)</span>
+<span id="cb151-40"><a href="roc-sample-size-or.html#cb151-40"></a><span class="co">#&gt;    J  K    FCrit ddf       ncp  RRRCPower</span></span>
+<span id="cb151-41"><a href="roc-sample-size-or.html#cb151-41"></a><span class="co">#&gt; 1 10 53 5.117355   9 10.048716 0.80496663</span></span></code></pre></div>
+<p>For 10 readers, the numbers of cases needed for 80% power is largest (163) for RRRC and least for RRFC (53). For all three analyses, the expectation of 80% power is met - the numbers of cases and readers were chosen to achieve close to 80% statistical power. Intermediate quantities such as the critical value of the F-statistic, <code>ddf</code> and <code>ncp</code> are shown. The reader should confirm that the code does in fact implement the relevant formulae. Shown next is the <code>RJafroc</code> implementation. The relevant file is mainSsDbm.R, a listing of which follows:</p>
 </div>
-<div id="binary-task-references" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.10</span> References<a href="binary-task.html#binary-task-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="roc-sample-size-or-FRRCAnalysis" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.4.3</span> Fixed-reader random-case (FRRC) analysis<a href="roc-sample-size-or.html#roc-sample-size-or-FRRCAnalysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="roc-sample-size-or-RRFCAnalysis" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.4.4</span> Random-reader fixed-case (RRFC) analysis<a href="roc-sample-size-or.html#roc-sample-size-or-RRFCAnalysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="roc-sample-size-or-STMRAnalysis" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.4.5</span> Single-treatment multiple-reader analysis<a href="roc-sample-size-or.html#roc-sample-size-or-STMRAnalysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="discussionsummary3" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.5</span> Discussion/Summary/3<a href="roc-sample-size-or.html#discussionsummary3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="roc-sample-size-or-references" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.6</span> References<a href="roc-sample-size-or.html#roc-sample-size-or-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
-</div>
-</div>
-<h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-RN346">
+<div>
+<p>Bamber, Donald. 1975. “The Area Above the Ordinal Dominance Graph and the Area Below the Receiver Operating Characteristic Graph.” Journal Article. <em>Journal of Mathematical Psychology</em> 12 (4): 387–415. <a href="https://doi.org/10.1016/0022-2496(75)90001-2">https://doi.org/10.1016/0022-2496(75)90001-2</a>.</p>
+</div>
+<div>
+<p>Barlow, William E., Chen Chi, Patricia A. Carney, Stephen H. Taplin, Carl D’Orsi, Gary Cutter, R. Edward Hendrick, and Joann G. Elmore. 2004. “Accuracy of Screening Mammography Interpretation by Characteristics of Radiologists.” Journal Article. <em>Journal of the National Cancer Institute</em> 96 (24): 1840–50. <a href="https://doi.org/10.1093/jnci/djh333">https://doi.org/10.1093/jnci/djh333</a>.</p>
+</div>
+<div>
+<p>Barnes, GT, EA Sabbagh, DP Chakraborty, PH Nath, RF Luna, C Sanders, and RG Fraser. 1989. “A Comparison of Dual-Energy Digital Radiography and Screen-Film Imaging in the Detection of Subtle Interstitial Pulmonary Disease.” <em>Investigative Radiology</em> 24 (8): 585–91. <a href="https://doi.org/10.1097/00004424-198908000-00003">https://doi.org/10.1097/00004424-198908000-00003</a>.</p>
+</div>
+<div>
+<p>Beam, C. A., Peter M. Layde, and Daniel C. Sullivan. 1996. “Variability in the Interpretation of Screening Mammograms by Us Radiologists. Findings from a National Sample.” Journal Article. <em>Archives of Internal Medicine</em> 156 (2): 209–13.</p>
+</div>
+<div>
+<p>Berbaum, Kevin S., Donald D. Dorfman, E. A. Franken, and Robert T. Caldwell. 2002. “An Empirical Comparison of Discrete Ratings and Subjective Probability Ratings.” Journal Article. <em>Academic Radiology</em> 9 (7): 756–63. <a href="https://doi.org/10.1016/s1076-6332(03)80344-6">https://doi.org/10.1016/s1076-6332(03)80344-6</a>.</p>
+</div>
+<div>
+<p>Bochud, F. O., C. K. Abbey, and M. P. Eckstein. 1999. “Visual Signal Detection in Structured Backgrounds Iv, Calculation of Figures of Merit for Model Observers in Non-Stationary Backgrounds.” Journal Article. <em>Journal of the Optical Society of America, A, Optics, Image Science, and Vision</em> 17 (2): 206–17.</p>
+</div>
+<div>
+<p>Bunch, Philip C, John F Hamilton, Gary K Sanderson, and Arthur H Simmons. 1977. “A Free Response Approach to the Measurement and Characterization of Radiographic Observer Performance.” In <em>Application of Optical Instrumentation in Medicine Vi</em>, 127:124–35. International Society for Optics; Photonics.</p>
+</div>
+<div>
+<p>Burgess, Arthur E. 2011. “Visual Perception Studies and Observer Models in Medical Imaging.” In <em>Seminars in Nuclear Medicine</em>, 41:419–36. 6. Elsevier.</p>
+</div>
+<div>
+<p>Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging: Foundations, Modeling, and Applications with R-Based Examples</em>. Boca Raton, FL: CRC Press.</p>
+</div>
+<div>
+<p>Chakraborty, Dev P. 2002. “Statistical Power in Observer Performance Studies: A Comparison of the ROC and Free-Response Methods in Tasks Involving Localization.” Journal Article. <em>Acad. Radiol.</em> 9 (2): 147–56. <a href="https://doi.org/10.1016/s1076-6332(03)80164-2">https://doi.org/10.1016/s1076-6332(03)80164-2</a>.</p>
+</div>
+<div>
+<p>Chakraborty, Dev, Peter Phillips, and Xuetong Zhai. 2020. <em>RJafroc: Artificial Intelligence Systems and Observer Performance</em>. <a href="https://dpc10ster.github.io/RJafroc/">https://dpc10ster.github.io/RJafroc/</a>.</p>
+</div>
+<div>
+<p>Chakraborty, Dev Prasad. 2010. “Prediction Accuracy of a Sample-Size Estimation Method for ROC Studies.” Journal Article. <em>Academic Radiology</em> 17: 628–38. <a href="https://doi.org/10.1016/j.acra.2010.01.007">https://doi.org/10.1016/j.acra.2010.01.007</a>.</p>
+</div>
+<div>
+<p>Chakraborty, D. P., E. S. Breatnach, M. V. Yester, B. Soto, G. T. Barnes, and R. G. Fraser. 1986. “Digital and Conventional Chest Imaging: A Modified ROC Study of Observer Performance Using Simulated Nodules.” Journal Article. <em>Radiology</em> 158: 35–39. <a href="https://doi.org/10.1148/radiology.158.1.3940394">https://doi.org/10.1148/radiology.158.1.3940394</a>.</p>
+</div>
+<div>
+<p>Clarkson, Eric, Matthew A. Kupinski, and Harrison H. Barrett. 2006. “A Probabilistic Model for the MRMC Method, Part 1: Theoretical Development.” Journal Article. <em>Academic Radiology</em> 13 (11): 1410–21. <a href="https://doi.org/10.1016/j.acra.2006.07.016">https://doi.org/10.1016/j.acra.2006.07.016</a>.</p>
+</div>
+<div>
+<p>Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. 2nd ed. Lawrence Erlbaum Associates.</p>
+</div>
+<div>
+<p>DeLong, E. R., D. M. DeLong, and D. L. Clarke-Pearson. 1988. “Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.” Journal Article. <em>Biometrics</em> 44: 837–45. <a href="https://doi.org/10.2307/2531595">https://doi.org/10.2307/2531595</a>.</p>
+</div>
+<div>
+<p>Dorfman, D. D., and E. Alf. 1969. “Maximum-Likelihood Estimation of Parameters of Signal-Detection Theory and Determination of Confidence Intervals - Rating-Method Data.” Journal Article. <em>Journal of Mathematical Psychology</em> 6: 487–96.</p>
+</div>
+<div>
+<p>Dorfman, D. D., K. S. Berbaum, and C. E. Metz. 1992. “ROC Characteristic Rating Analysis: Generalization to the Population of Readers and Patients with the Jackknife Method.” Journal Article. <em>Invest. Radiol.</em> 27 (9): 723–31. <a href="https://pubmed.ncbi.nlm.nih.gov/1399456">https://pubmed.ncbi.nlm.nih.gov/1399456</a>.</p>
+</div>
+<div>
+<p>Dorfman, D. D., K. S. Berbaum, C. E. Metz, R. V. Lenth, J. A. Hanley, and H. Abu Dagga. 1997. “Proper Receiving Operating Characteristic Analysis: The Bigamma Model.” Journal Article. <em>Acad. Radiol.</em> 4 (2): 138–49. <a href="https://doi.org/10.1016/S1076-6332(97)80013-X">https://doi.org/10.1016/S1076-6332(97)80013-X</a>.</p>
+</div>
+<div>
+<p>Dorfman, Donald D., Kevin S. Berbaum, and Russell V. Lenth. 1995. “Multireader, Multicase Receiver Operating Characteristic Methodology: A Bootstrap Analysis.” Journal Article. <em>Academic Radiology</em> 2 (7): 626–33. <a href="https://doi.org/10.1016/S1076-6332(05)80129-1">https://doi.org/10.1016/S1076-6332(05)80129-1</a>.</p>
+</div>
+<div>
+<p>Efron, Bradley, and Robert J. Tibshirani. 1993. <em>An Introduction to the Bootstrap</em>. Book. Vol. 57. Monographs on Statistics and Applied Probability. Boca Raton: Chapman; Hall/CRC.</p>
+</div>
+<div>
 <p>Egan, James P. 1975. <em>Signal Detection Theory and ROC Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.</p>
 </div>
-<div id="ref-RN1902">
+<div>
+<p>Fenton, J. J. 2015. “Is It Time to Stop Paying for Computer-Aided Mammography?” Journal Article. <em>JAMA Intern Med</em>. <a href="https://doi.org/10.1001/jamainternmed.2015.5319.">https://doi.org/10.1001/jamainternmed.2015.5319.</a></p>
+</div>
+<div>
 <p>Fenton, Joshua J., Stephen H. Taplin, Patricia A. Carney, Linn Abraham, Edward A. Sickles, Carl D’Orsi, Eric A. Berns, et al. 2007. “Influence of Computer-Aided Detection on Performance of Screening Mammography.” Journal Article. <em>N Engl J Med</em> 356 (14): 1399–1409. <a href="https://doi.org/10.1056/NEJMoa066099">https://doi.org/10.1056/NEJMoa066099</a>.</p>
 </div>
-<div id="ref-RN298">
+<div>
+<p>Gallas, Brandon D. 2006. “One-Shot Estimate of MRMC Variance: AUC.” Journal Article. <em>Academic Radiology</em> 13 (3): 353–62. <a href="https://doi.org/10.1016/j.acra.2005.11.030">https://doi.org/10.1016/j.acra.2005.11.030</a>.</p>
+</div>
+<div>
+<p>Gallas, Brandon D., Gene a Pennello, and Kyle J. Myers. 2007. “Multireader Multicase Variance Analysis for Binary Data.” Journal Article. <em>Journal of the Optical Society of America. A, Optics, Image Science, and Vision</em> 24 (12): 70–80. <a href="https://doi.org/10.1364/josaa.24.000b70">https://doi.org/10.1364/josaa.24.000b70</a>.</p>
+</div>
+<div>
 <p>Green, D. M., and J. A. Swets. 1966. <em>Signal Detection Theory and Psychophysics</em>. Book. New York: John Wiley; Sons.</p>
 </div>
-<div id="ref-RN1492">
+<div>
+<p>Gur, David, Andriy I. Bandos, Cathy S. Cohen, Christiane M. Hakim, Lara A. Hardesty, Marie A. Ganott, Ronald L. Perrin, et al. 2008. “The "Laboratory" Effect: Comparing Radiologists’ Performance and Variability During Prospective Clinical and Laboratory Mammography Interpretations.” Journal Article. <em>Radiology</em> 249 (1): 47–53. <a href="https://doi.org/10.1148/radiol.2491072025">https://doi.org/10.1148/radiol.2491072025</a>.</p>
+</div>
+<div>
+<p>Hajian-Tilaki, K. O., James A. Hanley, L. Joseph, and J. P. Collet. 1997. “Extension of Receiver Operating Characteristic Analysis to Data Concerning Multiple Signal Detection Tasks.” Journal Article. <em>Acad Radiol</em> 4: 222–29. <a href="https://doi.org/10.1016/S1076-6332(05)80295-8">https://doi.org/10.1016/S1076-6332(05)80295-8</a>.</p>
+</div>
+<div>
+<p>Hanley, J. A., and B. J. McNeil. 1982. “The Meaning and Use of the Area Under a Receiver Operating Characteristic (ROC) Curve.” Journal Article. <em>Radiology</em> 143 (1): 29–36. <a href="http://radiology.rsnajnls.org/cgi/content/abstract/143/1/29">http://radiology.rsnajnls.org/cgi/content/abstract/143/1/29</a>.</p>
+</div>
+<div>
+<p>Hanley, James A. 1988. “The Robustness of the "Binormal" Assumptions Used in Fitting ROC Curves.” Journal Article. <em>Med. Decis. Making</em> 8 (3): 197–203. <a href="https://doi.org/10.1177/0272989X8800800308">https://doi.org/10.1177/0272989X8800800308</a>.</p>
+</div>
+<div>
+<p>Hanley, James A., and Karim O. Hajian-Tilaki. 1997. “Sampling Variability of Nonparametric Estimates of the Areas Under Receiver Operating Characteristic Curves: An Update.” Journal Article. <em>Academic Radiology</em> 4 (1): 49–58. <a href="https://doi.org/10.1016/s1076-6332(97)80161-4">https://doi.org/10.1016/s1076-6332(97)80161-4</a>.</p>
+</div>
+<div>
+<p>Hartmann, Lynn C, Thomas A Sellers, Marlene H Frost, Wilma L Lingle, Amy C Degnim, Karthik Ghosh, Robert A Vierkant, et al. 2005. “Benign Breast Disease and the Risk of Breast Cancer.” <em>New England Journal of Medicine</em> 353 (3): 229–37.</p>
+</div>
+<div>
+<p>Hillis, S. L., N. A. Obuchowski, K. M. Schartz, and K. S. Berbaum. 2005. “A Comparison of the Dorfman-Berbaum-Metz and Obuchowski-Rockette Methods for Receiver Operating Characteristic (ROC) Data.” Journal Article. <em>Statistics in Medicine</em> 24 (10): 1579–1607. <a href="https://doi.org/10.1002/sim.2024">https://doi.org/10.1002/sim.2024</a>.</p>
+</div>
+<div>
+<p>Hillis, Stephen L. 2007. “A Comparison of Denominator Degrees of Freedom Methods for Multiple Observer (ROC) Studies.” Journal Article. <em>Statistics in Medicine</em> 26: 596–619. <a href="https://doi.org/10.1002/sim.2532">https://doi.org/10.1002/sim.2532</a>.</p>
+</div>
+<div>
+<p>Hillis, Stephen L. 2014. “A Marginal‐mean ANOVA Approach for Analyzing Multireader Multicase Radiological Imaging Data.” Journal Article. <em>Statistics in Medicine</em> 33 (2): 330–60. <a href="https://doi.org/10.1002/sim.5926">https://doi.org/10.1002/sim.5926</a>.</p>
+</div>
+<div>
+<p>Hillis, Stephen L., and K. S. Berbaum. 2004. “Power Estimation for the Dorfman-Berbaum-Metz Method.” Journal Article. <em>Acad. Radiol.</em> 11 (11): 1260–73. <a href="https://doi.org/10.1016/j.acra.2004.08.009">https://doi.org/10.1016/j.acra.2004.08.009</a>.</p>
+</div>
+<div>
+<p>Hillis, Stephen L., K. S. Berbaum, and C. E. Metz. 2008. “Recent Developments in the Dorfman-Berbaum-Metz Procedure for Multireader (ROC) Study Analysis.” Journal Article. <em>Acad Radiol</em> 15 (5): 647–61. <a href="https://doi.org/10.1016/j.acra.2007.12.015">https://doi.org/10.1016/j.acra.2007.12.015</a>.</p>
+</div>
+<div>
+<p>Hillis, Stephen L., Nancy A. Obuchowski, and Kevin S. Berbaum. 2011. “Power Estimation for Multireader ROC Methods: An Updated and Unified Approach.” Journal Article. <em>Academic Radiology</em> 18 (2): 129–42. <a href="https://doi.org/10.1016/j.acra.2010.09.007">https://doi.org/10.1016/j.acra.2010.09.007</a>.</p>
+</div>
+<div>
+<p>ICRU. 1996. “Medical Imaging: The Assessment of Image Quality.” Journal Article. <em>JOURNAL OF THE ICRU</em> 54 (1): 37–40.</p>
+</div>
+<div>
+<p>Ishwaran, Hemant, and Constantine A. Gatsonis. 2000. “A General Class of Hierarchical Ordinal Regression Models with Applications to Correlated ROC Analysis.” Journal Article. <em>The Canadian Journal of Statistics</em> 28 (4): 731–50. <a href="https://doi.org/10.2307/3315913">https://doi.org/10.2307/3315913</a>.</p>
+</div>
+<div>
+<p>Jiang, Yulei, and Charles E. Metz. 2010. “BI-RADS Data Should Not Be Used to Estimate ROC Curves.” Journal Article. <em>Radiology</em> 256 (1): 29–31. <a href="https://doi.org/10.1148/radiol.10091394">https://doi.org/10.1148/radiol.10091394</a>.</p>
+</div>
+<div>
+<p>Kundel, H. L., K. S. Berbaum, D. D. Dorfman, D. Gur, C. E. Metz, and R. G. Swensson. 2008. “Receiver Operating Characteristic Analysis in Medical Imaging (Icru Report 79).” Report. International Commission on Radiation Units; Measurments.</p>
+</div>
+<div>
+<p>Kupinski, Matthew A., Eric Clarkson, and Harrison H. Barrett. 2006. “A Probabilistic Model for the MRMC Method, Part 2: Validation and Applications.” Journal Article. <em>Academic Radiology</em> 13 (11): 1422–30. <a href="https://doi.org/10.1016/j.acra.2006.07.015">https://doi.org/10.1016/j.acra.2006.07.015</a>.</p>
+</div>
+<div>
 <p>Larsen, Richard J., and Morris L. Marx. 2001. <em>An Introduction to Mathematical Statistics and Its Applications</em>. Book. 3rd ed. Upper Saddle River, NJ: Prentice-Hall Inc.</p>
+</div>
+<div>
+<p>Lusted, L. B. 1971. “Signal Detectability and Medical Decision Making.” Journal Article. <em>Science</em> 171: 1217–1219. <a href="https://doi.org/10.1126/science.171.3977.1217">https://doi.org/10.1126/science.171.3977.1217</a>.</p>
+</div>
+<div>
+<p>Macmillan, N. A., and C. D. Creelman. 1991. <em>Detection Theory: A User’s Guide</em>. Book. New York: Cambridge University Press.</p>
+</div>
+<div>
+<p>Mann, H. B., and D. R. Whitney. 1947. “On a Test of Whether One of Two Random Variables Is Stochastically Larger Than the Other.” Journal Article. <em>Annals of Mathematical Statistics</em> 18: 50−60.</p>
+</div>
+<div>
+<p>Metz, C. E. 1978. “Basic Principles of ROC Analysis.” Journal Article. <em>Seminars in Nuclear Medicine</em> 8 (4): 283–98. <a href="https://doi.org/10.1016/s0001-2998(78)80014-2">https://doi.org/10.1016/s0001-2998(78)80014-2</a>.</p>
+</div>
+<div>
+<p>———. 1989. “Some Practical Issues of Experimental Design and Data Analysis in Radiological ROC Studies.” Journal Article. <em>Investigative Radiology</em> 24: 234–45.</p>
+</div>
+<div>
+<p>Metz, Charles E. 1986. “ROC Methodology in Radiologic Imaging.” Journal Article. <em>Investigative Radiology</em> 21 (9): 720–33. <a href="http://journals.lww.com/investigativeradiology/Fulltext/1986/09000/ROC_Methodology_in_Radiologic_Imaging.9.aspx">http://journals.lww.com/investigativeradiology/Fulltext/1986/09000/ROC_Methodology_in_Radiologic_Imaging.9.aspx</a>.</p>
+</div>
+<div>
+<p>Miller, George A. 1956. “The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information.” Journal Article. <em>The Psychological Review</em> 63 (2): 81–97.</p>
+</div>
+<div>
+<p>Niklason, L. T., N. M. Hickey, Dev P. Chakraborty, E. A. Sabbagh, M. V. Yester, R. G. Fraser, and G. T. Barnes. 1986. “Simulated Pulmonary Nodules: Detection with Dual-Energy Digital Versus Conventional Radiography.” Journal Article. <em>Radiology</em> 160: 589–93. <a href="https://doi.org/10.1148/radiology.160.3.3526398">https://doi.org/10.1148/radiology.160.3.3526398</a>.</p>
+</div>
+<div>
+<p>Nishikawa, Robert. 2012. “Estimating Sensitivity and Specificity in an ROC Experiment.” Journal Article. <em>Breast Imaging</em>, 690–96.</p>
+</div>
+<div>
+<p>Noether, Gottfried E. 1967. “Elements of Nonparametric Statistics.” Report. Wiley; Sons.</p>
+</div>
+<div>
+<p>Obuchowski, Nancy A. 1998. “Sample Size Calculations in Studies of Test Accuracy.” Journal Article. <em>Statistical Methods in Medical Research</em> 7 (4): 371–92. <a href="https://doi.org/10.1177/096228029800700405">https://doi.org/10.1177/096228029800700405</a>.</p>
+</div>
+<div>
+<p>———. 2000. “Sample Size Tables for Receiver Operating Characteristic Studies.” Journal Article. <em>Am. J. Roentgenol.</em> 175 (3): 603–8. <a href="http://www.ajronline.org/cgi/content/abstract/175/3/603">http://www.ajronline.org/cgi/content/abstract/175/3/603</a>.</p>
+</div>
+<div>
+<p>Obuchowski, N. A., and H. E. Rockette. 1995. “Hypothesis Testing of the Diagnostic Accuracy for Multiple Diagnostic Tests: An ANOVA Approach with Dependent Observations.” Journal Article. <em>Communications in Statistics: Simulation and Computation</em> 24: 285–308. <a href="https://doi.org/10.1080/03610919508813243">https://doi.org/10.1080/03610919508813243</a>.</p>
+</div>
+<div>
+<p>Pearson, Karl. 1900. “X. On the Criterion That a Given System of Deviations from the Probable in the Case of a Correlated System of Variables Is Such That It Can Be Reasonably Supposed to Have Arisen from Random Sampling.” Journal Article. <em>The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science</em> 50 (302): 157–75. <a href="https://doi.org/10.1080/14786440009463897">https://doi.org/10.1080/14786440009463897</a>.</p>
+</div>
+<div>
+<p>Philpotts, Liane E. 2009. “Can Computer-Aided Detection Be Detrimental to Mammographic Interpretation?” Journal Article. <em>Radiology</em> 253 (1): 17–22. <a href="https://doi.org/10.1148/radiol.2531090689">https://doi.org/10.1148/radiol.2531090689</a>.</p>
+</div>
+<div>
+<p>Pisano, E. D., C. Gatsonis, E. Hendrick, M. Yaffe, J. K. Baum, S. Acharyya, E. F. Conant, et al. 2005. “Diagnostic Performance of Digital Versus Film Mammography for Breast-Cancer Screening.” Journal Article. <em>N Engl J Med</em> 353 (17): 1773–83. <a href="https://doi.org/10.1056/NEJMoa052911">https://doi.org/10.1056/NEJMoa052911</a>.</p>
+</div>
+<div>
+<p>Pollack, Irwin. 1952. “The Information of Elementary Auditory Displays.” Journal Article. <em>The Journal of the Acoustical Society of America</em> 24 (6): 745–49.</p>
+</div>
+<div>
+<p>———. 1953. “The Information of Elementary Auditory Displays. II.” Journal Article. <em>The Journal of the Acoustical Society of America</em> 25 (4): 765–69.</p>
+</div>
+<div>
+<p>Press, W. H., S. A. Teukolsky, W. T. Vetterling, and B. P. Flannery. 2007. <em>Numerical Recipes: The Art of Scientific Computing</em>. Book. 3rd ed. Cambridge: Cambridge University Press.</p>
+</div>
+<div>
+<p>Rockette, H. E., D. Gur, and C. E. Metz. 1992. “The Use of Continous and Discrete Confidence Judgments in Receiver Operating Characteristic Studies of Diagnostic Imaging Techniques.” Journal Article. <em>Investigative Radiology</em> 27: 169–72.</p>
+</div>
+<div>
+<p>Roe, C. A., and C. E. Metz. 1997a. “Dorfman-Berbaum-Metz Method for Statistical Analysis of Multireader, Multimodality Receiver Operating Characteristic Data: Validation with Computer Simulation.” Journal Article. <em>Acad Radiol</em> 4: 298–303. <a href="https://doi.org/10.1016/S1076-6332(97)80032-3">https://doi.org/10.1016/S1076-6332(97)80032-3</a>.</p>
+</div>
+<div>
+<p>———. 1997b. “Variance-Component Modeling in the Analysis of Receiver Operating Characteristic Index Estimates.” Journal Article. <em>Acad. Radiol.</em> 4 (8): 587–600. <a href="https://doi.org/10.1016/S1076-6332(97)80210-3">https://doi.org/10.1016/S1076-6332(97)80210-3</a>.</p>
+</div>
+<div>
+<p>Satterthwaite, F. E. 1941. “Synthesis of Variance.” Journal Article. <em>Psychometrika</em> 6 (5): 309–16.</p>
+</div>
+<div>
+<p>———. 1946. “An Approximate Distribution of Estimates of Variance Components.” Journal Article. <em>Biometrics Bulletin</em> 2 (6): 110–14.</p>
+</div>
+<div>
+<p>Skaane, Per, Andriy I Bandos, Randi Gullien, Ellen B Eben, Ulrika Ekseth, Unni Haakenaasen, Mina Izadi, Ingvild N Jebsen, Gunnar Jahr, and Mona Krager. 2013. “Comparison of Digital Mammography Alone and Digital Mammography Plus Tomosynthesis in a Population-Based Screening Program.” Journal Article. <em>Radiology</em> 267 (1): 47–56.</p>
+</div>
+<div>
+<p>Soh, BaoLin P, Warwick Lee, Mark F McEntee, Peter L Kench, Warren M Reed, Rob Heard, Dev P Chakraborty, and Patrick C Brennan. 2013. “Screening Mammography: Test Set Data Can Reasonably Describe Actual Clinical Reporting.” Journal Article. <em>Radiology</em> 268 (1): 46–53.</p>
+</div>
+<div>
+<p>Stein, Sherman K., and Anthony Barcellos. 1992. <em>Calculus and Analytic Geometry</em>. Book. 5th ed. McGraw-Hill Companies.</p>
+</div>
+<div>
+<p>Swets, John A., and Ronald M. Pickett. 1982. <em>Evaluation of Diagnostic Systems: Methods from Signal Detection Theory</em>. Book. First. Series in Cognition and Perception. New York: Academic Press.</p>
+</div>
+<div>
+<p>Thompson, Mary Lou, and Walter Zucchini. 1989. “On the Statistical Analysis of Roc Curves.” <em>Statistics in Medicine</em> 8 (10): 1277–90.</p>
+</div>
+<div>
+<p>Toledano, A. Y. 2003. “Three Methods for Analyzing Correlated ROC Curves: A Comparison in Real Data Sets.” Journal Article. <em>Statistics in Medicine</em> 22 (18): 2919–33. <a href="https://doi.org/10.1002/sim.1518">https://doi.org/10.1002/sim.1518</a>.</p>
+</div>
+<div>
+<p>Toledano, A. Y., and C. Gatsonis. 1996. “Ordinal Regression Methodology for ROC Curves Derived from Correlated Data.” Journal Article. <em>Stat Med</em> 15 (16): 1807–26. <a href="https://doi.org/10.1002/(SICI)1097-0258(19960830)15:16%3C1807::AID-SIM333%3E3.0.CO;2-U">https://doi.org/10.1002/(SICI)1097-0258(19960830)15:16&lt;1807::AID-SIM333&gt;3.0.CO;2-U</a>.</p>
+</div>
+<div>
+<p>USAirForce, Report. 1947. “A Statistical Theory of Target Detection by Pulsed Radar.” Santa Monica, CA, US Air Force report.</p>
+</div>
+<div>
+<p>Van Dyke, C. W., R. D. White, N. A. Obuchowski, M. A. Geisinger, R. J. Lorig, and M. A. Meziane. 1993. “Cine MRI in the Diagnosis of Thoracic Aortic Dissection.” Journal Article. <em>79th RSNA Meetings</em>.</p>
+</div>
+<div>
+<p>Wagner, Robert F., Sergey V. Beiden, and Charles E. Metz. 2001. “Continuous Versus Categorical Data for ROC Analysis: Some Quantitative Considerations.” Journal Article. <em>Academic Radiology</em> 8 (4): 328–34. <a href="https://doi.org/10.1016/s1076-6332(03)80502-0">https://doi.org/10.1016/s1076-6332(03)80502-0</a>.</p>
+</div>
+<div>
+<p>Wilcoxon, F. 1945. “Individual Comparison by Ranking Methods.” Journal Article. <em>Biometrics</em> 1: 80–83.</p>
+</div>
+<div>
+<p>Youden, William J. 1950. “Index for Rating Diagnostic Tests.” <em>Cancer</em> 3 (1): 32–35.</p>
+</div>
+<div>
+<p>Zanca, Federica, Jurgen Jacobs, Chantal Van Ongeval, Filip Claus, Valerie Celis, Catherine Geniets, Veerle Provost, Herman Pauwels, Guy Marchal, and Hilde Bosmans. 2009. “Evaluation of Clinical Image Processing Algorithms Used in Digital Mammography.” Journal Article. <em>Medical Physics</em> 36 (3): 765–75. <a href="https://doi.org/10.1118/1.3077121">https://doi.org/10.1118/1.3077121</a>.</p>
+</div>
+<div>
+<p>Zhou, Xiao-Hua, Donna K McClish, and Nancy A Obuchowski. 2009. <em>Statistical Methods in Diagnostic Medicine</em>. Vol. 569. John Wiley &amp; Sons. <a href="https://doi.org/110.1002/9780470906514">https://doi.org/110.1002/9780470906514</a>.</p>
+</div>
+<div>
+<p>Zhou, Xiao-Hua, Nancy A. Obuchowski, and Donna K. McClish. 2002. <em>Statistical Methods in Diagnostic Medicine</em>. Book. New York: John Wiley; Sons.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-RN2027">
+<p>Chakraborty, Dev Prasad. 2010. “Prediction Accuracy of a Sample-Size Estimation Method for ROC Studies.” Journal Article. <em>Academic Radiology</em> 17: 628–38. <a href="https://doi.org/10.1016/j.acra.2010.01.007">https://doi.org/10.1016/j.acra.2010.01.007</a>.</p>
+</div>
+<div id="ref-RN1476">
+<p>Hillis, Stephen L., and K. S. Berbaum. 2004. “Power Estimation for the Dorfman-Berbaum-Metz Method.” Journal Article. <em>Acad. Radiol.</em> 11 (11): 1260–73. <a href="https://doi.org/10.1016/j.acra.2004.08.009">https://doi.org/10.1016/j.acra.2004.08.009</a>.</p>
 </div>
 </div>
             </section>
@@ -946,8 +990,8 @@ P(A|B)&amp;=\frac{P(B|A)P(A)}{P(B)} \\
           </div>
         </div>
       </div>
-<a href="preliminaries.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="binary-task-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="roc-sample-size-dbm.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

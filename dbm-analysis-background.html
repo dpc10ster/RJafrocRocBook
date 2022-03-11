@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 The Binary Task | The RJafroc Roc Book</title>
+  <title>Chapter 9 DBM method background | The RJafroc Roc Book</title>
   <meta name="description" content="TBA Artificial intelligence and observer performance book based on RJafroc." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 The Binary Task | The RJafroc Roc Book" />
+  <meta property="og:title" content="Chapter 9 DBM method background | The RJafroc Roc Book" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="dpc10ster/RJafrocRocBook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 The Binary Task | The RJafroc Roc Book" />
+  <meta name="twitter:title" content="Chapter 9 DBM method background | The RJafroc Roc Book" />
   
   <meta name="twitter:description" content="TBA Artificial intelligence and observer performance book based on RJafroc." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="preliminaries.html"/>
-<link rel="next" href="binary-task-model.html"/>
+<link rel="prev" href="hypothesis-testing.html"/>
+<link rel="next" href="dbm-analysis-significance-testing.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -535,410 +535,133 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="binary-task" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Chapter 2</span> The Binary Task<a href="binary-task.html#binary-task" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="binary-task-how-much-finished" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.1</span> TBA How much finished<a href="binary-task.html#binary-task-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>85%</p>
+<div id="dbm-analysis-background" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 9</span> DBM method background<a href="dbm-analysis-background.html#dbm-analysis-background" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="dbm-analysis-background-how-much-finished" class="section level2 hasAnchor">
+<h2><span class="header-section-number">9.1</span> TBA How much finished<a href="dbm-analysis-background.html#dbm-analysis-background-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>80%</p>
 </div>
-<div id="binary-taskIntro" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.2</span> Introduction<a href="binary-task.html#binary-taskIntro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In the previous chapter four observer performance paradigms were introduced: the receiver operating characteristic (ROC), the free-response ROC (FROC), the location ROC (LROC) and the region of interest (ROI). The next few chapters focus on the ROC paradigm, where each case is rated for confidence in presence of disease. While a multiple point rating scale is generally used, in this chapter it is assumed that the ratings are binary, and the allowed values are “1” vs. “2”. Equivalently, the ratings could be “non-diseased” vs. “diseased”, “negative” vs. “positive”, etc. In the literature this method of data acquisition is also termed the “yes/no” procedure <span class="citation">(Green and Swets <a href="#ref-RN298" role="doc-biblioref">1966</a>; Egan <a href="#ref-RN346" role="doc-biblioref">1975</a>)</span>. The reason for restricting, for now, to the binary task is that the multiple rating task can be shown to be equivalent to a number of simultaneously conducted binary tasks. Therefore, understanding the simpler method is a good starting point.</p>
-<p>Since the truth is also binary, this chapter could be named the binary-truth binary-decision task. The starting point is a 2 x 2 table summarizing the outcomes in such studies and useful fractions that can be defined from the counts in this table, the most important ones being true positive fraction (TPF) and false positive fraction (FPF). These are used to construct measures of performance, some of which are desirable from the researcher’s point of view, but others are more relevant to radiologists. The concept of disease prevalence is introduced and used to formulate relations between the different types of measures. An R example of calculation of these quantities is given that is only slightly more complicated than the demonstration in the prior chapter.</p>
+<div id="dbm-analysis-background-introduction" class="section level2 hasAnchor">
+<h2><span class="header-section-number">9.2</span> Introduction<a href="dbm-analysis-background.html#dbm-analysis-background-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The term <em>treatment</em> is generic for <em>imaging system</em>, <em>modality</em> or <em>image processing</em>; <em>reader</em> is generic for <em>radiologist</em> or <em>algorithmic observer</em>, e.g., a computer aided detection (CAD) or artificial intelligence (AI) algorithm. The previous chapter described analysis of a single ROC dataset and comparing the observed area <span class="math inline">\(AUC\)</span> under the ROC plot to a specified value. Clinically this is not an interesting problem; rather, interest is usually in comparing performance of a group of readers interpreting a common set of cases in two or more treatments. Such data is termed multiple reader multiple case (MRMC). [An argument could be made in favor of the term “multiple-treatment multiple-reader”, since “multiple-case” is implicit in any ROC analysis that takes into account correct and incorrect decisions on cases. However, I will stick with existing terminology.] The basic idea is that by sampling a sufficiently large number of readers and cases one can draw conclusions that apply broadly to other readers of similar skill levels interpreting other similar case sets in the selected treatments. How one accomplishes this, termed MRMC analysis, is the subject of this chapter.</p>
+<p>This chapter describes the first truly successful method of analyzing MRMC ROC data, namely the Dorfman-Berbaum-Metz (DBM) method <span class="citation">(Dorfman, Berbaum, and Metz <a href="#ref-RN204" role="doc-biblioref">1992</a>)</span>. The other method, due to Obuchowski and Rockette <span class="citation">(Obuchowski and Rockette <a href="#ref-RN1450" role="doc-biblioref">1995</a>)</span>, is the subject of Chapter 10 (TBA). Both methods have been substantially improved by Hillis <span class="citation">(Hillis, Berbaum, and Metz <a href="#ref-RN1866" role="doc-biblioref">2008</a>; Hillis <a href="#ref-RN1865" role="doc-biblioref">2007</a>, <a href="#ref-RN2508" role="doc-biblioref">2014</a>)</span>. It is not an overstatement that ROC analysis came of age with the methods described in this chapter. Prior to the techniques described here, one knew of the existence of sources of variability affecting a measured <span class="math inline">\(AUC\)</span> value, as discussed in (book) Chapter 07, but then-known techniques <span class="citation">(Swets and Pickett <a href="#ref-RN412" role="doc-biblioref">1982</a>)</span> for estimating the corresponding variances and correlations were impractical.</p>
+<div id="historical-background" class="section level3 hasAnchor">
+<h3><span class="header-section-number">9.2.1</span> Historical background<a href="dbm-analysis-background.html#historical-background" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The author was thrown (unprepared) into the methodology field ca. 1985 when, as a junior faculty member, he undertook comparing a prototype digital chest-imaging device (Picker International, ca. 1983) vs. an optimized analog chest-imaging device at the University of Alabama at Birmingham. At the outset a decision was made to use free-response ROC methodology instead of ROC, as the former accounted for lesion localization, and I and my mentor, Prof. Gary T. Barnes, were influenced in that decision by a publication <span class="citation">(Bunch et al. <a href="#ref-bunch1977free" role="doc-biblioref">1977</a>)</span> to be described in (book) Chapter 12. Therefore, instead of ROC-AUC one had lesion-level sensitivity at a fixed number of location level false positives per case as the figure-of-merit (FOM). Details of the FOM are not relevant at this time. Suffice to state that methods described in this chapter, which had not been developed in 1983, while developed for analyzing reader-averaged inter-treatment ROC-AUC differences, <em>apply to any scalar FOM</em>. While I was successful at calculating confidence intervals (this is the heart of what is loosely termed <em>statistical analysis</em>) and publishing the work <span class="citation">(Chakraborty et al. <a href="#ref-Chakraborty1986DigitalVsConv" role="doc-biblioref">1986</a>)</span> using techniques described in a book <span class="citation">(Swets and Pickett <a href="#ref-RN412" role="doc-biblioref">1982</a>)</span> titled “Evaluation of Diagnostic Systems: Methods from Signal Detection Theory”, subsequent attempts at applying these methods in a follow-up paper <span class="citation">(Niklason et al. <a href="#ref-Niklason1986SimulatedPulmonary" role="doc-biblioref">1986</a>)</span> led to negative variance estimates (private communication, Dr. Loren Niklason, ca. 1985). With the benefit of hindsight, negative variance estimates are not that uncommon and the method to be described in this chapter has to deal with that possibility.</p>
+<p>The methods <span class="citation">(Swets and Pickett <a href="#ref-RN412" role="doc-biblioref">1982</a>)</span> described in the cited book involved estimating the different variability components – case sampling, between-reader and within-reader variability. Between-reader and within-reader variability (the two cannot be separated as discussed in (book) Chapter 07) could be estimated from the variance of the <span class="math inline">\(AUC\)</span> values corresponding to the readers interpreting the cases within a treatment and then averaging the variances over all treatments. Estimating case-sampling and within-reader variability required splitting the dataset into a few smaller subsets (e.g., a case set with 60 cases might be split into 3 sub-sets of 20 cases each), analyzing each subset to get an <span class="math inline">\(AUC\)</span> estimate, calculating the variance of the resulting <span class="math inline">\(AUC\)</span> values <span class="citation">(Swets and Pickett <a href="#ref-RN412" role="doc-biblioref">1982</a>)</span> and scaling the result to the original case size. Because it was based on few values, the estimate was inaccurate, and the already case-starved original dataset made it difficult to estimate AUCs for the subsets; moreover, the division into subsets was at the discretion of the researcher, and therefore unlikely to be reproduced by others. Estimating within-reader variability required re-reading the entire case set, or at least a part of it. ROC studies have earned a deserved reputation for taking much time to complete, and having to re-read a case set was not a viable option. [Historical note: I recalls a barroom conversation with Dr. Thomas Mertelmeir after the conclusion of an SPIE meeting ca. 2004, where Dr. Mertelmeir commiserated mightily, over several beers, about the impracticality of some of the ROC studies required of imaging device manufacturers by the FDA.]</p>
 </div>
-<div id="binary-taskTruth" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.3</span> The fundamental 2x2 table<a href="binary-task.html#binary-taskTruth" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this book, the term case is used for images obtained for diagnostic purposes, of a patient; often multiple images of a patient, sometimes from different modalities, are involved in an interpretation; all images of a single patient, that are used in the interpretation, are collectively referred to as a case. A familiar example is the 4-view presentation used in screening mammography, where two views of each breast are available for viewing.</p>
-<p>Let <span class="math inline">\(D\)</span> represent the radiologist’s decision, with <span class="math inline">\(D=1\)</span> representing the decision “case is non-diseased” and <span class="math inline">\(D=2\)</span> representing the decision “case is diseased”. Let <span class="math inline">\(T\)</span> denote the truth with <span class="math inline">\(T=1\)</span> representing “case is actually non-diseased” and <span class="math inline">\(T=2\)</span> representing “case is actually diseased”. Each decision, one of two values, will be associated with one of two truth states, resulting in an entry in one of 4 cells arranged in a 2 x 2 layout, termed the decision vs. truth table, Table <a href="binary-task.html#tab:binary-tasktruthTable">2.1</a>, which is of fundamental importance in observer performance. The cells are labeled as follows. The abbreviation <span class="math inline">\(TN\)</span>, for true negative, represents a <span class="math inline">\(D=1\)</span> decision on a <span class="math inline">\(T=1\)</span> case. <span class="math inline">\(FN\)</span>, for false negative, represents a <span class="math inline">\(D=1\)</span> decision on a <span class="math inline">\(T=2\)</span> case (also termed a “miss”). <span class="math inline">\(FP\)</span>, for false positive, represents a <span class="math inline">\(D=2\)</span> decision on a <span class="math inline">\(T=1\)</span> case (a “false-alarm”) and <span class="math inline">\(TP\)</span>, for true positive, represents a <span class="math inline">\(D=2\)</span> decision on a <span class="math inline">\(T=2\)</span> case (a “hit”).</p>
-<table>
-<caption>
-<span id="tab:binary-tasktruthTable">TABLE 2.1: </span>Truth Table.
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-T=1
-</th>
-<th style="text-align:left;">
-T=2
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-D=1
-</td>
-<td style="text-align:left;">
-TN
-</td>
-<td style="text-align:left;">
-FN
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-D=2
-</td>
-<td style="text-align:left;">
-FP
-</td>
-<td style="text-align:left;">
-TP
-</td>
-</tr>
-</tbody>
-</table>
-<p>Table <a href="binary-task.html#tab:binary-tasktruthTable2">2.2</a> shows the numbers of decisions in each of the four categories defined in Table <a href="binary-task.html#tab:binary-tasktruthTable">2.1</a>. Specifically, <span class="math inline">\(n(TN)\)</span> is the number of true negative decisions, <span class="math inline">\(n(FN)\)</span> is the number of false negative decisions, etc. The last row is the sum of the corresponding columns. The sum of the number of true negative decisions <span class="math inline">\(n(TN)\)</span> and the number of false positive decisions <span class="math inline">\(n(FP)\)</span> must equal the total number of non-diseased cases, denoted <span class="math inline">\(K_1\)</span>. Likewise, the sum of the number of false negative decisions <span class="math inline">\(n(FN)\)</span> and the number of true positive decisions <span class="math inline">\(n(TP)\)</span> must equal the total number of diseased cases, denoted <span class="math inline">\(K_2\)</span>. The last column is the sum of the corresponding rows. The sum of the number of true negative <span class="math inline">\(n(TN)\)</span> and false negative <span class="math inline">\(n(FN)\)</span> decisions is the total number of negative decisions, denoted <span class="math inline">\(n(N)\)</span>. Likewise, the sum of the number of false positive <span class="math inline">\(n(FP)\)</span> and true positive <span class="math inline">\(n(TP)\)</span> decisions is the total number of positive decisions, denoted <span class="math inline">\(n(P)\)</span>. Since each case yields a decision, the bottom-right corner cell is <span class="math inline">\(n(N) + n(P)\)</span>, which must also equal <span class="math inline">\(K_1+K_2\)</span>, the total number of cases <span class="math inline">\(K\)</span>. These statements are summarized in Eqn. <a href="binary-task.html#eq:binary-taskTruthTableEqns">(2.1)</a>.</p>
-<p><span class="math display" id="eq:binary-taskTruthTableEqns">\[\begin{equation} 
-\left.\begin{aligned}
-K_1&amp;=n(TN)+n(FP)\\ 
-K_2&amp;=n(FN)+n(TN)\\ 
-n(N)&amp;=n(TN)+n(FN)\\ 
-n(P)&amp;=n(TP)+n(FP)\\
-K=K_1+K_2&amp;=n(N)+n(P)
-\end{aligned}\right\}
-\tag{2.1}
-\end{equation}\]</span></p>
-<table>
-<caption>
-<span id="tab:binary-tasktruthTable2">TABLE 2.2: </span>Cell counts.
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-T=1
-</th>
-<th style="text-align:left;">
-T=2
-</th>
-<th style="text-align:left;">
-RowSums
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-D=1
-</td>
-<td style="text-align:left;">
-n(TN)
-</td>
-<td style="text-align:left;">
-n(FN)
-</td>
-<td style="text-align:left;">
-n(N)=n(TN)+n(FN)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-D=2
-</td>
-<td style="text-align:left;">
-n(FP)
-</td>
-<td style="text-align:left;">
-n(TP)
-</td>
-<td style="text-align:left;">
-n(P)=n(FP)+n(TP)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ColSums
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K_1\)</span>=n(TN)+n(FP)
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K_2\)</span>=n(FN)+n(TP)
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K=K_1+K_2\)</span>=n(N)+n(P)
-</td>
-</tr>
-</tbody>
-</table>
+<div id="the-wagner-analogy" class="section level3 hasAnchor">
+<h3><span class="header-section-number">9.2.2</span> The Wagner analogy<a href="dbm-analysis-background.html#the-wagner-analogy" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>An important objective of modality comparison studies is to estimate the variance of the difference in reader-averaged AUCs between the treatments. For two treatments one sums the reader-averaged variance in each treatment and subtracts twice the covariance (a scaled version of the correlation). Therefore, in addition to estimating variances, one needs to estimate correlations. Correlations are present due to the common case set interpreted by the readers in the different treatments. If the correlation is large, i.e., close to unity, then the individual treatment variances tend to cancel, making the constant treatment-induced difference easier to detect. The author recalls a vivid analogy used by the late Dr. Robert F. Wagner to illustrate this point at an SPIE meeting ca. 2008. To paraphrase him, <em>consider measuring from shore the heights of the masts on two adjacent boats in a turbulent ocean. Because of the waves, the heights, as measured from shore, are fluctuating wildly, so the variance of the individual height measurements is large. However, the difference between the two heights is likely to be relatively constant, i.e., have small variance. This is because the wave that causes one mast’s height to increase also increases the height of the other mast.</em></p>
 </div>
-<div id="sensitivity-and-specificity" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.4</span> Sensitivity and specificity<a href="binary-task.html#sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The notation <span class="math inline">\(P(D|T)\)</span> indicates the probability of diagnosis D given truth state T (the vertical bar symbol is used to denote a conditional probability, i.e., what is to the left of the vertical bar depends on the condition appearing to the right of the vertical bar being true).</p>
-<p><span class="math display" id="eq:binary-taskPDGivenT">\[\begin{equation} 
-P(D|T) = P(\text{diagnosis is D} | \text{truth is T})
-\tag{2.2}
-\end{equation}\]</span></p>
-<p>Therefore the probability that the radiologist will diagnose “case is diseased” when the case is actually diseased is <span class="math inline">\(P(D=2|T=2)\)</span>, which is the probability of a true positive <span class="math inline">\(P(TP)\)</span>.</p>
-<p><span class="math display" id="eq:binary-taskPTP">\[\begin{equation} 
-P(TP) = P(\text{D = 2} | \text{T = 2})
-\tag{2.3}
-\end{equation}\]</span></p>
-<p>Likewise, the probability that the radiologist will diagnose “case is non-diseased” when the case is actually diseased is <span class="math inline">\(P(D=1|T=2)\)</span>, which is the probability of a false negative <span class="math inline">\(P(FN)\)</span>.</p>
-<p><span class="math display" id="eq:binary-taskPFN">\[\begin{equation} 
-P(FN) = P(\text{D = 1} | \text{T = 2})
-\tag{2.4}
-\end{equation}\]</span></p>
-<p>The corresponding probabilities for non-diseased cases, <span class="math inline">\(P(TN)\)</span> and <span class="math inline">\(P(FP)\)</span>, are defined by:</p>
-<p><span class="math display" id="eq:binary-taskPTNFP">\[\begin{equation} 
-\left.\begin{aligned}
-P(TN)&amp;=P(D=1|T=1)\\ 
-\\
-P(FP)&amp;=P(D=2|T=1)
-\end{aligned}\right\}
-\tag{2.5}
-\end{equation}\]</span></p>
-<p>Since the diagnosis must be either <span class="math inline">\(D=1\)</span> or <span class="math inline">\(D=2\)</span>, for each truth state the probabilities on non-diseased and diseased cases must sum to unity:</p>
-<p><span class="math display" id="eq:binary-taskPSumsToUnity">\[\begin{equation} 
-\left.\begin{matrix}
-P(D=1|T=1)+P(D=2|T=1)=1\\ 
-\\  
-P(D=1|T=2)+P(D=2|T=2)=1
-\end{matrix}\right\}
-\tag{2.6}
-\end{equation}\]</span></p>
-<p>Equivalently, these equations can be written:</p>
-<p><span class="math display" id="eq:binary-taskPSumsToUnity2">\[\begin{equation} 
-\left.\begin{matrix}
-P(TN)+P(FP)=1\\ 
-\\
-P(FN)+P(TP)=1
-\end{matrix}\right\}
-\tag{2.7}
-\end{equation}\]</span></p>
-<p>Comments:</p>
+<div id="the-shortage-of-numbers-to-analyze-and-a-pivotal-breakthrough" class="section level3 hasAnchor">
+<h3><span class="header-section-number">9.2.3</span> The shortage of numbers to analyze and a pivotal breakthrough<a href="dbm-analysis-background.html#the-shortage-of-numbers-to-analyze-and-a-pivotal-breakthrough" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><em>The basic issue was that the calculation of <span class="math inline">\(AUC\)</span> reduces the relatively large number of ratings of a set of non-diseased and diseased cases to a single number.</em> For example, after completion of an ROC study with 5 readers and 100 non-diseased and 100 diseased cases interpreted in two treatments, the data is reduced to just 10 numbers, i.e., five readers times two treatments. It is difficult to perform statistics with so few numbers. The author recalls a conversation with Prof. Kevin Berbaum at a Medical Image Perception Society meeting in Tucson, Arizona, ca. 1997, in which he described the basic idea that forms the subject of this chapter. Namely, using jackknife pseudovalues (to be defined below) as individual case-level figures of merit. This, of course, greatly increases the amount of data that one can work with; instead of just 10 numbers one now has 2,000 pseudovalues (2 x 5 x 200). If one assumes the pseudovalues behave essentially as case-level data, then by assumption they are independent and identically distributed, and therefore satisfy the conditions for application of standard analysis of variance (ANOVA) techniques. [This assumption has been much criticized and is the basis for some preferring alternate approaches - but, as Hillis has stated, and I paraphrase, the pseudovalue based method “works”, but lacks sufficient rigor.] The relevant paper had already been published in 1992 but other projects and lack of formal statistical training kept me from fully appreciating this work until later.</p>
+<p>For the moment I restrict to fully paired data (i.e., each case is interpreted by all readers in all treatments). There is a long history of how this field has evolved and I cannot do justice to all methods that are currently available. Some of the methods <span class="citation">(Toledano <a href="#ref-RN1441" role="doc-biblioref">2003</a>; Ishwaran and Gatsonis <a href="#ref-RN2013" role="doc-biblioref">2000</a>; Toledano and Gatsonis <a href="#ref-RN1451" role="doc-biblioref">1996</a>)</span> have the advantage that they can handle explanatory variables (termed covariates) that could influence performance, e.g., years of experience, types of cases, etc. Other methods are restricted to specific choices of FOM. Specifically, the probabilistic approach <span class="citation">(Clarkson, Kupinski, and Barrett <a href="#ref-RN2253" role="doc-biblioref">2006</a>; Kupinski, Clarkson, and Barrett <a href="#ref-RN2254" role="doc-biblioref">2006</a>; Gallas, Pennello, and Myers <a href="#ref-RN2351" role="doc-biblioref">2007</a>; Gallas <a href="#ref-RN2080" role="doc-biblioref">2006</a>)</span> is restricted to the empirical <span class="math inline">\(AUC\)</span> under the ROC curve, and is not applicable to other FOMs, e.g., parametrically fitted ROC AUCs or, more importantly, to location specific paradigm FOMs. Instead, I will focus on methods for which software is readily available (i.e., freely on websites), which have been widely used (the method that I am about to describe has been used in several hundred publications) and validated via simulations, and which apply to any scalar figure of merit, and therefore widely applicable, for example, to location specific paradigms.</p>
+</div>
+<div id="organization-of-chapter" class="section level3 hasAnchor">
+<h3><span class="header-section-number">9.2.4</span> Organization of chapter<a href="dbm-analysis-background.html#organization-of-chapter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The concepts of reader and case populations, introduced in (book) Chapter 07, are recapitulated. A distinction is made between <em>fixed</em> and <em>random</em> factors – statistical terms with which one must become familiar. Described next are three types of analysis that are possible with MRMC data, depending on which factors are regarded as random and which as fixed. The general approach to the analysis is described. Two methods of analysis are possible: the jackknife pseudovalue-based approach detailed in this chapter and an alternative approach is detailed in Chapter 10. The Dorfman-Berbaum-Metz (DBM) model for the jackknife pseudovalues is described that incorporates different sources of variability and correlations possible with MRMC data. Calculation of ANOVA-related quantities, termed mean squares, from the pseudovalues, are described followed by the significance testing procedure for testing the null hypothesis of no treatment effect. A relevant distribution used in the analysis, namely the F-distribution, is illustrated with R examples. The decision rule, i.e., whether to reject the NH, calculation of the ubiquitous p-value, confidence intervals and how to handle multiple treatments is illustrated with two datasets, one an older ROC dataset that has been widely used to demonstrate advances in ROC analysis, and the other a recent dataset involving evaluation of digital chest tomosynthesis vs. conventional chest imaging. The approach to validation of DBM analysis is illustrated with an R example. The chapter concludes with a section on the meaning of the pseudovalues. The intent is to explain, at an intuitive level, why the DBM method “works”, even though use of pseudovalues has been questioned at the conceptual level. For organizational reasons and space limitations, details of the software are relegated to Online Appendices, but they are essential reading, preferably in front of a computer running the online software that is part of this book. The author has included material here that may be obvious to statisticians, e.g., an explanation of the Satterthwaite approximation, but are expected to be helpful to others from non-statistical backgrounds.</p>
+</div>
+</div>
+<div id="dbm-analysis-background-random-fixed-factors" class="section level2 hasAnchor">
+<h2><span class="header-section-number">9.3</span> Random and fixed factors<a href="dbm-analysis-background.html#dbm-analysis-background-random-fixed-factors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>This paragraph introduces some analysis of variance (ANOVA) terminology. Treatment, reader and case are factors with different numbers of levels corresponding to each factor. For an ROC study with two treatments, five readers and 200 cases, there are two levels of the treatment factor, five levels of the reader factor and 200 levels of the case factor. If a factor is regarded as fixed, then the conclusions of the analysis apply only to the specific levels of the factor used in the study. If a factor is regarded as random, the levels of the factor are regarded as random samples from a parent population of the corresponding factor, and conclusions regarding specific levels are not allowed; rather, conclusions apply to the distribution from which the levels were sampled.</em></p>
+<p>ROC MRMC studies require a sample of cases and interpretations by one or more readers in one or more treatments (in this book the term <em>multiple</em> includes as a special case <em>one</em>). A study is never conducted on a sample of treatments. It would be nonsensical to image patients using a “sample” of all possible treatments. Every variation of an imaging technique (e.g., different kilovoltage or kVp) or display method (e.g., window-level setting) or image processing techniques qualifies as a distinct treatment. The number of possible treatments is very large, and, from a practical point of view, most of them are uninteresting. Rather, interest is in comparing two or more (a few at most) treatments that, based on preliminary studies, are clinically interesting. One treatment may be computed tomography, the other magnetic resonance imaging, or one may be interested in comparing a standard image processing method to a newly proposed one, or one may be interested in comparing CAD to a group of readers.</p>
+<p>This brings out an essential difference between how cases, readers and treatments have to be regarded in the variability estimation procedure. Cases and readers are usually regarded as random factors (there has to be at least one random factor – if not, there are no sources of variability and nothing to apply statistics to!), while treatments are regarded as fixed factors. The random factors contribute variability, but the fixed factors do not, rather they contribute constant shifts in performance. The terms <em>fixed</em> and <em>random</em> factors are used in this specific sense, and are derived, in turn, from ANOVA methods in statistics. With two or more treatments, there are shifts in performance of treatments relative to each other, that one seeks to assess the significance of, against a background of noise contributed by the random factors. If the shifts are sufficiently large compared to the noise, then one can state, with some certainty, that they are real. Quantifying the last statement uses the methods of hypothesis testing introduced in Chapter <a href="hypothesis-testing.html#hypothesis-testing">8</a>.</p>
+</div>
+<div id="dbm-analysis-background-reader-case-populations" class="section level2 hasAnchor">
+<h2><span class="header-section-number">9.4</span> Reader and case populations<a href="dbm-analysis-background.html#dbm-analysis-background-reader-case-populations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Consider a sample of <span class="math inline">\(J\)</span> readers. Conceptually there is a reader-population, modeled as a normal distribution <span class="math inline">\(\theta_j \sim N\left ( \theta_{\bullet\{1\}}, \sigma_{br+wr}^{2} \right )\)</span>, describing the variation of skill-level of readers. Here <span class="math inline">\(\theta\)</span> is a generic FOM. Each reader <span class="math inline">\(j\)</span> is characterized by a different value of <span class="math inline">\(\theta_j\)</span>, <span class="math inline">\(j=1,2,...J\)</span> and one can conceptually think of a bell-shaped curve with variance <span class="math inline">\(\sigma_{br+wr}^{2}\)</span> describing between-reader variability of the readers. A large variance implies large spread in reader skill levels.</p>
+<p>Likewise, there is a case-population, also modeled as a normal distribution, describing the variations in difficulty levels of the patients. One actually has two unit-variance distributions, one for non-diseased and one for diseased cases, characterized by a separation parameter. The separation parameter is scaled (i.e., normalized) by the standard deviation of each distribution (assumed equal). Each distribution has unit variance. Conceptually an easy case set has a larger than usual scaled separation parameter while a difficult case set has a smaller than usual scaled separation parameter. The distribution of the scaled separation parameter can be modeled as a bell-shaped curve <span class="math inline">\(\theta_{\{c\}} \sim N\left ( \theta_{\{\bullet\}}, \sigma_{cs+wr}^{2} \right )\)</span> with variance <span class="math inline">\(\sigma_{cs+wr}^{2}\)</span> describing the variations in difficulty levels of different case samples. Note the need for the case-set index, introduced in (book) Chapter 07, to specify the separation parameter for a specific case-set (in principle a <span class="math inline">\(j\)</span>-index is also needed as one cannot have an interpretation without a reader; for now it is suppressed. A small variance <span class="math inline">\(\sigma_{cs}^{2}\)</span> implies the different case sets have similar difficulty levels while a larger variance would imply a larger spread in difficulty levels. Just as the previous paragraph described reader-varibility, this paragraph has described case-variability.</p>
+<p><em>Anytime one has a common random component to two measurements, the measurements are correlated.</em> In the Wagner analogy, the common component is the random height, as a function of time, of a wave, which contributes the same amount to both height measurements (since the boats are adjacent). Since the readers interpret a common case set in all treatments one needs to account for various types of correlations that are potentially present. These occur due to the various types of pairings that can occur with MRMC data, where each pairing implies the presence of a common component to the measurements: (a) the same reader interpreting the <em>same cases</em> in different treatments, (b) different readers interpreting the <em>same cases</em> in the same treatment and (c) different readers interpreting the <em>same cases</em> in different treatments. These pairings are more clearly elucidated in (book) Chapter 10. The current chapter uses jackknife pseudovalue based analysis to model the variances and the correlations. Hillis has shown that the two approaches are essentially equivalent <span class="citation">(Hillis, Berbaum, and Metz <a href="#ref-RN1866" role="doc-biblioref">2008</a>)</span>.</p>
+</div>
+<div id="dbm-analysis-background-threeAnalyses" class="section level2 hasAnchor">
+<h2><span class="header-section-number">9.5</span> Three types of analyses<a href="dbm-analysis-background.html#dbm-analysis-background-threeAnalyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>MRMC analysis aims to draw conclusions regarding the significances of inter-treatment shifts in performance. Ideally a conclusion (i.e., a difference is significant) should generalize to the respective populations from which the random samples were obtained. In other words, the idea is to generalize from the observed samples to the underlying populations. Three types of analyses are possible depending on which factor(s) one regards as random and which as fixed: random-reader random-case (RRRC), fixed-reader random-case (FRRC) and random-reader fixed-case (RRFC). If a factor is regarded as random, then the conclusion of the study applies to the population from which the levels of the factor were sampled. If a factor is regarded as fixed, then the conclusion applies only to the specific levels of the sampled factor. For example, if reader is regarded as a random factor, the conclusion generalizes to the reader population from which the readers used in the study were obtained. If reader is regarded as a fixed factor, then the conclusion applies to the specific readers that participated in the study. Regarding a factor as fixed effectively “freezes out” the sampling variability of the population and interest then centers only on the specific levels of the factor used in the study. Likewise, treating case as a fixed factor means the conclusion of the study is specific to the case-set used in the study.</em></p>
+</div>
+<div id="dbm-analysis-background-approach" class="section level2 hasAnchor">
+<h2><span class="header-section-number">9.6</span> General approach<a href="dbm-analysis-background.html#dbm-analysis-background-approach" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This section provides an overview of the steps involved in analysis of MRMC data. Two approaches are described in parallel: a figure of merit (FOM) derived jackknife pseudovalue based approach, detailed in this chapter and an FOM based approach, detailed in the next chapter. The analysis proceeds as follows:</p>
+<ol style="list-style-type: decimal">
+<li>A FOM is selected: <em>the selection of FOM is the single-most critical aspect of analyzing an observer performance study</em>. The selected FOM is denoted <span class="math inline">\(\theta\)</span>. The FOM has to be an objective scalar measure of performance with larger values characterizing better performance. [The qualifier “larger” is trivially satisfied; if the figure of merit has the opposite characteristic, a sign change is all that is needed to bring it back to compliance with this requirement.] Examples are empirical <span class="math inline">\(AUC\)</span>, the binormal model-based estimate <span class="math inline">\(A_z\)</span> , other advance method based estimates of <span class="math inline">\(AUC\)</span>, sensitivity at a predefined value of specificity, etc. An example of a FOM requiring a sign-change is <span class="math inline">\(FPF\)</span> at a specified <span class="math inline">\(TPF\)</span>, where smaller values signify better performance.</li>
+<li>For each treatment <span class="math inline">\(i\)</span> and reader <span class="math inline">\(j\)</span> the figure of merit <span class="math inline">\(\theta_{ij}\)</span> is estimated from the ratings data. Repeating this over all treatments and readers yields a matrix of observed values <span class="math inline">\(\theta_{ij}\)</span>. This is averaged over all readers in each treatment yielding <span class="math inline">\(\theta_{i\bullet}\)</span>. The observed effect-size <span class="math inline">\(ES_{obs}\)</span> is defined as the difference between the reader-averaged FOMs in the two treatments, i.e., <span class="math inline">\(ES_{obs} = \theta_{2\bullet}-\theta_{1\bullet}\)</span>. While extensible to more than two treatments, the explanation is more transparent by restricting to two modalities.</li>
+<li>If the magnitude of <span class="math inline">\(ES_{obs}\)</span> is “large” one has reason to suspect that there might indeed be a significant difference in AUCs between the two treatments, where <em>significant</em> is used in the sense of (book) Chapter 08. Quantification of this statement, specifically how large is “large”, requires the conceptually more complex steps described next.
 <ul>
-<li>An easy way to remember Eqn. <a href="binary-task.html#eq:binary-taskPSumsToUnity2">(2.7)</a> is to start by writing down the probability of one of the four probabilities, e.g., <span class="math inline">\(P(TN)\)</span>, and “reversing” both terms inside the parentheses, i.e., <span class="math inline">\(T \Rightarrow F\)</span>, and <span class="math inline">\(N \Rightarrow P\)</span>. This yields the term <span class="math inline">\(P(FP)\)</span> which when added to the previous probability, <span class="math inline">\(P(TN)\)</span>, yields unity, i.e., the 1st equation in Eqn. <a href="binary-task.html#eq:binary-taskPSumsToUnity2">(2.7)</a>.</li>
-<li>Because there are two equations in four unknowns, only two of the four probabilities, one per equation, are independent. By tradition these are chosen to be <span class="math inline">\(P(D=1|T=1)\)</span> and <span class="math inline">\(P(D=2|T=2)\)</span>, i.e., <span class="math inline">\(P(TN)\)</span> and <span class="math inline">\(P(TP)\)</span>, which happen to be the probabilities of correct decisions on non-diseased and diseased cases, respectively. The two basic probabilities are so important that they have names: <span class="math inline">\(P(D=2|T=2)=P(TP)\)</span> is termed sensitivity (Se) and <span class="math inline">\(P(D=1|T=1)=P(TN)\)</span> is termed specificity (Sp):</li>
-</ul>
-<p><span class="math display" id="eq:binary-taskSeSp">\[\begin{equation} 
-\left.\begin{matrix}
-\text{Se}=P(TP)=P(D=2|T=2)\\ 
-\\
-\text{Sp}=P(TN)=P(D=1|T=1)
-\end{matrix}\right\}
-\tag{2.8}
-\end{equation}\]</span></p>
-<p>The radiologist can be regarded as a diagnostic “test” yielding a binary decision under the binary truth condition. More generally, any test (e.g., a blood test for HIV) yielding a binary result (positive or negative) under a binary truth condition is said to be sensitive if it correctly detects the diseased condition most of the time. The test is said to be specific if it correctly detects the non-diseased condition most of the time. Sensitivity is how correct the test is at detecting a diseased condition, and specificity is how correct the test is at detecting a non-diseased condition.</p>
-<div id="reasons-for-the-names-sensitivity-and-specificity" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.4.1</span> Reasons for the names sensitivity and specificity<a href="binary-task.html#reasons-for-the-names-sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>It is important to understand the reason for these names and an analogy may be helpful. Most of us are sensitive to temperature, especially if the choice is between ice-cold vs. steaming hot. The sense of touch is said to be sensitive to temperature. One can imagine some neurological condition rendering a person hypersensitive to temperature, such that the person responds “hot” no matter what is being touched. For such a person the sense of touch is not very specific, as it is unable to distinguish between the two temperatures. This person would be characterized by unit sensitivity (since the response is “hot” to all steaming hot objects) and zero specificity (since the response is never “cold” to ice-cold objects). Likewise, a different neurological condition could render a person hypersensitive to cold, and the response is “cold” no matter what is being touched. Such a person would have zero sensitivity (since the response is never “hot” when touching steaming hot) and unit specificity (since the response is “cold” when touching ice-cold). Already one suspects that there is an inverse relation between sensitivity and specificity.</p>
+<li>In the DBM approach, the subject of this chapter, jackknife pseudovalues are calculated as described in Chapter 08. A standard ANOVA model with uncorrelated errors is used to model the pseudovalues.</li>
+<li>In the OR approach, the subject of the next chapter, the FOM is modeled directly using a custom ANOVA model with correlated errors.</li>
+</ul></li>
+<li>Depending on the selected method of modeling the data (pseudovalue vs. FOM) a statistical model is used which includes parameters modeling the true values in each treatment, and expected variations due to different variability components in the model, e.g., between-reader variability, case-sampling variability, interactions (e.g., allowing for the possibility that the random effect of a given reader could be treatment dependent) and the presence of correlations (between pseudovalues or FOMs) because of the pairings inherent in the interpretations.</li>
+<li>In RRRC analysis one accounts for randomness in readers and cases. In FRRC analysis one regards reader as a fixed factor. In RRFC analysis one regards the case-sample (set of cases) as a fixed factor. The statistical model depends on the type of analysis.</li>
+<li>The parameters of the statistical model are estimated from the observed data.</li>
+<li>The estimates are used to infer the statistical distribution of the observed effect size, <span class="math inline">\(ES_{obs}\)</span>, regarded as a realization of a random variable, under the null hypothesis (NH) that the true effect size is zero.</li>
+<li>Based on this statistical distribution, and assuming a two-sided test, the probability (this is the oft-quoted p-value) of obtaining an effect size at least as extreme as that actually observed, is calculated, as in (book) Chapter 08.</li>
+<li>If the p-value is smaller than a preselected value, denoted <span class="math inline">\(\alpha\)</span>, one declares the treatments different at the <span class="math inline">\(\alpha\)</span> - significance level. The quantity <span class="math inline">\(\alpha\)</span> is the control (or “cap”) on the probability of making a Type I error, defined as rejecting the NH when it is true. It is common to set <span class="math inline">\(\alpha\)</span> = 0.05 but depending on the severity of the consequences of a Type I error, as discussed in (book) Chapter 08, one might consider choosing a different value. Notice that <span class="math inline">\(\alpha\)</span> is a pre-selected number while the p-value is a realization (observation) of a random variable.</li>
+<li>For a valid statistical analysis, the empirical probability <span class="math inline">\(\alpha_{emp}\)</span> over many (typically 2000) independent NH datasets, that the p-value is smaller than <span class="math inline">\(\alpha\)</span>, should equal <span class="math inline">\(\alpha\)</span> to within statistical uncertainty.</li>
+</ol>
 </div>
-<div id="estimating-sensitivity-and-specificity" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.4.2</span> Estimating sensitivity and specificity<a href="binary-task.html#estimating-sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Sensitivity and specificity are the probabilities of correct decisions, over diseased and non-diseased cases, respectively. The true values of these probabilities would require interpreting all diseased and non-diseased cases in the entire population of cases. In reality, one has a finite sample of cases and the corresponding quantities, calculated from this finite sample, are termed estimates. Population values are fixed, and in general unknown, while estimates are random variables. Intuitively, an estimate calculated over a larger number of cases is expected to be closer to the true or population value than an estimate calculated over a smaller number of cases.</p>
-<p>Estimates of sensitivity and specificity follow from counting the numbers of TP and TN decisions in Table 2.2 and dividing by the appropriate denominators. For sensitivity, the appropriate denominator is the number of actually diseased cases, namely , and for specificity, the appropriate denominator is the number of actually non-diseased cases, namely . The estimation equations for sensitivity specificity are (estimates are denoted by the “hat” or circumflex symbol ^):</p>
-<p><span class="math display" id="eq:binary-taskSeSpEstimates">\[\begin{equation} 
-\left.\begin{matrix}
-\widehat{\text{Se}}=\widehat{P(TP)}=\frac{n(TP)}{K_2}\\
-\\ 
-\widehat{\text{Sp}}=\widehat{P(TN)}=\frac{n(TN)}{K_1}
-\end{matrix}\right\}
-\tag{2.9}
-\end{equation}\]</span></p>
-<p>The ratio of the number of TP decisions to the number of actually diseased cases is termed true positive fraction <span class="math inline">\(\widehat{TPF}\)</span>, which is an estimate of sensitivity, or equivalently, an estimate of <span class="math inline">\(\widehat{P(TP)}\)</span>. Likewise, the ratio of the number of TN decisions to the number of actually non-diseased cases is termed true negative fraction <span class="math inline">\(\widehat{TNF}\)</span>, which is an estimate of specificity, or equivalently, an estimate of <span class="math inline">\(\widehat{P(TN)}\)</span>. The complements of <span class="math inline">\(\widehat{TPF}\)</span> and <span class="math inline">\(\widehat{TNF}\)</span> are termed false negative fraction <span class="math inline">\(\widehat{FNF}\)</span> and false positive fraction <span class="math inline">\(\widehat{FPF}\)</span>, respectively.</p>
+<div id="dbm-analysis-background-summary" class="section level2 hasAnchor">
+<h2><span class="header-section-number">9.7</span> Summary TBA<a href="dbm-analysis-background.html#dbm-analysis-background-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This chapter has detailed analysis of MRMC ROC data using the DBM method. A reason for the level of detail is that almost all of the material carries over to other data collection paradigms, and a thorough understanding of the relatively simple ROC paradigm data is helpful to understanding the more complex ones.</p>
+<p>DBM has been used in several hundred ROC studies (Prof. Kevin Berbaum, private communication ca. 2010). While the method allows generalization of a study finding, e.g., rejection of the NH, to the population of readers and cases, I believe this is sometimes taken too literally. If a study is done at a single hospital, then the radiologists tend to be more homogenous as compared to sampling radiologists from different hospitals. This is because close interactions between radiologists at a hospital tend to homogenize reading styles and performance. A similar issue applies to patient characteristics, which are also expected to vary more between different geographical locations than within a given location served by the hospital. This means is that single hospital study based p-values may tend to be biased downwards, declaring differences that may not be replicable if a wider sampling “net” were used using the same sample size. The price paid for a wider sampling net is that one must use more readers and cases to achieve the same sensitivity to genuine treatment effects, i.e., statistical power (i.e., there is no “free-lunch”).</p>
+<p>A third MRMC ROC method, due to Clarkson, Kupinski and Barrett19,20, implemented in open-source JAVA software by Gallas and colleagues22,44 (<a href="http://didsr.github.io/iMRMC/" class="uri">http://didsr.github.io/iMRMC/</a>) is available on the web. Clarkson et al19,20 provide a probabilistic rationale for the DBM model, provided the figure of merit is the empirical <span class="math inline">\(AUC\)</span>. The method is elegant but it is only applicable as long as one is using the empirical AUC as the figure of merit (FOM) for quantifying observer performance. In contrast the DBM approach outlined in this chapter, and the approach outlined in the following chapter, are applicable to any scalar FOM. Broader applicability ensures that significance-testing methods described in this, and the following chapter, apply to other ROC FOMs, such as binormal model or other fitted AUCs, and more importantly, to other observer performance paradigms, such as free-response ROC paradigm. An advantage of the Clarkson et al. approach is that it predicts truth-state dependence of the variance components. One knows from modeling ROC data that diseased cases tend to have greater variance than non-diseased ones, and there is no reason to suspect that similar differences do not exist between the variance components.</p>
+<p>Testing validity of an analysis method via simulation testing is only as good as the simulator used to generate the datasets, and this is where current research is at a bottleneck. The simulator plays a central role in ROC analysis. In my opinion this is not widely appreciated. In contrast, simulators are taken very seriously in other disciplines, such as cosmology, high-energy physics and weather forecasting. The simulator used to validate3 DBM is that proposed by Roe and Metz39 in 1997. This simulator has several shortcomings. (a) It assumes that the ratings are distributed like an equal-variance binormal model, which is not true for most clinical datasets (recall that the b-parameter of the binormal model is usually less than one). Work extending this simulator to unequal variance has been published3. (b) It does not take into account that some lesions are not visible, which is the basis of the contaminated binormal model (CBM). A CBM model based simulator would use equal variance distributions with the difference that the distribution for diseased cases would be a mixture distribution with two peaks. The radiological search model (RSM) of free-response data, Chapter 16 &amp;17 also implies a mixture distribution for diseased cases, and it goes farther, as it predicts some cases yield no z-samples, which means they will always be rated in the lowest bin no matter how low the reporting threshold. Both CBM and RSM account for truth dependence by accounting for the underlying perceptual process. (c) The Roe-Metz simulator is out dated; the parameter values are based on datasets then available (prior to 1997). Medical imaging technology has changed substantially in the intervening decades. (d) Finally, the methodology used to arrive at the proposed parameter values is not clearly described. Needed is a more realistic simulator, incorporating knowledge from alternative ROC models and paradigms that is calibrated, by a clearly defined method, to current datasets.</p>
+<p>Since ROC studies in medical imaging have serious health-care related consequences, no method should be used unless it has been thoroughly validated. Much work still remains to be done in proper simulator design, on which validation is dependent.</p>
 </div>
-</div>
-<div id="disease-prevalence" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.5</span> Disease prevalence<a href="binary-task.html#disease-prevalence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Disease prevalence, often abbreviated to prevalence, is defined as the actual or true probability that a randomly sampled case is of a diseased patient, i.e., the fraction of the entire population that is diseased. It is denoted <span class="math inline">\(P(D|pop)\)</span> when patients are randomly sampled from the population (“pop”) and otherwise it is denoted <span class="math inline">\(P(D|lab)\)</span>, where the condition “lab” stands for a laboratory study, where cases may be artificially enriched, and thus not representative of the population value:</p>
-<p><span class="math display" id="eq:binary-taskDisPrev">\[\begin{equation} 
-\left.\begin{matrix}
-P(D|\text{pop})=P(T=2|\text{pop})\\
-\\ 
-P(D|\text{lab})=P(T=2|\text{lab})
-\end{matrix}\right\}
-\tag{2.10}
-\end{equation}\]</span></p>
-<p>Since the patients must be either diseased on non-diseased, it follows with either sampling method, that:</p>
-<p><span class="math display">\[\begin{equation} 
-\left.\begin{aligned}
-P(T=1|\text{pop})+P(T=2|\text{pop})&amp;=1\\
-\\
-P(T=1|\text{lab})+P(T=2|\text{lab})&amp;=1
-\end{aligned}\right\}
-\end{equation}\]</span></p>
-<p>If a finite number of patients are sampled randomly from the population the fraction of diseased patients in the sample is an estimate of true disease prevalence.</p>
-<p><span class="math display" id="eq:binary-taskDisPrevEst">\[\begin{equation} 
-\left.\begin{matrix}
-\widehat{P(D|\text{pop})}=
-\frac{K_2}{K_1+K_2}
-\end{matrix}\right|_{pop}
-\tag{2.11}
-\end{equation}\]</span></p>
-<p>It is important to appreciate the distinction between true (population) prevalence and laboratory prevalence. As an example, true disease prevalence for breast cancer is about five per 1000 patients in the US, but most mammography studies are conducted with comparable numbers of non-diseased and diseased cases:</p>
-<p><span class="math display" id="eq:binary-taskDisPrevLabVsPop">\[\begin{equation} 
-\left.\begin{aligned}
-\widehat{P(D|\text{pop})}&amp;\sim 0.005\\
-\\
-\widehat{P(D|\text{lab})}&amp;\sim 0.5\gg \widehat{P(D|\text{pop})}
-\end{aligned}\right\}
-\tag{2.12}
-\end{equation}\]</span></p>
-</div>
-<div id="accuracy" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.6</span> Accuracy<a href="binary-task.html#accuracy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Accuracy is defined as the fraction of all decisions that are in fact correct. Denoting it by <span class="math inline">\(Ac\)</span> one has for the corresponding estimate:</p>
-<p><span class="math display" id="eq:binary-taskAccuracyEst">\[\begin{equation} 
-\widehat{Ac}=\frac{n(TN)+n(TP)}{n(TN)+n(TP)+n(FP)+n(FN)}
-\tag{2.13}
-\end{equation}\]</span></p>
-<p>The numerator is the total number of correct decisions and the denominator is the total number of decisions. An equivalent expression is:</p>
-<p><span class="math display" id="eq:binary-taskAccuracyEst2">\[\begin{equation} 
-\widehat{Ac}=\widehat{Sp}\widehat{P(!D)}+\widehat{Se}\widehat{P(D)}
-\tag{2.14}
-\end{equation}\]</span></p>
-<p>The exclamation mark symbol is used to denote the “not” or negation operator. For example, <span class="math inline">\(P(!D)\)</span> means the probability that the patient is not diseased. Eqn. <a href="binary-task.html#eq:binary-taskAccuracyEst2">(2.14)</a> applies equally to laboratory or population studies, <em>provided sensitivity and specificity are estimated consistently</em>. One cannot combine a population estimate of prevalence with a laboratory measurement of sensitivity and / or specificity.</p>
-<p>Eqn. <a href="binary-task.html#eq:binary-taskAccuracyEst2">(2.14)</a> can be understood from the following argument. <span class="math inline">\(\widehat{Sp}\)</span> is the fraction of correct (i.e., negative) decisions on non-diseased cases. Multiplying this by <span class="math inline">\(\widehat{P(!D)}\)</span> yields <span class="math inline">\(\widehat{Sp} \widehat{P(!D)}\)</span>, the fraction of correct negative decisions on all cases. Similarly, <span class="math inline">\(\widehat{Sp}\)</span> is the fraction of correct positive decisions on all cases. Therefore, their sum is the fraction of (all, i.e., negative and positive) correct decisions on all cases. A formal mathematical derivation follows. The terms on the right hand side of Eqn. <a href="binary-task.html#eq:binary-taskSeSpEstimates">(2.9)</a> can be “turned around” yielding:</p>
-<p><span class="math display" id="eq:binary-tasknTpnTN">\[\begin{equation} 
-\left.\begin{matrix}
-n(TP)=K_2 \widehat{Se}\\ 
-\\
-n(TN)=K_1 \widehat{Sp}
-\end{matrix}\right\}
-\tag{2.15}
-\end{equation}\]</span></p>
-<p>Therefore,</p>
-<p><span class="math display" id="eq:binary-taskAccuracyDeriv">\[\begin{equation} 
-\begin{aligned}
-\widehat{Ac}&amp;=\frac{n(TN)+n(TP)}{K}\\
-\\
-&amp;=\frac{K_1 \widehat{Sp}+K_2 \widehat{Se}}{K}\\
-\\
-&amp;=\widehat{Sp} \widehat{P(!D)}+\widehat{Se}\widehat{P(D)}
-\end{aligned}
-\tag{2.16}
-\end{equation}\]</span></p>
-</div>
-<div id="negative-and-positive-predictive-values" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.7</span> Negative and positive predictive values<a href="binary-task.html#negative-and-positive-predictive-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Sensitivity and specificity have desirable characteristics insofar as they reward the observer for correct decisions on actually diseased and actually non-diseased cases, respectively, so these quantities are expected to be independent of disease prevalence; one is dividing by the relevant denominator, so increased numbers of non-diseased cases are balanced by a corresponding increased number of correct decisions on non-diseased cases, and likewise for diseased cases. However, radiologists interpret cases in a “mixed” situation where cases could be positive or negative for disease and disease prevalence plays a crucial role in their decision-making – this point will be clarified shortly. Therefore, a measure of performance that is desirable from the researcher’s point of view is not necessarily desirable from the radiologist’s point of view. It should be obvious that if most cases are non-diseased, i.e., disease prevalence is close to zero, specificity, being correct on non-diseased cases, is more important to the radiologist than sensitivity. Otherwise, the radiologist would figuratively be crying “wolf” most of the time. The radiologist who makes too many FPs would discover it from subsequent clinical audits or daily case conferences, which are held in most large imaging departments. There is a cost to unnecessary false positives – the cost of additional imaging and / or needle-biopsy to rule out cancer, not to mention the pain and emotional trauma inflicted on the patient. Conversely, if disease prevalence is high, then sensitivity, being correct on diseased cases, is more important to the radiologist than specificity. With intermediate disease prevalence a weighted average of sensitivity and specificity, where the weighting involves disease prevalence, would appear to be desirable from the radiologist’s point of view.</p>
-<p>The radiologist is less interested in the normalized probability of a correct decision on non-diseased cases. Rather interest is in the probability that a patient diagnosed as non-diseased is actually non-diseased. The reader should notice how the two probability definitions are “turned around” - more on this below. Likewise, the radiologist is less interested in the normalized probability of correct decisions on diseased cases; rather interest is in the probability that a patient diagnosed as diseased is actually diseased. These are termed negative and positive predictive values, respectively, and denoted <span class="math inline">\(NPV\)</span> and <span class="math inline">\(PPV\)</span>.</p>
-<p><span class="math inline">\(NPV\)</span> is defined as the probability, given a non-diseased diagnosis, that the patient is actually non-diseased:</p>
-<p><span class="math display" id="eq:binary-taskNPV1">\[\begin{equation} 
-NPV = P(T=1|D=1)
-\tag{2.17}
-\end{equation}\]</span></p>
-<p>PPV is defined as the probability, given a diseased diagnosis, that the patient is actually diseased:</p>
-<p><span class="math display" id="eq:binary-taskPPV1">\[\begin{equation} 
-PPV = P(T=2|D=2)
-\tag{2.18}
-\end{equation}\]</span></p>
-<p>Note that both equations are “turned around” from the definition of specificity and sensitivity, Eqn. <a href="binary-task.html#eq:binary-taskSeSp">(2.8)</a>, i.e., specificity = <span class="math inline">\(P(D=1|T=1)\)</span> and sensitivity = <span class="math inline">\(P(D=2|T=2)\)</span>.</p>
-<p>For now we focus on <span class="math inline">\(NPV\)</span>. To estimate <span class="math inline">\(NPV\)</span> one divides the number of correct negative decisions <span class="math inline">\(n(TN)\)</span> by the total number of negative decisions <span class="math inline">\(n(N)\)</span>. The latter is the sum of the number of correct negative decisions <span class="math inline">\(n(TN)\)</span> and the number of incorrect negative decisions <span class="math inline">\(n(FN)\)</span>. Therefore,</p>
-<p><span class="math display" id="eq:binary-taskNPV2">\[\begin{equation} 
-\widehat{NPV}=\frac{n(TN)}{n(TN)+n(FN)}
-\tag{2.19}
-\end{equation}\]</span></p>
-<p>Dividing the numerator and denominator by the total number of negative cases, one gets:</p>
-<p><span class="math display" id="eq:binary-taskNPV3">\[\begin{equation} 
-\widehat{NPV}=\frac{\widehat{P(TN)}}{\widehat{P(TN)}+\widehat{P(FN)}}
-\tag{2.20}
-\end{equation}\]</span></p>
-<p>The estimate of the probability of a TN equals the estimate of true negative fraction <span class="math inline">\(1-\widehat{FPF}\)</span> multiplied by the estimate that the patient is non-diseased, i.e., <span class="math inline">\(\widehat{P(!D)}\)</span>:</p>
-<p><span class="math display" id="eq:binary-taskPTNEst">\[\begin{equation} 
-\widehat{P(TN)}=\widehat{P(!D)}(1-\widehat{FPF})
-\tag{2.21}
-\end{equation}\]</span></p>
-<p>Explanation: A similar logic to that used earlier applies: <span class="math inline">\((1-\widehat{FPF})\)</span> is the probability of being correct on non-diseased cases. Multiplying this by the estimate of probability of disease absence yields the estimate of <span class="math inline">\(\widehat{P(TN)}\)</span>.</p>
-<p>Likewise, the estimate of the probability of a FN equals the estimate of false negative fraction, which is <span class="math inline">\((1-\widehat{TPF})\)</span>, multiplied by the estimate of the probability that the patient is diseased, i.e., <span class="math inline">\((\widehat{P(D)}\)</span> :</p>
-<p><span class="math display" id="eq:binary-taskPFNEst">\[\begin{equation} 
-\widehat{P(FN)}=\widehat{P(D)}(1-\widehat{TPF})
-\tag{2.22}
-\end{equation}\]</span></p>
-<p>Putting this all together, one has:</p>
-<p><span class="math display" id="eq:binary-taskNPVFormula">\[\begin{equation} 
-\widehat{NPV}=\frac{\widehat{P(!D)}(1-\widehat{FPF})}{(\widehat{P(!D)}(1-\widehat{FPF})+(\widehat{P(D)}(1-\widehat{TPF})}
-\tag{2.23}
-\end{equation}\]</span></p>
-<p>For the population,</p>
-<p><span class="math display" id="eq:binary-taskNPVFormula-pop">\[\begin{equation} 
-NPV=\frac{P(!D)(1-FPF)}{(P(!D)(1-FPF)+(P(D)(1-TPF)}
-\tag{2.24}
-\end{equation}\]</span></p>
-<p>Likewise, it can be shown that <span class="math inline">\(PPV\)</span> is given by:</p>
-<p><span class="math display" id="eq:binary-taskPPV">\[\begin{equation} 
-PPV =\frac{P(D)(TPF)}{P(D)(TPF)+P(!D)FPF}
-\tag{2.25}
-\end{equation}\]</span></p>
-<p>The equations defining NPV and PPV are actually special cases of Bayes’ theorem <span class="citation">(Larsen and Marx <a href="#ref-RN1492" role="doc-biblioref">2001</a>)</span>. The general theorem is:</p>
-<p><span class="math display" id="eq:binary-taskBayesTheorem">\[\begin{equation} 
-\begin{aligned}
-P(A|B)&amp;=\frac{P(B|A)P(A)}{P(B)} \\
-\\
-&amp;=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
-\end{aligned}
-\tag{2.26}
-\end{equation}\]</span></p>
-<p>An easy way to remember Eqn. <a href="binary-task.html#eq:binary-taskBayesTheorem">(2.26)</a> is to start with the numerator on the right hand side, which is the “reversed” form of the desired probability on the left hand side, multiplied by an appropriate probability. For example, if the desired probability is <span class="math inline">\(P(A|B)\)</span>, one starts with the “reversed” form, i.e., <span class="math inline">\(P(B|A)\)</span>, multiplied by <span class="math inline">\(P(A)\)</span>. This yields the numerator. The denominator is the sum of two probabilities: the probability of B given A, i.e., <span class="math inline">\(P(B|A)\)</span>, multiplied by <span class="math inline">\(P(A)\)</span> plus the probability of B given <span class="math inline">\(!A\)</span>, i.e., <span class="math inline">\(P(B|!A)\)</span>, multiplied by <span class="math inline">\(P(!A)\)</span>.</p>
-<div id="binary-taskNpvPpvCode" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.7.1</span> Example calculation of PPV, NPV and accuracy<a href="binary-task.html#binary-taskNpvPpvCode" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>Typical disease prevalence in the US in screening mammography is 0.005.</li>
-<li>A typical operating point, for an expert mammographer, is FPF = 0.1, TPF = 0.8. What are NPV and PPV?</li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="binary-task.html#cb1-1"></a><span class="co"># disease prevalence in </span></span>
-<span id="cb1-2"><a href="binary-task.html#cb1-2"></a><span class="co"># USA screening mammography </span></span>
-<span id="cb1-3"><a href="binary-task.html#cb1-3"></a>prevalence &lt;-<span class="st"> </span><span class="fl">0.005</span> <span class="co"># Line 3 </span></span>
-<span id="cb1-4"><a href="binary-task.html#cb1-4"></a>FPF &lt;-<span class="st"> </span><span class="fl">0.1</span> <span class="co"># typical operating point </span></span>
-<span id="cb1-5"><a href="binary-task.html#cb1-5"></a>TPF &lt;-<span class="st"> </span><span class="fl">0.8</span> <span class="co">#        do: </span></span>
-<span id="cb1-6"><a href="binary-task.html#cb1-6"></a>specificity &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span>FPF </span>
-<span id="cb1-7"><a href="binary-task.html#cb1-7"></a>sensitivity &lt;-<span class="st"> </span>TPF </span>
-<span id="cb1-8"><a href="binary-task.html#cb1-8"></a>NPV &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>prevalence)<span class="op">*</span>(specificity)<span class="op">/</span>((<span class="dv">1</span><span class="op">-</span>prevalence)<span class="op">*</span>(specificity) <span class="op">+</span><span class="st"> </span>prevalence<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>sensitivity)) </span>
-<span id="cb1-9"><a href="binary-task.html#cb1-9"></a>PPV &lt;-<span class="st"> </span>prevalence<span class="op">*</span>sensitivity<span class="op">/</span>(prevalence<span class="op">*</span>sensitivity <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>prevalence)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>specificity)) </span>
-<span id="cb1-10"><a href="binary-task.html#cb1-10"></a><span class="kw">cat</span>(<span class="st">&quot;NPV = &quot;</span>, NPV, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">PPV = &quot;</span>, PPV, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1-11"><a href="binary-task.html#cb1-11"></a><span class="co">#&gt; NPV =  0.9988846 </span></span>
-<span id="cb1-12"><a href="binary-task.html#cb1-12"></a><span class="co">#&gt; PPV =  0.03864734</span></span>
-<span id="cb1-13"><a href="binary-task.html#cb1-13"></a>accuracy &lt;-(<span class="dv">1</span><span class="op">-</span>prevalence)<span class="op">*</span>(specificity)<span class="op">+</span>(prevalence)<span class="op">*</span>(sensitivity) </span>
-<span id="cb1-14"><a href="binary-task.html#cb1-14"></a><span class="kw">cat</span>(<span class="st">&quot;accuracy = &quot;</span>, accuracy, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1-15"><a href="binary-task.html#cb1-15"></a><span class="co">#&gt; accuracy =  0.8995</span></span></code></pre></div>
-<ul>
-<li>Line 3 initializes the variable <code>prevalence</code>, the disease prevalence, to 0.005.</li>
-<li>Line 4 assigns <code>0.1</code> to <code>FPF</code> and line 5 assigns <code>0.8</code> to <code>TPF</code>.</li>
-<li>Lines 6 and 7 initialize the variables specificity and sensitivity, respectively.</li>
-<li>Line 8 calculates <code>NPV</code> using Eqn. <a href="binary-task.html#eq:binary-taskNPVFormula-pop">(2.24)</a>.</li>
-<li>Line 9 calculates <code>PPV</code> using Eqn. <a href="binary-task.html#eq:binary-taskPPV">(2.25)</a>.</li>
-</ul>
-</div>
-<div id="binary-taskNpvPpvComments" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.7.2</span> Comments<a href="binary-task.html#binary-taskNpvPpvComments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If a woman has a negative diagnosis, chances are very small that she has breast cancer: the probability that the radiologist is incorrect in the negative diagnosis is 1 - NPV = 0.0011154. Even is she has a positive diagnosis, the probability that she actually has cancer is still only 0.0386473. That is why following a positive screening diagnosis the woman is recalled for further imaging, and if that reveals cause for reasonable suspicion, then additional imaging is performed, perhaps augmented with a needle-biopsy to confirm actual disease status. If the biopsy turns out positive, only then is the woman referred for cancer therapy. Overall, accuracy is 0.8995. The numbers in this illustration are for expert radiologists. In practice there is wide variability in radiologist performance.</p>
-</div>
-<div id="binary-taskNpvPpvIrrel2LabTasks" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.7.3</span> PPV and NPV are irrelevant to laboratory tasks<a href="binary-task.html#binary-taskNpvPpvIrrel2LabTasks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>According to the hierarchy of assessment methods described in (book) Chapter 01, Table 1.1, PPV and NPV are level- 3 measurements, which are calculated from “live” interpretations (recall that the higher the level the greater the clinical relevance). In the clinic, the radiologist adjusts the operating point to achieve a balance between sensitivity and specificity. The balance depends critically on the known disease prevalence. Based on geographical location and type of practice, the radiologist over time develops an idea of actual disease prevalence, or it can be found in various databases. For example, a breast-imaging clinic that specializes in imaging high-risk women will have higher disease prevalence than the general population and the radiologist is expected to err more on the side of reduced specificity because of the expected benefit of increased sensitivity. However, in the context of a laboratory study, where one uses enriched case sets, the concepts of NPV and PPV are meaningless. For example, it would be rather difficult to perform a laboratory study with 10,000 randomly sampled women, which would ensure about 50 actually diseased patients, which is large enough to get a reasonably precise estimate of sensitivity (estimating specificity is inherently more precise because most women are actually non-diseased). Rather, in a laboratory study one uses enriched data sets where the numbers of diseased-cases is much larger than in the general population, Eqn. <a href="binary-task.html#eq:binary-taskDisPrevLabVsPop">(2.12)</a>. The radiologist cannot interpret these cases pretending that the actual prevalence is very low. Negative and positive predictive values, while they can be calculated from laboratory data, have very little, if any, clinical meanings, since they have no effect on radiologist thinking. As noted in (book) Chapter 01 the purpose of level-3 measurements is to determine the effect on radiologist thinking. There are no diagnostic decisions riding on laboratory ROC interpretations of retrospectively acquired patient images. However, PPV and NPV do have clinical meanings when calculated from very large population based “live” studies. For example, the <span class="citation">(Fenton et al. <a href="#ref-RN1902" role="doc-biblioref">2007</a>)</span> study sampled 684,956 women and used the results of “live” interpretations of their images. In contrast, laboratory ROC studies are typically conducted with 50-100 non-diseased and 50-100 diseased cases. A study using about 300 cases total would be considered a “large” ROC study.</p>
-</div>
-</div>
-<div id="binary-task-Summary" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.8</span> Summary<a href="binary-task.html#binary-task-Summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This chapter introduced the terms sensitivity (identical to TPF), specificity (the complement of FPF), disease prevalence, and positive and negative predictive values and accuracy. It is shown that, due to its strong dependence on disease prevalence, accuracy is a relatively poor measure of performance. Radiologists generally have a good, almost visceral, understanding of positive and negative predictive values, as these terms are relevant in the clinical context, being in effect, their “batting averages”. A caveat on the use of PPV and NPV calculated from laboratory studies is noted; these quantities only make sense in the context of “live” clinical interpretations.</p>
-</div>
-<div id="binary-task-Discussion" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.9</span> Discussion<a href="binary-task.html#binary-task-Discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-</div>
-<div id="binary-task-references" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.10</span> References<a href="binary-task.html#binary-task-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="dbm-analysis-background-references" class="section level2 hasAnchor">
+<h2><span class="header-section-number">9.8</span> References<a href="dbm-analysis-background.html#dbm-analysis-background-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-RN346">
-<p>Egan, James P. 1975. <em>Signal Detection Theory and ROC Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.</p>
+<div id="ref-bunch1977free">
+<p>Bunch, Philip C, John F Hamilton, Gary K Sanderson, and Arthur H Simmons. 1977. “A Free Response Approach to the Measurement and Characterization of Radiographic Observer Performance.” In <em>Application of Optical Instrumentation in Medicine Vi</em>, 127:124–35. International Society for Optics; Photonics.</p>
 </div>
-<div id="ref-RN1902">
-<p>Fenton, Joshua J., Stephen H. Taplin, Patricia A. Carney, Linn Abraham, Edward A. Sickles, Carl D’Orsi, Eric A. Berns, et al. 2007. “Influence of Computer-Aided Detection on Performance of Screening Mammography.” Journal Article. <em>N Engl J Med</em> 356 (14): 1399–1409. <a href="https://doi.org/10.1056/NEJMoa066099">https://doi.org/10.1056/NEJMoa066099</a>.</p>
+<div id="ref-Chakraborty1986DigitalVsConv">
+<p>Chakraborty, D. P., E. S. Breatnach, M. V. Yester, B. Soto, G. T. Barnes, and R. G. Fraser. 1986. “Digital and Conventional Chest Imaging: A Modified ROC Study of Observer Performance Using Simulated Nodules.” Journal Article. <em>Radiology</em> 158: 35–39. <a href="https://doi.org/10.1148/radiology.158.1.3940394">https://doi.org/10.1148/radiology.158.1.3940394</a>.</p>
 </div>
-<div id="ref-RN298">
-<p>Green, D. M., and J. A. Swets. 1966. <em>Signal Detection Theory and Psychophysics</em>. Book. New York: John Wiley; Sons.</p>
+<div id="ref-RN2253">
+<p>Clarkson, Eric, Matthew A. Kupinski, and Harrison H. Barrett. 2006. “A Probabilistic Model for the MRMC Method, Part 1: Theoretical Development.” Journal Article. <em>Academic Radiology</em> 13 (11): 1410–21. <a href="https://doi.org/10.1016/j.acra.2006.07.016">https://doi.org/10.1016/j.acra.2006.07.016</a>.</p>
 </div>
-<div id="ref-RN1492">
-<p>Larsen, Richard J., and Morris L. Marx. 2001. <em>An Introduction to Mathematical Statistics and Its Applications</em>. Book. 3rd ed. Upper Saddle River, NJ: Prentice-Hall Inc.</p>
+<div id="ref-RN204">
+<p>Dorfman, D. D., K. S. Berbaum, and C. E. Metz. 1992. “ROC Characteristic Rating Analysis: Generalization to the Population of Readers and Patients with the Jackknife Method.” Journal Article. <em>Invest. Radiol.</em> 27 (9): 723–31. <a href="https://pubmed.ncbi.nlm.nih.gov/1399456">https://pubmed.ncbi.nlm.nih.gov/1399456</a>.</p>
+</div>
+<div id="ref-RN2080">
+<p>Gallas, Brandon D. 2006. “One-Shot Estimate of MRMC Variance: AUC.” Journal Article. <em>Academic Radiology</em> 13 (3): 353–62. <a href="https://doi.org/10.1016/j.acra.2005.11.030">https://doi.org/10.1016/j.acra.2005.11.030</a>.</p>
+</div>
+<div id="ref-RN2351">
+<p>Gallas, Brandon D., Gene a Pennello, and Kyle J. Myers. 2007. “Multireader Multicase Variance Analysis for Binary Data.” Journal Article. <em>Journal of the Optical Society of America. A, Optics, Image Science, and Vision</em> 24 (12): 70–80. <a href="https://doi.org/10.1364/josaa.24.000b70">https://doi.org/10.1364/josaa.24.000b70</a>.</p>
+</div>
+<div id="ref-RN1865">
+<p>Hillis, Stephen L. 2007. “A Comparison of Denominator Degrees of Freedom Methods for Multiple Observer (ROC) Studies.” Journal Article. <em>Statistics in Medicine</em> 26: 596–619. <a href="https://doi.org/10.1002/sim.2532">https://doi.org/10.1002/sim.2532</a>.</p>
+</div>
+<div id="ref-RN2508">
+<p>Hillis, Stephen L. 2014. “A Marginal‐mean ANOVA Approach for Analyzing Multireader Multicase Radiological Imaging Data.” Journal Article. <em>Statistics in Medicine</em> 33 (2): 330–60. <a href="https://doi.org/10.1002/sim.5926">https://doi.org/10.1002/sim.5926</a>.</p>
+</div>
+<div id="ref-RN1866">
+<p>Hillis, Stephen L., K. S. Berbaum, and C. E. Metz. 2008. “Recent Developments in the Dorfman-Berbaum-Metz Procedure for Multireader (ROC) Study Analysis.” Journal Article. <em>Acad Radiol</em> 15 (5): 647–61. <a href="https://doi.org/10.1016/j.acra.2007.12.015">https://doi.org/10.1016/j.acra.2007.12.015</a>.</p>
+</div>
+<div id="ref-RN2013">
+<p>Ishwaran, Hemant, and Constantine A. Gatsonis. 2000. “A General Class of Hierarchical Ordinal Regression Models with Applications to Correlated ROC Analysis.” Journal Article. <em>The Canadian Journal of Statistics</em> 28 (4): 731–50. <a href="https://doi.org/10.2307/3315913">https://doi.org/10.2307/3315913</a>.</p>
+</div>
+<div id="ref-RN2254">
+<p>Kupinski, Matthew A., Eric Clarkson, and Harrison H. Barrett. 2006. “A Probabilistic Model for the MRMC Method, Part 2: Validation and Applications.” Journal Article. <em>Academic Radiology</em> 13 (11): 1422–30. <a href="https://doi.org/10.1016/j.acra.2006.07.015">https://doi.org/10.1016/j.acra.2006.07.015</a>.</p>
+</div>
+<div id="ref-Niklason1986SimulatedPulmonary">
+<p>Niklason, L. T., N. M. Hickey, Dev P. Chakraborty, E. A. Sabbagh, M. V. Yester, R. G. Fraser, and G. T. Barnes. 1986. “Simulated Pulmonary Nodules: Detection with Dual-Energy Digital Versus Conventional Radiography.” Journal Article. <em>Radiology</em> 160: 589–93. <a href="https://doi.org/10.1148/radiology.160.3.3526398">https://doi.org/10.1148/radiology.160.3.3526398</a>.</p>
+</div>
+<div id="ref-RN1450">
+<p>Obuchowski, N. A., and H. E. Rockette. 1995. “Hypothesis Testing of the Diagnostic Accuracy for Multiple Diagnostic Tests: An ANOVA Approach with Dependent Observations.” Journal Article. <em>Communications in Statistics: Simulation and Computation</em> 24: 285–308. <a href="https://doi.org/10.1080/03610919508813243">https://doi.org/10.1080/03610919508813243</a>.</p>
+</div>
+<div id="ref-RN412">
+<p>Swets, John A., and Ronald M. Pickett. 1982. <em>Evaluation of Diagnostic Systems: Methods from Signal Detection Theory</em>. Book. First. Series in Cognition and Perception. New York: Academic Press.</p>
+</div>
+<div id="ref-RN1441">
+<p>Toledano, A. Y. 2003. “Three Methods for Analyzing Correlated ROC Curves: A Comparison in Real Data Sets.” Journal Article. <em>Statistics in Medicine</em> 22 (18): 2919–33. <a href="https://doi.org/10.1002/sim.1518">https://doi.org/10.1002/sim.1518</a>.</p>
+</div>
+<div id="ref-RN1451">
+<p>Toledano, A. Y., and C. Gatsonis. 1996. “Ordinal Regression Methodology for ROC Curves Derived from Correlated Data.” Journal Article. <em>Stat Med</em> 15 (16): 1807–26. <a href="https://doi.org/10.1002/(SICI)1097-0258(19960830)15:16%3C1807::AID-SIM333%3E3.0.CO;2-U">https://doi.org/10.1002/(SICI)1097-0258(19960830)15:16&lt;1807::AID-SIM333&gt;3.0.CO;2-U</a>.</p>
 </div>
 </div>
             </section>
@@ -946,8 +669,8 @@ P(A|B)&amp;=\frac{P(B|A)P(A)}{P(B)} \\
           </div>
         </div>
       </div>
-<a href="preliminaries.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="binary-task-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="hypothesis-testing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dbm-analysis-significance-testing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Introduction to the Obuchowski-Rockette method | The RJafroc Roc Book</title>
+  <meta name="description" content="TBA Artificial intelligence and observer performance book based on RJafroc." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Introduction to the Obuchowski-Rockette method | The RJafroc Roc Book" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="TBA Artificial intelligence and observer performance book based on RJafroc." />
+  <meta name="github-repo" content="dpc10ster/RJafrocRocBook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Introduction to the Obuchowski-Rockette method | The RJafroc Roc Book" />
+  
+  <meta name="twitter:description" content="TBA Artificial intelligence and observer performance book based on RJafroc." />
+  
+
+<meta name="author" content="Dev P. Chakraborty, PhD" />
+
+
+<meta name="date" content="2022-03-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dbm-analysis-special-cases.html"/>
+<link rel="next" href="or-analysis-st.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">RJafroc documentation</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#preface">Preface<span></span></a><ul>
+<li><a href="index.html#tba-how-much-finished">TBA How much finished<span></span></a></li>
+<li><a href="index.html#the-pdf-file-of-the-book">The pdf file of the book<span></span></a></li>
+<li><a href="index.html#the-html-version-of-the-book">The html version of the book<span></span></a></li>
+<li><a href="index.html#a-note-on-the-online-distribution-mechanism-of-the-book">A note on the online distribution mechanism of the book<span></span></a></li>
+<li><a href="index.html#structure-of-the-book">Structure of the book<span></span></a></li>
+<li><a href="index.html#contributing-to-this-book">Contributing to this book<span></span></a></li>
+<li><a href="index.html#is-this-book-relevant-to-you-and-what-are-the-alternatives">Is this book relevant to you and what are the alternatives?<span></span></a></li>
+<li><a href="index.html#todos-tba">ToDos TBA<span></span></a></li>
+<li><a href="index.html#chapters-needing-heavy-edits">Chapters needing heavy edits<span></span></a></li>
+<li><a href="index.html#shelved-vs.-removed-vs.-parked-folders-needing-heavy-edits">Shelved vs. removed vs. parked folders needing heavy edits<span></span></a></li>
+<li><a href="index.html#coding-aids">Coding aids<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>ROC paradigm<span></span></b></span></li>
+<li class="chapter" data-level="1" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>1</b> Preliminaries<span></span></a><ul>
+<li class="chapter" data-level="1.1" data-path="preliminaries.html"><a href="preliminaries.html#preliminaries-how-much-finished"><i class="fa fa-check"></i><b>1.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="preliminaries.html"><a href="preliminaries.html#preliminariesIntro"><i class="fa fa-check"></i><b>1.2</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="1.3" data-path="preliminaries.html"><a href="preliminaries.html#clinical-tasks"><i class="fa fa-check"></i><b>1.3</b> Clinical tasks<span></span></a><ul>
+<li class="chapter" data-level="1.3.1" data-path="preliminaries.html"><a href="preliminaries.html#workflow-in-an-imaging-study"><i class="fa fa-check"></i><b>1.3.1</b> Workflow in an imaging study<span></span></a></li>
+<li class="chapter" data-level="1.3.2" data-path="preliminaries.html"><a href="preliminaries.html#the-screening-and-diagnostic-workup-tasks"><i class="fa fa-check"></i><b>1.3.2</b> The screening and diagnostic workup tasks<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="preliminaries.html"><a href="preliminaries.html#imaging-device-development-and-its-clinical-deployment"><i class="fa fa-check"></i><b>1.4</b> Imaging device development and its clinical deployment<span></span></a><ul>
+<li class="chapter" data-level="1.4.1" data-path="preliminaries.html"><a href="preliminaries.html#physical-measurements"><i class="fa fa-check"></i><b>1.4.1</b> Physical measurements<span></span></a></li>
+<li class="chapter" data-level="1.4.2" data-path="preliminaries.html"><a href="preliminaries.html#quality-control-and-image-quality-optimization"><i class="fa fa-check"></i><b>1.4.2</b> Quality Control and Image quality optimization<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="preliminaries.html"><a href="preliminaries.html#image-quality-vs.-task-performance"><i class="fa fa-check"></i><b>1.5</b> Image quality vs. task performance<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="preliminaries.html"><a href="preliminaries.html#why-physical-measures-of-image-quality-are-not-enough"><i class="fa fa-check"></i><b>1.6</b> Why physical measures of image quality are not enough<span></span></a></li>
+<li class="chapter" data-level="1.7" data-path="preliminaries.html"><a href="preliminaries.html#model-observers"><i class="fa fa-check"></i><b>1.7</b> Model observers<span></span></a></li>
+<li class="chapter" data-level="1.8" data-path="preliminaries.html"><a href="preliminaries.html#measuring-observer-performance-four-paradigms"><i class="fa fa-check"></i><b>1.8</b> Measuring observer performance: four paradigms<span></span></a><ul>
+<li class="chapter" data-level="1.8.1" data-path="preliminaries.html"><a href="preliminaries.html#basic-approach-to-the-analysis"><i class="fa fa-check"></i><b>1.8.1</b> Basic approach to the analysis<span></span></a></li>
+<li class="chapter" data-level="1.8.2" data-path="preliminaries.html"><a href="preliminaries.html#historical-notes"><i class="fa fa-check"></i><b>1.8.2</b> Historical notes<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="preliminaries.html"><a href="preliminaries.html#hierarchy-of-assessment-methods"><i class="fa fa-check"></i><b>1.9</b> Hierarchy of assessment methods<span></span></a></li>
+<li class="chapter" data-level="1.10" data-path="preliminaries.html"><a href="preliminaries.html#overview-of-the-book-and-how-to-use-it"><i class="fa fa-check"></i><b>1.10</b> Overview of the book and how to use it<span></span></a><ul>
+<li class="chapter" data-level="1.10.1" data-path="preliminaries.html"><a href="preliminaries.html#overview-of-the-book"><i class="fa fa-check"></i><b>1.10.1</b> Overview of the book<span></span></a></li>
+<li class="chapter" data-level="1.10.2" data-path="preliminaries.html"><a href="preliminaries.html#how-to-use-the-book"><i class="fa fa-check"></i><b>1.10.2</b> How to use the book<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.11" data-path="preliminaries.html"><a href="preliminaries.html#preliminaries-Summary"><i class="fa fa-check"></i><b>1.11</b> Summary<span></span></a></li>
+<li class="chapter" data-level="1.12" data-path="preliminaries.html"><a href="preliminaries.html#preliminaries-Discussion"><i class="fa fa-check"></i><b>1.12</b> Discussion<span></span></a></li>
+<li class="chapter" data-level="1.13" data-path="preliminaries.html"><a href="preliminaries.html#preliminaries-references"><i class="fa fa-check"></i><b>1.13</b> References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="binary-task.html"><a href="binary-task.html"><i class="fa fa-check"></i><b>2</b> The Binary Task<span></span></a><ul>
+<li class="chapter" data-level="2.1" data-path="binary-task.html"><a href="binary-task.html#binary-task-how-much-finished"><i class="fa fa-check"></i><b>2.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="binary-task.html"><a href="binary-task.html#binary-taskIntro"><i class="fa fa-check"></i><b>2.2</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="2.3" data-path="binary-task.html"><a href="binary-task.html#binary-taskTruth"><i class="fa fa-check"></i><b>2.3</b> The fundamental 2x2 table<span></span></a></li>
+<li class="chapter" data-level="2.4" data-path="binary-task.html"><a href="binary-task.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4</b> Sensitivity and specificity<span></span></a><ul>
+<li class="chapter" data-level="2.4.1" data-path="binary-task.html"><a href="binary-task.html#reasons-for-the-names-sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4.1</b> Reasons for the names sensitivity and specificity<span></span></a></li>
+<li class="chapter" data-level="2.4.2" data-path="binary-task.html"><a href="binary-task.html#estimating-sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4.2</b> Estimating sensitivity and specificity<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="binary-task.html"><a href="binary-task.html#disease-prevalence"><i class="fa fa-check"></i><b>2.5</b> Disease prevalence<span></span></a></li>
+<li class="chapter" data-level="2.6" data-path="binary-task.html"><a href="binary-task.html#accuracy"><i class="fa fa-check"></i><b>2.6</b> Accuracy<span></span></a></li>
+<li class="chapter" data-level="2.7" data-path="binary-task.html"><a href="binary-task.html#negative-and-positive-predictive-values"><i class="fa fa-check"></i><b>2.7</b> Negative and positive predictive values<span></span></a><ul>
+<li class="chapter" data-level="2.7.1" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvCode"><i class="fa fa-check"></i><b>2.7.1</b> Example calculation of PPV, NPV and accuracy<span></span></a></li>
+<li class="chapter" data-level="2.7.2" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvComments"><i class="fa fa-check"></i><b>2.7.2</b> Comments<span></span></a></li>
+<li class="chapter" data-level="2.7.3" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvIrrel2LabTasks"><i class="fa fa-check"></i><b>2.7.3</b> PPV and NPV are irrelevant to laboratory tasks<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="binary-task.html"><a href="binary-task.html#binary-task-Summary"><i class="fa fa-check"></i><b>2.8</b> Summary<span></span></a></li>
+<li class="chapter" data-level="2.9" data-path="binary-task.html"><a href="binary-task.html#binary-task-Discussion"><i class="fa fa-check"></i><b>2.9</b> Discussion<span></span></a></li>
+<li class="chapter" data-level="2.10" data-path="binary-task.html"><a href="binary-task.html#binary-task-references"><i class="fa fa-check"></i><b>2.10</b> References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="binary-task-model.html"><a href="binary-task-model.html"><i class="fa fa-check"></i><b>3</b> Modeling the Binary Task<span></span></a><ul>
+<li class="chapter" data-level="3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-how-much-finished"><i class="fa fa-check"></i><b>3.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-intro"><i class="fa fa-check"></i><b>3.2</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-z-sample-model"><i class="fa fa-check"></i><b>3.3</b> Decision variable and decision threshold<span></span></a><ul>
+<li class="chapter" data-level="3.3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-decision-variable"><i class="fa fa-check"></i><b>3.3.1</b> Existence of a decision variable<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-decision-threshold"><i class="fa fa-check"></i><b>3.3.2</b> Existence of a decision threshold<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#adequacy-of-the-training-session"><i class="fa fa-check"></i><b>3.3.3</b> Adequacy of the training session<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-example-1"><i class="fa fa-check"></i><b>3.4</b> Changing the decision threshold: Example I<span></span></a></li>
+<li class="chapter" data-level="3.5" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-example-2"><i class="fa fa-check"></i><b>3.5</b> Changing the decision threshold: Example II<span></span></a></li>
+<li class="chapter" data-level="3.6" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-equal-variance-binormal-model"><i class="fa fa-check"></i><b>3.6</b> The equal-variance binormal model<span></span></a></li>
+<li class="chapter" data-level="3.7" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-normal-distribution"><i class="fa fa-check"></i><b>3.7</b> The normal distribution<span></span></a></li>
+<li class="chapter" data-level="3.8" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity"><i class="fa fa-check"></i><b>3.8</b> Analytic expressions for specificity and sensitivity<span></span></a></li>
+<li class="chapter" data-level="3.9" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity-demo"><i class="fa fa-check"></i><b>3.9</b> Demonstration of the concepts of sensitivity and specificity<span></span></a><ul>
+<li class="chapter" data-level="3.9.1" data-path="binary-task-model.html"><a href="binary-task-model.html#estimating-mu-from-a-finite-sample"><i class="fa fa-check"></i><b>3.9.1</b> Estimating mu from a finite sample<span></span></a></li>
+<li class="chapter" data-level="3.9.2" data-path="binary-task-model.html"><a href="binary-task-model.html#changing-the-seed-variable-case-sampling-variability"><i class="fa fa-check"></i><b>3.9.2</b> Changing the seed variable: case-sampling variability<span></span></a></li>
+<li class="chapter" data-level="3.9.3" data-path="binary-task-model.html"><a href="binary-task-model.html#increasing-the-numbers-of-cases"><i class="fa fa-check"></i><b>3.9.3</b> Increasing the numbers of cases<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity-inverse-variation"><i class="fa fa-check"></i><b>3.10</b> Inverse variation of sensitivity and specificity and the need for a single FOM<span></span></a></li>
+<li class="chapter" data-level="3.11" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-roc-curve"><i class="fa fa-check"></i><b>3.11</b> The ROC curve<span></span></a><ul>
+<li class="chapter" data-level="3.11.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-chance-diagonal"><i class="fa fa-check"></i><b>3.11.1</b> The chance diagonal<span></span></a></li>
+<li class="chapter" data-level="3.11.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-guessing-observer"><i class="fa fa-check"></i><b>3.11.2</b> The guessing observer<span></span></a></li>
+<li class="chapter" data-level="3.11.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-symmetry-wrt-negative-diagonal"><i class="fa fa-check"></i><b>3.11.3</b> Symmetry with respect to negative diagonal<span></span></a></li>
+<li class="chapter" data-level="3.11.4" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-auc-roc-important"><i class="fa fa-check"></i><b>3.11.4</b> Area under the ROC curve<span></span></a></li>
+<li class="chapter" data-level="3.11.5" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-properties-roc"><i class="fa fa-check"></i><b>3.11.5</b> Properties of the equal-variance binormal model ROC curve<span></span></a></li>
+<li class="chapter" data-level="3.11.6" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-comments"><i class="fa fa-check"></i><b>3.11.6</b> Comments<span></span></a></li>
+<li class="chapter" data-level="3.11.7" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-mu-parameter-intepretation"><i class="fa fa-check"></i><b>3.11.7</b> Physical interpretation of the mu-parameter<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-confidence-intervals"><i class="fa fa-check"></i><b>3.12</b> Assigning confidence intervals to an operating point<span></span></a></li>
+<li class="chapter" data-level="3.13" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-beam-study"><i class="fa fa-check"></i><b>3.13</b> Variability in sensitivity and specificity: the Beam et al study<span></span></a></li>
+<li class="chapter" data-level="3.14" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-summary"><i class="fa fa-check"></i><b>3.14</b> Summary<span></span></a></li>
+<li class="chapter" data-level="3.15" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-references"><i class="fa fa-check"></i><b>3.15</b> References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html"><i class="fa fa-check"></i><b>4</b> Ratings Paradigm<span></span></a><ul>
+<li class="chapter" data-level="4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-how-much-finished"><i class="fa fa-check"></i><b>4.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-roc-counts-table"><i class="fa fa-check"></i><b>4.3</b> The ROC counts table<span></span></a></li>
+<li class="chapter" data-level="4.4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-operating-points-from-counts-table"><i class="fa fa-check"></i><b>4.4</b> Operating points from counts table<span></span></a><ul>
+<li class="chapter" data-level="4.4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#labeling-the-points"><i class="fa fa-check"></i><b>4.4.1</b> Labeling the points<span></span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-examples"><i class="fa fa-check"></i><b>4.4.2</b> Examples<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-automating"><i class="fa fa-check"></i><b>4.5</b> Automating all this<span></span></a></li>
+<li class="chapter" data-level="4.6" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-relation-to-rating"><i class="fa fa-check"></i><b>4.6</b> Relation between ratings paradigm and the binary paradigm<span></span></a></li>
+<li class="chapter" data-level="4.7" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-ratings-not-numerical-values"><i class="fa fa-check"></i><b>4.7</b> Ratings are not numerical values<span></span></a></li>
+<li class="chapter" data-level="4.8" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-clinical-operating-point"><i class="fa fa-check"></i><b>4.8</b> A single “clinical” operating point from ratings data<span></span></a></li>
+<li class="chapter" data-level="4.9" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-2afc"><i class="fa fa-check"></i><b>4.9</b> The forced choice paradigm<span></span></a></li>
+<li class="chapter" data-level="4.10" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-observer-studies-as-simulations"><i class="fa fa-check"></i><b>4.10</b> Observer performance studies as laboratory simulations of clinical tasks<span></span></a></li>
+<li class="chapter" data-level="4.11" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-discrete-vs-continuous-ratings"><i class="fa fa-check"></i><b>4.11</b> Discrete vs. continuous ratings: the Miller study<span></span></a></li>
+<li class="chapter" data-level="4.12" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale"><i class="fa fa-check"></i><b>4.12</b> The BI-RADS ratings scale and ROC studies<span></span></a></li>
+<li class="chapter" data-level="4.13" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale-controversy"><i class="fa fa-check"></i><b>4.13</b> The controversy<span></span></a></li>
+<li class="chapter" data-level="4.14" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-discussion"><i class="fa fa-check"></i><b>4.14</b> Discussion<span></span></a></li>
+<li class="chapter" data-level="4.15" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-references"><i class="fa fa-check"></i><b>4.15</b> References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="empirical-auc.html"><a href="empirical-auc.html"><i class="fa fa-check"></i><b>5</b> Empirical AUC<span></span></a><ul>
+<li class="chapter" data-level="5.1" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-how-much-finished"><i class="fa fa-check"></i><b>5.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-introduction"><i class="fa fa-check"></i><b>5.2</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-roc-plot"><i class="fa fa-check"></i><b>5.3</b> The empirical ROC plot<span></span></a><ul>
+<li class="chapter" data-level="5.3.1" data-path="empirical-auc.html"><a href="empirical-auc.html#notation-for-cases"><i class="fa fa-check"></i><b>5.3.1</b> Notation for cases<span></span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="empirical-auc.html"><a href="empirical-auc.html#an-empirical-operating-point"><i class="fa fa-check"></i><b>5.3.2</b> An empirical operating point<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-operating-points"><i class="fa fa-check"></i><b>5.4</b> Empirical operating points from ratings data<span></span></a></li>
+<li class="chapter" data-level="5.5" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-area-under"><i class="fa fa-check"></i><b>5.5</b> AUC under the empirical ROC plot<span></span></a></li>
+<li class="chapter" data-level="5.6" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon"><i class="fa fa-check"></i><b>5.6</b> The Wilcoxon statistic<span></span></a></li>
+<li class="chapter" data-level="5.7" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem"><i class="fa fa-check"></i><b>5.7</b> Bamber’s Equivalence theorem<span></span></a></li>
+<li class="chapter" data-level="5.8" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem-importance"><i class="fa fa-check"></i><b>5.8</b> Importance of Bamber’s theorem<span></span></a></li>
+<li class="chapter" data-level="5.9" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-discussion-summary"><i class="fa fa-check"></i><b>5.9</b> Discussion / Summary<span></span></a></li>
+<li class="chapter" data-level="5.10" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-appendix-details-bamber-theorem"><i class="fa fa-check"></i><b>5.10</b> Appendix 5.A: Details of Wilcoxon theorem<span></span></a><ul>
+<li class="chapter" data-level="5.10.1" data-path="empirical-auc.html"><a href="empirical-auc.html#upper-triangle"><i class="fa fa-check"></i><b>5.10.1</b> Upper triangle<span></span></a></li>
+<li class="chapter" data-level="5.10.2" data-path="empirical-auc.html"><a href="empirical-auc.html#lowest-trapezoid"><i class="fa fa-check"></i><b>5.10.2</b> Lowest trapezoid<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.11" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-references"><i class="fa fa-check"></i><b>5.11</b> References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="binormal-model.html"><a href="binormal-model.html"><i class="fa fa-check"></i><b>6</b> Binormal model<span></span></a><ul>
+<li class="chapter" data-level="6.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-how-much-finished"><i class="fa fa-check"></i><b>6.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-introduction"><i class="fa fa-check"></i><b>6.2</b> TBA Introduction<span></span></a></li>
+<li class="chapter" data-level="6.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-definition"><i class="fa fa-check"></i><b>6.3</b> Binormal model<span></span></a><ul>
+<li class="chapter" data-level="6.3.1" data-path="binormal-model.html"><a href="binormal-model.html#the-basic-model"><i class="fa fa-check"></i><b>6.3.1</b> The basic model<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="binormal-model.html"><a href="binormal-model.html#additional-parameters-for-binned-data"><i class="fa fa-check"></i><b>6.3.2</b> Additional parameters for binned data<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="binormal-model.html"><a href="binormal-model.html#sensitivity-and-specificity-1"><i class="fa fa-check"></i><b>6.3.3</b> Sensitivity and specificity<span></span></a></li>
+<li class="chapter" data-level="6.3.4" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-in-conventional-notation"><i class="fa fa-check"></i><b>6.3.4</b> Binormal model in conventional notation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-roc-curve"><i class="fa fa-check"></i><b>6.4</b> Binormal ROC curve<span></span></a></li>
+<li class="chapter" data-level="6.5" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-scalar-measure"><i class="fa fa-check"></i><b>6.5</b> Scalar threshold-independent measure<span></span></a><ul>
+<li class="chapter" data-level="6.5.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc"><i class="fa fa-check"></i><b>6.5.1</b> Partial AUC<span></span></a></li>
+<li class="chapter" data-level="6.5.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-full-auc"><i class="fa fa-check"></i><b>6.5.2</b> Full AUC<span></span></a></li>
+<li class="chapter" data-level="6.5.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-d-prime"><i class="fa fa-check"></i><b>6.5.3</b> The d’ measure<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-true"><i class="fa fa-check"></i><b>6.6</b> Partial AUC vs. true performance<span></span></a></li>
+<li class="chapter" data-level="6.7" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-illustrative-plots"><i class="fa fa-check"></i><b>6.7</b> Illustrative plots<span></span></a></li>
+<li class="chapter" data-level="6.8" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-geometrical-argument"><i class="fa fa-check"></i><b>6.8</b> Geometrical argument<span></span></a></li>
+<li class="chapter" data-level="6.9" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-optimal-op-pt"><i class="fa fa-check"></i><b>6.9</b> Optimal operating point on ROC<span></span></a></li>
+<li class="chapter" data-level="6.10" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-discussion"><i class="fa fa-check"></i><b>6.10</b> Discussion<span></span></a></li>
+<li class="chapter" data-level="6.11" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-pdf-curves-appendix-1"><i class="fa fa-check"></i><b>6.11</b> Appendix I: Density functions<span></span></a></li>
+<li class="chapter" data-level="6.12" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-appendix-2"><i class="fa fa-check"></i><b>6.12</b> Appendix II: Area under binormal ROC<span></span></a><ul>
+<li class="chapter" data-level="6.12.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-appendix-1-partial-auc"><i class="fa fa-check"></i><b>6.12.1</b> General case (partial-area)<span></span></a></li>
+<li class="chapter" data-level="6.12.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-appendix-1-total-auc"><i class="fa fa-check"></i><b>6.12.2</b> Special case (total area)<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.13" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-invariance-property-appendix-3"><i class="fa fa-check"></i><b>6.13</b> Appendix III: Invariance property of pdfs<span></span></a></li>
+<li class="chapter" data-level="6.14" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting-appendix-4"><i class="fa fa-check"></i><b>6.14</b> Appendix IV: Fitting an ROC curve<span></span></a><ul>
+<li class="chapter" data-level="6.14.1" data-path="binormal-model.html"><a href="binormal-model.html#java-fitted-roc-curve"><i class="fa fa-check"></i><b>6.14.1</b> JAVA fitted ROC curve<span></span></a></li>
+<li class="chapter" data-level="6.14.2" data-path="binormal-model.html"><a href="binormal-model.html#simplistic-straight-line-fit-to-the-roc-curve"><i class="fa fa-check"></i><b>6.14.2</b> Simplistic straight line fit to the ROC curve<span></span></a></li>
+<li class="chapter" data-level="6.14.3" data-path="binormal-model.html"><a href="binormal-model.html#maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>6.14.3</b> Maximum likelihood estimation (MLE)<span></span></a></li>
+<li class="chapter" data-level="6.14.4" data-path="binormal-model.html"><a href="binormal-model.html#code-implementing-mle"><i class="fa fa-check"></i><b>6.14.4</b> Code implementing MLE<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.15" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting-validation-appendix-5"><i class="fa fa-check"></i><b>6.15</b> Appendix V: Validating fitting model<span></span></a><ul>
+<li class="chapter" data-level="6.15.1" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-covariance-matrix"><i class="fa fa-check"></i><b>6.15.1</b> Estimating the covariance matrix<span></span></a></li>
+<li class="chapter" data-level="6.15.2" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-variance-of-az"><i class="fa fa-check"></i><b>6.15.2</b> Estimating the variance of Az<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.16" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-references"><i class="fa fa-check"></i><b>6.16</b> References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sources-of-variability.html"><a href="sources-of-variability.html"><i class="fa fa-check"></i><b>7</b> Sources of AUC variability<span></span></a><ul>
+<li class="chapter" data-level="7.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability-how-much-finished"><i class="fa fa-check"></i><b>7.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityIntro"><i class="fa fa-check"></i><b>7.2</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="7.3" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability3sources"><i class="fa fa-check"></i><b>7.3</b> Three sources of variability<span></span></a></li>
+<li class="chapter" data-level="7.4" data-path="sources-of-variability.html"><a href="sources-of-variability.html#dependence-of-auc-on-the-case-sample"><i class="fa fa-check"></i><b>7.4</b> Dependence of AUC on the case sample<span></span></a><ul>
+<li class="chapter" data-level="7.4.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#case-sampling-variability-of-auc"><i class="fa fa-check"></i><b>7.4.1</b> Case sampling variability of AUC<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityDeLong"><i class="fa fa-check"></i><b>7.5</b> DeLong method<span></span></a></li>
+<li class="chapter" data-level="7.6" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityBootstrap"><i class="fa fa-check"></i><b>7.6</b> Bootstrap method<span></span></a><ul>
+<li class="chapter" data-level="7.6.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#demonstration-of-the-bootstrap-method"><i class="fa fa-check"></i><b>7.6.1</b> Demonstration of the bootstrap method<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityJackknife"><i class="fa fa-check"></i><b>7.7</b> Jackknife method<span></span></a></li>
+<li class="chapter" data-level="7.8" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityCalSimulator"><i class="fa fa-check"></i><b>7.8</b> Calibrated simulator<span></span></a><ul>
+<li class="chapter" data-level="7.8.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#the-need-for-a-calibrated-simulator"><i class="fa fa-check"></i><b>7.8.1</b> The need for a calibrated simulator<span></span></a></li>
+<li class="chapter" data-level="7.8.2" data-path="sources-of-variability.html"><a href="sources-of-variability.html#implementation-of-a-simple-calibrated-simulator"><i class="fa fa-check"></i><b>7.8.2</b> Implementation of a simple calibrated simulator<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability-Discussion"><i class="fa fa-check"></i><b>7.9</b> Discussion<span></span></a></li>
+<li class="chapter" data-level="7.10" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability-references"><i class="fa fa-check"></i><b>7.10</b> References<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>Significance Testing<span></span></b></span></li>
+<li class="chapter" data-level="8" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>8</b> Hypothesis Testing<span></span></a><ul>
+<li class="chapter" data-level="8.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testing-how-much-finished"><i class="fa fa-check"></i><b>8.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testing-introduction"><i class="fa fa-check"></i><b>8.2</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="8.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#single-modality-single-reader-roc-study"><i class="fa fa-check"></i><b>8.3</b> Single-modality single-reader ROC study<span></span></a></li>
+<li class="chapter" data-level="8.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-i-errors"><i class="fa fa-check"></i><b>8.4</b> Type-I errors<span></span></a></li>
+<li class="chapter" data-level="8.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#one-vs.-two-sided-tests"><i class="fa fa-check"></i><b>8.5</b> One vs. two sided tests<span></span></a></li>
+<li class="chapter" data-level="8.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#statistical-power"><i class="fa fa-check"></i><b>8.6</b> Statistical power<span></span></a><ul>
+<li class="chapter" data-level="8.6.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#factors-affecting-statistical-power"><i class="fa fa-check"></i><b>8.6.1</b> Factors affecting statistical power<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testingComments"><i class="fa fa-check"></i><b>8.7</b> Comments<span></span></a></li>
+<li class="chapter" data-level="8.8" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#why-alpha-is-chosen-as-5"><i class="fa fa-check"></i><b>8.8</b> Why alpha is chosen as 5%<span></span></a></li>
+<li class="chapter" data-level="8.9" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testingDiscussion"><i class="fa fa-check"></i><b>8.9</b> Discussion<span></span></a></li>
+<li class="chapter" data-level="8.10" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testing-references"><i class="fa fa-check"></i><b>8.10</b> References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html"><i class="fa fa-check"></i><b>9</b> DBM method background<span></span></a><ul>
+<li class="chapter" data-level="9.1" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-how-much-finished"><i class="fa fa-check"></i><b>9.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-introduction"><i class="fa fa-check"></i><b>9.2</b> Introduction<span></span></a><ul>
+<li class="chapter" data-level="9.2.1" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#historical-background"><i class="fa fa-check"></i><b>9.2.1</b> Historical background<span></span></a></li>
+<li class="chapter" data-level="9.2.2" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#the-wagner-analogy"><i class="fa fa-check"></i><b>9.2.2</b> The Wagner analogy<span></span></a></li>
+<li class="chapter" data-level="9.2.3" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#the-shortage-of-numbers-to-analyze-and-a-pivotal-breakthrough"><i class="fa fa-check"></i><b>9.2.3</b> The shortage of numbers to analyze and a pivotal breakthrough<span></span></a></li>
+<li class="chapter" data-level="9.2.4" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#organization-of-chapter"><i class="fa fa-check"></i><b>9.2.4</b> Organization of chapter<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-random-fixed-factors"><i class="fa fa-check"></i><b>9.3</b> Random and fixed factors<span></span></a></li>
+<li class="chapter" data-level="9.4" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-reader-case-populations"><i class="fa fa-check"></i><b>9.4</b> Reader and case populations<span></span></a></li>
+<li class="chapter" data-level="9.5" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-threeAnalyses"><i class="fa fa-check"></i><b>9.5</b> Three types of analyses<span></span></a></li>
+<li class="chapter" data-level="9.6" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-approach"><i class="fa fa-check"></i><b>9.6</b> General approach<span></span></a></li>
+<li class="chapter" data-level="9.7" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-summary"><i class="fa fa-check"></i><b>9.7</b> Summary TBA<span></span></a></li>
+<li class="chapter" data-level="9.8" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-references"><i class="fa fa-check"></i><b>9.8</b> References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html"><i class="fa fa-check"></i><b>10</b> Significance Testing using the DBM Method<span></span></a><ul>
+<li class="chapter" data-level="10.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-how-much-finished"><i class="fa fa-check"></i><b>10.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#the-dbm-sampling-model"><i class="fa fa-check"></i><b>10.2</b> The DBM sampling model<span></span></a><ul>
+<li class="chapter" data-level="10.2.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#explanation-of-terms-in-the-model"><i class="fa fa-check"></i><b>10.2.1</b> Explanation of terms in the model<span></span></a></li>
+<li class="chapter" data-level="10.2.2" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#meanings-of-variance-components-in-the-dbm-model-tba-this-section-can-be-improved"><i class="fa fa-check"></i><b>10.2.2</b> Meanings of variance components in the DBM model (<strong>TBA this section can be improved</strong>)<span></span></a></li>
+<li class="chapter" data-level="10.2.3" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#definitions-of-mean-squares"><i class="fa fa-check"></i><b>10.2.3</b> Definitions of mean-squares<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#expected-values-of-mean-squares"><i class="fa fa-check"></i><b>10.3</b> Expected values of mean squares<span></span></a></li>
+<li class="chapter" data-level="10.4" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-RRRC-analysis"><i class="fa fa-check"></i><b>10.4</b> Random-reader random-case (RRRC) analysis<span></span></a><ul>
+<li class="chapter" data-level="10.4.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#calculation-of-mean-squares-an-example"><i class="fa fa-check"></i><b>10.4.1</b> Calculation of mean squares: an example<span></span></a></li>
+<li class="chapter" data-level="10.4.2" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-sig-testing"><i class="fa fa-check"></i><b>10.4.2</b> Significance testing<span></span></a></li>
+<li class="chapter" data-level="10.4.3" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#the-satterthwaite-approximation"><i class="fa fa-check"></i><b>10.4.3</b> The Satterthwaite approximation<span></span></a></li>
+<li class="chapter" data-level="10.4.4" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#decision-rules-p-value-and-confidence-intervals"><i class="fa fa-check"></i><b>10.4.4</b> Decision rules, p-value and confidence intervals<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#sample-size-estimation-for-random-reader-random-case-generalization"><i class="fa fa-check"></i><b>10.5</b> Sample size estimation for random-reader random-case generalization<span></span></a><ul>
+<li class="chapter" data-level="10.5.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#the-non-centrality-parameter"><i class="fa fa-check"></i><b>10.5.1</b> The non-centrality parameter<span></span></a></li>
+<li class="chapter" data-level="10.5.2" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#the-denominator-degrees-of-freedom"><i class="fa fa-check"></i><b>10.5.2</b> The denominator degrees of freedom<span></span></a></li>
+<li class="chapter" data-level="10.5.3" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#example-of-sample-size-estimation-rrrc-generalization"><i class="fa fa-check"></i><b>10.5.3</b> Example of sample size estimation, RRRC generalization<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#significance-testing-and-sample-size-estimation-for-fixed-reader-random-case-generalization"><i class="fa fa-check"></i><b>10.6</b> Significance testing and sample size estimation for fixed-reader random-case generalization<span></span></a></li>
+<li class="chapter" data-level="10.7" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#significance-testing-and-sample-size-estimation-for-random-reader-fixed-case-generalization"><i class="fa fa-check"></i><b>10.7</b> Significance testing and sample size estimation for random-reader fixed-case generalization<span></span></a></li>
+<li class="chapter" data-level="10.8" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-summary"><i class="fa fa-check"></i><b>10.8</b> Summary TBA<span></span></a></li>
+<li class="chapter" data-level="10.9" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#things-for-me-to-think-about"><i class="fa fa-check"></i><b>10.9</b> Things for me to think about<span></span></a><ul>
+<li class="chapter" data-level="10.9.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#expected-values-of-mean-squares-1"><i class="fa fa-check"></i><b>10.9.1</b> Expected values of mean squares<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.10" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-references"><i class="fa fa-check"></i><b>10.10</b> References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html"><i class="fa fa-check"></i><b>11</b> DBM method special cases<span></span></a><ul>
+<li class="chapter" data-level="11.1" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#dbm-analysis-special-cases-fits-how-much-finished"><i class="fa fa-check"></i><b>11.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="11.2" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#FRRCDBMAnalysis"><i class="fa fa-check"></i><b>11.2</b> Fixed-reader random-case (FRRC) analysis<span></span></a><ul>
+<li class="chapter" data-level="11.2.1" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#FRRCSingleReaderDBMAnalysis"><i class="fa fa-check"></i><b>11.2.1</b> Single-reader multiple-treatment analysis<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#dbm-analysis-special-cases-RRFCAnalysis"><i class="fa fa-check"></i><b>11.3</b> Random-reader fixed-case (RRFC) analysis<span></span></a></li>
+<li class="chapter" data-level="11.4" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#dbm-analysis-special-cases-references"><i class="fa fa-check"></i><b>11.4</b> References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="or-method-intro.html"><a href="or-method-intro.html"><i class="fa fa-check"></i><b>12</b> Introduction to the Obuchowski-Rockette method<span></span></a><ul>
+<li class="chapter" data-level="12.1" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-how-much-finished"><i class="fa fa-check"></i><b>12.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="12.2" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-helper-functions"><i class="fa fa-check"></i><b>12.2</b> Locations of helper functions<span></span></a></li>
+<li class="chapter" data-level="12.3" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-intro"><i class="fa fa-check"></i><b>12.3</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="12.4" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader"><i class="fa fa-check"></i><b>12.4</b> Single-reader multiple-treatment<span></span></a><ul>
+<li class="chapter" data-level="12.4.1" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader-overview"><i class="fa fa-check"></i><b>12.4.1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="12.4.2" data-path="or-method-intro.html"><a href="or-method-intro.html#st-or-multiple-treatment"><i class="fa fa-check"></i><b>12.4.2</b> Significance testing<span></span></a></li>
+<li class="chapter" data-level="12.4.3" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-pvalue-ci"><i class="fa fa-check"></i><b>12.4.3</b> p-value and confidence interval<span></span></a></li>
+<li class="chapter" data-level="12.4.4" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader-nh-validation"><i class="fa fa-check"></i><b>12.4.4</b> Null hypothesis validation<span></span></a></li>
+<li class="chapter" data-level="12.4.5" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader-application-roc"><i class="fa fa-check"></i><b>12.4.5</b> Application 1<span></span></a></li>
+<li class="chapter" data-level="12.4.6" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader-application-froc"><i class="fa fa-check"></i><b>12.4.6</b> Application 2<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-treatment"><i class="fa fa-check"></i><b>12.5</b> Single-treatment multiple-reader<span></span></a><ul>
+<li class="chapter" data-level="12.5.1" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-treatment-overview"><i class="fa fa-check"></i><b>12.5.1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="12.5.2" data-path="or-method-intro.html"><a href="or-method-intro.html#st-or-multiple-reader"><i class="fa fa-check"></i><b>12.5.2</b> Significance testing<span></span></a></li>
+<li class="chapter" data-level="12.5.3" data-path="or-method-intro.html"><a href="or-method-intro.html#st-or-multiple-reader-example-three"><i class="fa fa-check"></i><b>12.5.3</b> Special case<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-multiple-reader-multiple-treatment"><i class="fa fa-check"></i><b>12.6</b> Multiple-reader multiple-treatment<span></span></a><ul>
+<li class="chapter" data-level="12.6.1" data-path="or-method-intro.html"><a href="or-method-intro.html#StrCovMatrix"><i class="fa fa-check"></i><b>12.6.1</b> Structure of the covariance matrix<span></span></a></li>
+<li class="chapter" data-level="12.6.2" data-path="or-method-intro.html"><a href="or-method-intro.html#PhysicalMeaningsOfCovMatrix"><i class="fa fa-check"></i><b>12.6.2</b> Physical meanings of the covariance terms<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.7" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-summary"><i class="fa fa-check"></i><b>12.7</b> Summary<span></span></a></li>
+<li class="chapter" data-level="12.8" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-discussion"><i class="fa fa-check"></i><b>12.8</b> Discussion<span></span></a></li>
+<li class="chapter" data-level="12.9" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats"><i class="fa fa-check"></i><b>12.9</b> Appendix: Covariance and correlation<span></span></a><ul>
+<li class="chapter" data-level="12.9.1" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-f-stat-chisq-stat"><i class="fa fa-check"></i><b>12.9.1</b> Relation: chisquare and F with infinite ddf<span></span></a></li>
+<li class="chapter" data-level="12.9.2" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-def-cov-matrix"><i class="fa fa-check"></i><b>12.9.2</b> Definitions of covariance and correlation<span></span></a></li>
+<li class="chapter" data-level="12.9.3" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-equal-variance"><i class="fa fa-check"></i><b>12.9.3</b> Special case when variables have equal variances<span></span></a></li>
+<li class="chapter" data-level="12.9.4" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-est-cov-matrix"><i class="fa fa-check"></i><b>12.9.4</b> Estimating the variance-covariance matrix<span></span></a></li>
+<li class="chapter" data-level="12.9.5" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-jack-var-inflation-factor"><i class="fa fa-check"></i><b>12.9.5</b> The variance inflation factor<span></span></a></li>
+<li class="chapter" data-level="12.9.6" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-meaning-cov-matrix"><i class="fa fa-check"></i><b>12.9.6</b> Meaning of the covariance matrix<span></span></a></li>
+<li class="chapter" data-level="12.9.7" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-code-cov-matrix"><i class="fa fa-check"></i><b>12.9.7</b> Code illustrating the covariance matrix<span></span></a></li>
+<li class="chapter" data-level="12.9.8" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-compare-dbm-or"><i class="fa fa-check"></i><b>12.9.8</b> Comparing DBM to Obuchowski and Rockette for single-reader multiple-treatments<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.10" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-references"><i class="fa fa-check"></i><b>12.10</b> References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="or-analysis-st.html"><a href="or-analysis-st.html"><i class="fa fa-check"></i><b>13</b> Obuchowski Rockette (OR) Analysis<span></span></a><ul>
+<li class="chapter" data-level="13.1" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-how-much-finished"><i class="fa fa-check"></i><b>13.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="13.2" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-introduction"><i class="fa fa-check"></i><b>13.2</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="13.3" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-rrrc"><i class="fa fa-check"></i><b>13.3</b> Random-reader random-case<span></span></a><ul>
+<li class="chapter" data-level="13.3.1" data-path="or-analysis-st.html"><a href="or-analysis-st.html#TwoAnecdotes"><i class="fa fa-check"></i><b>13.3.1</b> Two anecdotes<span></span></a></li>
+<li class="chapter" data-level="13.3.2" data-path="or-analysis-st.html"><a href="or-analysis-st.html#Hills-ddf"><i class="fa fa-check"></i><b>13.3.2</b> Hillis ddf<span></span></a></li>
+<li class="chapter" data-level="13.3.3" data-path="or-analysis-st.html"><a href="or-analysis-st.html#decision-rule-p-value-and-confidence-interval"><i class="fa fa-check"></i><b>13.3.3</b> Decision rule, p-value and confidence interval<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-frrc"><i class="fa fa-check"></i><b>13.4</b> Fixed-reader random-case<span></span></a></li>
+<li class="chapter" data-level="13.5" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-rrfc"><i class="fa fa-check"></i><b>13.5</b> Random-reader fixed-case<span></span></a></li>
+<li class="chapter" data-level="13.6" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-single-treatment"><i class="fa fa-check"></i><b>13.6</b> Single treatment analysis<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="or-applications.html"><a href="or-applications.html"><i class="fa fa-check"></i><b>14</b> Obuchowski Rockette Applications<span></span></a><ul>
+<li class="chapter" data-level="14.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-how-much-finished"><i class="fa fa-check"></i><b>14.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="14.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-introduction"><i class="fa fa-check"></i><b>14.2</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="14.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset02-hand"><i class="fa fa-check"></i><b>14.3</b> Hand calculation<span></span></a><ul>
+<li class="chapter" data-level="14.3.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset02-hand"><i class="fa fa-check"></i><b>14.3.1</b> Random-Reader Random-Case (RRRC) analysis<span></span></a></li>
+<li class="chapter" data-level="14.3.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset02-hand"><i class="fa fa-check"></i><b>14.3.2</b> Fixed-Reader Random-Case (FRRC) analysis<span></span></a></li>
+<li class="chapter" data-level="14.3.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset02-hand"><i class="fa fa-check"></i><b>14.3.3</b> Random-Reader Fixed-Case (RRFC) analysis<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset02-RJafroc"><i class="fa fa-check"></i><b>14.4</b> RJafroc: dataset02<span></span></a><ul>
+<li class="chapter" data-level="14.4.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset02-RJafroc"><i class="fa fa-check"></i><b>14.4.1</b> Random-Reader Random-Case (RRRC) analysis<span></span></a></li>
+<li class="chapter" data-level="14.4.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset02-RJafroc"><i class="fa fa-check"></i><b>14.4.2</b> Fixed-Reader Random-Case (FRRC) analysis<span></span></a></li>
+<li class="chapter" data-level="14.4.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset02-RJafroc"><i class="fa fa-check"></i><b>14.4.3</b> Random-Reader Fixed-Case (RRFC) analysis<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset04-RJafroc"><i class="fa fa-check"></i><b>14.5</b> RJafroc: dataset04<span></span></a><ul>
+<li class="chapter" data-level="14.5.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset04"><i class="fa fa-check"></i><b>14.5.1</b> Random-Reader Random-Case (RRRC) analysis<span></span></a></li>
+<li class="chapter" data-level="14.5.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset04"><i class="fa fa-check"></i><b>14.5.2</b> Fixed-Reader Random-Case (FRRC) analysis<span></span></a></li>
+<li class="chapter" data-level="14.5.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset04"><i class="fa fa-check"></i><b>14.5.3</b> Random-Reader Fixed-Case (RRFC) analysis<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset04-FROC-RJafroc"><i class="fa fa-check"></i><b>14.6</b> RJafroc: dataset04, FROC<span></span></a><ul>
+<li class="chapter" data-level="14.6.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset04-FROC"><i class="fa fa-check"></i><b>14.6.1</b> Random-Reader Random-Case (RRRC) analysis<span></span></a></li>
+<li class="chapter" data-level="14.6.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset04-FROC"><i class="fa fa-check"></i><b>14.6.2</b> Fixed-Reader Random-Case (FRRC) analysis<span></span></a></li>
+<li class="chapter" data-level="14.6.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset04-FROC"><i class="fa fa-check"></i><b>14.6.3</b> Random-Reader Fixed-Case (RRFC) analysis<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset04-FROC-DBM-RJafroc"><i class="fa fa-check"></i><b>14.7</b> RJafroc: dataset04, FROC/DBM<span></span></a><ul>
+<li class="chapter" data-level="14.7.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset04-FROC-DBM"><i class="fa fa-check"></i><b>14.7.1</b> Random-Reader Random-Case (RRRC) analysis<span></span></a></li>
+<li class="chapter" data-level="14.7.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset04-FROC-DBM"><i class="fa fa-check"></i><b>14.7.2</b> Fixed-Reader Random-Case (FRRC) analysis<span></span></a></li>
+<li class="chapter" data-level="14.7.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset04-FROC-DBM"><i class="fa fa-check"></i><b>14.7.3</b> Random-Reader Fixed-Case (RRFC) analysis<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.8" data-path="or-applications.html"><a href="or-applications.html#or-applications-Summary"><i class="fa fa-check"></i><b>14.8</b> Summary<span></span></a></li>
+<li class="chapter" data-level="14.9" data-path="or-applications.html"><a href="or-applications.html#or-applications-Discussion"><i class="fa fa-check"></i><b>14.9</b> Discussion<span></span></a></li>
+<li class="chapter" data-level="14.10" data-path="or-applications.html"><a href="or-applications.html#ToMullOver1-tentative"><i class="fa fa-check"></i><b>14.10</b> Tentative<span></span></a></li>
+<li class="chapter" data-level="14.11" data-path="or-applications.html"><a href="or-applications.html#or-applications-references"><i class="fa fa-check"></i><b>14.11</b> References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html"><i class="fa fa-check"></i><b>15</b> Sample size estimation for ROC studies DBM method<span></span></a><ul>
+<li class="chapter" data-level="15.1" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-how-much-finished"><i class="fa fa-check"></i><b>15.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="15.2" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-introduction"><i class="fa fa-check"></i><b>15.2</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="15.3" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#StatPower1"><i class="fa fa-check"></i><b>15.3</b> Statistical Power<span></span></a><ul>
+<li class="chapter" data-level="15.3.1" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#observed-vs.-anticipated-effect-size"><i class="fa fa-check"></i><b>15.3.1</b> Observed vs. anticipated effect-size<span></span></a></li>
+<li class="chapter" data-level="15.3.2" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-dependence-of-stats-power"><i class="fa fa-check"></i><b>15.3.2</b> Dependence of statistical power on estimates of model parameters<span></span></a></li>
+<li class="chapter" data-level="15.3.3" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-RRRC-sample-size-estimation"><i class="fa fa-check"></i><b>15.3.3</b> Formulae for random-reader random-case (RRRC) sample size estimation<span></span></a></li>
+<li class="chapter" data-level="15.3.4" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-sig-testing"><i class="fa fa-check"></i><b>15.3.4</b> Significance testing<span></span></a></li>
+<li class="chapter" data-level="15.3.5" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-pvalue-ci"><i class="fa fa-check"></i><b>15.3.5</b> p-value and confidence interval<span></span></a></li>
+<li class="chapter" data-level="15.3.6" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-CompareDBM2OR"><i class="fa fa-check"></i><b>15.3.6</b> Comparing DBM to Obuchowski and Rockette for single-reader multiple-treatments<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-FRRC-sample-size-estimation"><i class="fa fa-check"></i><b>15.4</b> Formulae for fixed-reader random-case (FRRC) sample size estimation<span></span></a><ul>
+<li class="chapter" data-level="15.4.1" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-RRFC-sample-size-estimation"><i class="fa fa-check"></i><b>15.4.1</b> Formulae for random-reader fixed-case (RRFC) sample size estimation<span></span></a></li>
+<li class="chapter" data-level="15.4.2" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-FRRCAnalysis"><i class="fa fa-check"></i><b>15.4.2</b> Fixed-reader random-case (FRRC) analysis TBA<span></span></a></li>
+<li class="chapter" data-level="15.4.3" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-RRFCAnalysis"><i class="fa fa-check"></i><b>15.4.3</b> Random-reader fixed-case (RRFC) analysis<span></span></a></li>
+<li class="chapter" data-level="15.4.4" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-STMRAnalysis"><i class="fa fa-check"></i><b>15.4.4</b> Single-treatment multiple-reader analysis<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#discussionsummary2"><i class="fa fa-check"></i><b>15.5</b> Discussion/Summary/2<span></span></a></li>
+<li class="chapter" data-level="15.6" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-references"><i class="fa fa-check"></i><b>15.6</b> References<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html"><i class="fa fa-check"></i><b>16</b> Sample size estimation for ROC studies OR method<span></span></a><ul>
+<li class="chapter" data-level="16.1" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-how-much-finished"><i class="fa fa-check"></i><b>16.1</b> TBA How much finished<span></span></a></li>
+<li class="chapter" data-level="16.2" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-introduction"><i class="fa fa-check"></i><b>16.2</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="16.3" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#StatPower2"><i class="fa fa-check"></i><b>16.3</b> Statistical Power<span></span></a><ul>
+<li class="chapter" data-level="16.3.1" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#sample-size-estimation-for-random-reader-random-cases"><i class="fa fa-check"></i><b>16.3.1</b> Sample size estimation for random-reader random-cases<span></span></a></li>
+<li class="chapter" data-level="16.3.2" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-dependence-of-stats-power"><i class="fa fa-check"></i><b>16.3.2</b> Dependence of statistical power on estimates of model parameters<span></span></a></li>
+<li class="chapter" data-level="16.3.3" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-RRRC-sample-size-estimation"><i class="fa fa-check"></i><b>16.3.3</b> Formulae for random-reader random-case (RRRC) sample size estimation<span></span></a></li>
+<li class="chapter" data-level="16.3.4" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-sig-testing"><i class="fa fa-check"></i><b>16.3.4</b> Significance testing<span></span></a></li>
+<li class="chapter" data-level="16.3.5" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-pvalue-ci"><i class="fa fa-check"></i><b>16.3.5</b> p-value and confidence interval<span></span></a></li>
+<li class="chapter" data-level="16.3.6" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-CompareDBM2OR"><i class="fa fa-check"></i><b>16.3.6</b> Comparing DBM to Obuchowski and Rockette for single-reader multiple-treatments<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-FRRC-sample-size-estimation"><i class="fa fa-check"></i><b>16.4</b> Formulae for fixed-reader random-case (FRRC) sample size estimation<span></span></a><ul>
+<li class="chapter" data-level="16.4.1" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-RRFC-sample-size-estimation"><i class="fa fa-check"></i><b>16.4.1</b> Formulae for random-reader fixed-case (RRFC) sample size estimation<span></span></a></li>
+<li class="chapter" data-level="16.4.2" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#example-1"><i class="fa fa-check"></i><b>16.4.2</b> Example 1<span></span></a></li>
+<li class="chapter" data-level="16.4.3" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-FRRCAnalysis"><i class="fa fa-check"></i><b>16.4.3</b> Fixed-reader random-case (FRRC) analysis<span></span></a></li>
+<li class="chapter" data-level="16.4.4" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-RRFCAnalysis"><i class="fa fa-check"></i><b>16.4.4</b> Random-reader fixed-case (RRFC) analysis<span></span></a></li>
+<li class="chapter" data-level="16.4.5" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-STMRAnalysis"><i class="fa fa-check"></i><b>16.4.5</b> Single-treatment multiple-reader analysis<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#discussionsummary3"><i class="fa fa-check"></i><b>16.5</b> Discussion/Summary/3<span></span></a></li>
+<li class="chapter" data-level="16.6" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-references"><i class="fa fa-check"></i><b>16.6</b> References<span></span></a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The RJafroc Roc Book</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="or-method-intro" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 12</span> Introduction to the Obuchowski-Rockette method<a href="or-method-intro.html#or-method-intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="or-method-intro-how-much-finished" class="section level2 hasAnchor">
+<h2><span class="header-section-number">12.1</span> TBA How much finished<a href="or-method-intro.html#or-method-intro-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>70%</p>
+</div>
+<div id="or-method-intro-helper-functions" class="section level2 hasAnchor">
+<h2><span class="header-section-number">12.2</span> Locations of helper functions<a href="or-method-intro.html#or-method-intro-helper-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="or-method-intro.html#cb71-1"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH10-OR/Wilcoxon.R&quot;</span>))</span>
+<span id="cb71-2"><a href="or-method-intro.html#cb71-2"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH10-OR/VarCov1FomInput.R&quot;</span>))</span>
+<span id="cb71-3"><a href="or-method-intro.html#cb71-3"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH10-OR/VarCov1Bs.R&quot;</span>))</span>
+<span id="cb71-4"><a href="or-method-intro.html#cb71-4"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH10-OR/VarCov1Jk.R&quot;</span>)) </span>
+<span id="cb71-5"><a href="or-method-intro.html#cb71-5"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH10-OR/VarCovMtrxDLStr.R&quot;</span>))</span>
+<span id="cb71-6"><a href="or-method-intro.html#cb71-6"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH10-OR/VarCovs.R&quot;</span>))</span></code></pre></div>
+</div>
+<div id="or-method-intro-intro" class="section level2 hasAnchor">
+<h2><span class="header-section-number">12.3</span> Introduction<a href="or-method-intro.html#or-method-intro-intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>This chapter starts with a gentle introduction to the Obuchowski and Rockette method. The reason is that the method was rather opaque to me, and I suspect most non-statistician users. Part of the problem, in my opinion, is the notation, namely lack of the <em>case-set</em> index <span class="math inline">\(\{c\}\)</span>. While this may seem like a trivial point to statisticians, it did present a conceptual problem for me.</p></li>
+<li><p>A key difference of the Obuchowski and Rockette method from DBM is in how the error term is modeled by a non-diagonal covariance matrix. Therefore, the structure of the covariance matrix is examined in some detail.</p></li>
+<li><p>To illustrate the covariance matrix, a single reader interpreting a case-set in multiple treatments is analyzed and the results compared to that using DBM fixed-reader analysis described in previous chapters.</p></li>
+</ul>
+</div>
+<div id="or-method-intro-single-reader" class="section level2 hasAnchor">
+<h2><span class="header-section-number">12.4</span> Single-reader multiple-treatment<a href="or-method-intro.html#or-method-intro-single-reader" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="or-method-intro-single-reader-overview" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.4.1</span> Overview<a href="or-method-intro.html#or-method-intro-single-reader-overview" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider a single-reader interpreting a common case-set <span class="math inline">\(\{c\}\)</span> in multiple-treatments <span class="math inline">\(i\)</span> (<span class="math inline">\(i\)</span> = 1, 2, …, <span class="math inline">\(I\)</span>).</p>
+<p><em>In the OR method one models the figure-of-merit, not the pseudovalues; indeed this is a key differences from the DBM method.</em> The figure of merit <span class="math inline">\(\theta\)</span> is modeled as:</p>
+<span class="math display" id="eq:or-sampling-model-multiple-treatments">\[\begin{equation}
+\theta_{i\{c\}}=\mu+\tau_i+\epsilon_{i\{c\}}
+\tag{12.1}
+\end{equation}\]</span>
+<p>Eqn. <a href="or-method-intro.html#eq:or-sampling-model-multiple-treatments">(12.1)</a> models the observed figure-of-merit <span class="math inline">\(\theta_{i\{c\}}\)</span> as a constant term <span class="math inline">\(\mu\)</span>, a treatment dependent term <span class="math inline">\(\tau_i\)</span> (the treatment-effect), and a random term <span class="math inline">\(\epsilon_{i\{c\}}\)</span>. The term <span class="math inline">\(\tau_i\)</span> has the constraint:</p>
+<span class="math display" id="eq:ConstraintTau">\[\begin{equation}
+\sum_{i=1}^{I}\tau_i=0
+\tag{12.2}
+\end{equation}\]</span>
+<p>The left hand side of Eqn. <a href="or-method-intro.html#eq:or-sampling-model-multiple-treatments">(12.1)</a> is the figure-of-merit <span class="math inline">\(\theta_i\{c\}\)</span> for treatment <span class="math inline">\(i\)</span> and case-set index <span class="math inline">\(\{c\}\)</span>, where <span class="math inline">\(c\)</span> = 1, 2, …, <span class="math inline">\(C\)</span> denotes different independent case-sets sampled from the population, i.e., different <em>collections</em> of <span class="math inline">\(K_1\)</span> non-diseased and <span class="math inline">\(K_2\)</span> diseased cases.</p>
+<p><em>The case-set index is essential for clarity. Without it</em> <span class="math inline">\(\theta_i\)</span> is a fixed quantity - the figure of merit estimate for treatment <span class="math inline">\(i\)</span> - lacking an index allowing for sampling related variability. Obuchowski and Rockette define a <em>k-index</em>, the:</p>
+<blockquote>
+<p><span class="math inline">\(k^{th}\)</span> repetition of the study involving the same diagnostic test, reader and patient (sic)".</p>
+</blockquote>
+<p>Needed is a <em>case-set</em> index rather than a <em>repetition</em> index. Repeating a study with the same treatment, reader and cases yields <em>within-reader</em> variability, when what is needed, for significance testing, is <em>case-sampling plus within-reader</em> variability.</p>
+<p><em>It is shown below that usage of the case-set index interpretation yields the same results using the DBM or the OR methods (for empirical AUC).</em></p>
+<p>Eqn. <a href="or-method-intro.html#eq:or-sampling-model-multiple-treatments">(12.1)</a> has an additive random error term <span class="math inline">\(\epsilon_{i\{c\}}\)</span> whose sampling behavior is described by a multivariate normal distribution with an I-dimensional zero mean vector and an <span class="math inline">\(I \times I\)</span> dimensional covariance matrix <span class="math inline">\(\Sigma\)</span>:</p>
+<span class="math display" id="eq:DefinitionEpsilon">\[\begin{equation}
+\epsilon_{i\{c\}} \sim N_I\left ( \vec{0} ,  \Sigma\right )
+\tag{12.3}
+\end{equation}\]</span>
+<p>Here <span class="math inline">\(N_I\)</span> is the I-variate normal distribution (i.e., each sample yields <span class="math inline">\(I\)</span> random numbers). For the single-reader model Eqn. <a href="or-method-intro.html#eq:or-sampling-model-multiple-treatments">(12.1)</a>, the covariance matrix has the following structure :</p>
+<span class="math display" id="eq:DefinitionSigma">\[\begin{equation}
+\Sigma_{ii&#39;}=Cov\left ( \epsilon_{i\{c\}}, \epsilon_{i&#39;\{c\}} \right )=\left\{\begin{matrix}
+\text{Var} \qquad (i=i&#39;)\\ 
+Cov_1 \qquad (i\neq i&#39;)
+\end{matrix}\right.
+\tag{12.4}
+\end{equation}\]</span>
+<p>The reason for the subscript “1” in <span class="math inline">\(Cov_1\)</span> will become clear when we extend this model to multiple- treatments and multiple-readers. The <span class="math inline">\(I \times I\)</span> covariance matrix <span class="math inline">\(\Sigma\)</span> is:</p>
+<span class="math display" id="eq:ExampleSigma">\[\begin{equation}
+\Sigma=
+\begin{pmatrix}
+\text{Var} &amp; Cov_1   &amp; \ldots &amp; Cov_1 &amp; Cov_1 \\
+Cov_1 &amp; \text{Var}   &amp; \ldots &amp;Cov_1 &amp; Cov_1 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+Cov_1 &amp; Cov_1 &amp; \ldots &amp; \text{Var} &amp; Cov_1 \\
+Cov_1 &amp; Cov_1 &amp; \ldots &amp; Cov_1 &amp; \text{Var}
+\end{pmatrix}
+\tag{12.5}
+\end{equation}\]</span>
+<p>If <span class="math inline">\(I\)</span> = 2 then <span class="math inline">\(\Sigma\)</span> is a symmetric 2 x 2 matrix, whose diagonal terms are the common variances in the two treatments (each assumed equal to <span class="math inline">\(\text{Var}\)</span>) and whose off-diagonal terms (each assumed equal to <span class="math inline">\(Cov_1\)</span>) are the co-variances. With <span class="math inline">\(I\)</span> = 3 one has a 3 x 3 symmetric matrix with all diagonal elements equal to <span class="math inline">\(\text{Var}\)</span> and all off-diagonal terms are equal to <span class="math inline">\(Cov_1\)</span>, etc.</p>
+<p><em>An important aspect of the Obuchowski and Rockette model is that the variances and co-variances are assumed to be treatment independent. This implies that</em> <span class="math inline">\(\text{Var}\)</span> estimates need to be averaged over all treatments. Likewise, <span class="math inline">\(Cov_1\)</span> estimates need to be averaged over all distinct treatment-treatment pairings.</p>
+<p><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<p>Some elementary statistical results are presented in the Appendix.</p>
+</div>
+<div id="st-or-multiple-treatment" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.4.2</span> Significance testing<a href="or-method-intro.html#st-or-multiple-treatment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The covariance matrix is needed for significance testing. Define the mean square corresponding to the treatment effect, denoted <span class="math inline">\(MS(T)\)</span>, by:</p>
+<span class="math display" id="eq:def-mst">\[\begin{equation}
+MS(T)=\frac{1}{I-1}\sum_{i=1}^{I}(\theta_i-\theta_\bullet)^2
+\tag{12.6}
+\end{equation}\]</span>
+<p><em>Unlike the previous DBM related chapters, all mean square quantities in this chapter are based on FOMs, not pseudovalues.</em></p>
+<p>It can be shown that under the null hypothesis that all treatments have identical performances, the test statistic <span class="math inline">\(\chi_{1R}\)</span> defined below (the <span class="math inline">\(1R\)</span> subscript denotes single-reader analysis) is distributed approximately as a <span class="math inline">\(\chi^2\)</span> distribution with <span class="math inline">\(I-1\)</span> degrees of freedom, i.e.,</p>
+<span class="math display" id="eq:F-1RMT">\[\begin{equation}
+\chi_{\text{1R}} \equiv \frac{(I-1)MS(T)}{\text{Var}-\text{Cov1}} \sim \chi_{I-1}^{2}
+\tag{12.7}
+\end{equation}\]</span>
+<p>Eqn. <a href="or-method-intro.html#eq:F-1RMT">(12.7)</a> is from §5.4 in <span class="citation">(Hillis <a href="#ref-RN1865" role="doc-biblioref">2007</a>)</span> with two covariance terms “zeroed out” because they are multiplied by <span class="math inline">\(J-1 = 0\)</span> (since we are restricting to <span class="math inline">\(J=1\)</span>).</p>
+<p>Or equivalently, in terms of the F-distribution <span class="citation">(Hillis et al. <a href="#ref-RN1772" role="doc-biblioref">2005</a>)</span>:</p>
+<span class="math display" id="eq:or-sampling-model-def-f-single-reader">\[\begin{equation}
+F_{\text{1R}} \equiv \frac{MS(T)}{\text{Var}-\text{Cov1}} \sim F_{I-1, \infty}
+\tag{12.8}
+\end{equation}\]</span>
+</div>
+<div id="or-method-intro-pvalue-ci" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.4.3</span> p-value and confidence interval<a href="or-method-intro.html#or-method-intro-pvalue-ci" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The p-value is the probability that a sample from the <span class="math inline">\(F_{I-1,\infty}\)</span> distribution is greater than the observed value of the test statistic, namely:</p>
+<span class="math display" id="eq:pValue1RMT">\[\begin{equation}
+p\equiv \Pr(f&gt;F_{1R} \mid f \sim F_{I-1,\infty})
+\tag{12.9}
+\end{equation}\]</span>
+<p>The <span class="math inline">\((1-\alpha)\)</span> confidence interval for the inter-treatment FOM difference is given by:</p>
+<span class="math display" id="eq:CIalpha1R">\[\begin{equation}
+CI_{1-\alpha,1R} = (\theta_{i\bullet} - \theta_{i&#39;\bullet}) \pm t_{\alpha/2,\infty} \sqrt{2(\text{Var}-\text{Cov1})}
+\tag{12.10}
+\end{equation}\]</span>
+<p>Comparing Eqn. <a href="or-method-intro.html#eq:CIalpha1R">(12.10)</a> to Eqn. <a href="or-method-intro.html#eq:UsefulTheorem">(12.27)</a> shows that the term <span class="math inline">\(\sqrt{2(\text{Var}-\text{Cov1})}\)</span> is the standard error of the inter-treatment FOM difference, whose square root is the standard deviation. The term <span class="math inline">\(t_{\alpha/2,\infty}\)</span> is -1.96. Therefore, the confidence interval is constructed by adding and subtracting 1.96 times the standard deviation of the difference from the central value. [One has probably encountered the rule that a 95% confidence interval is plus or minus two standard deviations from the central value. The “2” comes from rounding up 1.96.]</p>
+</div>
+<div id="or-method-intro-single-reader-nh-validation" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.4.4</span> Null hypothesis validation<a href="or-method-intro.html#or-method-intro-single-reader-nh-validation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>It is important to validate the significance testing method just outlined above. If the testing procedure is valid, then, when the NH is true, the procedure should reject it with probability <span class="math inline">\(\alpha\)</span>. In the following, as is usual, we set <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb72-1"><a href="or-method-intro.html#cb72-1"></a><span class="kw">set.seed</span>(<span class="dt">seed =</span> <span class="dv">201</span>)</span>
+<span id="cb72-2"><a href="or-method-intro.html#cb72-2"></a>mu &lt;-<span class="st"> </span><span class="fl">0.8</span></span>
+<span id="cb72-3"><a href="or-method-intro.html#cb72-3"></a>vc &lt;-<span class="st"> </span><span class="kw">UtilORVarComponentsFactorial</span>(dataset02, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>)</span>
+<span id="cb72-4"><a href="or-method-intro.html#cb72-4"></a>trueVar &lt;-<span class="st"> </span>vc<span class="op">$</span>IndividualRdr<span class="op">$</span>varEachRdr[<span class="dv">1</span>]</span>
+<span id="cb72-5"><a href="or-method-intro.html#cb72-5"></a>trueCov1 &lt;-<span class="st"> </span>vc<span class="op">$</span>IndividualRdr<span class="op">$</span>cov1EachRdr[<span class="dv">1</span>]</span>
+<span id="cb72-6"><a href="or-method-intro.html#cb72-6"></a>sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(trueVar, </span>
+<span id="cb72-7"><a href="or-method-intro.html#cb72-7"></a>                  trueCov1, </span>
+<span id="cb72-8"><a href="or-method-intro.html#cb72-8"></a>                  trueCov1, </span>
+<span id="cb72-9"><a href="or-method-intro.html#cb72-9"></a>                  trueVar), </span>
+<span id="cb72-10"><a href="or-method-intro.html#cb72-10"></a>                  <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb72-11"><a href="or-method-intro.html#cb72-11"></a>I &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb72-12"><a href="or-method-intro.html#cb72-12"></a>S &lt;-<span class="st">  </span><span class="dv">2000</span></span>
+<span id="cb72-13"><a href="or-method-intro.html#cb72-13"></a><span class="co"># simulate foms for two modalities, S times</span></span>
+<span id="cb72-14"><a href="or-method-intro.html#cb72-14"></a><span class="co"># using the sampling model</span></span>
+<span id="cb72-15"><a href="or-method-intro.html#cb72-15"></a>theta_i &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">rmvnorm</span>(<span class="dt">n=</span>S, <span class="dt">mean=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">sigma=</span>sigma) <span class="op">+</span><span class="st"> </span>mu)</span>
+<span id="cb72-16"><a href="or-method-intro.html#cb72-16"></a><span class="co"># estimated variance covariances</span></span>
+<span id="cb72-17"><a href="or-method-intro.html#cb72-17"></a>vc &lt;-<span class="st"> </span><span class="kw">VarCov1_FomInput</span>(theta_i)</span>
+<span id="cb72-18"><a href="or-method-intro.html#cb72-18"></a>Var &lt;-<span class="st"> </span>vc<span class="op">$</span>Var</span>
+<span id="cb72-19"><a href="or-method-intro.html#cb72-19"></a>Cov1 &lt;-<span class="st"> </span>vc<span class="op">$</span>Cov1</span>
+<span id="cb72-20"><a href="or-method-intro.html#cb72-20"></a></span>
+<span id="cb72-21"><a href="or-method-intro.html#cb72-21"></a><span class="co"># conduct NH testing</span></span>
+<span id="cb72-22"><a href="or-method-intro.html#cb72-22"></a>reject &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb72-23"><a href="or-method-intro.html#cb72-23"></a><span class="cf">for</span>(s <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>S) {</span>
+<span id="cb72-24"><a href="or-method-intro.html#cb72-24"></a></span>
+<span id="cb72-25"><a href="or-method-intro.html#cb72-25"></a>  MS_T &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb72-26"><a href="or-method-intro.html#cb72-26"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>I) {</span>
+<span id="cb72-27"><a href="or-method-intro.html#cb72-27"></a>    MS_T &lt;-<span class="st"> </span>MS_T <span class="op">+</span><span class="st"> </span>(theta_i[i,s]<span class="op">-</span><span class="kw">mean</span>(theta_i[,s]))<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb72-28"><a href="or-method-intro.html#cb72-28"></a>  }</span>
+<span id="cb72-29"><a href="or-method-intro.html#cb72-29"></a>  MS_T &lt;-<span class="st"> </span>MS_T<span class="op">/</span>(I<span class="dv">-1</span>)</span>
+<span id="cb72-30"><a href="or-method-intro.html#cb72-30"></a>  </span>
+<span id="cb72-31"><a href="or-method-intro.html#cb72-31"></a>  F_1R &lt;-<span class="st"> </span>MS_T<span class="op">/</span>(Var <span class="op">-</span><span class="st"> </span>Cov1)</span>
+<span id="cb72-32"><a href="or-method-intro.html#cb72-32"></a>  pValue &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pf</span>(F_1R, I<span class="dv">-1</span>, <span class="ot">Inf</span>)</span>
+<span id="cb72-33"><a href="or-method-intro.html#cb72-33"></a>  <span class="cf">if</span> (pValue <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>) reject &lt;-<span class="st"> </span>reject <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb72-34"><a href="or-method-intro.html#cb72-34"></a>}</span>
+<span id="cb72-35"><a href="or-method-intro.html#cb72-35"></a>alphaObs &lt;-<span class="st"> </span>reject<span class="op">/</span>S</span></code></pre></div>
+<pre><code>## True, estimated diagonal elements =  0.000699,   0.000695</code></pre>
+<pre><code>## True, estimated off-diagonal elements =  0.000373,   0.000351</code></pre>
+<pre><code>## NH rejection fraction =    0.0515</code></pre>
+<p>The <code>seed</code> variable, set to 201 at line 1, is equivalent to the case sample index <span class="math inline">\(c\)</span> in Eqn. <a href="or-method-intro.html#eq:or-sampling-model-multiple-treatments">(12.1)</a>. Different values of <code>seed</code> correspond to different case samples.</p>
+<p>Line 2 sets the value of <span class="math inline">\(\mu\)</span> to 0.8, the average figure of merit, appearing in Eqn. <a href="or-method-intro.html#eq:or-sampling-model-multiple-treatments">(12.1)</a>.</p>
+<p>Lines 3-4 set the values of true <span class="math inline">\(Var\)</span> and true <span class="math inline">\(Cov_1\)</span> to values characterizing <code>dataset02</code> for reader one, as determined by function <code>UtilORVarComponentsFactorial</code>.</p>
+<p>Lines 5-9 initializes the covariance matrix <span class="math inline">\(\Sigma\)</span>. The diagonal contains the variance and the off-diagonal contains <span class="math inline">\(Cov_1\)</span>. These are the <em>true</em> values.</p>
+<p>Lines 10-11 initializes <span class="math inline">\(I = 2\)</span>, the number of treatments, and <span class="math inline">\(S = 2000\)</span>, the number of simulations.</p>
+<p>Line 14 generates 2000 samples from the two dimensional multivariate normal distribution with zero mean vector (<strong>this is the null hypothesis</strong>) and covariance equal to <span class="math inline">\(\Sigma\)</span>.</p>
+<p>Lines 16-18 computes the <em>estimates</em> of the means and covariances. The helper function used <code>VarCov1_FomInput</code> (the name stands for <span class="math inline">\(Var\)</span> and <span class="math inline">\(Cov_1\)</span> using FOM input) is included in the distribution. The locations of helper functions are shown in Section <a href="or-method-intro.html#or-method-intro-helper-functions">12.2</a>.</p>
+<p>Lines 21-33 performs the NH testing. It starts by setting the counter variable <code>reject</code> to zero. A for-loop is set up to repeat 2000 times. For each iteration line 24-28 computes the treatment mean-square <code>MS_T</code>. Note the use, at line 25, of the two values of <span class="math inline">\(theta_i\)</span> corresponding to the s-th sample from the multivariate norrmal distribution (at line 14). Line 30 computes the F-statistic - compare to Eqn. <a href="or-method-intro.html#eq:or-sampling-model-def-f-single-reader">(12.8)</a>. Line 31 computes the p-values and, if the p-value is less than <span class="math inline">\(\alpha = 0.05\)</span>, line 32 increments <code>reject</code> by one. The observed NH rejection rate, <code>alphaObs</code>, is the final value of <code>reject</code> divided by 2000, line 34. For a valid test it is expected to be in the range (0.04, 0.06). The actual value, for the chosen value of <code>seed</code>, is 0.0515.</p>
+</div>
+<div id="or-method-intro-single-reader-application-roc" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.4.5</span> Application 1<a href="or-method-intro.html#or-method-intro-single-reader-application-roc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here is an application of the method for an ROC dataset, <code>dataset02</code>, which consists of two treatments and five readers.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb76-1"><a href="or-method-intro.html#cb76-1"></a>ds &lt;-<span class="st"> </span><span class="kw">DfExtractDataset</span>(dataset02, <span class="dt">rdrs =</span> <span class="dv">1</span>)</span>
+<span id="cb76-2"><a href="or-method-intro.html#cb76-2"></a>fom &lt;-<span class="st"> </span><span class="kw">as.vector</span>(<span class="kw">UtilFigureOfMerit</span>(ds, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>))</span>
+<span id="cb76-3"><a href="or-method-intro.html#cb76-3"></a>fom &lt;-<span class="st"> </span><span class="kw">t</span>(fom)</span>
+<span id="cb76-4"><a href="or-method-intro.html#cb76-4"></a>vc &lt;-<span class="st"> </span><span class="kw">UtilORVarComponentsFactorial</span>(ds, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>)</span>
+<span id="cb76-5"><a href="or-method-intro.html#cb76-5"></a>Cov1 &lt;-<span class="st"> </span>vc<span class="op">$</span>IndividualRdr<span class="op">$</span>cov1EachRdr</span>
+<span id="cb76-6"><a href="or-method-intro.html#cb76-6"></a>Var &lt;-<span class="st"> </span>vc<span class="op">$</span>IndividualRdr<span class="op">$</span>varEachRdr</span>
+<span id="cb76-7"><a href="or-method-intro.html#cb76-7"></a>msT &lt;-<span class="st"> </span>vc<span class="op">$</span>IndividualRdr<span class="op">$</span>msTEachRdr</span>
+<span id="cb76-8"><a href="or-method-intro.html#cb76-8"></a>I &lt;-<span class="st"> </span><span class="kw">length</span>(ds<span class="op">$</span>ratings<span class="op">$</span>NL[,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb76-9"><a href="or-method-intro.html#cb76-9"></a>chiObs &lt;-<span class="st"> </span>(I<span class="dv">-1</span>)<span class="op">*</span>msT<span class="op">/</span>(Var<span class="op">-</span>Cov1)</span>
+<span id="cb76-10"><a href="or-method-intro.html#cb76-10"></a>pval &lt;-<span class="st"> </span><span class="kw">pchisq</span>(chiObs,I<span class="dv">-1</span>,<span class="dt">lower.tail =</span> F)</span>
+<span id="cb76-11"><a href="or-method-intro.html#cb76-11"></a>ci &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="dv">2</span>)</span>
+<span id="cb76-12"><a href="or-method-intro.html#cb76-12"></a>ci[<span class="dv">1</span>] &lt;-<span class="st"> </span>(fom[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>fom[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span><span class="kw">qt</span>(<span class="fl">0.025</span>, <span class="ot">Inf</span>, <span class="dt">lower.tail =</span> F) <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>(Var <span class="op">-</span><span class="st"> </span>Cov1))</span>
+<span id="cb76-13"><a href="or-method-intro.html#cb76-13"></a>ci[<span class="dv">2</span>] &lt;-<span class="st"> </span>(fom[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>fom[<span class="dv">2</span>]) <span class="op">-</span><span class="st"> </span><span class="kw">qt</span>(<span class="fl">0.025</span>, <span class="ot">Inf</span>, <span class="dt">lower.tail =</span> F) <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>(Var <span class="op">-</span><span class="st"> </span>Cov1))</span></code></pre></div>
+<pre><code>## fom =  0.9196457 0.9478261</code></pre>
+<pre><code>## fom diff =  -0.02818035</code></pre>
+<pre><code>## pval =  0.2693389</code></pre>
+<pre><code>## ci =  0.02182251 -0.07818322</code></pre>
+<p>We extract the data for reader 1 only, line 1, resulting in a 2-treatment single-reader dataset <code>ds</code>. Lines 2-3 compute the Wilcoxon figures of merit for each treatment as a row vector. Lines 4-7 computes OR treatment mean square <code>msT</code>, the OR variance components <code>Var</code> and <code>Cov1</code>: function<code>UtilORVarComponentsFactorial</code> is used with the Wilcoxon figure of merit specified. Line 8 obtains the number of treatments, <span class="math inline">\(I=2\)</span> in this example. Line 9 computes the observed chisquare statistic, <code>chiObs</code>. Line 10 computes the p-value, <code>pValue</code>, i.e., the probability that a sample from a chisquare distribution with I-1 degrees of freedom exceeds the observed value. Lines 11-13 compute the 95% confidence interval for the inter-treatment FOM difference. For this reader the two treatments are not significantly different.</p>
+</div>
+<div id="or-method-intro-single-reader-application-froc" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.4.6</span> Application 2<a href="or-method-intro.html#or-method-intro-single-reader-application-froc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here is an application of the method for an FROC dataset, <code>dataset04</code>, which consists of five treatments and four readers.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb81-1"><a href="or-method-intro.html#cb81-1"></a>ds &lt;-<span class="st"> </span><span class="kw">DfExtractDataset</span>(dataset04, <span class="dt">rdrs =</span> <span class="dv">1</span>, <span class="dt">trts =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>))</span>
+<span id="cb81-2"><a href="or-method-intro.html#cb81-2"></a>fom &lt;-<span class="st"> </span><span class="kw">as.vector</span>(<span class="kw">UtilFigureOfMerit</span>(ds, <span class="dt">FOM =</span> <span class="st">&quot;wAFROC&quot;</span>))</span>
+<span id="cb81-3"><a href="or-method-intro.html#cb81-3"></a>fom &lt;-<span class="st"> </span><span class="kw">t</span>(fom)</span>
+<span id="cb81-4"><a href="or-method-intro.html#cb81-4"></a>vc &lt;-<span class="st"> </span><span class="kw">UtilORVarComponentsFactorial</span>(ds, <span class="dt">FOM =</span> <span class="st">&quot;wAFROC&quot;</span>)</span>
+<span id="cb81-5"><a href="or-method-intro.html#cb81-5"></a>Cov1 &lt;-<span class="st"> </span>vc<span class="op">$</span>IndividualRdr<span class="op">$</span>cov1EachRdr</span>
+<span id="cb81-6"><a href="or-method-intro.html#cb81-6"></a>Var &lt;-<span class="st"> </span>vc<span class="op">$</span>IndividualRdr<span class="op">$</span>varEachRdr</span>
+<span id="cb81-7"><a href="or-method-intro.html#cb81-7"></a>msT &lt;-<span class="st"> </span>vc<span class="op">$</span>IndividualRdr<span class="op">$</span>msTEachRdr</span>
+<span id="cb81-8"><a href="or-method-intro.html#cb81-8"></a>I &lt;-<span class="st"> </span><span class="kw">length</span>(ds<span class="op">$</span>ratings<span class="op">$</span>NL[,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb81-9"><a href="or-method-intro.html#cb81-9"></a>chiObs &lt;-<span class="st"> </span>(I<span class="dv">-1</span>)<span class="op">*</span>msT<span class="op">/</span>(Var<span class="op">-</span>Cov1)</span>
+<span id="cb81-10"><a href="or-method-intro.html#cb81-10"></a>pval &lt;-<span class="st"> </span><span class="kw">pchisq</span>(chiObs,I<span class="dv">-1</span>,<span class="dt">lower.tail =</span> F)</span>
+<span id="cb81-11"><a href="or-method-intro.html#cb81-11"></a>ci &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="dv">2</span>)</span>
+<span id="cb81-12"><a href="or-method-intro.html#cb81-12"></a>ci[<span class="dv">1</span>] &lt;-<span class="st"> </span>(fom[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>fom[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb81-13"><a href="or-method-intro.html#cb81-13"></a><span class="st">  </span><span class="kw">qt</span>(<span class="fl">0.025</span>, <span class="ot">Inf</span>, <span class="dt">lower.tail =</span> F) <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>(Var <span class="op">-</span><span class="st"> </span>Cov1))</span>
+<span id="cb81-14"><a href="or-method-intro.html#cb81-14"></a>ci[<span class="dv">2</span>] &lt;-<span class="st"> </span>(fom[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>fom[<span class="dv">2</span>]) <span class="op">-</span><span class="st"> </span></span>
+<span id="cb81-15"><a href="or-method-intro.html#cb81-15"></a><span class="st">  </span><span class="kw">qt</span>(<span class="fl">0.025</span>, <span class="ot">Inf</span>, <span class="dt">lower.tail =</span> F) <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>(Var <span class="op">-</span><span class="st"> </span>Cov1))</span></code></pre></div>
+<pre><code>## fom =  0.8101333 0.7488</code></pre>
+<pre><code>## fom diff =  0.06133333</code></pre>
+<pre><code>## pval =  0.03189534</code></pre>
+<pre><code>## ci =  0.117357 0.005309652</code></pre>
+<p>We extract the data for reader 1 only, for treatments 4 and 5, line 1, resulting in a 2-treatment single-reader dataset <code>ds</code>. Lines 2-3 compute the wAFROC figures of merit for each treatment as a row vector. Lines 4-7 computes OR treatment mean square <code>msT</code>, the OR variance components <code>Var</code> and <code>Cov1</code>: function<code>UtilORVarComponentsFactorial</code> is used with the wAFROC figure of merit specified. Line 8 obtains the number of treatments, <span class="math inline">\(I=2\)</span> in this example. Line 9 computes the observed chisquare statistic, <code>chiObs</code>. Line 10 computes the p-value, <code>pValue</code>, i.e., the probability that a sample from a chisquare distribution with I-1 degrees of freedom exceeds the observed value. Lines 11-13 compute the 95% confidence interval for the inter-treatment FOM difference. For this reader the two treatments are significantly different.</p>
+</div>
+</div>
+<div id="or-method-intro-single-treatment" class="section level2 hasAnchor">
+<h2><span class="header-section-number">12.5</span> Single-treatment multiple-reader<a href="or-method-intro.html#or-method-intro-single-treatment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="or-method-intro-single-treatment-overview" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.5.1</span> Overview<a href="or-method-intro.html#or-method-intro-single-treatment-overview" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider multiple readers <span class="math inline">\(j\)</span> (<span class="math inline">\(j\)</span> = 1, 2, …, <span class="math inline">\(J\)</span>) interpreting a common case-set <span class="math inline">\(\{c\}\)</span> in a single treatment. The OR sampling model is:</p>
+<span class="math display" id="eq:or-sampling-model-multiple-reader">\[\begin{equation}
+\theta_{j\{c\}}=\mu+R_j+\epsilon_{j\{c\}}
+\tag{12.11}
+\end{equation}\]</span>
+<p>The error term <span class="math inline">\(\epsilon_{j\{c\}}\)</span> has sampling behavior described by a multivariate normal distribution with a J-dimensional zero mean vector and a <span class="math inline">\(J \times J\)</span> dimensional covariance matrix <span class="math inline">\(\Sigma\)</span>:</p>
+<span class="math display" id="eq:def-epsilon-multiple-readers">\[\begin{equation}
+\epsilon_{j\{c\}} \sim N_J\left ( \vec{0} ,  \Sigma\right )
+\tag{12.12}
+\end{equation}\]</span>
+<p>The covariance matrix has the following structure:</p>
+<span class="math display" id="eq:def-sigma-multiple-reader">\[\begin{equation}
+\Sigma_{jj&#39;}=Cov\left ( \epsilon_{j\{c\}}, \epsilon_{j&#39;\{c\}} \right )=\left\{\begin{matrix}
+\text{Var} \qquad (j=j&#39;)\\ 
+Cov_2 \qquad (j\neq j&#39;)
+\end{matrix}\right.
+\tag{12.13}
+\end{equation}\]</span>
+<p>The reason for the subscript “2” in <span class="math inline">\(Cov_2\)</span> will become clear when one extends this model to multiple- treatments and multiple-readers. The <span class="math inline">\(J \times J\)</span> covariance matrix <span class="math inline">\(\Sigma\)</span> is:</p>
+<span class="math display" id="eq:ExampleSigma1">\[\begin{equation}
+\Sigma=
+\begin{pmatrix}
+\text{Var} &amp; Cov_2   &amp; \ldots &amp; Cov_2 &amp; Cov_2 \\
+Cov_2 &amp; \text{Var}   &amp; \ldots &amp;Cov_2 &amp; Cov_2 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
+Cov_2 &amp; Cov_2 &amp; \ldots &amp; \text{Var} &amp; Cov_2 \\
+Cov_2 &amp; Cov_2 &amp; \ldots &amp; Cov_2 &amp; \text{Var}
+\end{pmatrix}
+\tag{12.14}
+\end{equation}\]</span>
+<p>The covariance matrix is estimated, as usual, by either a resampling method (jackknife of bootstrap) or, for the special case of Wilcoxon figure of merit, by the DeLong method.</p>
+</div>
+<div id="st-or-multiple-reader" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.5.2</span> Significance testing<a href="or-method-intro.html#st-or-multiple-reader" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Unlike the seemingly analogous single-reader multiple-treatment case addressed in Section <a href="or-method-intro.html#st-or-multiple-treatment">12.4.2</a>, the single-treatment multiple-reader case is fundamentally different. This is because reader is a <em>random</em> factor while treatment, in Section <a href="or-method-intro.html#st-or-multiple-treatment">12.4.2</a>, was a <em>fixed</em> factor. This makes it impossible to define a null hypothesis analogous to that with the treatment factor, e.g., <span class="math inline">\(R_1 = R_2\)</span>, since reader is modeled as a random sample from a distribution, i.e., <span class="math inline">\(R \sim N(0,\sigma_R^2)\)</span>.</p>
+</div>
+<div id="st-or-multiple-reader-example-three" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.5.3</span> Special case<a href="or-method-intro.html#st-or-multiple-reader-example-three" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If reader is regarded as a <em>fixed</em> factor significance testing between readers can be performed. The analysis presented in Section <a href="or-method-intro.html#st-or-multiple-treatment">12.4.2</a> is applicable, with the treatment factor replaced by the reader factor. This is appropriate, for example, when comparing two AI (artificial intelligence) algorithms. The two algorithms, each of which qualifies as a reader, are not random samples from a population of AI readers: rather they are two fixed algorithms, in the literal sense.</p>
+</div>
+</div>
+<div id="or-method-intro-multiple-reader-multiple-treatment" class="section level2 hasAnchor">
+<h2><span class="header-section-number">12.6</span> Multiple-reader multiple-treatment<a href="or-method-intro.html#or-method-intro-multiple-reader-multiple-treatment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The previous sections introduced Obuchowski and Rockette method using single reader and single treatment examples. This section extends it to multiple-readers interpreting a common case-set in multiple-treatments (MRMC). The extension is, in principle, fairly straightforward. Compared to Eqn. <a href="or-method-intro.html#eq:or-sampling-model-multiple-treatments">(12.1)</a>, one needs an additional <span class="math inline">\(j\)</span> index to denote reader dependence of the figure of merit, and additional terms to model reader and treatment-reader variability, and the error term needs to be modified to account for the additional random reader factor.</p>
+<p>The Obuchowski and Rockette model for fully paired multiple-reader multiple-treatment interpretations is:</p>
+<span class="math display" id="eq:or-sampling-model-general">\[\begin{equation}
+\theta_{ij\{c\}}=\mu+\tau_i+R_j+(\tau R)_{ij}+\epsilon_{ij\{c\}}
+\tag{12.15}
+\end{equation}\]</span>
+<ul>
+<li><p>The fixed treatment effect <span class="math inline">\(\tau_i\)</span> is subject to the usual constraint, Eqn. <a href="or-method-intro.html#eq:ConstraintTau">(12.2)</a>.</p></li>
+<li><p>The first two terms on the right hand side of Eqn. <a href="or-method-intro.html#eq:or-sampling-model-general">(12.15)</a> have their usual meanings: a constant term <span class="math inline">\(\mu\)</span> representing performance averaged over treatments and readers, and a treatment effect <span class="math inline">\(\tau_i\)</span> (<span class="math inline">\(i\)</span> = 1,2, …, <span class="math inline">\(I\)</span>).</p></li>
+<li><p>The next two terms are, by assumption, mutually independent random samples specified as follows:</p>
+<ul>
+<li><span class="math inline">\(R_j\)</span> denotes the random treatment-independent figure-of-merit contribution of reader <span class="math inline">\(j\)</span> (<span class="math inline">\(j\)</span> = 1,2, …, <span class="math inline">\(J\)</span>), modeled by a zero-mean normal distribution with variance <span class="math inline">\(\sigma_R^2\)</span>;</li>
+<li><span class="math inline">\((\tau R)_{ij}\)</span> denotes the treatment-dependent random contribution of reader <span class="math inline">\(j\)</span> in treatment <span class="math inline">\(i\)</span>, modeled as a sample from a zero-mean normal distribution with variance <span class="math inline">\(\sigma_{\tau R}^2\)</span>.</li>
+</ul></li>
+<li><p>Summarizing:</p></li>
+</ul>
+<span class="math display" id="eq:ORVariances">\[\begin{equation}
+\left.
+\begin{aligned}
+\begin{matrix}
+R_j \sim N(0,\sigma_R^2)\\ 
+{\tau R} \sim N(0,\sigma_{\tau R}^2)
+\end{matrix}
+\end{aligned}
+\right \}
+\tag{12.16}
+\end{equation}\]</span>
+<p>For a single dataset <span class="math inline">\(c\)</span> = 1. An estimate of <span class="math inline">\(\mu\)</span> follows from averaging over the <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> indices (the averages over the random terms are zeroes):</p>
+<span class="math display" id="eq:ORmuEstimate">\[\begin{equation}
+\mu = \theta_{\bullet \bullet \{1\}}
+\tag{12.17}
+\end{equation}\]</span>
+<p>Averaging over the j index and performing a subtraction yields an estimate of <span class="math inline">\(\tau_i\)</span>:</p>
+<span class="math display" id="eq:ORtauEstimate">\[\begin{equation}
+\tau_i = \theta_{i \bullet \{1\}} - \theta_{\bullet \bullet \{1\}}
+\tag{12.18}
+\end{equation}\]</span>
+<p>The <span class="math inline">\(\tau_i\)</span> estimates obey the constraint Eqn. <a href="or-method-intro.html#eq:ConstraintTau">(12.2)</a>. For example, with two treatments, the values of <span class="math inline">\(\tau_i\)</span> must be the negatives of each other: <span class="math inline">\(\tau_1=-\tau_2\)</span>.</p>
+<p>The error term on the right hand side of Eqn. <a href="or-method-intro.html#eq:or-sampling-model-general">(12.15)</a> is more complex than the corresponding DBM model error term. Obuchowski and Rockette model this term with a multivariate normal distribution with a length <span class="math inline">\((IJ)\)</span> zero-mean vector and a <span class="math inline">\((IJ \times IJ)\)</span> dimensional covariance matrix <span class="math inline">\(\Sigma\)</span>. In other words,</p>
+<span class="math display" id="eq:OREpsSampling">\[\begin{equation}
+\epsilon_{ij\{c\}} \sim N_{IJ}(\vec{0},\Sigma)
+\tag{12.19}
+\end{equation}\]</span>
+<p>Here <span class="math inline">\(N_{IJ}\)</span> is the <span class="math inline">\(IJ\)</span>-variate normal distribution, <span class="math inline">\(\vec{0}\)</span> is the zero-vector with length <span class="math inline">\(IJ\)</span>, denoting the vector-mean of the distribution. The counterpart of the variance, namely the covariance matrix <span class="math inline">\(\Sigma\)</span> of the distribution, is defined by 4 parameters, <span class="math inline">\(\text{Var}, \text{Cov1}, \text{Cov2}, \text{Cov3}\)</span>, defined as follows:</p>
+<span class="math display" id="eq:ORVarCov">\[\begin{equation}
+Cov(\epsilon_{ij\{c\}},\epsilon_{i&#39;j&#39;\{c\}}) =
+\left\{\begin{matrix}
+\text{Var} \; (i=i&#39;,j=j&#39;) \\
+\text{Cov1} \; (i\ne i&#39;,j=j&#39;)\\ 
+\text{Cov2} \; (i = i&#39;,j \ne j&#39;)\\ 
+\text{Cov3} \; (i\ne i&#39;,j \ne j&#39;)
+\end{matrix}\right\}
+\tag{12.20}
+\end{equation}\]</span>
+<p>Apart from fixed effects, the model implied by Eqn. <a href="or-method-intro.html#eq:or-sampling-model-general">(12.15)</a> and Eqn. <a href="or-method-intro.html#eq:ORVarCov">(12.20)</a> contains 6 parameters:</p>
+<p><span class="math display">\[\sigma_R^2,\sigma_{\tau R}^2,\text{Var}, \text{Cov1}, \text{Cov2}, \text{Cov3}\]</span></p>
+<p>This is the same number of variance component parameters as in the DBM model, which should not be a surprise since one is modeling the data with equivalent models. The Obuchowski and Rockette model Eqn. <a href="or-method-intro.html#eq:or-sampling-model-general">(12.15)</a> “looks” simpler because four covariance terms are encapsulated in the <span class="math inline">\(\epsilon\)</span> term. As with the singe-reader multiple-treatment model, the covariance matrix is assumed to be independent of treatment or reader.</p>
+<p>It is implicit in the Obuchowski-Rockette model that the <span class="math inline">\(Var\)</span>, <span class="math inline">\(\text{Cov1}\)</span>, <span class="math inline">\(Cov_2\)</span>, and <span class="math inline">\(Cov_3\)</span> estimates are averaged over all applicable treatment-reader combinations.</p>
+<div id="StrCovMatrix" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.6.1</span> Structure of the covariance matrix<a href="or-method-intro.html#StrCovMatrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To understand the structure of this matrix, recall that the diagonal elements of a square covariance matrix are the variances and the off-diagonal elements are covariances. With two indices <span class="math inline">\(ij\)</span> one can still imagine a square matrix where the position along each dimension is labeled by a pair of indices <span class="math inline">\(ij\)</span>. One <span class="math inline">\(ij\)</span> pair corresponds to the horizontal direction, and the other <span class="math inline">\(ij\)</span> pair corresponds to the vertical direction. To visualize this let consider the simpler situation of two treatments (<span class="math inline">\(I = 2\)</span>) and three readers (<span class="math inline">\(J = 3\)</span>). The resulting <span class="math inline">\(6 \times 6\)</span> covariance matrix would look like this:</p>
+<p><span class="math display">\[
+\Sigma=
+\begin{bmatrix}
+(11,11) &amp; (12,11) &amp; (13,11) &amp; (21,11) &amp; (22,11) &amp; (23,11) \\
+&amp; (12,12) &amp; (13,12) &amp; (21,12) &amp; (22,12) &amp; (23,12) \\ 
+&amp; &amp; (13,13) &amp; (21,13) &amp; (22,13) &amp; (23,13) \\ 
+&amp; &amp; &amp; (21,21) &amp; (22,21) &amp; (23,21) \\
+&amp; &amp; &amp; &amp; (22,22) &amp; (23,22) \\ 
+&amp; &amp; &amp; &amp; &amp; (23,23)
+\end{bmatrix}
+\]</span></p>
+<p>Shown in each cell of the matrix is a pair of ij-values, serving as column indices, followed by a pair of ij-values serving as row indices, and a comma separates the pairs. For example, the first column is labeled by (11,xx), where xx depends on the row. The second column is labeled (12,xx), the third column is labeled (13,xx), and the remaining columns are successively labeled (21,xx), (22,xx) and (23,xx). Likewise, the first row is labeled by (yy,11), where yy depends on the column. The following rows are labeled (yy,12), (yy,13), (yy,21), (yy,22)and (yy,23). Note that the reader index increments faster than the treatment index.</p>
+<p>The diagonal elements are evidently those cells where the row and column index-pairs are equal. These are (11,11), (12,12), (13,13), (21,21), (22,22) and (23,23). According to Eqn. <a href="or-method-intro.html#eq:ORVarCov">(12.20)</a> these cells represent <span class="math inline">\(Var\)</span>.</p>
+<p><span class="math display">\[
+\Sigma=
+\begin{bmatrix}
+Var &amp; (12,11) &amp; (13,11) &amp; (21,11) &amp; (22,11) &amp; (23,11) \\
+&amp; Var &amp; (13,12) &amp; (21,12) &amp; (22,12) &amp; (23,12) \\ 
+&amp; &amp; Var &amp; (21,13) &amp; (22,13) &amp; (23,13) \\ 
+&amp; &amp; &amp; Var &amp; (22,21) &amp; (23,21) \\
+&amp; &amp; &amp; &amp; Var &amp; (23,22) \\ 
+&amp; &amp; &amp; &amp; &amp; Var
+\end{bmatrix}
+\]</span></p>
+<p>According to Eqn. <a href="or-method-intro.html#eq:ORVarCov">(12.20)</a> cells with different treatment indices but identical reader indices represent <span class="math inline">\(\text{Cov1}\)</span>. As an example, cell (21,11) has the same reader indices, namely reader 1, but different treatment indices, namely 2 and 1, so it is <span class="math inline">\(\text{Cov1}\)</span>:</p>
+<p><span class="math display">\[
+\Sigma=
+\begin{bmatrix}
+\text{Var} &amp; (12,11) &amp; (13,11) &amp; \text{Cov1} &amp; (22,11) &amp; (23,11) \\
+&amp; \text{Var} &amp; (13,12) &amp; (21,12) &amp; \text{Cov1} &amp; (23,12) \\ 
+&amp; &amp; \text{Var} &amp; (21,13) &amp; (22,13) &amp; \text{Cov1} \\ 
+&amp; &amp; &amp; \text{Var} &amp; (22,21) &amp; (23,21) \\
+&amp; &amp; &amp; &amp; \text{Var} &amp; (23,22) \\ 
+&amp; &amp; &amp; &amp; &amp; \text{Var}
+\end{bmatrix}
+\]</span></p>
+<p>Similarly, cells with identical treatment indices but different reader indices represent <span class="math inline">\(Cov_2\)</span>:</p>
+<p><span class="math display">\[
+\Sigma=
+\begin{bmatrix}
+Var &amp; Cov_2 &amp; Cov_2 &amp; \text{Cov1} &amp; (22,11) &amp; (23,11) \\
+&amp; \text{Var} &amp; Cov_2 &amp; (21,12) &amp; \text{Cov1} &amp; (23,12) \\ 
+&amp;  &amp; \text{Var} &amp; (21,13) &amp; (22,13) &amp; \text{Cov1} \\ 
+&amp;  &amp;  &amp; \text{Var} &amp; Cov_2 &amp; Cov_2 \\
+&amp;  &amp;  &amp;  &amp; \text{Var} &amp; Cov_2 \\ 
+&amp;  &amp;  &amp;  &amp;  &amp; \text{Var}
+\end{bmatrix}
+\]</span></p>
+<p>Finally, cells with different treatment indices and different reader indices represent <span class="math inline">\(Cov_3\)</span>:</p>
+<p><span class="math display">\[
+\Sigma=
+\begin{bmatrix}
+\text{Var} &amp; Cov_2 &amp; Cov_2 &amp; \text{Cov1} &amp; Cov_3 &amp; Cov_3 \\
+&amp; \text{Var} &amp; Cov_2 &amp; Cov_3 &amp; \text{Cov1} &amp; Cov_3 \\ 
+&amp;  &amp; \text{Var} &amp; Cov_3 &amp; Cov_3 &amp; \text{Cov1} \\ 
+&amp;  &amp;  &amp; \text{Var} &amp; Cov_2 &amp; Cov_2 \\
+&amp;  &amp;  &amp;  &amp; \text{Var} &amp; Cov_2 \\ 
+&amp;  &amp;  &amp;  &amp;  &amp; \text{Var}
+\end{bmatrix}
+\]</span></p>
+<p>To understand these terms consider how they might be estimated. Suppose one had the luxury of repeating the study with different case-sets, c = 1, 2, …, C. Then the variance <span class="math inline">\(\text{Var}\)</span> is estimated as follows:</p>
+<span class="math display" id="eq:EstVariance">\[\begin{equation}
+\text{Var}=
+\left \langle \frac{1}{C-1}\sum_{c=1}^{C} (\theta_{ij\{c\}}-\theta_{ij\{\bullet\}})^2 \right \rangle_{ij}
+\epsilon_{ij\{c\}} \sim N_{IJ}(\vec{0},\Sigma)
+\tag{12.21}
+\end{equation}\]</span>
+<p>Of course, in practice one would use the bootstrap or the jackknife as a stand-in for the c-index (with the understanding that if the jackknife is used, then a variance inflation factor has to be included on the right hand side of Eqn. <a href="or-method-intro.html#eq:EstVariance">(12.21)</a>. Notice that the left-hand-side of Eqn. <a href="or-method-intro.html#eq:EstVariance">(12.21)</a> lacks treatment or reader indices. This is because implicit in the notation is averaging the observed variances over all treatments and readers, as implied by <span class="math inline">\(\left \langle \right \rangle _{ij}\)</span>. Likewise, the covariance terms are estimated as follows:</p>
+<span class="math display" id="eq:EstCovMatrix">\[\begin{equation}
+Cov=\left\{\begin{matrix}
+\text{Cov1}=\left \langle \frac{1}{C-1}\sum_{c=1}^{C} (\theta_{ij\{c\}}-\theta_{ij\{\bullet\}}) (\theta_{i&#39;j\{c\}}-\theta_{i&#39;j\{\bullet\}}) \right \rangle_{ii&#39;,jj}\\ 
+Cov_2=\left \langle \frac{1}{C-1}\sum_{c=1}^{C} (\theta_{ij\{c\}}-\theta_{ij\{\bullet\}}) (\theta_{ij&#39;\{c\}}-\theta_{ij&#39;\{\bullet\}}) \right \rangle_{ii,jj&#39;}\\ 
+Cov_3=\left \langle \frac{1}{C-1}\sum_{c=1}^{C} (\theta_{ij\{c\}}-\theta_{ij\{\bullet\}}) (\theta_{i&#39;j&#39;\{c\}}-\theta_{i&#39;j&#39;\{\bullet\}}) \right \rangle_{ii&#39;,jj&#39;}
+\end{matrix}\right.
+\tag{12.22}
+\end{equation}\]</span>
+<p><em>In Eqn.</em> <a href="or-method-intro.html#eq:EstCovMatrix">(12.22)</a> <em>the convention is that primed and unprimed variables are always different.</em></p>
+<p>Since there are no treatment and reader dependencies on the left-hand-sides of the above equations, one averages the estimates as follows:</p>
+<ul>
+<li>For <span class="math inline">\(\text{Cov1}\)</span> one averages over all combinations of <em>different treatments and same readers</em>, as denoted by <span class="math inline">\(\left \langle \right \rangle_{ii&#39;,jj}\)</span>.</li>
+<li>For <span class="math inline">\(Cov_2\)</span> one averages over all combinations of <em>same treatment and different readers</em>, as denoted by <span class="math inline">\(\left \langle \right \rangle_{ii,jj&#39;}\)</span>.</li>
+<li>For <span class="math inline">\(Cov_3\)</span> one averages over all combinations of <em>different treatments and different readers</em>, as denoted by <span class="math inline">\(\left \langle \right \rangle_{ii&#39;,jj&#39;}\)</span>.</li>
+</ul>
+</div>
+<div id="PhysicalMeaningsOfCovMatrix" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.6.2</span> Physical meanings of the covariance terms<a href="or-method-intro.html#PhysicalMeaningsOfCovMatrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The meanings of the different terms follow a similar description to that given in Eqn. <a href="or-method-intro.html#StrCovMatrix">12.6.1</a>. The diagonal term <span class="math inline">\(\text{Var}\)</span> is the variance of the figures-of-merit when reader <span class="math inline">\(j\)</span> interprets different case-sets <span class="math inline">\(\{c\}\)</span> in treatment <span class="math inline">\(i\)</span>. Each case-set yields a number <span class="math inline">\(\theta_{ij\{c\}}\)</span> and the variance of the <span class="math inline">\(C\)</span> numbers, averaged over the <span class="math inline">\(I \times J\)</span> treatments and readers, is <span class="math inline">\(\text{Var}\)</span>. It captures the total variability due to varying difficulty levels of the case-sets, inter-reader and within-reader variability.</p>
+<p>It is easier to see the physical meanings of <span class="math inline">\(\text{Cov1}, Cov_2, Cov_3\)</span> if one starts with the correlations.</p>
+<ul>
+<li><p><span class="math inline">\(\rho_{1;ii&#39;jj}\)</span> is the correlation of the figures-of-merit when reader <span class="math inline">\(j\)</span> interprets case-sets in different treatments <span class="math inline">\(i,i&#39;\)</span>. Each case-set, starting with <span class="math inline">\(c = 1\)</span>, yields two numbers <span class="math inline">\(\theta_{ij\{1\}}\)</span> and <span class="math inline">\(\theta_{i&#39;j\{1\}}\)</span>. The correlation of the two pairs of C-length arrays, averaged over all pairings of different treatments and same readers, is <span class="math inline">\(\rho_1\)</span>. The correlation exists due to the common contribution of the shared reader. When the common variation is large, the two arrays become more correlated and <span class="math inline">\(\rho_1\)</span> approaches unity. If there is no common variation, the two arrays become independent, and <span class="math inline">\(\rho_1\)</span> equals zero. Converting from correlation to covariance, see Eqn. <a href="or-method-intro.html#eq:CovMtrxSigmaRhoForm">(12.28)</a>, one has <span class="math inline">\(\text{Cov1} &lt; \text{Var}\)</span>.</p></li>
+<li><p><span class="math inline">\(\rho_{2;iijj&#39;}\)</span> is the correlation of the figures-of-merit values when different readers <span class="math inline">\(j,j&#39;\)</span> interpret the same case-sets in the same treatment <span class="math inline">\(i\)</span>. As before this yields two C-length arrays, whose correlation, upon averaging over all distinct treatment pairings and same readers, yields <span class="math inline">\(\rho_2\)</span>. If one assumes that common variation between different-reader same-treatment FOMs is smaller than the common variation between same-reader different-treatment FOMs, then <span class="math inline">\(\rho_2\)</span> will be smaller than <span class="math inline">\(\rho_1\)</span>. This is equivalent to stating that readers agree more with themselves in different treatments than they do with other readers in the same treatment. Translating to covariances, one has <span class="math inline">\(Cov_2 &lt; \text{Cov1} &lt; \text{Var}\)</span>.</p></li>
+<li><p><span class="math inline">\(\rho_{3;ii&#39;jj&#39;}\)</span> is the correlation of the figure-of-merit values when different readers <span class="math inline">\(j,j&#39;\)</span> interpret the same case set in different treatments <span class="math inline">\(i,i&#39;\)</span>, etc., yielding <span class="math inline">\(\rho_3\)</span>. This is expected to yield the least correlation.</p></li>
+</ul>
+<p>Summarizing, one expects the following ordering for the terms in the covariance matrix:</p>
+<span class="math display" id="eq:CovOrderings">\[\begin{equation}
+Cov_3 \leq  Cov_2 \leq  \text{Cov1} \leq  \text{Var}
+\tag{12.23}
+\end{equation}\]</span>
+</div>
+</div>
+<div id="or-method-intro-summary" class="section level2 hasAnchor">
+<h2><span class="header-section-number">12.7</span> Summary<a href="or-method-intro.html#or-method-intro-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="or-method-intro-discussion" class="section level2 hasAnchor">
+<h2><span class="header-section-number">12.8</span> Discussion<a href="or-method-intro.html#or-method-intro-discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="or-method-intro-elementary-stats" class="section level2 hasAnchor">
+<h2><span class="header-section-number">12.9</span> Appendix: Covariance and correlation<a href="or-method-intro.html#or-method-intro-elementary-stats" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Some elementary statistical results are reviewed here.</p>
+<div id="or-method-intro-elementary-stats-f-stat-chisq-stat" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.9.1</span> Relation: chisquare and F with infinite ddf<a href="or-method-intro.html#or-method-intro-elementary-stats-f-stat-chisq-stat" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Define <span class="math inline">\(D_{1-\alpha}\)</span>, the <span class="math inline">\((1-\alpha)\)</span> quantile of distribution <span class="math inline">\(D\)</span>, such that the probability of observing a random sample <span class="math inline">\(d\)</span> less than or equal to <span class="math inline">\(D_{1-\alpha}\)</span> is <span class="math inline">\((1-\alpha)\)</span>:</p>
+<span class="math display" id="eq:DefQuantile">\[\begin{equation}
+\Pr(d\leq D_{1-\alpha} \mid d \sim D)=1-\alpha
+\tag{12.24}
+\end{equation}\]</span>
+<p>With definition Eqn. <a href="or-method-intro.html#eq:DefQuantile">(12.24)</a>, the <span class="math inline">\((1-\alpha)\)</span> quantile of the <span class="math inline">\(\chi_{I-1}^2\)</span> distribution, i.e., <span class="math inline">\(\chi_{1-\alpha,I-1}^2\)</span>, is related to the <span class="math inline">\((1-\alpha)\)</span> quantile of the <span class="math inline">\(F_{I-1,\infty}\)</span> distribution, i.e., <span class="math inline">\(F_{1-\alpha,I-1,\infty}\)</span>, as follows <span class="citation">(see Hillis et al. <a href="#ref-RN1772" role="doc-biblioref">2005</a>, Eq. 22)</span>:</p>
+<span class="math display" id="eq:Chisqr2F">\[\begin{equation}
+\frac{\chi_{1-\alpha,I-1}^{2}}{I-1} = F_{1-\alpha,I-1,\infty}
+\tag{12.25}
+\end{equation}\]</span>
+<p>Eqn. <a href="or-method-intro.html#eq:Chisqr2F">(12.25)</a> implies that the <span class="math inline">\((1-\alpha)\)</span> quantile of the F-distribution with <span class="math inline">\(ndf=(I-1)\)</span> and <span class="math inline">\(ddf =\infty\)</span> equals the <span class="math inline">\((1-\alpha)\)</span> quantile of the <span class="math inline">\(\chi_{I-1}^2\)</span> distribution <em>divided by</em> <span class="math inline">\((I-1)\)</span>.</p>
+<p>Here is an <code>R</code> illustration of this theorem for <span class="math inline">\(I-1 = 4\)</span> and <span class="math inline">\(\alpha = 0.05\)</span>:</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="or-method-intro.html#cb86-1"></a><span class="kw">qf</span>(<span class="fl">0.05</span>, <span class="dv">4</span>, <span class="ot">Inf</span>)</span></code></pre></div>
+<pre><code>## [1] 0.1776808</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="or-method-intro.html#cb88-1"></a><span class="kw">qchisq</span>(<span class="fl">0.05</span>,<span class="dv">4</span>)<span class="op">/</span><span class="dv">4</span></span></code></pre></div>
+<pre><code>## [1] 0.1776808</code></pre>
+</div>
+<div id="or-method-intro-elementary-stats-def-cov-matrix" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.9.2</span> Definitions of covariance and correlation<a href="or-method-intro.html#or-method-intro-elementary-stats-def-cov-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The covariance of two scalar random variables X and Y is defined by:</p>
+<span class="math display" id="eq:DefCov">\[\begin{equation}
+Cov(X,Y) =\frac{\sum_{i=1}^{N}(x_{i}-x_{\bullet})(y_{i}-y_{\bullet})}{N-1}=E(XY)-E(X)-E(Y)
+\tag{12.26}
+\end{equation}\]</span>
+<p>Here <span class="math inline">\(E(X)\)</span> is the expectation value of the random variable <span class="math inline">\(X\)</span>, i.e., the integral of x multiplied by its <span class="math inline">\(\text{pdf}\)</span> over the range of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[E(X)=\int \text{pdf(x)} x dx\]</span></p>
+<p>The covariance can be thought of as the <em>common</em> part of the variance of two random variables. The variance, a special case of covariance, of <span class="math inline">\(X\)</span> is defined by:</p>
+<p><span class="math display">\[\text{Var}(X,X) = Cov(X,X)=E(X^2)-(E(X))^2=\sigma_x^2\]</span></p>
+<p>It can be shown, this is the Cauchy–Schwarz inequality, that:</p>
+<p><span class="math display">\[\mid Cov(X,Y) \mid^2 \le \text{Var}(X)\text{Var}(Y)\]</span></p>
+<p>A related quantity, namely the correlation <span class="math inline">\(\rho\)</span> is defined by (the <span class="math inline">\(\sigma\)</span>s are standard deviations):</p>
+<p><span class="math display">\[\rho_{XY} \equiv Cor(X,Y)=\frac{Cov(X,Y)}{\sigma_X \sigma_Y}\]</span></p>
+<p>It has the property:</p>
+<p><span class="math display">\[\mid \rho_{XY} \mid \le 1\]</span></p>
+</div>
+<div id="or-method-intro-elementary-stats-equal-variance" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.9.3</span> Special case when variables have equal variances<a href="or-method-intro.html#or-method-intro-elementary-stats-equal-variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Assuming <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have the same variance:</p>
+<p><span class="math display">\[\text{Var}(X)=\text{Var}(Y)\equiv \text{Var}\equiv \sigma^2\]</span></p>
+<p>A useful theorem applicable to the OR single-reader multiple-treatment model is:</p>
+<span class="math display" id="eq:UsefulTheorem">\[\begin{equation}
+\text{Var}(X-Y)=\text{Var}(X)+\text{Var}(Y)-2Cov(X,Y)=2(\text{Var}-Cov)
+\tag{12.27}
+\end{equation}\]</span>
+<p>The right hand side specializes to the OR single-reader multiple-treatment model where the variances (for different treatments) are equal and likewise the covariances in Eqn. <a href="or-method-intro.html#eq:ExampleSigma">(12.5)</a> are equal) The correlation <span class="math inline">\(\rho_1\)</span> is defined by (the reason for the subscript 1 on <span class="math inline">\(\rho\)</span> is the same as the reason for the subscript 1 on <span class="math inline">\(\text{Cov1}\)</span>, which will be explained later):</p>
+<p><span class="math display">\[\rho_1=\frac{\text{Cov1}}{\text{Var}}\]</span></p>
+<p>The I x I covariance matrix <span class="math inline">\(\Sigma\)</span> can be written alternatively as (shown below is the matrix for I = 5; as the matrix is symmetric, only elements at and above the diagonal are shown):</p>
+<span class="math display" id="eq:CovMtrxSigmaRhoForm">\[\begin{equation}
+\Sigma = 
+\begin{bmatrix}
+\sigma^2 &amp; \rho_1\sigma^2 &amp; \rho_1\sigma^2 &amp; \rho_1\sigma^2 &amp; \rho_1\sigma^2\\
+&amp; \sigma^2 &amp; \rho_1\sigma^2 &amp; \rho_1\sigma^2 &amp; \rho_1\sigma^2\\
+&amp;  &amp; \sigma^2 &amp; \rho_1\sigma^2 &amp; \rho_1\sigma^2\\
+&amp;  &amp;  &amp; \sigma^2 &amp; \rho_1\sigma^2\\
+&amp;  &amp;  &amp;  &amp; \sigma^2
+\end{bmatrix}
+\tag{12.28}
+\end{equation}\]</span>
+</div>
+<div id="or-method-intro-elementary-stats-est-cov-matrix" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.9.4</span> Estimating the variance-covariance matrix<a href="or-method-intro.html#or-method-intro-elementary-stats-est-cov-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>An unbiased estimate of the covariance matrix Eqn. <a href="or-method-intro.html#eq:DefinitionSigma">(12.4)</a> follows from:</p>
+<span class="math display" id="eq:EstimateSigmaPopulation">\[\begin{equation}
+\Sigma_{ii&#39;}\mid_{ps}=\frac{1}{C-1}\sum_{c=1}^{C} \left ( \theta_{i\{c\}} - \theta_{i\{\bullet\}} \right) \left ( \theta_{i&#39;\{c\}} - \theta_{i&#39;\{\bullet\}} \right)
+\tag{12.29}
+\end{equation}\]</span>
+<p>The subscript <span class="math inline">\(ps\)</span> denotes population sampling. As a special case, when <span class="math inline">\(i = i&#39;\)</span>, this equation yields the population sampling based variance.</p>
+<span class="math display" id="eq:EstimateVarPopulation">\[\begin{equation}
+\text{Var}_{i}\mid_{ps}=\frac{1}{C-1}\sum_{c=1}^{C} \left ( \theta_{i\{c\}} - \theta_{i\{\bullet\}} \right)^2
+\tag{12.30}
+\end{equation}\]</span>
+<p>The I-values when averaged yield the population sampling based estimate of <span class="math inline">\(\text{Var}\)</span>.</p>
+<p>Sampling different case-sets, as required by Eqn. <a href="or-method-intro.html#eq:EstimateSigmaPopulation">(12.29)</a>, is unrealistic. In reality one has <span class="math inline">\(C\)</span> = 1, i.e., a single dataset. Therefore, direct application of this formula is impossible. However, as seen when this situation was encountered before in (book) Chapter 07, one uses resampling methods to realize, for example, different bootstrap samples, which are resampling-based “stand-ins” for actual case-sets. If <span class="math inline">\(B\)</span> is the total number of bootstraps, then the estimation formula is:</p>
+<span class="math display" id="eq:EstimateSigmaBootstrap">\[\begin{equation}
+\Sigma_{ii&#39;}\mid_{bs} =\frac{1}{B-1}\sum_{b=1}^{B} \left ( \theta_{i\{b\}} - \theta_{i\{\bullet\}} \right) \left ( \theta_{i&#39;\{b\}} - \theta_{i&#39;\{\bullet\}} \right)
+\tag{12.31}
+\end{equation}\]</span>
+<p>Eqn. <a href="or-method-intro.html#eq:EstimateSigmaBootstrap">(12.31)</a>, the bootstrap method of estimating the covariance matrix, is a direct translation of Eqn. <a href="or-method-intro.html#eq:EstimateSigmaPopulation">(12.29)</a>. Alternatively, one could have used the jackknife FOM values <span class="math inline">\(\theta_{i(k)}\)</span>, i.e., the figure of merit with a case <span class="math inline">\(k\)</span> removed, repeated for all <span class="math inline">\(k\)</span>, to estimate the covariance matrix:</p>
+<span class="math display" id="eq:EstimateSigmaJackknife">\[\begin{equation}
+\Sigma_{ii&#39;}\mid_{jk} =\frac{(K-1)^2}{K} \left [ \frac{1}{K-1}\sum_{k=1}^{K} \left ( \theta_{i(k)} - \theta_{i(\bullet)} \right) \left ( \theta_{i&#39;(k)} - \theta_{i&#39;(\bullet)} \right) \right ]
+\tag{12.32}
+\end{equation}\]</span>
+<p>[For either bootstrap or jackknife, if <span class="math inline">\(i = i&#39;\)</span>, the equations yield the corresponding variance estimates.]</p>
+<p>Note the subtle difference in usage of ellipses and parentheses between Eqn. <a href="or-method-intro.html#eq:EstimateSigmaPopulation">(12.29)</a> and Eqn. <a href="or-method-intro.html#eq:EstimateSigmaJackknife">(12.32)</a>. In the former, the subscript <span class="math inline">\(\{c\}\)</span> denotes a set of <span class="math inline">\(K\)</span> cases while in the latter, <span class="math inline">\((k)\)</span> denotes the original case set with case <span class="math inline">\(k\)</span> removed, leaving <span class="math inline">\(K-1\)</span> cases. There is a similar subtle difference in usage of ellipses and parentheses between Eqn. <a href="or-method-intro.html#eq:EstimateSigmaBootstrap">(12.31)</a> and Eqn. <a href="or-method-intro.html#eq:EstimateSigmaJackknife">(12.32)</a>. The subscript enclosed in parenthesis, i.e., <span class="math inline">\((k)\)</span>, denotes the FOM with case <span class="math inline">\(k\)</span> removed, while in the bootstrap equation one uses the ellipses (curly brackets) <span class="math inline">\(\{b\}\)</span> to denote the <span class="math inline">\(b^{th}\)</span> bootstrap <em>case-set</em>, i.e., a whole set of <span class="math inline">\(K_1\)</span> non-diseased and <span class="math inline">\(K_2\)</span> diseased cases, sampled with replacement from the original dataset.</p>
+<p>The index <span class="math inline">\(k\)</span> ranges from 1 to <span class="math inline">\(K\)</span>, where the first <span class="math inline">\(K_1\)</span> values represent non-diseased cases and the following <span class="math inline">\(K_2\)</span> values represent diseased cases. Jackknife figure of merit values, such as <span class="math inline">\(\theta_{i(k)}\)</span>, are not to be confused with jackknife pseudovalues used in the DBM chapters. The jackknife FOM corresponding to a particular case is the FOM with the particular case removed while the pseudovalue is <span class="math inline">\(K\)</span> times the FOM with all cases include minus <span class="math inline">\((K-1)\)</span> times the jackknife FOM. Unlike pseudovalues, jackknife FOM values cannot be regarded as independent and identically distributed, even when using the empirical AUC as FOM.</p>
+</div>
+<div id="or-method-intro-elementary-stats-jack-var-inflation-factor" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.9.5</span> The variance inflation factor<a href="or-method-intro.html#or-method-intro-elementary-stats-jack-var-inflation-factor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In Eqn. <a href="or-method-intro.html#eq:EstimateSigmaJackknife">(12.32)</a>, the expression for the jackknife covariance estimate contains a <em>variance inflation factor</em>:</p>
+<span class="math display" id="eq:JKVarianceInflationFactor">\[\begin{equation}
+\frac{(K-1)^2}{K}
+\tag{12.33}
+\end{equation}\]</span>
+<p>This factor multiplies the traditional expression for the covariance, shown in square brackets in Eqn. <a href="or-method-intro.html#eq:EstimateSigmaJackknife">(12.32)</a>. It is only needed for the jackknife estimate. The bootstrap and the DeLong estimate, see next, do not require this factor.</p>
+<p>A third method of estimating the covariance <span class="citation">(DeLong, DeLong, and Clarke-Pearson <a href="#ref-RN112" role="doc-biblioref">1988</a>)</span>, only applicable to the empirical AUC, is not discussed here; however, it is implemented in the software.</p>
+</div>
+<div id="or-method-intro-elementary-stats-meaning-cov-matrix" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.9.6</span> Meaning of the covariance matrix<a href="or-method-intro.html#or-method-intro-elementary-stats-meaning-cov-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>With reference to Eqn. <a href="or-method-intro.html#eq:ExampleSigma">(12.5)</a>, suppose one has the luxury of repeatedly sampling case-sets, each consisting of <span class="math inline">\(K\)</span> cases from the population. A single radiologist interprets these cases in <span class="math inline">\(I\)</span> treatments. Therefore, each case-set <span class="math inline">\(\{c\}\)</span> yields <span class="math inline">\(I\)</span> figures of merit. The final numbers at ones disposal are <span class="math inline">\(\theta_{i\{c\}}\)</span>, where <span class="math inline">\(i\)</span> = 1,2,…,<span class="math inline">\(I\)</span> and <span class="math inline">\(c\)</span> = 1,2,…,<span class="math inline">\(C\)</span>. Considering treatment <span class="math inline">\(i\)</span>, the variance of the FOM-values for the different case-sets <span class="math inline">\(c\)</span> = 1,2,…,<span class="math inline">\(C\)</span>, is an estimate of <span class="math inline">\(Var_i\)</span> for this treatment:</p>
+<span class="math display" id="eq:EstimateVari">\[\begin{equation}
+\sigma_i^2 \equiv Var_i = \frac{1}{C-1}\sum_{c=1}^{C}\left ( \theta_{i\{c\}} - \theta_{i\{\bullet\}} \right) \left ( \theta_{i\{c\}} - \theta_{i\{\bullet\}} \right)
+\tag{12.34}
+\end{equation}\]</span>
+<p>The process is repeated for all treatments and the <span class="math inline">\(I\)</span>-variance values are averaged. This is the final estimate of <span class="math inline">\(\text{Var}\)</span> appearing in Eqn. <a href="or-method-intro.html#eq:DefinitionEpsilon">(12.3)</a>.</p>
+<p>To estimate the covariance matrix one considers pairs of FOM values for the same case-set <span class="math inline">\(\{c\}\)</span> but different treatments, i.e., <span class="math inline">\(\theta_{i\{c\}}\)</span> and <span class="math inline">\(\theta_{i&#39;\{c\}}\)</span>; <em>by definition primed and un-primed indices are different</em>. The process is repeated for different case-sets. The covariance is calculated as follows:</p>
+<span class="math display" id="eq:EstimateCov">\[\begin{equation}
+\text{Cov}_{1;ii&#39;} = \frac{1}{C-1}\sum_{c=1}^{C} \left ( \theta_{i\{c\}} - \theta_{i\{\bullet\}} \right) \left ( \theta_{i&#39;\{c\}} - \theta_{i&#39;\{\bullet\}} \right)
+\tag{12.35}
+\end{equation}\]</span>
+<p>The process is repeated for all combinations of different-treatment pairings and the resulting <span class="math inline">\(I(I-1)/2\)</span> values are averaged yielding the final estimate of <span class="math inline">\(\text{Cov}_1\)</span>. [Recall that the Obuchowski-Rockette model does not allow treatment-dependent parameters in the covariance matrix - hence the need to average over all treatment pairings.]</p>
+<p>Since they are derived from the same case-set, one expects the <span class="math inline">\(\theta_{i\{c\}}\)</span> and <span class="math inline">\(\theta_{i&#39;\{c\}}\)</span> values to be correlated. As an example, for a particularly easy <em>case-set</em> one expects <span class="math inline">\(\theta_{i\{c\}}\)</span> and <span class="math inline">\(\theta_{i&#39;\{c\}}\)</span> to be both higher than usual. The correlation <span class="math inline">\(\rho_{1;ii&#39;}\)</span> is defined by:</p>
+<span class="math display" id="eq:EstimateRho">\[\begin{equation}
+\rho_{1;ii&#39;} = \frac{1}{C-1}\sum_{c=1}^{C} \frac {\left ( \theta_{i\{c\}} - \theta_{i\{\bullet\}} \right) \left ( \theta_{i&#39;\{c\}} - \theta_{i&#39;\{\bullet\}} \right)}{\sigma_i \sigma_{i&#39;} }
+\tag{12.36}
+\end{equation}\]</span>
+<p>Averaging over all different-treatment pairings yields the final estimate of the correlation <span class="math inline">\(\rho_1\)</span>. Since the covariance is smaller than the variance, the magnitude of the correlation is smaller than 1. In most situations one expects <span class="math inline">\(\rho_1\)</span> to be positive. There is a scenario that could lead to negative correlation. With “complementary” treatments, e.g., CT vs. MRI, where one treatment is good for bone imaging and the other for soft-tissue imaging, an easy case-set in one treatment could correspond to a difficult case-set in the other treatment, leading to negative correlation.</p>
+<p>To summarize, the covariance matrix can be estimated using the jackknife or the bootstrap, or, in the special case of the empirical AUC figure of merit, the DeLong method can be used. In (book) Chapter 07, these three methods were described in the context of estimating the <em>variance</em> of AUC. Eqn. <a href="or-method-intro.html#eq:EstimateSigmaBootstrap">(12.31)</a> and Eqn. <a href="or-method-intro.html#eq:EstimateSigmaJackknife">(12.32)</a> extend the jackknife and the bootstrap methods, respectively, to estimating the <em>covariance</em> of AUC (whose diagonal elements are the variances estimated in the earlier chapter).</p>
+</div>
+<div id="or-method-intro-elementary-stats-code-cov-matrix" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.9.7</span> Code illustrating the covariance matrix<a href="or-method-intro.html#or-method-intro-elementary-stats-code-cov-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To minimize clutter, the <code>R</code> functions (for estimating <code>Var</code> and <code>Cov1</code> using bootstrap, jackknife, and the DeLong methods) are not shown, but they are compiled. To display them <code>clone</code> or ‘fork’ the book repository and look at the <code>Rmd</code> file corresponding to this output and the sourced <code>R</code> files listed below:</p>
+<p>The following code chunk extracts (using the <code>DfExtractDataset</code> function) a single-reader multiple-treatment ROC dataset corresponding to the first reader from <code>dataset02</code>, which is the Van Dyke dataset.</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="or-method-intro.html#cb90-1"></a>rocData1R &lt;-<span class="st"> </span><span class="kw">DfExtractDataset</span>(dataset02, <span class="dt">rdrs =</span> <span class="dv">1</span>) <span class="co">#select the 1st reader to be analyzed</span></span>
+<span id="cb90-2"><a href="or-method-intro.html#cb90-2"></a>zik1 &lt;-<span class="st"> </span>rocData1R<span class="op">$</span>ratings<span class="op">$</span>NL[,<span class="dv">1</span>,,<span class="dv">1</span>];K &lt;-<span class="st"> </span><span class="kw">dim</span>(zik1)[<span class="dv">2</span>];I &lt;-<span class="st"> </span><span class="kw">dim</span>(zik1)[<span class="dv">1</span>]</span>
+<span id="cb90-3"><a href="or-method-intro.html#cb90-3"></a>zik2 &lt;-<span class="st"> </span>rocData1R<span class="op">$</span>ratings<span class="op">$</span>LL[,<span class="dv">1</span>,,<span class="dv">1</span>];K2 &lt;-<span class="st"> </span><span class="kw">dim</span>(zik2)[<span class="dv">2</span>];K1 &lt;-<span class="st"> </span>K<span class="op">-</span>K2;zik1 &lt;-<span class="st"> </span>zik1[,<span class="dv">1</span><span class="op">:</span>K1]</span></code></pre></div>
+<p>The following notation is used in the code below:</p>
+<ul>
+<li>jk = jackknife method</li>
+<li>bs = bootstrap method, with B = number of bootstraps and <code>seed</code> = value.</li>
+<li>dl = DeLong method</li>
+<li>rj_jk = RJafroc, <code>covEstMethod</code> = “jackknife”</li>
+<li>rj_bs = RJafroc, <code>covEstMethod</code> = “bootstrap”</li>
+</ul>
+<p>For example, <code>Cov1_jk</code> is the jackknife estimate of <code>Cov1</code>. Shown below are the results of the jackknife method, first using the code in this repository and next, as a cross-check, using <code>RJafroc</code> function <code>UtilORVarComponentsFactorial</code>:</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="or-method-intro.html#cb91-1"></a>ret1 &lt;-<span class="st"> </span><span class="kw">VarCov1_Jk</span>(zik1, zik2)</span>
+<span id="cb91-2"><a href="or-method-intro.html#cb91-2"></a>Var &lt;-<span class="st"> </span>ret1<span class="op">$</span>Var</span>
+<span id="cb91-3"><a href="or-method-intro.html#cb91-3"></a>Cov1 &lt;-<span class="st"> </span>ret1<span class="op">$</span>Cov1 <span class="co"># use these (i.e., jackknife) as default values in subsequent code</span></span>
+<span id="cb91-4"><a href="or-method-intro.html#cb91-4"></a><span class="kw">data.frame</span> (<span class="st">&quot;Cov1_jk&quot;</span> =<span class="st"> </span>Cov1, <span class="st">&quot;Var_jk&quot;</span> =<span class="st"> </span>Var)</span></code></pre></div>
+<pre><code>##        Cov1_jk       Var_jk
+## 1 0.0003734661 0.0006989006</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="or-method-intro.html#cb93-1"></a>ret4 &lt;-<span class="st"> </span><span class="kw">UtilORVarComponentsFactorial</span>(</span>
+<span id="cb93-2"><a href="or-method-intro.html#cb93-2"></a>  rocData1R, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>) <span class="co"># the functions default `covEstMethod` is jackknife</span></span>
+<span id="cb93-3"><a href="or-method-intro.html#cb93-3"></a><span class="kw">data.frame</span> (<span class="st">&quot;Cov1_rj_jk&quot;</span> =<span class="st"> </span>ret4<span class="op">$</span>VarCom[<span class="st">&quot;Cov1&quot;</span>, <span class="st">&quot;Estimates&quot;</span>], </span>
+<span id="cb93-4"><a href="or-method-intro.html#cb93-4"></a>            <span class="st">&quot;Var_rj_jk&quot;</span> =<span class="st"> </span>ret4<span class="op">$</span>VarCom[<span class="st">&quot;Var&quot;</span>, <span class="st">&quot;Estimates&quot;</span>])</span></code></pre></div>
+<pre><code>##     Cov1_rj_jk    Var_rj_jk
+## 1 0.0003734661 0.0006989006</code></pre>
+<p>Note that the estimates are identical and that the <span class="math inline">\(\text{Cov1}\)</span> estimate is smaller than the <span class="math inline">\(\text{Var}\)</span> estimate (their ratio is the correlation <span class="math inline">\(\rho_1 = \text{Cov1}/\text{Var}\)</span> = 0.5343623).</p>
+<p>Shown next are bootstrap method estimates with increasing number of bootstraps (200, 2000 and 20,000):</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="or-method-intro.html#cb95-1"></a>ret2 &lt;-<span class="st"> </span><span class="kw">VarCov1_Bs</span>(zik1, zik2, <span class="dv">200</span>, <span class="dt">seed =</span> <span class="dv">100</span>)</span>
+<span id="cb95-2"><a href="or-method-intro.html#cb95-2"></a><span class="kw">data.frame</span> (<span class="st">&quot;Cov_bs&quot;</span> =<span class="st"> </span>ret2<span class="op">$</span>Cov1, <span class="st">&quot;Var_bs&quot;</span> =<span class="st"> </span>ret2<span class="op">$</span>Var) </span></code></pre></div>
+<pre><code>##        Cov_bs       Var_bs
+## 1 0.000283905 0.0005845354</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="or-method-intro.html#cb97-1"></a>ret2 &lt;-<span class="st"> </span><span class="kw">VarCov1_Bs</span>(zik1, zik2, <span class="dv">2000</span>, <span class="dt">seed =</span> <span class="dv">100</span>)</span>
+<span id="cb97-2"><a href="or-method-intro.html#cb97-2"></a><span class="kw">data.frame</span> (<span class="st">&quot;Cov_bs&quot;</span> =<span class="st"> </span>ret2<span class="op">$</span>Cov1, <span class="st">&quot;Var_bs&quot;</span> =<span class="st"> </span>ret2<span class="op">$</span>Var) </span></code></pre></div>
+<pre><code>##         Cov_bs       Var_bs
+## 1 0.0003466804 0.0006738506</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="or-method-intro.html#cb99-1"></a>ret2 &lt;-<span class="st"> </span><span class="kw">VarCov1_Bs</span>(zik1, zik2, <span class="dv">20000</span>, <span class="dt">seed =</span> <span class="dv">100</span>)</span>
+<span id="cb99-2"><a href="or-method-intro.html#cb99-2"></a><span class="kw">data.frame</span> (<span class="st">&quot;Cov_bs&quot;</span> =<span class="st"> </span>ret2<span class="op">$</span>Cov1, <span class="st">&quot;Var_bs&quot;</span> =<span class="st"> </span>ret2<span class="op">$</span>Var) </span></code></pre></div>
+<pre><code>##         Cov_bs       Var_bs
+## 1 0.0003680714 0.0006862668</code></pre>
+<p>With increasing number of bootstraps the values approach the jackknife estimates.</p>
+<p>Following, as a cross check, are results of bootstrap method as calculated by the <code>RJafroc</code> function <code>UtilORVarComponentsFactorial</code>:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="or-method-intro.html#cb101-1"></a>ret5 &lt;-<span class="st"> </span><span class="kw">UtilORVarComponentsFactorial</span>(</span>
+<span id="cb101-2"><a href="or-method-intro.html#cb101-2"></a>  rocData1R, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, </span>
+<span id="cb101-3"><a href="or-method-intro.html#cb101-3"></a>  <span class="dt">covEstMethod =</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="dt">nBoots =</span> <span class="dv">2000</span>, <span class="dt">seed =</span> <span class="dv">100</span>)</span>
+<span id="cb101-4"><a href="or-method-intro.html#cb101-4"></a><span class="kw">data.frame</span> (<span class="st">&quot;Cov_rj_bs&quot;</span> =<span class="st"> </span>ret5<span class="op">$</span>VarCom[<span class="st">&quot;Cov1&quot;</span>, <span class="st">&quot;Estimates&quot;</span>], </span>
+<span id="cb101-5"><a href="or-method-intro.html#cb101-5"></a>            <span class="st">&quot;Var_rj_bs&quot;</span> =<span class="st"> </span>ret5<span class="op">$</span>VarCom[<span class="st">&quot;Var&quot;</span>, <span class="st">&quot;Estimates&quot;</span>])</span></code></pre></div>
+<pre><code>##      Cov_rj_bs    Var_rj_bs
+## 1 0.0003466804 0.0006738506</code></pre>
+<p>Note that the two estimates shown above for <span class="math inline">\(B = 2000\)</span> are identical. This is because <em>the seeds are identical</em>. With different seeds on expect sampling related fluctuations.</p>
+<p>Following are results of the DeLong covariance estimation method, the first output is using this repository code and the second using the <code>RJafroc</code> function <code>UtilORVarComponentsFactorial</code> with appropriate arguments:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="or-method-intro.html#cb103-1"></a>mtrxDLStr &lt;-<span class="st"> </span><span class="kw">VarCovMtrxDLStr</span>(rocData1R)</span>
+<span id="cb103-2"><a href="or-method-intro.html#cb103-2"></a>ret3 &lt;-<span class="st"> </span><span class="kw">VarCovs</span>(mtrxDLStr)</span>
+<span id="cb103-3"><a href="or-method-intro.html#cb103-3"></a><span class="kw">data.frame</span> (<span class="st">&quot;Cov_dl&quot;</span> =<span class="st"> </span>ret3<span class="op">$</span>cov1, <span class="st">&quot;Var_dl&quot;</span> =<span class="st"> </span>ret3<span class="op">$</span>var)</span></code></pre></div>
+<pre><code>##         Cov_dl       Var_dl
+## 1 0.0003684357 0.0006900766</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="or-method-intro.html#cb105-1"></a>ret5 &lt;-<span class="st"> </span><span class="kw">UtilORVarComponentsFactorial</span>(</span>
+<span id="cb105-2"><a href="or-method-intro.html#cb105-2"></a>  rocData1R, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">covEstMethod =</span> <span class="st">&quot;DeLong&quot;</span>)</span>
+<span id="cb105-3"><a href="or-method-intro.html#cb105-3"></a><span class="kw">data.frame</span> (<span class="st">&quot;Cov_rj_dl&quot;</span> =<span class="st"> </span>ret5<span class="op">$</span>VarCom[<span class="st">&quot;Cov1&quot;</span>, <span class="st">&quot;Estimates&quot;</span>], </span>
+<span id="cb105-4"><a href="or-method-intro.html#cb105-4"></a>            <span class="st">&quot;Var_rj_dl&quot;</span> =<span class="st"> </span>ret5<span class="op">$</span>VarCom[<span class="st">&quot;Var&quot;</span>, <span class="st">&quot;Estimates&quot;</span>])</span></code></pre></div>
+<pre><code>##      Cov_rj_dl    Var_rj_dl
+## 1 0.0003684357 0.0006900766</code></pre>
+<p>Note that the two estimates are identical and that the DeLong estimate are close to the bootstrap estimates using 20,000 bootstraps. The just demonstrated close correspondence is only expected when using the Wilcoxon figure of merit, i.e., the empirical AUC.</p>
+</div>
+<div id="or-method-intro-compare-dbm-or" class="section level3 hasAnchor">
+<h3><span class="header-section-number">12.9.8</span> Comparing DBM to Obuchowski and Rockette for single-reader multiple-treatments<a href="or-method-intro.html#or-method-intro-compare-dbm-or" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We have shown two methods for analyzing a single reader in multiple treatments: the DBM method, involving jackknife derived pseudovalues and the Obuchowski and Rockette method that does not have to use the jackknife, since it could use the bootstrap, or the DeLong method, if one restricts to the Wilcoxon statistic for the figure of merit, to get the covariance matrix. Since one is dealing with a single reader in multiple treatments, for DBM one needs the fixed-reader random-case analysis described in TBA §9.8 of the previous chapter (it should be obvious that with one reader the conclusions apply to the specific reader only, so reader must be regarded as a fixed factor).</p>
+<p>Shown below are results obtained using <code>RJafroc</code> function <code>StSignificanceTesting</code> with <code>analysisOption = "FRRC"</code> for <code>method</code> = “DBM” (which uses the jackknife), and for OR using 3 different ways of estimating the covariance matrix for the one-reader analysis (i.e., <span class="math inline">\(\text{Cov1}\)</span> and <span class="math inline">\(\text{Var}\)</span>).</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="or-method-intro.html#cb107-1"></a>ret1 &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(</span>
+<span id="cb107-2"><a href="or-method-intro.html#cb107-2"></a>  rocData1R,<span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;DBM&quot;</span>, <span class="dt">analysisOption =</span> <span class="st">&quot;FRRC&quot;</span>)</span>
+<span id="cb107-3"><a href="or-method-intro.html#cb107-3"></a><span class="kw">data.frame</span>(<span class="st">&quot;DBM:F&quot;</span> =<span class="st"> </span>ret1<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;FStat&quot;</span>], </span>
+<span id="cb107-4"><a href="or-method-intro.html#cb107-4"></a>           <span class="st">&quot;DBM:ddf&quot;</span> =<span class="st"> </span>ret1<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;DF&quot;</span>], </span>
+<span id="cb107-5"><a href="or-method-intro.html#cb107-5"></a>           <span class="st">&quot;DBM:P-val&quot;</span> =<span class="st"> </span>ret1<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;p&quot;</span>])</span></code></pre></div>
+<pre><code>##       DBM.F DBM.ddf  DBM.P.val
+## 1 1.2201111       1 0.27168532</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="or-method-intro.html#cb109-1"></a>ret2 &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(</span>
+<span id="cb109-2"><a href="or-method-intro.html#cb109-2"></a>  rocData1R,<span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;OR&quot;</span>, <span class="dt">analysisOption =</span> <span class="st">&quot;FRRC&quot;</span>)</span>
+<span id="cb109-3"><a href="or-method-intro.html#cb109-3"></a><span class="kw">data.frame</span>(<span class="st">&quot;ORJack:Chisq&quot;</span> =<span class="st"> </span>ret2<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;Chisq&quot;</span>], </span>
+<span id="cb109-4"><a href="or-method-intro.html#cb109-4"></a>           <span class="st">&quot;ORJack:ddf&quot;</span> =<span class="st"> </span>ret2<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;DF&quot;</span>], </span>
+<span id="cb109-5"><a href="or-method-intro.html#cb109-5"></a>           <span class="st">&quot;ORJack:P-val&quot;</span> =<span class="st"> </span>ret2<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;p&quot;</span>])</span></code></pre></div>
+<pre><code>##   ORJack.Chisq ORJack.ddf ORJack.P.val
+## 1    1.2201111          1   0.26933885</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="or-method-intro.html#cb111-1"></a>ret3 &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(</span>
+<span id="cb111-2"><a href="or-method-intro.html#cb111-2"></a>  rocData1R,<span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;OR&quot;</span>, <span class="dt">analysisOption =</span> <span class="st">&quot;FRRC&quot;</span>, </span>
+<span id="cb111-3"><a href="or-method-intro.html#cb111-3"></a>                              <span class="dt">covEstMethod =</span> <span class="st">&quot;DeLong&quot;</span>)</span>
+<span id="cb111-4"><a href="or-method-intro.html#cb111-4"></a><span class="kw">data.frame</span>(<span class="st">&quot;ORDeLong:Chisq&quot;</span> =<span class="st"> </span>ret3<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;Chisq&quot;</span>], </span>
+<span id="cb111-5"><a href="or-method-intro.html#cb111-5"></a>           <span class="st">&quot;ORDeLong:ddf&quot;</span> =<span class="st"> </span>ret3<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;DF&quot;</span>], </span>
+<span id="cb111-6"><a href="or-method-intro.html#cb111-6"></a>           <span class="st">&quot;ORDeLong:P-val&quot;</span> =<span class="st"> </span>ret3<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;p&quot;</span>])</span></code></pre></div>
+<pre><code>##   ORDeLong.Chisq ORDeLong.ddf ORDeLong.P.val
+## 1      1.2345017            1     0.26653335</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="or-method-intro.html#cb113-1"></a>ret4 &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(</span>
+<span id="cb113-2"><a href="or-method-intro.html#cb113-2"></a>  rocData1R,<span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;OR&quot;</span>, <span class="dt">analysisOption =</span> <span class="st">&quot;FRRC&quot;</span>, </span>
+<span id="cb113-3"><a href="or-method-intro.html#cb113-3"></a>                              <span class="dt">covEstMethod =</span> <span class="st">&quot;bootstrap&quot;</span>)</span>
+<span id="cb113-4"><a href="or-method-intro.html#cb113-4"></a><span class="kw">data.frame</span>(<span class="st">&quot;ORBoot:Chisq&quot;</span> =<span class="st"> </span>ret4<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;Chisq&quot;</span>], </span>
+<span id="cb113-5"><a href="or-method-intro.html#cb113-5"></a>           <span class="st">&quot;ORBoot:ddf&quot;</span> =<span class="st"> </span>ret4<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;DF&quot;</span>], </span>
+<span id="cb113-6"><a href="or-method-intro.html#cb113-6"></a>           <span class="st">&quot;ORBoot:P-val&quot;</span> =<span class="st"> </span>ret4<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;p&quot;</span>])</span></code></pre></div>
+<pre><code>##   ORBoot.Chisq ORBoot.ddf ORBoot.P.val
+## 1    1.4210696          1   0.23322743</code></pre>
+<p>The DBM and OR-jackknife methods yield identical F-statistics, but the denominator degrees of freedom are different, <span class="math inline">\((I-1)(K-1)\)</span> = 113 for DBM and <span class="math inline">\(\infty\)</span> for OR. The F-statistics for OR-bootstrap and OR-DeLong are different.</p>
+<p>Shown below is a first-principles implementation of OR significance testing for the one-reader case.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="or-method-intro.html#cb115-1"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
+<span id="cb115-2"><a href="or-method-intro.html#cb115-2"></a>theta_i &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>);<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>I) theta_i[i] &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zik1[i,], zik2[i,])</span>
+<span id="cb115-3"><a href="or-method-intro.html#cb115-3"></a></span>
+<span id="cb115-4"><a href="or-method-intro.html#cb115-4"></a>MS_T &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb115-5"><a href="or-method-intro.html#cb115-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>I) {</span>
+<span id="cb115-6"><a href="or-method-intro.html#cb115-6"></a>  MS_T &lt;-<span class="st"> </span>MS_T <span class="op">+</span><span class="st"> </span>(theta_i[i]<span class="op">-</span><span class="kw">mean</span>(theta_i))<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb115-7"><a href="or-method-intro.html#cb115-7"></a>}</span>
+<span id="cb115-8"><a href="or-method-intro.html#cb115-8"></a>MS_T &lt;-<span class="st"> </span>MS_T<span class="op">/</span>(I<span class="dv">-1</span>)</span>
+<span id="cb115-9"><a href="or-method-intro.html#cb115-9"></a></span>
+<span id="cb115-10"><a href="or-method-intro.html#cb115-10"></a>F_1R &lt;-<span class="st"> </span>MS_T<span class="op">/</span>(Var <span class="op">-</span><span class="st"> </span>Cov1)</span>
+<span id="cb115-11"><a href="or-method-intro.html#cb115-11"></a>pValue &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pf</span>(F_1R, I<span class="dv">-1</span>, <span class="ot">Inf</span>)</span>
+<span id="cb115-12"><a href="or-method-intro.html#cb115-12"></a></span>
+<span id="cb115-13"><a href="or-method-intro.html#cb115-13"></a>trtDiff &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(I,I))</span>
+<span id="cb115-14"><a href="or-method-intro.html#cb115-14"></a><span class="cf">for</span> (i1 <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(I<span class="dv">-1</span>)) {    </span>
+<span id="cb115-15"><a href="or-method-intro.html#cb115-15"></a>  <span class="cf">for</span> (i2 <span class="cf">in</span> (i1<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>I) {</span>
+<span id="cb115-16"><a href="or-method-intro.html#cb115-16"></a>    trtDiff[i1,i2] &lt;-<span class="st"> </span>theta_i[i1]<span class="op">-</span><span class="st"> </span>theta_i[i2]    </span>
+<span id="cb115-17"><a href="or-method-intro.html#cb115-17"></a>  }</span>
+<span id="cb115-18"><a href="or-method-intro.html#cb115-18"></a>}</span>
+<span id="cb115-19"><a href="or-method-intro.html#cb115-19"></a>trtDiff &lt;-<span class="st"> </span>trtDiff[<span class="op">!</span><span class="kw">is.na</span>(trtDiff)]</span>
+<span id="cb115-20"><a href="or-method-intro.html#cb115-20"></a>nDiffs &lt;-<span class="st"> </span>I<span class="op">*</span>(I<span class="dv">-1</span>)<span class="op">/</span><span class="dv">2</span></span>
+<span id="cb115-21"><a href="or-method-intro.html#cb115-21"></a>CI_DIFF_FOM_1RMT &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(nDiffs, <span class="dv">3</span>))</span>
+<span id="cb115-22"><a href="or-method-intro.html#cb115-22"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span> <span class="op">:</span><span class="st"> </span>nDiffs) {</span>
+<span id="cb115-23"><a href="or-method-intro.html#cb115-23"></a>  CI_DIFF_FOM_1RMT[i,<span class="dv">1</span>] &lt;-<span class="st"> </span>trtDiff[i] <span class="op">+</span><span class="st"> </span><span class="kw">qt</span>(alpha<span class="op">/</span><span class="dv">2</span>,  <span class="dt">df =</span> <span class="ot">Inf</span>)<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>(Var <span class="op">-</span><span class="st"> </span>Cov1))</span>
+<span id="cb115-24"><a href="or-method-intro.html#cb115-24"></a>  CI_DIFF_FOM_1RMT[i,<span class="dv">2</span>] &lt;-<span class="st"> </span>trtDiff[i]</span>
+<span id="cb115-25"><a href="or-method-intro.html#cb115-25"></a>  CI_DIFF_FOM_1RMT[i,<span class="dv">3</span>] &lt;-<span class="st"> </span>trtDiff[i] <span class="op">+</span><span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> <span class="ot">Inf</span>)<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>(Var <span class="op">-</span><span class="st"> </span>Cov1))</span>
+<span id="cb115-26"><a href="or-method-intro.html#cb115-26"></a>  <span class="kw">print</span>(<span class="kw">data.frame</span>(<span class="st">&quot;theta_1&quot;</span> =<span class="st"> </span>theta_i[<span class="dv">1</span>],</span>
+<span id="cb115-27"><a href="or-method-intro.html#cb115-27"></a>                   <span class="st">&quot;theta_2&quot;</span> =<span class="st"> </span>theta_i[<span class="dv">2</span>],</span>
+<span id="cb115-28"><a href="or-method-intro.html#cb115-28"></a>                   <span class="st">&quot;Var&quot;</span> =<span class="st"> </span>Var,</span>
+<span id="cb115-29"><a href="or-method-intro.html#cb115-29"></a>                   <span class="st">&quot;Cov1&quot;</span> =<span class="st"> </span>Cov1,</span>
+<span id="cb115-30"><a href="or-method-intro.html#cb115-30"></a>                   <span class="st">&quot;MS_T&quot;</span> =<span class="st"> </span>MS_T,</span>
+<span id="cb115-31"><a href="or-method-intro.html#cb115-31"></a>                   <span class="st">&quot;F_1R&quot;</span> =<span class="st"> </span>F_1R, </span>
+<span id="cb115-32"><a href="or-method-intro.html#cb115-32"></a>                   <span class="st">&quot;pValue&quot;</span> =<span class="st"> </span>pValue,</span>
+<span id="cb115-33"><a href="or-method-intro.html#cb115-33"></a>                   <span class="st">&quot;Lower&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_1RMT[i,<span class="dv">1</span>], </span>
+<span id="cb115-34"><a href="or-method-intro.html#cb115-34"></a>                   <span class="st">&quot;Mid&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_1RMT[i,<span class="dv">2</span>], </span>
+<span id="cb115-35"><a href="or-method-intro.html#cb115-35"></a>                   <span class="st">&quot;Upper&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_1RMT[i,<span class="dv">3</span>]))</span>
+<span id="cb115-36"><a href="or-method-intro.html#cb115-36"></a>}</span></code></pre></div>
+<pre><code>##      theta_1    theta_2           Var         Cov1          MS_T      F_1R
+## 1 0.91964573 0.94782609 0.00069890056 0.0003734661 0.00039706618 1.2201111
+##       pValue        Lower          Mid       Upper
+## 1 0.26933885 -0.078183215 -0.028180354 0.021822507</code></pre>
+<p>The following shows the corresponding output of <code>RJafroc</code>.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="or-method-intro.html#cb117-1"></a>ret_rj &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(</span>
+<span id="cb117-2"><a href="or-method-intro.html#cb117-2"></a>  rocData1R, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;OR&quot;</span>, <span class="dt">analysisOption =</span> <span class="st">&quot;FRRC&quot;</span>)</span>
+<span id="cb117-3"><a href="or-method-intro.html#cb117-3"></a><span class="kw">print</span>(<span class="kw">data.frame</span>(<span class="st">&quot;theta_1&quot;</span> =<span class="st"> </span>ret_rj<span class="op">$</span>FOMs<span class="op">$</span>foms[<span class="dv">1</span>,<span class="dv">1</span>],</span>
+<span id="cb117-4"><a href="or-method-intro.html#cb117-4"></a>                 <span class="st">&quot;theta_2&quot;</span> =<span class="st"> </span>ret_rj<span class="op">$</span>FOMs<span class="op">$</span>foms[<span class="dv">2</span>,<span class="dv">1</span>],</span>
+<span id="cb117-5"><a href="or-method-intro.html#cb117-5"></a>                 <span class="st">&quot;Var&quot;</span> =<span class="st"> </span>ret_rj<span class="op">$</span>ANOVA<span class="op">$</span>VarCom[<span class="st">&quot;Var&quot;</span>, <span class="st">&quot;Estimates&quot;</span>],</span>
+<span id="cb117-6"><a href="or-method-intro.html#cb117-6"></a>                 <span class="st">&quot;Cov1&quot;</span> =<span class="st"> </span>ret_rj<span class="op">$</span>ANOVA<span class="op">$</span>VarCom[<span class="st">&quot;Cov1&quot;</span>, <span class="st">&quot;Estimates&quot;</span>],</span>
+<span id="cb117-7"><a href="or-method-intro.html#cb117-7"></a>                 <span class="st">&quot;MS_T&quot;</span> =<span class="st"> </span>ret_rj<span class="op">$</span>ANOVA<span class="op">$</span>TRanova[<span class="dv">1</span>,<span class="dv">3</span>],</span>
+<span id="cb117-8"><a href="or-method-intro.html#cb117-8"></a>                 <span class="st">&quot;Chisq_1R&quot;</span> =<span class="st"> </span>ret_rj<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>,<span class="st">&quot;Chisq&quot;</span>], </span>
+<span id="cb117-9"><a href="or-method-intro.html#cb117-9"></a>                 <span class="st">&quot;pValue&quot;</span> =<span class="st"> </span>ret_rj<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>,<span class="st">&quot;p&quot;</span>],</span>
+<span id="cb117-10"><a href="or-method-intro.html#cb117-10"></a>                 <span class="st">&quot;Lower&quot;</span> =<span class="st"> </span>ret_rj<span class="op">$</span>FRRC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;CILower&quot;</span>], </span>
+<span id="cb117-11"><a href="or-method-intro.html#cb117-11"></a>                 <span class="st">&quot;Mid&quot;</span> =<span class="st"> </span>ret_rj<span class="op">$</span>FRRC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;Estimate&quot;</span>], </span>
+<span id="cb117-12"><a href="or-method-intro.html#cb117-12"></a>                 <span class="st">&quot;Upper&quot;</span> =<span class="st"> </span>ret_rj<span class="op">$</span>FRRC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;CIUpper&quot;</span>]))</span></code></pre></div>
+<pre><code>##      theta_1    theta_2           Var         Cov1          MS_T  Chisq_1R
+## 1 0.91964573 0.94782609 0.00069890056 0.0003734661 0.00039706618 1.2201111
+##       pValue        Lower          Mid       Upper
+## 1 0.26933885 -0.078183215 -0.028180354 0.021822507</code></pre>
+<p>The first-principles and the <code>RJafroc</code> values agree exactly with each other [for <span class="math inline">\(I = 2\)</span>, the F and chisquare statistics are identical]. This above code also shows how to extract the different estimates (<span class="math inline">\(Var\)</span>, <span class="math inline">\(\text{Cov1}\)</span>, etc.) from the object <code>ret_rj</code> returned by <code>RJafroc</code>. Specifically,</p>
+<ul>
+<li>Var: ret_rj$ANOVA$VarCom[“Var”, “Estimates”]</li>
+<li>Cov1: ret_rj$ANOVA$VarCom[“Cov1”, “Estimates”]</li>
+<li>Chisquare-statistic: ret_rj$FRRC$FTests[“Treatment”,“Chisq”]</li>
+<li>df: ret_rj$FRRC$FTests[1,“DF”]</li>
+<li>p-value: ret_rj$FRRC$FTests[“Treatment”,“p”]</li>
+<li>CI Lower: ret_rj$FRRC$ciDiffTrt[1,“CILower”]</li>
+<li>Mid Value: ret_rj$FRRC$ciDiffTrt[1,“Estimate”]</li>
+<li>CI Upper: ret_rj$FRRC$ciDiffTrt[1,“CIUpper”]</li>
+</ul>
+<div id="jumping-ahead" class="section level4 hasAnchor">
+<h4><span class="header-section-number">12.9.8.1</span> Jumping ahead<a href="or-method-intro.html#jumping-ahead" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>If RRRC analysis were conducted, the values are [one needs to analyze a dataset like <code>dataset02</code> having more than one treatments and readers and use <code>analysisOption</code> = “RRRC”]:</p>
+<ul>
+<li>msR: ret_rj$ANOVA$TRanova[“R”, “MS”]</li>
+<li>msT: ret_rj$ANOVA$TRanova[“T”, “MS”]</li>
+<li>msTR: ret_rj$ANOVA$TRanova[“TR”, “MS”]</li>
+<li>Var: ret_rj$ANOVA$VarCom[“Var”, “Estimates”]</li>
+<li>Cov1: ret_rj$ANOVA$VarCom[“Cov1”, “Estimates”]</li>
+<li>Cov2: ret_rj$ANOVA$VarCom[“Cov2”, “Estimates”]</li>
+<li>Cov3: ret_rj$ANOVA$VarCom[“Cov3”, “Estimates”]</li>
+<li>varR: ret_rj$ANOVA$VarCom[“VarR”, “Estimates”]</li>
+<li>varTR: ret_rj$ANOVA$VarCom[“VarTR”, “Estimates”]</li>
+<li>F-statistic: ret_rj$RRRC$FTests[“Treatment”, “FStat”]</li>
+<li>ddf: ret_rj$RRRC$FTests[“Error”, “DF”]</li>
+<li>p-value: ret_rj$RRRC$FTests[“Treatment”, “p”]</li>
+<li>CI Lower: ret_rj$RRRC$ciDiffTrt[“trt0-trt1”,“CILower”]</li>
+<li>Mid Value: ret_rj$RRRC$ciDiffTrt[“trt0-trt1”,“Estimate”]</li>
+<li>CI Upper: ret_rj$RRRC$ciDiffTrt[“trt0-trt1”,“CIUpper”]</li>
+</ul>
+<p>For <code>RRFC</code> analysis, one replaces <code>RRRC</code> with <code>RRFC</code>, etc. I should note that the auto-prompt feature of <code>RStudio</code> makes it unnecessary to enter the complex string names shown above - <code>RStudio</code> will suggest them.</p>
+</div>
+</div>
+</div>
+<div id="or-method-intro-references" class="section level2 hasAnchor">
+<h2><span class="header-section-number">12.10</span> References<a href="or-method-intro.html#or-method-intro-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-RN112">
+<p>DeLong, E. R., D. M. DeLong, and D. L. Clarke-Pearson. 1988. “Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.” Journal Article. <em>Biometrics</em> 44: 837–45. <a href="https://doi.org/10.2307/2531595">https://doi.org/10.2307/2531595</a>.</p>
+</div>
+<div id="ref-RN1772">
+<p>Hillis, S. L., N. A. Obuchowski, K. M. Schartz, and K. S. Berbaum. 2005. “A Comparison of the Dorfman-Berbaum-Metz and Obuchowski-Rockette Methods for Receiver Operating Characteristic (ROC) Data.” Journal Article. <em>Statistics in Medicine</em> 24 (10): 1579–1607. <a href="https://doi.org/10.1002/sim.2024">https://doi.org/10.1002/sim.2024</a>.</p>
+</div>
+<div id="ref-RN1865">
+<p>Hillis, Stephen L. 2007. “A Comparison of Denominator Degrees of Freedom Methods for Multiple Observer (ROC) Studies.” Journal Article. <em>Statistics in Medicine</em> 26: 596–619. <a href="https://doi.org/10.1002/sim.2532">https://doi.org/10.1002/sim.2532</a>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="3">
+<li id="fn3"><p>A more complex model, with more parameters and therefore more difficult to work with, would allow the variances to be treatment dependent, and the covariances to depend on the specific treatment pairings. For obvious reasons (“Occam’s Razor” or the law of parsimony ) one wishes to start with the simplest model that, one hopes, captures essential characteristics of the data.<a href="or-method-intro.html#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dbm-analysis-special-cases.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="or-analysis-st.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["RJafrocRocBook.pdf", "RJafrocRocBook.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
