@@ -1,7 +1,7 @@
 --- 
 title: "The RJafroc Roc Book"
 author: "Dev P. Chakraborty, PhD"
-date: "2022-03-11"
+date: "2022-06-15"
 site: bookdown::bookdown_site
 output: 
    bookdown::pdf_document: default
@@ -89,7 +89,7 @@ TBA
 
 ## Shelved vs. removed vs. parked folders needing heavy edits {-}
 
-* replace functions with \text{}; eg. erf and exp in all of document
+* replace functions with `\text{}`; eg. `\text{erf}` and `\text{exp}` in all of document
 * Also for TPF, FPF etc.
 * Temporarily shelved 17c-rsm-evidence.Rmd in removed folder
 * Now 17-b is breaking; possibly related to changes in RJafroc: had to do with recent changes to RJafroc code - RSM_xFROC etc requiring intrinsic parameters; fixed 17-b

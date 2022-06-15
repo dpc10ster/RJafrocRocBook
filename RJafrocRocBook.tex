@@ -134,7 +134,7 @@
 
 \title{The RJafroc Roc Book}
 \author{Dev P. Chakraborty, PhD}
-\date{2022-03-11}
+\date{2022-06-15}
 
 \begin{document}
 \maketitle
@@ -272,7 +272,7 @@ TBA
 \begin{itemize}
 \tightlist
 \item
-  replace functions with \text{}; eg. erf and exp in all of document
+  replace functions with \texttt{\textbackslash{}text\{\}}; eg. \texttt{\textbackslash{}text\{erf\}} and \texttt{\textbackslash{}text\{exp\}} in all of document
 \item
   Also for TPF, FPF etc.
 \item
@@ -3378,9 +3378,9 @@ The following code prints the predicted and observed full areas under the ROCs f
 
 \begin{verbatim}
 #> A_z predicted =  0.9213504 
-#> A_z observed =  0.9241835
+#> A_z observed =  0.9219203
 #> A_z{c;true} predicted =  0.8244498 
-#> A_z{c;true} observed =  0.8265933
+#> A_z{c;true} observed =  0.8235584
 \end{verbatim}
 
 Note that:
@@ -6778,13 +6778,12 @@ Lines 21-33 performs the NH testing. It starts by setting the counter variable \
 \hypertarget{or-method-intro-single-reader-application-roc}{%
 \subsection{Application 1}\label{or-method-intro-single-reader-application-roc}}
 
-Here is an application of the method for an ROC dataset, \texttt{dataset02}, which consists of two treatments and five readers.
+Here is an application of the method to an ROC dataset, \texttt{dataset02}, which consists of two treatments and five readers.
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
 \NormalTok{ds <-}\StringTok{ }\KeywordTok{DfExtractDataset}\NormalTok{(dataset02, }\DataTypeTok{rdrs =} \DecValTok{1}\NormalTok{)}
-\NormalTok{fom <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{UtilFigureOfMerit}\NormalTok{(ds, }\DataTypeTok{FOM =} \StringTok{"Wilcoxon"}\NormalTok{))}
-\NormalTok{fom <-}\StringTok{ }\KeywordTok{t}\NormalTok{(fom)}
+\NormalTok{fom <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{unlist}\NormalTok{(}\KeywordTok{UtilFigureOfMerit}\NormalTok{(ds, }\DataTypeTok{FOM =} \StringTok{"Wilcoxon"}\NormalTok{)), }\DataTypeTok{mode =} \StringTok{"numeric"}\NormalTok{)}
 \NormalTok{vc <-}\StringTok{ }\KeywordTok{UtilORVarComponentsFactorial}\NormalTok{(ds, }\DataTypeTok{FOM =} \StringTok{"Wilcoxon"}\NormalTok{)}
 \NormalTok{Cov1 <-}\StringTok{ }\NormalTok{vc}\OperatorTok{$}\NormalTok{IndividualRdr}\OperatorTok{$}\NormalTok{cov1EachRdr}
 \NormalTok{Var <-}\StringTok{ }\NormalTok{vc}\OperatorTok{$}\NormalTok{IndividualRdr}\OperatorTok{$}\NormalTok{varEachRdr}
@@ -6819,13 +6818,12 @@ We extract the data for reader 1 only, line 1, resulting in a 2-treatment single
 \hypertarget{or-method-intro-single-reader-application-froc}{%
 \subsection{Application 2}\label{or-method-intro-single-reader-application-froc}}
 
-Here is an application of the method for an FROC dataset, \texttt{dataset04}, which consists of five treatments and four readers.
+Here is an application of the method to an FROC dataset, \texttt{dataset04}, which consists of five treatments and four readers.
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
 \NormalTok{ds <-}\StringTok{ }\KeywordTok{DfExtractDataset}\NormalTok{(dataset04, }\DataTypeTok{rdrs =} \DecValTok{1}\NormalTok{, }\DataTypeTok{trts =} \KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{))}
-\NormalTok{fom <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{UtilFigureOfMerit}\NormalTok{(ds, }\DataTypeTok{FOM =} \StringTok{"wAFROC"}\NormalTok{))}
-\NormalTok{fom <-}\StringTok{ }\KeywordTok{t}\NormalTok{(fom)}
+\NormalTok{fom <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{unlist}\NormalTok{(}\KeywordTok{UtilFigureOfMerit}\NormalTok{(ds, }\DataTypeTok{FOM =} \StringTok{"wAFROC"}\NormalTok{)), }\DataTypeTok{mode =} \StringTok{"numeric"}\NormalTok{)}
 \NormalTok{vc <-}\StringTok{ }\KeywordTok{UtilORVarComponentsFactorial}\NormalTok{(ds, }\DataTypeTok{FOM =} \StringTok{"wAFROC"}\NormalTok{)}
 \NormalTok{Cov1 <-}\StringTok{ }\NormalTok{vc}\OperatorTok{$}\NormalTok{IndividualRdr}\OperatorTok{$}\NormalTok{cov1EachRdr}
 \NormalTok{Var <-}\StringTok{ }\NormalTok{vc}\OperatorTok{$}\NormalTok{IndividualRdr}\OperatorTok{$}\NormalTok{varEachRdr}
@@ -7552,7 +7550,7 @@ Shown below are results obtained using \texttt{RJafroc} function \texttt{StSigni
 
 \begin{verbatim}
 ##   ORBoot.Chisq ORBoot.ddf ORBoot.P.val
-## 1    1.0903071          1   0.29640317
+## 1    1.5286527          1   0.21631477
 \end{verbatim}
 
 The DBM and OR-jackknife methods yield identical F-statistics, but the denominator degrees of freedom are different, \((I-1)(K-1)\) = 113 for DBM and \(\infty\) for OR. The F-statistics for OR-bootstrap and OR-DeLong are different.
