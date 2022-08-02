@@ -21,6 +21,7 @@ rmd_files: [
   "14-or-analysis-applications.Rmd",
   "15-roc-sample-size-dbm.Rmd",
   "16-roc-sample-size-or.Rmd",
+  "20-proper-roc-models.Rmd",
 ]
 clean: [packages.bib, myRefs.bbl]
 new_session: yes
