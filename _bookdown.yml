@@ -5,23 +5,7 @@ output_dir: docs
 delete_merged_file: TRUE
 rmd_files: [
   "index.Rmd", 
-  "01-preliminaries.Rmd", 
-  "02-binary-task.Rmd", 
-  "03-modeling-binary-task.Rmd", 
-  "04-ratings-task.Rmd", 
-  "05-empirical-auc.Rmd", 
-  "06-binormal-model.Rmd",
-  "07-sources-variability-auc.Rmd",
-  "08-hypothesis-testing.Rmd",
-  "09-dbm-analysis-background.Rmd",
-  "10-dbm-analysis-significance-testing.Rmd",
-  "11-dbm-analysis-miscellaneous.Rmd",
-  "12-or-analysis-introduction.Rmd",
-  "13-or-analysis-significance-testing.Rmd",
-  "14-or-analysis-applications.Rmd",
-  "15-roc-sample-size-dbm.Rmd",
-  "16-roc-sample-size-or.Rmd",
-  "20-proper-roc-models.Rmd",
+  "21-bivariate-binormal-model.Rmd",
 ]
 clean: [packages.bib, myRefs.bbl]
 new_session: yes

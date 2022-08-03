@@ -21,11 +21,11 @@ jobs:
       - uses: r-lib/actions/setup-tinytex@v1
       - name: Install rmarkdown
         run: > 
-            Rscript -e 'install.packages(c("foreach","doRNG","doParallel",
-            "rmarkdown","bookdown","here","remotes","exactci",
-            "ggplot2","kableExtra","abind","dplyr","grid",
-            "gridExtra","pBrackets","seqinr","mvtnorm","Rmpfr"))'
-      - name: Install Rjafroc
+            Rscript -e 'install.packages(c("abind","binom","bookdown","doRNG",
+            "doParallel","dplyr","exactci","foreach","ggplot2","grid",
+            "gridExtra","here","kableExtra","mvtnorm","pBrackets","png",
+            "Rmpfr","seqinr","rmarkdown","remotes"))'
+      - name: Install RJafroc
         run: Rscript -e 'remotes::install_github("dpc10ster/RJafroc")'
       - name: Render PDF Book
         run: Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"

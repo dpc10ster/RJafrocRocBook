@@ -17,6 +17,7 @@ Imports:
     kableExtra,
     mvtnorm,
     pBrackets,
+    png,
     RJafroc,
     Rmpfr,
     seqinr
