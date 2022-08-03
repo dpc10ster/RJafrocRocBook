@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Bivariate binormal model | The RJafroc Roc Book</title>
+  <meta name="description" content="TBA Artificial intelligence and observer performance book based on RJafroc." />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Bivariate binormal model | The RJafroc Roc Book" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="TBA Artificial intelligence and observer performance book based on RJafroc." />
+  <meta name="github-repo" content="dpc10ster/RJafrocRocBook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Bivariate binormal model | The RJafroc Roc Book" />
+  
+  <meta name="twitter:description" content="TBA Artificial intelligence and observer performance book based on RJafroc." />
+  
+
+<meta name="author" content="Dev P. Chakraborty, PhD" />
+
+
+<meta name="date" content="2022-08-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">RJafroc documentation</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#tba-how-much-finished"><i class="fa fa-check"></i>TBA How much finished</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-pdf-file-of-the-book"><i class="fa fa-check"></i>The pdf file of the book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-html-version-of-the-book"><i class="fa fa-check"></i>The html version of the book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#a-note-on-the-online-distribution-mechanism-of-the-book"><i class="fa fa-check"></i>A note on the online distribution mechanism of the book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#structure-of-the-book"><i class="fa fa-check"></i>Structure of the book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#contributing-to-this-book"><i class="fa fa-check"></i>Contributing to this book</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#is-this-book-relevant-to-you-and-what-are-the-alternatives"><i class="fa fa-check"></i>Is this book relevant to you and what are the alternatives?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#todos-tba"><i class="fa fa-check"></i>ToDos TBA</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#chapters-needing-heavy-edits"><i class="fa fa-check"></i>Chapters needing heavy edits</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#shelved-vs.-removed-vs.-parked-folders-needing-heavy-edits"><i class="fa fa-check"></i>Shelved vs. removed vs. parked folders needing heavy edits</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#coding-aids"><i class="fa fa-check"></i>Coding aids</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html"><i class="fa fa-check"></i><b>1</b> Bivariate binormal model</a><ul>
+<li class="chapter" data-level="1.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-how-much-finished"><i class="fa fa-check"></i><b>1.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="1.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-introduction"><i class="fa fa-check"></i><b>1.2</b> Introduction</a></li>
+<li class="chapter" data-level="1.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-bivariate-density"><i class="fa fa-check"></i><b>1.3</b> Bivariate density function</a></li>
+<li class="chapter" data-level="1.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-visualization"><i class="fa fa-check"></i><b>1.4</b> Visualizing the bivariate density function</a></li>
+<li class="chapter" data-level="1.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-formulae"><i class="fa fa-check"></i><b>1.5</b> The bivariate binormal model</a></li>
+<li class="chapter" data-level="1.6" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation"><i class="fa fa-check"></i><b>1.6</b> Estimating bivariate binormal model parameters</a></li>
+<li class="chapter" data-level="1.7" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-examples"><i class="fa fa-check"></i><b>1.7</b> Examples of bivariate normal probability integrals</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation-code"><i class="fa fa-check"></i><b>1.7.1</b> Code listing</a></li>
+<li class="chapter" data-level="1.7.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-examples-integrals"><i class="fa fa-check"></i><b>1.7.2</b> Examples of bivariate normal probability integrals</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-likelihood"><i class="fa fa-check"></i><b>1.8</b> Likelihood function</a></li>
+<li class="chapter" data-level="1.9" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2"><i class="fa fa-check"></i><b>1.9</b> CORROC2 software</a><ul>
+<li class="chapter" data-level="1.9.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-details"><i class="fa fa-check"></i><b>1.9.1</b> Details of CORROC2 software</a></li>
+<li class="chapter" data-level="1.9.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-data-input"><i class="fa fa-check"></i><b>1.9.2</b> CORROC2 data input</a></li>
+<li class="chapter" data-level="1.9.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output"><i class="fa fa-check"></i><b>1.9.3</b> CORROC2 output</a></li>
+<li class="chapter" data-level="1.9.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-covariance-matrix"><i class="fa fa-check"></i><b>1.9.4</b> Covariance matrix</a></li>
+<li class="chapter" data-level="1.9.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output-restof"><i class="fa fa-check"></i><b>1.9.5</b> Rest of CORROC2 output</a></li>
+</ul></li>
+<li class="chapter" data-level="1.10" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application"><i class="fa fa-check"></i><b>1.10</b> Application to a real dataset</a><ul>
+<li class="chapter" data-level="1.10.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-code-output"><i class="fa fa-check"></i><b>1.10.1</b> Code Output</a></li>
+<li class="chapter" data-level="1.10.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-debug-window"><i class="fa fa-check"></i><b>1.10.2</b> Contents of the Debug window, as viewed from the Mac side</a></li>
+<li class="chapter" data-level="1.10.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-corrocii-input"><i class="fa fa-check"></i><b>1.10.3</b> Contents of CorrocIIinput.txt</a></li>
+</ul></li>
+<li class="chapter" data-level="1.11" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-discussion"><i class="fa fa-check"></i><b>1.11</b> Discussion / Summary</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The RJafroc Roc Book</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bivariate-binormal-model" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 1</span> Bivariate binormal model<a href="bivariate-binormal-model.html#bivariate-binormal-model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="bivariate-binormal-model-how-much-finished" class="section level2 hasAnchor">
+<h2><span class="header-section-number">1.1</span> TBA How much finished<a href="bivariate-binormal-model.html#bivariate-binormal-model-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>20%</p>
+</div>
+<div id="bivariate-binormal-model-introduction" class="section level2 hasAnchor">
+<h2><span class="header-section-number">1.2</span> Introduction<a href="bivariate-binormal-model.html#bivariate-binormal-model-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Until now, the focus for the ROC paradigm has been on the single rating per case scenario where a single reader interprets a set of cases in a single modality. Of greater clinical interest is a study where a group of readers interprets a common set of cases in multiple modalities. This is because such a study, properly analyzed, yields results that are expected to generalize to the populations of readers and cases from which the study readers and cases were sampled. However, before one can understand several readers interpreting a common case set in multiple modalities, a good place to start is two readers interpreting a common set of cases. Historically, the field progressed from this starting point (the DBMH and ORH analyses methods came after the method to be described here). One might wonder why even bother describing the older approach, since methods for analyzing MRMC datasets have already been described. The analyses methods do not address how to fit the data to models (instead, they assume a figure of merit can be calculated and describe how to perform significance testing using the figure of merit). Data fitting is crucial to understanding factors limiting performance. Before bringing in a three-parameter model like the RSM, addressed in book Chapter 18, it is important to understand the two–parameter model applicable to paired ROC data. The analyst is dealing with two ratings per case, one per reader. An analogous situation applies when one has a single reader interpreting cases in two modalities. The analyst is again faced with two ratings per case, one per modality.</p>
+<p>In book Chapter 06 the univariate binormal model was described, which is appropriate for modeling the single rating per case situation (the “binormal” comes from the two truth states, not the two modalities). From the previous discussion, it is evident that this needs to be extended to a bivariate model, which would describe studies where each case yields two ratings. Because of the dual interpretations the two ratings per case are correlated. Assuming a 5-rating positive-directed ROC study, on especially easy non-diseased cases the two ratings will both tend to be low (e.g., 1’s) and on especially easy diseased cases the two ratings will both tend to be high (e.g., 5’s) and on difficult cases, both ratings are likely to be in the ambiguous range (e.g., 3’s).</p>
+<p>Here is the plan for this chapter. First, the bivariate extension of the univariate binormal model is described. Since most of the readers of this book are expected to not experts in statistics, bivariate sampling will be described at a relatively simple level. Visualization of the resulting probability density functions (pdfs) is demonstrated, which allows the reader to interactively view them, which should allow a better understand of this relatively more complex distribution. Estimation of parameters of the bivariate model from ratings data is addressed. The usage of free software implementing this procedure, i.e., CORROC2, is described. The data format used by CORROC2 is described in some detail as well as how to interpret the program output.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Finally, the application of the software to clinical datasets is described. A recent advance that solves degeneracy problems associated with CORROC2 is described, namely CORCBM, for correlated CBM. We conclude with a discussion of the applications of CORROC2.</p>
+</div>
+<div id="bivariate-binormal-model-bivariate-density" class="section level2 hasAnchor">
+<h2><span class="header-section-number">1.3</span> Bivariate density function<a href="bivariate-binormal-model.html#bivariate-binormal-model-bivariate-density" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The multivariate probability density function pdf <span class="math inline">\(f_p\left( \overrightarrow{x} ~~ \bigg \rvert ~~\overrightarrow{\mu}, ~~ \overrightarrow{\Sigma} \right)\)</span> is defined by:</p>
+<p><span class="math display" id="eq:bivariate-binormal-model-density-function-multivariate">\[\begin{equation} 
+f_p\left( \overrightarrow{x} ~~ \bigg \rvert ~~\overrightarrow{\mu}, ~~ \overrightarrow{\Sigma} \right)
+= \frac{1}{\left( 2 \pi \right)^{p/2}|\Sigma|^{1/2}}\exp\left( -\frac{\left( \overrightarrow{x}-\overrightarrow{\mu} \right)^T \Sigma^{-1} \left( \overrightarrow{x}-\overrightarrow{\mu} \right)}{2} \right)
+\tag{1.1}
+\end{equation}\]</span></p>
+<p>In this equation <span class="math inline">\(\overrightarrow{\mu}\)</span>, a length <span class="math inline">\(p\)</span> vector, defines the means of the multivariate distribution with covariance matrix <span class="math inline">\(\Sigma\)</span>, <span class="math inline">\(|\Sigma|\)</span> is the determinant of the matrix, <span class="math inline">\(T\)</span> is the transpose operator and <span class="math inline">\(\overrightarrow{x}\)</span> is a length <span class="math inline">\(p\)</span> vector at which one wishes to evaluate the pdf.</p>
+<p>For the special case of a bivariate normal distribution, <span class="math inline">\(p = 2\)</span>, this is equivalent to (the subscript 2 is suppressed):</p>
+<p><span class="math display" id="eq:bivariate-binormal-model-density-function">\[\begin{equation} 
+f\left( x_1,x_2 ~~ \bigg \rvert ~~ \mu_1, \mu_2,  \sigma_1, \sigma_2, \rho \right)
+= \frac{1}{2 \pi \sigma_1 \sigma_2 \sqrt{1-\rho^2}}\exp\left( -\frac{t}{2\left( 1-\rho^2 \right)} \right)
+\tag{1.2}
+\end{equation}\]</span></p>
+<p>where</p>
+<p><span class="math display" id="eq:bivariate-binormal-model-density-function2">\[\begin{equation} 
+t=\frac{\left( x_1-\mu_1 \right)^2}{\sigma_1^2}-\frac{2\rho\left( x_1-\mu_1 \right)\left( x_2-\mu_2 \right)}{\sigma_1 \sigma_2}
++\frac{\left( x_2-\mu_2 \right)^2}{\sigma_2^2}
+\tag{1.3}
+\end{equation}\]</span></p>
+<p>For a bivariate distribution the covariance matrix is:</p>
+<p><span class="math display" id="eq:bivariate-binormal-model-covariance-matrix">\[\begin{equation} 
+\Sigma=
+\left( \begin{matrix}
+\sigma_1^2 &amp; \rho \sigma_1 \sigma_2 \\
+\rho \sigma_1 \sigma_2 &amp; 
+\sigma_2^2
+\end{matrix}
+ \right)\tag{1.4}
+\end{equation}\]</span></p>
+<p><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>The <code>R</code> function to evaluate Eqn. <a href="bivariate-binormal-model.html#eq:bivariate-binormal-model-density-function-multivariate">(1.1)</a> is <code>dmvnorm()</code>, for “density of multivariate normal distribution”, available via <code>R</code> package <code>mvtnorm</code>. Its usage is illustrated next for the special case of a bivariate distribution and the following parameter values:</p>
+<p><span class="math display" id="eq:bivariate-binormal-model-parameters">\[\begin{equation} 
+\left.\begin{aligned}
+\overrightarrow{
+\mu}&amp;=
+\left( \begin{matrix}
+\mu_1 \\
+\mu_2
+\end{matrix}
+\right)
+=\left( \begin{matrix}
+1.5 \\
+2.0
+\end{matrix}
+\right) \\
+\sigma_1 &amp;= 1.1 \\
+\sigma_2 &amp;= 1.5 \\
+\rho &amp;= 0.6 \\
+\Sigma&amp;=
+\left( 
+\begin{matrix}
+\sigma_1^2 &amp; \rho \sigma_1 \sigma_2 \\
+\rho \sigma_1 \sigma_2  &amp; \sigma_2^2
+\end{matrix}\right)
+=
+\left( 
+\begin{matrix}
+1.1^2 &amp; 0.6 \times 1.1 \times 1.5 \\
+0.6 \times 1.1 \times 1.5  &amp; 1.5^2
+\end{matrix}\right)\end{aligned}\right\}
+\tag{1.5}
+\end{equation}\]</span></p>
+<p>In the following code the call to get the pdf occurs at line: <code>pdf &lt;- dmvnorm(x, mean = c(mu1,mu2), sigma = Sigma)</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="bivariate-binormal-model.html#cb1-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.1</span>,<span class="fl">0.2</span>) <span class="co"># the x-vector at which to evaluate pdf</span></span>
+<span id="cb1-2"><a href="bivariate-binormal-model.html#cb1-2"></a>mu1 &lt;-<span class="st"> </span><span class="fl">1.5</span> <span class="co"># mean modality 1</span></span>
+<span id="cb1-3"><a href="bivariate-binormal-model.html#cb1-3"></a>mu2 &lt;-<span class="st"> </span><span class="fl">2.0</span> <span class="co"># mean modality 2</span></span>
+<span id="cb1-4"><a href="bivariate-binormal-model.html#cb1-4"></a>var1 &lt;-<span class="st"> </span><span class="fl">1.1</span><span class="op">^</span><span class="dv">2</span>  <span class="co"># variance modality 1</span></span>
+<span id="cb1-5"><a href="bivariate-binormal-model.html#cb1-5"></a>var2 &lt;-<span class="st"> </span><span class="fl">1.5</span><span class="op">^</span><span class="dv">2</span> <span class="co"># variance modality 2</span></span>
+<span id="cb1-6"><a href="bivariate-binormal-model.html#cb1-6"></a>rho &lt;-<span class="st"> </span><span class="fl">0.6</span> <span class="co"># correlation between modalities 1 and 2</span></span>
+<span id="cb1-7"><a href="bivariate-binormal-model.html#cb1-7"></a><span class="co">#</span></span>
+<span id="cb1-8"><a href="bivariate-binormal-model.html#cb1-8"></a><span class="co"># construct covariance matrix Sigma</span></span>
+<span id="cb1-9"><a href="bivariate-binormal-model.html#cb1-9"></a><span class="co"># </span></span>
+<span id="cb1-10"><a href="bivariate-binormal-model.html#cb1-10"></a>Sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(var1, rho<span class="op">*</span><span class="kw">sqrt</span>(var1<span class="op">*</span>var2), </span>
+<span id="cb1-11"><a href="bivariate-binormal-model.html#cb1-11"></a>                  rho<span class="op">*</span><span class="kw">sqrt</span>(var1<span class="op">*</span>var2), var2),<span class="dv">2</span>)</span>
+<span id="cb1-12"><a href="bivariate-binormal-model.html#cb1-12"></a><span class="co">#</span></span>
+<span id="cb1-13"><a href="bivariate-binormal-model.html#cb1-13"></a><span class="co"># pdf </span></span>
+<span id="cb1-14"><a href="bivariate-binormal-model.html#cb1-14"></a><span class="co"># </span></span>
+<span id="cb1-15"><a href="bivariate-binormal-model.html#cb1-15"></a>pdf  &lt;-<span class="st"> </span><span class="kw">dmvnorm</span>(x, <span class="dt">mean =</span> <span class="kw">c</span>(mu1,mu2), <span class="dt">sigma =</span> Sigma)</span>
+<span id="cb1-16"><a href="bivariate-binormal-model.html#cb1-16"></a><span class="co">#</span></span>
+<span id="cb1-17"><a href="bivariate-binormal-model.html#cb1-17"></a><span class="co"># print results</span></span>
+<span id="cb1-18"><a href="bivariate-binormal-model.html#cb1-18"></a><span class="co"># </span></span>
+<span id="cb1-19"><a href="bivariate-binormal-model.html#cb1-19"></a><span class="kw">cat</span>(<span class="st">&quot;density at x1 = 0.1 and x2 = 0.2 = &quot;</span>, pdf, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1-20"><a href="bivariate-binormal-model.html#cb1-20"></a><span class="co">#&gt; density at x1 = 0.1 and x2 = 0.2 =  0.04622722</span></span></code></pre></div>
+</div>
+<div id="bivariate-binormal-model-multivariate-density-visualization" class="section level2 hasAnchor">
+<h2><span class="header-section-number">1.4</span> Visualizing the bivariate density function<a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="bivariate-binormal-model.html#cb2-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.1</span>,<span class="fl">0.2</span>) <span class="co"># the x-vector at which to evaluate pdf</span></span>
+<span id="cb2-2"><a href="bivariate-binormal-model.html#cb2-2"></a>mu1 &lt;-<span class="st"> </span><span class="fl">1.5</span> <span class="co"># diseased mean modality 1</span></span>
+<span id="cb2-3"><a href="bivariate-binormal-model.html#cb2-3"></a>mu2 &lt;-<span class="st"> </span><span class="fl">2.0</span> <span class="co"># diseased mean modality 2</span></span>
+<span id="cb2-4"><a href="bivariate-binormal-model.html#cb2-4"></a>var1 &lt;-<span class="st"> </span><span class="dv">1</span>  <span class="co"># diseased variance modality 1</span></span>
+<span id="cb2-5"><a href="bivariate-binormal-model.html#cb2-5"></a>var2 &lt;-<span class="st"> </span>(<span class="fl">1.5</span>)<span class="op">^</span><span class="dv">2</span> <span class="co"># diseased variance modality 2</span></span>
+<span id="cb2-6"><a href="bivariate-binormal-model.html#cb2-6"></a>rho1 &lt;-<span class="st"> </span><span class="fl">0.3</span> <span class="co"># non-diseased correlation</span></span>
+<span id="cb2-7"><a href="bivariate-binormal-model.html#cb2-7"></a>rho2 &lt;-<span class="st"> </span><span class="fl">0.6</span> <span class="co"># diseased correlation</span></span>
+<span id="cb2-8"><a href="bivariate-binormal-model.html#cb2-8"></a></span>
+<span id="cb2-9"><a href="bivariate-binormal-model.html#cb2-9"></a><span class="co">#</span></span>
+<span id="cb2-10"><a href="bivariate-binormal-model.html#cb2-10"></a><span class="co"># construction the covariance matrix Sigma1 for non-diseased</span></span>
+<span id="cb2-11"><a href="bivariate-binormal-model.html#cb2-11"></a><span class="co"># </span></span>
+<span id="cb2-12"><a href="bivariate-binormal-model.html#cb2-12"></a>Sigma1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, rho1, rho1, var2),<span class="dv">2</span>)</span>
+<span id="cb2-13"><a href="bivariate-binormal-model.html#cb2-13"></a></span>
+<span id="cb2-14"><a href="bivariate-binormal-model.html#cb2-14"></a><span class="co">#</span></span>
+<span id="cb2-15"><a href="bivariate-binormal-model.html#cb2-15"></a><span class="co"># pdf for non-diseased</span></span>
+<span id="cb2-16"><a href="bivariate-binormal-model.html#cb2-16"></a><span class="co"># </span></span>
+<span id="cb2-17"><a href="bivariate-binormal-model.html#cb2-17"></a><span class="co"># following defaults to zero mean for each modality</span></span>
+<span id="cb2-18"><a href="bivariate-binormal-model.html#cb2-18"></a>pdf1  &lt;-<span class="st"> </span><span class="kw">dmvnorm</span>(x, <span class="dt">sigma =</span> Sigma1) </span>
+<span id="cb2-19"><a href="bivariate-binormal-model.html#cb2-19"></a></span>
+<span id="cb2-20"><a href="bivariate-binormal-model.html#cb2-20"></a><span class="co">#</span></span>
+<span id="cb2-21"><a href="bivariate-binormal-model.html#cb2-21"></a><span class="co"># construction the covariance matrix Sigma2 for diseased</span></span>
+<span id="cb2-22"><a href="bivariate-binormal-model.html#cb2-22"></a><span class="co"># </span></span>
+<span id="cb2-23"><a href="bivariate-binormal-model.html#cb2-23"></a>Sigma2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(var1, rho2<span class="op">*</span><span class="kw">sqrt</span>(var1<span class="op">*</span>var2), rho2<span class="op">*</span><span class="kw">sqrt</span>(var1<span class="op">*</span>var2), var2),<span class="dv">2</span>)</span>
+<span id="cb2-24"><a href="bivariate-binormal-model.html#cb2-24"></a></span>
+<span id="cb2-25"><a href="bivariate-binormal-model.html#cb2-25"></a><span class="co">#</span></span>
+<span id="cb2-26"><a href="bivariate-binormal-model.html#cb2-26"></a><span class="co"># pdf for diseased</span></span>
+<span id="cb2-27"><a href="bivariate-binormal-model.html#cb2-27"></a><span class="co"># </span></span>
+<span id="cb2-28"><a href="bivariate-binormal-model.html#cb2-28"></a>pdf2  &lt;-<span class="st"> </span><span class="kw">dmvnorm</span>(x, <span class="dt">mean =</span> <span class="kw">c</span>(mu1,mu2), <span class="dt">sigma =</span> Sigma2)</span>
+<span id="cb2-29"><a href="bivariate-binormal-model.html#cb2-29"></a></span>
+<span id="cb2-30"><a href="bivariate-binormal-model.html#cb2-30"></a><span class="co">#</span></span>
+<span id="cb2-31"><a href="bivariate-binormal-model.html#cb2-31"></a><span class="co"># print results</span></span>
+<span id="cb2-32"><a href="bivariate-binormal-model.html#cb2-32"></a><span class="co"># </span></span>
+<span id="cb2-33"><a href="bivariate-binormal-model.html#cb2-33"></a><span class="kw">cat</span>(<span class="st">&quot;mu1 =&quot;</span>, mu1, <span class="st">&quot;, mu2 =&quot;</span>, mu2, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb2-34"><a href="bivariate-binormal-model.html#cb2-34"></a><span class="co">#&gt; mu1 = 1.5 , mu2 = 2</span></span>
+<span id="cb2-35"><a href="bivariate-binormal-model.html#cb2-35"></a><span class="kw">cat</span>(<span class="st">&quot;var1 =&quot;</span>, var1, <span class="st">&quot;, var2 =&quot;</span>, var2, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb2-36"><a href="bivariate-binormal-model.html#cb2-36"></a><span class="co">#&gt; var1 = 1 , var2 = 2.25</span></span>
+<span id="cb2-37"><a href="bivariate-binormal-model.html#cb2-37"></a><span class="kw">cat</span>(<span class="st">&quot;rho1 =&quot;</span>, rho1, <span class="st">&quot;, rho2 =&quot;</span>, rho2, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb2-38"><a href="bivariate-binormal-model.html#cb2-38"></a><span class="co">#&gt; rho1 = 0.3 , rho2 = 0.6</span></span>
+<span id="cb2-39"><a href="bivariate-binormal-model.html#cb2-39"></a><span class="kw">cat</span>(<span class="st">&quot;non-diseased density at x1 = 0.1 and x2 = 0.2 = &quot;</span>, pdf1, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb2-40"><a href="bivariate-binormal-model.html#cb2-40"></a><span class="co">#&gt; non-diseased density at x1 = 0.1 and x2 = 0.2 =  0.1070327</span></span>
+<span id="cb2-41"><a href="bivariate-binormal-model.html#cb2-41"></a><span class="kw">cat</span>(<span class="st">&quot;diseased density at x1 = 0.1 and x2 = 0.2 = &quot;</span>, pdf2, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb2-42"><a href="bivariate-binormal-model.html#cb2-42"></a><span class="co">#&gt; diseased density at x1 = 0.1 and x2 = 0.2 =  0.04498399</span></span></code></pre></div>
+<p>In understanding the bivariate distribution, it is helpful to visualize the pdfs. Since one is dealing with a vector <span class="math inline">\(\overrightarrow{x}\)</span> of length 2, one needs two axes to select <span class="math inline">\(\overrightarrow{x}\)</span> and a third axis to depict the pdf at the selected value, i.e., one needs a 3D plot on 2D paper. A sophisticated visualization technique is available for <code>R</code>. The package is called <code>plotly</code>. It is interactive in the sense that by dragging the cursor over the plot one can visualize it from different viewpoints. The following images were captured using this package. Shown in Fig. <a href="bivariate-binormal-model.html#fig:bivariate-binormal-model-pdf-plots">1.1</a> are four views of the bivariate distribution density function for <span class="math inline">\(\mu_{12} = 1.5\)</span>, <span class="math inline">\(\mu_{22} = 2.0\)</span>, <span class="math inline">\(\sigma_1 = 1.0\)</span>, <span class="math inline">\(\sigma_2 = 1.5\)</span>, <span class="math inline">\(\rho_1 = 0.3\)</span> and <span class="math inline">\(\rho_2 = 0.6\)</span>.</p>
+<div class="figure"><span style="display:block;" id="fig:bivariate-binormal-model-pdf-plots"></span>
+<img src="21-bivariate-binormal-model_files/figure-html/bivariate-binormal-model-pdf-plots-1.png" alt="Bivariate pdf plots: Top-left is the default view. Top-right is the 'birds eye' view, with the pdf-axis 'literally coming at the reader' at right angles to the paper or screen. Bottom-left is the view looking along the y-axis at x = 0. Bottom-right is the view looking along the x-axis at y = 0. The `R` package `plotly` was used to capture these screen-shots." width="672" />
+<p class="caption">
+FIGURE 1.1: Bivariate pdf plots: Top-left is the default view. Top-right is the ‘birds eye’ view, with the pdf-axis ‘literally coming at the reader’ at right angles to the paper or screen. Bottom-left is the view looking along the y-axis at x = 0. Bottom-right is the view looking along the x-axis at y = 0. The <code>R</code> package <code>plotly</code> was used to capture these screen-shots.
+</p>
+</div>
+</div>
+<div id="bivariate-binormal-model-formulae" class="section level2 hasAnchor">
+<h2><span class="header-section-number">1.5</span> The bivariate binormal model<a href="bivariate-binormal-model.html#bivariate-binormal-model-formulae" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Disregarding the other modality, each sample from modality <span class="math inline">\(i\)</span> can be thought of as arising from a binormal model with mean parameter <span class="math inline">\(\mu_{it}\)</span>, where <span class="math inline">\(i\)</span> is the modality index <span class="math inline">\(i = 1, 2\)</span> and <span class="math inline">\(t\)</span> the truth index <span class="math inline">\(t = 1, 2\)</span>, and the variance of the z-samples of diseased cases is <span class="math inline">\(\sigma_i^2\)</span>. The non-diseased case z-samples arise from a unit variance normal distribution. In addition, for a ratings ROC study, one needs thresholds <span class="math inline">\(\zeta_r\)</span>. For an R (ROC) rating task with allowed ratings <span class="math inline">\(r = 1, 2, ..., \text{R}\)</span>, one needs <span class="math inline">\(\text{R}-1\)</span> thresholds <span class="math inline">\(\zeta_1,\zeta_2,...,\zeta_{\text{R}-1}\)</span>. Defining <span class="math inline">\(\zeta_0 = -\infty\)</span> and <span class="math inline">\(\zeta_{\text{R}} = +\infty\)</span> the decision rule is to label a case with rating <span class="math inline">\(r\)</span> if the realized z-sample satisfies <span class="math inline">\(\zeta_{r-1} &lt; z \le \zeta_r\)</span>.</p>
+<p>In the two-modality case, the decision variable and the threshold vector each have modality-dependencies: i.e., <span class="math inline">\(z_i\)</span> and <span class="math inline">\(z_{i&#39;}\)</span>, where <span class="math inline">\(i \ne i&#39;\)</span> and there exist two sets of thresholds <span class="math inline">\(\zeta_{i1},\zeta_{i2},...,\zeta_{i (\text{R}-1)}\)</span> and <span class="math inline">\(\zeta_{i&#39;1},\zeta_{i&#39;2},...,\zeta_{i&#39; (\text{R}-1)}\)</span>. As before <span class="math inline">\(\zeta_{i0} = -\infty\)</span> and <span class="math inline">\(\zeta_{i&#39;0} = -\infty\)</span> and <span class="math inline">\(\zeta_{i\text{R}} = +\infty\)</span> and <span class="math inline">\(\zeta_{i&#39;\text{R}} = +\infty\)</span>. The decision rule is to rate a case in modality <span class="math inline">\(i\)</span> with rating <span class="math inline">\(r_i\)</span> if <span class="math inline">\(\zeta_{i(r-1)} &lt; z_i \le \zeta_{ir}\)</span>, and the same case in modality <span class="math inline">\(i&#39;\)</span> is rated <span class="math inline">\(r_{i&#39;}\)</span> if <span class="math inline">\(\zeta_{i&#39;(r-1)} &lt; z_{i&#39;} \le \zeta_{i&#39;r}\)</span>.</p>
+<p>In the bivariate binormal model the decision variable is <span class="math inline">\(Z_{ik_tt}\)</span>, where the <span class="math inline">\(i\)</span> subscript corresponds to the two modalities and the <span class="math inline">\(t\)</span> subscript corresponds to the two truth states. The correlated ratings pairs <span class="math inline">\(\left( Z_{1k_11},Z_{2k_11} \right)\)</span> and <span class="math inline">\(\left( Z_{1k_22},Z_{2k_22} \right)\)</span>, corresponding to z-samples from non-diseased <span class="math inline">\(t = 1\)</span> and diseased cases <span class="math inline">\(t = 2\)</span>, respectively, are abbreviated, using vector notation, to <span class="math inline">\(\overrightarrow{Z_{1k_tt}}\)</span>:</p>
+<p><span class="math display" id="eq:bivariate-binormal-model-notation">\[\begin{equation} 
+\overrightarrow{Z_{k_tt}}=
+\left( \begin{matrix}
+Z_{1k_tt}  \\
+Z_{2k_tt}
+\end{matrix} \right)
+\tag{1.6}
+\end{equation}\]</span></p>
+<p>According to the bivariate binormal model <span class="math inline">\(\overrightarrow{Z_{k_tt}}\)</span> is sampled from <span class="math inline">\(N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)\)</span>, the bivariate normal distribution with mean <span class="math inline">\(\overrightarrow{\mu_t}\)</span> and covariance matrix <span class="math inline">\(\Sigma_t\)</span>:</p>
+<p><span class="math display" id="eq:bivariate-binormal-model-sampling">\[\begin{equation}
+\overrightarrow{Z_{k_tt}} \sim  N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)
+\tag{1.7}
+\end{equation}\]</span></p>
+<p>In Eqn. <a href="bivariate-binormal-model.html#eq:bivariate-binormal-model-sampling">(1.7)</a>, the symbol <span class="math inline">\(\sim N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)\)</span> denotes a vector sample of length two from the bivariate normal distribution with mean <span class="math inline">\(\overrightarrow{\mu_t}\)</span> and covariance matrix <span class="math inline">\(\Sigma_t\)</span>. Each case yields two samples corresponding to the two modalities. The subscript 2 on <span class="math inline">\(N\)</span> distinguishes the bivariate distribution from the corresponding univariate distribution <span class="math inline">\(N\)</span> (which has an implicit 1 subscript). The vectors <span class="math inline">\(\overrightarrow{\mu_1}\)</span> and <span class="math inline">\(\overrightarrow{\mu_1}\)</span> are defined by:</p>
+<p><span class="math display" id="eq:bivariate-binormal-model-mu-parameters">\[\begin{equation} 
+\left.\begin{aligned}
+\overrightarrow{\mu_1}
+&amp;=\left( \begin{matrix}
+\mu_{11} \\
+\mu_{21}
+\end{matrix}
+\right) 
+= \left( 
+\begin{matrix}
+0 \\
+0
+\end{matrix}
+\right) \\
+\overrightarrow{\mu_2}&amp;=
+\left( \begin{matrix}
+\mu_{12} \\
+\mu_{22}
+\end{matrix}
+\right)
+= \left( 
+\begin{matrix}
+\mu_1 \\
+\mu_2
+\end{matrix}
+\right) \\
+\end{aligned}\right\}
+\tag{1.8}
+\end{equation}\]</span></p>
+<p>The indices are <span class="math inline">\(it\)</span>, i.e., <em>modality followed by the truth index</em>. The equations state that the two non-diseased distributions, one per modality, are both centered on zero, while the diseased distribution for modality 1 is centered at <span class="math inline">\(\mu_1\)</span>, shorthand for <span class="math inline">\(\mu_{12}\)</span>, while that for modality 2 is centered at <span class="math inline">\(\mu_2\)</span>, shorthand for <span class="math inline">\(\mu_{22}\)</span>.</p>
+<p>The covariance matrices <span class="math inline">\(\Sigma_1\)</span> and <span class="math inline">\(\Sigma_2\)</span> in Eqn. <a href="bivariate-binormal-model.html#eq:bivariate-binormal-model-sampling">(1.7)</a> are defined by:</p>
+<p><span class="math display" id="eq:bivariate-binormal-model-covariance-matrices">\[\begin{equation} 
+\left.\begin{aligned}
+\Sigma_1
+&amp;=\left( 
+\begin{matrix}
+1 &amp; \rho_1 \\
+\rho_1 &amp; 1
+\end{matrix}
+\right) \\
+\Sigma_2&amp;=
+\left( 
+\begin{matrix}
+\sigma_1^2 &amp; \rho_2 \sigma_1 \sigma_2 \\
+\rho_2 \sigma_1 \sigma_2 &amp; 
+\sigma_2^2
+\end{matrix}
+\right)
+\end{aligned}\right\}
+\tag{1.9}
+\end{equation}\]</span></p>
+<p>For non-diseased cases, the Pearson correlation coefficient of the pairs of z-samples is <span class="math inline">\(\rho_1\)</span> and the corresponding value for diseased cases is <span class="math inline">\(\rho_2\)</span>. The ones along the diagonal of <span class="math inline">\(\Sigma_1\)</span> confirm that the variances of the two samples for non-diseased cases are individually equal to unity. The corresponding variances for diseased cases are <span class="math inline">\(\sigma_1^2\)</span> and <span class="math inline">\(\sigma_2^2\)</span>.</p>
+<p>The sampling model Eqn. <a href="bivariate-binormal-model.html#eq:bivariate-binormal-model-sampling">(1.7)</a> is a natural extension to two dimensions of the univariate binormal model described in book Chapter 06, namely the univariate model yields one z-sample per case: samples for non-diseased cases have mean zero and unit variance; samples for diseased cases have mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. In contrast the bivariate model yields two z-samples per case, where for either modality, the samples for non-diseased cases have zero mean and unit variance, and the correlation coefficient of the two samples per case is <span class="math inline">\(\rho_1\)</span>. For diseased cases, the samples for the first modality have mean <span class="math inline">\(\mu_1\)</span> and variance <span class="math inline">\(\sigma_1^2\)</span>, while for the second modality, the samples have mean <span class="math inline">\(\mu_2\)</span> and variance <span class="math inline">\(\sigma_2^2\)</span> and the correlation coefficient of the two samples is <span class="math inline">\(\rho_2\)</span>.</p>
+<p>To summarize, the parameters describing the bivariate model, not including the modality-dependent thresholds needed for binning the data, are <span class="math inline">\(\overrightarrow{\mu_t}, \Sigma_t\)</span>. The total number of parameters is 6: two means for the diseased cases, two variances for the diseased cases and two correlation coefficients.</p>
+</div>
+<div id="bivariate-binormal-model-multivariate-density-estimation" class="section level2 hasAnchor">
+<h2><span class="header-section-number">1.6</span> Estimating bivariate binormal model parameters<a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In Chapter 06, a method for estimating the parameters of the univariate binormal model for a single-reader single-modality dataset was described. The method involved maximizing the likelihood function, i.e., the probability of the observed data as a function of the model parameters. Specifically, for a 5-rating study, there were four thresholds. The likelihood was a function of six variables: two basic parameters, namely the separation of the two normal distributions and the standard deviation of the diseased distribution relative to the non-diseased distribution. In addition, there are the four thresholds. The threshold parameters are sometimes referred to, in the literature, as nuisance parameters, but nuisance or not, they have to be estimated in order to get to the basic parameters. To estimate the parameters the likelihood function was maximized with respect to these parameters. The values of the parameters yielding the maximum are the maximum-likelihood estimates (MLEs).</p>
+<p>With a bivariate model, one is dealing with six basic parameters and threshold parameters corresponding to each modality. The estimation procedure is not fundamentally different, but the presence of the second dimension does complicate the notation. Again, the starting point is the likelihood function, i.e., the probability of the observed data as a function of the parameter values. Since there is a possibility of confusion between the truth index t and the modality index i, each of which ranges from 1 to 2, the non-diseased counts in bin r of the 1st modality and bin s of the 2nd modality is denoted by (i.e., the modality indices occur before the truth index). The corresponding diseased counts are denoted . One needs two indices because each case yields two integer ratings, r and s. Each rating is in the range 1, 2,…, R, where R is the number of ROC bins. It is assumed equal for both modalities. This is not an essential limitation; the method is readily extended, and has been, for unequal numbers of bins in the two modalities. To construct the matrix one starts with a zero-initialized R x R matrix, increment the cell at row <span class="math inline">\(r\)</span> and column <span class="math inline">\(s\)</span> of this matrix by unity for each non-diseased case that received a r rating in the 1st modality and an s rating in the 2nd modality. When all non-diseased cases are exhausted, the count in row r and column s of this matrix is ; the procedure is repeated for the diseased cases yielding .</p>
+<p>For non-diseased cases, the probability of a z-sample in bin r of the 1st modality and bin s of the 2nd modality is determined by the “volume” under the bivariate distribution between modality-1 thresholds and , and between modality-2 thresholds and . Complicated as this may seem, and prior to Alan Genz’s work3 showing how to evaluate such multidimensional integrals, this was near impossible, but now it is quite easy, especially in R. The required probability is given by the pmvnorm() function – this is the generalization to the multivariate case of the pnorm() function, which gives the area under the normal distribution from negative infinity to a specified value. Specifically, pmvnorm()gives the probability under the multivariate distribution between specified thresholds, as illustrated next.</p>
+</div>
+<div id="bivariate-binormal-model-multivariate-density-examples" class="section level2 hasAnchor">
+<h2><span class="header-section-number">1.7</span> Examples of bivariate normal probability integrals<a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-examples" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Needed is the bivariate extension of the univariate cumulative distribution function defined in Eqn. (3.7). Specifically, one needs a way of calculating the integral:</p>
+<pre><code>.   (21.13)</code></pre>
+<p>Online Appendix 21.C shows how to do this in R. The code file mainBivariateIntegrals.R implements the “equation”:</p>
+<pre><code>.   (21.14)</code></pre>
+<p>Here <code>pmvnorm()</code> is the integral of the bivariate normal distribution with specified mean and covariance matrix sigma between limits and . The limits are specified by two length-two arrays that are supplied as the first two arguments to this function. The first argument to the function is the concatenated lower thresholds in the two modalities. The second argument is the concatenated upper thresholds in the two modalities. These are followed by the separation parameter vector and the covariance matrix. The function is not limited to two dimensional covariance matrices. With a p x p covariance matrix, the lower and upper limits would each be length p vectors. Here is a bivariate example (p = 2) in mainBivariateIntegrals.R:</p>
+<div id="bivariate-binormal-model-multivariate-density-estimation-code" class="section level3 hasAnchor">
+<h3><span class="header-section-number">1.7.1</span> Code listing<a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation-code" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the last two lines, and . Sourcing the code yields:</p>
+</div>
+<div id="bivariate-binormal-model-examples-integrals" class="section level3 hasAnchor">
+<h3><span class="header-section-number">1.7.2</span> Examples of bivariate normal probability integrals<a href="bivariate-binormal-model.html#bivariate-binormal-model-examples-integrals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The facts that the integral over the entire space yields unity and and that over each half space yields 0.5, and , should make intuitive sense.</p>
+</div>
+</div>
+<div id="bivariate-binormal-model-likelihood" class="section level2 hasAnchor">
+<h2><span class="header-section-number">1.8</span> Likelihood function<a href="bivariate-binormal-model.html#bivariate-binormal-model-likelihood" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The probability of observing and non-diseased and diseased counts, respectively, in bin r in the first modality and bin s in the second modality is:</p>
+<pre><code>.   (21.15)</code></pre>
+<p>Including all bins and taking the logarithm, the logarithm of the likelihood function is given by (neglecting a combinatorial factor that does not depend on the parameters):</p>
+<pre><code>.   (21.16)</code></pre>
+<p>The maximum likelihood estimates of the parameters are obtained by maximizing the function. This was solved 4,5 by Metz and colleagues more than three decades ago and implemented in software CORROC2. The Metz software is particularly useful as it measures correlations at the underlying z-sample level, which property can be used in designing a data simulator that is matched to a clinical dataset. Much as the author has emphasized that ratings are not numerical quantities, and that the observed ratings are not “hard” numbers, the measured correlations are valid, because CORROC2 models the ratings as continuous variables and estimates the correlation based on the bivariate model.</p>
+</div>
+<div id="bivariate-binormal-model-corroc2" class="section level2 hasAnchor">
+<h2><span class="header-section-number">1.9</span> CORROC2 software<a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Around 1980 Prof. Charles E. Metz and Helen B. Kronman developed software implementing maximum likelihood estimation of the parameters of the bivariate normal model outlined above from data corresponding to two correlated ROC ratings per case. The software is called CORROC2, for “correlated ROC”. Subsequent revisions to the program were made by Pu-Lan Wang and Jong-Her Shen and more recently by Ben Herman4-7. CORROC2 is used to analyze paired ratings that result when a common set of cases is interpreted under two conditions. The pairing can be simple, as when a single reader interprets a common set of cases in two modalities, or more general as when two different readers interpret a common set of cases in one modality, or when two different readers interpret a common set of cases in two different modalities. The generality makes the method quite useful in a way that, in the judgment of the author, has not been fully exploited to date .</p>
+<p>CORROC2 software allows selection of three methods of testing for differences between two conditions.
+1. Testing for simultaneous differences between the (a, b) parameters corresponding to two ROC curves.
+2. Testing the difference between the binormal-fitted AUCs under two correlated ROCs.
+3. Testing the difference between TPFs on two ROC curves at a specified FPF.</p>
+<p>To understand the difference between (1) and (2) consider that is that it is possible to have two ROC curves with different shapes but the same fitted AUCs. If the difference in shapes is large enough, method (1) would declare the two conditions different, but method (2) would not. In the examples below, we use method (2).</p>
+<div id="bivariate-binormal-model-corroc2-details" class="section level3 hasAnchor">
+<h3><span class="header-section-number">1.9.1</span> Details of CORROC2 software<a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-details" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This section is one of the few in this book that uses Windows code. If using OS X, one needs to download “virtual machine” software as described in Online Appendix 21.D. If using a Windows machine, one does not need to do anything extra. Therefore, in following this chapter it is important that one has either a Windows computer or a Mac computer with a virtual machine installed.</p>
+<p>The Windows executable code is named CORROC2.exe. The author downloaded the software, including the Fortran source code, many years ago, ca. 1997, from the University of Chicago website, but it is currently unavailable and unsupported on that site. The author is fortunate that he held onto the downloaded code. The reason is that the FORTRAN source code, with appropriate modifications, can be interfaced to the R code. The currently distributed equivalent code named ROC-kit cannot be run in command-line mode (i.e., without having to use the mouse to select the input file, specify the output file, etc.) The author has confirmed with Mr. Ben Herman, who is familiar with the code, that by design it cannot be used in command-line mode. The ability to run in command-line mode is needed if one is to call a program from R.</p>
+<p>For simplicity, it is assumed that the number of allowed ROC ratings bins, R, is the same in each modality (the software can handle different numbers of ratings in the two modalities). For two modalities, the total number of parameters to be estimated is 6+2(R-1). The six comes from the two means and two variances of the diseased distributions, plus the two correlations (one per truth state) and 2(R-1) from the two sets of thresholds, each with R-1 values. In addition to providing estimates of all parameters of the model, the algorithm provides estimates of the covariance matrix of the parameters. This, not to be confused with , is needed for the same reason it was needed in the univariate case, see Chapter 06: i.e., to estimate variances of the 6-estimates and variances of functions of estimates, e.g., AUC.</p>
+</div>
+<div id="bivariate-binormal-model-corroc2-data-input" class="section level3 hasAnchor">
+<h3><span class="header-section-number">1.9.2</span> CORROC2 data input<a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-data-input" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here is a partial example of how the paired ratings data is input to the program (the read-only data file is DataFileInp.txt in the software distribution under software/corrocii/Debug).</p>
+<p>TYPICAL EXAMPLE OF 5-CATEGORY DATA –X
+5
+5
+TYPICAL EXAMPLE OF 5-CATEGORY DATA –Y
+5
+5
+4 4
+3 5
+5 3
+1 1
+1 1
+1 3
+1 5</p>
+<p>The first line, whose content is immaterial to the analysis, is a description of the data in the 1st modality. The second line (5), is the total number of ratings bins in the 1st modality. The third line (5) is the rating with the highest evidence of disease in the 1st modality (5 in the current example). The fourth line is a description of data in the 2nd modality, again its content is immaterial. The next two fives are the number of bins in the second modality, and the bin number denoting highest evidence of disease in the second modality.</p>
+<p>The actual ratings data starts on line 7, which states that the first non-diseased case was rated ROC: 4 in the first modality and ROC: 4 in the second modality. The two ratings for each case, separated by spaces, are input on the same line. Line eight states that the second non-diseased case was rated ROC: 3 in the first modality and ROC: 5 in the second modality, and so on. An asterisk after the last non-diseased case signals the end of the non-diseased cases. The next line has the two ratings corresponding to the first diseased case. Here is a partial example:</p>
+<p>4 4
+*
+4 5
+5 5</p>
+<p>This says that the first diseased case was rated ROC: 4 in the 1st modality and ROC: 5 in the 2nd modality, the 2nd diseased case was rated ROC: 5 in both modalities, and so on. The last diseased case is followed by another asterisk, and the last line is the word “area”:</p>
+<p>5 5
+2 5
+*
+area</p>
+<p>Other choices are available for the last line, but the author will stick to area, which means one wishes to use the area under the binormal-fitted ROC curve as the figure of merit.</p>
+</div>
+<div id="bivariate-binormal-model-corroc2-output" class="section level3 hasAnchor">
+<h3><span class="header-section-number">1.9.3</span> CORROC2 output<a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The CORROC2 output associated with this software for the above dataset, 347 lines in all, is in the read-only file DataFileOut.txt, Fig. 21.2 (use RStudio to go down the directory structure and click on the appropriate file; it is displayed, see below, with line numbers):</p>
+<p>Fig. 21.2: Lines of CORROC2 output in DataFileOut.txt that are associated with the dataset in DataFileInp.txt.</p>
+<p>Condition X and Condition Y denote modalities 1 and 2, respectively . Line 10 of the output summarizes the statistical test to be employed “AREA (A SUB Z) TEST”. This is because we concluded, line 101, the reader data file DataFileInp.txt with area. Line 13-22 summarizes the dataset, how many ratings, which rating represents greatest evidence of disease, etc. Lines 26 – 37 summarize the observed ratings matrix for non-diseased cases (labeled ACTUALLY NEGATIVE), i.e., the matrix . For example, there were three cases that were rated s = 3 in CONDITION X and r = 5 in CONDITION Y (the matrix is labeled by its row index, followed by its column index and last with the truth index. The output lists the 5 rating bin as the first row, the 4 rating bin as the second row, etc.). Likewise, lines 40-51 summarize the ratings matrix for diseased cases. Lines 53 – 59 list the observed operating points in the two modalities, followed by the initial and final estimates of the parameters. The program lists the parameters using the (a,b) notation, not the notation, but one knows how to transform between them: Chapter 06, Eqn. (6.16), and see exercise on conversion below. Here is the output showing the final parameter values (14 values in all):</p>
+<pre><code>            FINAL ESTIMATES OF THE PARAMETERS:
+  AX= 1.3006     BX= 0.4919     AY= 1.6049     BY= 0.8704
+  R(NEGATIVE CASES)= 0.2599     R(POSITIVE CASES)= 0.4544
+  T(I)-0.281  0.221  0.687  1.941
+  U(J)-0.791 -0.417  0.175  0.990</code></pre>
+<p>Here X refers to condition X and Y to condition Y. AX is the parameter in condition X (what the author calls ). BX is the b parameter in condition X (our ). AY is the parameter in condition Y (i.e., ). BY is the b parameter in condition Y (i.e., ). R(NEGATIVE CASES) is the correlation coefficient for the non-diseased cases (i.e., ). R(POSITIVE CASES) is the correlation coefficient for the diseased cases (i.e., ). Finally, T(I) and U(J) are the thresholds in the two condition, corresponding to and in our notation. Since there are five ratings bins, there are four thresholds in each modality.</p>
+<p>Converting the above parameter values to <span class="math inline">\(\mu, \sigma\)</span> notation</p>
+<p>Using the transformations Eqn. (6.16), = 1.3006/0.4919 = 2.644, = 1.844, = 1/.4919 = 2.033, = 1.149, = 0.2599 and = 0.4544 (the correlations are unaffected by linear transformations). Regarding the thresholds, for modality 1, = -0.281/.4919 = -0.571, = 0.221/.4919 = 0.449, etc. Similarly, the thresholds for modality 2 are = -0.791/.8704 = -0.909, = -0.417/.8704 = -0.479, etc. Question for the reader: why were the thresholds divided by the corresponding b-values?</p>
+</div>
+<div id="bivariate-binormal-model-corroc2-covariance-matrix" class="section level3 hasAnchor">
+<h3><span class="header-section-number">1.9.4</span> Covariance matrix<a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-covariance-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For convenience of the yet-to-be-described R-program that does all this automatically, the FORTRAN source code was modified to print the elements of the covariance matrix sequentially, i.e., one-per-line. The output corresponding to lines 83 - 280 in file DataFileOut.txt is (shown is a partial listing):</p>
+<p>VARIANCE-COVARIANCE MATRIX
+14
+0.621003E-01
+0.205564E-01
+0.171881E-01
+0.294564E-02
+0.104652E-03
+-0.684784E-02
+0.144067E-01
+0.135140E-01
+0.127711E-01
+0.393710E-02
+0.285687E-02
+0.285592E-02
+0.285248E-02
+0.284967E-02
+0.205564E-01</p>
+<p>The “14” is the dimension of each “edge” of the 2D covariance matrix, i.e., there are 142 (196) elements in all. The “14” comes from the six basic parameters plus the four thresholds in the two conditions. The elements are listed in row-major order, i.e., all the elements of the 1st row, followed by all elements of the 2nd row, etc. One can anticipate some difficulty displaying it, so only the upper-left 6 x 6 corner of the full matrix is shown below, Table 21.1, i.e. any covariance involving a threshold is not shown. For convenience, the numbers have been rounded to fit and since the matrix is symmetric, there is no need to show numbers below the diagonal:</p>
+<p>Table 21.1: This table displays the covariance matrix of the parameters for the dataset in datafileinp.txt. Since the matrix is symmetric, values below the diagonal are not shown. Also not shown are covariance-elements associated with threshold parameters.</p>
+<p>.062 .021 .017 .003 .000 -.007</p>
+<pre><code>.022    .002    .002    .001    -.004
+
+    .089    .045    .000    -.010
+
+        .078    .003    -.008
+
+            .026    .000
+
+                .035</code></pre>
+<p>The diagonal elements, which represent variances, are all positive.</p>
+</div>
+<div id="bivariate-binormal-model-corroc2-output-restof" class="section level3 hasAnchor">
+<h3><span class="header-section-number">1.9.5</span> Rest of CORROC2 output<a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output-restof" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Line 286-320 allows one to plot the ROC curves for the two modalities, but one does not need them, as one knows by now how to generate binormal model predicted curves. Lines 325-327 lists the areas under the respective fitted ROC curves, and their correlation (the is the AUC level correlation, which could be estimated by methods described in Chapter 06):</p>
+<pre><code>        AREA(X)=  0.8784     AREA(Y)=  0.8870
+        STD DEV OF AREA(X)=  0.0392     STD DEV OF AREA(Y)=  0.0376
+        CORRELATION OF AREA(X) AND AREA(Y) = 0.2569</code></pre>
+<p>The remaining lines, 333-341 lists the p-value.</p>
+<pre><code>         STATISTICAL SIGNIFICANCE OF THE DIFFERENCE
+  BETWEEN THE TWO CORRELATED ROC CURVES ACCORDING TO THE SELECTED TEST:</code></pre>
+<hr />
+<pre><code>THE COMPUTED CORRELATED &#39;AREA TEST&#39; STATISTIC VALUE IS   -0.1829
+WITH A CORRESPONDING TWO-TAILED P-LEVEL OF 0.8549
+AND ONE-TAILED P-LEVEL OF 0.4274.</code></pre>
+<p>The famed p-value is 0.8549 (it is customary to quote the two-tailed value, see Chapter 08 for details on this). This means that the difference in areas (0.8784 – 0.8870 = -0.0086) is not statistically significant at Type-I error probability = 0.05. The calculation of the test statistic is described in code mainDiffAzTestStatistic.R. It uses methods described in Chapter 06 to calculate the standard deviation of the difference of two AUCs:</p>
+<pre><code>.   (21.17)</code></pre>
+<p>The test – statistic for determining the significance of the AUC difference is:</p>
+<pre><code>.   (21.18)</code></pre>
+</div>
+</div>
+<div id="bivariate-binormal-model-corroc2-application" class="section level2 hasAnchor">
+<h2><span class="header-section-number">1.10</span> Application to a real dataset<a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Assuming one has set up the connection between the Mac side and the Windows side properly, as described in Online Appendix 21.D, one can apply CORROC2 to real ROC datasets. Open the R file “mainCorroc2.R” in the software folder corresponding to this chapter, described in detail in Online Appendix 21.E. Source the file, yielding:</p>
+<div id="bivariate-binormal-model-corroc2-application-code-output" class="section level3 hasAnchor">
+<h3><span class="header-section-number">1.10.1</span> Code Output<a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-code-output" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<blockquote>
+<p>source(‘~/book2/A ROC analysis/A8 Bivariate binormal model/software/mainCorroc2.R’)
+…</p>
+</blockquote>
+<p>The 6 parameters are 1.72 0.55 1.87 0.527 0.332 0.798
+The 2 sided pValue is 0.482
+The covariance matrix is:
+[,1] [,2] [,3] [,4] [,5] [,6]
+[1,] 0.120075 0.05096 0.050939 0.01054 6.58e-04 -1.05e-02
+[2,] 0.050956 0.03667 0.013392 0.00550 2.01e-03 -4.87e-03
+[3,] 0.050939 0.01339 0.111921 0.04078 2.28e-04 -1.16e-02
+[4,] 0.010545 0.00550 0.040777 0.02908 1.51e-03 -4.56e-03
+[5,] 0.000658 0.00201 0.000228 0.00151 2.09e-02 3.11e-06
+[6,] -0.010453 -0.00487 -0.011566 -0.00456 3.11e-06 8.67e-03</p>
+<p>What the R code does is detailed in Online Appendix 21.D. It reads the file containing the data, the Van Dyke data in the above example, extract the ratings for reader 1 in both modalities, writes the data in the appropriate format for CORROC2, runs the latter program in a Windows environment, reads the resulting output and prints out model parameters and the covariance matrix.</p>
+<p>Like most ROC software, the output uses the (a,b) convention, Chapter 06. Recall that in this convention the diseased distribution has unit standard deviation, the non-diseased distribution has standard deviation b, and the separation of the two means is a. Since there are two modalities, there are two a parameters and two b parameters. In the CORROC2 output, the two modalities are referred to as X (1 in our notation) and Y (2 in our notation), respectively, and the ordering of the six parameters is . The ordering also determines the ordering of the covariance matrix. We start with the meanings of the header row and first column of the matrix shown above. The notation [,1] means the first column of the matrix, likewise [,2] is the second column and so on. Likewise, [1,] means the first row of the matrix, [2,] means the second row of the matrix, and so on. For example, the above table tells us that the second row and third column of the covariance matrix is 0.013392. This is the covariance between . The diagonal elements of the matrix are the variances. For example, the variance of is 2.09e-02, whose square root is the standard deviation, equal to 0.145.</p>
+<p>In the Files panel find the folder named corrocii and open it (you need to click on the name, not the picture of the folder; watch how the folder name is underlined when the cursor is above it, which is RStudio’s way of telling you “yes, it is OK to click here, something will happen”). You should see a number of files with the .FOR extension (these are FORTRAN source code files) and a folder named Debug; click on Debug. Fig. 21.4 is a screen-shot showing the contents of the Debug window. Table 21.2 summarizes the meanings of the files listed in this figure.</p>
+</div>
+<div id="bivariate-binormal-model-corroc2-application-debug-window" class="section level3 hasAnchor">
+<h3><span class="header-section-number">1.10.2</span> Contents of the Debug window, as viewed from the Mac side<a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-debug-window" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Table 21.2: This table summarizes the meanings of the files listed in this Fig. 21.4.
+File name Meaning Comment
+DataFileInp.txt Input Ratings data in CORROC2 format Read-only file used to illustrate data input format
+DataFileOut.txt Output file corresponding to DataFileInp.txt Read-only file used to illustrate the output
+1R2MData.txt Ratings data in CORROC2 format Created by RunCorrocOnPairedData.R, line 25
+CORROC2.bat Batch file that runs CORROC2.exe See below
+CORROC2.exe The actual CORROC2 program<br />
+CorrocIIinput.txt Input file to the batch file<br />
+CorrocIIoutput.txt Output file created by batch file</p>
+<p>The Windows software is located in software/CORROC2/Debug, Fig. 21.4. CORROC2.bat is a batch file, whose listing follows:
+21.7.2: Contents of CORROC2.bat
+cd CORROCII
+cd Debug
+del CorrocIIoutput.txt
+CORROC2.exe &lt; CorrocIIinput.txt &gt; CorrocIIoutput.txt
+cd ..
+cd ..</p>
+<p>The batch file runs on the Windows side. The first two lines change the current directory to corrocii/Debug. The next line deletes the output file, CorrocIIoutput.txt, if it exists. The next line “pipes” the contents of CorrocIIinput.txt to the executable file CORROC2.exe and “pipes” the output to CorrocIIoutput.txt. The last two lines restore the starting directory. The contents of CorrocIIinput.txt are:</p>
+</div>
+<div id="bivariate-binormal-model-corroc2-application-corrocii-input" class="section level3 hasAnchor">
+<h3><span class="header-section-number">1.10.3</span> Contents of CorrocIIinput.txt<a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-corrocii-input" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>y
+1R2MData.txt
+N
+Q</p>
+<p>These answer the four questions asked by CORROC2. Try running CORROC2 from the Windows side, Fig. 21.5.</p>
+<p>Fig. 21.5: Result of running CORROC2 at the windows 8 command prompt.</p>
+<p>The first line of this file is the answer (yes) to the first question asked by CORROC2.exe (you can check these out by clicking on CORROC2.exe in your physical Windows machine or virtual Windows machine): “Do you want to use data from a previously created input file for the next run?” The second line is the name of the input file, the third line is the answer (no) to the next question: “Do you want to save an output file for plotting the ROC curve?” The reason for the “no” is that we are more interested in the screen output, which contains all the estimates, including the covariance matrix, rather than plotting ROC curves. The last line is the answer (“Q”) to the next question asked by CORROC2.exe: “Do you want to use data from a previously created input file for the next run?(Y/N, or Q for quit)”. Now, in a Windows environment, click on the batch file CORROC2.bat. The latest version of the file CorrocIIoutput.txt should appear in your Explorer window, with the correct date and time stamps. Open this file. The data file is named 1R2MData.txt and if you open it, you will recognize that it is similar to the file used in the section illustrating the data input format for CORROC2. It was created by the R-code.</p>
+</div>
+</div>
+<div id="bivariate-binormal-model-corroc2-discussion" class="section level2 hasAnchor">
+<h2><span class="header-section-number">1.11</span> Discussion / Summary<a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>CORROC2 is one of the relatively under-utilized tools developed by Prof. Charles E. Metz. There are only four publications describing it4-6,8 and two of them are difficult to find5,8, nor has the software been maintained on a level comparable to ROCFIT. For example, a method for assessing the goodness of the fit is currently not implemented. With R2 cells, it is almost impossible to maintain greater than five counts per cell, so an alternate method of combining bins has to be implemented.</p>
+<p>One reason for the relative underutilization of CORROC2 could be that it is not designed to analyze multiple readers interpreting a common set of cases in two or more modalities i.e., MRMC datasets. For example, in a study in which CORROC2 was used9, four readers interpreted cases in four modalities. With four modalities, there are six possible combinations (4x3/2), so a conservative Bonferroni type correction for the p-value would be to divide 0.05 by 6. For each reader CORROC2 yields a p-value for the difference between the chosen pairs of modalities. If all readers agree, then there is an unambiguous answer, but the method does not allow for correlations between different readers, which undoubtedly leads to loss of power. More fundamentally, it does not address the question of interest: when averaged over all four readers, are the figures of merit in the four modalities different.</p>
+<p>It is possible to analyze multiple reader multiple modality MRMC-ROC datasets without actually using CORROC2. In chapters Chapter 09 and Chapter 10, it was shown how one analyzes such datasets using the empirical AUCs. Alternatively, one could estimate AUC using the univariate binormal model software (e.g., ROCFIT, or more modern software). The correlations in the resulting AUC values – i.e., FOM correlations as distinct from ratings correlations - are explicitly accounted for in the DBMH / ORH analyses, i.e., it is not concerned with ratings correlations. One possible use of CORROC2 would be if one had to compare two CAD algorithms applied to a common dataset, but even here, it is of limited utility since, as a ROC study, location is ignored.</p>
+<p>CORROC2 was developed ca. 1980 by Metz, Wang and Kronman 5,10. Subsequent revisions to the program were made by Jong-Her Shen and more recently by Benjamin Herman6,7. Its impact cannot be overstated. There are well in excess of 116 citations to this software. One reason is that, at that time, it was the only software allowing analysis of paired datasets. However, no advances have been made in the intervening 3 decades, which would allow fitting, for example, proper ROC curves to paired - and possibly degenerate - datasets. Part of the reason for this neglect is the shift in emphasis to empirical AUC based analysis, which does not require parametric modeling or curve fitting – one simply calculates the trapezoidal AUC. However, empirical AUC based analysis has its own limitations, and pursuing an improvement over the parametric approach that removes the current limitations of CORROC2 would, in the author’s judgment, quite apart from the specific interest in developing realistic simulators, be of scientific interest.</p>
+<p>As a final note, at the time of writing, 4/30/17, an extension of CORROC2 has been published11. It is called CORCBM, for correlated CBM. Details are in a document CORCBM.pdf in the online supplementary material directory corresponding to this chapter. The title of the publication is: “A bivariate contaminated binormal model for robust fitting of proper ROC curves to a pair of correlated, possibly degenerate, ROC datasets”. It replaces the bivariate binormal model with the bivariate contaminated binormal model; hence its name CORCBM, for correlated CBM. Since CBM was designed to fit practically any single dataset, including degenerate ones, CORCBM is likewise able to fit practically any paired dataset. An application of CORCBM to calibrating a simulator to a data set containing single-modality multiple-reader ratings is described in Chapter 23.</p>
+
+<div id="refs" class="references">
+<div>
+<p>Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging: Foundations, Modeling, and Applications with R-Based Examples</em>. Boca Raton, FL: CRC Press.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Since this software runs on Windows, material is provided to allow the user to run it on a MAC (most of this necessary digression, since the author is using OS X, is in TBA Online Appendix 21.D). This digression is not needed in one is using a Windows platform.<a href="bivariate-binormal-model.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>In the univariate case, <span class="math inline">\(p = 1\)</span>, <span class="math inline">\(\Sigma\)</span> is replaced by <span class="math inline">\(\sigma^2\)</span>, and the above expression reduces to the pdf of the normal distribution <span class="math inline">\(N(\mu, \sigma^2)\)</span>.<a href="bivariate-binormal-model.html#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["RJafrocRocBook.pdf", "RJafrocRocBook.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
