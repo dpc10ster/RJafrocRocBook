@@ -11,6 +11,7 @@ Imports:
     dplyr,
     exactci,
     foreach,
+    ggplot2,
     grid,
     gridExtra,
     here,
