@@ -120,7 +120,7 @@
 
 \title{The RJafroc Roc Book}
 \author{Dev P. Chakraborty, PhD}
-\date{2022-08-03}
+\date{2022-08-05}
 
 \begin{document}
 \maketitle
@@ -316,7 +316,16 @@ Here is the plan for this chapter. First, the bivariate extension of the univari
 \hypertarget{bivariate-binormal-model-bivariate-density}{%
 \section{Bivariate density function}\label{bivariate-binormal-model-bivariate-density}}
 
-The multivariate probability density function pdf \(f_p\left( \overrightarrow{x} ~~ \bigg \rvert ~~\overrightarrow{\mu}, ~~ \overrightarrow{\Sigma} \right)\) is defined by:
+Sampling from the multivariate normal distribution \(N_p\) is as follows:
+
+\begin{equation}
+\overrightarrow{x} \sim  N_p\left( \mu, \Sigma \right)
+\label{eq:multivariate-sampling-model}
+\end{equation}
+
+Here \(\overrightarrow{x}\) is a length \(p\) vector of observed samples, \(\overrightarrow{\mu}\) is a length \(p\) vector containing the means of the multivariate distribution and \(\Sigma\) is the covariance matrix describing the variances, and correlations between the observed samples.
+
+The multivariate normal probability density function \(f_p\left( \overrightarrow{x} ~~ \bigg \rvert ~~\overrightarrow{\mu}, ~~ \overrightarrow{\Sigma} \right)\) is defined by:
 
 \begin{equation} 
 f_p\left( \overrightarrow{x} ~~ \bigg \rvert ~~\overrightarrow{\mu}, ~~ \overrightarrow{\Sigma} \right)
@@ -324,9 +333,9 @@ f_p\left( \overrightarrow{x} ~~ \bigg \rvert ~~\overrightarrow{\mu}, ~~ \overrig
 \label{eq:bivariate-binormal-model-density-function-multivariate}
 \end{equation}
 
-In this equation \(\overrightarrow{\mu}\), a length \(p\) vector, defines the means of the multivariate distribution with covariance matrix \(\Sigma\), \(|\Sigma|\) is the determinant of the matrix, \(T\) is the transpose operator and \(\overrightarrow{x}\) is a length \(p\) vector at which one wishes to evaluate the pdf.
+Here \(|\Sigma|\) is the determinant of the matrix and \(T\) is the transpose operator.
 
-For the special case of a bivariate normal distribution, \(p = 2\), this is equivalent to (the subscript 2 is suppressed):
+For the special case of a bivariate normal distribution, \(p = 2\), this is equivalent to (the subscript 2 is suppressed) \footnote{In the univariate case, \(p = 1\), \(\Sigma\) is replaced by \(\sigma^2\), and the above expression reduces to the pdf of the normal distribution \(N(\mu, \sigma^2)\).}:
 
 \begin{equation} 
 f\left( x_1,x_2 ~~ \bigg \rvert ~~ \mu_1, \mu_2,  \sigma_1, \sigma_2, \rho \right)
@@ -354,9 +363,7 @@ For a bivariate distribution the covariance matrix is:
  \right)\label{eq:bivariate-binormal-model-covariance-matrix}
 \end{equation}
 
-\footnote{In the univariate case, \(p = 1\), \(\Sigma\) is replaced by \(\sigma^2\), and the above expression reduces to the pdf of the normal distribution \(N(\mu, \sigma^2)\).}
-
-The \texttt{R} function to evaluate Eqn. \eqref{eq:bivariate-binormal-model-density-function-multivariate} is \texttt{dmvnorm()}, for ``density of multivariate normal distribution'', available via \texttt{R} package \texttt{mvtnorm}. Its usage is illustrated next for the special case of a bivariate distribution and the following parameter values:
+The \texttt{R} function to evaluate Eqn. \eqref{eq:bivariate-binormal-model-density-function-multivariate} is \texttt{dmvnorm()}, for ``density of multivariate normal distribution'', available via \texttt{R} package \texttt{mvtnorm}. Its usage is illustrated next for the following parameter values:
 
 \begin{equation} 
 \left.\begin{aligned}
@@ -417,8 +424,90 @@ In the following code the call to get the pdf occurs at line: \texttt{pdf\ \text
 \end{Highlighting}
 \end{Shaded}
 
+The parameters describing the bivariate normal distribution are \(\overrightarrow{\mu}\) and \(\Sigma\). The total number of parameters is five: two means, two variances and a correlation coefficient.
+
+\hypertarget{bivariate-binormal-model-formulae}{%
+\section{The bivariate binormal model}\label{bivariate-binormal-model-formulae}}
+
+The bivariate binormal model is an extension of the bivariate model just described, to \emph{two truth-states}, non-diseased and diseased, each modeled separately as a bivariate normal distribution. This could potentially result in a doubling of the number of parameters from 5 to 10, but by appropriate shifting and scaling transformations one can ensure that the two means of the bivariate distribution for non-diseased cases are zeroes and the two variances are each unity. This reduces the total number of parameters to 6: \(\mu_1\), \(\mu_2\), \(\sigma_1\), \(\sigma_2\), \(\rho_1\), \(\rho_2\). The bivariate binormal parameters are:
+
+\begin{equation} 
+\left.\begin{aligned}
+\overrightarrow{
+\mu_1}&=
+\left( \begin{matrix}
+0 \\
+0
+\end{matrix}
+\right)\\
+\overrightarrow{
+\mu_2}&=
+\left( \begin{matrix}
+\mu_1 \\
+\mu_2
+\end{matrix}
+\right)\\
+\overrightarrow{
+\Sigma_1}&=
+\left( 
+\begin{matrix}
+1 & \rho_1 \\
+\rho_1  & 1
+\end{matrix}
+\right) \\
+\overrightarrow{
+\Sigma_2} &= \left( 
+\begin{matrix}
+\sigma_1^2 & \rho_2 \sigma_1 \sigma_2 \\
+\rho_2 \sigma_1 \sigma_2  & \sigma_2^2
+\end{matrix}
+\right)
+\end{aligned}\right\}
+\label{eq:bivariate-binormal-model-all-parameters}
+\end{equation}
+
+The decision variable is \(z_{ik_tt}\), where the \(i\) subscript corresponds to the two modalities and the \(t\) subscript corresponds to the two truth states. The correlated ratings pairs \(\left( z_{1k_11},z_{2k_11} \right)\) and \(\left( z_{1k_22},z_{2k_22} \right)\), corresponding to z-samples from non-diseased \(t = 1\) and diseased cases \(t = 2\), respectively, are abbreviated, using vector notation, to \(\overrightarrow{z_{1k_tt}}\) (the vectorized values always ``condense'' the two modalities):
+
+\begin{equation} 
+\overrightarrow{z_{k_tt}}=
+\left( \begin{matrix}
+z_{1k_tt}  \\
+z_{2k_tt}
+\end{matrix} \right)
+\label{eq:bivariate-binormal-model-notation}
+\end{equation}
+
+The sampling for each modality, considered in isolation by itself, is as follows (the parameters \(\mu\) and \(\sigma\) are of course modality dependent):
+
+\begin{equation}
+\left.\begin{aligned}
+z_{k_11} &\sim  N\left( 0, 1 \right) \\
+z_{k_22} &\sim  N\left( \mu, \sigma^2 \right)
+\end{aligned}\right\}
+\label{eq:univariate-binormal-model-sampling}
+\end{equation}
+
+Collectively \(\overrightarrow{z_{k_tt}}\) is sampled from \(N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)\), the bivariate normal distribution with mean \(\overrightarrow{\mu_t}\) and covariance matrix \(\Sigma_t\):
+
+\begin{equation}
+\overrightarrow{z_{k_tt}} \sim  N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)
+\label{eq:bivariate-binormal-model-sampling}
+\end{equation}
+
+The parameters are truth-state dependent, Eqn. \eqref{eq:bivariate-binormal-model-all-parameters}. In addition one needs to include threshold parameters in the modeling.
+
+For an R-rating single modality ROC task with allowed ratings \(r = 1, 2, ..., \text{R}\), one needs \(\text{R}-1\) thresholds \(\zeta_1,\zeta_2,...,\zeta_{\text{R}-1}\). Defining \(\zeta_0 = -\infty\) and \(\zeta_{\text{R}} = +\infty\) the decision rule is to label a case with rating \(r\) if the realized z-sample satisfies \(\zeta_{r-1} < z \le \zeta_r\).
+
+In the two-modality task the decision variable and the thresholds are modality dependent: i.e., \(z_{ik_tt}\) and \(z_{i'k_tt}\), where \(i \ne i'\) and two sets of thresholds \(\zeta_{i1},\zeta_{i2},...,\zeta_{i (\text{R}-1)}\) and \(\zeta_{i'1},\zeta_{i'2},...,\zeta_{i' (\text{R}-1)}\). As before \(\zeta_{i0} = -\infty\) and \(\zeta_{i'0} = -\infty\) and \(\zeta_{i\text{R}} = +\infty\) and \(\zeta_{i'\text{R}} = +\infty\). The decision rule is to rate a case in modality \(i\) with rating \(r_i\) if \(\zeta_{i(r-1)} < z_i \le \zeta_{ir}\), and the same case in modality \(i'\) is rated \(r_{i'}\) if \(\zeta_{i'(r-1)} < z_{i'} \le \zeta_{i'r}\).
+
+In Eqn. \eqref{eq:bivariate-binormal-model-sampling}, the symbol \(\sim N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)\) denotes a vector sample of length two from the bivariate normal distribution with mean \(\overrightarrow{\mu_t}\) and covariance matrix \(\Sigma_t\). Each case yields two samples corresponding to the two modalities. The subscript 2 on \(N\) distinguishes the bivariate distribution from the corresponding univariate distribution \(N\) (which has an implicit 1 subscript). For non-diseased cases the Pearson correlation coefficient of the pairs of z-samples is \(\rho_1\) and the corresponding value for diseased cases is \(\rho_2\). The ones along the diagonal of \(\Sigma_1\) confirm that the variances of the two samples for non-diseased cases are individually equal to unity. The corresponding variances for diseased cases are \(\sigma_1^2\) and \(\sigma_2^2\).
+
+The sampling model Eqn. \eqref{eq:bivariate-binormal-model-sampling} is a natural extension to two modalities of the single modality univariate binormal model described in book Chapter 06. The univariate model yields one z-sample per case: samples for non-diseased cases have mean zero and unit variance; samples for diseased cases have mean \(\mu\) and variance \(\sigma^2\). \emph{In contrast the bivariate model yields two z-samples per case. For non-diseased cases the samples have zero mean and unit variance and correlation \(\rho_1\). For diseased cases, the samples for the first modality have mean \(\mu_1\) and variance \(\sigma_1^2\), for the second modality they have mean \(\mu_2\) and variance \(\sigma_2^2\) and their correlation is \(\rho_2\).}
+
 \hypertarget{bivariate-binormal-model-multivariate-density-visualization}{%
 \section{Visualizing the bivariate density function}\label{bivariate-binormal-model-multivariate-density-visualization}}
+
+In understanding the bivariate distribution it is helpful to visualize the pdfs. Since one is dealing with a vector \(\overrightarrow{x}\) of length 2, one needs two axes to depict \(x_1\) and \(x_2\) and a third axis to depict the pdf. A sophisticated visualization technique is available for \texttt{R}. The package is called \texttt{plotly}. It is interactive in the sense that by dragging the cursor over the plot one can visualize it from different viewpoints. The following images were captured using this package. Shown in Fig. \ref{fig:bivariate-binormal-model-pdf-plots} are four views of the bivariate distribution density function for \(\mu_{12} = 1.5\), \(\mu_{22} = 2.0\), \(\sigma_1 = 1.0\), \(\sigma_2 = 1.5\), \(\rho_1 = 0.3\) and \(\rho_2 = 0.6\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -467,101 +556,11 @@ In the following code the call to get the pdf occurs at line: \texttt{pdf\ \text
 \end{Highlighting}
 \end{Shaded}
 
-In understanding the bivariate distribution, it is helpful to visualize the pdfs. Since one is dealing with a vector \(\overrightarrow{x}\) of length 2, one needs two axes to select \(\overrightarrow{x}\) and a third axis to depict the pdf at the selected value, i.e., one needs a 3D plot on 2D paper. A sophisticated visualization technique is available for \texttt{R}. The package is called \texttt{plotly}. It is interactive in the sense that by dragging the cursor over the plot one can visualize it from different viewpoints. The following images were captured using this package. Shown in Fig. \ref{fig:bivariate-binormal-model-pdf-plots} are four views of the bivariate distribution density function for \(\mu_{12} = 1.5\), \(\mu_{22} = 2.0\), \(\sigma_1 = 1.0\), \(\sigma_2 = 1.5\), \(\rho_1 = 0.3\) and \(\rho_2 = 0.6\).
-
 \begin{figure}
 \centering
 \includegraphics{21-bivariate-binormal-model_files/figure-latex/bivariate-binormal-model-pdf-plots-1.pdf}
 \caption{\label{fig:bivariate-binormal-model-pdf-plots}Bivariate pdf plots: Top-left is the default view. Top-right is the `birds eye' view, with the pdf-axis `literally coming at the reader' at right angles to the paper or screen. Bottom-left is the view looking along the y-axis at x = 0. Bottom-right is the view looking along the x-axis at y = 0. The \texttt{R} package \texttt{plotly} was used to capture these screen-shots.}
 \end{figure}
-
-\hypertarget{bivariate-binormal-model-formulae}{%
-\section{The bivariate binormal model}\label{bivariate-binormal-model-formulae}}
-
-Disregarding the other modality, each sample from modality \(i\) can be thought of as arising from a binormal model with mean parameter \(\mu_{it}\), where \(i\) is the modality index \(i = 1, 2\) and \(t\) the truth index \(t = 1, 2\), and the variance of the z-samples of diseased cases is \(\sigma_i^2\). The non-diseased case z-samples arise from a unit variance normal distribution. In addition, for a ratings ROC study, one needs thresholds \(\zeta_r\). For an R (ROC) rating task with allowed ratings \(r = 1, 2, ..., \text{R}\), one needs \(\text{R}-1\) thresholds \(\zeta_1,\zeta_2,...,\zeta_{\text{R}-1}\). Defining \(\zeta_0 = -\infty\) and \(\zeta_{\text{R}} = +\infty\) the decision rule is to label a case with rating \(r\) if the realized z-sample satisfies \(\zeta_{r-1} < z \le \zeta_r\).
-
-In the two-modality case, the decision variable and the threshold vector each have modality-dependencies: i.e., \(z_i\) and \(z_{i'}\), where \(i \ne i'\) and there exist two sets of thresholds \(\zeta_{i1},\zeta_{i2},...,\zeta_{i (\text{R}-1)}\) and \(\zeta_{i'1},\zeta_{i'2},...,\zeta_{i' (\text{R}-1)}\). As before \(\zeta_{i0} = -\infty\) and \(\zeta_{i'0} = -\infty\) and \(\zeta_{i\text{R}} = +\infty\) and \(\zeta_{i'\text{R}} = +\infty\). The decision rule is to rate a case in modality \(i\) with rating \(r_i\) if \(\zeta_{i(r-1)} < z_i \le \zeta_{ir}\), and the same case in modality \(i'\) is rated \(r_{i'}\) if \(\zeta_{i'(r-1)} < z_{i'} \le \zeta_{i'r}\).
-
-In the bivariate binormal model the decision variable is \(Z_{ik_tt}\), where the \(i\) subscript corresponds to the two modalities and the \(t\) subscript corresponds to the two truth states. The correlated ratings pairs \(\left( Z_{1k_11},Z_{2k_11} \right)\) and \(\left( Z_{1k_22},Z_{2k_22} \right)\), corresponding to z-samples from non-diseased \(t = 1\) and diseased cases \(t = 2\), respectively, are abbreviated, using vector notation, to \(\overrightarrow{Z_{1k_tt}}\):
-
-\begin{equation} 
-\overrightarrow{Z_{k_tt}}=
-\left( \begin{matrix}
-Z_{1k_tt}  \\
-Z_{2k_tt}
-\end{matrix} \right)
-\label{eq:bivariate-binormal-model-notation}
-\end{equation}
-
-According to the bivariate binormal model \(\overrightarrow{Z_{k_tt}}\) is sampled from \(N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)\), the bivariate normal distribution with mean \(\overrightarrow{\mu_t}\) and covariance matrix \(\Sigma_t\):
-
-\begin{equation}
-\overrightarrow{Z_{k_tt}} \sim  N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)
-\label{eq:bivariate-binormal-model-sampling}
-\end{equation}
-
-In Eqn. \eqref{eq:bivariate-binormal-model-sampling}, the symbol \(\sim N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)\) denotes a vector sample of length two from the bivariate normal distribution with mean \(\overrightarrow{\mu_t}\) and covariance matrix \(\Sigma_t\). Each case yields two samples corresponding to the two modalities. The subscript 2 on \(N\) distinguishes the bivariate distribution from the corresponding univariate distribution \(N\) (which has an implicit 1 subscript). The vectors \(\overrightarrow{\mu_1}\) and \(\overrightarrow{\mu_1}\) are defined by:
-
-\begin{equation} 
-\left.\begin{aligned}
-\overrightarrow{\mu_1}
-&=\left( \begin{matrix}
-\mu_{11} \\
-\mu_{21}
-\end{matrix}
-\right) 
-= \left( 
-\begin{matrix}
-0 \\
-0
-\end{matrix}
-\right) \\
-\overrightarrow{\mu_2}&=
-\left( \begin{matrix}
-\mu_{12} \\
-\mu_{22}
-\end{matrix}
-\right)
-= \left( 
-\begin{matrix}
-\mu_1 \\
-\mu_2
-\end{matrix}
-\right) \\
-\end{aligned}\right\}
-\label{eq:bivariate-binormal-model-mu-parameters}
-\end{equation}
-
-The indices are \(it\), i.e., \emph{modality followed by the truth index}. The equations state that the two non-diseased distributions, one per modality, are both centered on zero, while the diseased distribution for modality 1 is centered at \(\mu_1\), shorthand for \(\mu_{12}\), while that for modality 2 is centered at \(\mu_2\), shorthand for \(\mu_{22}\).
-
-The covariance matrices \(\Sigma_1\) and \(\Sigma_2\) in Eqn. \eqref{eq:bivariate-binormal-model-sampling} are defined by:
-
-\begin{equation} 
-\left.\begin{aligned}
-\Sigma_1
-&=\left( 
-\begin{matrix}
-1 & \rho_1 \\
-\rho_1 & 1
-\end{matrix}
-\right) \\
-\Sigma_2&=
-\left( 
-\begin{matrix}
-\sigma_1^2 & \rho_2 \sigma_1 \sigma_2 \\
-\rho_2 \sigma_1 \sigma_2 & 
-\sigma_2^2
-\end{matrix}
-\right)
-\end{aligned}\right\}
-\label{eq:bivariate-binormal-model-covariance-matrices}
-\end{equation}
-
-For non-diseased cases, the Pearson correlation coefficient of the pairs of z-samples is \(\rho_1\) and the corresponding value for diseased cases is \(\rho_2\). The ones along the diagonal of \(\Sigma_1\) confirm that the variances of the two samples for non-diseased cases are individually equal to unity. The corresponding variances for diseased cases are \(\sigma_1^2\) and \(\sigma_2^2\).
-
-The sampling model Eqn. \eqref{eq:bivariate-binormal-model-sampling} is a natural extension to two dimensions of the univariate binormal model described in book Chapter 06, namely the univariate model yields one z-sample per case: samples for non-diseased cases have mean zero and unit variance; samples for diseased cases have mean \(\mu\) and variance \(\sigma^2\). In contrast the bivariate model yields two z-samples per case, where for either modality, the samples for non-diseased cases have zero mean and unit variance, and the correlation coefficient of the two samples per case is \(\rho_1\). For diseased cases, the samples for the first modality have mean \(\mu_1\) and variance \(\sigma_1^2\), while for the second modality, the samples have mean \(\mu_2\) and variance \(\sigma_2^2\) and the correlation coefficient of the two samples is \(\rho_2\).
-
-To summarize, the parameters describing the bivariate model, not including the modality-dependent thresholds needed for binning the data, are \(\overrightarrow{\mu_t}, \Sigma_t\). The total number of parameters is 6: two means for the diseased cases, two variances for the diseased cases and two correlation coefficients.
 
 \hypertarget{bivariate-binormal-model-multivariate-density-estimation}{%
 \section{Estimating bivariate binormal model parameters}\label{bivariate-binormal-model-multivariate-density-estimation}}
