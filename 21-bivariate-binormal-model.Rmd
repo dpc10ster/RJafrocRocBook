@@ -250,14 +250,14 @@ In the two-modality task the decision variable and the thresholds are modality d
  	
 In Eqn. \@ref(eq:bivariate-binormal-model-sampling), the symbol $\sim  N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)$ denotes a vector sample of length two from the bivariate normal distribution with mean $\overrightarrow{\mu_t}$ and covariance matrix $\Sigma_t$. Each case yields two samples corresponding to the two modalities. The subscript 2 on $N$ distinguishes the bivariate distribution from the corresponding univariate distribution $N$ (which has an implicit 1 subscript). For non-diseased cases the Pearson correlation coefficient of the pairs of z-samples is $\rho_1$ and the corresponding value for diseased cases is $\rho_2$. The ones along the diagonal of $\Sigma_1$ confirm that the variances of the two samples for non-diseased cases are individually equal to unity. The corresponding variances for diseased cases are $\sigma_1^2$ and $\sigma_2^2$. 
 
-The sampling model Eqn. \@ref(eq:bivariate-binormal-model-sampling) is a natural extension to two modalities of the single modality univariate binormal model described in book Chapter 06. The univariate model yields one z-sample per case: samples for non-diseased cases have mean zero and unit variance; samples for diseased cases have mean $\mu$ and variance $\sigma^2$. 
-
-
-*In contrast the bivariate model yields two z-samples per case. For non-diseased cases the samples have zero mean and unit variance and their correlation is $\rho_1$. For diseased cases, the samples for the first modality have mean $\mu_1$ and variance $\sigma_1^2$, for the second modality the samples have mean $\mu_2$ and variance $\sigma_2^2$ and their correlation is $\rho_2$.* 
+The sampling model Eqn. \@ref(eq:bivariate-binormal-model-sampling) is a natural extension to two modalities of the single modality univariate binormal model described in book Chapter 06. The univariate model yields one z-sample per case: samples for non-diseased cases have mean zero and unit variance; samples for diseased cases have mean $\mu$ and variance $\sigma^2$. *In contrast the bivariate model yields two z-samples per case. For non-diseased cases the samples have zero mean and unit variance and correlation $\rho_1$. For diseased cases, the samples for the first modality have mean $\mu_1$ and variance $\sigma_1^2$, for the second modality they have mean $\mu_2$ and variance $\sigma_2^2$ and their correlation is $\rho_2$.* 
 
 
 
 ## Visualizing the bivariate density function {#bivariate-binormal-model-multivariate-density-visualization}
+
+In understanding the bivariate distribution it is helpful to visualize the pdfs. Since one is dealing with a vector $\overrightarrow{x}$ of length 2, one needs two axes to depict $x_1$ and $x_2$ and a third axis to depict the pdf. A sophisticated visualization technique is available for `R`. The package is called `plotly`. It is interactive in the sense that by dragging the cursor over the plot one can visualize it from different viewpoints. The following images were captured using this package. Shown in Fig. \@ref(fig:bivariate-binormal-model-pdf-plots) are four views of the bivariate distribution density function for $\mu_{12} = 1.5$, $\mu_{22} = 2.0$, $\sigma_1 = 1.0$, $\sigma_2 = 1.5$, $\rho_1 = 0.3$ and $\rho_2 = 0.6$.
+
 
 
 ```{r}
@@ -299,9 +299,6 @@ cat("rho1 =", rho1, ", rho2 =", rho2, "\n")
 cat("non-diseased density at x1 = 0.1 and x2 = 0.2 = ", pdf1, "\n")
 cat("diseased density at x1 = 0.1 and x2 = 0.2 = ", pdf2, "\n")
 ```
-
-
-In understanding the bivariate distribution, it is helpful to visualize the pdfs. Since one is dealing with a vector $\overrightarrow{x}$ of length 2, one needs two axes to select $\overrightarrow{x}$ and a third axis to depict the pdf at the selected value, i.e., one needs a 3D plot on 2D paper. A sophisticated visualization technique is available for `R`. The package is called `plotly`. It is interactive in the sense that by dragging the cursor over the plot one can visualize it from different viewpoints. The following images were captured using this package. Shown in Fig. \@ref(fig:bivariate-binormal-model-pdf-plots) are four views of the bivariate distribution density function for $\mu_{12} = 1.5$, $\mu_{22} = 2.0$, $\sigma_1 = 1.0$, $\sigma_2 = 1.5$, $\rho_1 = 0.3$ and $\rho_2 = 0.6$.
 
 
 ```{r echo=FALSE, bivariate-binormal-model-pdf-plots, fig.cap="Bivariate pdf plots: Top-left is the default view. Top-right is the 'birds eye' view, with the pdf-axis 'literally coming at the reader' at right angles to the paper or screen. Bottom-left is the view looking along the y-axis at x = 0. Bottom-right is the view looking along the x-axis at y = 0. The `R` package `plotly` was used to capture these screen-shots.", fig.show='hold'}
