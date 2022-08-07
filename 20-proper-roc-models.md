@@ -6,7 +6,7 @@
 ---
 title: "Proper ROC models"
 author: "Dev P. Chakraborty, PhD"
-date: "2022-08-02"
+date: "2022-08-07"
 output: rmarkdown::html_vignette
 fig_caption: yes
 fig.width: 4
@@ -318,7 +318,7 @@ y
 \end{equation}
 
 
-Here f is the pdf of a standard-normal bivariate distribution with correlation $\rho$, i.e., the mean is the zero column vector of length 2 and the 2 x 2 covariance matrix has ones along the diagonal and $\rho$ along the off-diagonal. 
+Here $f$ is the pdf of a standard-normal bivariate distribution with correlation $\rho$, i.e., the mean is the zero column vector of length 2 and the 2 x 2 covariance matrix has ones along the diagonal and $\rho$ along the off-diagonal. 
 
 The first term in Eqn. \@ref(eq:proper-roc-models-metz-36) is equal to the area under the binormal model ROC curve, TBA book Chapter 06, Eqn. (6.48):
 
@@ -524,7 +524,7 @@ The likelihood ratio for the CBM model is given by the ratio of the two pdfs:
 \begin{equation}
 \left.\begin{aligned}
 l_\text{CBM}\left( z|a,b \right)&=\frac{\left( 1-\alpha \right)\phi(z) + \alpha \phi(z-\mu_\text{CBM})}{\phi(z)}\\
-&=\left( 1-\alpha \right)+\alpha \, exp\left(-\frac{\mu_\text{CBM}^2}{2}+z\,\mu_\text{CBM}  \right)
+&=\left( 1-\alpha \right)+\alpha \, \exp\left(-\frac{\mu_\text{CBM}^2}{2}+z\,\mu_\text{CBM}  \right)
 \end{aligned}\right\}
 (\#eq:proper-roc-models-cbm-likelihood)
 \end{equation} 
