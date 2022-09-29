@@ -4,7 +4,7 @@ repo: https://github.com/dpc10ster/RJafrocRocBook
 output_dir: docs
 delete_merged_file: TRUE
 rmd_files: [
-  "index.Rmd", 
+  "00-preface.Rmd", 
   "01-preliminaries.Rmd", 
   "02-binary-task.Rmd", 
   "03-modeling-binary-task.Rmd", 
@@ -23,7 +23,9 @@ rmd_files: [
   "16-roc-sample-size-or.Rmd",
   "20-proper-roc-models.Rmd",
 ]
-clean: [packages.bib, myRefs.bbl]
+
+
+clean: [packages.bib]
 new_session: yes
 language:
   label:
