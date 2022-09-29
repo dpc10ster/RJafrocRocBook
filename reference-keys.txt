@@ -342,6 +342,8 @@ eq:proper-roc-models-gamma-fpf-tpf
 fig:proper-roc-models-bigamma-plots-1
 fig:proper-roc-models-bigamma-plots-2
 fig:proper-roc-models-bigamma-plots-3
+rationale-and-organization
+tba-acknowledgements
 preliminaries
 preliminaries-how-much-finished
 preliminariesIntro
