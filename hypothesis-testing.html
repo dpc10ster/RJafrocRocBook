@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Hypothesis Testing | The RJafroc Roc Book</title>
   <meta name="description" content="Artificial intelligence and observer performance book based on RJafroc." />
-  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Hypothesis Testing | The RJafroc Roc Book" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2022-09-29" />
+<meta name="date" content="2022-12-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -580,44 +580,44 @@ Z_{k_11} &amp;\sim N\left ( 0,1 \right ) \\
 Z_{k_22} &amp;\sim N\left ( \mu,\sigma^2 \right )
 \end{align*}\]</span></p>
 <p>The following code chunk encodes the <code>Wilcoxon</code> function:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="hypothesis-testing.html#cb52-1"></a>Wilcoxon &lt;-<span class="st"> </span><span class="cf">function</span> (zk1, zk2)</span>
-<span id="cb52-2"><a href="hypothesis-testing.html#cb52-2"></a>{</span>
-<span id="cb52-3"><a href="hypothesis-testing.html#cb52-3"></a>  K1 =<span class="st"> </span><span class="kw">length</span>(zk1)</span>
-<span id="cb52-4"><a href="hypothesis-testing.html#cb52-4"></a>  K2 =<span class="st"> </span><span class="kw">length</span>(zk2)</span>
-<span id="cb52-5"><a href="hypothesis-testing.html#cb52-5"></a>  W &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb52-6"><a href="hypothesis-testing.html#cb52-6"></a>  <span class="cf">for</span> (k1 <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K1) {</span>
-<span id="cb52-7"><a href="hypothesis-testing.html#cb52-7"></a>    W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">&lt;</span><span class="st"> </span>zk2)</span>
-<span id="cb52-8"><a href="hypothesis-testing.html#cb52-8"></a>    W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">==</span><span class="st"> </span>zk2)</span>
-<span id="cb52-9"><a href="hypothesis-testing.html#cb52-9"></a>  }</span>
-<span id="cb52-10"><a href="hypothesis-testing.html#cb52-10"></a>  W &lt;-<span class="st"> </span>W<span class="op">/</span>K1<span class="op">/</span>K2</span>
-<span id="cb52-11"><a href="hypothesis-testing.html#cb52-11"></a>  <span class="kw">return</span> (W)</span>
-<span id="cb52-12"><a href="hypothesis-testing.html#cb52-12"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="hypothesis-testing.html#cb53-1"></a>Wilcoxon &lt;-<span class="st"> </span><span class="cf">function</span> (zk1, zk2)</span>
+<span id="cb53-2"><a href="hypothesis-testing.html#cb53-2"></a>{</span>
+<span id="cb53-3"><a href="hypothesis-testing.html#cb53-3"></a>  K1 =<span class="st"> </span><span class="kw">length</span>(zk1)</span>
+<span id="cb53-4"><a href="hypothesis-testing.html#cb53-4"></a>  K2 =<span class="st"> </span><span class="kw">length</span>(zk2)</span>
+<span id="cb53-5"><a href="hypothesis-testing.html#cb53-5"></a>  W &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb53-6"><a href="hypothesis-testing.html#cb53-6"></a>  <span class="cf">for</span> (k1 <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K1) {</span>
+<span id="cb53-7"><a href="hypothesis-testing.html#cb53-7"></a>    W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">&lt;</span><span class="st"> </span>zk2)</span>
+<span id="cb53-8"><a href="hypothesis-testing.html#cb53-8"></a>    W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">==</span><span class="st"> </span>zk2)</span>
+<span id="cb53-9"><a href="hypothesis-testing.html#cb53-9"></a>  }</span>
+<span id="cb53-10"><a href="hypothesis-testing.html#cb53-10"></a>  W &lt;-<span class="st"> </span>W<span class="op">/</span>K1<span class="op">/</span>K2</span>
+<span id="cb53-11"><a href="hypothesis-testing.html#cb53-11"></a>  <span class="kw">return</span> (W)</span>
+<span id="cb53-12"><a href="hypothesis-testing.html#cb53-12"></a>}</span></code></pre></div>
 <p>In the next code chunk we set <span class="math inline">\(\mu = 1.5\)</span> and <span class="math inline">\(\sigma = 1.3\)</span> and simulate <span class="math inline">\(K_1 = 50\)</span> non-diseased cases and <span class="math inline">\(K_2 = 52\)</span> diseased cases. The <code>for</code>-loop draws 50 samples from the <span class="math inline">\(N(0,1)\)</span> distribution and 52 samples from the <span class="math inline">\(N(\mu,\sigma^2)\)</span> distribution, calculates the empirical AUC using the Wilcoxon, and the process is repeated 10,000 times, the AUC values are saved to a huge array <code>AUC_c</code> (the c-subscript is for case sample, where each case sample represents 102 cases). After exit from the <code>for</code>-loop we calculate the mean and standard deviation of the <code>AUC</code> values.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="hypothesis-testing.html#cb53-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
-<span id="cb53-2"><a href="hypothesis-testing.html#cb53-2"></a>mu &lt;-<span class="st"> </span><span class="fl">1.5</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span></span>
-<span id="cb53-3"><a href="hypothesis-testing.html#cb53-3"></a></span>
-<span id="cb53-4"><a href="hypothesis-testing.html#cb53-4"></a><span class="co"># cheat to find the population mean and std. dev.</span></span>
-<span id="cb53-5"><a href="hypothesis-testing.html#cb53-5"></a>AUC_c &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="dv">10000</span>)</span>
-<span id="cb53-6"><a href="hypothesis-testing.html#cb53-6"></a><span class="cf">for</span> (c <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(AUC_c)) {</span>
-<span id="cb53-7"><a href="hypothesis-testing.html#cb53-7"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)  </span>
-<span id="cb53-8"><a href="hypothesis-testing.html#cb53-8"></a>  AUC_c[c] &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
-<span id="cb53-9"><a href="hypothesis-testing.html#cb53-9"></a>}</span>
-<span id="cb53-10"><a href="hypothesis-testing.html#cb53-10"></a>meanAUC   &lt;-<span class="st">  </span><span class="kw">mean</span>(AUC_c);sigmaAUC  &lt;-<span class="st">  </span><span class="kw">sd</span>(AUC_c)</span>
-<span id="cb53-11"><a href="hypothesis-testing.html#cb53-11"></a><span class="kw">cat</span>(<span class="st">&quot;pop mean AUC_c = &quot;</span>, meanAUC, </span>
-<span id="cb53-12"><a href="hypothesis-testing.html#cb53-12"></a>    <span class="st">&quot;, pop sigma AUC_c = &quot;</span>, sigmaAUC, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb53-13"><a href="hypothesis-testing.html#cb53-13"></a><span class="co">#&gt; pop mean AUC_c =  0.819178 , pop sigma AUC_c =  0.04176683</span></span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="hypothesis-testing.html#cb54-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
+<span id="cb54-2"><a href="hypothesis-testing.html#cb54-2"></a>mu &lt;-<span class="st"> </span><span class="fl">1.5</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span></span>
+<span id="cb54-3"><a href="hypothesis-testing.html#cb54-3"></a></span>
+<span id="cb54-4"><a href="hypothesis-testing.html#cb54-4"></a><span class="co"># cheat to find the population mean and std. dev.</span></span>
+<span id="cb54-5"><a href="hypothesis-testing.html#cb54-5"></a>AUC_c &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="dv">10000</span>)</span>
+<span id="cb54-6"><a href="hypothesis-testing.html#cb54-6"></a><span class="cf">for</span> (c <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(AUC_c)) {</span>
+<span id="cb54-7"><a href="hypothesis-testing.html#cb54-7"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)  </span>
+<span id="cb54-8"><a href="hypothesis-testing.html#cb54-8"></a>  AUC_c[c] &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
+<span id="cb54-9"><a href="hypothesis-testing.html#cb54-9"></a>}</span>
+<span id="cb54-10"><a href="hypothesis-testing.html#cb54-10"></a>meanAUC   &lt;-<span class="st">  </span><span class="kw">mean</span>(AUC_c);sigmaAUC  &lt;-<span class="st">  </span><span class="kw">sd</span>(AUC_c)</span>
+<span id="cb54-11"><a href="hypothesis-testing.html#cb54-11"></a><span class="kw">cat</span>(<span class="st">&quot;pop mean AUC_c = &quot;</span>, meanAUC, </span>
+<span id="cb54-12"><a href="hypothesis-testing.html#cb54-12"></a>    <span class="st">&quot;, pop sigma AUC_c = &quot;</span>, sigmaAUC, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb54-13"><a href="hypothesis-testing.html#cb54-13"></a><span class="co">#&gt; pop mean AUC_c =  0.819178 , pop sigma AUC_c =  0.04176683</span></span></code></pre></div>
 <p>By the simple (if unimaginative) approach of sampling 10,000 times, one has estimates of the <em>population</em> mean and standard deviation of empirical AUC, denoted below by <span class="math inline">\(AUC_{pop}\)</span> and <span class="math inline">\(\sigma_{\text{AUC}}\)</span>, respectively.</p>
 <p>The next code-chunk simulates one more independent ROC study with the same numbers of cases, and the resulting area under the empirical curve is denoted AUC in the code.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="hypothesis-testing.html#cb54-1"></a><span class="co"># one more trial, this is the one we want </span></span>
-<span id="cb54-2"><a href="hypothesis-testing.html#cb54-2"></a><span class="co"># to compare to meanAUC</span></span>
-<span id="cb54-3"><a href="hypothesis-testing.html#cb54-3"></a>zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma) </span>
-<span id="cb54-4"><a href="hypothesis-testing.html#cb54-4"></a>AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
-<span id="cb54-5"><a href="hypothesis-testing.html#cb54-5"></a><span class="kw">cat</span>(<span class="st">&quot;New AUC = &quot;</span>, AUC, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb54-6"><a href="hypothesis-testing.html#cb54-6"></a><span class="co">#&gt; New AUC =  0.8626923</span></span>
-<span id="cb54-7"><a href="hypothesis-testing.html#cb54-7"></a></span>
-<span id="cb54-8"><a href="hypothesis-testing.html#cb54-8"></a>z &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
-<span id="cb54-9"><a href="hypothesis-testing.html#cb54-9"></a><span class="kw">cat</span>(<span class="st">&quot;z-statistic = &quot;</span>, z, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb54-10"><a href="hypothesis-testing.html#cb54-10"></a><span class="co">#&gt; z-statistic =  1.04184</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="hypothesis-testing.html#cb55-1"></a><span class="co"># one more trial, this is the one we want </span></span>
+<span id="cb55-2"><a href="hypothesis-testing.html#cb55-2"></a><span class="co"># to compare to meanAUC</span></span>
+<span id="cb55-3"><a href="hypothesis-testing.html#cb55-3"></a>zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma) </span>
+<span id="cb55-4"><a href="hypothesis-testing.html#cb55-4"></a>AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
+<span id="cb55-5"><a href="hypothesis-testing.html#cb55-5"></a><span class="kw">cat</span>(<span class="st">&quot;New AUC = &quot;</span>, AUC, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb55-6"><a href="hypothesis-testing.html#cb55-6"></a><span class="co">#&gt; New AUC =  0.8626923</span></span>
+<span id="cb55-7"><a href="hypothesis-testing.html#cb55-7"></a></span>
+<span id="cb55-8"><a href="hypothesis-testing.html#cb55-8"></a>z &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
+<span id="cb55-9"><a href="hypothesis-testing.html#cb55-9"></a><span class="kw">cat</span>(<span class="st">&quot;z-statistic = &quot;</span>, z, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb55-10"><a href="hypothesis-testing.html#cb55-10"></a><span class="co">#&gt; z-statistic =  1.04184</span></span></code></pre></div>
 <p>Is the new value, 0.8626923, sufficiently different from the population mean, 0.819178, to reject the null hypothesis <span class="math inline">\(NH: \text{AUC} = \text{AUC}_{pop}\)</span>? Note that the answer to this question can be either yes or no: equivocation is not allowed!</p>
 <p>The new value is “somewhat close” to the population mean, but how does one decide if “somewhat close” is close enough? Needed is the statistical distribution of the random variable <span class="math inline">\(\text{AUC}\)</span> under the hypothesis that the true mean is <span class="math inline">\(\text{AUC}_{pop}\)</span>. In the limit of a large number of cases, the pdf of <span class="math inline">\(\text{AUC}\)</span> under the null hypothesis is a normal distribution <span class="math inline">\(N\left ( \text{AUC}_{pop}, \sigma_{\text{AUC}}^{2} \right )\)</span>:</p>
 <p><span class="math display">\[\begin{equation*} 
@@ -656,35 +656,35 @@ z_{\alpha / 2}=-\Phi^{-1}\left ( {\alpha/2} \right )
 \Pr( \text{Type I error} \mid \text{NH} )=\alpha
 \end{equation*}\]</span></p>
 <p>To demonstrate the ideas one needs to have a very cooperative reader interpreting new sets of independent cases not just one more time, but 2000 more times (the reason for the 2000 trials will be explained below). The simulation code follows:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="hypothesis-testing.html#cb55-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
-<span id="cb55-2"><a href="hypothesis-testing.html#cb55-2"></a>mu &lt;-<span class="st"> </span><span class="fl">1.5</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span></span>
-<span id="cb55-3"><a href="hypothesis-testing.html#cb55-3"></a></span>
-<span id="cb55-4"><a href="hypothesis-testing.html#cb55-4"></a>nTrials &lt;-<span class="st"> </span><span class="dv">2000</span></span>
-<span id="cb55-5"><a href="hypothesis-testing.html#cb55-5"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span> <span class="co"># size of test</span></span>
-<span id="cb55-6"><a href="hypothesis-testing.html#cb55-6"></a>reject =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="dt">dim =</span> nTrials)</span>
-<span id="cb55-7"><a href="hypothesis-testing.html#cb55-7"></a><span class="cf">for</span> (trial <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(reject)) {  </span>
-<span id="cb55-8"><a href="hypothesis-testing.html#cb55-8"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)  </span>
-<span id="cb55-9"><a href="hypothesis-testing.html#cb55-9"></a>  AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)  </span>
-<span id="cb55-10"><a href="hypothesis-testing.html#cb55-10"></a>  z &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
-<span id="cb55-11"><a href="hypothesis-testing.html#cb55-11"></a>  p &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(z)) <span class="co"># p value for individual trial</span></span>
-<span id="cb55-12"><a href="hypothesis-testing.html#cb55-12"></a>  <span class="cf">if</span> (p <span class="op">&lt;</span><span class="st"> </span>alpha) reject[trial] =<span class="st"> </span><span class="dv">1</span> </span>
-<span id="cb55-13"><a href="hypothesis-testing.html#cb55-13"></a>}</span>
-<span id="cb55-14"><a href="hypothesis-testing.html#cb55-14"></a></span>
-<span id="cb55-15"><a href="hypothesis-testing.html#cb55-15"></a>CI &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>); width &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">qnorm</span>(alpha<span class="op">/</span><span class="dv">2</span>)</span>
-<span id="cb55-16"><a href="hypothesis-testing.html#cb55-16"></a>ObsvdTypeIErrRate &lt;-<span class="st"> </span><span class="kw">sum</span>(reject)<span class="op">/</span><span class="kw">length</span>(reject)</span>
-<span id="cb55-17"><a href="hypothesis-testing.html#cb55-17"></a>CI[<span class="dv">1</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">-</span><span class="st"> </span></span>
-<span id="cb55-18"><a href="hypothesis-testing.html#cb55-18"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>nTrials)</span>
-<span id="cb55-19"><a href="hypothesis-testing.html#cb55-19"></a>CI[<span class="dv">2</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">+</span><span class="st"> </span></span>
-<span id="cb55-20"><a href="hypothesis-testing.html#cb55-20"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>nTrials)</span>
-<span id="cb55-21"><a href="hypothesis-testing.html#cb55-21"></a><span class="kw">cat</span>(<span class="st">&quot;alpha = &quot;</span>, alpha, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb55-22"><a href="hypothesis-testing.html#cb55-22"></a><span class="co">#&gt; alpha =  0.05</span></span>
-<span id="cb55-23"><a href="hypothesis-testing.html#cb55-23"></a><span class="kw">cat</span>(<span class="st">&quot;ObsvdTypeIErrRate = &quot;</span>, ObsvdTypeIErrRate, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb55-24"><a href="hypothesis-testing.html#cb55-24"></a><span class="co">#&gt; ObsvdTypeIErrRate =  0.0535</span></span>
-<span id="cb55-25"><a href="hypothesis-testing.html#cb55-25"></a><span class="kw">cat</span>(<span class="st">&quot;95% confidence interval = &quot;</span>, CI, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb55-26"><a href="hypothesis-testing.html#cb55-26"></a><span class="co">#&gt; 95% confidence interval =  0.04363788 0.06336212</span></span>
-<span id="cb55-27"><a href="hypothesis-testing.html#cb55-27"></a>exact &lt;-<span class="st"> </span><span class="kw">binom.test</span>(<span class="kw">sum</span>(reject),<span class="dt">n =</span> <span class="dv">2000</span>,<span class="dt">p =</span> alpha)</span>
-<span id="cb55-28"><a href="hypothesis-testing.html#cb55-28"></a><span class="kw">cat</span>(<span class="st">&quot;exact 95% CI = &quot;</span>, <span class="kw">as.numeric</span>(exact<span class="op">$</span>conf.int), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb55-29"><a href="hypothesis-testing.html#cb55-29"></a><span class="co">#&gt; exact 95% CI =  0.04404871 0.06428544</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="hypothesis-testing.html#cb56-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
+<span id="cb56-2"><a href="hypothesis-testing.html#cb56-2"></a>mu &lt;-<span class="st"> </span><span class="fl">1.5</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span></span>
+<span id="cb56-3"><a href="hypothesis-testing.html#cb56-3"></a></span>
+<span id="cb56-4"><a href="hypothesis-testing.html#cb56-4"></a>nTrials &lt;-<span class="st"> </span><span class="dv">2000</span></span>
+<span id="cb56-5"><a href="hypothesis-testing.html#cb56-5"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span> <span class="co"># size of test</span></span>
+<span id="cb56-6"><a href="hypothesis-testing.html#cb56-6"></a>reject =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="dt">dim =</span> nTrials)</span>
+<span id="cb56-7"><a href="hypothesis-testing.html#cb56-7"></a><span class="cf">for</span> (trial <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(reject)) {  </span>
+<span id="cb56-8"><a href="hypothesis-testing.html#cb56-8"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)  </span>
+<span id="cb56-9"><a href="hypothesis-testing.html#cb56-9"></a>  AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)  </span>
+<span id="cb56-10"><a href="hypothesis-testing.html#cb56-10"></a>  z &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
+<span id="cb56-11"><a href="hypothesis-testing.html#cb56-11"></a>  p &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(z)) <span class="co"># p value for individual trial</span></span>
+<span id="cb56-12"><a href="hypothesis-testing.html#cb56-12"></a>  <span class="cf">if</span> (p <span class="op">&lt;</span><span class="st"> </span>alpha) reject[trial] =<span class="st"> </span><span class="dv">1</span> </span>
+<span id="cb56-13"><a href="hypothesis-testing.html#cb56-13"></a>}</span>
+<span id="cb56-14"><a href="hypothesis-testing.html#cb56-14"></a></span>
+<span id="cb56-15"><a href="hypothesis-testing.html#cb56-15"></a>CI &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>); width &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">qnorm</span>(alpha<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb56-16"><a href="hypothesis-testing.html#cb56-16"></a>ObsvdTypeIErrRate &lt;-<span class="st"> </span><span class="kw">sum</span>(reject)<span class="op">/</span><span class="kw">length</span>(reject)</span>
+<span id="cb56-17"><a href="hypothesis-testing.html#cb56-17"></a>CI[<span class="dv">1</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">-</span><span class="st"> </span></span>
+<span id="cb56-18"><a href="hypothesis-testing.html#cb56-18"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>nTrials)</span>
+<span id="cb56-19"><a href="hypothesis-testing.html#cb56-19"></a>CI[<span class="dv">2</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">+</span><span class="st"> </span></span>
+<span id="cb56-20"><a href="hypothesis-testing.html#cb56-20"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>nTrials)</span>
+<span id="cb56-21"><a href="hypothesis-testing.html#cb56-21"></a><span class="kw">cat</span>(<span class="st">&quot;alpha = &quot;</span>, alpha, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb56-22"><a href="hypothesis-testing.html#cb56-22"></a><span class="co">#&gt; alpha =  0.05</span></span>
+<span id="cb56-23"><a href="hypothesis-testing.html#cb56-23"></a><span class="kw">cat</span>(<span class="st">&quot;ObsvdTypeIErrRate = &quot;</span>, ObsvdTypeIErrRate, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb56-24"><a href="hypothesis-testing.html#cb56-24"></a><span class="co">#&gt; ObsvdTypeIErrRate =  0.0535</span></span>
+<span id="cb56-25"><a href="hypothesis-testing.html#cb56-25"></a><span class="kw">cat</span>(<span class="st">&quot;95% confidence interval = &quot;</span>, CI, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb56-26"><a href="hypothesis-testing.html#cb56-26"></a><span class="co">#&gt; 95% confidence interval =  0.04363788 0.06336212</span></span>
+<span id="cb56-27"><a href="hypothesis-testing.html#cb56-27"></a>exact &lt;-<span class="st"> </span><span class="kw">binom.test</span>(<span class="kw">sum</span>(reject),<span class="dt">n =</span> <span class="dv">2000</span>,<span class="dt">p =</span> alpha)</span>
+<span id="cb56-28"><a href="hypothesis-testing.html#cb56-28"></a><span class="kw">cat</span>(<span class="st">&quot;exact 95% CI = &quot;</span>, <span class="kw">as.numeric</span>(exact<span class="op">$</span>conf.int), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb56-29"><a href="hypothesis-testing.html#cb56-29"></a><span class="co">#&gt; exact 95% CI =  0.04404871 0.06428544</span></span></code></pre></div>
 <p>The population means were calculated in an earlier code chunk. One initializes <code>NTrials</code> to 2000 and <span class="math inline">\(\alpha\)</span> to 0.05. The <code>for-loop</code> describes our captive reader interpreting independent sets of cases 2000 times. <em>Each completed interpretation of 102 cases is termed a trial.</em> For each trial one calculates the observed value of <code>AUC</code>, the observed <code>z</code> statistic and the the observed p-value. The observed p-value is compared against the fixed value <span class="math inline">\(\alpha\)</span> and one sets the corresponding <code>reject[trial]</code> flag to unity if <span class="math inline">\(p &lt; \alpha\)</span>. In other words, if the trial-specific p-value is less than <span class="math inline">\(\alpha\)</span> one counts an instance of rejection of the null hypothesis. The process is repeated 2000 times.</p>
 <p>Upon exit from the for-loop, one calculates the observed Type-I error rate, denoted <code>ObsvdTypeIErrRate</code> by summing the reject array and dividing by 2000. One calculates a 95% confidence interval for <code>ObsvdTypeIErrRate</code> based on the binomial distribution, as in (book) Chapter 03.</p>
 <p>The observed Type-I error rate is a realization of a random variable, as is the estimated 95% confidence interval. The fact that the confidence interval includes <span class="math inline">\(\alpha\)</span> = 0.05 is no coincidence - it shows that the hypothesis testing procedure is working as expected. To distinguish between the selected <span class="math inline">\(\alpha\)</span> (a fixed value) and that observed in a simulation study (a realization of a random variable), the term <em>empirical <span class="math inline">\(\alpha\)</span></em> is sometimes used to denote the observed rejection rate.</p>
@@ -704,31 +704,31 @@ F \sim N\left ( f,\sigma_{f}^{2} \right )
 <div id="one-vs.-two-sided-tests" class="section level2 hasAnchor">
 <h2><span class="header-section-number">8.5</span> One vs. two sided tests<a href="hypothesis-testing.html#one-vs.-two-sided-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The test described above is termed 2-tailed. Here, briefly, is the distinction between 2-tailed vs. 1-tailed p-values:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="hypothesis-testing.html#cb56-1"></a>alpha  &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
-<span id="cb56-2"><a href="hypothesis-testing.html#cb56-2"></a><span class="co"># Example 1</span></span>
-<span id="cb56-3"><a href="hypothesis-testing.html#cb56-3"></a><span class="co"># p value for two-sided AH</span></span>
-<span id="cb56-4"><a href="hypothesis-testing.html#cb56-4"></a>p2tailed &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(z)) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="kw">abs</span>(z))) </span>
-<span id="cb56-5"><a href="hypothesis-testing.html#cb56-5"></a><span class="kw">cat</span>(<span class="st">&quot;pvalue 2-tailed, AH: z ne 0 = &quot;</span>, p2tailed, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb56-6"><a href="hypothesis-testing.html#cb56-6"></a><span class="co">#&gt; pvalue 2-tailed, AH: z ne 0 =  0.2943993</span></span>
-<span id="cb56-7"><a href="hypothesis-testing.html#cb56-7"></a></span>
-<span id="cb56-8"><a href="hypothesis-testing.html#cb56-8"></a><span class="co"># Example 2</span></span>
-<span id="cb56-9"><a href="hypothesis-testing.html#cb56-9"></a><span class="co"># p value for one-sided AH gt 0</span></span>
-<span id="cb56-10"><a href="hypothesis-testing.html#cb56-10"></a>p1tailedGT &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(z) </span>
-<span id="cb56-11"><a href="hypothesis-testing.html#cb56-11"></a><span class="kw">cat</span>(<span class="st">&quot;pvalue 1-tailed, AH: z gt 0 = &quot;</span>, p1tailedGT, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb56-12"><a href="hypothesis-testing.html#cb56-12"></a><span class="co">#&gt; pvalue 1-tailed, AH: z gt 0 =  0.8528004</span></span>
-<span id="cb56-13"><a href="hypothesis-testing.html#cb56-13"></a></span>
-<span id="cb56-14"><a href="hypothesis-testing.html#cb56-14"></a><span class="co"># Example 2</span></span>
-<span id="cb56-15"><a href="hypothesis-testing.html#cb56-15"></a><span class="co"># p value for one-sided AH lt 0 </span></span>
-<span id="cb56-16"><a href="hypothesis-testing.html#cb56-16"></a>p1tailedLT &lt;-<span class="st"> </span><span class="kw">pnorm</span>(z)</span>
-<span id="cb56-17"><a href="hypothesis-testing.html#cb56-17"></a><span class="kw">cat</span>(<span class="st">&quot;pvalue 1-tailed, AH: z lt 0 = &quot;</span>, p1tailedGT, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb56-18"><a href="hypothesis-testing.html#cb56-18"></a><span class="co">#&gt; pvalue 1-tailed, AH: z lt 0 =  0.8528004</span></span>
-<span id="cb56-19"><a href="hypothesis-testing.html#cb56-19"></a></span>
-<span id="cb56-20"><a href="hypothesis-testing.html#cb56-20"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">p2tailed =</span> p2tailed,</span>
-<span id="cb56-21"><a href="hypothesis-testing.html#cb56-21"></a>                 <span class="dt">p1tailedGT =</span> p1tailedGT,</span>
-<span id="cb56-22"><a href="hypothesis-testing.html#cb56-22"></a>                 <span class="dt">p1tailedGT =</span> p1tailedGT)</span>
-<span id="cb56-23"><a href="hypothesis-testing.html#cb56-23"></a><span class="kw">print</span>(df)</span>
-<span id="cb56-24"><a href="hypothesis-testing.html#cb56-24"></a><span class="co">#&gt;    p2tailed p1tailedGT p1tailedGT.1</span></span>
-<span id="cb56-25"><a href="hypothesis-testing.html#cb56-25"></a><span class="co">#&gt; 1 0.2943993  0.8528004    0.8528004</span></span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="hypothesis-testing.html#cb57-1"></a>alpha  &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
+<span id="cb57-2"><a href="hypothesis-testing.html#cb57-2"></a><span class="co"># Example 1</span></span>
+<span id="cb57-3"><a href="hypothesis-testing.html#cb57-3"></a><span class="co"># p value for two-sided AH</span></span>
+<span id="cb57-4"><a href="hypothesis-testing.html#cb57-4"></a>p2tailed &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(z)) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="kw">abs</span>(z))) </span>
+<span id="cb57-5"><a href="hypothesis-testing.html#cb57-5"></a><span class="kw">cat</span>(<span class="st">&quot;pvalue 2-tailed, AH: z ne 0 = &quot;</span>, p2tailed, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb57-6"><a href="hypothesis-testing.html#cb57-6"></a><span class="co">#&gt; pvalue 2-tailed, AH: z ne 0 =  0.2943993</span></span>
+<span id="cb57-7"><a href="hypothesis-testing.html#cb57-7"></a></span>
+<span id="cb57-8"><a href="hypothesis-testing.html#cb57-8"></a><span class="co"># Example 2</span></span>
+<span id="cb57-9"><a href="hypothesis-testing.html#cb57-9"></a><span class="co"># p value for one-sided AH gt 0</span></span>
+<span id="cb57-10"><a href="hypothesis-testing.html#cb57-10"></a>p1tailedGT &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(z) </span>
+<span id="cb57-11"><a href="hypothesis-testing.html#cb57-11"></a><span class="kw">cat</span>(<span class="st">&quot;pvalue 1-tailed, AH: z gt 0 = &quot;</span>, p1tailedGT, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb57-12"><a href="hypothesis-testing.html#cb57-12"></a><span class="co">#&gt; pvalue 1-tailed, AH: z gt 0 =  0.8528004</span></span>
+<span id="cb57-13"><a href="hypothesis-testing.html#cb57-13"></a></span>
+<span id="cb57-14"><a href="hypothesis-testing.html#cb57-14"></a><span class="co"># Example 2</span></span>
+<span id="cb57-15"><a href="hypothesis-testing.html#cb57-15"></a><span class="co"># p value for one-sided AH lt 0 </span></span>
+<span id="cb57-16"><a href="hypothesis-testing.html#cb57-16"></a>p1tailedLT &lt;-<span class="st"> </span><span class="kw">pnorm</span>(z)</span>
+<span id="cb57-17"><a href="hypothesis-testing.html#cb57-17"></a><span class="kw">cat</span>(<span class="st">&quot;pvalue 1-tailed, AH: z lt 0 = &quot;</span>, p1tailedGT, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb57-18"><a href="hypothesis-testing.html#cb57-18"></a><span class="co">#&gt; pvalue 1-tailed, AH: z lt 0 =  0.8528004</span></span>
+<span id="cb57-19"><a href="hypothesis-testing.html#cb57-19"></a></span>
+<span id="cb57-20"><a href="hypothesis-testing.html#cb57-20"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">p2tailed =</span> p2tailed,</span>
+<span id="cb57-21"><a href="hypothesis-testing.html#cb57-21"></a>                 <span class="dt">p1tailedGT =</span> p1tailedGT,</span>
+<span id="cb57-22"><a href="hypothesis-testing.html#cb57-22"></a>                 <span class="dt">p1tailedGT =</span> p1tailedGT)</span>
+<span id="cb57-23"><a href="hypothesis-testing.html#cb57-23"></a><span class="kw">print</span>(df)</span>
+<span id="cb57-24"><a href="hypothesis-testing.html#cb57-24"></a><span class="co">#&gt;    p2tailed p1tailedGT p1tailedGT.1</span></span>
+<span id="cb57-25"><a href="hypothesis-testing.html#cb57-25"></a><span class="co">#&gt; 1 0.2943993  0.8528004    0.8528004</span></span></code></pre></div>
 <p>The only difference between these tests is in how the alternative hypotheses is stated.</p>
 <ul>
 <li>For a two-tailed test the alternative hypothesis is <span class="math inline">\(\text{AUC} \ne \text{AUC}_{pop}\)</span>. Large deviations, in either direction, cause rejection of the NH.</li>
@@ -736,21 +736,21 @@ F \sim N\left ( f,\sigma_{f}^{2} \right )
 <li>For the second one-tailed test the alternative hypothesis is <span class="math inline">\(\text{AUC} &lt; \text{AUC}_{pop}\)</span>. Large negative observed values of <span class="math inline">\(z\)</span> result in rejection of the NH. Large positive values do not.</li>
 <li>The last two statements are illustrated below with the following code-fragments:</li>
 </ul>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="hypothesis-testing.html#cb57-1"></a><span class="co"># p1tailedGT</span></span>
-<span id="cb57-2"><a href="hypothesis-testing.html#cb57-2"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">1</span>) <span class="co"># do not reject</span></span>
-<span id="cb57-3"><a href="hypothesis-testing.html#cb57-3"></a><span class="co">#&gt; [1] 0.1586553</span></span>
-<span id="cb57-4"><a href="hypothesis-testing.html#cb57-4"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>) <span class="co"># reject</span></span>
-<span id="cb57-5"><a href="hypothesis-testing.html#cb57-5"></a><span class="co">#&gt; [1] 0.02275013</span></span>
-<span id="cb57-6"><a href="hypothesis-testing.html#cb57-6"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">2</span>) <span class="co"># do not reject</span></span>
-<span id="cb57-7"><a href="hypothesis-testing.html#cb57-7"></a><span class="co">#&gt; [1] 0.9772499</span></span>
-<span id="cb57-8"><a href="hypothesis-testing.html#cb57-8"></a></span>
-<span id="cb57-9"><a href="hypothesis-testing.html#cb57-9"></a><span class="co"># p1tailedGT</span></span>
-<span id="cb57-10"><a href="hypothesis-testing.html#cb57-10"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">1</span>) <span class="co"># do not reject</span></span>
-<span id="cb57-11"><a href="hypothesis-testing.html#cb57-11"></a><span class="co">#&gt; [1] 0.1586553</span></span>
-<span id="cb57-12"><a href="hypothesis-testing.html#cb57-12"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">2</span>) <span class="co"># reject</span></span>
-<span id="cb57-13"><a href="hypothesis-testing.html#cb57-13"></a><span class="co">#&gt; [1] 0.02275013</span></span>
-<span id="cb57-14"><a href="hypothesis-testing.html#cb57-14"></a><span class="kw">pnorm</span>(<span class="dv">2</span>) <span class="co"># do not reject</span></span>
-<span id="cb57-15"><a href="hypothesis-testing.html#cb57-15"></a><span class="co">#&gt; [1] 0.9772499</span></span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="hypothesis-testing.html#cb58-1"></a><span class="co"># p1tailedGT</span></span>
+<span id="cb58-2"><a href="hypothesis-testing.html#cb58-2"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">1</span>) <span class="co"># do not reject</span></span>
+<span id="cb58-3"><a href="hypothesis-testing.html#cb58-3"></a><span class="co">#&gt; [1] 0.1586553</span></span>
+<span id="cb58-4"><a href="hypothesis-testing.html#cb58-4"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>) <span class="co"># reject</span></span>
+<span id="cb58-5"><a href="hypothesis-testing.html#cb58-5"></a><span class="co">#&gt; [1] 0.02275013</span></span>
+<span id="cb58-6"><a href="hypothesis-testing.html#cb58-6"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">2</span>) <span class="co"># do not reject</span></span>
+<span id="cb58-7"><a href="hypothesis-testing.html#cb58-7"></a><span class="co">#&gt; [1] 0.9772499</span></span>
+<span id="cb58-8"><a href="hypothesis-testing.html#cb58-8"></a></span>
+<span id="cb58-9"><a href="hypothesis-testing.html#cb58-9"></a><span class="co"># p1tailedGT</span></span>
+<span id="cb58-10"><a href="hypothesis-testing.html#cb58-10"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">1</span>) <span class="co"># do not reject</span></span>
+<span id="cb58-11"><a href="hypothesis-testing.html#cb58-11"></a><span class="co">#&gt; [1] 0.1586553</span></span>
+<span id="cb58-12"><a href="hypothesis-testing.html#cb58-12"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">2</span>) <span class="co"># reject</span></span>
+<span id="cb58-13"><a href="hypothesis-testing.html#cb58-13"></a><span class="co">#&gt; [1] 0.02275013</span></span>
+<span id="cb58-14"><a href="hypothesis-testing.html#cb58-14"></a><span class="kw">pnorm</span>(<span class="dv">2</span>) <span class="co"># do not reject</span></span>
+<span id="cb58-15"><a href="hypothesis-testing.html#cb58-15"></a><span class="co">#&gt; [1] 0.9772499</span></span></code></pre></div>
 <p>Note that the p-value of the 1-tailed tests are half that of the 2-tailed test. Further discussion of the difference between 2-tailed and 1-tailed tests, and when the latter might be appropriate, is given below.</p>
 <p>If the null hypothesis is rejected anytime the magnitude of the observed value of <span class="math inline">\(z\)</span> exceeded the critical value <span class="math inline">\(-\Phi^{-1}\left ( {\alpha/2} \right)\)</span>. This is a statement of the alternative hypothesis (AH) <span class="math inline">\(\text{AUC}\neq \text{AUC}_{pop}\)</span>, in other words too high or too low values of <span class="math inline">\(z\)</span> <em>both</em> result in rejection of the null hypothesis. This is referred to as a two-sided AH and the resulting p-value is termed a <em>two-sided</em> p-value. This is the most common one used in the literature.</p>
 <p>Suppose the additional trial performed by the radiologist was performed after an intervention following which the radiologist’s performance is expected to increase. To make matters clearer, assume the interpretations in the 10,000 trials used to estimate <span class="math inline">\(\text{AUC}_{pop}\)</span> were performed with the radiologist wearing an old pair of eye-glasses, possibly out of proper strength, and the additional trial is performed after the radiologist gets a new set of prescription eye-glasses. Because the radiologist’s eyesight has improved, the expectation is that performance should increase. In this situation, it is appropriate to use the one-sided alternative hypothesis <span class="math inline">\(\text{AUC} &gt; \text{AUC}_{pop}\)</span>. Now, large positive values of <span class="math inline">\(z\)</span> result in rejection of the null hypothesis, but large negative values do not. The critical value of <span class="math inline">\(z\)</span> is defined by <span class="math inline">\(z_\alpha = \Phi\left ( 1-\alpha \right )\)</span>, which for <span class="math inline">\(\alpha\)</span> = 0.05 is 1.645 (i.e., <code>qnorm(1-alpha) = 1.644854</code>). Compare 1.64 to the critical value <span class="math inline">\(-\Phi^{-1}\left ( {\alpha/2} \right)\)</span> = 1.96 for a two-sided test. If the change is in the expected direction, it is more likely that one will reject the NH with a one-sided than with a two-sided test. The p-value for a one-sided test is given by:</p>
@@ -792,48 +792,48 @@ F \sim N\left ( f,\sigma_{f}^{2} \right )
 <p>This resembles the 2 x 2 table encountered in (book) Chapter 02, which led to the concepts of <span class="math inline">\(FPF\)</span>, <span class="math inline">\(TPF\)</span> and the ROC curve. Indeed, it is possible think of an analogous plot of empirical (i.e., observed) power vs. empirical <span class="math inline">\(\alpha\)</span>, which looks like an ROC plot, with empirical <span class="math inline">\(\alpha\)</span> playing the role of <span class="math inline">\(FPF\)</span> and empirical power playing the role of <span class="math inline">\(TPF\)</span>, see below. If <span class="math inline">\(\alpha\)</span> = 0, then power = 0; i.e., if Type-I errors are minimized all the way to zero, then power is zero and one makes Type-II errors all the time. On the other hand, if <span class="math inline">\(\alpha\)</span> = 1 then Power = 1, and one makes Type-I errors all the time.</p>
 <p>A little history is due at this point. The author’s first FROC study, which led to his entry into this field <span class="citation">(Chakraborty et al. <a href="#ref-Chakraborty1986DigitalVsConv" role="doc-biblioref">1986</a>)</span>, was published in Radiology in 1986 after a lot of help from a reviewer, who we (correctly) guessed was the late Prof. Charles E. Metz. Prof. Gary T. Barnes (my mentor at that time at the University of Alabama at Birmingham) and I visited Prof. Charles Metz in Chicago for a day ca. 1986, to figuratively “pick Charlie’s brain”. Prof. Metz referred to the concept outlined in the previous paragraph, as an <em>ROC within an ROC</em>.</p>
 <p>This curve does not summarize the result of a single ROC study. Rather it summarizes the probabilistic behavior of the two types of errors that occur when one conducts thousands of such studies, under both NH and AH conditions, each time with different values of <span class="math inline">\(\alpha\)</span>, with each trial ending in a decision to reject or not reject the null hypothesis. The long sentence is best explained with an example.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="hypothesis-testing.html#cb58-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
-<span id="cb58-2"><a href="hypothesis-testing.html#cb58-2"></a>muNH &lt;-<span class="st"> </span><span class="fl">1.5</span>;muAH &lt;-<span class="st"> </span><span class="fl">2.1</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span><span class="co"># Line 6</span></span>
-<span id="cb58-3"><a href="hypothesis-testing.html#cb58-3"></a></span>
-<span id="cb58-4"><a href="hypothesis-testing.html#cb58-4"></a><span class="co"># cheat to find the population mean and std. dev.</span></span>
-<span id="cb58-5"><a href="hypothesis-testing.html#cb58-5"></a>AUC &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="dv">10000</span>) <span class="co"># line 8</span></span>
-<span id="cb58-6"><a href="hypothesis-testing.html#cb58-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(AUC)) {</span>
-<span id="cb58-7"><a href="hypothesis-testing.html#cb58-7"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> muNH, <span class="dt">sd =</span> sigma)  </span>
-<span id="cb58-8"><a href="hypothesis-testing.html#cb58-8"></a>  AUC[i] &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
-<span id="cb58-9"><a href="hypothesis-testing.html#cb58-9"></a>}</span>
-<span id="cb58-10"><a href="hypothesis-testing.html#cb58-10"></a>sigmaAUC &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(AUC));meanAUC &lt;-<span class="st"> </span><span class="kw">mean</span>(AUC) <span class="co"># Line 14</span></span>
-<span id="cb58-11"><a href="hypothesis-testing.html#cb58-11"></a></span>
-<span id="cb58-12"><a href="hypothesis-testing.html#cb58-12"></a>T &lt;-<span class="st"> </span><span class="dv">2000</span>  <span class="co"># Line 16</span></span>
-<span id="cb58-13"><a href="hypothesis-testing.html#cb58-13"></a>mu &lt;-<span class="st"> </span><span class="kw">c</span>(muNH,muAH) <span class="co"># Line 17</span></span>
-<span id="cb58-14"><a href="hypothesis-testing.html#cb58-14"></a>alphaArr &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">length.out =</span> <span class="dv">10</span>)</span>
-<span id="cb58-15"><a href="hypothesis-testing.html#cb58-15"></a>EmpAlpha &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">length</span>(alphaArr))</span>
-<span id="cb58-16"><a href="hypothesis-testing.html#cb58-16"></a>EmpPower &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">length</span>(alphaArr))</span>
-<span id="cb58-17"><a href="hypothesis-testing.html#cb58-17"></a><span class="cf">for</span> (a <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(alphaArr)) { <span class="co"># Line 20</span></span>
-<span id="cb58-18"><a href="hypothesis-testing.html#cb58-18"></a>  alpha &lt;-<span class="st"> </span>alphaArr[a] </span>
-<span id="cb58-19"><a href="hypothesis-testing.html#cb58-19"></a>  reject &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>, T))</span>
-<span id="cb58-20"><a href="hypothesis-testing.html#cb58-20"></a>  <span class="cf">for</span> (h <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>) {  </span>
-<span id="cb58-21"><a href="hypothesis-testing.html#cb58-21"></a>    <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(reject[h,])) {  </span>
-<span id="cb58-22"><a href="hypothesis-testing.html#cb58-22"></a>      zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu[h], <span class="dt">sd =</span> sigma)  </span>
-<span id="cb58-23"><a href="hypothesis-testing.html#cb58-23"></a>      AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)  </span>
-<span id="cb58-24"><a href="hypothesis-testing.html#cb58-24"></a>      obsvdZ &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
-<span id="cb58-25"><a href="hypothesis-testing.html#cb58-25"></a>      p &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(obsvdZ)) <span class="co"># p value for individual t</span></span>
-<span id="cb58-26"><a href="hypothesis-testing.html#cb58-26"></a>      <span class="cf">if</span> (p <span class="op">&lt;</span><span class="st"> </span>alpha) reject[h,t] =<span class="st"> </span><span class="dv">1</span> </span>
-<span id="cb58-27"><a href="hypothesis-testing.html#cb58-27"></a>    }</span>
-<span id="cb58-28"><a href="hypothesis-testing.html#cb58-28"></a>  }</span>
-<span id="cb58-29"><a href="hypothesis-testing.html#cb58-29"></a>  EmpAlpha[a] &lt;-<span class="st"> </span><span class="kw">sum</span>(reject[<span class="dv">1</span>,])<span class="op">/</span><span class="kw">length</span>(reject[<span class="dv">1</span>,])</span>
-<span id="cb58-30"><a href="hypothesis-testing.html#cb58-30"></a>  EmpPower[a] &lt;-<span class="st"> </span><span class="kw">sum</span>(reject[<span class="dv">2</span>,])<span class="op">/</span><span class="kw">length</span>(reject[<span class="dv">2</span>,])</span>
-<span id="cb58-31"><a href="hypothesis-testing.html#cb58-31"></a>}</span>
-<span id="cb58-32"><a href="hypothesis-testing.html#cb58-32"></a>EmpAlpha &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,EmpAlpha,<span class="dv">1</span>); EmpPower &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,EmpPower,<span class="dv">1</span>) <span class="co"># Line 19</span></span>
-<span id="cb58-33"><a href="hypothesis-testing.html#cb58-33"></a></span>
-<span id="cb58-34"><a href="hypothesis-testing.html#cb58-34"></a>pointData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">EmpAlpha =</span> EmpAlpha, <span class="dt">EmpPower =</span> EmpPower)</span>
-<span id="cb58-35"><a href="hypothesis-testing.html#cb58-35"></a>zetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb58-36"><a href="hypothesis-testing.html#cb58-36"></a>muRoc &lt;-<span class="st"> </span><span class="fl">1.8</span></span>
-<span id="cb58-37"><a href="hypothesis-testing.html#cb58-37"></a>curveData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">EmpAlpha =</span> <span class="kw">pnorm</span>(<span class="op">-</span>zetas),</span>
-<span id="cb58-38"><a href="hypothesis-testing.html#cb58-38"></a>  <span class="dt">EmpPower =</span> <span class="kw">pnorm</span>(muRoc <span class="op">-</span><span class="st"> </span>zetas))</span>
-<span id="cb58-39"><a href="hypothesis-testing.html#cb58-39"></a>alphaPowerPlot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> EmpAlpha, <span class="dt">y =</span> EmpPower)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb58-40"><a href="hypothesis-testing.html#cb58-40"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> pointData, <span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb58-41"><a href="hypothesis-testing.html#cb58-41"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> curveData)</span>
-<span id="cb58-42"><a href="hypothesis-testing.html#cb58-42"></a><span class="kw">print</span>(alphaPowerPlot)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="hypothesis-testing.html#cb59-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
+<span id="cb59-2"><a href="hypothesis-testing.html#cb59-2"></a>muNH &lt;-<span class="st"> </span><span class="fl">1.5</span>;muAH &lt;-<span class="st"> </span><span class="fl">2.1</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span><span class="co"># Line 6</span></span>
+<span id="cb59-3"><a href="hypothesis-testing.html#cb59-3"></a></span>
+<span id="cb59-4"><a href="hypothesis-testing.html#cb59-4"></a><span class="co"># cheat to find the population mean and std. dev.</span></span>
+<span id="cb59-5"><a href="hypothesis-testing.html#cb59-5"></a>AUC &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="dv">10000</span>) <span class="co"># line 8</span></span>
+<span id="cb59-6"><a href="hypothesis-testing.html#cb59-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(AUC)) {</span>
+<span id="cb59-7"><a href="hypothesis-testing.html#cb59-7"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> muNH, <span class="dt">sd =</span> sigma)  </span>
+<span id="cb59-8"><a href="hypothesis-testing.html#cb59-8"></a>  AUC[i] &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
+<span id="cb59-9"><a href="hypothesis-testing.html#cb59-9"></a>}</span>
+<span id="cb59-10"><a href="hypothesis-testing.html#cb59-10"></a>sigmaAUC &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(AUC));meanAUC &lt;-<span class="st"> </span><span class="kw">mean</span>(AUC) <span class="co"># Line 14</span></span>
+<span id="cb59-11"><a href="hypothesis-testing.html#cb59-11"></a></span>
+<span id="cb59-12"><a href="hypothesis-testing.html#cb59-12"></a>T &lt;-<span class="st"> </span><span class="dv">2000</span>  <span class="co"># Line 16</span></span>
+<span id="cb59-13"><a href="hypothesis-testing.html#cb59-13"></a>mu &lt;-<span class="st"> </span><span class="kw">c</span>(muNH,muAH) <span class="co"># Line 17</span></span>
+<span id="cb59-14"><a href="hypothesis-testing.html#cb59-14"></a>alphaArr &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">length.out =</span> <span class="dv">10</span>)</span>
+<span id="cb59-15"><a href="hypothesis-testing.html#cb59-15"></a>EmpAlpha &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">length</span>(alphaArr))</span>
+<span id="cb59-16"><a href="hypothesis-testing.html#cb59-16"></a>EmpPower &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">length</span>(alphaArr))</span>
+<span id="cb59-17"><a href="hypothesis-testing.html#cb59-17"></a><span class="cf">for</span> (a <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(alphaArr)) { <span class="co"># Line 20</span></span>
+<span id="cb59-18"><a href="hypothesis-testing.html#cb59-18"></a>  alpha &lt;-<span class="st"> </span>alphaArr[a] </span>
+<span id="cb59-19"><a href="hypothesis-testing.html#cb59-19"></a>  reject &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>, T))</span>
+<span id="cb59-20"><a href="hypothesis-testing.html#cb59-20"></a>  <span class="cf">for</span> (h <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>) {  </span>
+<span id="cb59-21"><a href="hypothesis-testing.html#cb59-21"></a>    <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(reject[h,])) {  </span>
+<span id="cb59-22"><a href="hypothesis-testing.html#cb59-22"></a>      zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu[h], <span class="dt">sd =</span> sigma)  </span>
+<span id="cb59-23"><a href="hypothesis-testing.html#cb59-23"></a>      AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)  </span>
+<span id="cb59-24"><a href="hypothesis-testing.html#cb59-24"></a>      obsvdZ &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
+<span id="cb59-25"><a href="hypothesis-testing.html#cb59-25"></a>      p &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(obsvdZ)) <span class="co"># p value for individual t</span></span>
+<span id="cb59-26"><a href="hypothesis-testing.html#cb59-26"></a>      <span class="cf">if</span> (p <span class="op">&lt;</span><span class="st"> </span>alpha) reject[h,t] =<span class="st"> </span><span class="dv">1</span> </span>
+<span id="cb59-27"><a href="hypothesis-testing.html#cb59-27"></a>    }</span>
+<span id="cb59-28"><a href="hypothesis-testing.html#cb59-28"></a>  }</span>
+<span id="cb59-29"><a href="hypothesis-testing.html#cb59-29"></a>  EmpAlpha[a] &lt;-<span class="st"> </span><span class="kw">sum</span>(reject[<span class="dv">1</span>,])<span class="op">/</span><span class="kw">length</span>(reject[<span class="dv">1</span>,])</span>
+<span id="cb59-30"><a href="hypothesis-testing.html#cb59-30"></a>  EmpPower[a] &lt;-<span class="st"> </span><span class="kw">sum</span>(reject[<span class="dv">2</span>,])<span class="op">/</span><span class="kw">length</span>(reject[<span class="dv">2</span>,])</span>
+<span id="cb59-31"><a href="hypothesis-testing.html#cb59-31"></a>}</span>
+<span id="cb59-32"><a href="hypothesis-testing.html#cb59-32"></a>EmpAlpha &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,EmpAlpha,<span class="dv">1</span>); EmpPower &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,EmpPower,<span class="dv">1</span>) <span class="co"># Line 19</span></span>
+<span id="cb59-33"><a href="hypothesis-testing.html#cb59-33"></a></span>
+<span id="cb59-34"><a href="hypothesis-testing.html#cb59-34"></a>pointData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">EmpAlpha =</span> EmpAlpha, <span class="dt">EmpPower =</span> EmpPower)</span>
+<span id="cb59-35"><a href="hypothesis-testing.html#cb59-35"></a>zetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb59-36"><a href="hypothesis-testing.html#cb59-36"></a>muRoc &lt;-<span class="st"> </span><span class="fl">1.8</span></span>
+<span id="cb59-37"><a href="hypothesis-testing.html#cb59-37"></a>curveData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">EmpAlpha =</span> <span class="kw">pnorm</span>(<span class="op">-</span>zetas),</span>
+<span id="cb59-38"><a href="hypothesis-testing.html#cb59-38"></a>  <span class="dt">EmpPower =</span> <span class="kw">pnorm</span>(muRoc <span class="op">-</span><span class="st"> </span>zetas))</span>
+<span id="cb59-39"><a href="hypothesis-testing.html#cb59-39"></a>alphaPowerPlot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> EmpAlpha, <span class="dt">y =</span> EmpPower)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb59-40"><a href="hypothesis-testing.html#cb59-40"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> pointData, <span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb59-41"><a href="hypothesis-testing.html#cb59-41"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> curveData)</span>
+<span id="cb59-42"><a href="hypothesis-testing.html#cb59-42"></a><span class="kw">print</span>(alphaPowerPlot)</span></code></pre></div>
 <p><img src="08-hypothesis-testing_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Relevant line numbers are shown above as comments. Line 6 creates two variables, <code>muNH</code> = 1.5 (the binormal model separation parameter under the NH) and <code>muAH</code> = 2.1 (the separation parameter under the AH). Under either hypotheses, the same diseased case standard deviation <code>sigma</code> = 1.3 and 50 non-diseased and 52 diseased cases are assumed. As before, lines 8 – 14 use the “brute force” technique to determine population AUC and standard deviation of AUC under the NH condition. Line 16 defines the number of trials <code>T</code> = 2000. Line 17 creates a vector <code>mu</code> containing the NH and AH values defined at line 6. Line 18 creates <code>alphaArr</code>, a sequence of 10 equally spaced values in the range 0.05 to 0.95, which represent 10 values for <span class="math inline">\(\alpha\)</span>. Line 19 creates two arrays of length 10 each, named <code>EmpAlpha</code> and <code>EmpPower</code>, to hold the values of the observed Type-I error rate, i.e., empirical <span class="math inline">\(\alpha\)</span>, and the empirical power, respectively. The program will run <code>T</code> = 2000 NH and <code>T</code> = 2000 AH trials using as <span class="math inline">\(\alpha\)</span> each successive value in <code>alphaArr</code> and save the observed Type-I error rates and observed powers to the arrays <code>EmpAlpha</code> and <code>EmpPower</code>, respectively.</p>
 <p>Line 20 begins a for-loop in <code>a</code>, an index into <code>alphaArr.</code> Line 21 selects the appropriate value for <code>alpha</code> (0.05 on the first pass, 0.15 on the next pass, etc.). Line 22 initializes <code>reject[2,2000]</code> with zeroes, to hold the result of each trial; the first index corresponds to hypothesis <code>h</code> and the second to trial <code>t</code>. Line 23 begins a for-loop in <code>h</code>, with <code>h</code> = 1 corresponding to the NH and <code>h</code> = 2 to the AH. Line 24 begins a for-loop in <code>t</code>, the trial index. The code within this block is similar to previous examples. It simulates ratings, computes AUC, calculates the p-value, and saves a rejection of the NH as a one at the appropriate array location <code>reject[h,t]</code>. Lines 32 – 33 calculate the empirical <span class="math inline">\(\alpha\)</span> and empirical power for each value of <span class="math inline">\(\alpha\)</span> in <code>alphaArr</code>. After padding the ends with zero and ones (the trivial points), the remaining lines plot the “ROC within an ROC”.</p>
@@ -852,38 +852,38 @@ It follows that effect size (ES) is given by (all quantities on the right hand s
 <p><span class="math display">\[\begin{equation*} 
 ES = \Phi\left ( \frac{\mu_{AH}}{\sqrt{1+\sigma^2}} \right ) - \Phi\left ( \frac{\mu_{NH}}{\sqrt{1+\sigma^2}} \right )
 \end{equation*}\]</span></p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="hypothesis-testing.html#cb59-1"></a>EffectSize &lt;-<span class="st"> </span><span class="cf">function</span> (muNH, sigmaNH, muAH, sigmaAH)</span>
-<span id="cb59-2"><a href="hypothesis-testing.html#cb59-2"></a>{</span>
-<span id="cb59-3"><a href="hypothesis-testing.html#cb59-3"></a>  ES &lt;-<span class="st"> </span><span class="kw">pnorm</span>(muAH<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>sigmaAH<span class="op">^</span><span class="dv">2</span>)) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(muNH<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>sigmaNH<span class="op">^</span><span class="dv">2</span>))</span>
-<span id="cb59-4"><a href="hypothesis-testing.html#cb59-4"></a>  <span class="kw">return</span> (ES)</span>
-<span id="cb59-5"><a href="hypothesis-testing.html#cb59-5"></a>}</span>
-<span id="cb59-6"><a href="hypothesis-testing.html#cb59-6"></a></span>
-<span id="cb59-7"><a href="hypothesis-testing.html#cb59-7"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
-<span id="cb59-8"><a href="hypothesis-testing.html#cb59-8"></a>muAH &lt;-<span class="st"> </span><span class="fl">2.1</span> <span class="co"># NH value, defined previously, was mu = 1.5</span></span>
-<span id="cb59-9"><a href="hypothesis-testing.html#cb59-9"></a></span>
-<span id="cb59-10"><a href="hypothesis-testing.html#cb59-10"></a>T &lt;-<span class="st"> </span><span class="dv">2000</span></span>
-<span id="cb59-11"><a href="hypothesis-testing.html#cb59-11"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span> <span class="co"># size of test</span></span>
-<span id="cb59-12"><a href="hypothesis-testing.html#cb59-12"></a>reject =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="dt">dim =</span> T)</span>
-<span id="cb59-13"><a href="hypothesis-testing.html#cb59-13"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(reject)) {  </span>
-<span id="cb59-14"><a href="hypothesis-testing.html#cb59-14"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> muAH, <span class="dt">sd =</span> sigma)  </span>
-<span id="cb59-15"><a href="hypothesis-testing.html#cb59-15"></a>  AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)  </span>
-<span id="cb59-16"><a href="hypothesis-testing.html#cb59-16"></a>  obsvdZ &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
-<span id="cb59-17"><a href="hypothesis-testing.html#cb59-17"></a>  p &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(obsvdZ)) <span class="co"># p value for individual t</span></span>
-<span id="cb59-18"><a href="hypothesis-testing.html#cb59-18"></a>  <span class="cf">if</span> (p <span class="op">&lt;</span><span class="st"> </span>alpha) reject[t] =<span class="st"> </span><span class="dv">1</span> </span>
-<span id="cb59-19"><a href="hypothesis-testing.html#cb59-19"></a>}</span>
-<span id="cb59-20"><a href="hypothesis-testing.html#cb59-20"></a></span>
-<span id="cb59-21"><a href="hypothesis-testing.html#cb59-21"></a>ObsvdTypeIErrRate &lt;-<span class="st"> </span><span class="kw">sum</span>(reject)<span class="op">/</span><span class="kw">length</span>(reject)</span>
-<span id="cb59-22"><a href="hypothesis-testing.html#cb59-22"></a>CI &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>);width &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">qnorm</span>(alpha<span class="op">/</span><span class="dv">2</span>)</span>
-<span id="cb59-23"><a href="hypothesis-testing.html#cb59-23"></a>CI[<span class="dv">1</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">-</span><span class="st"> </span></span>
-<span id="cb59-24"><a href="hypothesis-testing.html#cb59-24"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>T)</span>
-<span id="cb59-25"><a href="hypothesis-testing.html#cb59-25"></a>CI[<span class="dv">2</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">+</span><span class="st"> </span></span>
-<span id="cb59-26"><a href="hypothesis-testing.html#cb59-26"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>T)</span>
-<span id="cb59-27"><a href="hypothesis-testing.html#cb59-27"></a><span class="kw">cat</span>(<span class="st">&quot;obsvdPower = &quot;</span>, ObsvdTypeIErrRate, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb59-28"><a href="hypothesis-testing.html#cb59-28"></a><span class="co">#&gt; obsvdPower =  0.489</span></span>
-<span id="cb59-29"><a href="hypothesis-testing.html#cb59-29"></a><span class="kw">cat</span>(<span class="st">&quot;95% confidence interval = &quot;</span>, CI, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb59-30"><a href="hypothesis-testing.html#cb59-30"></a><span class="co">#&gt; 95% confidence interval =  0.4670922 0.5109078</span></span>
-<span id="cb59-31"><a href="hypothesis-testing.html#cb59-31"></a><span class="kw">cat</span>(<span class="st">&quot;Effect Size = &quot;</span>, <span class="kw">EffectSize</span>(mu, sigma, muAH, sigma), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb59-32"><a href="hypothesis-testing.html#cb59-32"></a><span class="co">#&gt; Effect Size =  0.08000617 0</span></span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="hypothesis-testing.html#cb60-1"></a>EffectSize &lt;-<span class="st"> </span><span class="cf">function</span> (muNH, sigmaNH, muAH, sigmaAH)</span>
+<span id="cb60-2"><a href="hypothesis-testing.html#cb60-2"></a>{</span>
+<span id="cb60-3"><a href="hypothesis-testing.html#cb60-3"></a>  ES &lt;-<span class="st"> </span><span class="kw">pnorm</span>(muAH<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>sigmaAH<span class="op">^</span><span class="dv">2</span>)) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(muNH<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>sigmaNH<span class="op">^</span><span class="dv">2</span>))</span>
+<span id="cb60-4"><a href="hypothesis-testing.html#cb60-4"></a>  <span class="kw">return</span> (ES)</span>
+<span id="cb60-5"><a href="hypothesis-testing.html#cb60-5"></a>}</span>
+<span id="cb60-6"><a href="hypothesis-testing.html#cb60-6"></a></span>
+<span id="cb60-7"><a href="hypothesis-testing.html#cb60-7"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
+<span id="cb60-8"><a href="hypothesis-testing.html#cb60-8"></a>muAH &lt;-<span class="st"> </span><span class="fl">2.1</span> <span class="co"># NH value, defined previously, was mu = 1.5</span></span>
+<span id="cb60-9"><a href="hypothesis-testing.html#cb60-9"></a></span>
+<span id="cb60-10"><a href="hypothesis-testing.html#cb60-10"></a>T &lt;-<span class="st"> </span><span class="dv">2000</span></span>
+<span id="cb60-11"><a href="hypothesis-testing.html#cb60-11"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span> <span class="co"># size of test</span></span>
+<span id="cb60-12"><a href="hypothesis-testing.html#cb60-12"></a>reject =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="dt">dim =</span> T)</span>
+<span id="cb60-13"><a href="hypothesis-testing.html#cb60-13"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(reject)) {  </span>
+<span id="cb60-14"><a href="hypothesis-testing.html#cb60-14"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> muAH, <span class="dt">sd =</span> sigma)  </span>
+<span id="cb60-15"><a href="hypothesis-testing.html#cb60-15"></a>  AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)  </span>
+<span id="cb60-16"><a href="hypothesis-testing.html#cb60-16"></a>  obsvdZ &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
+<span id="cb60-17"><a href="hypothesis-testing.html#cb60-17"></a>  p &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(obsvdZ)) <span class="co"># p value for individual t</span></span>
+<span id="cb60-18"><a href="hypothesis-testing.html#cb60-18"></a>  <span class="cf">if</span> (p <span class="op">&lt;</span><span class="st"> </span>alpha) reject[t] =<span class="st"> </span><span class="dv">1</span> </span>
+<span id="cb60-19"><a href="hypothesis-testing.html#cb60-19"></a>}</span>
+<span id="cb60-20"><a href="hypothesis-testing.html#cb60-20"></a></span>
+<span id="cb60-21"><a href="hypothesis-testing.html#cb60-21"></a>ObsvdTypeIErrRate &lt;-<span class="st"> </span><span class="kw">sum</span>(reject)<span class="op">/</span><span class="kw">length</span>(reject)</span>
+<span id="cb60-22"><a href="hypothesis-testing.html#cb60-22"></a>CI &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>);width &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">qnorm</span>(alpha<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb60-23"><a href="hypothesis-testing.html#cb60-23"></a>CI[<span class="dv">1</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">-</span><span class="st"> </span></span>
+<span id="cb60-24"><a href="hypothesis-testing.html#cb60-24"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>T)</span>
+<span id="cb60-25"><a href="hypothesis-testing.html#cb60-25"></a>CI[<span class="dv">2</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">+</span><span class="st"> </span></span>
+<span id="cb60-26"><a href="hypothesis-testing.html#cb60-26"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>T)</span>
+<span id="cb60-27"><a href="hypothesis-testing.html#cb60-27"></a><span class="kw">cat</span>(<span class="st">&quot;obsvdPower = &quot;</span>, ObsvdTypeIErrRate, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb60-28"><a href="hypothesis-testing.html#cb60-28"></a><span class="co">#&gt; obsvdPower =  0.489</span></span>
+<span id="cb60-29"><a href="hypothesis-testing.html#cb60-29"></a><span class="kw">cat</span>(<span class="st">&quot;95% confidence interval = &quot;</span>, CI, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb60-30"><a href="hypothesis-testing.html#cb60-30"></a><span class="co">#&gt; 95% confidence interval =  0.4670922 0.5109078</span></span>
+<span id="cb60-31"><a href="hypothesis-testing.html#cb60-31"></a><span class="kw">cat</span>(<span class="st">&quot;Effect Size = &quot;</span>, <span class="kw">EffectSize</span>(mu, sigma, muAH, sigma), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb60-32"><a href="hypothesis-testing.html#cb60-32"></a><span class="co">#&gt; Effect Size =  0.08000617 0</span></span></code></pre></div>
 <p>The ES for the code above is 0.08 (in AUC units). It should be obvious that if effect size is zero, then power equals <span class="math inline">\(\alpha\)</span>. This is because then there is no distinction between the null and alternative hypotheses conditions. Conversely, as effect size increases, statistical power increases, the limiting value being unity, when every trial results in rejection of the null hypothesis. The reader should experiment with different values of <code>muAH</code> to be convinced of the truth of these statements.</p>
 <ul>
 <li>Sample size: increase the number of cases by a factor of two, and run the above code chunk.</li>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Empirical AUC | The RJafroc Roc Book</title>
   <meta name="description" content="Artificial intelligence and observer performance book based on RJafroc." />
-  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Empirical AUC | The RJafroc Roc Book" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2022-09-29" />
+<meta name="date" content="2022-12-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -781,10 +781,12 @@ O_4 \equiv \left ( FPF_4, TPF_4 \right ) = \left ( 0.017, 0.44 \right )\\
 <span id="cb22-46"><a href="empirical-auc.html#cb22-46"></a>                    <span class="dt">gp =</span> <span class="kw">gpar</span>(<span class="dt">fontsize =</span> <span class="dv">22</span>)), </span>
 <span id="cb22-47"><a href="empirical-auc.html#cb22-47"></a>    <span class="dt">xmin =</span> <span class="fl">0.49</span>, <span class="dt">xmax =</span> <span class="fl">0.49</span>, </span>
 <span id="cb22-48"><a href="empirical-auc.html#cb22-48"></a>    <span class="dt">ymin =</span> <span class="fl">0.94</span>, <span class="dt">ymax =</span> <span class="fl">0.94</span>)  </span>
-<span id="cb22-49"><a href="empirical-auc.html#cb22-49"></a></span>
-<span id="cb22-50"><a href="empirical-auc.html#cb22-50"></a>p &lt;-<span class="st"> </span><span class="kw">ggplotGrob</span>(ROCPlot)</span>
-<span id="cb22-51"><a href="empirical-auc.html#cb22-51"></a>p<span class="op">$</span>layout<span class="op">$</span>clip[p<span class="op">$</span>layout<span class="op">$</span>name<span class="op">==</span><span class="st">&quot;panel&quot;</span>] &lt;-<span class="st"> &quot;off&quot;</span></span>
-<span id="cb22-52"><a href="empirical-auc.html#cb22-52"></a><span class="kw">grid.draw</span>(p)</span></code></pre></div>
+<span id="cb22-49"><a href="empirical-auc.html#cb22-49"></a><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
+<span id="cb22-50"><a href="empirical-auc.html#cb22-50"></a><span class="co">#&gt; ℹ Please use `linewidth` instead.</span></span>
+<span id="cb22-51"><a href="empirical-auc.html#cb22-51"></a></span>
+<span id="cb22-52"><a href="empirical-auc.html#cb22-52"></a>p &lt;-<span class="st"> </span><span class="kw">ggplotGrob</span>(ROCPlot)</span>
+<span id="cb22-53"><a href="empirical-auc.html#cb22-53"></a>p<span class="op">$</span>layout<span class="op">$</span>clip[p<span class="op">$</span>layout<span class="op">$</span>name<span class="op">==</span><span class="st">&quot;panel&quot;</span>] &lt;-<span class="st"> &quot;off&quot;</span></span>
+<span id="cb22-54"><a href="empirical-auc.html#cb22-54"></a><span class="kw">grid.draw</span>(p)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:empirical-auc-EmpiricalPlot"></span>
 <img src="05-empirical-auc_files/figure-html/empirical-auc-EmpiricalPlot-1.png" alt="Empirical ROC plot for the data in Table 4.1. By convention the operating points are numbered starting with the uppermost non-trivial one and working down the plot and the trivial operating points (0,0) and (1,1) are not shown." width="672" />
 <p class="caption">

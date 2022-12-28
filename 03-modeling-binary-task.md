@@ -642,6 +642,8 @@ for (mu in 0:3){
              parse = TRUE, size = 8)
   next
 }
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
 rocPlot <- rocPlot +
   scale_x_continuous(expand = c(0, 0)) + 
   scale_y_continuous(expand = c(0, 0))     

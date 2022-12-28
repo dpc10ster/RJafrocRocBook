@@ -63,6 +63,12 @@ In an R-rating ROC study the observed ratings $r$ take on integer values, 1 thro
 \end{equation}
 
 
+
+```
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
+```
+
 <img src="06-binormal-model_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 In the unequal-variance binormal model, the variance $\sigma^2$ of the z-samples for diseased cases is allowed to be different from unity. Most ROC datasets are consistent with  $\sigma > 1$. The above figure, generated with  $\mu = 1.5, \sigma = 1.5, \zeta_1 = -2, \zeta_2 = -0.5, \zeta_3 = 1, \zeta_4 = 2.5$, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule \@ref(eq:binormal-modelZBinning). For example, a case with  z-sample equal to -2.5 would be rated "1", and one with  z-sample equal to -1 would be rated "2", cases with z-samples greater than 2.5 would be rated "5", etc.
@@ -348,9 +354,9 @@ The following code prints the predicted and observed full areas under the ROCs f
 
 ```
 #> A_z predicted =  0.9213504 
-#> A_z observed =  0.9226109
+#> A_z observed =  0.9172819
 #> A_z{c;true} predicted =  0.8244498 
-#> A_z{c;true} observed =  0.8248155
+#> A_z{c;true} observed =  0.819603
 ```
 
 

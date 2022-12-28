@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Modeling the Binary Task | The RJafroc Roc Book</title>
   <meta name="description" content="Artificial intelligence and observer performance book based on RJafroc." />
-  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Modeling the Binary Task | The RJafroc Roc Book" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2022-09-29" />
+<meta name="date" content="2022-12-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1224,16 +1224,18 @@ O\left ( \zeta \mid \mu \right ) = \left ( \Phi(-\zeta), \Phi(\mu-\zeta) \right 
 <span id="cb12-16"><a href="binary-task-model.html#cb12-16"></a>             <span class="dt">parse =</span> <span class="ot">TRUE</span>, <span class="dt">size =</span> <span class="dv">8</span>)</span>
 <span id="cb12-17"><a href="binary-task-model.html#cb12-17"></a>  <span class="cf">next</span></span>
 <span id="cb12-18"><a href="binary-task-model.html#cb12-18"></a>}</span>
-<span id="cb12-19"><a href="binary-task-model.html#cb12-19"></a>rocPlot &lt;-<span class="st"> </span>rocPlot <span class="op">+</span></span>
-<span id="cb12-20"><a href="binary-task-model.html#cb12-20"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb12-21"><a href="binary-task-model.html#cb12-21"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))     </span>
-<span id="cb12-22"><a href="binary-task-model.html#cb12-22"></a></span>
-<span id="cb12-23"><a href="binary-task-model.html#cb12-23"></a>rocPlot &lt;-<span class="st"> </span>rocPlot <span class="op">+</span><span class="st"> </span></span>
-<span id="cb12-24"><a href="binary-task-model.html#cb12-24"></a><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="dv">-1</span>, </span>
-<span id="cb12-25"><a href="binary-task-model.html#cb12-25"></a>              <span class="dt">intercept =</span> <span class="dv">1</span>, </span>
-<span id="cb12-26"><a href="binary-task-model.html#cb12-26"></a>              <span class="dt">linetype =</span> <span class="dv">3</span>,</span>
-<span id="cb12-27"><a href="binary-task-model.html#cb12-27"></a>              <span class="dt">size =</span> <span class="dv">2</span>)</span>
-<span id="cb12-28"><a href="binary-task-model.html#cb12-28"></a><span class="kw">print</span>(rocPlot)</span></code></pre></div>
+<span id="cb12-19"><a href="binary-task-model.html#cb12-19"></a><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
+<span id="cb12-20"><a href="binary-task-model.html#cb12-20"></a><span class="co">#&gt; ℹ Please use `linewidth` instead.</span></span>
+<span id="cb12-21"><a href="binary-task-model.html#cb12-21"></a>rocPlot &lt;-<span class="st"> </span>rocPlot <span class="op">+</span></span>
+<span id="cb12-22"><a href="binary-task-model.html#cb12-22"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb12-23"><a href="binary-task-model.html#cb12-23"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))     </span>
+<span id="cb12-24"><a href="binary-task-model.html#cb12-24"></a></span>
+<span id="cb12-25"><a href="binary-task-model.html#cb12-25"></a>rocPlot &lt;-<span class="st"> </span>rocPlot <span class="op">+</span><span class="st"> </span></span>
+<span id="cb12-26"><a href="binary-task-model.html#cb12-26"></a><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="dv">-1</span>, </span>
+<span id="cb12-27"><a href="binary-task-model.html#cb12-27"></a>              <span class="dt">intercept =</span> <span class="dv">1</span>, </span>
+<span id="cb12-28"><a href="binary-task-model.html#cb12-28"></a>              <span class="dt">linetype =</span> <span class="dv">3</span>,</span>
+<span id="cb12-29"><a href="binary-task-model.html#cb12-29"></a>              <span class="dt">size =</span> <span class="dv">2</span>)</span>
+<span id="cb12-30"><a href="binary-task-model.html#cb12-30"></a><span class="kw">print</span>(rocPlot)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:binary-task-model-RocCurvesEqVarModel"></span>
 <img src="03-modeling-binary-task_files/figure-html/binary-task-model-RocCurvesEqVarModel-1.png" alt="ROC plots predicted by the equal variance binormal model for different values of mu. As mu increases the intersection of the curve with the negative diagonal moves closer to the ideal operating point, (0,1) at which sensitivity and specificity are both equal to unity." width="672" />
 <p class="caption">

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Binormal model | The RJafroc Roc Book</title>
   <meta name="description" content="Artificial intelligence and observer performance book based on RJafroc." />
-  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Binormal model | The RJafroc Roc Book" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2022-09-29" />
+<meta name="date" content="2022-12-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -602,6 +602,8 @@ Z_{k_tt}\sim N\left ( \mu_t,\sigma_{t}^{2} \right );t=1,2
 \text{if} \left (\zeta_{r-1} \le z \le \zeta_r  \right )\Rightarrow \text {rating} = r
 \tag{6.3}
 \end{equation}\]</span></p>
+<pre><code>#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#&gt; ℹ Please use `linewidth` instead.</code></pre>
 <p><img src="06-binormal-model_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>In the unequal-variance binormal model, the variance <span class="math inline">\(\sigma^2\)</span> of the z-samples for diseased cases is allowed to be different from unity. Most ROC datasets are consistent with <span class="math inline">\(\sigma &gt; 1\)</span>. The above figure, generated with <span class="math inline">\(\mu = 1.5, \sigma = 1.5, \zeta_1 = -2, \zeta_2 = -0.5, \zeta_3 = 1, \zeta_4 = 2.5\)</span>, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule <a href="binormal-model.html#eq:binormal-modelZBinning">(6.3)</a>. For example, a case with z-sample equal to -2.5 would be rated “1”, and one with z-sample equal to -1 would be rated “2”, cases with z-samples greater than 2.5 would be rated “5”, etc.</p>
 </div>
@@ -667,7 +669,7 @@ a=\frac{\mu}{\sigma};b=\frac{1}{\sigma}
 \tag{6.12}
 \end{equation}\]</span></p>
 <p>Eqns. <a href="binormal-model.html#eq:binormal-modelabParameters">(6.11)</a> and <a href="binormal-model.html#eq:binormal-modelabParametersInv">(6.12)</a> allow conversion from one notation to another.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="binormal-model.html#cb27-1"></a><span class="kw">grid.arrange</span>(p1,p2,<span class="dt">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="binormal-model.html#cb28-1"></a><span class="kw">grid.arrange</span>(p1,p2,<span class="dt">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:binormal-model-ab2-mu-sigma"></span>
 <img src="06-binormal-model_files/figure-html/binormal-model-ab2-mu-sigma-1.png" alt="Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance, thereby illustrations between (a,b) and the ($\mu,\sigma$) parameters." width="672" />
 <p class="caption">
@@ -719,20 +721,20 @@ A_{z;c} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^
 \tag{6.17}
 \end{equation}\]</span></p>
 <p>The bivariate 2D integral can be evaluated numerically. The following code illustrates calculation of the partial-area measure using the function <code>pmvnorm</code> in <code>R</code> package <code>mvtnorm</code>. The following parameter values were used: <span class="math inline">\(a = 2\)</span>, <span class="math inline">\(b = 1\)</span> and <span class="math inline">\(\zeta_1 = 1.5\)</span>. (The parameter <span class="math inline">\(b\)</span> was deliberately chosen equal to one so that we do not have to worry about improper ROC curves.)</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb28-1"><a href="binormal-model.html#cb28-1"></a>a &lt;-<span class="st"> </span><span class="dv">2</span>;b &lt;-<span class="st"> </span><span class="dv">1</span>; zeta1 &lt;-<span class="st"> </span><span class="fl">1.5</span></span>
-<span id="cb28-2"><a href="binormal-model.html#cb28-2"></a>A_z &lt;-<span class="st"> </span><span class="kw">pnorm</span>(a<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>b<span class="op">^</span><span class="dv">2</span>))</span>
-<span id="cb28-3"><a href="binormal-model.html#cb28-3"></a>opPtx &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span>zeta1)</span>
-<span id="cb28-4"><a href="binormal-model.html#cb28-4"></a>opPty &lt;-<span class="st"> </span><span class="kw">pnorm</span>(a <span class="op">-</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span>zeta1)</span>
-<span id="cb28-5"><a href="binormal-model.html#cb28-5"></a>rho &lt;-<span class="st"> </span><span class="op">-</span>b<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>b<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb28-6"><a href="binormal-model.html#cb28-6"></a>Lower1 &lt;-<span class="st"> </span><span class="op">-</span><span class="ot">Inf</span></span>
-<span id="cb28-7"><a href="binormal-model.html#cb28-7"></a>Upper1 &lt;-<span class="st"> </span><span class="kw">qnorm</span>(opPtx)</span>
-<span id="cb28-8"><a href="binormal-model.html#cb28-8"></a>Lower2 &lt;-<span class="st"> </span><span class="op">-</span><span class="ot">Inf</span></span>
-<span id="cb28-9"><a href="binormal-model.html#cb28-9"></a>Upper2 &lt;-<span class="st"> </span>a<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>b<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb28-10"><a href="binormal-model.html#cb28-10"></a>sigma &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, rho), <span class="kw">c</span>(rho, <span class="dv">1</span>))</span>
-<span id="cb28-11"><a href="binormal-model.html#cb28-11"></a>A_zc &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">pmvnorm</span>(</span>
-<span id="cb28-12"><a href="binormal-model.html#cb28-12"></a>  <span class="kw">c</span>(Lower1, Lower2), </span>
-<span id="cb28-13"><a href="binormal-model.html#cb28-13"></a>  <span class="kw">c</span>(Upper1, Upper2), </span>
-<span id="cb28-14"><a href="binormal-model.html#cb28-14"></a>  <span class="dt">sigma =</span> sigma))</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb29-1"><a href="binormal-model.html#cb29-1"></a>a &lt;-<span class="st"> </span><span class="dv">2</span>;b &lt;-<span class="st"> </span><span class="dv">1</span>; zeta1 &lt;-<span class="st"> </span><span class="fl">1.5</span></span>
+<span id="cb29-2"><a href="binormal-model.html#cb29-2"></a>A_z &lt;-<span class="st"> </span><span class="kw">pnorm</span>(a<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>b<span class="op">^</span><span class="dv">2</span>))</span>
+<span id="cb29-3"><a href="binormal-model.html#cb29-3"></a>opPtx &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span>zeta1)</span>
+<span id="cb29-4"><a href="binormal-model.html#cb29-4"></a>opPty &lt;-<span class="st"> </span><span class="kw">pnorm</span>(a <span class="op">-</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span>zeta1)</span>
+<span id="cb29-5"><a href="binormal-model.html#cb29-5"></a>rho &lt;-<span class="st"> </span><span class="op">-</span>b<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>b<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb29-6"><a href="binormal-model.html#cb29-6"></a>Lower1 &lt;-<span class="st"> </span><span class="op">-</span><span class="ot">Inf</span></span>
+<span id="cb29-7"><a href="binormal-model.html#cb29-7"></a>Upper1 &lt;-<span class="st"> </span><span class="kw">qnorm</span>(opPtx)</span>
+<span id="cb29-8"><a href="binormal-model.html#cb29-8"></a>Lower2 &lt;-<span class="st"> </span><span class="op">-</span><span class="ot">Inf</span></span>
+<span id="cb29-9"><a href="binormal-model.html#cb29-9"></a>Upper2 &lt;-<span class="st"> </span>a<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>b<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb29-10"><a href="binormal-model.html#cb29-10"></a>sigma &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, rho), <span class="kw">c</span>(rho, <span class="dv">1</span>))</span>
+<span id="cb29-11"><a href="binormal-model.html#cb29-11"></a>A_zc &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">pmvnorm</span>(</span>
+<span id="cb29-12"><a href="binormal-model.html#cb29-12"></a>  <span class="kw">c</span>(Lower1, Lower2), </span>
+<span id="cb29-13"><a href="binormal-model.html#cb29-13"></a>  <span class="kw">c</span>(Upper1, Upper2), </span>
+<span id="cb29-14"><a href="binormal-model.html#cb29-14"></a>  <span class="dt">sigma =</span> sigma))</span></code></pre></div>
 <p>The partial-area measure is <span class="math inline">\(A_{z;c}\)</span> = 0.0352195. The corresponding full-area measure is <span class="math inline">\(A_z\)</span> = 0.9213504. <span class="math inline">\(A_{z;c}\)</span> is small because the reporting threshold is high. However, <span class="math inline">\(A_{z;c}\)</span> should not be confused with true performance of the observer, as shown in Section <a href="binormal-model.html#binormal-model-partial-true">6.6</a>.</p>
 </div>
 <div id="binormal-model-full-auc" class="section level3 hasAnchor">
@@ -772,31 +774,31 @@ A_{z;c,\text{TRUE}} \le A_{z}
 \tag{6.21}
 \end{equation}\]</span></p>
 <p>True performance is illustrated with the following simulation 2AFC study. The <code>Wilcoxon</code> function, defined next, can be thought of as the mathematical equivalent of a 2AFC study, conducted with all possible pairings of non-diseased and diseased cases. For each pairing, if the z-sample of the diseased case exceeds that of the non-diseased case one adds unity to a zero-initialized counter; if it is smaller one does nothing; if they are equal one adds 0.5; and finally one divides by the number of comparisons.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb29-1"><a href="binormal-model.html#cb29-1"></a>Wilcoxon &lt;-<span class="st"> </span><span class="cf">function</span> (zk1, zk2)</span>
-<span id="cb29-2"><a href="binormal-model.html#cb29-2"></a>{</span>
-<span id="cb29-3"><a href="binormal-model.html#cb29-3"></a>  K1 =<span class="st"> </span><span class="kw">length</span>(zk1)</span>
-<span id="cb29-4"><a href="binormal-model.html#cb29-4"></a>  K2 =<span class="st"> </span><span class="kw">length</span>(zk2)</span>
-<span id="cb29-5"><a href="binormal-model.html#cb29-5"></a>  W &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb29-6"><a href="binormal-model.html#cb29-6"></a>    <span class="cf">for</span> (k1 <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K1) {</span>
-<span id="cb29-7"><a href="binormal-model.html#cb29-7"></a>      W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">&lt;</span><span class="st"> </span>zk2)</span>
-<span id="cb29-8"><a href="binormal-model.html#cb29-8"></a>      W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">==</span><span class="st"> </span>zk2)</span>
-<span id="cb29-9"><a href="binormal-model.html#cb29-9"></a>    }</span>
-<span id="cb29-10"><a href="binormal-model.html#cb29-10"></a>    W &lt;-<span class="st"> </span>W<span class="op">/</span>K1<span class="op">/</span>K2</span>
-<span id="cb29-11"><a href="binormal-model.html#cb29-11"></a>  <span class="kw">return</span> (W)</span>
-<span id="cb29-12"><a href="binormal-model.html#cb29-12"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb30-1"><a href="binormal-model.html#cb30-1"></a>Wilcoxon &lt;-<span class="st"> </span><span class="cf">function</span> (zk1, zk2)</span>
+<span id="cb30-2"><a href="binormal-model.html#cb30-2"></a>{</span>
+<span id="cb30-3"><a href="binormal-model.html#cb30-3"></a>  K1 =<span class="st"> </span><span class="kw">length</span>(zk1)</span>
+<span id="cb30-4"><a href="binormal-model.html#cb30-4"></a>  K2 =<span class="st"> </span><span class="kw">length</span>(zk2)</span>
+<span id="cb30-5"><a href="binormal-model.html#cb30-5"></a>  W &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb30-6"><a href="binormal-model.html#cb30-6"></a>    <span class="cf">for</span> (k1 <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K1) {</span>
+<span id="cb30-7"><a href="binormal-model.html#cb30-7"></a>      W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">&lt;</span><span class="st"> </span>zk2)</span>
+<span id="cb30-8"><a href="binormal-model.html#cb30-8"></a>      W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">==</span><span class="st"> </span>zk2)</span>
+<span id="cb30-9"><a href="binormal-model.html#cb30-9"></a>    }</span>
+<span id="cb30-10"><a href="binormal-model.html#cb30-10"></a>    W &lt;-<span class="st"> </span>W<span class="op">/</span>K1<span class="op">/</span>K2</span>
+<span id="cb30-11"><a href="binormal-model.html#cb30-11"></a>  <span class="kw">return</span> (W)</span>
+<span id="cb30-12"><a href="binormal-model.html#cb30-12"></a>}</span></code></pre></div>
 <p>The following code saves 10,000 pairs of ratings in two arrays: <code>z[1,]</code> and <code>z[2,]</code>. The first array corresponds to non-diseased cases and the second to diseased cases. Note the usage, at lines 3-4, of the <span class="math inline">\(a,b\)</span> values to define the two distributions. The array <code>zc</code>, initially a copy of <code>z</code>, is selectively binned by setting, lines 6-7, all ratings less than <span class="math inline">\(\zeta_1\)</span> to -100. The ordering information for these z-samples is lost.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb30-1"><a href="binormal-model.html#cb30-1"></a>nPairs &lt;-<span class="st"> </span><span class="dv">10000</span></span>
-<span id="cb30-2"><a href="binormal-model.html#cb30-2"></a>z &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>, nPairs))</span>
-<span id="cb30-3"><a href="binormal-model.html#cb30-3"></a>z[<span class="dv">1</span>,] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nPairs, <span class="dt">sd =</span> b)</span>
-<span id="cb30-4"><a href="binormal-model.html#cb30-4"></a>z[<span class="dv">2</span>,] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nPairs, <span class="dt">mean =</span> a, <span class="dt">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb30-5"><a href="binormal-model.html#cb30-5"></a>zc &lt;-<span class="st"> </span>z</span>
-<span id="cb30-6"><a href="binormal-model.html#cb30-6"></a>zc[<span class="dv">1</span>,z[<span class="dv">1</span>,] <span class="op">&lt;</span><span class="st"> </span>zeta1] &lt;-<span class="st"> </span><span class="dv">-100</span> <span class="co"># ratings of partial area observer</span></span>
-<span id="cb30-7"><a href="binormal-model.html#cb30-7"></a>zc[<span class="dv">2</span>,z[<span class="dv">2</span>,] <span class="op">&lt;</span><span class="st"> </span>zeta1] &lt;-<span class="st"> </span><span class="dv">-100</span> <span class="co"># do:</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb31-1"><a href="binormal-model.html#cb31-1"></a>nPairs &lt;-<span class="st"> </span><span class="dv">10000</span></span>
+<span id="cb31-2"><a href="binormal-model.html#cb31-2"></a>z &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>, nPairs))</span>
+<span id="cb31-3"><a href="binormal-model.html#cb31-3"></a>z[<span class="dv">1</span>,] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nPairs, <span class="dt">sd =</span> b)</span>
+<span id="cb31-4"><a href="binormal-model.html#cb31-4"></a>z[<span class="dv">2</span>,] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nPairs, <span class="dt">mean =</span> a, <span class="dt">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb31-5"><a href="binormal-model.html#cb31-5"></a>zc &lt;-<span class="st"> </span>z</span>
+<span id="cb31-6"><a href="binormal-model.html#cb31-6"></a>zc[<span class="dv">1</span>,z[<span class="dv">1</span>,] <span class="op">&lt;</span><span class="st"> </span>zeta1] &lt;-<span class="st"> </span><span class="dv">-100</span> <span class="co"># ratings of partial area observer</span></span>
+<span id="cb31-7"><a href="binormal-model.html#cb31-7"></a>zc[<span class="dv">2</span>,z[<span class="dv">2</span>,] <span class="op">&lt;</span><span class="st"> </span>zeta1] &lt;-<span class="st"> </span><span class="dv">-100</span> <span class="co"># do:</span></span></code></pre></div>
 <p>The following code prints the predicted and observed full areas under the ROCs followed by the predicted and observed true performances. With this many cases sampling variability is small and the predicted and observed values are close.</p>
 <pre><code>#&gt; A_z predicted =  0.9213504 
-#&gt; A_z observed =  0.9226109
+#&gt; A_z observed =  0.9172819
 #&gt; A_z{c;true} predicted =  0.8244498 
-#&gt; A_z{c;true} observed =  0.8248155</code></pre>
+#&gt; A_z{c;true} observed =  0.819603</code></pre>
 <p>Note that:</p>
 <ul>
 <li><span class="math inline">\(A_{z;c,\text{TRUE}} &lt; A_z\)</span>, because ordering information is lost for all cases with z-samples less than <span class="math inline">\(\zeta_1\)</span>.</li>
@@ -884,30 +886,30 @@ P(\text{FN}) =&amp; P(+) (1-\text{TPF})
 <li><p>For a given disease prevalence, if the cost of a FN decision is high (or if the benefit of a TP is high), then the optimal operating point is where the slope of the ROC is low, which is near the upper-right corner. One sets the operating point at high sensitivity and low specificity.</p></li>
 </ul>
 <p>The costs and benefits are often difficult to quantify. If one assumes that the right hand side of Eqn. <a href="binormal-model.html#eq:binormal-model-cost4">(6.25)</a> equals unity (e.g., the four costs / benefits are equal and disease-prevalence is 50%) then the optimal operating point is defined by that point on the ROC curve where the slope is unity, which is the point of nearest approach of the curve to the upper-left corner. This corresponds to maximizing the Youden index <span class="citation">(Youden <a href="#ref-youden1950index" role="doc-biblioref">1950</a>)</span>, defined as the sum of sensitivity and specificity minus one. This is demonstrated in the following code.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="binormal-model.html#cb33-1"></a>a &lt;-<span class="st"> </span><span class="dv">2</span>;b &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb33-2"><a href="binormal-model.html#cb33-2"></a>z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>,<span class="fl">5.5</span>,<span class="fl">0.05</span>)</span>
-<span id="cb33-3"><a href="binormal-model.html#cb33-3"></a>FPF &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span>z)</span>
-<span id="cb33-4"><a href="binormal-model.html#cb33-4"></a>TPF &lt;-<span class="st"> </span><span class="kw">pnorm</span>(a <span class="op">-</span><span class="st"> </span>b<span class="op">*</span>z)</span>
-<span id="cb33-5"><a href="binormal-model.html#cb33-5"></a>Youden &lt;-<span class="st"> </span>TPF <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>FPF) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb33-6"><a href="binormal-model.html#cb33-6"></a>curve &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">FPF =</span> FPF, <span class="dt">TPF =</span> TPF, <span class="dt">YOU =</span> Youden)</span>
-<span id="cb33-7"><a href="binormal-model.html#cb33-7"></a>dist &lt;-<span class="st"> </span><span class="kw">sqrt</span>(FPF<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>TPF)<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb33-8"><a href="binormal-model.html#cb33-8"></a>p1 &lt;-<span class="st"> </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(curve, <span class="kw">aes</span>(<span class="dt">x =</span> FPF, <span class="dt">y =</span> TPF)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb33-9"><a href="binormal-model.html#cb33-9"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb33-10"><a href="binormal-model.html#cb33-10"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb33-11"><a href="binormal-model.html#cb33-11"></a>p2 &lt;-<span class="st"> </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(curve, <span class="kw">aes</span>(<span class="dt">x =</span> FPF, <span class="dt">y =</span> YOU)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb33-12"><a href="binormal-model.html#cb33-12"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb33-13"><a href="binormal-model.html#cb33-13"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb33-14"><a href="binormal-model.html#cb33-14"></a>indxDist &lt;-<span class="st"> </span><span class="kw">which</span>(dist <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(dist))</span>
-<span id="cb33-15"><a href="binormal-model.html#cb33-15"></a>indxYoud &lt;-<span class="st"> </span><span class="kw">which</span>(Youden <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(Youden))</span>
-<span id="cb33-16"><a href="binormal-model.html#cb33-16"></a><span class="cf">if</span> (indxDist <span class="op">!=</span><span class="st"> </span>indxYoud) <span class="kw">stop</span>(<span class="st">&quot;The two indices are different&quot;</span>) <span class="cf">else</span> {</span>
-<span id="cb33-17"><a href="binormal-model.html#cb33-17"></a>  <span class="kw">cat</span>(<span class="st">&quot;Op Pt corresponding to max Youden and min distance is: </span><span class="ch">\n</span><span class="st">FPF = &quot;</span>, </span>
-<span id="cb33-18"><a href="binormal-model.html#cb33-18"></a>      FPF[indxDist], </span>
-<span id="cb33-19"><a href="binormal-model.html#cb33-19"></a>      <span class="st">&quot;</span><span class="ch">\n</span><span class="st">TPF = &quot;</span>, </span>
-<span id="cb33-20"><a href="binormal-model.html#cb33-20"></a>      TPF[indxDist])</span>
-<span id="cb33-21"><a href="binormal-model.html#cb33-21"></a>}</span>
-<span id="cb33-22"><a href="binormal-model.html#cb33-22"></a><span class="co">#&gt; Op Pt corresponding to max Youden and min distance is: </span></span>
-<span id="cb33-23"><a href="binormal-model.html#cb33-23"></a><span class="co">#&gt; FPF =  0.1586553 </span></span>
-<span id="cb33-24"><a href="binormal-model.html#cb33-24"></a><span class="co">#&gt; TPF =  0.8413447</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="binormal-model.html#cb34-1"></a>a &lt;-<span class="st"> </span><span class="dv">2</span>;b &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb34-2"><a href="binormal-model.html#cb34-2"></a>z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>,<span class="fl">5.5</span>,<span class="fl">0.05</span>)</span>
+<span id="cb34-3"><a href="binormal-model.html#cb34-3"></a>FPF &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span>z)</span>
+<span id="cb34-4"><a href="binormal-model.html#cb34-4"></a>TPF &lt;-<span class="st"> </span><span class="kw">pnorm</span>(a <span class="op">-</span><span class="st"> </span>b<span class="op">*</span>z)</span>
+<span id="cb34-5"><a href="binormal-model.html#cb34-5"></a>Youden &lt;-<span class="st"> </span>TPF <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>FPF) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb34-6"><a href="binormal-model.html#cb34-6"></a>curve &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">FPF =</span> FPF, <span class="dt">TPF =</span> TPF, <span class="dt">YOU =</span> Youden)</span>
+<span id="cb34-7"><a href="binormal-model.html#cb34-7"></a>dist &lt;-<span class="st"> </span><span class="kw">sqrt</span>(FPF<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>TPF)<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb34-8"><a href="binormal-model.html#cb34-8"></a>p1 &lt;-<span class="st"> </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(curve, <span class="kw">aes</span>(<span class="dt">x =</span> FPF, <span class="dt">y =</span> TPF)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb34-9"><a href="binormal-model.html#cb34-9"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb34-10"><a href="binormal-model.html#cb34-10"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb34-11"><a href="binormal-model.html#cb34-11"></a>p2 &lt;-<span class="st"> </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(curve, <span class="kw">aes</span>(<span class="dt">x =</span> FPF, <span class="dt">y =</span> YOU)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb34-12"><a href="binormal-model.html#cb34-12"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb34-13"><a href="binormal-model.html#cb34-13"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb34-14"><a href="binormal-model.html#cb34-14"></a>indxDist &lt;-<span class="st"> </span><span class="kw">which</span>(dist <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(dist))</span>
+<span id="cb34-15"><a href="binormal-model.html#cb34-15"></a>indxYoud &lt;-<span class="st"> </span><span class="kw">which</span>(Youden <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(Youden))</span>
+<span id="cb34-16"><a href="binormal-model.html#cb34-16"></a><span class="cf">if</span> (indxDist <span class="op">!=</span><span class="st"> </span>indxYoud) <span class="kw">stop</span>(<span class="st">&quot;The two indices are different&quot;</span>) <span class="cf">else</span> {</span>
+<span id="cb34-17"><a href="binormal-model.html#cb34-17"></a>  <span class="kw">cat</span>(<span class="st">&quot;Op Pt corresponding to max Youden and min distance is: </span><span class="ch">\n</span><span class="st">FPF = &quot;</span>, </span>
+<span id="cb34-18"><a href="binormal-model.html#cb34-18"></a>      FPF[indxDist], </span>
+<span id="cb34-19"><a href="binormal-model.html#cb34-19"></a>      <span class="st">&quot;</span><span class="ch">\n</span><span class="st">TPF = &quot;</span>, </span>
+<span id="cb34-20"><a href="binormal-model.html#cb34-20"></a>      TPF[indxDist])</span>
+<span id="cb34-21"><a href="binormal-model.html#cb34-21"></a>}</span>
+<span id="cb34-22"><a href="binormal-model.html#cb34-22"></a><span class="co">#&gt; Op Pt corresponding to max Youden and min distance is: </span></span>
+<span id="cb34-23"><a href="binormal-model.html#cb34-23"></a><span class="co">#&gt; FPF =  0.1586553 </span></span>
+<span id="cb34-24"><a href="binormal-model.html#cb34-24"></a><span class="co">#&gt; TPF =  0.8413447</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:binormal-model-youden-max"></span>
 <img src="06-binormal-model_files/figure-html/binormal-model-youden-max-1.png" alt="Left panel: binormal ROC curve corresponding to a = 2 and b = 1. Right panel: variation of Youden index with FPF; the plot shows a maximum at FPF = 0.1586553; this corresponds to the nearest approch of the ROC curve to the upper-left corner." width="672" />
 <p class="caption">
@@ -1119,78 +1121,78 @@ A_{z} =  &amp; \Phi\left ( \frac{a}{\sqrt{1+b^2}} \right ) \\
 <p>I have had multiple encounters with statisticians who do not understand this difference…. They show me histograms of data, and tell me that the data is obviously not normal, therefore the binormal model should not be used.</p>
 </blockquote>
 <p>The reviewer is correct. The misconception is illustrated next.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="binormal-model.html#cb34-1"></a><span class="co"># shows that monotone transformations have no effect on </span></span>
-<span id="cb34-2"><a href="binormal-model.html#cb34-2"></a><span class="co"># AUC even though the pdfs look non-gaussian</span></span>
-<span id="cb34-3"><a href="binormal-model.html#cb34-3"></a><span class="co"># common misconception about ROC analysis</span></span>
-<span id="cb34-4"><a href="binormal-model.html#cb34-4"></a>fArray &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.1</span>,<span class="fl">0.5</span>,<span class="fl">0.9</span>)</span>
-<span id="cb34-5"><a href="binormal-model.html#cb34-5"></a>seedArray &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>)</span>
-<span id="cb34-6"><a href="binormal-model.html#cb34-6"></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) { </span>
-<span id="cb34-7"><a href="binormal-model.html#cb34-7"></a>  f &lt;-<span class="st"> </span>fArray[row]</span>
-<span id="cb34-8"><a href="binormal-model.html#cb34-8"></a>  seed &lt;-<span class="st"> </span>seedArray[row]</span>
-<span id="cb34-9"><a href="binormal-model.html#cb34-9"></a>  <span class="kw">set.seed</span>(seed) </span>
-<span id="cb34-10"><a href="binormal-model.html#cb34-10"></a>  <span class="co"># numbers of cases simulated</span></span>
-<span id="cb34-11"><a href="binormal-model.html#cb34-11"></a>  K1 &lt;-<span class="st"> </span><span class="dv">900</span></span>
-<span id="cb34-12"><a href="binormal-model.html#cb34-12"></a>  K2 &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb34-13"><a href="binormal-model.html#cb34-13"></a>  mu1 &lt;-<span class="st"> </span><span class="dv">30</span></span>
-<span id="cb34-14"><a href="binormal-model.html#cb34-14"></a>  sigma1 &lt;-<span class="st"> </span><span class="dv">7</span></span>
-<span id="cb34-15"><a href="binormal-model.html#cb34-15"></a>  mu2 &lt;-<span class="st"> </span><span class="dv">55</span></span>
-<span id="cb34-16"><a href="binormal-model.html#cb34-16"></a>  sigma2 &lt;-<span class="st"> </span><span class="dv">7</span> </span>
-<span id="cb34-17"><a href="binormal-model.html#cb34-17"></a>  <span class="co"># Simulate true gaussian ratings using above parameter values</span></span>
-<span id="cb34-18"><a href="binormal-model.html#cb34-18"></a>  z1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1,<span class="dt">mean =</span> mu1,<span class="dt">sd =</span> sigma1)</span>
-<span id="cb34-19"><a href="binormal-model.html#cb34-19"></a>  z1[z1<span class="op">&gt;</span><span class="dv">100</span>] &lt;-<span class="st"> </span><span class="dv">100</span>;z1[z1<span class="op">&lt;</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># constrain to 0 to 100</span></span>
-<span id="cb34-20"><a href="binormal-model.html#cb34-20"></a>  z2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2,<span class="dt">mean =</span> mu2,<span class="dt">sd =</span> sigma2)</span>
-<span id="cb34-21"><a href="binormal-model.html#cb34-21"></a>  z2[z2<span class="op">&gt;</span><span class="dv">100</span>] &lt;-<span class="st"> </span><span class="dv">100</span>;z2[z2<span class="op">&lt;</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># constrain to 0 to 100</span></span>
-<span id="cb34-22"><a href="binormal-model.html#cb34-22"></a>  <span class="co"># calculate AUC for true Gaussian ratings</span></span>
-<span id="cb34-23"><a href="binormal-model.html#cb34-23"></a>  AUC1 &lt;-<span class="st"> </span><span class="kw">TrapezoidalArea</span>(z1, z2)</span>
-<span id="cb34-24"><a href="binormal-model.html#cb34-24"></a>  Gaussians &lt;-<span class="st"> </span><span class="kw">c</span>(z1, z2)</span>
-<span id="cb34-25"><a href="binormal-model.html#cb34-25"></a>  <span class="co"># display histograms of true Gaussian ratings, A1, A2 or A3</span></span>
-<span id="cb34-26"><a href="binormal-model.html#cb34-26"></a>  x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>Gaussians) <span class="co">#  line 27</span></span>
-<span id="cb34-27"><a href="binormal-model.html#cb34-27"></a>  x &lt;-<span class="st">  </span></span>
-<span id="cb34-28"><a href="binormal-model.html#cb34-28"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="dt">data =</span> x, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
-<span id="cb34-29"><a href="binormal-model.html#cb34-29"></a><span class="st">    </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">5</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb34-30"><a href="binormal-model.html#cb34-30"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="dt">label =</span> <span class="st">&quot;Original Rating&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb34-31"><a href="binormal-model.html#cb34-31"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="dt">label =</span> <span class="kw">paste0</span>(<span class="st">&quot;A&quot;</span>, row, <span class="st">&quot;: &quot;</span>, <span class="st">&quot;Gaussians&quot;</span>))</span>
-<span id="cb34-32"><a href="binormal-model.html#cb34-32"></a>  <span class="kw">print</span>(x)</span>
-<span id="cb34-33"><a href="binormal-model.html#cb34-33"></a>  z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.0</span>, <span class="dv">100</span>, <span class="fl">0.1</span>)</span>
-<span id="cb34-34"><a href="binormal-model.html#cb34-34"></a>  <span class="co"># transform the latent Gaussians to true Gaussians</span></span>
-<span id="cb34-35"><a href="binormal-model.html#cb34-35"></a>  transformation &lt;-<span class="st"> </span></span>
-<span id="cb34-36"><a href="binormal-model.html#cb34-36"></a><span class="st">    </span><span class="kw">data.frame</span>(</span>
-<span id="cb34-37"><a href="binormal-model.html#cb34-37"></a>      <span class="dt">x =</span> z, </span>
-<span id="cb34-38"><a href="binormal-model.html#cb34-38"></a>      <span class="dt">z =</span>  <span class="kw">Y</span>(z,mu1,mu2,sigma1,sigma2,f))</span>
-<span id="cb34-39"><a href="binormal-model.html#cb34-39"></a>  <span class="co"># display transformation functions, B1, B2 or B3</span></span>
-<span id="cb34-40"><a href="binormal-model.html#cb34-40"></a>  x &lt;-<span class="st"> </span></span>
-<span id="cb34-41"><a href="binormal-model.html#cb34-41"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> z)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb34-42"><a href="binormal-model.html#cb34-42"></a><span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data =</span> transformation, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb34-43"><a href="binormal-model.html#cb34-43"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="dt">label =</span> <span class="st">&quot;Original Rating&quot;</span>) <span class="op">+</span></span>
-<span id="cb34-44"><a href="binormal-model.html#cb34-44"></a><span class="st">    </span><span class="kw">ylab</span>(<span class="dt">label =</span> <span class="st">&quot;Transformed Rating&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb34-45"><a href="binormal-model.html#cb34-45"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="dt">label =</span> <span class="kw">paste0</span>(<span class="st">&quot;B&quot;</span>, row, <span class="st">&quot;: &quot;</span>,<span class="st">&quot;Monotone Transformation&quot;</span>))</span>
-<span id="cb34-46"><a href="binormal-model.html#cb34-46"></a>  <span class="kw">print</span>(x)</span>
-<span id="cb34-47"><a href="binormal-model.html#cb34-47"></a>  y &lt;-<span class="st"> </span><span class="kw">Y</span>(<span class="kw">c</span>(z1, z2),mu1,mu2,sigma1,sigma2,f)</span>
-<span id="cb34-48"><a href="binormal-model.html#cb34-48"></a>  y1 &lt;-<span class="st"> </span>y[<span class="dv">1</span><span class="op">:</span>K1];y2 &lt;-<span class="st"> </span>y[(K1<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(K1<span class="op">+</span>K2)]</span>
-<span id="cb34-49"><a href="binormal-model.html#cb34-49"></a>  <span class="co"># calculate AUC for transformed ratings</span></span>
-<span id="cb34-50"><a href="binormal-model.html#cb34-50"></a>  AUC2 &lt;-<span class="st"> </span><span class="kw">TrapezoidalArea</span>( y1, y2)</span>
-<span id="cb34-51"><a href="binormal-model.html#cb34-51"></a>  <span class="co"># display histograms of latent Gaussian ratings, C1, C2 or C3</span></span>
-<span id="cb34-52"><a href="binormal-model.html#cb34-52"></a>  x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>y)</span>
-<span id="cb34-53"><a href="binormal-model.html#cb34-53"></a>  x &lt;-<span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">data =</span> x, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
-<span id="cb34-54"><a href="binormal-model.html#cb34-54"></a><span class="st">    </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">5</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span></span>
-<span id="cb34-55"><a href="binormal-model.html#cb34-55"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="dt">label =</span> <span class="st">&quot;Transformed Rating&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb34-56"><a href="binormal-model.html#cb34-56"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="dt">label =</span> <span class="kw">paste0</span>(<span class="st">&quot;C&quot;</span>, row, <span class="st">&quot;: &quot;</span>, <span class="st">&quot;Latent Gaussians&quot;</span>))</span>
-<span id="cb34-57"><a href="binormal-model.html#cb34-57"></a>  <span class="kw">print</span>(x)</span>
-<span id="cb34-58"><a href="binormal-model.html#cb34-58"></a><span class="co"># print AUCs, note they are identical (for each row)  </span></span>
-<span id="cb34-59"><a href="binormal-model.html#cb34-59"></a><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">9</span>)</span>
-<span id="cb34-60"><a href="binormal-model.html#cb34-60"></a>  <span class="kw">cat</span>(<span class="st">&quot;row =&quot;</span>, row, <span class="st">&quot;, seed =&quot;</span>, seed, <span class="st">&quot;, f =&quot;</span>, f, </span>
-<span id="cb34-61"><a href="binormal-model.html#cb34-61"></a>      <span class="st">&quot;</span><span class="ch">\n</span><span class="st">AUC of actual Gaussians =&quot;</span>, AUC1, </span>
-<span id="cb34-62"><a href="binormal-model.html#cb34-62"></a>      <span class="st">&quot;</span><span class="ch">\n</span><span class="st">AUC of latent Gaussians =&quot;</span>, AUC2, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb34-63"><a href="binormal-model.html#cb34-63"></a>}</span>
-<span id="cb34-64"><a href="binormal-model.html#cb34-64"></a><span class="co">#&gt; row = 1 , seed = 10 , f = 0.1 </span></span>
-<span id="cb34-65"><a href="binormal-model.html#cb34-65"></a><span class="co">#&gt; AUC of actual Gaussians = 0.99308 </span></span>
-<span id="cb34-66"><a href="binormal-model.html#cb34-66"></a><span class="co">#&gt; AUC of latent Gaussians = 0.99308</span></span>
-<span id="cb34-67"><a href="binormal-model.html#cb34-67"></a><span class="co">#&gt; row = 2 , seed = 11 , f = 0.5 </span></span>
-<span id="cb34-68"><a href="binormal-model.html#cb34-68"></a><span class="co">#&gt; AUC of actual Gaussians = 0.993668889 </span></span>
-<span id="cb34-69"><a href="binormal-model.html#cb34-69"></a><span class="co">#&gt; AUC of latent Gaussians = 0.993668889</span></span>
-<span id="cb34-70"><a href="binormal-model.html#cb34-70"></a><span class="co">#&gt; row = 3 , seed = 12 , f = 0.9 </span></span>
-<span id="cb34-71"><a href="binormal-model.html#cb34-71"></a><span class="co">#&gt; AUC of actual Gaussians = 0.995041111 </span></span>
-<span id="cb34-72"><a href="binormal-model.html#cb34-72"></a><span class="co">#&gt; AUC of latent Gaussians = 0.995041111</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="binormal-model.html#cb35-1"></a><span class="co"># shows that monotone transformations have no effect on </span></span>
+<span id="cb35-2"><a href="binormal-model.html#cb35-2"></a><span class="co"># AUC even though the pdfs look non-gaussian</span></span>
+<span id="cb35-3"><a href="binormal-model.html#cb35-3"></a><span class="co"># common misconception about ROC analysis</span></span>
+<span id="cb35-4"><a href="binormal-model.html#cb35-4"></a>fArray &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.1</span>,<span class="fl">0.5</span>,<span class="fl">0.9</span>)</span>
+<span id="cb35-5"><a href="binormal-model.html#cb35-5"></a>seedArray &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>)</span>
+<span id="cb35-6"><a href="binormal-model.html#cb35-6"></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) { </span>
+<span id="cb35-7"><a href="binormal-model.html#cb35-7"></a>  f &lt;-<span class="st"> </span>fArray[row]</span>
+<span id="cb35-8"><a href="binormal-model.html#cb35-8"></a>  seed &lt;-<span class="st"> </span>seedArray[row]</span>
+<span id="cb35-9"><a href="binormal-model.html#cb35-9"></a>  <span class="kw">set.seed</span>(seed) </span>
+<span id="cb35-10"><a href="binormal-model.html#cb35-10"></a>  <span class="co"># numbers of cases simulated</span></span>
+<span id="cb35-11"><a href="binormal-model.html#cb35-11"></a>  K1 &lt;-<span class="st"> </span><span class="dv">900</span></span>
+<span id="cb35-12"><a href="binormal-model.html#cb35-12"></a>  K2 &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb35-13"><a href="binormal-model.html#cb35-13"></a>  mu1 &lt;-<span class="st"> </span><span class="dv">30</span></span>
+<span id="cb35-14"><a href="binormal-model.html#cb35-14"></a>  sigma1 &lt;-<span class="st"> </span><span class="dv">7</span></span>
+<span id="cb35-15"><a href="binormal-model.html#cb35-15"></a>  mu2 &lt;-<span class="st"> </span><span class="dv">55</span></span>
+<span id="cb35-16"><a href="binormal-model.html#cb35-16"></a>  sigma2 &lt;-<span class="st"> </span><span class="dv">7</span> </span>
+<span id="cb35-17"><a href="binormal-model.html#cb35-17"></a>  <span class="co"># Simulate true gaussian ratings using above parameter values</span></span>
+<span id="cb35-18"><a href="binormal-model.html#cb35-18"></a>  z1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1,<span class="dt">mean =</span> mu1,<span class="dt">sd =</span> sigma1)</span>
+<span id="cb35-19"><a href="binormal-model.html#cb35-19"></a>  z1[z1<span class="op">&gt;</span><span class="dv">100</span>] &lt;-<span class="st"> </span><span class="dv">100</span>;z1[z1<span class="op">&lt;</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># constrain to 0 to 100</span></span>
+<span id="cb35-20"><a href="binormal-model.html#cb35-20"></a>  z2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2,<span class="dt">mean =</span> mu2,<span class="dt">sd =</span> sigma2)</span>
+<span id="cb35-21"><a href="binormal-model.html#cb35-21"></a>  z2[z2<span class="op">&gt;</span><span class="dv">100</span>] &lt;-<span class="st"> </span><span class="dv">100</span>;z2[z2<span class="op">&lt;</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># constrain to 0 to 100</span></span>
+<span id="cb35-22"><a href="binormal-model.html#cb35-22"></a>  <span class="co"># calculate AUC for true Gaussian ratings</span></span>
+<span id="cb35-23"><a href="binormal-model.html#cb35-23"></a>  AUC1 &lt;-<span class="st"> </span><span class="kw">TrapezoidalArea</span>(z1, z2)</span>
+<span id="cb35-24"><a href="binormal-model.html#cb35-24"></a>  Gaussians &lt;-<span class="st"> </span><span class="kw">c</span>(z1, z2)</span>
+<span id="cb35-25"><a href="binormal-model.html#cb35-25"></a>  <span class="co"># display histograms of true Gaussian ratings, A1, A2 or A3</span></span>
+<span id="cb35-26"><a href="binormal-model.html#cb35-26"></a>  x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>Gaussians) <span class="co">#  line 27</span></span>
+<span id="cb35-27"><a href="binormal-model.html#cb35-27"></a>  x &lt;-<span class="st">  </span></span>
+<span id="cb35-28"><a href="binormal-model.html#cb35-28"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="dt">data =</span> x, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
+<span id="cb35-29"><a href="binormal-model.html#cb35-29"></a><span class="st">    </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">5</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb35-30"><a href="binormal-model.html#cb35-30"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="dt">label =</span> <span class="st">&quot;Original Rating&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb35-31"><a href="binormal-model.html#cb35-31"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="dt">label =</span> <span class="kw">paste0</span>(<span class="st">&quot;A&quot;</span>, row, <span class="st">&quot;: &quot;</span>, <span class="st">&quot;Gaussians&quot;</span>))</span>
+<span id="cb35-32"><a href="binormal-model.html#cb35-32"></a>  <span class="kw">print</span>(x)</span>
+<span id="cb35-33"><a href="binormal-model.html#cb35-33"></a>  z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.0</span>, <span class="dv">100</span>, <span class="fl">0.1</span>)</span>
+<span id="cb35-34"><a href="binormal-model.html#cb35-34"></a>  <span class="co"># transform the latent Gaussians to true Gaussians</span></span>
+<span id="cb35-35"><a href="binormal-model.html#cb35-35"></a>  transformation &lt;-<span class="st"> </span></span>
+<span id="cb35-36"><a href="binormal-model.html#cb35-36"></a><span class="st">    </span><span class="kw">data.frame</span>(</span>
+<span id="cb35-37"><a href="binormal-model.html#cb35-37"></a>      <span class="dt">x =</span> z, </span>
+<span id="cb35-38"><a href="binormal-model.html#cb35-38"></a>      <span class="dt">z =</span>  <span class="kw">Y</span>(z,mu1,mu2,sigma1,sigma2,f))</span>
+<span id="cb35-39"><a href="binormal-model.html#cb35-39"></a>  <span class="co"># display transformation functions, B1, B2 or B3</span></span>
+<span id="cb35-40"><a href="binormal-model.html#cb35-40"></a>  x &lt;-<span class="st"> </span></span>
+<span id="cb35-41"><a href="binormal-model.html#cb35-41"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> z)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb35-42"><a href="binormal-model.html#cb35-42"></a><span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data =</span> transformation, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb35-43"><a href="binormal-model.html#cb35-43"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="dt">label =</span> <span class="st">&quot;Original Rating&quot;</span>) <span class="op">+</span></span>
+<span id="cb35-44"><a href="binormal-model.html#cb35-44"></a><span class="st">    </span><span class="kw">ylab</span>(<span class="dt">label =</span> <span class="st">&quot;Transformed Rating&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb35-45"><a href="binormal-model.html#cb35-45"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="dt">label =</span> <span class="kw">paste0</span>(<span class="st">&quot;B&quot;</span>, row, <span class="st">&quot;: &quot;</span>,<span class="st">&quot;Monotone Transformation&quot;</span>))</span>
+<span id="cb35-46"><a href="binormal-model.html#cb35-46"></a>  <span class="kw">print</span>(x)</span>
+<span id="cb35-47"><a href="binormal-model.html#cb35-47"></a>  y &lt;-<span class="st"> </span><span class="kw">Y</span>(<span class="kw">c</span>(z1, z2),mu1,mu2,sigma1,sigma2,f)</span>
+<span id="cb35-48"><a href="binormal-model.html#cb35-48"></a>  y1 &lt;-<span class="st"> </span>y[<span class="dv">1</span><span class="op">:</span>K1];y2 &lt;-<span class="st"> </span>y[(K1<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>(K1<span class="op">+</span>K2)]</span>
+<span id="cb35-49"><a href="binormal-model.html#cb35-49"></a>  <span class="co"># calculate AUC for transformed ratings</span></span>
+<span id="cb35-50"><a href="binormal-model.html#cb35-50"></a>  AUC2 &lt;-<span class="st"> </span><span class="kw">TrapezoidalArea</span>( y1, y2)</span>
+<span id="cb35-51"><a href="binormal-model.html#cb35-51"></a>  <span class="co"># display histograms of latent Gaussian ratings, C1, C2 or C3</span></span>
+<span id="cb35-52"><a href="binormal-model.html#cb35-52"></a>  x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>y)</span>
+<span id="cb35-53"><a href="binormal-model.html#cb35-53"></a>  x &lt;-<span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">data =</span> x, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
+<span id="cb35-54"><a href="binormal-model.html#cb35-54"></a><span class="st">    </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">5</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span></span>
+<span id="cb35-55"><a href="binormal-model.html#cb35-55"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="dt">label =</span> <span class="st">&quot;Transformed Rating&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb35-56"><a href="binormal-model.html#cb35-56"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="dt">label =</span> <span class="kw">paste0</span>(<span class="st">&quot;C&quot;</span>, row, <span class="st">&quot;: &quot;</span>, <span class="st">&quot;Latent Gaussians&quot;</span>))</span>
+<span id="cb35-57"><a href="binormal-model.html#cb35-57"></a>  <span class="kw">print</span>(x)</span>
+<span id="cb35-58"><a href="binormal-model.html#cb35-58"></a><span class="co"># print AUCs, note they are identical (for each row)  </span></span>
+<span id="cb35-59"><a href="binormal-model.html#cb35-59"></a><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">9</span>)</span>
+<span id="cb35-60"><a href="binormal-model.html#cb35-60"></a>  <span class="kw">cat</span>(<span class="st">&quot;row =&quot;</span>, row, <span class="st">&quot;, seed =&quot;</span>, seed, <span class="st">&quot;, f =&quot;</span>, f, </span>
+<span id="cb35-61"><a href="binormal-model.html#cb35-61"></a>      <span class="st">&quot;</span><span class="ch">\n</span><span class="st">AUC of actual Gaussians =&quot;</span>, AUC1, </span>
+<span id="cb35-62"><a href="binormal-model.html#cb35-62"></a>      <span class="st">&quot;</span><span class="ch">\n</span><span class="st">AUC of latent Gaussians =&quot;</span>, AUC2, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb35-63"><a href="binormal-model.html#cb35-63"></a>}</span>
+<span id="cb35-64"><a href="binormal-model.html#cb35-64"></a><span class="co">#&gt; row = 1 , seed = 10 , f = 0.1 </span></span>
+<span id="cb35-65"><a href="binormal-model.html#cb35-65"></a><span class="co">#&gt; AUC of actual Gaussians = 0.99308 </span></span>
+<span id="cb35-66"><a href="binormal-model.html#cb35-66"></a><span class="co">#&gt; AUC of latent Gaussians = 0.99308</span></span>
+<span id="cb35-67"><a href="binormal-model.html#cb35-67"></a><span class="co">#&gt; row = 2 , seed = 11 , f = 0.5 </span></span>
+<span id="cb35-68"><a href="binormal-model.html#cb35-68"></a><span class="co">#&gt; AUC of actual Gaussians = 0.993668889 </span></span>
+<span id="cb35-69"><a href="binormal-model.html#cb35-69"></a><span class="co">#&gt; AUC of latent Gaussians = 0.993668889</span></span>
+<span id="cb35-70"><a href="binormal-model.html#cb35-70"></a><span class="co">#&gt; row = 3 , seed = 12 , f = 0.9 </span></span>
+<span id="cb35-71"><a href="binormal-model.html#cb35-71"></a><span class="co">#&gt; AUC of actual Gaussians = 0.995041111 </span></span>
+<span id="cb35-72"><a href="binormal-model.html#cb35-72"></a><span class="co">#&gt; AUC of latent Gaussians = 0.995041111</span></span></code></pre></div>
 <p><img src="06-binormal-model_files/figure-html/unnamed-chunk-15-1.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-15-2.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-15-3.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-15-4.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-15-5.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-15-6.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-15-7.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-15-8.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-15-9.png" width="33%" /></p>
 <p><strong>Figure captions (A1 - C3):</strong> Illustrating the invariance of ROC analysis to arbitrary monotone transformations of the ratings. Each row contains 3 plots: labeled 1, 2 and 3. Each column contains 3 plots labeled A, B and C. So, for example, plot C2 refers to the second row and third column. The for-loop generates the plot one row at a time. Each of the latent Gaussian plots C1, C2 and C3 appears not binormal. However, using the inverse of the monotone transformations shown B1, B2 and B3, they can be transformed to the binormal model histograms A1, A2 and A3. Plot A1 shows the histogram of simulated ratings from a binormal model. Two peaks, one at 30 and the other at 55 are evident (by design, all ratings in this figure are in the range 0 to 100). Plot B1 shows the monotone transformation for <span class="math inline">\(f = 0.1\)</span>. Plot C1 shows the histogram of the transformed rating. The choice of <span class="math inline">\(f\)</span> leads to a transformed rating histogram that is peaked near the high end of the rating scale. For A1 and C1 the corresponding AUCs are identical (0.993080000). Plot A2 is for a different seed value, plot B2 is the transformation for <span class="math inline">\(f = 0.5\)</span> and now the transformed histogram is almost flat, plot C2. For plots A2 and C2 the corresponding AUCs are identical (0.993668889). Plot A3 is for a different seed value, B3 is the transformation for <span class="math inline">\(f = 0.9\)</span> and the transformed histogram C3 is peaked near the low end of the transformed rating scale. For plots A3 and (C3) the corresponding AUCs are identical (0.995041111).</p>
 <p>The idea is to simulate continuous ratings data in the range 0 to 100 from a binormal model. <span class="math inline">\(K_1 = 900\)</span> non-diseased cases are sampled from a Gaussian centered at <span class="math inline">\(\mu_1\)</span> = 30 and standard deviation <span class="math inline">\(\sigma_1 = 7\)</span>. <span class="math inline">\(K_2 = 1000\)</span> diseased cases are sampled from a Gaussian centered at <span class="math inline">\(\mu_2\)</span> = 55 and standard deviation <span class="math inline">\(\sigma_2\)</span> = 7. The variable <span class="math inline">\(f\)</span>, which is in the range (0,1), controls the shape of the transformed distribution. If <span class="math inline">\(f\)</span> is small, the transformed distribution will be peaked towards 0 and if <span class="math inline">\(f\)</span> is unity, it will be peaked at 100. If <span class="math inline">\(f\)</span> equals 0.5, the transformed distribution is flat. Insight into the reason for this transformation is in <span class="citation">(Press et al. <a href="#ref-RN300" role="doc-biblioref">2007</a>)</span>, Chapter 7: it has to do with transformations of random variables. The transformation function, <span class="math inline">\(Y(Z)\)</span>, implements:</p>
@@ -1229,29 +1231,29 @@ Y\left ( Z \right )=\left [ \left ( 1-f \right )\Phi\left ( \frac{Z-\mu_1}{\sigm
 S  = \sum_{i=1}^{R-1}\left ( y_i - \left ( a + bx_i \right ) \right )^2
 \end{equation*}\]</span></p>
 <p>The idea is to minimize S with respect to the parameters <span class="math inline">\((a,b)\)</span>. One approach is to differentiate this with respect to <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> and equate each resulting derivate expression to zero. This yields two equations in two unknowns, which are solved for <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. If the reader has never done this before, one should go through these steps at least once, but it would be smarter in future to use software that does all this. In <code>R</code> the least-squares fitting function is <code>lm(y~x)</code>, which in its simplest form fits a linear model <code>lm(y~x)</code> using the method of least-squares (in case you are wondering <code>lm</code> stands for linear model, a whole branch of statistics in itself; in this example one is using its simplest capability).</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="binormal-model.html#cb35-1"></a><span class="co"># ML estimates of a and b (from Eng JAVA program)</span></span>
-<span id="cb35-2"><a href="binormal-model.html#cb35-2"></a><span class="co"># a &lt;- 1.3204; b &lt;- 0.6075 </span></span>
-<span id="cb35-3"><a href="binormal-model.html#cb35-3"></a><span class="co"># # these are not used in program; just here for comparison</span></span>
-<span id="cb35-4"><a href="binormal-model.html#cb35-4"></a></span>
-<span id="cb35-5"><a href="binormal-model.html#cb35-5"></a>FPF &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.017</span>, <span class="fl">0.050</span>, <span class="fl">0.183</span>, <span class="fl">0.5</span>)  </span>
-<span id="cb35-6"><a href="binormal-model.html#cb35-6"></a><span class="co"># this is from Table 6.11, last two rows</span></span>
-<span id="cb35-7"><a href="binormal-model.html#cb35-7"></a>TPF &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.440</span>, <span class="fl">0.680</span>, <span class="fl">0.780</span>, <span class="fl">0.900</span>)</span>
-<span id="cb35-8"><a href="binormal-model.html#cb35-8"></a><span class="co"># ...do...</span></span>
-<span id="cb35-9"><a href="binormal-model.html#cb35-9"></a></span>
-<span id="cb35-10"><a href="binormal-model.html#cb35-10"></a>PhiInvFPF &lt;-<span class="st"> </span><span class="kw">qnorm</span>(FPF)</span>
-<span id="cb35-11"><a href="binormal-model.html#cb35-11"></a><span class="co"># apply the PHI_INV function</span></span>
-<span id="cb35-12"><a href="binormal-model.html#cb35-12"></a>PhiInvTPF &lt;-<span class="st"> </span><span class="kw">qnorm</span>(TPF)</span>
-<span id="cb35-13"><a href="binormal-model.html#cb35-13"></a><span class="co"># ... do ... </span></span>
-<span id="cb35-14"><a href="binormal-model.html#cb35-14"></a></span>
-<span id="cb35-15"><a href="binormal-model.html#cb35-15"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(PhiInvTPF<span class="op">~</span>PhiInvFPF)</span>
-<span id="cb35-16"><a href="binormal-model.html#cb35-16"></a><span class="kw">print</span>(fit)</span>
-<span id="cb35-17"><a href="binormal-model.html#cb35-17"></a><span class="co">#&gt; </span></span>
-<span id="cb35-18"><a href="binormal-model.html#cb35-18"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb35-19"><a href="binormal-model.html#cb35-19"></a><span class="co">#&gt; lm(formula = PhiInvTPF ~ PhiInvFPF)</span></span>
-<span id="cb35-20"><a href="binormal-model.html#cb35-20"></a><span class="co">#&gt; </span></span>
-<span id="cb35-21"><a href="binormal-model.html#cb35-21"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb35-22"><a href="binormal-model.html#cb35-22"></a><span class="co">#&gt; (Intercept)    PhiInvFPF  </span></span>
-<span id="cb35-23"><a href="binormal-model.html#cb35-23"></a><span class="co">#&gt;    1.328844     0.630746</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="binormal-model.html#cb36-1"></a><span class="co"># ML estimates of a and b (from Eng JAVA program)</span></span>
+<span id="cb36-2"><a href="binormal-model.html#cb36-2"></a><span class="co"># a &lt;- 1.3204; b &lt;- 0.6075 </span></span>
+<span id="cb36-3"><a href="binormal-model.html#cb36-3"></a><span class="co"># # these are not used in program; just here for comparison</span></span>
+<span id="cb36-4"><a href="binormal-model.html#cb36-4"></a></span>
+<span id="cb36-5"><a href="binormal-model.html#cb36-5"></a>FPF &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.017</span>, <span class="fl">0.050</span>, <span class="fl">0.183</span>, <span class="fl">0.5</span>)  </span>
+<span id="cb36-6"><a href="binormal-model.html#cb36-6"></a><span class="co"># this is from Table 6.11, last two rows</span></span>
+<span id="cb36-7"><a href="binormal-model.html#cb36-7"></a>TPF &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.440</span>, <span class="fl">0.680</span>, <span class="fl">0.780</span>, <span class="fl">0.900</span>)</span>
+<span id="cb36-8"><a href="binormal-model.html#cb36-8"></a><span class="co"># ...do...</span></span>
+<span id="cb36-9"><a href="binormal-model.html#cb36-9"></a></span>
+<span id="cb36-10"><a href="binormal-model.html#cb36-10"></a>PhiInvFPF &lt;-<span class="st"> </span><span class="kw">qnorm</span>(FPF)</span>
+<span id="cb36-11"><a href="binormal-model.html#cb36-11"></a><span class="co"># apply the PHI_INV function</span></span>
+<span id="cb36-12"><a href="binormal-model.html#cb36-12"></a>PhiInvTPF &lt;-<span class="st"> </span><span class="kw">qnorm</span>(TPF)</span>
+<span id="cb36-13"><a href="binormal-model.html#cb36-13"></a><span class="co"># ... do ... </span></span>
+<span id="cb36-14"><a href="binormal-model.html#cb36-14"></a></span>
+<span id="cb36-15"><a href="binormal-model.html#cb36-15"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(PhiInvTPF<span class="op">~</span>PhiInvFPF)</span>
+<span id="cb36-16"><a href="binormal-model.html#cb36-16"></a><span class="kw">print</span>(fit)</span>
+<span id="cb36-17"><a href="binormal-model.html#cb36-17"></a><span class="co">#&gt; </span></span>
+<span id="cb36-18"><a href="binormal-model.html#cb36-18"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb36-19"><a href="binormal-model.html#cb36-19"></a><span class="co">#&gt; lm(formula = PhiInvTPF ~ PhiInvFPF)</span></span>
+<span id="cb36-20"><a href="binormal-model.html#cb36-20"></a><span class="co">#&gt; </span></span>
+<span id="cb36-21"><a href="binormal-model.html#cb36-21"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb36-22"><a href="binormal-model.html#cb36-22"></a><span class="co">#&gt; (Intercept)    PhiInvFPF  </span></span>
+<span id="cb36-23"><a href="binormal-model.html#cb36-23"></a><span class="co">#&gt;    1.328844     0.630746</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:binormal-modelStraightLineFit"></span>
 <img src="06-binormal-model_files/figure-html/binormal-modelStraightLineFit-1.png" alt="The straight line fit method of estimating parameters of the fitting model." width="672" />
 <p class="caption">
@@ -1326,33 +1328,33 @@ LL\left ( a,b,\overrightarrow{\zeta} \right ) \propto&amp; \sum_{r=1}^{R} K_{1r}
 </div>
 <div id="code-implementing-mle" class="section level3 hasAnchor">
 <h3><span class="header-section-number">6.14.4</span> Code implementing MLE<a href="binormal-model.html#code-implementing-mle" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="binormal-model.html#cb36-1"></a></span>
-<span id="cb36-2"><a href="binormal-model.html#cb36-2"></a><span class="co"># ML estimates of a and b (from Eng JAVA program)</span></span>
-<span id="cb36-3"><a href="binormal-model.html#cb36-3"></a><span class="co"># a &lt;- 1.3204; b &lt;- 0.6075 </span></span>
-<span id="cb36-4"><a href="binormal-model.html#cb36-4"></a><span class="co"># these are not used in program; just there for comparison</span></span>
-<span id="cb36-5"><a href="binormal-model.html#cb36-5"></a></span>
-<span id="cb36-6"><a href="binormal-model.html#cb36-6"></a>K1t &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">19</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb36-7"><a href="binormal-model.html#cb36-7"></a>K2t &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,  <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">22</span>)</span>
-<span id="cb36-8"><a href="binormal-model.html#cb36-8"></a>dataset &lt;-<span class="st"> </span><span class="kw">Df2RJafrocDataset</span>(K1t, K2t, <span class="dt">InputIsCountsTable =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb36-9"><a href="binormal-model.html#cb36-9"></a>retFit &lt;-<span class="st"> </span><span class="kw">FitBinormalRoc</span>(dataset)</span>
-<span id="cb36-10"><a href="binormal-model.html#cb36-10"></a>retFit[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span>
-<span id="cb36-11"><a href="binormal-model.html#cb36-11"></a><span class="co">#&gt; $a</span></span>
-<span id="cb36-12"><a href="binormal-model.html#cb36-12"></a><span class="co">#&gt; [1] 1.32045261</span></span>
-<span id="cb36-13"><a href="binormal-model.html#cb36-13"></a><span class="co">#&gt; </span></span>
-<span id="cb36-14"><a href="binormal-model.html#cb36-14"></a><span class="co">#&gt; $b</span></span>
-<span id="cb36-15"><a href="binormal-model.html#cb36-15"></a><span class="co">#&gt; [1] 0.607492932</span></span>
-<span id="cb36-16"><a href="binormal-model.html#cb36-16"></a><span class="co">#&gt; </span></span>
-<span id="cb36-17"><a href="binormal-model.html#cb36-17"></a><span class="co">#&gt; $zetas</span></span>
-<span id="cb36-18"><a href="binormal-model.html#cb36-18"></a><span class="co">#&gt;      zetaFwd1      zetaFwd2      zetaFwd3      zetaFwd4 </span></span>
-<span id="cb36-19"><a href="binormal-model.html#cb36-19"></a><span class="co">#&gt; 0.00768054675 0.89627306763 1.51564784976 2.39672209865 </span></span>
-<span id="cb36-20"><a href="binormal-model.html#cb36-20"></a><span class="co">#&gt; </span></span>
-<span id="cb36-21"><a href="binormal-model.html#cb36-21"></a><span class="co">#&gt; $AUC</span></span>
-<span id="cb36-22"><a href="binormal-model.html#cb36-22"></a><span class="co">#&gt; [1] 0.870452157</span></span>
-<span id="cb36-23"><a href="binormal-model.html#cb36-23"></a><span class="co">#&gt; </span></span>
-<span id="cb36-24"><a href="binormal-model.html#cb36-24"></a><span class="co">#&gt; $StdAUC</span></span>
-<span id="cb36-25"><a href="binormal-model.html#cb36-25"></a><span class="co">#&gt;              [,1]</span></span>
-<span id="cb36-26"><a href="binormal-model.html#cb36-26"></a><span class="co">#&gt; [1,] 0.0379042262</span></span>
-<span id="cb36-27"><a href="binormal-model.html#cb36-27"></a><span class="kw">print</span>(retFit<span class="op">$</span>fittedPlot)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="binormal-model.html#cb37-1"></a></span>
+<span id="cb37-2"><a href="binormal-model.html#cb37-2"></a><span class="co"># ML estimates of a and b (from Eng JAVA program)</span></span>
+<span id="cb37-3"><a href="binormal-model.html#cb37-3"></a><span class="co"># a &lt;- 1.3204; b &lt;- 0.6075 </span></span>
+<span id="cb37-4"><a href="binormal-model.html#cb37-4"></a><span class="co"># these are not used in program; just there for comparison</span></span>
+<span id="cb37-5"><a href="binormal-model.html#cb37-5"></a></span>
+<span id="cb37-6"><a href="binormal-model.html#cb37-6"></a>K1t &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">19</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb37-7"><a href="binormal-model.html#cb37-7"></a>K2t &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,  <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">22</span>)</span>
+<span id="cb37-8"><a href="binormal-model.html#cb37-8"></a>dataset &lt;-<span class="st"> </span><span class="kw">Df2RJafrocDataset</span>(K1t, K2t, <span class="dt">InputIsCountsTable =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb37-9"><a href="binormal-model.html#cb37-9"></a>retFit &lt;-<span class="st"> </span><span class="kw">FitBinormalRoc</span>(dataset)</span>
+<span id="cb37-10"><a href="binormal-model.html#cb37-10"></a>retFit[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span>
+<span id="cb37-11"><a href="binormal-model.html#cb37-11"></a><span class="co">#&gt; $a</span></span>
+<span id="cb37-12"><a href="binormal-model.html#cb37-12"></a><span class="co">#&gt; [1] 1.32045261</span></span>
+<span id="cb37-13"><a href="binormal-model.html#cb37-13"></a><span class="co">#&gt; </span></span>
+<span id="cb37-14"><a href="binormal-model.html#cb37-14"></a><span class="co">#&gt; $b</span></span>
+<span id="cb37-15"><a href="binormal-model.html#cb37-15"></a><span class="co">#&gt; [1] 0.607492932</span></span>
+<span id="cb37-16"><a href="binormal-model.html#cb37-16"></a><span class="co">#&gt; </span></span>
+<span id="cb37-17"><a href="binormal-model.html#cb37-17"></a><span class="co">#&gt; $zetas</span></span>
+<span id="cb37-18"><a href="binormal-model.html#cb37-18"></a><span class="co">#&gt;      zetaFwd1      zetaFwd2      zetaFwd3      zetaFwd4 </span></span>
+<span id="cb37-19"><a href="binormal-model.html#cb37-19"></a><span class="co">#&gt; 0.00768054675 0.89627306763 1.51564784976 2.39672209865 </span></span>
+<span id="cb37-20"><a href="binormal-model.html#cb37-20"></a><span class="co">#&gt; </span></span>
+<span id="cb37-21"><a href="binormal-model.html#cb37-21"></a><span class="co">#&gt; $AUC</span></span>
+<span id="cb37-22"><a href="binormal-model.html#cb37-22"></a><span class="co">#&gt; [1] 0.870452157</span></span>
+<span id="cb37-23"><a href="binormal-model.html#cb37-23"></a><span class="co">#&gt; </span></span>
+<span id="cb37-24"><a href="binormal-model.html#cb37-24"></a><span class="co">#&gt; $StdAUC</span></span>
+<span id="cb37-25"><a href="binormal-model.html#cb37-25"></a><span class="co">#&gt;              [,1]</span></span>
+<span id="cb37-26"><a href="binormal-model.html#cb37-26"></a><span class="co">#&gt; [1,] 0.0379042262</span></span>
+<span id="cb37-27"><a href="binormal-model.html#cb37-27"></a><span class="kw">print</span>(retFit<span class="op">$</span>fittedPlot)</span></code></pre></div>
 <p><img src="06-binormal-model_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Note the usage of the <code>RJafroc</code> package <span class="citation">(Chakraborty, Philips, and Zhai <a href="#ref-R-RJafroc" role="doc-biblioref">2020</a>)</span>. Specifically, the function <code>FitBinormalRoc</code>. The ratings table is converted to an <code>RJafroc</code> dataset object, followed by application of the fitting function. The results, contained in <code>retFit</code> should be compared to those obtained from the <a href="http://www.rad.jhmi.edu/jeng/javarad/roc/JROCFITi.html">website implementation of ROCFIT</a>.</p>
 </div>

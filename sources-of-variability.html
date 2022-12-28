@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Sources of AUC variability | The RJafroc Roc Book</title>
   <meta name="description" content="Artificial intelligence and observer performance book based on RJafroc." />
-  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Sources of AUC variability | The RJafroc Roc Book" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2022-09-29" />
+<meta name="date" content="2022-12-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -619,54 +619,26 @@ AUC\rightarrow AUC_{\{c\}}
 <div id="sources-of-variabilityDeLong" class="section level2 hasAnchor">
 <h2><span class="header-section-number">7.5</span> DeLong method<a href="sources-of-variability.html#sources-of-variabilityDeLong" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If the figure-of-merit is the empirical AUC, then a procedure developed by DeLong et al4 (henceforth abbreviated to DeLong) is applicable that is based on earlier work by <span class="citation">(Noether <a href="#ref-RN2530" role="doc-biblioref">1967</a>)</span> and <span class="citation">(Bamber <a href="#ref-RN2174" role="doc-biblioref">1975</a>)</span>. The author will not go into details of this procedure but limit to showing that it “works”. However, before one can show that it “works”, one needs to know the true value of the variance of empirical AUC. Even if data were simulated using the binormal model, one cannot use the binormal model based estimate of variance as it is an estimate, not to be confused with a true value. Estimates are realizations of random numbers and are themselves subject to variability, which decreases with increasing case-set size. Instead, a “brute-force” (i.e., simulated population sampling) approach is adopted to determine the true value of the variance of AUC. The simulator provides a means of repeatedly generating case-sets interpreted by the same radiologist, and by sampling it enough time, e.g., <span class="math inline">\(C\)</span> = 10,000 times, each time calculating AUC, one determines the population mean and standard deviation. The standard deviation determined this way is compared to that yielded by the DeLong method to check if the latter actually works.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="sources-of-variability.html#cb37-1"></a>bruteForceEstimation &lt;-</span>
-<span id="cb37-2"><a href="sources-of-variability.html#cb37-2"></a><span class="st">  </span><span class="cf">function</span>(seed, mu, sigma, K1, K2) {</span>
-<span id="cb37-3"><a href="sources-of-variability.html#cb37-3"></a>    <span class="co"># brute force method to</span></span>
-<span id="cb37-4"><a href="sources-of-variability.html#cb37-4"></a>    <span class="co"># find the population </span></span>
-<span id="cb37-5"><a href="sources-of-variability.html#cb37-5"></a>    <span class="co"># meanempAuc and stdDevempAuc</span></span>
-<span id="cb37-6"><a href="sources-of-variability.html#cb37-6"></a>    empAuc &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="dv">10000</span>)</span>
-<span id="cb37-7"><a href="sources-of-variability.html#cb37-7"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(empAuc)) {</span>
-<span id="cb37-8"><a href="sources-of-variability.html#cb37-8"></a>      zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1)</span>
-<span id="cb37-9"><a href="sources-of-variability.html#cb37-9"></a>      zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)</span>
-<span id="cb37-10"><a href="sources-of-variability.html#cb37-10"></a>      empAuc[i] &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
-<span id="cb37-11"><a href="sources-of-variability.html#cb37-11"></a>    }</span>
-<span id="cb37-12"><a href="sources-of-variability.html#cb37-12"></a>    stdDevempAuc  &lt;-<span class="st">  </span><span class="kw">sqrt</span>(<span class="kw">var</span>(empAuc))</span>
-<span id="cb37-13"><a href="sources-of-variability.html#cb37-13"></a>    meanempAuc   &lt;-<span class="st">  </span><span class="kw">mean</span>(empAuc)</span>
-<span id="cb37-14"><a href="sources-of-variability.html#cb37-14"></a>    <span class="kw">return</span>(<span class="kw">list</span>(</span>
-<span id="cb37-15"><a href="sources-of-variability.html#cb37-15"></a>      <span class="dt">meanempAuc =</span> meanempAuc,</span>
-<span id="cb37-16"><a href="sources-of-variability.html#cb37-16"></a>      <span class="dt">stdDevempAuc =</span> stdDevempAuc</span>
-<span id="cb37-17"><a href="sources-of-variability.html#cb37-17"></a>    ))</span>
-<span id="cb37-18"><a href="sources-of-variability.html#cb37-18"></a>  }</span></code></pre></div>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="sources-of-variability.html#cb38-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
-<span id="cb38-2"><a href="sources-of-variability.html#cb38-2"></a>mu &lt;-<span class="st"> </span><span class="fl">1.5</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span></span>
-<span id="cb38-3"><a href="sources-of-variability.html#cb38-3"></a>ret &lt;-<span class="st"> </span><span class="kw">bruteForceEstimation</span>(seed, mu, sigma, K1, K2)</span>
-<span id="cb38-4"><a href="sources-of-variability.html#cb38-4"></a><span class="co"># one more trial</span></span>
-<span id="cb38-5"><a href="sources-of-variability.html#cb38-5"></a>zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1)</span>
-<span id="cb38-6"><a href="sources-of-variability.html#cb38-6"></a>zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)</span>
-<span id="cb38-7"><a href="sources-of-variability.html#cb38-7"></a>empAuc &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
-<span id="cb38-8"><a href="sources-of-variability.html#cb38-8"></a>ret1  &lt;-<span class="st"> </span><span class="kw">DeLongVar</span>(zk1,zk2)</span>
-<span id="cb38-9"><a href="sources-of-variability.html#cb38-9"></a>stdDevDeLong &lt;-<span class="st"> </span><span class="kw">sqrt</span>(ret1)</span>
-<span id="cb38-10"><a href="sources-of-variability.html#cb38-10"></a><span class="kw">cat</span>(<span class="st">&quot;brute force estimates:&quot;</span>,</span>
-<span id="cb38-11"><a href="sources-of-variability.html#cb38-11"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">empAuc = &quot;</span>,</span>
-<span id="cb38-12"><a href="sources-of-variability.html#cb38-12"></a>    ret<span class="op">$</span>meanempAuc,</span>
-<span id="cb38-13"><a href="sources-of-variability.html#cb38-13"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">population standard deviation =&quot;</span>,</span>
-<span id="cb38-14"><a href="sources-of-variability.html#cb38-14"></a>    ret<span class="op">$</span>stdDevempAuc, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb38-15"><a href="sources-of-variability.html#cb38-15"></a><span class="co">#&gt; brute force estimates: </span></span>
-<span id="cb38-16"><a href="sources-of-variability.html#cb38-16"></a><span class="co">#&gt; empAuc =  0.819178 </span></span>
-<span id="cb38-17"><a href="sources-of-variability.html#cb38-17"></a><span class="co">#&gt; population standard deviation = 0.04176683</span></span>
-<span id="cb38-18"><a href="sources-of-variability.html#cb38-18"></a></span>
-<span id="cb38-19"><a href="sources-of-variability.html#cb38-19"></a><span class="kw">cat</span>(<span class="st">&quot;single sample estimates = &quot;</span>,</span>
-<span id="cb38-20"><a href="sources-of-variability.html#cb38-20"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">empirical AUC&quot;</span>,</span>
-<span id="cb38-21"><a href="sources-of-variability.html#cb38-21"></a>    empAuc,</span>
-<span id="cb38-22"><a href="sources-of-variability.html#cb38-22"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">standard deviation DeLong = &quot;</span>,</span>
-<span id="cb38-23"><a href="sources-of-variability.html#cb38-23"></a>    stdDevDeLong, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb38-24"><a href="sources-of-variability.html#cb38-24"></a><span class="co">#&gt; single sample estimates =  </span></span>
-<span id="cb38-25"><a href="sources-of-variability.html#cb38-25"></a><span class="co">#&gt; empirical AUC 0.8626923 </span></span>
-<span id="cb38-26"><a href="sources-of-variability.html#cb38-26"></a><span class="co">#&gt; standard deviation DeLong =  0.03804135</span></span></code></pre></div>
-<p>Two functions needed for this code to work are not shown: <code>Wilcoxon()</code> calculates the Wilcoxon statistic and the <code>DeLongVar()</code> implements the DeLong variance computation method (the DeLong method also calculates co-variances, but these are not needed in the current context). Line 1 sets the <code>seed</code> of the random number generator to 1. The <code>seed</code> variable is completely analogous to the case-set index <code>c</code>. Keeping <code>seed</code> fixed realizes the same random numbers each time the program is run. Different values of <code>seed</code> result in different, i.e., statistically independent, random samples. Line 2 initialize the values <span class="math inline">\((\mu, \sigma, K_1, K_2)\)</span> needed by the data simulator: the normal distributions are separated by <span class="math inline">\(\mu = 1.5\)</span>, the standard deviation of the diseased distribution is <span class="math inline">\(\sigma = 1.3\)</span>, and there are <span class="math inline">\(K_1 = 50\)</span> non-diseased and <span class="math inline">\(K_2 = 52\)</span> diseased cases. Line 3 calls <code>bruteForceEstimation</code>, the “brute force” method for estimating mean and standard deviation of the population distribution of AUC, returned by this function, which are the “correct” value to which the DeLong standard deviation estimate will be compared. Lines 4-9 generates a fresh ROC dataset to which the DeLong method is applied.</p>
-<p>Two runs of this code were made, one with the smaller sample size, and the other with 10 times the sample size (the second run takes much longer). A third run was made with the larger sample size but with a different seed value. The results follow:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="sources-of-variability.html#cb39-1"></a>seed &lt;-<span class="st"> </span><span class="dv">2</span>;<span class="kw">set.seed</span>(seed)</span>
-<span id="cb39-2"><a href="sources-of-variability.html#cb39-2"></a>mu &lt;-<span class="st"> </span><span class="fl">1.5</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">500</span>;K2 &lt;-<span class="st"> </span><span class="dv">520</span></span>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="sources-of-variability.html#cb38-1"></a>bruteForceEstimation &lt;-</span>
+<span id="cb38-2"><a href="sources-of-variability.html#cb38-2"></a><span class="st">  </span><span class="cf">function</span>(seed, mu, sigma, K1, K2) {</span>
+<span id="cb38-3"><a href="sources-of-variability.html#cb38-3"></a>    <span class="co"># brute force method to</span></span>
+<span id="cb38-4"><a href="sources-of-variability.html#cb38-4"></a>    <span class="co"># find the population </span></span>
+<span id="cb38-5"><a href="sources-of-variability.html#cb38-5"></a>    <span class="co"># meanempAuc and stdDevempAuc</span></span>
+<span id="cb38-6"><a href="sources-of-variability.html#cb38-6"></a>    empAuc &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="dv">10000</span>)</span>
+<span id="cb38-7"><a href="sources-of-variability.html#cb38-7"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(empAuc)) {</span>
+<span id="cb38-8"><a href="sources-of-variability.html#cb38-8"></a>      zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1)</span>
+<span id="cb38-9"><a href="sources-of-variability.html#cb38-9"></a>      zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)</span>
+<span id="cb38-10"><a href="sources-of-variability.html#cb38-10"></a>      empAuc[i] &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
+<span id="cb38-11"><a href="sources-of-variability.html#cb38-11"></a>    }</span>
+<span id="cb38-12"><a href="sources-of-variability.html#cb38-12"></a>    stdDevempAuc  &lt;-<span class="st">  </span><span class="kw">sqrt</span>(<span class="kw">var</span>(empAuc))</span>
+<span id="cb38-13"><a href="sources-of-variability.html#cb38-13"></a>    meanempAuc   &lt;-<span class="st">  </span><span class="kw">mean</span>(empAuc)</span>
+<span id="cb38-14"><a href="sources-of-variability.html#cb38-14"></a>    <span class="kw">return</span>(<span class="kw">list</span>(</span>
+<span id="cb38-15"><a href="sources-of-variability.html#cb38-15"></a>      <span class="dt">meanempAuc =</span> meanempAuc,</span>
+<span id="cb38-16"><a href="sources-of-variability.html#cb38-16"></a>      <span class="dt">stdDevempAuc =</span> stdDevempAuc</span>
+<span id="cb38-17"><a href="sources-of-variability.html#cb38-17"></a>    ))</span>
+<span id="cb38-18"><a href="sources-of-variability.html#cb38-18"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="sources-of-variability.html#cb39-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
+<span id="cb39-2"><a href="sources-of-variability.html#cb39-2"></a>mu &lt;-<span class="st"> </span><span class="fl">1.5</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span></span>
 <span id="cb39-3"><a href="sources-of-variability.html#cb39-3"></a>ret &lt;-<span class="st"> </span><span class="kw">bruteForceEstimation</span>(seed, mu, sigma, K1, K2)</span>
 <span id="cb39-4"><a href="sources-of-variability.html#cb39-4"></a><span class="co"># one more trial</span></span>
 <span id="cb39-5"><a href="sources-of-variability.html#cb39-5"></a>zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1)</span>
@@ -680,8 +652,8 @@ AUC\rightarrow AUC_{\{c\}}
 <span id="cb39-13"><a href="sources-of-variability.html#cb39-13"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">population standard deviation =&quot;</span>,</span>
 <span id="cb39-14"><a href="sources-of-variability.html#cb39-14"></a>    ret<span class="op">$</span>stdDevempAuc, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb39-15"><a href="sources-of-variability.html#cb39-15"></a><span class="co">#&gt; brute force estimates: </span></span>
-<span id="cb39-16"><a href="sources-of-variability.html#cb39-16"></a><span class="co">#&gt; empAuc =  0.8194988 </span></span>
-<span id="cb39-17"><a href="sources-of-variability.html#cb39-17"></a><span class="co">#&gt; population standard deviation = 0.01300203</span></span>
+<span id="cb39-16"><a href="sources-of-variability.html#cb39-16"></a><span class="co">#&gt; empAuc =  0.819178 </span></span>
+<span id="cb39-17"><a href="sources-of-variability.html#cb39-17"></a><span class="co">#&gt; population standard deviation = 0.04176683</span></span>
 <span id="cb39-18"><a href="sources-of-variability.html#cb39-18"></a></span>
 <span id="cb39-19"><a href="sources-of-variability.html#cb39-19"></a><span class="kw">cat</span>(<span class="st">&quot;single sample estimates = &quot;</span>,</span>
 <span id="cb39-20"><a href="sources-of-variability.html#cb39-20"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">empirical AUC&quot;</span>,</span>
@@ -689,8 +661,36 @@ AUC\rightarrow AUC_{\{c\}}
 <span id="cb39-22"><a href="sources-of-variability.html#cb39-22"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">standard deviation DeLong = &quot;</span>,</span>
 <span id="cb39-23"><a href="sources-of-variability.html#cb39-23"></a>    stdDevDeLong, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb39-24"><a href="sources-of-variability.html#cb39-24"></a><span class="co">#&gt; single sample estimates =  </span></span>
-<span id="cb39-25"><a href="sources-of-variability.html#cb39-25"></a><span class="co">#&gt; empirical AUC 0.8047269 </span></span>
-<span id="cb39-26"><a href="sources-of-variability.html#cb39-26"></a><span class="co">#&gt; standard deviation DeLong =  0.01356696</span></span></code></pre></div>
+<span id="cb39-25"><a href="sources-of-variability.html#cb39-25"></a><span class="co">#&gt; empirical AUC 0.8626923 </span></span>
+<span id="cb39-26"><a href="sources-of-variability.html#cb39-26"></a><span class="co">#&gt; standard deviation DeLong =  0.03804135</span></span></code></pre></div>
+<p>Two functions needed for this code to work are not shown: <code>Wilcoxon()</code> calculates the Wilcoxon statistic and the <code>DeLongVar()</code> implements the DeLong variance computation method (the DeLong method also calculates co-variances, but these are not needed in the current context). Line 1 sets the <code>seed</code> of the random number generator to 1. The <code>seed</code> variable is completely analogous to the case-set index <code>c</code>. Keeping <code>seed</code> fixed realizes the same random numbers each time the program is run. Different values of <code>seed</code> result in different, i.e., statistically independent, random samples. Line 2 initialize the values <span class="math inline">\((\mu, \sigma, K_1, K_2)\)</span> needed by the data simulator: the normal distributions are separated by <span class="math inline">\(\mu = 1.5\)</span>, the standard deviation of the diseased distribution is <span class="math inline">\(\sigma = 1.3\)</span>, and there are <span class="math inline">\(K_1 = 50\)</span> non-diseased and <span class="math inline">\(K_2 = 52\)</span> diseased cases. Line 3 calls <code>bruteForceEstimation</code>, the “brute force” method for estimating mean and standard deviation of the population distribution of AUC, returned by this function, which are the “correct” value to which the DeLong standard deviation estimate will be compared. Lines 4-9 generates a fresh ROC dataset to which the DeLong method is applied.</p>
+<p>Two runs of this code were made, one with the smaller sample size, and the other with 10 times the sample size (the second run takes much longer). A third run was made with the larger sample size but with a different seed value. The results follow:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="sources-of-variability.html#cb40-1"></a>seed &lt;-<span class="st"> </span><span class="dv">2</span>;<span class="kw">set.seed</span>(seed)</span>
+<span id="cb40-2"><a href="sources-of-variability.html#cb40-2"></a>mu &lt;-<span class="st"> </span><span class="fl">1.5</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">500</span>;K2 &lt;-<span class="st"> </span><span class="dv">520</span></span>
+<span id="cb40-3"><a href="sources-of-variability.html#cb40-3"></a>ret &lt;-<span class="st"> </span><span class="kw">bruteForceEstimation</span>(seed, mu, sigma, K1, K2)</span>
+<span id="cb40-4"><a href="sources-of-variability.html#cb40-4"></a><span class="co"># one more trial</span></span>
+<span id="cb40-5"><a href="sources-of-variability.html#cb40-5"></a>zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1)</span>
+<span id="cb40-6"><a href="sources-of-variability.html#cb40-6"></a>zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)</span>
+<span id="cb40-7"><a href="sources-of-variability.html#cb40-7"></a>empAuc &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
+<span id="cb40-8"><a href="sources-of-variability.html#cb40-8"></a>ret1  &lt;-<span class="st"> </span><span class="kw">DeLongVar</span>(zk1,zk2)</span>
+<span id="cb40-9"><a href="sources-of-variability.html#cb40-9"></a>stdDevDeLong &lt;-<span class="st"> </span><span class="kw">sqrt</span>(ret1)</span>
+<span id="cb40-10"><a href="sources-of-variability.html#cb40-10"></a><span class="kw">cat</span>(<span class="st">&quot;brute force estimates:&quot;</span>,</span>
+<span id="cb40-11"><a href="sources-of-variability.html#cb40-11"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">empAuc = &quot;</span>,</span>
+<span id="cb40-12"><a href="sources-of-variability.html#cb40-12"></a>    ret<span class="op">$</span>meanempAuc,</span>
+<span id="cb40-13"><a href="sources-of-variability.html#cb40-13"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">population standard deviation =&quot;</span>,</span>
+<span id="cb40-14"><a href="sources-of-variability.html#cb40-14"></a>    ret<span class="op">$</span>stdDevempAuc, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb40-15"><a href="sources-of-variability.html#cb40-15"></a><span class="co">#&gt; brute force estimates: </span></span>
+<span id="cb40-16"><a href="sources-of-variability.html#cb40-16"></a><span class="co">#&gt; empAuc =  0.8194988 </span></span>
+<span id="cb40-17"><a href="sources-of-variability.html#cb40-17"></a><span class="co">#&gt; population standard deviation = 0.01300203</span></span>
+<span id="cb40-18"><a href="sources-of-variability.html#cb40-18"></a></span>
+<span id="cb40-19"><a href="sources-of-variability.html#cb40-19"></a><span class="kw">cat</span>(<span class="st">&quot;single sample estimates = &quot;</span>,</span>
+<span id="cb40-20"><a href="sources-of-variability.html#cb40-20"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">empirical AUC&quot;</span>,</span>
+<span id="cb40-21"><a href="sources-of-variability.html#cb40-21"></a>    empAuc,</span>
+<span id="cb40-22"><a href="sources-of-variability.html#cb40-22"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">standard deviation DeLong = &quot;</span>,</span>
+<span id="cb40-23"><a href="sources-of-variability.html#cb40-23"></a>    stdDevDeLong, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb40-24"><a href="sources-of-variability.html#cb40-24"></a><span class="co">#&gt; single sample estimates =  </span></span>
+<span id="cb40-25"><a href="sources-of-variability.html#cb40-25"></a><span class="co">#&gt; empirical AUC 0.8047269 </span></span>
+<span id="cb40-26"><a href="sources-of-variability.html#cb40-26"></a><span class="co">#&gt; standard deviation DeLong =  0.01356696</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>An important observation is that as sample-size increases, case-sampling variability decreases: 0.0417 for the smaller sample size vs. 0.01309 for the larger sample size, and the dependence is as the inverse square root of the numbers of cases, as expected from the central limit theorem.</li>
 <li>With the smaller sample size (K1/K2 = 50/52; the back-slash notation, not to be confused with division, is a convenient way of summarizing the case-sample size) the estimated standard deviation (0.038) is within 10% of that estimated by population sampling (0.042). With the larger sample size, (K1/K2 = 500/520) the two are practically identical (0.01300203 vs. 0.01356696 – the latter value is for seed = 2).</li>
@@ -790,94 +790,94 @@ k_{2,1},k_{2,1},k_{4,1},k_{4,1},k_{4,1},k_{6,1},k_{7,1},k_{7,1},k_{9,1},...,k_{2
 <div id="demonstration-of-the-bootstrap-method" class="section level3 hasAnchor">
 <h3><span class="header-section-number">7.6.1</span> Demonstration of the bootstrap method<a href="sources-of-variability.html#demonstration-of-the-bootstrap-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To minimize clutter, several <code>R</code> functions are not shown, but they are compiled. To display them <code>clone</code> or ‘fork’ the book repository and look at the <code>Rmd</code> file corresponding to this output and the sourced <code>R</code> files listed below:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="sources-of-variability.html#cb40-1"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH07-Variability/Transforms.R&quot;</span>))</span>
-<span id="cb40-2"><a href="sources-of-variability.html#cb40-2"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH07-Variability/LL.R&quot;</span>))</span>
-<span id="cb40-3"><a href="sources-of-variability.html#cb40-3"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH07-Variability/RocfitR.R&quot;</span>)) </span>
-<span id="cb40-4"><a href="sources-of-variability.html#cb40-4"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH07-Variability/RocOperatingPoints.R&quot;</span>))</span>
-<span id="cb40-5"><a href="sources-of-variability.html#cb40-5"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH07-Variability/FixRocCountsTable.R&quot;</span>))</span>
-<span id="cb40-6"><a href="sources-of-variability.html#cb40-6"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH07-Variability/WilcoxonCountsTable.R&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="sources-of-variability.html#cb41-1"></a>doBootstrap &lt;-<span class="st"> </span><span class="cf">function</span>(parametricFOM, B, seed, RocTable) {</span>
-<span id="cb41-2"><a href="sources-of-variability.html#cb41-2"></a>  <span class="co"># this is the K vector </span></span>
-<span id="cb41-3"><a href="sources-of-variability.html#cb41-3"></a>  K &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">sum</span>(RocTable[<span class="dv">1</span>,]), <span class="kw">sum</span>(RocTable[<span class="dv">2</span>,]))</span>
-<span id="cb41-4"><a href="sources-of-variability.html#cb41-4"></a>  </span>
-<span id="cb41-5"><a href="sources-of-variability.html#cb41-5"></a>  <span class="cf">if</span> (parametricFOM) {</span>
-<span id="cb41-6"><a href="sources-of-variability.html#cb41-6"></a>    ret &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocTable)                 </span>
-<span id="cb41-7"><a href="sources-of-variability.html#cb41-7"></a>  } <span class="cf">else</span> {</span>
-<span id="cb41-8"><a href="sources-of-variability.html#cb41-8"></a>    ret &lt;-<span class="st"> </span><span class="kw">WilcoxonCountsTable</span>(RocTable) </span>
-<span id="cb41-9"><a href="sources-of-variability.html#cb41-9"></a>  }</span>
-<span id="cb41-10"><a href="sources-of-variability.html#cb41-10"></a>  OrigAUC  &lt;-<span class="st"> </span>ret<span class="op">$</span>AUC</span>
-<span id="cb41-11"><a href="sources-of-variability.html#cb41-11"></a>  </span>
-<span id="cb41-12"><a href="sources-of-variability.html#cb41-12"></a>  <span class="co"># ready to bootstrap</span></span>
-<span id="cb41-13"><a href="sources-of-variability.html#cb41-13"></a>  <span class="co"># first put the counts data into a linear array</span></span>
-<span id="cb41-14"><a href="sources-of-variability.html#cb41-14"></a>  <span class="co"># convert counts table to array</span></span>
-<span id="cb41-15"><a href="sources-of-variability.html#cb41-15"></a>  z1  &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(RocTable[<span class="dv">1</span>,]),</span>
-<span id="cb41-16"><a href="sources-of-variability.html#cb41-16"></a>             RocTable[<span class="dv">1</span>,])</span>
-<span id="cb41-17"><a href="sources-of-variability.html#cb41-17"></a>  z2  &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(RocTable[<span class="dv">2</span>,]),</span>
-<span id="cb41-18"><a href="sources-of-variability.html#cb41-18"></a>             RocTable[<span class="dv">2</span>,])<span class="co">#do:</span></span>
-<span id="cb41-19"><a href="sources-of-variability.html#cb41-19"></a>  AUC &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> B)<span class="co">#to save the bs AUC values</span></span>
-<span id="cb41-20"><a href="sources-of-variability.html#cb41-20"></a>  <span class="cf">for</span> ( b <span class="cf">in</span> <span class="dv">1</span> <span class="op">:</span><span class="st"> </span>B){</span>
-<span id="cb41-21"><a href="sources-of-variability.html#cb41-21"></a>    <span class="cf">while</span> (<span class="dv">1</span>) {</span>
-<span id="cb41-22"><a href="sources-of-variability.html#cb41-22"></a>      RocTable_bs  &lt;-<span class="st"> </span></span>
-<span id="cb41-23"><a href="sources-of-variability.html#cb41-23"></a><span class="st">        </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="kw">length</span>(RocTable[<span class="dv">1</span>,])))</span>
-<span id="cb41-24"><a href="sources-of-variability.html#cb41-24"></a>      <span class="co"># bs indices for non-diseased    </span></span>
-<span id="cb41-25"><a href="sources-of-variability.html#cb41-25"></a>      k1_b &lt;-<span class="st"> </span><span class="kw">ceiling</span>( <span class="kw">runif</span>( K[ <span class="dv">1</span> ] ) <span class="op">*</span><span class="st"> </span>K[ <span class="dv">1</span> ] )</span>
-<span id="cb41-26"><a href="sources-of-variability.html#cb41-26"></a>      <span class="co"># bs indices for diseased</span></span>
-<span id="cb41-27"><a href="sources-of-variability.html#cb41-27"></a>      k2_b &lt;-<span class="st"> </span><span class="kw">ceiling</span>( <span class="kw">runif</span>( K[ <span class="dv">2</span> ] ) <span class="op">*</span><span class="st"> </span>K[ <span class="dv">2</span> ] )</span>
-<span id="cb41-28"><a href="sources-of-variability.html#cb41-28"></a>      bsTable &lt;-<span class="st"> </span><span class="kw">table</span>(z1[k1_b])</span>
-<span id="cb41-29"><a href="sources-of-variability.html#cb41-29"></a>      <span class="co">#convert array to frequency table</span></span>
-<span id="cb41-30"><a href="sources-of-variability.html#cb41-30"></a>      RocTable_bs[<span class="dv">1</span>,<span class="kw">as.numeric</span>(<span class="kw">names</span>(bsTable))] &lt;-<span class="st"> </span></span>
-<span id="cb41-31"><a href="sources-of-variability.html#cb41-31"></a><span class="st">        </span>bsTable</span>
-<span id="cb41-32"><a href="sources-of-variability.html#cb41-32"></a>      bsTable &lt;-<span class="st"> </span><span class="kw">table</span>(z2[k2_b])</span>
-<span id="cb41-33"><a href="sources-of-variability.html#cb41-33"></a>      <span class="co">#do:</span></span>
-<span id="cb41-34"><a href="sources-of-variability.html#cb41-34"></a>      RocTable_bs[<span class="dv">2</span>,<span class="kw">as.numeric</span>(<span class="kw">names</span>(bsTable))] &lt;-<span class="st"> </span></span>
-<span id="cb41-35"><a href="sources-of-variability.html#cb41-35"></a><span class="st">        </span>bsTable</span>
-<span id="cb41-36"><a href="sources-of-variability.html#cb41-36"></a>      <span class="co">#replace NAs with zeroes</span></span>
-<span id="cb41-37"><a href="sources-of-variability.html#cb41-37"></a>      RocTable_bs[<span class="kw">is.na</span>(RocTable_bs )] &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb41-38"><a href="sources-of-variability.html#cb41-38"></a>      <span class="cf">if</span> (parametricFOM) {</span>
-<span id="cb41-39"><a href="sources-of-variability.html#cb41-39"></a>        temp &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocTable_bs)</span>
-<span id="cb41-40"><a href="sources-of-variability.html#cb41-40"></a>      } <span class="cf">else</span> {</span>
-<span id="cb41-41"><a href="sources-of-variability.html#cb41-41"></a>        temp &lt;-<span class="st"> </span><span class="kw">WilcoxonCountsTable</span>(RocTable_bs) </span>
-<span id="cb41-42"><a href="sources-of-variability.html#cb41-42"></a>      }    </span>
-<span id="cb41-43"><a href="sources-of-variability.html#cb41-43"></a>      AUC[b]  &lt;-<span class="st"> </span>temp<span class="op">$</span>AUC</span>
-<span id="cb41-44"><a href="sources-of-variability.html#cb41-44"></a>      <span class="co"># a return of -1 means AUC did not converge</span></span>
-<span id="cb41-45"><a href="sources-of-variability.html#cb41-45"></a>      <span class="cf">if</span> (AUC[b] <span class="op">!=</span><span class="st"> </span><span class="dv">-1</span>) <span class="cf">break</span></span>
-<span id="cb41-46"><a href="sources-of-variability.html#cb41-46"></a>    }</span>
-<span id="cb41-47"><a href="sources-of-variability.html#cb41-47"></a>  }</span>
-<span id="cb41-48"><a href="sources-of-variability.html#cb41-48"></a>  meanAUCboot &lt;-<span class="st"> </span><span class="kw">mean</span>(AUC)</span>
-<span id="cb41-49"><a href="sources-of-variability.html#cb41-49"></a>  Var &lt;-<span class="st"> </span><span class="kw">var</span>(AUC)</span>
-<span id="cb41-50"><a href="sources-of-variability.html#cb41-50"></a>  stdAUCboot  &lt;-<span class="st"> </span><span class="kw">sqrt</span>(Var)</span>
-<span id="cb41-51"><a href="sources-of-variability.html#cb41-51"></a>  <span class="kw">return</span>(<span class="kw">list</span>(</span>
-<span id="cb41-52"><a href="sources-of-variability.html#cb41-52"></a>    <span class="dt">OrigAUC =</span> OrigAUC,</span>
-<span id="cb41-53"><a href="sources-of-variability.html#cb41-53"></a>    <span class="dt">meanAUCboot =</span> meanAUCboot,</span>
-<span id="cb41-54"><a href="sources-of-variability.html#cb41-54"></a>    <span class="dt">stdAUCboot =</span> stdAUCboot</span>
-<span id="cb41-55"><a href="sources-of-variability.html#cb41-55"></a>  ))</span>
-<span id="cb41-56"><a href="sources-of-variability.html#cb41-56"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="sources-of-variability.html#cb41-1"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH07-Variability/Transforms.R&quot;</span>))</span>
+<span id="cb41-2"><a href="sources-of-variability.html#cb41-2"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH07-Variability/LL.R&quot;</span>))</span>
+<span id="cb41-3"><a href="sources-of-variability.html#cb41-3"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH07-Variability/RocfitR.R&quot;</span>)) </span>
+<span id="cb41-4"><a href="sources-of-variability.html#cb41-4"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH07-Variability/RocOperatingPoints.R&quot;</span>))</span>
+<span id="cb41-5"><a href="sources-of-variability.html#cb41-5"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH07-Variability/FixRocCountsTable.R&quot;</span>))</span>
+<span id="cb41-6"><a href="sources-of-variability.html#cb41-6"></a><span class="kw">source</span>(<span class="kw">here</span>(<span class="st">&quot;R/CH07-Variability/WilcoxonCountsTable.R&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="sources-of-variability.html#cb42-1"></a>doBootstrap &lt;-<span class="st"> </span><span class="cf">function</span>(parametricFOM, B, seed, RocTable) {</span>
+<span id="cb42-2"><a href="sources-of-variability.html#cb42-2"></a>  <span class="co"># this is the K vector </span></span>
+<span id="cb42-3"><a href="sources-of-variability.html#cb42-3"></a>  K &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">sum</span>(RocTable[<span class="dv">1</span>,]), <span class="kw">sum</span>(RocTable[<span class="dv">2</span>,]))</span>
+<span id="cb42-4"><a href="sources-of-variability.html#cb42-4"></a>  </span>
+<span id="cb42-5"><a href="sources-of-variability.html#cb42-5"></a>  <span class="cf">if</span> (parametricFOM) {</span>
+<span id="cb42-6"><a href="sources-of-variability.html#cb42-6"></a>    ret &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocTable)                 </span>
+<span id="cb42-7"><a href="sources-of-variability.html#cb42-7"></a>  } <span class="cf">else</span> {</span>
+<span id="cb42-8"><a href="sources-of-variability.html#cb42-8"></a>    ret &lt;-<span class="st"> </span><span class="kw">WilcoxonCountsTable</span>(RocTable) </span>
+<span id="cb42-9"><a href="sources-of-variability.html#cb42-9"></a>  }</span>
+<span id="cb42-10"><a href="sources-of-variability.html#cb42-10"></a>  OrigAUC  &lt;-<span class="st"> </span>ret<span class="op">$</span>AUC</span>
+<span id="cb42-11"><a href="sources-of-variability.html#cb42-11"></a>  </span>
+<span id="cb42-12"><a href="sources-of-variability.html#cb42-12"></a>  <span class="co"># ready to bootstrap</span></span>
+<span id="cb42-13"><a href="sources-of-variability.html#cb42-13"></a>  <span class="co"># first put the counts data into a linear array</span></span>
+<span id="cb42-14"><a href="sources-of-variability.html#cb42-14"></a>  <span class="co"># convert counts table to array</span></span>
+<span id="cb42-15"><a href="sources-of-variability.html#cb42-15"></a>  z1  &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(RocTable[<span class="dv">1</span>,]),</span>
+<span id="cb42-16"><a href="sources-of-variability.html#cb42-16"></a>             RocTable[<span class="dv">1</span>,])</span>
+<span id="cb42-17"><a href="sources-of-variability.html#cb42-17"></a>  z2  &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(RocTable[<span class="dv">2</span>,]),</span>
+<span id="cb42-18"><a href="sources-of-variability.html#cb42-18"></a>             RocTable[<span class="dv">2</span>,])<span class="co">#do:</span></span>
+<span id="cb42-19"><a href="sources-of-variability.html#cb42-19"></a>  AUC &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> B)<span class="co">#to save the bs AUC values</span></span>
+<span id="cb42-20"><a href="sources-of-variability.html#cb42-20"></a>  <span class="cf">for</span> ( b <span class="cf">in</span> <span class="dv">1</span> <span class="op">:</span><span class="st"> </span>B){</span>
+<span id="cb42-21"><a href="sources-of-variability.html#cb42-21"></a>    <span class="cf">while</span> (<span class="dv">1</span>) {</span>
+<span id="cb42-22"><a href="sources-of-variability.html#cb42-22"></a>      RocTable_bs  &lt;-<span class="st"> </span></span>
+<span id="cb42-23"><a href="sources-of-variability.html#cb42-23"></a><span class="st">        </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="kw">length</span>(RocTable[<span class="dv">1</span>,])))</span>
+<span id="cb42-24"><a href="sources-of-variability.html#cb42-24"></a>      <span class="co"># bs indices for non-diseased    </span></span>
+<span id="cb42-25"><a href="sources-of-variability.html#cb42-25"></a>      k1_b &lt;-<span class="st"> </span><span class="kw">ceiling</span>( <span class="kw">runif</span>( K[ <span class="dv">1</span> ] ) <span class="op">*</span><span class="st"> </span>K[ <span class="dv">1</span> ] )</span>
+<span id="cb42-26"><a href="sources-of-variability.html#cb42-26"></a>      <span class="co"># bs indices for diseased</span></span>
+<span id="cb42-27"><a href="sources-of-variability.html#cb42-27"></a>      k2_b &lt;-<span class="st"> </span><span class="kw">ceiling</span>( <span class="kw">runif</span>( K[ <span class="dv">2</span> ] ) <span class="op">*</span><span class="st"> </span>K[ <span class="dv">2</span> ] )</span>
+<span id="cb42-28"><a href="sources-of-variability.html#cb42-28"></a>      bsTable &lt;-<span class="st"> </span><span class="kw">table</span>(z1[k1_b])</span>
+<span id="cb42-29"><a href="sources-of-variability.html#cb42-29"></a>      <span class="co">#convert array to frequency table</span></span>
+<span id="cb42-30"><a href="sources-of-variability.html#cb42-30"></a>      RocTable_bs[<span class="dv">1</span>,<span class="kw">as.numeric</span>(<span class="kw">names</span>(bsTable))] &lt;-<span class="st"> </span></span>
+<span id="cb42-31"><a href="sources-of-variability.html#cb42-31"></a><span class="st">        </span>bsTable</span>
+<span id="cb42-32"><a href="sources-of-variability.html#cb42-32"></a>      bsTable &lt;-<span class="st"> </span><span class="kw">table</span>(z2[k2_b])</span>
+<span id="cb42-33"><a href="sources-of-variability.html#cb42-33"></a>      <span class="co">#do:</span></span>
+<span id="cb42-34"><a href="sources-of-variability.html#cb42-34"></a>      RocTable_bs[<span class="dv">2</span>,<span class="kw">as.numeric</span>(<span class="kw">names</span>(bsTable))] &lt;-<span class="st"> </span></span>
+<span id="cb42-35"><a href="sources-of-variability.html#cb42-35"></a><span class="st">        </span>bsTable</span>
+<span id="cb42-36"><a href="sources-of-variability.html#cb42-36"></a>      <span class="co">#replace NAs with zeroes</span></span>
+<span id="cb42-37"><a href="sources-of-variability.html#cb42-37"></a>      RocTable_bs[<span class="kw">is.na</span>(RocTable_bs )] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb42-38"><a href="sources-of-variability.html#cb42-38"></a>      <span class="cf">if</span> (parametricFOM) {</span>
+<span id="cb42-39"><a href="sources-of-variability.html#cb42-39"></a>        temp &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocTable_bs)</span>
+<span id="cb42-40"><a href="sources-of-variability.html#cb42-40"></a>      } <span class="cf">else</span> {</span>
+<span id="cb42-41"><a href="sources-of-variability.html#cb42-41"></a>        temp &lt;-<span class="st"> </span><span class="kw">WilcoxonCountsTable</span>(RocTable_bs) </span>
+<span id="cb42-42"><a href="sources-of-variability.html#cb42-42"></a>      }    </span>
+<span id="cb42-43"><a href="sources-of-variability.html#cb42-43"></a>      AUC[b]  &lt;-<span class="st"> </span>temp<span class="op">$</span>AUC</span>
+<span id="cb42-44"><a href="sources-of-variability.html#cb42-44"></a>      <span class="co"># a return of -1 means AUC did not converge</span></span>
+<span id="cb42-45"><a href="sources-of-variability.html#cb42-45"></a>      <span class="cf">if</span> (AUC[b] <span class="op">!=</span><span class="st"> </span><span class="dv">-1</span>) <span class="cf">break</span></span>
+<span id="cb42-46"><a href="sources-of-variability.html#cb42-46"></a>    }</span>
+<span id="cb42-47"><a href="sources-of-variability.html#cb42-47"></a>  }</span>
+<span id="cb42-48"><a href="sources-of-variability.html#cb42-48"></a>  meanAUCboot &lt;-<span class="st"> </span><span class="kw">mean</span>(AUC)</span>
+<span id="cb42-49"><a href="sources-of-variability.html#cb42-49"></a>  Var &lt;-<span class="st"> </span><span class="kw">var</span>(AUC)</span>
+<span id="cb42-50"><a href="sources-of-variability.html#cb42-50"></a>  stdAUCboot  &lt;-<span class="st"> </span><span class="kw">sqrt</span>(Var)</span>
+<span id="cb42-51"><a href="sources-of-variability.html#cb42-51"></a>  <span class="kw">return</span>(<span class="kw">list</span>(</span>
+<span id="cb42-52"><a href="sources-of-variability.html#cb42-52"></a>    <span class="dt">OrigAUC =</span> OrigAUC,</span>
+<span id="cb42-53"><a href="sources-of-variability.html#cb42-53"></a>    <span class="dt">meanAUCboot =</span> meanAUCboot,</span>
+<span id="cb42-54"><a href="sources-of-variability.html#cb42-54"></a>    <span class="dt">stdAUCboot =</span> stdAUCboot</span>
+<span id="cb42-55"><a href="sources-of-variability.html#cb42-55"></a>  ))</span>
+<span id="cb42-56"><a href="sources-of-variability.html#cb42-56"></a>}</span></code></pre></div>
 <p>Since the bootstrap method is applicable to any scalar figure of merit, two options are provided in the code. If <code>parametricFOM</code> is set to <code>TRUE</code>, then the binormal model estimate is used, and if set to <code>FALSE</code>, the empirical AUC is used. The first set of results are obtained with <code>parametricFOM</code> set to <code>TRUE</code>.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="sources-of-variability.html#cb42-1"></a>parametricFOM &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
-<span id="cb42-2"><a href="sources-of-variability.html#cb42-2"></a>B &lt;-<span class="st"> </span><span class="dv">200</span>;seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
-<span id="cb42-3"><a href="sources-of-variability.html#cb42-3"></a>RocTable =<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>))</span>
-<span id="cb42-4"><a href="sources-of-variability.html#cb42-4"></a>RocTable[<span class="dv">1</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">19</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
-<span id="cb42-5"><a href="sources-of-variability.html#cb42-5"></a>RocTable[<span class="dv">2</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">12</span>,<span class="dv">22</span>)</span>
-<span id="cb42-6"><a href="sources-of-variability.html#cb42-6"></a></span>
-<span id="cb42-7"><a href="sources-of-variability.html#cb42-7"></a>ret &lt;-<span class="st"> </span><span class="kw">doBootstrap</span>(parametricFOM, B, seed, RocTable)</span>
-<span id="cb42-8"><a href="sources-of-variability.html#cb42-8"></a>OrigAUC &lt;-<span class="st"> </span>ret<span class="op">$</span>OrigAUC</span>
-<span id="cb42-9"><a href="sources-of-variability.html#cb42-9"></a>meanAUCboot &lt;-<span class="st"> </span>ret<span class="op">$</span>meanAUCboot</span>
-<span id="cb42-10"><a href="sources-of-variability.html#cb42-10"></a>stdAUCboot &lt;-<span class="st"> </span>ret<span class="op">$</span>stdAUCboot</span>
-<span id="cb42-11"><a href="sources-of-variability.html#cb42-11"></a></span>
-<span id="cb42-12"><a href="sources-of-variability.html#cb42-12"></a><span class="kw">cat</span>(<span class="st">&quot;Bootstrap variance estimation:&quot;</span>,</span>
-<span id="cb42-13"><a href="sources-of-variability.html#cb42-13"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">parametricFOM = &quot;</span>, parametricFOM,</span>
-<span id="cb42-14"><a href="sources-of-variability.html#cb42-14"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">seed = &quot;</span>, seed, </span>
-<span id="cb42-15"><a href="sources-of-variability.html#cb42-15"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">B = &quot;</span>, B,</span>
-<span id="cb42-16"><a href="sources-of-variability.html#cb42-16"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">OrigAUC = &quot;</span>, OrigAUC, </span>
-<span id="cb42-17"><a href="sources-of-variability.html#cb42-17"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">meanAUCboot = &quot;</span>, meanAUCboot, </span>
-<span id="cb42-18"><a href="sources-of-variability.html#cb42-18"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">stdAUCboot = &quot;</span>, stdAUCboot, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb42-19"><a href="sources-of-variability.html#cb42-19"></a><span class="co">#&gt; Bootstrap variance estimation: </span></span>
-<span id="cb42-20"><a href="sources-of-variability.html#cb42-20"></a><span class="co">#&gt; parametricFOM =  TRUE </span></span>
-<span id="cb42-21"><a href="sources-of-variability.html#cb42-21"></a><span class="co">#&gt; seed =  1 </span></span>
-<span id="cb42-22"><a href="sources-of-variability.html#cb42-22"></a><span class="co">#&gt; B =  200 </span></span>
-<span id="cb42-23"><a href="sources-of-variability.html#cb42-23"></a><span class="co">#&gt; OrigAUC =  0.8704519 </span></span>
-<span id="cb42-24"><a href="sources-of-variability.html#cb42-24"></a><span class="co">#&gt; meanAUCboot =  0.8671713 </span></span>
-<span id="cb42-25"><a href="sources-of-variability.html#cb42-25"></a><span class="co">#&gt; stdAUCboot =  0.04380523</span></span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="sources-of-variability.html#cb43-1"></a>parametricFOM &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb43-2"><a href="sources-of-variability.html#cb43-2"></a>B &lt;-<span class="st"> </span><span class="dv">200</span>;seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
+<span id="cb43-3"><a href="sources-of-variability.html#cb43-3"></a>RocTable =<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>))</span>
+<span id="cb43-4"><a href="sources-of-variability.html#cb43-4"></a>RocTable[<span class="dv">1</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">19</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="cb43-5"><a href="sources-of-variability.html#cb43-5"></a>RocTable[<span class="dv">2</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">12</span>,<span class="dv">22</span>)</span>
+<span id="cb43-6"><a href="sources-of-variability.html#cb43-6"></a></span>
+<span id="cb43-7"><a href="sources-of-variability.html#cb43-7"></a>ret &lt;-<span class="st"> </span><span class="kw">doBootstrap</span>(parametricFOM, B, seed, RocTable)</span>
+<span id="cb43-8"><a href="sources-of-variability.html#cb43-8"></a>OrigAUC &lt;-<span class="st"> </span>ret<span class="op">$</span>OrigAUC</span>
+<span id="cb43-9"><a href="sources-of-variability.html#cb43-9"></a>meanAUCboot &lt;-<span class="st"> </span>ret<span class="op">$</span>meanAUCboot</span>
+<span id="cb43-10"><a href="sources-of-variability.html#cb43-10"></a>stdAUCboot &lt;-<span class="st"> </span>ret<span class="op">$</span>stdAUCboot</span>
+<span id="cb43-11"><a href="sources-of-variability.html#cb43-11"></a></span>
+<span id="cb43-12"><a href="sources-of-variability.html#cb43-12"></a><span class="kw">cat</span>(<span class="st">&quot;Bootstrap variance estimation:&quot;</span>,</span>
+<span id="cb43-13"><a href="sources-of-variability.html#cb43-13"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">parametricFOM = &quot;</span>, parametricFOM,</span>
+<span id="cb43-14"><a href="sources-of-variability.html#cb43-14"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">seed = &quot;</span>, seed, </span>
+<span id="cb43-15"><a href="sources-of-variability.html#cb43-15"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">B = &quot;</span>, B,</span>
+<span id="cb43-16"><a href="sources-of-variability.html#cb43-16"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">OrigAUC = &quot;</span>, OrigAUC, </span>
+<span id="cb43-17"><a href="sources-of-variability.html#cb43-17"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">meanAUCboot = &quot;</span>, meanAUCboot, </span>
+<span id="cb43-18"><a href="sources-of-variability.html#cb43-18"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">stdAUCboot = &quot;</span>, stdAUCboot, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb43-19"><a href="sources-of-variability.html#cb43-19"></a><span class="co">#&gt; Bootstrap variance estimation: </span></span>
+<span id="cb43-20"><a href="sources-of-variability.html#cb43-20"></a><span class="co">#&gt; parametricFOM =  TRUE </span></span>
+<span id="cb43-21"><a href="sources-of-variability.html#cb43-21"></a><span class="co">#&gt; seed =  1 </span></span>
+<span id="cb43-22"><a href="sources-of-variability.html#cb43-22"></a><span class="co">#&gt; B =  200 </span></span>
+<span id="cb43-23"><a href="sources-of-variability.html#cb43-23"></a><span class="co">#&gt; OrigAUC =  0.8704519 </span></span>
+<span id="cb43-24"><a href="sources-of-variability.html#cb43-24"></a><span class="co">#&gt; meanAUCboot =  0.8671713 </span></span>
+<span id="cb43-25"><a href="sources-of-variability.html#cb43-25"></a><span class="co">#&gt; stdAUCboot =  0.04380523</span></span></code></pre></div>
 <p>This shows that the AUC of the original data (i.e., before performing any bootstrapping) is 0.870, the mean AUC of the B = 200 bootstrapped datasets is 0.867, and the standard deviation of the 200 bootstraps is 0.0438. If one runs the website calculator referenced in the previous chapter on the dataset shown in Table <a href="ratings-paradigm.html#tab:ratings-paradigmExampleTable">4.1</a>, one finds that the MLE of the standard deviation of the AUC of the fitted ROC curve is 0.0378. The standard deviation is itself a statistic and there is sampling variability associated with it, i.e., there exists such a beast as a standard deviation of a standard deviation; the bootstrap estimate is not too far from the MLE estimate. By setting <code>seed</code> to different values, one gets an idea of the variability of the estimate of the standard deviation of AUC. For example, with <code>seed</code> = 2, one gets:</p>
 <pre><code>#&gt; Bootstrap variance estimation: 
 #&gt; parametricFOM =  TRUE 
@@ -935,85 +935,85 @@ Y_k = K\times AUC - \left ( K-1 \right ) \times AUC_{(k)}
 \tag{7.10}
 \end{equation}\]</span></p>
 <p>In Eqn. <a href="sources-of-variability.html#eq:sources-of-variability-jackknife-variance-definition">(7.8)</a> I have deliberately not simplified the right hand side by canceling out <span class="math inline">\(K-1\)</span>. The purpose is to show, Eqn. <a href="sources-of-variability.html#eq:sources-of-variability-jackknife-variance-ordinary-variance">(7.10)</a>, that the usual expression for the variance (of the jackknife FOM values) needs to be multiplied by a <strong>variance inflation factor</strong> <span class="math inline">\(\frac{\left ( K-1 \right )^2}{K}\)</span>, which is approximately equal to <span class="math inline">\(K\)</span>, in order to obtain the correct jackknife estimate of variance of AUC. This factor was not necessary when one used the bootstrap method. That is because the bootstrap samples are more representative of the actual spread in the data. The jackknife samples are more restricted than the bootstrap samples, so the spread of the data is smaller; hence the need for the variance inflation factor <span class="citation">(Efron and Tibshirani <a href="#ref-RN2261" role="doc-biblioref">1993</a>)</span>.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="sources-of-variability.html#cb46-1"></a>doJackknife &lt;-<span class="st"> </span><span class="cf">function</span>(parametricFOM, RocTable) {</span>
-<span id="cb46-2"><a href="sources-of-variability.html#cb46-2"></a>  <span class="co"># this is the K vector </span></span>
-<span id="cb46-3"><a href="sources-of-variability.html#cb46-3"></a>  K &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">sum</span>(RocTable[<span class="dv">1</span>,]), <span class="kw">sum</span>(RocTable[<span class="dv">2</span>,]))</span>
-<span id="cb46-4"><a href="sources-of-variability.html#cb46-4"></a>  </span>
-<span id="cb46-5"><a href="sources-of-variability.html#cb46-5"></a>  <span class="cf">if</span> (parametricFOM) {</span>
-<span id="cb46-6"><a href="sources-of-variability.html#cb46-6"></a>    ret &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocTable)                 </span>
-<span id="cb46-7"><a href="sources-of-variability.html#cb46-7"></a>  } <span class="cf">else</span> {</span>
-<span id="cb46-8"><a href="sources-of-variability.html#cb46-8"></a>    ret &lt;-<span class="st"> </span><span class="kw">WilcoxonCountsTable</span>(RocTable) </span>
-<span id="cb46-9"><a href="sources-of-variability.html#cb46-9"></a>  }</span>
-<span id="cb46-10"><a href="sources-of-variability.html#cb46-10"></a>  OrigAUC  &lt;-<span class="st"> </span>ret<span class="op">$</span>AUC</span>
-<span id="cb46-11"><a href="sources-of-variability.html#cb46-11"></a>  </span>
-<span id="cb46-12"><a href="sources-of-variability.html#cb46-12"></a>  <span class="co"># first put the counts data into a linear array</span></span>
-<span id="cb46-13"><a href="sources-of-variability.html#cb46-13"></a>  z1  &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(RocTable[<span class="dv">1</span>,]),</span>
-<span id="cb46-14"><a href="sources-of-variability.html#cb46-14"></a>             RocTable[<span class="dv">1</span>,])</span>
-<span id="cb46-15"><a href="sources-of-variability.html#cb46-15"></a>  z2  &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(RocTable[<span class="dv">1</span>,]),</span>
-<span id="cb46-16"><a href="sources-of-variability.html#cb46-16"></a>             RocTable[<span class="dv">2</span>,])</span>
-<span id="cb46-17"><a href="sources-of-variability.html#cb46-17"></a>  </span>
-<span id="cb46-18"><a href="sources-of-variability.html#cb46-18"></a>  AUC_jack  &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">sum</span>(K))</span>
-<span id="cb46-19"><a href="sources-of-variability.html#cb46-19"></a>  Y_k &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">sum</span>(K))</span>
-<span id="cb46-20"><a href="sources-of-variability.html#cb46-20"></a>  z_jk  &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">sum</span>(K))</span>
-<span id="cb46-21"><a href="sources-of-variability.html#cb46-21"></a>  <span class="co"># ready to jackknife</span></span>
-<span id="cb46-22"><a href="sources-of-variability.html#cb46-22"></a>  <span class="cf">for</span> ( k <span class="cf">in</span> <span class="dv">1</span> <span class="op">:</span><span class="st"> </span><span class="kw">sum</span>(K)){</span>
-<span id="cb46-23"><a href="sources-of-variability.html#cb46-23"></a>    RocTable_jk  &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="kw">length</span>(RocTable[<span class="dv">1</span>,])))</span>
-<span id="cb46-24"><a href="sources-of-variability.html#cb46-24"></a>    <span class="cf">if</span> ( k <span class="op">&lt;=</span><span class="st"> </span>K[ <span class="dv">1</span> ]){</span>
-<span id="cb46-25"><a href="sources-of-variability.html#cb46-25"></a>      z1_jk &lt;-<span class="st"> </span>z1[ <span class="op">-</span>k ]</span>
-<span id="cb46-26"><a href="sources-of-variability.html#cb46-26"></a>      z2_jk &lt;-<span class="st"> </span>z2</span>
-<span id="cb46-27"><a href="sources-of-variability.html#cb46-27"></a>    }<span class="cf">else</span>{</span>
-<span id="cb46-28"><a href="sources-of-variability.html#cb46-28"></a>      z1_jk &lt;-<span class="st"> </span>z1</span>
-<span id="cb46-29"><a href="sources-of-variability.html#cb46-29"></a>      z2_jk &lt;-<span class="st"> </span>z2[ <span class="op">-</span>(k <span class="op">-</span><span class="st"> </span>K[ <span class="dv">1</span> ]) ] </span>
-<span id="cb46-30"><a href="sources-of-variability.html#cb46-30"></a>    }  </span>
-<span id="cb46-31"><a href="sources-of-variability.html#cb46-31"></a>    <span class="co">#convert array to frequency table</span></span>
-<span id="cb46-32"><a href="sources-of-variability.html#cb46-32"></a>    RocTable_jk[<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(<span class="kw">table</span>(z1_jk))]  &lt;-<span class="st"> </span></span>
-<span id="cb46-33"><a href="sources-of-variability.html#cb46-33"></a><span class="st">      </span><span class="kw">table</span>(z1_jk)</span>
-<span id="cb46-34"><a href="sources-of-variability.html#cb46-34"></a>    RocTable_jk[<span class="dv">2</span>,<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(<span class="kw">table</span>(z2_jk))]  &lt;-<span class="st"> </span></span>
-<span id="cb46-35"><a href="sources-of-variability.html#cb46-35"></a><span class="st">      </span><span class="kw">table</span>(z2_jk)</span>
-<span id="cb46-36"><a href="sources-of-variability.html#cb46-36"></a>    <span class="co">#replace NAs with zeroes</span></span>
-<span id="cb46-37"><a href="sources-of-variability.html#cb46-37"></a>    RocTable_jk[<span class="kw">is.na</span>(RocTable_jk)] &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb46-38"><a href="sources-of-variability.html#cb46-38"></a>    <span class="co"># AUC_jack for observed data</span></span>
-<span id="cb46-39"><a href="sources-of-variability.html#cb46-39"></a>    <span class="cf">if</span> (parametricFOM) {</span>
-<span id="cb46-40"><a href="sources-of-variability.html#cb46-40"></a>      temp &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocTable_jk) </span>
-<span id="cb46-41"><a href="sources-of-variability.html#cb46-41"></a>    } <span class="cf">else</span> {</span>
-<span id="cb46-42"><a href="sources-of-variability.html#cb46-42"></a>      temp &lt;-<span class="st"> </span><span class="kw">WilcoxonCountsTable</span>(RocTable_jk) </span>
-<span id="cb46-43"><a href="sources-of-variability.html#cb46-43"></a>    }      </span>
-<span id="cb46-44"><a href="sources-of-variability.html#cb46-44"></a>    AUC_jack[k]  &lt;-<span class="st"> </span>temp<span class="op">$</span>AUC</span>
-<span id="cb46-45"><a href="sources-of-variability.html#cb46-45"></a>    Y_k[k] &lt;-<span class="st"> </span><span class="kw">sum</span>(K)<span class="op">*</span>OrigAUC <span class="op">-</span><span class="st"> </span>(<span class="kw">sum</span>(K)<span class="op">-</span><span class="dv">1</span>)<span class="op">*</span>AUC_jack[k]</span>
-<span id="cb46-46"><a href="sources-of-variability.html#cb46-46"></a>    <span class="cf">if</span> (AUC_jack[k] <span class="op">==</span><span class="st"> </span><span class="dv">-1</span>) </span>
-<span id="cb46-47"><a href="sources-of-variability.html#cb46-47"></a>      <span class="kw">stop</span>(<span class="st">&quot;RocfitR did not converge in jackknife loop&quot;</span>) </span>
-<span id="cb46-48"><a href="sources-of-variability.html#cb46-48"></a>  }</span>
-<span id="cb46-49"><a href="sources-of-variability.html#cb46-49"></a>  meanAUCjack &lt;-<span class="st"> </span><span class="kw">mean</span>(AUC_jack)</span>
-<span id="cb46-50"><a href="sources-of-variability.html#cb46-50"></a>  <span class="co">#Efron and Stein&#39;s paper, include jackknife inflation factor</span></span>
-<span id="cb46-51"><a href="sources-of-variability.html#cb46-51"></a>  Var_jack &lt;-<span class="st"> </span><span class="kw">var</span>(AUC_jack) <span class="op">*</span><span class="st"> </span>( <span class="kw">sum</span>(K) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(K) </span>
-<span id="cb46-52"><a href="sources-of-variability.html#cb46-52"></a>  stdAUCjack  &lt;-<span class="st"> </span><span class="kw">sqrt</span>(Var_jack)</span>
-<span id="cb46-53"><a href="sources-of-variability.html#cb46-53"></a>  <span class="kw">return</span>(<span class="kw">list</span>(</span>
-<span id="cb46-54"><a href="sources-of-variability.html#cb46-54"></a>    <span class="dt">OrigAUC =</span> OrigAUC,</span>
-<span id="cb46-55"><a href="sources-of-variability.html#cb46-55"></a>    <span class="dt">meanAUCjack =</span> meanAUCjack,</span>
-<span id="cb46-56"><a href="sources-of-variability.html#cb46-56"></a>    <span class="dt">stdAUCjack =</span> stdAUCjack</span>
-<span id="cb46-57"><a href="sources-of-variability.html#cb46-57"></a>  ))</span>
-<span id="cb46-58"><a href="sources-of-variability.html#cb46-58"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="sources-of-variability.html#cb47-1"></a>doJackknife &lt;-<span class="st"> </span><span class="cf">function</span>(parametricFOM, RocTable) {</span>
+<span id="cb47-2"><a href="sources-of-variability.html#cb47-2"></a>  <span class="co"># this is the K vector </span></span>
+<span id="cb47-3"><a href="sources-of-variability.html#cb47-3"></a>  K &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">sum</span>(RocTable[<span class="dv">1</span>,]), <span class="kw">sum</span>(RocTable[<span class="dv">2</span>,]))</span>
+<span id="cb47-4"><a href="sources-of-variability.html#cb47-4"></a>  </span>
+<span id="cb47-5"><a href="sources-of-variability.html#cb47-5"></a>  <span class="cf">if</span> (parametricFOM) {</span>
+<span id="cb47-6"><a href="sources-of-variability.html#cb47-6"></a>    ret &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocTable)                 </span>
+<span id="cb47-7"><a href="sources-of-variability.html#cb47-7"></a>  } <span class="cf">else</span> {</span>
+<span id="cb47-8"><a href="sources-of-variability.html#cb47-8"></a>    ret &lt;-<span class="st"> </span><span class="kw">WilcoxonCountsTable</span>(RocTable) </span>
+<span id="cb47-9"><a href="sources-of-variability.html#cb47-9"></a>  }</span>
+<span id="cb47-10"><a href="sources-of-variability.html#cb47-10"></a>  OrigAUC  &lt;-<span class="st"> </span>ret<span class="op">$</span>AUC</span>
+<span id="cb47-11"><a href="sources-of-variability.html#cb47-11"></a>  </span>
+<span id="cb47-12"><a href="sources-of-variability.html#cb47-12"></a>  <span class="co"># first put the counts data into a linear array</span></span>
+<span id="cb47-13"><a href="sources-of-variability.html#cb47-13"></a>  z1  &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(RocTable[<span class="dv">1</span>,]),</span>
+<span id="cb47-14"><a href="sources-of-variability.html#cb47-14"></a>             RocTable[<span class="dv">1</span>,])</span>
+<span id="cb47-15"><a href="sources-of-variability.html#cb47-15"></a>  z2  &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(RocTable[<span class="dv">1</span>,]),</span>
+<span id="cb47-16"><a href="sources-of-variability.html#cb47-16"></a>             RocTable[<span class="dv">2</span>,])</span>
+<span id="cb47-17"><a href="sources-of-variability.html#cb47-17"></a>  </span>
+<span id="cb47-18"><a href="sources-of-variability.html#cb47-18"></a>  AUC_jack  &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">sum</span>(K))</span>
+<span id="cb47-19"><a href="sources-of-variability.html#cb47-19"></a>  Y_k &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">sum</span>(K))</span>
+<span id="cb47-20"><a href="sources-of-variability.html#cb47-20"></a>  z_jk  &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">sum</span>(K))</span>
+<span id="cb47-21"><a href="sources-of-variability.html#cb47-21"></a>  <span class="co"># ready to jackknife</span></span>
+<span id="cb47-22"><a href="sources-of-variability.html#cb47-22"></a>  <span class="cf">for</span> ( k <span class="cf">in</span> <span class="dv">1</span> <span class="op">:</span><span class="st"> </span><span class="kw">sum</span>(K)){</span>
+<span id="cb47-23"><a href="sources-of-variability.html#cb47-23"></a>    RocTable_jk  &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="kw">length</span>(RocTable[<span class="dv">1</span>,])))</span>
+<span id="cb47-24"><a href="sources-of-variability.html#cb47-24"></a>    <span class="cf">if</span> ( k <span class="op">&lt;=</span><span class="st"> </span>K[ <span class="dv">1</span> ]){</span>
+<span id="cb47-25"><a href="sources-of-variability.html#cb47-25"></a>      z1_jk &lt;-<span class="st"> </span>z1[ <span class="op">-</span>k ]</span>
+<span id="cb47-26"><a href="sources-of-variability.html#cb47-26"></a>      z2_jk &lt;-<span class="st"> </span>z2</span>
+<span id="cb47-27"><a href="sources-of-variability.html#cb47-27"></a>    }<span class="cf">else</span>{</span>
+<span id="cb47-28"><a href="sources-of-variability.html#cb47-28"></a>      z1_jk &lt;-<span class="st"> </span>z1</span>
+<span id="cb47-29"><a href="sources-of-variability.html#cb47-29"></a>      z2_jk &lt;-<span class="st"> </span>z2[ <span class="op">-</span>(k <span class="op">-</span><span class="st"> </span>K[ <span class="dv">1</span> ]) ] </span>
+<span id="cb47-30"><a href="sources-of-variability.html#cb47-30"></a>    }  </span>
+<span id="cb47-31"><a href="sources-of-variability.html#cb47-31"></a>    <span class="co">#convert array to frequency table</span></span>
+<span id="cb47-32"><a href="sources-of-variability.html#cb47-32"></a>    RocTable_jk[<span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(<span class="kw">table</span>(z1_jk))]  &lt;-<span class="st"> </span></span>
+<span id="cb47-33"><a href="sources-of-variability.html#cb47-33"></a><span class="st">      </span><span class="kw">table</span>(z1_jk)</span>
+<span id="cb47-34"><a href="sources-of-variability.html#cb47-34"></a>    RocTable_jk[<span class="dv">2</span>,<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(<span class="kw">table</span>(z2_jk))]  &lt;-<span class="st"> </span></span>
+<span id="cb47-35"><a href="sources-of-variability.html#cb47-35"></a><span class="st">      </span><span class="kw">table</span>(z2_jk)</span>
+<span id="cb47-36"><a href="sources-of-variability.html#cb47-36"></a>    <span class="co">#replace NAs with zeroes</span></span>
+<span id="cb47-37"><a href="sources-of-variability.html#cb47-37"></a>    RocTable_jk[<span class="kw">is.na</span>(RocTable_jk)] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb47-38"><a href="sources-of-variability.html#cb47-38"></a>    <span class="co"># AUC_jack for observed data</span></span>
+<span id="cb47-39"><a href="sources-of-variability.html#cb47-39"></a>    <span class="cf">if</span> (parametricFOM) {</span>
+<span id="cb47-40"><a href="sources-of-variability.html#cb47-40"></a>      temp &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocTable_jk) </span>
+<span id="cb47-41"><a href="sources-of-variability.html#cb47-41"></a>    } <span class="cf">else</span> {</span>
+<span id="cb47-42"><a href="sources-of-variability.html#cb47-42"></a>      temp &lt;-<span class="st"> </span><span class="kw">WilcoxonCountsTable</span>(RocTable_jk) </span>
+<span id="cb47-43"><a href="sources-of-variability.html#cb47-43"></a>    }      </span>
+<span id="cb47-44"><a href="sources-of-variability.html#cb47-44"></a>    AUC_jack[k]  &lt;-<span class="st"> </span>temp<span class="op">$</span>AUC</span>
+<span id="cb47-45"><a href="sources-of-variability.html#cb47-45"></a>    Y_k[k] &lt;-<span class="st"> </span><span class="kw">sum</span>(K)<span class="op">*</span>OrigAUC <span class="op">-</span><span class="st"> </span>(<span class="kw">sum</span>(K)<span class="op">-</span><span class="dv">1</span>)<span class="op">*</span>AUC_jack[k]</span>
+<span id="cb47-46"><a href="sources-of-variability.html#cb47-46"></a>    <span class="cf">if</span> (AUC_jack[k] <span class="op">==</span><span class="st"> </span><span class="dv">-1</span>) </span>
+<span id="cb47-47"><a href="sources-of-variability.html#cb47-47"></a>      <span class="kw">stop</span>(<span class="st">&quot;RocfitR did not converge in jackknife loop&quot;</span>) </span>
+<span id="cb47-48"><a href="sources-of-variability.html#cb47-48"></a>  }</span>
+<span id="cb47-49"><a href="sources-of-variability.html#cb47-49"></a>  meanAUCjack &lt;-<span class="st"> </span><span class="kw">mean</span>(AUC_jack)</span>
+<span id="cb47-50"><a href="sources-of-variability.html#cb47-50"></a>  <span class="co">#Efron and Stein&#39;s paper, include jackknife inflation factor</span></span>
+<span id="cb47-51"><a href="sources-of-variability.html#cb47-51"></a>  Var_jack &lt;-<span class="st"> </span><span class="kw">var</span>(AUC_jack) <span class="op">*</span><span class="st"> </span>( <span class="kw">sum</span>(K) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(K) </span>
+<span id="cb47-52"><a href="sources-of-variability.html#cb47-52"></a>  stdAUCjack  &lt;-<span class="st"> </span><span class="kw">sqrt</span>(Var_jack)</span>
+<span id="cb47-53"><a href="sources-of-variability.html#cb47-53"></a>  <span class="kw">return</span>(<span class="kw">list</span>(</span>
+<span id="cb47-54"><a href="sources-of-variability.html#cb47-54"></a>    <span class="dt">OrigAUC =</span> OrigAUC,</span>
+<span id="cb47-55"><a href="sources-of-variability.html#cb47-55"></a>    <span class="dt">meanAUCjack =</span> meanAUCjack,</span>
+<span id="cb47-56"><a href="sources-of-variability.html#cb47-56"></a>    <span class="dt">stdAUCjack =</span> stdAUCjack</span>
+<span id="cb47-57"><a href="sources-of-variability.html#cb47-57"></a>  ))</span>
+<span id="cb47-58"><a href="sources-of-variability.html#cb47-58"></a>}</span></code></pre></div>
 <p>Since the jackknife method is applicable to any scalar figure of merit, two options are provided in the code. If <code>parametricFOM</code> is set to <code>TRUE</code>, then the binormal model estimate is used, and if set to <code>FALSE</code>, the empirical AUC is used. The first set of results are obtained with <code>parametricFOM</code> set to <code>TRUE</code>. Notice that the code does not use a <code>set.seed()</code> statement, as no random number generator is needed in the jackknife method. Systematically removing and replacing each case in sequence, one at a time, is not random sampling, which should further explain the need for the variance inflation factor in Eqn. <a href="sources-of-variability.html#eq:sources-of-variability-jackknife-variance-ordinary-variance">(7.10)</a>.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="sources-of-variability.html#cb47-1"></a>parametricFOM &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
-<span id="cb47-2"><a href="sources-of-variability.html#cb47-2"></a>RocTable =<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>))</span>
-<span id="cb47-3"><a href="sources-of-variability.html#cb47-3"></a>RocTable[<span class="dv">1</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">19</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
-<span id="cb47-4"><a href="sources-of-variability.html#cb47-4"></a>RocTable[<span class="dv">2</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">12</span>,<span class="dv">22</span>)</span>
-<span id="cb47-5"><a href="sources-of-variability.html#cb47-5"></a></span>
-<span id="cb47-6"><a href="sources-of-variability.html#cb47-6"></a>ret &lt;-<span class="st"> </span><span class="kw">doJackknife</span>(parametricFOM, RocTable)</span>
-<span id="cb47-7"><a href="sources-of-variability.html#cb47-7"></a>OrigAUC &lt;-<span class="st"> </span>ret<span class="op">$</span>OrigAUC</span>
-<span id="cb47-8"><a href="sources-of-variability.html#cb47-8"></a>meanAUCjack &lt;-<span class="st"> </span>ret<span class="op">$</span>meanAUCjack</span>
-<span id="cb47-9"><a href="sources-of-variability.html#cb47-9"></a>stdAUCjack &lt;-<span class="st"> </span>ret<span class="op">$</span>stdAUCjack</span>
-<span id="cb47-10"><a href="sources-of-variability.html#cb47-10"></a></span>
-<span id="cb47-11"><a href="sources-of-variability.html#cb47-11"></a><span class="kw">cat</span>(<span class="st">&quot;Jackknife variance estimation:&quot;</span>,</span>
-<span id="cb47-12"><a href="sources-of-variability.html#cb47-12"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">parametricFOM = &quot;</span>, parametricFOM,</span>
-<span id="cb47-13"><a href="sources-of-variability.html#cb47-13"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">OrigAUC = &quot;</span>, OrigAUC, </span>
-<span id="cb47-14"><a href="sources-of-variability.html#cb47-14"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">meanAUCjack = &quot;</span>, meanAUCjack, </span>
-<span id="cb47-15"><a href="sources-of-variability.html#cb47-15"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">stdAUCjack = &quot;</span>, stdAUCjack, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb47-16"><a href="sources-of-variability.html#cb47-16"></a><span class="co">#&gt; Jackknife variance estimation: </span></span>
-<span id="cb47-17"><a href="sources-of-variability.html#cb47-17"></a><span class="co">#&gt; parametricFOM =  TRUE </span></span>
-<span id="cb47-18"><a href="sources-of-variability.html#cb47-18"></a><span class="co">#&gt; OrigAUC =  0.8704519 </span></span>
-<span id="cb47-19"><a href="sources-of-variability.html#cb47-19"></a><span class="co">#&gt; meanAUCjack =  0.8704304 </span></span>
-<span id="cb47-20"><a href="sources-of-variability.html#cb47-20"></a><span class="co">#&gt; stdAUCjack =  0.03861591</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="sources-of-variability.html#cb48-1"></a>parametricFOM &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb48-2"><a href="sources-of-variability.html#cb48-2"></a>RocTable =<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>))</span>
+<span id="cb48-3"><a href="sources-of-variability.html#cb48-3"></a>RocTable[<span class="dv">1</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">19</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="cb48-4"><a href="sources-of-variability.html#cb48-4"></a>RocTable[<span class="dv">2</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">12</span>,<span class="dv">22</span>)</span>
+<span id="cb48-5"><a href="sources-of-variability.html#cb48-5"></a></span>
+<span id="cb48-6"><a href="sources-of-variability.html#cb48-6"></a>ret &lt;-<span class="st"> </span><span class="kw">doJackknife</span>(parametricFOM, RocTable)</span>
+<span id="cb48-7"><a href="sources-of-variability.html#cb48-7"></a>OrigAUC &lt;-<span class="st"> </span>ret<span class="op">$</span>OrigAUC</span>
+<span id="cb48-8"><a href="sources-of-variability.html#cb48-8"></a>meanAUCjack &lt;-<span class="st"> </span>ret<span class="op">$</span>meanAUCjack</span>
+<span id="cb48-9"><a href="sources-of-variability.html#cb48-9"></a>stdAUCjack &lt;-<span class="st"> </span>ret<span class="op">$</span>stdAUCjack</span>
+<span id="cb48-10"><a href="sources-of-variability.html#cb48-10"></a></span>
+<span id="cb48-11"><a href="sources-of-variability.html#cb48-11"></a><span class="kw">cat</span>(<span class="st">&quot;Jackknife variance estimation:&quot;</span>,</span>
+<span id="cb48-12"><a href="sources-of-variability.html#cb48-12"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">parametricFOM = &quot;</span>, parametricFOM,</span>
+<span id="cb48-13"><a href="sources-of-variability.html#cb48-13"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">OrigAUC = &quot;</span>, OrigAUC, </span>
+<span id="cb48-14"><a href="sources-of-variability.html#cb48-14"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">meanAUCjack = &quot;</span>, meanAUCjack, </span>
+<span id="cb48-15"><a href="sources-of-variability.html#cb48-15"></a>    <span class="st">&quot;</span><span class="ch">\n</span><span class="st">stdAUCjack = &quot;</span>, stdAUCjack, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb48-16"><a href="sources-of-variability.html#cb48-16"></a><span class="co">#&gt; Jackknife variance estimation: </span></span>
+<span id="cb48-17"><a href="sources-of-variability.html#cb48-17"></a><span class="co">#&gt; parametricFOM =  TRUE </span></span>
+<span id="cb48-18"><a href="sources-of-variability.html#cb48-18"></a><span class="co">#&gt; OrigAUC =  0.8704519 </span></span>
+<span id="cb48-19"><a href="sources-of-variability.html#cb48-19"></a><span class="co">#&gt; meanAUCjack =  0.8704304 </span></span>
+<span id="cb48-20"><a href="sources-of-variability.html#cb48-20"></a><span class="co">#&gt; stdAUCjack =  0.03861591</span></span></code></pre></div>
 <p>The next output is with the non-parametric figure of merit:</p>
 <pre><code>#&gt; Jackknife variance estimation: 
 #&gt; parametricFOM =  FALSE 
@@ -1031,86 +1031,86 @@ Y_k = K\times AUC - \left ( K-1 \right ) \times AUC_{(k)}
 <div id="implementation-of-a-simple-calibrated-simulator" class="section level3 hasAnchor">
 <h3><span class="header-section-number">7.8.2</span> Implementation of a simple calibrated simulator<a href="sources-of-variability.html#implementation-of-a-simple-calibrated-simulator" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The simple simulator described here is limited to a single reader single modality dataset. A more complex simulator describing multiple readers in multiple modalities is described in a later chapter (TBA). Consider a clinical dataset, such as in Table <a href="ratings-paradigm.html#tab:ratings-paradigmExampleTable">4.1</a>. Analyzed by MLE, this yields binormal model parameters, <code>a</code>, <code>b</code> and the thresholds <span class="math inline">\(\zeta_1,\zeta_2,\zeta_3,\zeta_4\)</span>. After conversion to <span class="math inline">\(\mu=a/b\)</span> and <span class="math inline">\(\sigma= 1/b\)</span> and new zetas <span class="math inline">\(\zeta = \zeta/b\)</span>, the values are (in the same order): 2.173597, 1.646099, 0.01263423, 1.475351, 2.494901, 3.945221 (see code output below):</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="sources-of-variability.html#cb49-1"></a><span class="co"># mu_sigma is the mu-sigma notation</span></span>
-<span id="cb49-2"><a href="sources-of-variability.html#cb49-2"></a>mu_sigma &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">2.173597</span>, <span class="fl">1.646099</span>, <span class="fl">0.01263423</span>, <span class="fl">1.475351</span>, <span class="fl">2.494901</span>, <span class="fl">3.945221</span>)</span>
-<span id="cb49-3"><a href="sources-of-variability.html#cb49-3"></a><span class="co"># ab is the a-b notation</span></span>
-<span id="cb49-4"><a href="sources-of-variability.html#cb49-4"></a>ab &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.320453</span>, <span class="fl">0.607497</span>, <span class="fl">0.007675259</span>, <span class="fl">0.8962713</span>, <span class="fl">1.515645</span>, <span class="fl">2.39671</span>)</span>
-<span id="cb49-5"><a href="sources-of-variability.html#cb49-5"></a>ab[<span class="dv">1</span>]<span class="op">/</span>ab[<span class="dv">2</span>] <span class="co"># this is mu</span></span>
-<span id="cb49-6"><a href="sources-of-variability.html#cb49-6"></a><span class="co">#&gt; [1] 2.173596</span></span>
-<span id="cb49-7"><a href="sources-of-variability.html#cb49-7"></a><span class="dv">1</span><span class="op">/</span>ab[<span class="dv">2</span>]    <span class="co"># this is sigma</span></span>
-<span id="cb49-8"><a href="sources-of-variability.html#cb49-8"></a><span class="co">#&gt; [1] 1.646099</span></span>
-<span id="cb49-9"><a href="sources-of-variability.html#cb49-9"></a>ab[<span class="dv">3</span><span class="op">:</span><span class="dv">6</span>]<span class="op">/</span>ab[<span class="dv">2</span>] <span class="co"># this is zeta in mu-sigma notation</span></span>
-<span id="cb49-10"><a href="sources-of-variability.html#cb49-10"></a><span class="co">#&gt; [1] 0.01263423 1.47535099 2.49490121 3.94522113</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="sources-of-variability.html#cb50-1"></a><span class="co"># mu_sigma is the mu-sigma notation</span></span>
+<span id="cb50-2"><a href="sources-of-variability.html#cb50-2"></a>mu_sigma &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">2.173597</span>, <span class="fl">1.646099</span>, <span class="fl">0.01263423</span>, <span class="fl">1.475351</span>, <span class="fl">2.494901</span>, <span class="fl">3.945221</span>)</span>
+<span id="cb50-3"><a href="sources-of-variability.html#cb50-3"></a><span class="co"># ab is the a-b notation</span></span>
+<span id="cb50-4"><a href="sources-of-variability.html#cb50-4"></a>ab &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.320453</span>, <span class="fl">0.607497</span>, <span class="fl">0.007675259</span>, <span class="fl">0.8962713</span>, <span class="fl">1.515645</span>, <span class="fl">2.39671</span>)</span>
+<span id="cb50-5"><a href="sources-of-variability.html#cb50-5"></a>ab[<span class="dv">1</span>]<span class="op">/</span>ab[<span class="dv">2</span>] <span class="co"># this is mu</span></span>
+<span id="cb50-6"><a href="sources-of-variability.html#cb50-6"></a><span class="co">#&gt; [1] 2.173596</span></span>
+<span id="cb50-7"><a href="sources-of-variability.html#cb50-7"></a><span class="dv">1</span><span class="op">/</span>ab[<span class="dv">2</span>]    <span class="co"># this is sigma</span></span>
+<span id="cb50-8"><a href="sources-of-variability.html#cb50-8"></a><span class="co">#&gt; [1] 1.646099</span></span>
+<span id="cb50-9"><a href="sources-of-variability.html#cb50-9"></a>ab[<span class="dv">3</span><span class="op">:</span><span class="dv">6</span>]<span class="op">/</span>ab[<span class="dv">2</span>] <span class="co"># this is zeta in mu-sigma notation</span></span>
+<span id="cb50-10"><a href="sources-of-variability.html#cb50-10"></a><span class="co">#&gt; [1] 0.01263423 1.47535099 2.49490121 3.94522113</span></span></code></pre></div>
 <p>[The reason for dividing <span class="math inline">\(\zeta\)</span> by <span class="math inline">\(b\)</span> is that when re-scaling the decision variable axis by <span class="math inline">\(b\)</span> one must also re-scale the cutoffs.] The values <span class="math inline">\(\mu,\sigma,\zeta\)</span> define the calibrated simulator, in the sense that the parameter values are calibrated to match the dataset in Table <a href="ratings-paradigm.html#tab:ratings-paradigmExampleTable">4.1</a>.</p>
 <p>Here is the function <code>doCalSimulator()</code> that will be used to perform the initial calibration followed by population sampling from the calibrated simulator:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb50-1"><a href="sources-of-variability.html#cb50-1"></a>doCalSimulator &lt;-<span class="st"> </span><span class="cf">function</span>(P, parametricFOM, RocCountsTable) {</span>
-<span id="cb50-2"><a href="sources-of-variability.html#cb50-2"></a>  K &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">sum</span>(RocCountsTable[<span class="dv">1</span>,]), </span>
-<span id="cb50-3"><a href="sources-of-variability.html#cb50-3"></a>         <span class="kw">sum</span>(RocCountsTable[<span class="dv">2</span>,]))</span>
-<span id="cb50-4"><a href="sources-of-variability.html#cb50-4"></a>  <span class="co"># perform the initial calibration</span></span>
-<span id="cb50-5"><a href="sources-of-variability.html#cb50-5"></a>  ret &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocCountsTable) <span class="co"># AUC for observed data</span></span>
-<span id="cb50-6"><a href="sources-of-variability.html#cb50-6"></a>  a &lt;-<span class="st"> </span>ret<span class="op">$</span>a</span>
-<span id="cb50-7"><a href="sources-of-variability.html#cb50-7"></a>  b  &lt;-<span class="st"> </span>ret<span class="op">$</span>b</span>
-<span id="cb50-8"><a href="sources-of-variability.html#cb50-8"></a>  zetas &lt;-<span class="st"> </span>ret<span class="op">$</span>zeta</span>
-<span id="cb50-9"><a href="sources-of-variability.html#cb50-9"></a>  mu  &lt;-<span class="st"> </span>a<span class="op">/</span>b</span>
-<span id="cb50-10"><a href="sources-of-variability.html#cb50-10"></a>  sigma &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>b</span>
-<span id="cb50-11"><a href="sources-of-variability.html#cb50-11"></a>  zetas &lt;-<span class="st"> </span>zetas<span class="op">/</span>b <span class="co"># need to also scale zetas</span></span>
-<span id="cb50-12"><a href="sources-of-variability.html#cb50-12"></a>   <span class="co"># AUC for observed data</span></span>
-<span id="cb50-13"><a href="sources-of-variability.html#cb50-13"></a>  <span class="cf">if</span> (parametricFOM) {</span>
-<span id="cb50-14"><a href="sources-of-variability.html#cb50-14"></a>    OrigAUC &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocCountsTable)<span class="op">$</span>AUC                 </span>
-<span id="cb50-15"><a href="sources-of-variability.html#cb50-15"></a>  } <span class="cf">else</span> {</span>
-<span id="cb50-16"><a href="sources-of-variability.html#cb50-16"></a>    OrigAUC &lt;-<span class="st"> </span><span class="kw">WilcoxonCountsTable</span>(RocCountsTable)<span class="op">$</span>AUC </span>
-<span id="cb50-17"><a href="sources-of-variability.html#cb50-17"></a>  }</span>
-<span id="cb50-18"><a href="sources-of-variability.html#cb50-18"></a>  <span class="co"># perform the population sampling</span></span>
-<span id="cb50-19"><a href="sources-of-variability.html#cb50-19"></a>  AUC &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> P)</span>
-<span id="cb50-20"><a href="sources-of-variability.html#cb50-20"></a>  <span class="cf">for</span> ( p <span class="cf">in</span> <span class="dv">1</span> <span class="op">:</span><span class="st"> </span>P){</span>
-<span id="cb50-21"><a href="sources-of-variability.html#cb50-21"></a>    <span class="cf">while</span> (<span class="dv">1</span>) {</span>
-<span id="cb50-22"><a href="sources-of-variability.html#cb50-22"></a>      </span>
-<span id="cb50-23"><a href="sources-of-variability.html#cb50-23"></a>      RocCountsTableSimPop &lt;-<span class="st"> </span></span>
-<span id="cb50-24"><a href="sources-of-variability.html#cb50-24"></a><span class="st">        </span><span class="kw">SimulateRocCountsTable</span>(K, mu, sigma, zetas)</span>
-<span id="cb50-25"><a href="sources-of-variability.html#cb50-25"></a>      <span class="cf">if</span> (parametricFOM) {</span>
-<span id="cb50-26"><a href="sources-of-variability.html#cb50-26"></a>        </span>
-<span id="cb50-27"><a href="sources-of-variability.html#cb50-27"></a>        <span class="co"># AUC for fitted curve </span></span>
-<span id="cb50-28"><a href="sources-of-variability.html#cb50-28"></a>        temp &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocCountsTableSimPop)</span>
-<span id="cb50-29"><a href="sources-of-variability.html#cb50-29"></a>        <span class="co"># a return of -1 means RocFitR did not converge</span></span>
-<span id="cb50-30"><a href="sources-of-variability.html#cb50-30"></a>        <span class="cf">if</span> (temp[<span class="dv">1</span>] <span class="op">!=</span><span class="st"> </span><span class="dv">-1</span>) {</span>
-<span id="cb50-31"><a href="sources-of-variability.html#cb50-31"></a>          AUC[p]  &lt;-<span class="st"> </span>temp<span class="op">$</span>AUC</span>
-<span id="cb50-32"><a href="sources-of-variability.html#cb50-32"></a>          <span class="cf">break</span> </span>
-<span id="cb50-33"><a href="sources-of-variability.html#cb50-33"></a>        }</span>
-<span id="cb50-34"><a href="sources-of-variability.html#cb50-34"></a>      } <span class="cf">else</span> {</span>
-<span id="cb50-35"><a href="sources-of-variability.html#cb50-35"></a>        AUC[p] &lt;-<span class="st"> </span>(<span class="kw">WilcoxonCountsTable</span>(RocCountsTableSimPop))<span class="op">$</span>AUC</span>
-<span id="cb50-36"><a href="sources-of-variability.html#cb50-36"></a>        <span class="cf">break</span> </span>
-<span id="cb50-37"><a href="sources-of-variability.html#cb50-37"></a>      }    </span>
-<span id="cb50-38"><a href="sources-of-variability.html#cb50-38"></a>    }</span>
-<span id="cb50-39"><a href="sources-of-variability.html#cb50-39"></a>  }</span>
-<span id="cb50-40"><a href="sources-of-variability.html#cb50-40"></a>  AUC &lt;-<span class="st"> </span>AUC[<span class="op">!</span><span class="kw">is.na</span>(AUC)]</span>
-<span id="cb50-41"><a href="sources-of-variability.html#cb50-41"></a>  meanAUC  &lt;-<span class="st"> </span><span class="kw">mean</span>(AUC)</span>
-<span id="cb50-42"><a href="sources-of-variability.html#cb50-42"></a>  stdAUC  &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(AUC))</span>
-<span id="cb50-43"><a href="sources-of-variability.html#cb50-43"></a>  <span class="kw">return</span>(<span class="kw">list</span>(</span>
-<span id="cb50-44"><a href="sources-of-variability.html#cb50-44"></a>    <span class="dt">mu =</span> mu, <span class="co"># these define the calibration simulator</span></span>
-<span id="cb50-45"><a href="sources-of-variability.html#cb50-45"></a>    <span class="dt">sigma =</span> sigma, <span class="co">#do:</span></span>
-<span id="cb50-46"><a href="sources-of-variability.html#cb50-46"></a>    <span class="dt">zetas =</span> zetas, <span class="co">#do:</span></span>
-<span id="cb50-47"><a href="sources-of-variability.html#cb50-47"></a>    <span class="dt">OrigAUC =</span> OrigAUC,</span>
-<span id="cb50-48"><a href="sources-of-variability.html#cb50-48"></a>    <span class="dt">meanAUC =</span> meanAUC,</span>
-<span id="cb50-49"><a href="sources-of-variability.html#cb50-49"></a>    <span class="dt">stdAUC =</span> stdAUC</span>
-<span id="cb50-50"><a href="sources-of-variability.html#cb50-50"></a>  ))</span>
-<span id="cb50-51"><a href="sources-of-variability.html#cb50-51"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb51-1"><a href="sources-of-variability.html#cb51-1"></a>doCalSimulator &lt;-<span class="st"> </span><span class="cf">function</span>(P, parametricFOM, RocCountsTable) {</span>
+<span id="cb51-2"><a href="sources-of-variability.html#cb51-2"></a>  K &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">sum</span>(RocCountsTable[<span class="dv">1</span>,]), </span>
+<span id="cb51-3"><a href="sources-of-variability.html#cb51-3"></a>         <span class="kw">sum</span>(RocCountsTable[<span class="dv">2</span>,]))</span>
+<span id="cb51-4"><a href="sources-of-variability.html#cb51-4"></a>  <span class="co"># perform the initial calibration</span></span>
+<span id="cb51-5"><a href="sources-of-variability.html#cb51-5"></a>  ret &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocCountsTable) <span class="co"># AUC for observed data</span></span>
+<span id="cb51-6"><a href="sources-of-variability.html#cb51-6"></a>  a &lt;-<span class="st"> </span>ret<span class="op">$</span>a</span>
+<span id="cb51-7"><a href="sources-of-variability.html#cb51-7"></a>  b  &lt;-<span class="st"> </span>ret<span class="op">$</span>b</span>
+<span id="cb51-8"><a href="sources-of-variability.html#cb51-8"></a>  zetas &lt;-<span class="st"> </span>ret<span class="op">$</span>zeta</span>
+<span id="cb51-9"><a href="sources-of-variability.html#cb51-9"></a>  mu  &lt;-<span class="st"> </span>a<span class="op">/</span>b</span>
+<span id="cb51-10"><a href="sources-of-variability.html#cb51-10"></a>  sigma &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>b</span>
+<span id="cb51-11"><a href="sources-of-variability.html#cb51-11"></a>  zetas &lt;-<span class="st"> </span>zetas<span class="op">/</span>b <span class="co"># need to also scale zetas</span></span>
+<span id="cb51-12"><a href="sources-of-variability.html#cb51-12"></a>   <span class="co"># AUC for observed data</span></span>
+<span id="cb51-13"><a href="sources-of-variability.html#cb51-13"></a>  <span class="cf">if</span> (parametricFOM) {</span>
+<span id="cb51-14"><a href="sources-of-variability.html#cb51-14"></a>    OrigAUC &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocCountsTable)<span class="op">$</span>AUC                 </span>
+<span id="cb51-15"><a href="sources-of-variability.html#cb51-15"></a>  } <span class="cf">else</span> {</span>
+<span id="cb51-16"><a href="sources-of-variability.html#cb51-16"></a>    OrigAUC &lt;-<span class="st"> </span><span class="kw">WilcoxonCountsTable</span>(RocCountsTable)<span class="op">$</span>AUC </span>
+<span id="cb51-17"><a href="sources-of-variability.html#cb51-17"></a>  }</span>
+<span id="cb51-18"><a href="sources-of-variability.html#cb51-18"></a>  <span class="co"># perform the population sampling</span></span>
+<span id="cb51-19"><a href="sources-of-variability.html#cb51-19"></a>  AUC &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> P)</span>
+<span id="cb51-20"><a href="sources-of-variability.html#cb51-20"></a>  <span class="cf">for</span> ( p <span class="cf">in</span> <span class="dv">1</span> <span class="op">:</span><span class="st"> </span>P){</span>
+<span id="cb51-21"><a href="sources-of-variability.html#cb51-21"></a>    <span class="cf">while</span> (<span class="dv">1</span>) {</span>
+<span id="cb51-22"><a href="sources-of-variability.html#cb51-22"></a>      </span>
+<span id="cb51-23"><a href="sources-of-variability.html#cb51-23"></a>      RocCountsTableSimPop &lt;-<span class="st"> </span></span>
+<span id="cb51-24"><a href="sources-of-variability.html#cb51-24"></a><span class="st">        </span><span class="kw">SimulateRocCountsTable</span>(K, mu, sigma, zetas)</span>
+<span id="cb51-25"><a href="sources-of-variability.html#cb51-25"></a>      <span class="cf">if</span> (parametricFOM) {</span>
+<span id="cb51-26"><a href="sources-of-variability.html#cb51-26"></a>        </span>
+<span id="cb51-27"><a href="sources-of-variability.html#cb51-27"></a>        <span class="co"># AUC for fitted curve </span></span>
+<span id="cb51-28"><a href="sources-of-variability.html#cb51-28"></a>        temp &lt;-<span class="st"> </span><span class="kw">RocfitR</span>(RocCountsTableSimPop)</span>
+<span id="cb51-29"><a href="sources-of-variability.html#cb51-29"></a>        <span class="co"># a return of -1 means RocFitR did not converge</span></span>
+<span id="cb51-30"><a href="sources-of-variability.html#cb51-30"></a>        <span class="cf">if</span> (temp[<span class="dv">1</span>] <span class="op">!=</span><span class="st"> </span><span class="dv">-1</span>) {</span>
+<span id="cb51-31"><a href="sources-of-variability.html#cb51-31"></a>          AUC[p]  &lt;-<span class="st"> </span>temp<span class="op">$</span>AUC</span>
+<span id="cb51-32"><a href="sources-of-variability.html#cb51-32"></a>          <span class="cf">break</span> </span>
+<span id="cb51-33"><a href="sources-of-variability.html#cb51-33"></a>        }</span>
+<span id="cb51-34"><a href="sources-of-variability.html#cb51-34"></a>      } <span class="cf">else</span> {</span>
+<span id="cb51-35"><a href="sources-of-variability.html#cb51-35"></a>        AUC[p] &lt;-<span class="st"> </span>(<span class="kw">WilcoxonCountsTable</span>(RocCountsTableSimPop))<span class="op">$</span>AUC</span>
+<span id="cb51-36"><a href="sources-of-variability.html#cb51-36"></a>        <span class="cf">break</span> </span>
+<span id="cb51-37"><a href="sources-of-variability.html#cb51-37"></a>      }    </span>
+<span id="cb51-38"><a href="sources-of-variability.html#cb51-38"></a>    }</span>
+<span id="cb51-39"><a href="sources-of-variability.html#cb51-39"></a>  }</span>
+<span id="cb51-40"><a href="sources-of-variability.html#cb51-40"></a>  AUC &lt;-<span class="st"> </span>AUC[<span class="op">!</span><span class="kw">is.na</span>(AUC)]</span>
+<span id="cb51-41"><a href="sources-of-variability.html#cb51-41"></a>  meanAUC  &lt;-<span class="st"> </span><span class="kw">mean</span>(AUC)</span>
+<span id="cb51-42"><a href="sources-of-variability.html#cb51-42"></a>  stdAUC  &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(AUC))</span>
+<span id="cb51-43"><a href="sources-of-variability.html#cb51-43"></a>  <span class="kw">return</span>(<span class="kw">list</span>(</span>
+<span id="cb51-44"><a href="sources-of-variability.html#cb51-44"></a>    <span class="dt">mu =</span> mu, <span class="co"># these define the calibration simulator</span></span>
+<span id="cb51-45"><a href="sources-of-variability.html#cb51-45"></a>    <span class="dt">sigma =</span> sigma, <span class="co">#do:</span></span>
+<span id="cb51-46"><a href="sources-of-variability.html#cb51-46"></a>    <span class="dt">zetas =</span> zetas, <span class="co">#do:</span></span>
+<span id="cb51-47"><a href="sources-of-variability.html#cb51-47"></a>    <span class="dt">OrigAUC =</span> OrigAUC,</span>
+<span id="cb51-48"><a href="sources-of-variability.html#cb51-48"></a>    <span class="dt">meanAUC =</span> meanAUC,</span>
+<span id="cb51-49"><a href="sources-of-variability.html#cb51-49"></a>    <span class="dt">stdAUC =</span> stdAUC</span>
+<span id="cb51-50"><a href="sources-of-variability.html#cb51-50"></a>  ))</span>
+<span id="cb51-51"><a href="sources-of-variability.html#cb51-51"></a>}</span></code></pre></div>
 <p>In the function <code>doCalSimulator(P, parametricFOM, RocCountsTable)</code>, <code>P</code> is the desired number of population samples, <code>parametricFOM</code> is a logical, if set to <code>TRUE</code> the binormal model is used to calculate <em>fitted</em> AUC and otherwise the Wilcoxon statistic is used to calculate <em>empirical</em> AUC, and <code>RocCountsTable</code> contains the ROC data, such as Table <a href="ratings-paradigm.html#tab:ratings-paradigmExampleTable">4.1</a>, to which the simulator is to be calibrated to. Lines 2-3 construct the K-vector, containing <span class="math inline">\(K_1,K_2\)</span>. Line 5 performs the maximum likelihood fit, using function <code>RocfitR(RocCountsTable)</code>. The returned variable contains <span class="math inline">\(a, b, \zeta\)</span> as a <code>list</code>, which are extracted at lines 6-8. Lines 9-11 converts these to the mu-sigma notation. In essence, lines 5 - 11 calibrates the simulator and the calibrated values of the simulator are contained in <span class="math inline">\(\mu,\sigma,\zeta\)</span>. Lines 13-17 calculates <code>OrigAUC</code>, the AUC of the original data, using parametric <code>RocfitR</code> or the Wilcoxon statistic, as appropriate, depending on the value of <code>parametricFOM</code>. After defining a length <code>P</code> array, at line 19, to hold the sampled <code>AUC</code> values, lines 20-39 begins and ends a <code>for</code> loop to conduct the <code>P</code> population samples. Each pass through the <code>for</code> loop yields <span class="math inline">\(K_1\)</span> samples from the non-diseased distribution and <span class="math inline">\(K_2\)</span> samples from the diseased distribution, returned in the variable <code>RocCountsTableSimPop</code>, which is similar in structure to a counts table like Table <a href="ratings-paradigm.html#tab:ratings-paradigmExampleTable">4.1</a>. Within the <code>for</code> loop there is an endless <code>while</code> loop, needed because <code>RocfitR</code> can sometimes fail to converge, signaled by the first member of the returned <code>list</code> being minus 1, in which case another iteration of the <code>while</code> loop is performed (see line 30) and otherwise the <code>break</code> statement (line 32) causes program execution to proceed to the next iteration of the <code>for</code> loop. After entering the <code>while</code> loop, lines 22-23, a new ROC counts table is generated. The returned <code>list</code> is saved to <code>temp</code> at line 28, and if <code>temp[1] != -1</code> (i.e., <code>RocfitR</code> did converge) the AUC value is saved to <code>AUC[p]</code>, line 31. Upon exiting the code one has <code>P</code> values of AUC in the array <code>AUC</code>.</p>
 <div id="parametric-auc-results" class="section level4 hasAnchor">
 <h4><span class="header-section-number">7.8.2.1</span> Parametric AUC results<a href="sources-of-variability.html#parametric-auc-results" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The following code uses the function just described and prints out the results.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="sources-of-variability.html#cb51-1"></a>parametricFOM &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
-<span id="cb51-2"><a href="sources-of-variability.html#cb51-2"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb51-3"><a href="sources-of-variability.html#cb51-3"></a><span class="kw">set.seed</span>(seed)</span>
-<span id="cb51-4"><a href="sources-of-variability.html#cb51-4"></a>P &lt;-<span class="st"> </span><span class="dv">2000</span></span>
-<span id="cb51-5"><a href="sources-of-variability.html#cb51-5"></a>RocCountsTable =<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>))</span>
-<span id="cb51-6"><a href="sources-of-variability.html#cb51-6"></a>RocCountsTable[<span class="dv">1</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">19</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
-<span id="cb51-7"><a href="sources-of-variability.html#cb51-7"></a>RocCountsTable[<span class="dv">2</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">12</span>,<span class="dv">22</span>)</span>
-<span id="cb51-8"><a href="sources-of-variability.html#cb51-8"></a>ret &lt;-<span class="st"> </span><span class="kw">doCalSimulator</span>(P, parametricFOM, RocCountsTable)</span>
-<span id="cb51-9"><a href="sources-of-variability.html#cb51-9"></a>mu &lt;-<span class="st"> </span>ret<span class="op">$</span>mu</span>
-<span id="cb51-10"><a href="sources-of-variability.html#cb51-10"></a>sigma &lt;-<span class="st"> </span>ret<span class="op">$</span>sigma</span>
-<span id="cb51-11"><a href="sources-of-variability.html#cb51-11"></a>zetas &lt;-<span class="st"> </span>ret<span class="op">$</span>zetas</span>
-<span id="cb51-12"><a href="sources-of-variability.html#cb51-12"></a>meanAUC_<span class="dv">1</span>_<span class="dv">2000</span> &lt;-<span class="st"> </span>ret<span class="op">$</span>meanAUC</span>
-<span id="cb51-13"><a href="sources-of-variability.html#cb51-13"></a>stdAUC_<span class="dv">1</span>_<span class="dv">2000</span> &lt;-<span class="st"> </span>ret<span class="op">$</span>stdAUC</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="sources-of-variability.html#cb52-1"></a>parametricFOM &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb52-2"><a href="sources-of-variability.html#cb52-2"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb52-3"><a href="sources-of-variability.html#cb52-3"></a><span class="kw">set.seed</span>(seed)</span>
+<span id="cb52-4"><a href="sources-of-variability.html#cb52-4"></a>P &lt;-<span class="st"> </span><span class="dv">2000</span></span>
+<span id="cb52-5"><a href="sources-of-variability.html#cb52-5"></a>RocCountsTable =<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>))</span>
+<span id="cb52-6"><a href="sources-of-variability.html#cb52-6"></a>RocCountsTable[<span class="dv">1</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">19</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="cb52-7"><a href="sources-of-variability.html#cb52-7"></a>RocCountsTable[<span class="dv">2</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">12</span>,<span class="dv">22</span>)</span>
+<span id="cb52-8"><a href="sources-of-variability.html#cb52-8"></a>ret &lt;-<span class="st"> </span><span class="kw">doCalSimulator</span>(P, parametricFOM, RocCountsTable)</span>
+<span id="cb52-9"><a href="sources-of-variability.html#cb52-9"></a>mu &lt;-<span class="st"> </span>ret<span class="op">$</span>mu</span>
+<span id="cb52-10"><a href="sources-of-variability.html#cb52-10"></a>sigma &lt;-<span class="st"> </span>ret<span class="op">$</span>sigma</span>
+<span id="cb52-11"><a href="sources-of-variability.html#cb52-11"></a>zetas &lt;-<span class="st"> </span>ret<span class="op">$</span>zetas</span>
+<span id="cb52-12"><a href="sources-of-variability.html#cb52-12"></a>meanAUC_<span class="dv">1</span>_<span class="dv">2000</span> &lt;-<span class="st"> </span>ret<span class="op">$</span>meanAUC</span>
+<span id="cb52-13"><a href="sources-of-variability.html#cb52-13"></a>stdAUC_<span class="dv">1</span>_<span class="dv">2000</span> &lt;-<span class="st"> </span>ret<span class="op">$</span>stdAUC</span></code></pre></div>
 <p>After setting <code>parametricFOM</code> to <code>TRUE</code> (for a parametric fit), <code>seed</code> to 1 and <code>P</code> to 2000, the ROC counts table is defined and the function <code>doCalSimulator()</code> is called. The returned <code>list</code> contains the parameter values for the calibrated simulator: <span class="math inline">\(\mu\)</span> = 2.1735969, <span class="math inline">\(\sigma\)</span> = 1.6460988 and <span class="math inline">\(\zeta\)</span> = 0.0126342, 1.4753512, 2.4949012, 3.9452209. It also contains <code>OrigAUC</code>, the AUC of the original data, calculated by <code>RocfitR()</code>, in this case <code>OrigAUC</code> = 0.8704519, and the mean and standard deviation of the 2000 AUC values, equal to 0.8676727 and 0.0403331, respectively.</p>
 <p>The simulations were repeated with <code>seed</code> = 2. This time the mean and standard deviation of the 2000 AUC values, are equal to 0.8681855 and 0.0405516, respectively. The respective values corresponding to the two <code>seed</code> values are quite close to each other (to within a percent).</p>
 <p>More variability is observed, as expected, when the above two simulations are repeated with <code>P</code> = 200:</p>

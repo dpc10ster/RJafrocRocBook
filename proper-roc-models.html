@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 17 Proper ROC models | The RJafroc Roc Book</title>
   <meta name="description" content="Artificial intelligence and observer performance book based on RJafroc." />
-  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 17 Proper ROC models | The RJafroc Roc Book" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2022-09-29" />
+<meta name="date" content="2022-12-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -794,116 +794,116 @@ A_{prop}\ge A_z
 </div>
 <div id="proper-roc-models-proproc-code" class="section level3 hasAnchor">
 <h3><span class="header-section-number">17.8.2</span> PROPROC code implementation<a href="proper-roc-models.html#proper-roc-models-proproc-code" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="proper-roc-models.html#cb152-1"></a>Transform2ab &lt;-<span class="st"> </span><span class="cf">function</span> (d_a, c){</span>
-<span id="cb152-2"><a href="proper-roc-models.html#cb152-2"></a>  b &lt;-<span class="st"> </span><span class="op">-</span>(c<span class="op">+</span><span class="dv">1</span>)<span class="op">/</span>(c<span class="dv">-1</span>)</span>
-<span id="cb152-3"><a href="proper-roc-models.html#cb152-3"></a>  a &lt;-<span class="st"> </span>(d_a<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">2</span>))<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>b<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb152-4"><a href="proper-roc-models.html#cb152-4"></a>  <span class="kw">return</span>( <span class="kw">list</span>(</span>
-<span id="cb152-5"><a href="proper-roc-models.html#cb152-5"></a>    <span class="dt">a =</span> a,</span>
-<span id="cb152-6"><a href="proper-roc-models.html#cb152-6"></a>    <span class="dt">b =</span> b</span>
-<span id="cb152-7"><a href="proper-roc-models.html#cb152-7"></a>  ) )</span>
-<span id="cb152-8"><a href="proper-roc-models.html#cb152-8"></a>}</span>
-<span id="cb152-9"><a href="proper-roc-models.html#cb152-9"></a></span>
-<span id="cb152-10"><a href="proper-roc-models.html#cb152-10"></a>GetLimits &lt;-<span class="st"> </span><span class="cf">function</span> (d_a, c)</span>
-<span id="cb152-11"><a href="proper-roc-models.html#cb152-11"></a>{</span>
-<span id="cb152-12"><a href="proper-roc-models.html#cb152-12"></a>  <span class="cf">if</span> (c <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.0</span>) {</span>
-<span id="cb152-13"><a href="proper-roc-models.html#cb152-13"></a>    LL &lt;-<span class="st">  </span>d_a<span class="op">/</span><span class="dv">4</span><span class="op">/</span>c<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>c<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb152-14"><a href="proper-roc-models.html#cb152-14"></a>    UL &lt;-<span class="st">  </span><span class="fl">10.0</span></span>
-<span id="cb152-15"><a href="proper-roc-models.html#cb152-15"></a>  }</span>
-<span id="cb152-16"><a href="proper-roc-models.html#cb152-16"></a>  </span>
-<span id="cb152-17"><a href="proper-roc-models.html#cb152-17"></a>  <span class="cf">if</span> (c <span class="op">==</span><span class="st"> </span><span class="fl">0.0</span>) </span>
-<span id="cb152-18"><a href="proper-roc-models.html#cb152-18"></a>  {</span>
-<span id="cb152-19"><a href="proper-roc-models.html#cb152-19"></a>    LL  &lt;-<span class="st">  </span><span class="fl">-10.0</span></span>
-<span id="cb152-20"><a href="proper-roc-models.html#cb152-20"></a>    UL &lt;-<span class="st">  </span><span class="fl">10.0</span></span>
-<span id="cb152-21"><a href="proper-roc-models.html#cb152-21"></a>  }</span>
-<span id="cb152-22"><a href="proper-roc-models.html#cb152-22"></a>  </span>
-<span id="cb152-23"><a href="proper-roc-models.html#cb152-23"></a>  <span class="cf">if</span> (c <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.0</span>) </span>
-<span id="cb152-24"><a href="proper-roc-models.html#cb152-24"></a>  {</span>
-<span id="cb152-25"><a href="proper-roc-models.html#cb152-25"></a>    LL &lt;-<span class="st">  </span><span class="fl">-10.0</span></span>
-<span id="cb152-26"><a href="proper-roc-models.html#cb152-26"></a>    UL &lt;-<span class="st">  </span>d_a<span class="op">/</span><span class="dv">4</span><span class="op">/</span>c<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>c<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb152-27"><a href="proper-roc-models.html#cb152-27"></a>  }</span>
-<span id="cb152-28"><a href="proper-roc-models.html#cb152-28"></a>  <span class="kw">return</span>( <span class="kw">list</span>(</span>
-<span id="cb152-29"><a href="proper-roc-models.html#cb152-29"></a>    <span class="dt">LL =</span> LL,</span>
-<span id="cb152-30"><a href="proper-roc-models.html#cb152-30"></a>    <span class="dt">UL =</span> UL</span>
-<span id="cb152-31"><a href="proper-roc-models.html#cb152-31"></a>  ) )</span>
-<span id="cb152-32"><a href="proper-roc-models.html#cb152-32"></a>  </span>
-<span id="cb152-33"><a href="proper-roc-models.html#cb152-33"></a>}</span>
-<span id="cb152-34"><a href="proper-roc-models.html#cb152-34"></a></span>
-<span id="cb152-35"><a href="proper-roc-models.html#cb152-35"></a></span>
-<span id="cb152-36"><a href="proper-roc-models.html#cb152-36"></a></span>
-<span id="cb152-37"><a href="proper-roc-models.html#cb152-37"></a>Heaviside &lt;-<span class="st"> </span><span class="cf">function</span> (c)</span>
-<span id="cb152-38"><a href="proper-roc-models.html#cb152-38"></a>{</span>
-<span id="cb152-39"><a href="proper-roc-models.html#cb152-39"></a>  <span class="cf">if</span> (c <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.0</span>) rval &lt;-<span class="st">  </span><span class="fl">0.0</span> <span class="cf">else</span> rval  &lt;-<span class="st">  </span><span class="fl">1.0</span></span>
-<span id="cb152-40"><a href="proper-roc-models.html#cb152-40"></a>  <span class="kw">return</span> (rval)</span>
-<span id="cb152-41"><a href="proper-roc-models.html#cb152-41"></a>}</span>
-<span id="cb152-42"><a href="proper-roc-models.html#cb152-42"></a></span>
-<span id="cb152-43"><a href="proper-roc-models.html#cb152-43"></a>FalsePositiveFraction &lt;-<span class="st"> </span><span class="cf">function</span> (vc, d_a, c)</span>
-<span id="cb152-44"><a href="proper-roc-models.html#cb152-44"></a>{</span>
-<span id="cb152-45"><a href="proper-roc-models.html#cb152-45"></a>  </span>
-<span id="cb152-46"><a href="proper-roc-models.html#cb152-46"></a>  arg1 &lt;-<span class="st">  </span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>c)<span class="op">*</span>vc<span class="op">-</span>d_a<span class="op">/</span><span class="dv">2</span><span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>c<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb152-47"><a href="proper-roc-models.html#cb152-47"></a>  arg2 &lt;-<span class="st">  </span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>c)<span class="op">*</span>vc<span class="op">+</span>d_a<span class="op">/</span><span class="dv">2</span><span class="op">/</span>c<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>c<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb152-48"><a href="proper-roc-models.html#cb152-48"></a>  </span>
-<span id="cb152-49"><a href="proper-roc-models.html#cb152-49"></a>  rval =<span class="st"> </span><span class="kw">pnorm</span> (arg1) <span class="op">+</span><span class="st"> </span><span class="kw">pnorm</span> (arg2) <span class="op">-</span><span class="st"> </span><span class="kw">Heaviside</span> (c)</span>
-<span id="cb152-50"><a href="proper-roc-models.html#cb152-50"></a>  </span>
-<span id="cb152-51"><a href="proper-roc-models.html#cb152-51"></a>  <span class="kw">return</span> (rval)</span>
-<span id="cb152-52"><a href="proper-roc-models.html#cb152-52"></a>}</span>
-<span id="cb152-53"><a href="proper-roc-models.html#cb152-53"></a></span>
-<span id="cb152-54"><a href="proper-roc-models.html#cb152-54"></a></span>
-<span id="cb152-55"><a href="proper-roc-models.html#cb152-55"></a></span>
-<span id="cb152-56"><a href="proper-roc-models.html#cb152-56"></a>TruePositiveFraction &lt;-<span class="st"> </span><span class="cf">function</span> (vc, d_a, c)</span>
-<span id="cb152-57"><a href="proper-roc-models.html#cb152-57"></a>{</span>
-<span id="cb152-58"><a href="proper-roc-models.html#cb152-58"></a>  arg1 =<span class="st"> </span><span class="op">-</span>(<span class="dv">1</span><span class="op">+</span>c)<span class="op">*</span>vc<span class="op">+</span>d_a<span class="op">/</span><span class="dv">2</span><span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>c<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb152-59"><a href="proper-roc-models.html#cb152-59"></a>  arg2 =<span class="st"> </span><span class="op">-</span>(<span class="dv">1</span><span class="op">+</span>c)<span class="op">*</span>vc<span class="op">+</span>d_a<span class="op">/</span><span class="dv">2</span><span class="op">/</span>c<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>c<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb152-60"><a href="proper-roc-models.html#cb152-60"></a>  </span>
-<span id="cb152-61"><a href="proper-roc-models.html#cb152-61"></a>  rval =<span class="st"> </span><span class="kw">pnorm</span> (arg1) <span class="op">+</span><span class="st"> </span><span class="kw">pnorm</span> (arg2) <span class="op">-</span><span class="st"> </span><span class="kw">Heaviside</span> (c)</span>
-<span id="cb152-62"><a href="proper-roc-models.html#cb152-62"></a>  </span>
-<span id="cb152-63"><a href="proper-roc-models.html#cb152-63"></a>  <span class="kw">return</span> (rval)</span>
-<span id="cb152-64"><a href="proper-roc-models.html#cb152-64"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="proper-roc-models.html#cb153-1"></a>c1Arr &lt;-<span class="st">   </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1322804</span>, <span class="fl">0.2225588</span>)</span>
-<span id="cb153-2"><a href="proper-roc-models.html#cb153-2"></a>daArr  &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="fl">1.197239</span>,<span class="fl">1.740157</span>)</span>
-<span id="cb153-3"><a href="proper-roc-models.html#cb153-3"></a>plotRoc &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
-<span id="cb153-4"><a href="proper-roc-models.html#cb153-4"></a>plotSlope &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
-<span id="cb153-5"><a href="proper-roc-models.html#cb153-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span>
-<span id="cb153-6"><a href="proper-roc-models.html#cb153-6"></a>{</span>
-<span id="cb153-7"><a href="proper-roc-models.html#cb153-7"></a>  c1 &lt;-<span class="st"> </span>c1Arr[i]</span>
-<span id="cb153-8"><a href="proper-roc-models.html#cb153-8"></a>  da &lt;-<span class="st"> </span>daArr[i]</span>
-<span id="cb153-9"><a href="proper-roc-models.html#cb153-9"></a>  ret &lt;-<span class="st"> </span><span class="kw">Transform2ab</span>(da, c1)</span>
-<span id="cb153-10"><a href="proper-roc-models.html#cb153-10"></a>  a &lt;-<span class="st"> </span>ret<span class="op">$</span>a;b &lt;-<span class="st"> </span>ret<span class="op">$</span>b</span>
-<span id="cb153-11"><a href="proper-roc-models.html#cb153-11"></a>  <span class="co"># may need to adjust limits to view detail of slope plot</span></span>
-<span id="cb153-12"><a href="proper-roc-models.html#cb153-12"></a>  <span class="cf">if</span> (i <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb153-13"><a href="proper-roc-models.html#cb153-13"></a>  <span class="cf">if</span> (i <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb153-14"><a href="proper-roc-models.html#cb153-14"></a>  </span>
-<span id="cb153-15"><a href="proper-roc-models.html#cb153-15"></a>  FPF &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)</span>
-<span id="cb153-16"><a href="proper-roc-models.html#cb153-16"></a>  TPF &lt;-<span class="st"> </span><span class="kw">rocY</span>(FPF, a, b)</span>
-<span id="cb153-17"><a href="proper-roc-models.html#cb153-17"></a>  </span>
-<span id="cb153-18"><a href="proper-roc-models.html#cb153-18"></a>  rocPlot &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">FPF =</span> FPF, <span class="dt">TPF =</span> TPF)</span>
-<span id="cb153-19"><a href="proper-roc-models.html#cb153-19"></a>  plotRoc[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(</span>
-<span id="cb153-20"><a href="proper-roc-models.html#cb153-20"></a>    rocPlot, <span class="kw">aes</span>(<span class="dt">x =</span> FPF, <span class="dt">y =</span> TPF)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb153-21"><a href="proper-roc-models.html#cb153-21"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb153-22"><a href="proper-roc-models.html#cb153-22"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
-<span id="cb153-23"><a href="proper-roc-models.html#cb153-23"></a>                   LETTERS[i], </span>
-<span id="cb153-24"><a href="proper-roc-models.html#cb153-24"></a>                   <span class="st">&quot;:&quot;</span>, </span>
-<span id="cb153-25"><a href="proper-roc-models.html#cb153-25"></a>                   <span class="kw">sprintf</span>(<span class="st">&quot; c = %5.3f, da = %5.3f&quot;</span>, </span>
-<span id="cb153-26"><a href="proper-roc-models.html#cb153-26"></a>                           c1, da)))</span>
-<span id="cb153-27"><a href="proper-roc-models.html#cb153-27"></a></span>
-<span id="cb153-28"><a href="proper-roc-models.html#cb153-28"></a>  <span class="co"># Implement Eqn. 36 from Metz-Pan paper </span></span>
-<span id="cb153-29"><a href="proper-roc-models.html#cb153-29"></a>  rho &lt;-<span class="st"> </span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>c1<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>c1<span class="op">^</span><span class="dv">2</span>);sigma &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, rho), <span class="kw">c</span>(rho, <span class="dv">1</span>))</span>
-<span id="cb153-30"><a href="proper-roc-models.html#cb153-30"></a>  lower &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="op">-</span><span class="ot">Inf</span>,<span class="dv">2</span>);upper &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span>da<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">2</span>),<span class="dv">0</span>)</span>
-<span id="cb153-31"><a href="proper-roc-models.html#cb153-31"></a>  A_prop &lt;-<span class="st"> </span><span class="kw">pnorm</span>(da<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb153-32"><a href="proper-roc-models.html#cb153-32"></a><span class="st">    </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pmvnorm</span>(lower, upper, <span class="dt">sigma =</span> sigma)</span>
-<span id="cb153-33"><a href="proper-roc-models.html#cb153-33"></a>  A_prop &lt;-<span class="st">  </span><span class="kw">as.numeric</span>(A_prop)</span>
-<span id="cb153-34"><a href="proper-roc-models.html#cb153-34"></a>  </span>
-<span id="cb153-35"><a href="proper-roc-models.html#cb153-35"></a>  slope &lt;-b<span class="op">*</span><span class="kw">dnorm</span>(a<span class="op">-</span>b<span class="op">*</span>z)<span class="op">/</span><span class="kw">dnorm</span>(<span class="op">-</span>z)</span>
-<span id="cb153-36"><a href="proper-roc-models.html#cb153-36"></a>  </span>
-<span id="cb153-37"><a href="proper-roc-models.html#cb153-37"></a>  slopePlot &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">z =</span> z, <span class="dt">slope =</span> slope)</span>
-<span id="cb153-38"><a href="proper-roc-models.html#cb153-38"></a>  plotSlope[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(</span>
-<span id="cb153-39"><a href="proper-roc-models.html#cb153-39"></a>    slopePlot, <span class="kw">aes</span>(<span class="dt">x =</span> z, <span class="dt">y =</span> slope)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb153-40"><a href="proper-roc-models.html#cb153-40"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb153-41"><a href="proper-roc-models.html#cb153-41"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
-<span id="cb153-42"><a href="proper-roc-models.html#cb153-42"></a>                   LETTERS[i<span class="op">+</span><span class="dv">2</span>], </span>
-<span id="cb153-43"><a href="proper-roc-models.html#cb153-43"></a>                   <span class="st">&quot;:&quot;</span>, </span>
-<span id="cb153-44"><a href="proper-roc-models.html#cb153-44"></a>                   <span class="kw">sprintf</span>(<span class="st">&quot; c = %5.3f, da = %5.3f&quot;</span>, </span>
-<span id="cb153-45"><a href="proper-roc-models.html#cb153-45"></a>                           c1, da)))</span>
-<span id="cb153-46"><a href="proper-roc-models.html#cb153-46"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="proper-roc-models.html#cb153-1"></a>Transform2ab &lt;-<span class="st"> </span><span class="cf">function</span> (d_a, c){</span>
+<span id="cb153-2"><a href="proper-roc-models.html#cb153-2"></a>  b &lt;-<span class="st"> </span><span class="op">-</span>(c<span class="op">+</span><span class="dv">1</span>)<span class="op">/</span>(c<span class="dv">-1</span>)</span>
+<span id="cb153-3"><a href="proper-roc-models.html#cb153-3"></a>  a &lt;-<span class="st"> </span>(d_a<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">2</span>))<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>b<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb153-4"><a href="proper-roc-models.html#cb153-4"></a>  <span class="kw">return</span>( <span class="kw">list</span>(</span>
+<span id="cb153-5"><a href="proper-roc-models.html#cb153-5"></a>    <span class="dt">a =</span> a,</span>
+<span id="cb153-6"><a href="proper-roc-models.html#cb153-6"></a>    <span class="dt">b =</span> b</span>
+<span id="cb153-7"><a href="proper-roc-models.html#cb153-7"></a>  ) )</span>
+<span id="cb153-8"><a href="proper-roc-models.html#cb153-8"></a>}</span>
+<span id="cb153-9"><a href="proper-roc-models.html#cb153-9"></a></span>
+<span id="cb153-10"><a href="proper-roc-models.html#cb153-10"></a>GetLimits &lt;-<span class="st"> </span><span class="cf">function</span> (d_a, c)</span>
+<span id="cb153-11"><a href="proper-roc-models.html#cb153-11"></a>{</span>
+<span id="cb153-12"><a href="proper-roc-models.html#cb153-12"></a>  <span class="cf">if</span> (c <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.0</span>) {</span>
+<span id="cb153-13"><a href="proper-roc-models.html#cb153-13"></a>    LL &lt;-<span class="st">  </span>d_a<span class="op">/</span><span class="dv">4</span><span class="op">/</span>c<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>c<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb153-14"><a href="proper-roc-models.html#cb153-14"></a>    UL &lt;-<span class="st">  </span><span class="fl">10.0</span></span>
+<span id="cb153-15"><a href="proper-roc-models.html#cb153-15"></a>  }</span>
+<span id="cb153-16"><a href="proper-roc-models.html#cb153-16"></a>  </span>
+<span id="cb153-17"><a href="proper-roc-models.html#cb153-17"></a>  <span class="cf">if</span> (c <span class="op">==</span><span class="st"> </span><span class="fl">0.0</span>) </span>
+<span id="cb153-18"><a href="proper-roc-models.html#cb153-18"></a>  {</span>
+<span id="cb153-19"><a href="proper-roc-models.html#cb153-19"></a>    LL  &lt;-<span class="st">  </span><span class="fl">-10.0</span></span>
+<span id="cb153-20"><a href="proper-roc-models.html#cb153-20"></a>    UL &lt;-<span class="st">  </span><span class="fl">10.0</span></span>
+<span id="cb153-21"><a href="proper-roc-models.html#cb153-21"></a>  }</span>
+<span id="cb153-22"><a href="proper-roc-models.html#cb153-22"></a>  </span>
+<span id="cb153-23"><a href="proper-roc-models.html#cb153-23"></a>  <span class="cf">if</span> (c <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.0</span>) </span>
+<span id="cb153-24"><a href="proper-roc-models.html#cb153-24"></a>  {</span>
+<span id="cb153-25"><a href="proper-roc-models.html#cb153-25"></a>    LL &lt;-<span class="st">  </span><span class="fl">-10.0</span></span>
+<span id="cb153-26"><a href="proper-roc-models.html#cb153-26"></a>    UL &lt;-<span class="st">  </span>d_a<span class="op">/</span><span class="dv">4</span><span class="op">/</span>c<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>c<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb153-27"><a href="proper-roc-models.html#cb153-27"></a>  }</span>
+<span id="cb153-28"><a href="proper-roc-models.html#cb153-28"></a>  <span class="kw">return</span>( <span class="kw">list</span>(</span>
+<span id="cb153-29"><a href="proper-roc-models.html#cb153-29"></a>    <span class="dt">LL =</span> LL,</span>
+<span id="cb153-30"><a href="proper-roc-models.html#cb153-30"></a>    <span class="dt">UL =</span> UL</span>
+<span id="cb153-31"><a href="proper-roc-models.html#cb153-31"></a>  ) )</span>
+<span id="cb153-32"><a href="proper-roc-models.html#cb153-32"></a>  </span>
+<span id="cb153-33"><a href="proper-roc-models.html#cb153-33"></a>}</span>
+<span id="cb153-34"><a href="proper-roc-models.html#cb153-34"></a></span>
+<span id="cb153-35"><a href="proper-roc-models.html#cb153-35"></a></span>
+<span id="cb153-36"><a href="proper-roc-models.html#cb153-36"></a></span>
+<span id="cb153-37"><a href="proper-roc-models.html#cb153-37"></a>Heaviside &lt;-<span class="st"> </span><span class="cf">function</span> (c)</span>
+<span id="cb153-38"><a href="proper-roc-models.html#cb153-38"></a>{</span>
+<span id="cb153-39"><a href="proper-roc-models.html#cb153-39"></a>  <span class="cf">if</span> (c <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.0</span>) rval &lt;-<span class="st">  </span><span class="fl">0.0</span> <span class="cf">else</span> rval  &lt;-<span class="st">  </span><span class="fl">1.0</span></span>
+<span id="cb153-40"><a href="proper-roc-models.html#cb153-40"></a>  <span class="kw">return</span> (rval)</span>
+<span id="cb153-41"><a href="proper-roc-models.html#cb153-41"></a>}</span>
+<span id="cb153-42"><a href="proper-roc-models.html#cb153-42"></a></span>
+<span id="cb153-43"><a href="proper-roc-models.html#cb153-43"></a>FalsePositiveFraction &lt;-<span class="st"> </span><span class="cf">function</span> (vc, d_a, c)</span>
+<span id="cb153-44"><a href="proper-roc-models.html#cb153-44"></a>{</span>
+<span id="cb153-45"><a href="proper-roc-models.html#cb153-45"></a>  </span>
+<span id="cb153-46"><a href="proper-roc-models.html#cb153-46"></a>  arg1 &lt;-<span class="st">  </span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>c)<span class="op">*</span>vc<span class="op">-</span>d_a<span class="op">/</span><span class="dv">2</span><span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>c<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb153-47"><a href="proper-roc-models.html#cb153-47"></a>  arg2 &lt;-<span class="st">  </span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>c)<span class="op">*</span>vc<span class="op">+</span>d_a<span class="op">/</span><span class="dv">2</span><span class="op">/</span>c<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>c<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb153-48"><a href="proper-roc-models.html#cb153-48"></a>  </span>
+<span id="cb153-49"><a href="proper-roc-models.html#cb153-49"></a>  rval =<span class="st"> </span><span class="kw">pnorm</span> (arg1) <span class="op">+</span><span class="st"> </span><span class="kw">pnorm</span> (arg2) <span class="op">-</span><span class="st"> </span><span class="kw">Heaviside</span> (c)</span>
+<span id="cb153-50"><a href="proper-roc-models.html#cb153-50"></a>  </span>
+<span id="cb153-51"><a href="proper-roc-models.html#cb153-51"></a>  <span class="kw">return</span> (rval)</span>
+<span id="cb153-52"><a href="proper-roc-models.html#cb153-52"></a>}</span>
+<span id="cb153-53"><a href="proper-roc-models.html#cb153-53"></a></span>
+<span id="cb153-54"><a href="proper-roc-models.html#cb153-54"></a></span>
+<span id="cb153-55"><a href="proper-roc-models.html#cb153-55"></a></span>
+<span id="cb153-56"><a href="proper-roc-models.html#cb153-56"></a>TruePositiveFraction &lt;-<span class="st"> </span><span class="cf">function</span> (vc, d_a, c)</span>
+<span id="cb153-57"><a href="proper-roc-models.html#cb153-57"></a>{</span>
+<span id="cb153-58"><a href="proper-roc-models.html#cb153-58"></a>  arg1 =<span class="st"> </span><span class="op">-</span>(<span class="dv">1</span><span class="op">+</span>c)<span class="op">*</span>vc<span class="op">+</span>d_a<span class="op">/</span><span class="dv">2</span><span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>c<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb153-59"><a href="proper-roc-models.html#cb153-59"></a>  arg2 =<span class="st"> </span><span class="op">-</span>(<span class="dv">1</span><span class="op">+</span>c)<span class="op">*</span>vc<span class="op">+</span>d_a<span class="op">/</span><span class="dv">2</span><span class="op">/</span>c<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>c<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb153-60"><a href="proper-roc-models.html#cb153-60"></a>  </span>
+<span id="cb153-61"><a href="proper-roc-models.html#cb153-61"></a>  rval =<span class="st"> </span><span class="kw">pnorm</span> (arg1) <span class="op">+</span><span class="st"> </span><span class="kw">pnorm</span> (arg2) <span class="op">-</span><span class="st"> </span><span class="kw">Heaviside</span> (c)</span>
+<span id="cb153-62"><a href="proper-roc-models.html#cb153-62"></a>  </span>
+<span id="cb153-63"><a href="proper-roc-models.html#cb153-63"></a>  <span class="kw">return</span> (rval)</span>
+<span id="cb153-64"><a href="proper-roc-models.html#cb153-64"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="proper-roc-models.html#cb154-1"></a>c1Arr &lt;-<span class="st">   </span><span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1322804</span>, <span class="fl">0.2225588</span>)</span>
+<span id="cb154-2"><a href="proper-roc-models.html#cb154-2"></a>daArr  &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="fl">1.197239</span>,<span class="fl">1.740157</span>)</span>
+<span id="cb154-3"><a href="proper-roc-models.html#cb154-3"></a>plotRoc &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb154-4"><a href="proper-roc-models.html#cb154-4"></a>plotSlope &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb154-5"><a href="proper-roc-models.html#cb154-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span>
+<span id="cb154-6"><a href="proper-roc-models.html#cb154-6"></a>{</span>
+<span id="cb154-7"><a href="proper-roc-models.html#cb154-7"></a>  c1 &lt;-<span class="st"> </span>c1Arr[i]</span>
+<span id="cb154-8"><a href="proper-roc-models.html#cb154-8"></a>  da &lt;-<span class="st"> </span>daArr[i]</span>
+<span id="cb154-9"><a href="proper-roc-models.html#cb154-9"></a>  ret &lt;-<span class="st"> </span><span class="kw">Transform2ab</span>(da, c1)</span>
+<span id="cb154-10"><a href="proper-roc-models.html#cb154-10"></a>  a &lt;-<span class="st"> </span>ret<span class="op">$</span>a;b &lt;-<span class="st"> </span>ret<span class="op">$</span>b</span>
+<span id="cb154-11"><a href="proper-roc-models.html#cb154-11"></a>  <span class="co"># may need to adjust limits to view detail of slope plot</span></span>
+<span id="cb154-12"><a href="proper-roc-models.html#cb154-12"></a>  <span class="cf">if</span> (i <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb154-13"><a href="proper-roc-models.html#cb154-13"></a>  <span class="cf">if</span> (i <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb154-14"><a href="proper-roc-models.html#cb154-14"></a>  </span>
+<span id="cb154-15"><a href="proper-roc-models.html#cb154-15"></a>  FPF &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)</span>
+<span id="cb154-16"><a href="proper-roc-models.html#cb154-16"></a>  TPF &lt;-<span class="st"> </span><span class="kw">rocY</span>(FPF, a, b)</span>
+<span id="cb154-17"><a href="proper-roc-models.html#cb154-17"></a>  </span>
+<span id="cb154-18"><a href="proper-roc-models.html#cb154-18"></a>  rocPlot &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">FPF =</span> FPF, <span class="dt">TPF =</span> TPF)</span>
+<span id="cb154-19"><a href="proper-roc-models.html#cb154-19"></a>  plotRoc[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(</span>
+<span id="cb154-20"><a href="proper-roc-models.html#cb154-20"></a>    rocPlot, <span class="kw">aes</span>(<span class="dt">x =</span> FPF, <span class="dt">y =</span> TPF)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb154-21"><a href="proper-roc-models.html#cb154-21"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb154-22"><a href="proper-roc-models.html#cb154-22"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
+<span id="cb154-23"><a href="proper-roc-models.html#cb154-23"></a>                   LETTERS[i], </span>
+<span id="cb154-24"><a href="proper-roc-models.html#cb154-24"></a>                   <span class="st">&quot;:&quot;</span>, </span>
+<span id="cb154-25"><a href="proper-roc-models.html#cb154-25"></a>                   <span class="kw">sprintf</span>(<span class="st">&quot; c = %5.3f, da = %5.3f&quot;</span>, </span>
+<span id="cb154-26"><a href="proper-roc-models.html#cb154-26"></a>                           c1, da)))</span>
+<span id="cb154-27"><a href="proper-roc-models.html#cb154-27"></a></span>
+<span id="cb154-28"><a href="proper-roc-models.html#cb154-28"></a>  <span class="co"># Implement Eqn. 36 from Metz-Pan paper </span></span>
+<span id="cb154-29"><a href="proper-roc-models.html#cb154-29"></a>  rho &lt;-<span class="st"> </span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>c1<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>c1<span class="op">^</span><span class="dv">2</span>);sigma &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, rho), <span class="kw">c</span>(rho, <span class="dv">1</span>))</span>
+<span id="cb154-30"><a href="proper-roc-models.html#cb154-30"></a>  lower &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="op">-</span><span class="ot">Inf</span>,<span class="dv">2</span>);upper &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span>da<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">2</span>),<span class="dv">0</span>)</span>
+<span id="cb154-31"><a href="proper-roc-models.html#cb154-31"></a>  A_prop &lt;-<span class="st"> </span><span class="kw">pnorm</span>(da<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb154-32"><a href="proper-roc-models.html#cb154-32"></a><span class="st">    </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pmvnorm</span>(lower, upper, <span class="dt">sigma =</span> sigma)</span>
+<span id="cb154-33"><a href="proper-roc-models.html#cb154-33"></a>  A_prop &lt;-<span class="st">  </span><span class="kw">as.numeric</span>(A_prop)</span>
+<span id="cb154-34"><a href="proper-roc-models.html#cb154-34"></a>  </span>
+<span id="cb154-35"><a href="proper-roc-models.html#cb154-35"></a>  slope &lt;-b<span class="op">*</span><span class="kw">dnorm</span>(a<span class="op">-</span>b<span class="op">*</span>z)<span class="op">/</span><span class="kw">dnorm</span>(<span class="op">-</span>z)</span>
+<span id="cb154-36"><a href="proper-roc-models.html#cb154-36"></a>  </span>
+<span id="cb154-37"><a href="proper-roc-models.html#cb154-37"></a>  slopePlot &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">z =</span> z, <span class="dt">slope =</span> slope)</span>
+<span id="cb154-38"><a href="proper-roc-models.html#cb154-38"></a>  plotSlope[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(</span>
+<span id="cb154-39"><a href="proper-roc-models.html#cb154-39"></a>    slopePlot, <span class="kw">aes</span>(<span class="dt">x =</span> z, <span class="dt">y =</span> slope)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb154-40"><a href="proper-roc-models.html#cb154-40"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb154-41"><a href="proper-roc-models.html#cb154-41"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
+<span id="cb154-42"><a href="proper-roc-models.html#cb154-42"></a>                   LETTERS[i<span class="op">+</span><span class="dv">2</span>], </span>
+<span id="cb154-43"><a href="proper-roc-models.html#cb154-43"></a>                   <span class="st">&quot;:&quot;</span>, </span>
+<span id="cb154-44"><a href="proper-roc-models.html#cb154-44"></a>                   <span class="kw">sprintf</span>(<span class="st">&quot; c = %5.3f, da = %5.3f&quot;</span>, </span>
+<span id="cb154-45"><a href="proper-roc-models.html#cb154-45"></a>                           c1, da)))</span>
+<span id="cb154-46"><a href="proper-roc-models.html#cb154-46"></a>}</span></code></pre></div>
 <p>The analytic expressions for PROPROC ROC curves are implemented in the preceding code which plots PROPROC ROC curves predicted by the specified values of the model parameters <span class="math inline">\((c,d_a)\)</span> and plots of the slopes as a function of binormal model decision variable <span class="math inline">\(z\)</span>, Fig. <a href="proper-roc-models.html#fig:proper-roc-models-plots-3">17.3</a>. Plot A is the ROC for <span class="math inline">\(c = -0.132, d_a = 1.197\)</span> while plot B is the ROC for <span class="math inline">\(c = 0.226, d_a = 1.74\)</span>. Plots C and D are the corresponding slope plots. The parameters correspond to radiologists from a dataset <span class="citation">(Andersson et al. <a href="#ref-andersson2008breast" role="doc-biblioref">2008</a>)</span> involving a FROC study of breast tomosynthesis. Highest rating ROC data were inferred from the original FROC data. These were analyzed by PROPROC and the resulting parameter values were used above. The radiologists were chosen as they demonstrate significant differences in the shapes of their respective proper ROC curves. Plot A is for a negative value of <span class="math inline">\(c\)</span> which implies <span class="math inline">\(b &lt; 1\)</span>. In this situation the slope of the proper ROC is infinite near the origin (corresponding to the very large values of slope in Plot C approached at large likelihood threshold <span class="math inline">\(\lambda\)</span>) and approaches a constant slope near the upper right corner of the ROC (corresponding to the positive minimum slope in Plot C approached as one lowers the likelihood threshold <span class="math inline">\(\lambda\)</span>). Plot B is for a positive value of <span class="math inline">\(c\)</span> which implies <span class="math inline">\(b &gt; 1\)</span>. This time the slope of the ROC near the origin is large but finite (corresponding to the peak in Plot D at intermediate likelihood threshold <span class="math inline">\(\lambda\)</span>) and approaches zero near the upper right corner (corresponding to the zero minimum slope in Plot D approached as one lowers the likelihood threshold <span class="math inline">\(\lambda\)</span> to zero).</p>
 </div>
 <div id="proper-roc-models-proproc-rocs" class="section level3 hasAnchor">
@@ -964,78 +964,78 @@ l_\text{CBM}\left( z|a,b \right)&amp;=\frac{\left( 1-\alpha \right)\phi(z) + \al
 <div id="proper-roc-models-cbm-code" class="section level3 hasAnchor">
 <h3><span class="header-section-number">17.9.2</span> CBM code implementation<a href="proper-roc-models.html#proper-roc-models-cbm-code" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following computes the y-coordinate of the ROC predicted by the CBM:</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="proper-roc-models.html#cb154-1"></a>CbmRocY &lt;-<span class="st"> </span><span class="cf">function</span> (x, mu, alpha) {</span>
-<span id="cb154-2"><a href="proper-roc-models.html#cb154-2"></a>  y &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>alpha)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="kw">qnorm</span>(<span class="dv">1</span><span class="op">-</span>x))) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb154-3"><a href="proper-roc-models.html#cb154-3"></a><span class="st">    </span>alpha<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="kw">qnorm</span>(<span class="dv">1</span><span class="op">-</span>x)<span class="op">-</span>mu))</span>
-<span id="cb154-4"><a href="proper-roc-models.html#cb154-4"></a>  <span class="kw">return</span>(y)</span>
-<span id="cb154-5"><a href="proper-roc-models.html#cb154-5"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="proper-roc-models.html#cb155-1"></a>CbmRocY &lt;-<span class="st"> </span><span class="cf">function</span> (x, mu, alpha) {</span>
+<span id="cb155-2"><a href="proper-roc-models.html#cb155-2"></a>  y &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>alpha)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="kw">qnorm</span>(<span class="dv">1</span><span class="op">-</span>x))) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb155-3"><a href="proper-roc-models.html#cb155-3"></a><span class="st">    </span>alpha<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="kw">qnorm</span>(<span class="dv">1</span><span class="op">-</span>x)<span class="op">-</span>mu))</span>
+<span id="cb155-4"><a href="proper-roc-models.html#cb155-4"></a>  <span class="kw">return</span>(y)</span>
+<span id="cb155-5"><a href="proper-roc-models.html#cb155-5"></a>}</span></code></pre></div>
 <p>The plotting code follows:</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="proper-roc-models.html#cb155-1"></a>FPF &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)</span>
-<span id="cb155-2"><a href="proper-roc-models.html#cb155-2"></a>alphaArr &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.8</span>)</span>
-<span id="cb155-3"><a href="proper-roc-models.html#cb155-3"></a>muArr &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)</span>
-<span id="cb155-4"><a href="proper-roc-models.html#cb155-4"></a>plotRoc &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
-<span id="cb155-5"><a href="proper-roc-models.html#cb155-5"></a>myLabelIndx &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb155-6"><a href="proper-roc-models.html#cb155-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span>
-<span id="cb155-7"><a href="proper-roc-models.html#cb155-7"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>) </span>
-<span id="cb155-8"><a href="proper-roc-models.html#cb155-8"></a>  {</span>
-<span id="cb155-9"><a href="proper-roc-models.html#cb155-9"></a>    {</span>
-<span id="cb155-10"><a href="proper-roc-models.html#cb155-10"></a>      alpha &lt;-<span class="st"> </span>alphaArr[i]</span>
-<span id="cb155-11"><a href="proper-roc-models.html#cb155-11"></a>      mu &lt;-<span class="st"> </span>muArr[j]</span>
-<span id="cb155-12"><a href="proper-roc-models.html#cb155-12"></a>      TPF &lt;-<span class="st"> </span><span class="kw">CbmRocY</span>(FPF, mu, alpha)</span>
-<span id="cb155-13"><a href="proper-roc-models.html#cb155-13"></a>      rocPlot &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">FPF =</span> FPF, <span class="dt">TPF =</span> TPF)</span>
-<span id="cb155-14"><a href="proper-roc-models.html#cb155-14"></a>      plotRoc[[myLabelIndx]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(</span>
-<span id="cb155-15"><a href="proper-roc-models.html#cb155-15"></a>        rocPlot, <span class="kw">aes</span>(<span class="dt">x =</span> FPF, <span class="dt">y =</span> TPF)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb155-16"><a href="proper-roc-models.html#cb155-16"></a><span class="st">        </span><span class="kw">geom_line</span>(<span class="dt">data =</span> rocPlot) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb155-17"><a href="proper-roc-models.html#cb155-17"></a><span class="st">        </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb155-18"><a href="proper-roc-models.html#cb155-18"></a><span class="st">        </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span></span>
-<span id="cb155-19"><a href="proper-roc-models.html#cb155-19"></a><span class="st">        </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
-<span id="cb155-20"><a href="proper-roc-models.html#cb155-20"></a>                   LETTERS[myLabelIndx], </span>
-<span id="cb155-21"><a href="proper-roc-models.html#cb155-21"></a>                   <span class="st">&quot;:&quot;</span>, </span>
-<span id="cb155-22"><a href="proper-roc-models.html#cb155-22"></a>                   <span class="kw">sprintf</span>(<span class="st">&quot; alpha = %4.2f, mu = %4.2f&quot;</span>, </span>
-<span id="cb155-23"><a href="proper-roc-models.html#cb155-23"></a>                           alpha, mu)))</span>
-<span id="cb155-24"><a href="proper-roc-models.html#cb155-24"></a>      myLabelIndx &lt;-<span class="st"> </span>myLabelIndx <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb155-25"><a href="proper-roc-models.html#cb155-25"></a>    }</span>
-<span id="cb155-26"><a href="proper-roc-models.html#cb155-26"></a>  }</span></code></pre></div>
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="proper-roc-models.html#cb156-1"></a>FPF &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)</span>
-<span id="cb156-2"><a href="proper-roc-models.html#cb156-2"></a>cbmPdfs &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
-<span id="cb156-3"><a href="proper-roc-models.html#cb156-3"></a>myLabelIndx &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb156-4"><a href="proper-roc-models.html#cb156-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span>
-<span id="cb156-5"><a href="proper-roc-models.html#cb156-5"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>) </span>
-<span id="cb156-6"><a href="proper-roc-models.html#cb156-6"></a>  {</span>
-<span id="cb156-7"><a href="proper-roc-models.html#cb156-7"></a>    {</span>
-<span id="cb156-8"><a href="proper-roc-models.html#cb156-8"></a>      alpha &lt;-<span class="st"> </span>alphaArr[i]</span>
-<span id="cb156-9"><a href="proper-roc-models.html#cb156-9"></a>      mu &lt;-<span class="st"> </span>muArr[j]</span>
-<span id="cb156-10"><a href="proper-roc-models.html#cb156-10"></a>      <span class="cf">if</span> (i <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</span>
-<span id="cb156-11"><a href="proper-roc-models.html#cb156-11"></a>        z1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb156-12"><a href="proper-roc-models.html#cb156-12"></a>        z2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, mu <span class="op">+</span><span class="st"> </span><span class="dv">3</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb156-13"><a href="proper-roc-models.html#cb156-13"></a>      } <span class="cf">else</span> {</span>
-<span id="cb156-14"><a href="proper-roc-models.html#cb156-14"></a>        z1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb156-15"><a href="proper-roc-models.html#cb156-15"></a>        z2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, mu <span class="op">+</span><span class="st"> </span><span class="dv">3</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb156-16"><a href="proper-roc-models.html#cb156-16"></a>      }</span>
-<span id="cb156-17"><a href="proper-roc-models.html#cb156-17"></a>      Pdf1 &lt;-<span class="st"> </span><span class="kw">dnorm</span>(z1)</span>
-<span id="cb156-18"><a href="proper-roc-models.html#cb156-18"></a>      Pdf2 &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(z2) <span class="op">+</span><span class="st"> </span>alpha <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(z2, mu)</span>
-<span id="cb156-19"><a href="proper-roc-models.html#cb156-19"></a>      df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
-<span id="cb156-20"><a href="proper-roc-models.html#cb156-20"></a>        <span class="dt">z =</span> <span class="kw">c</span>(z1, z2), <span class="dt">pdf =</span> <span class="kw">c</span>(Pdf1, Pdf2), </span>
-<span id="cb156-21"><a href="proper-roc-models.html#cb156-21"></a>        <span class="dt">truth =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&#39;non&#39;</span>, <span class="kw">length</span>(Pdf1)), </span>
-<span id="cb156-22"><a href="proper-roc-models.html#cb156-22"></a>                  <span class="kw">rep</span>(<span class="st">&#39;dis&#39;</span>, <span class="kw">length</span>(Pdf2)))</span>
-<span id="cb156-23"><a href="proper-roc-models.html#cb156-23"></a>      )</span>
-<span id="cb156-24"><a href="proper-roc-models.html#cb156-24"></a>      </span>
-<span id="cb156-25"><a href="proper-roc-models.html#cb156-25"></a>      cbmPdfs[[myLabelIndx]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(</span>
-<span id="cb156-26"><a href="proper-roc-models.html#cb156-26"></a>        df, <span class="kw">aes</span>(<span class="dt">x =</span> z, <span class="dt">y =</span> pdf, <span class="dt">color =</span> truth)) <span class="op">+</span></span>
-<span id="cb156-27"><a href="proper-roc-models.html#cb156-27"></a><span class="st">        </span><span class="kw">geom_line</span>(<span class="dt">data =</span> df) <span class="op">+</span></span>
-<span id="cb156-28"><a href="proper-roc-models.html#cb156-28"></a><span class="st">        </span><span class="kw">scale_colour_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;black&quot;</span>,<span class="st">&quot;darkgrey&quot;</span>)) <span class="op">+</span></span>
-<span id="cb156-29"><a href="proper-roc-models.html#cb156-29"></a><span class="st">        </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span></span>
-<span id="cb156-30"><a href="proper-roc-models.html#cb156-30"></a><span class="st">        </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span></span>
-<span id="cb156-31"><a href="proper-roc-models.html#cb156-31"></a><span class="st">        </span><span class="co">#theme(legend.position = c(0.5, 0.2)) +</span></span>
-<span id="cb156-32"><a href="proper-roc-models.html#cb156-32"></a><span class="st">        </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span></span>
-<span id="cb156-33"><a href="proper-roc-models.html#cb156-33"></a><span class="st">        </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
-<span id="cb156-34"><a href="proper-roc-models.html#cb156-34"></a>                   LETTERS[myLabelIndx], </span>
-<span id="cb156-35"><a href="proper-roc-models.html#cb156-35"></a>                   <span class="st">&quot;:&quot;</span>, </span>
-<span id="cb156-36"><a href="proper-roc-models.html#cb156-36"></a>                   <span class="kw">sprintf</span>(<span class="st">&quot; alpha = %5.3f, mu = %5.3f&quot;</span>, </span>
-<span id="cb156-37"><a href="proper-roc-models.html#cb156-37"></a>                           alpha, mu)))</span>
-<span id="cb156-38"><a href="proper-roc-models.html#cb156-38"></a>      myLabelIndx &lt;-<span class="st"> </span>myLabelIndx <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb156-39"><a href="proper-roc-models.html#cb156-39"></a>    }</span>
-<span id="cb156-40"><a href="proper-roc-models.html#cb156-40"></a>  }</span></code></pre></div>
+<span id="cb156-2"><a href="proper-roc-models.html#cb156-2"></a>alphaArr &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.8</span>)</span>
+<span id="cb156-3"><a href="proper-roc-models.html#cb156-3"></a>muArr &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)</span>
+<span id="cb156-4"><a href="proper-roc-models.html#cb156-4"></a>plotRoc &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb156-5"><a href="proper-roc-models.html#cb156-5"></a>myLabelIndx &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb156-6"><a href="proper-roc-models.html#cb156-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span>
+<span id="cb156-7"><a href="proper-roc-models.html#cb156-7"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>) </span>
+<span id="cb156-8"><a href="proper-roc-models.html#cb156-8"></a>  {</span>
+<span id="cb156-9"><a href="proper-roc-models.html#cb156-9"></a>    {</span>
+<span id="cb156-10"><a href="proper-roc-models.html#cb156-10"></a>      alpha &lt;-<span class="st"> </span>alphaArr[i]</span>
+<span id="cb156-11"><a href="proper-roc-models.html#cb156-11"></a>      mu &lt;-<span class="st"> </span>muArr[j]</span>
+<span id="cb156-12"><a href="proper-roc-models.html#cb156-12"></a>      TPF &lt;-<span class="st"> </span><span class="kw">CbmRocY</span>(FPF, mu, alpha)</span>
+<span id="cb156-13"><a href="proper-roc-models.html#cb156-13"></a>      rocPlot &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">FPF =</span> FPF, <span class="dt">TPF =</span> TPF)</span>
+<span id="cb156-14"><a href="proper-roc-models.html#cb156-14"></a>      plotRoc[[myLabelIndx]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(</span>
+<span id="cb156-15"><a href="proper-roc-models.html#cb156-15"></a>        rocPlot, <span class="kw">aes</span>(<span class="dt">x =</span> FPF, <span class="dt">y =</span> TPF)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb156-16"><a href="proper-roc-models.html#cb156-16"></a><span class="st">        </span><span class="kw">geom_line</span>(<span class="dt">data =</span> rocPlot) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb156-17"><a href="proper-roc-models.html#cb156-17"></a><span class="st">        </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb156-18"><a href="proper-roc-models.html#cb156-18"></a><span class="st">        </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span></span>
+<span id="cb156-19"><a href="proper-roc-models.html#cb156-19"></a><span class="st">        </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
+<span id="cb156-20"><a href="proper-roc-models.html#cb156-20"></a>                   LETTERS[myLabelIndx], </span>
+<span id="cb156-21"><a href="proper-roc-models.html#cb156-21"></a>                   <span class="st">&quot;:&quot;</span>, </span>
+<span id="cb156-22"><a href="proper-roc-models.html#cb156-22"></a>                   <span class="kw">sprintf</span>(<span class="st">&quot; alpha = %4.2f, mu = %4.2f&quot;</span>, </span>
+<span id="cb156-23"><a href="proper-roc-models.html#cb156-23"></a>                           alpha, mu)))</span>
+<span id="cb156-24"><a href="proper-roc-models.html#cb156-24"></a>      myLabelIndx &lt;-<span class="st"> </span>myLabelIndx <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb156-25"><a href="proper-roc-models.html#cb156-25"></a>    }</span>
+<span id="cb156-26"><a href="proper-roc-models.html#cb156-26"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="proper-roc-models.html#cb157-1"></a>FPF &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)</span>
+<span id="cb157-2"><a href="proper-roc-models.html#cb157-2"></a>cbmPdfs &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb157-3"><a href="proper-roc-models.html#cb157-3"></a>myLabelIndx &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb157-4"><a href="proper-roc-models.html#cb157-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)</span>
+<span id="cb157-5"><a href="proper-roc-models.html#cb157-5"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>) </span>
+<span id="cb157-6"><a href="proper-roc-models.html#cb157-6"></a>  {</span>
+<span id="cb157-7"><a href="proper-roc-models.html#cb157-7"></a>    {</span>
+<span id="cb157-8"><a href="proper-roc-models.html#cb157-8"></a>      alpha &lt;-<span class="st"> </span>alphaArr[i]</span>
+<span id="cb157-9"><a href="proper-roc-models.html#cb157-9"></a>      mu &lt;-<span class="st"> </span>muArr[j]</span>
+<span id="cb157-10"><a href="proper-roc-models.html#cb157-10"></a>      <span class="cf">if</span> (i <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</span>
+<span id="cb157-11"><a href="proper-roc-models.html#cb157-11"></a>        z1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb157-12"><a href="proper-roc-models.html#cb157-12"></a>        z2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, mu <span class="op">+</span><span class="st"> </span><span class="dv">3</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb157-13"><a href="proper-roc-models.html#cb157-13"></a>      } <span class="cf">else</span> {</span>
+<span id="cb157-14"><a href="proper-roc-models.html#cb157-14"></a>        z1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb157-15"><a href="proper-roc-models.html#cb157-15"></a>        z2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>, mu <span class="op">+</span><span class="st"> </span><span class="dv">3</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb157-16"><a href="proper-roc-models.html#cb157-16"></a>      }</span>
+<span id="cb157-17"><a href="proper-roc-models.html#cb157-17"></a>      Pdf1 &lt;-<span class="st"> </span><span class="kw">dnorm</span>(z1)</span>
+<span id="cb157-18"><a href="proper-roc-models.html#cb157-18"></a>      Pdf2 &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(z2) <span class="op">+</span><span class="st"> </span>alpha <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(z2, mu)</span>
+<span id="cb157-19"><a href="proper-roc-models.html#cb157-19"></a>      df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb157-20"><a href="proper-roc-models.html#cb157-20"></a>        <span class="dt">z =</span> <span class="kw">c</span>(z1, z2), <span class="dt">pdf =</span> <span class="kw">c</span>(Pdf1, Pdf2), </span>
+<span id="cb157-21"><a href="proper-roc-models.html#cb157-21"></a>        <span class="dt">truth =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&#39;non&#39;</span>, <span class="kw">length</span>(Pdf1)), </span>
+<span id="cb157-22"><a href="proper-roc-models.html#cb157-22"></a>                  <span class="kw">rep</span>(<span class="st">&#39;dis&#39;</span>, <span class="kw">length</span>(Pdf2)))</span>
+<span id="cb157-23"><a href="proper-roc-models.html#cb157-23"></a>      )</span>
+<span id="cb157-24"><a href="proper-roc-models.html#cb157-24"></a>      </span>
+<span id="cb157-25"><a href="proper-roc-models.html#cb157-25"></a>      cbmPdfs[[myLabelIndx]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(</span>
+<span id="cb157-26"><a href="proper-roc-models.html#cb157-26"></a>        df, <span class="kw">aes</span>(<span class="dt">x =</span> z, <span class="dt">y =</span> pdf, <span class="dt">color =</span> truth)) <span class="op">+</span></span>
+<span id="cb157-27"><a href="proper-roc-models.html#cb157-27"></a><span class="st">        </span><span class="kw">geom_line</span>(<span class="dt">data =</span> df) <span class="op">+</span></span>
+<span id="cb157-28"><a href="proper-roc-models.html#cb157-28"></a><span class="st">        </span><span class="kw">scale_colour_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;black&quot;</span>,<span class="st">&quot;darkgrey&quot;</span>)) <span class="op">+</span></span>
+<span id="cb157-29"><a href="proper-roc-models.html#cb157-29"></a><span class="st">        </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span></span>
+<span id="cb157-30"><a href="proper-roc-models.html#cb157-30"></a><span class="st">        </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span></span>
+<span id="cb157-31"><a href="proper-roc-models.html#cb157-31"></a><span class="st">        </span><span class="co">#theme(legend.position = c(0.5, 0.2)) +</span></span>
+<span id="cb157-32"><a href="proper-roc-models.html#cb157-32"></a><span class="st">        </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span></span>
+<span id="cb157-33"><a href="proper-roc-models.html#cb157-33"></a><span class="st">        </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
+<span id="cb157-34"><a href="proper-roc-models.html#cb157-34"></a>                   LETTERS[myLabelIndx], </span>
+<span id="cb157-35"><a href="proper-roc-models.html#cb157-35"></a>                   <span class="st">&quot;:&quot;</span>, </span>
+<span id="cb157-36"><a href="proper-roc-models.html#cb157-36"></a>                   <span class="kw">sprintf</span>(<span class="st">&quot; alpha = %5.3f, mu = %5.3f&quot;</span>, </span>
+<span id="cb157-37"><a href="proper-roc-models.html#cb157-37"></a>                           alpha, mu)))</span>
+<span id="cb157-38"><a href="proper-roc-models.html#cb157-38"></a>      myLabelIndx &lt;-<span class="st"> </span>myLabelIndx <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb157-39"><a href="proper-roc-models.html#cb157-39"></a>    }</span>
+<span id="cb157-40"><a href="proper-roc-models.html#cb157-40"></a>  }</span></code></pre></div>
 </div>
 <div id="proper-roc-models-cbm-rocs" class="section level3 hasAnchor">
 <h3><span class="header-section-number">17.9.3</span> CBM ROC plots<a href="proper-roc-models.html#proper-roc-models-cbm-rocs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1142,72 +1142,72 @@ F\left( x;r,\lambda \right) = \int_{0}^{x}f\left( u;r,\lambda \right) du
 \end{aligned}\right\}
 \tag{17.33}
 \end{equation}\]</span></p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="proper-roc-models.html#cb157-1"></a>aucIntegrand &lt;-<span class="st"> </span><span class="cf">function</span> (FPF, r, lambda) </span>
-<span id="cb157-2"><a href="proper-roc-models.html#cb157-2"></a>{</span>
-<span id="cb157-3"><a href="proper-roc-models.html#cb157-3"></a>  y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pgamma</span>(<span class="kw">qgamma</span>(<span class="dv">1</span><span class="op">-</span>FPF, r), r, <span class="dt">scale =</span> <span class="dv">1</span><span class="op">/</span>lambda)</span>
-<span id="cb157-4"><a href="proper-roc-models.html#cb157-4"></a>  <span class="kw">return</span>(y)  </span>
-<span id="cb157-5"><a href="proper-roc-models.html#cb157-5"></a>}</span>
-<span id="cb157-6"><a href="proper-roc-models.html#cb157-6"></a></span>
-<span id="cb157-7"><a href="proper-roc-models.html#cb157-7"></a></span>
-<span id="cb157-8"><a href="proper-roc-models.html#cb157-8"></a>biGammaRocY &lt;-<span class="st"> </span><span class="cf">function</span> (x, r, lambda) {</span>
-<span id="cb157-9"><a href="proper-roc-models.html#cb157-9"></a>  y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pgamma</span>(x, r, <span class="dt">scale =</span> <span class="dv">1</span><span class="op">/</span>lambda)</span>
-<span id="cb157-10"><a href="proper-roc-models.html#cb157-10"></a>  <span class="kw">return</span>(y)</span>
-<span id="cb157-11"><a href="proper-roc-models.html#cb157-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="proper-roc-models.html#cb158-1"></a>aucIntegrand &lt;-<span class="st"> </span><span class="cf">function</span> (FPF, r, lambda) </span>
+<span id="cb158-2"><a href="proper-roc-models.html#cb158-2"></a>{</span>
+<span id="cb158-3"><a href="proper-roc-models.html#cb158-3"></a>  y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pgamma</span>(<span class="kw">qgamma</span>(<span class="dv">1</span><span class="op">-</span>FPF, r), r, <span class="dt">scale =</span> <span class="dv">1</span><span class="op">/</span>lambda)</span>
+<span id="cb158-4"><a href="proper-roc-models.html#cb158-4"></a>  <span class="kw">return</span>(y)  </span>
+<span id="cb158-5"><a href="proper-roc-models.html#cb158-5"></a>}</span>
+<span id="cb158-6"><a href="proper-roc-models.html#cb158-6"></a></span>
+<span id="cb158-7"><a href="proper-roc-models.html#cb158-7"></a></span>
+<span id="cb158-8"><a href="proper-roc-models.html#cb158-8"></a>biGammaRocY &lt;-<span class="st"> </span><span class="cf">function</span> (x, r, lambda) {</span>
+<span id="cb158-9"><a href="proper-roc-models.html#cb158-9"></a>  y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pgamma</span>(x, r, <span class="dt">scale =</span> <span class="dv">1</span><span class="op">/</span>lambda)</span>
+<span id="cb158-10"><a href="proper-roc-models.html#cb158-10"></a>  <span class="kw">return</span>(y)</span>
+<span id="cb158-11"><a href="proper-roc-models.html#cb158-11"></a>}</span></code></pre></div>
 </div>
 <div id="proper-roc-models-bigamma-code" class="section level3 hasAnchor">
 <h3><span class="header-section-number">17.10.2</span> BGM code implementation<a href="proper-roc-models.html#proper-roc-models-bigamma-code" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="proper-roc-models.html#cb158-1"></a>rArray &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">4.391</span>,<span class="dv">5</span>,<span class="dv">10</span>);lambdaArray &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">0.439</span>,<span class="fl">0.3</span>,<span class="fl">0.1</span>)</span>
-<span id="cb158-2"><a href="proper-roc-models.html#cb158-2"></a><span class="co">#r &lt;-  4.391; lambda &lt;-  0.439 # from Dorfman paper</span></span>
-<span id="cb158-3"><a href="proper-roc-models.html#cb158-3"></a>plotRoc &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
-<span id="cb158-4"><a href="proper-roc-models.html#cb158-4"></a>plotSlope &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
-<span id="cb158-5"><a href="proper-roc-models.html#cb158-5"></a>pdfs &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
-<span id="cb158-6"><a href="proper-roc-models.html#cb158-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(rArray))</span>
-<span id="cb158-7"><a href="proper-roc-models.html#cb158-7"></a>{</span>
-<span id="cb158-8"><a href="proper-roc-models.html#cb158-8"></a>  r &lt;-<span class="st"> </span>rArray[i];lambda &lt;-<span class="st"> </span>lambdaArray[i]</span>
-<span id="cb158-9"><a href="proper-roc-models.html#cb158-9"></a>  AUC &lt;-<span class="st"> </span><span class="kw">integrate</span>(aucIntegrand,<span class="dv">0</span>,<span class="dv">1</span>, <span class="dt">r =</span> r, <span class="dt">lambda =</span> lambda)</span>
-<span id="cb158-10"><a href="proper-roc-models.html#cb158-10"></a>  <span class="co"># cat(&quot;r = &quot;, r, &quot;, lambda = &quot;, lambda, &quot;, AUC = &quot;, AUC$value, &quot;\n&quot;)</span></span>
-<span id="cb158-11"><a href="proper-roc-models.html#cb158-11"></a>  <span class="co"># left limit below gets the upper end of the ROC curve </span></span>
-<span id="cb158-12"><a href="proper-roc-models.html#cb158-12"></a>  <span class="co"># the right limit gets the lower corner</span></span>
-<span id="cb158-13"><a href="proper-roc-models.html#cb158-13"></a>  x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, r<span class="op">/</span>lambda <span class="op">+</span><span class="st"> </span><span class="dv">10</span><span class="op">*</span><span class="kw">sqrt</span>(r<span class="op">/</span>lambda<span class="op">^</span><span class="dv">2</span>), <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb158-14"><a href="proper-roc-models.html#cb158-14"></a>  FPF &lt;-<span class="st"> </span><span class="kw">biGammaRocY</span>(x, r, <span class="dv">1</span>)</span>
-<span id="cb158-15"><a href="proper-roc-models.html#cb158-15"></a>  TPF &lt;-<span class="st"> </span><span class="kw">biGammaRocY</span>(x, r, lambda)</span>
-<span id="cb158-16"><a href="proper-roc-models.html#cb158-16"></a>  </span>
-<span id="cb158-17"><a href="proper-roc-models.html#cb158-17"></a>  rocPlot &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">FPF =</span> FPF, <span class="dt">TPF =</span> TPF)</span>
-<span id="cb158-18"><a href="proper-roc-models.html#cb158-18"></a>  plotRoc[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(</span>
-<span id="cb158-19"><a href="proper-roc-models.html#cb158-19"></a>    rocPlot, <span class="kw">aes</span>(<span class="dt">x =</span> FPF, <span class="dt">y =</span> TPF)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb158-20"><a href="proper-roc-models.html#cb158-20"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb158-21"><a href="proper-roc-models.html#cb158-21"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
-<span id="cb158-22"><a href="proper-roc-models.html#cb158-22"></a>           LETTERS[i], </span>
-<span id="cb158-23"><a href="proper-roc-models.html#cb158-23"></a>           <span class="st">&quot;:&quot;</span>, </span>
-<span id="cb158-24"><a href="proper-roc-models.html#cb158-24"></a>           <span class="kw">sprintf</span>(<span class="st">&quot; r = %3.2f, lambda = %3.2f&quot;</span>, </span>
-<span id="cb158-25"><a href="proper-roc-models.html#cb158-25"></a>                   r, lambda)))</span>
-<span id="cb158-26"><a href="proper-roc-models.html#cb158-26"></a></span>
-<span id="cb158-27"><a href="proper-roc-models.html#cb158-27"></a></span>
-<span id="cb158-28"><a href="proper-roc-models.html#cb158-28"></a>  <span class="co"># taking mean + 3 times the standard deviation</span></span>
-<span id="cb158-29"><a href="proper-roc-models.html#cb158-29"></a>  x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>, r<span class="op">/</span>lambda <span class="op">+</span><span class="st"> </span><span class="dv">3</span><span class="op">*</span><span class="kw">sqrt</span>(r<span class="op">/</span>lambda<span class="op">^</span><span class="dv">2</span>), <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb158-30"><a href="proper-roc-models.html#cb158-30"></a>  </span>
-<span id="cb158-31"><a href="proper-roc-models.html#cb158-31"></a>  Pdf1 &lt;-<span class="st"> </span><span class="kw">dgamma</span>(x, r)</span>
-<span id="cb158-32"><a href="proper-roc-models.html#cb158-32"></a>  Pdf2 &lt;-<span class="st"> </span><span class="kw">dgamma</span>(x, r, <span class="dt">scale =</span> <span class="dv">1</span><span class="op">/</span>lambda)</span>
-<span id="cb158-33"><a href="proper-roc-models.html#cb158-33"></a>  </span>
-<span id="cb158-34"><a href="proper-roc-models.html#cb158-34"></a>  df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(x, x), <span class="dt">pdf =</span> <span class="kw">c</span>(Pdf1, Pdf2), </span>
-<span id="cb158-35"><a href="proper-roc-models.html#cb158-35"></a>                   <span class="dt">truth =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&#39;non-diseased&#39;</span>, <span class="kw">length</span>(Pdf1)), </span>
-<span id="cb158-36"><a href="proper-roc-models.html#cb158-36"></a>                             <span class="kw">rep</span>(<span class="st">&#39;diseased&#39;</span>, <span class="kw">length</span>(Pdf2))))</span>
-<span id="cb158-37"><a href="proper-roc-models.html#cb158-37"></a>  </span>
-<span id="cb158-38"><a href="proper-roc-models.html#cb158-38"></a>  pdfs[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(</span>
-<span id="cb158-39"><a href="proper-roc-models.html#cb158-39"></a>    df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pdf, <span class="dt">color =</span> truth)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb158-40"><a href="proper-roc-models.html#cb158-40"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb158-41"><a href="proper-roc-models.html#cb158-41"></a><span class="st">    </span><span class="kw">scale_colour_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;green&quot;</span>)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb158-42"><a href="proper-roc-models.html#cb158-42"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_blank</span>(), </span>
-<span id="cb158-43"><a href="proper-roc-models.html#cb158-43"></a>          <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.9</span>, <span class="fl">0.9</span>))</span>
-<span id="cb158-44"><a href="proper-roc-models.html#cb158-44"></a>  </span>
-<span id="cb158-45"><a href="proper-roc-models.html#cb158-45"></a>  <span class="co"># may need to adjust limits to view detail of slope plot</span></span>
-<span id="cb158-46"><a href="proper-roc-models.html#cb158-46"></a>  x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb158-47"><a href="proper-roc-models.html#cb158-47"></a></span>
-<span id="cb158-48"><a href="proper-roc-models.html#cb158-48"></a>  slope &lt;-<span class="st"> </span>(<span class="kw">dgamma</span>(x, r, <span class="dt">scale =</span> <span class="dv">1</span><span class="op">/</span>lambda))<span class="op">/</span><span class="kw">pgamma</span>(x, r)</span>
-<span id="cb158-49"><a href="proper-roc-models.html#cb158-49"></a></span>
-<span id="cb158-50"><a href="proper-roc-models.html#cb158-50"></a>  slopePlot &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">slope =</span> slope)</span>
-<span id="cb158-51"><a href="proper-roc-models.html#cb158-51"></a>  plotSlope[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(slopePlot, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> slope)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</span>
-<span id="cb158-52"><a href="proper-roc-models.html#cb158-52"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="proper-roc-models.html#cb159-1"></a>rArray &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">4.391</span>,<span class="dv">5</span>,<span class="dv">10</span>);lambdaArray &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">0.439</span>,<span class="fl">0.3</span>,<span class="fl">0.1</span>)</span>
+<span id="cb159-2"><a href="proper-roc-models.html#cb159-2"></a><span class="co">#r &lt;-  4.391; lambda &lt;-  0.439 # from Dorfman paper</span></span>
+<span id="cb159-3"><a href="proper-roc-models.html#cb159-3"></a>plotRoc &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb159-4"><a href="proper-roc-models.html#cb159-4"></a>plotSlope &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb159-5"><a href="proper-roc-models.html#cb159-5"></a>pdfs &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb159-6"><a href="proper-roc-models.html#cb159-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(rArray))</span>
+<span id="cb159-7"><a href="proper-roc-models.html#cb159-7"></a>{</span>
+<span id="cb159-8"><a href="proper-roc-models.html#cb159-8"></a>  r &lt;-<span class="st"> </span>rArray[i];lambda &lt;-<span class="st"> </span>lambdaArray[i]</span>
+<span id="cb159-9"><a href="proper-roc-models.html#cb159-9"></a>  AUC &lt;-<span class="st"> </span><span class="kw">integrate</span>(aucIntegrand,<span class="dv">0</span>,<span class="dv">1</span>, <span class="dt">r =</span> r, <span class="dt">lambda =</span> lambda)</span>
+<span id="cb159-10"><a href="proper-roc-models.html#cb159-10"></a>  <span class="co"># cat(&quot;r = &quot;, r, &quot;, lambda = &quot;, lambda, &quot;, AUC = &quot;, AUC$value, &quot;\n&quot;)</span></span>
+<span id="cb159-11"><a href="proper-roc-models.html#cb159-11"></a>  <span class="co"># left limit below gets the upper end of the ROC curve </span></span>
+<span id="cb159-12"><a href="proper-roc-models.html#cb159-12"></a>  <span class="co"># the right limit gets the lower corner</span></span>
+<span id="cb159-13"><a href="proper-roc-models.html#cb159-13"></a>  x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, r<span class="op">/</span>lambda <span class="op">+</span><span class="st"> </span><span class="dv">10</span><span class="op">*</span><span class="kw">sqrt</span>(r<span class="op">/</span>lambda<span class="op">^</span><span class="dv">2</span>), <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb159-14"><a href="proper-roc-models.html#cb159-14"></a>  FPF &lt;-<span class="st"> </span><span class="kw">biGammaRocY</span>(x, r, <span class="dv">1</span>)</span>
+<span id="cb159-15"><a href="proper-roc-models.html#cb159-15"></a>  TPF &lt;-<span class="st"> </span><span class="kw">biGammaRocY</span>(x, r, lambda)</span>
+<span id="cb159-16"><a href="proper-roc-models.html#cb159-16"></a>  </span>
+<span id="cb159-17"><a href="proper-roc-models.html#cb159-17"></a>  rocPlot &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">FPF =</span> FPF, <span class="dt">TPF =</span> TPF)</span>
+<span id="cb159-18"><a href="proper-roc-models.html#cb159-18"></a>  plotRoc[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(</span>
+<span id="cb159-19"><a href="proper-roc-models.html#cb159-19"></a>    rocPlot, <span class="kw">aes</span>(<span class="dt">x =</span> FPF, <span class="dt">y =</span> TPF)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb159-20"><a href="proper-roc-models.html#cb159-20"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb159-21"><a href="proper-roc-models.html#cb159-21"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
+<span id="cb159-22"><a href="proper-roc-models.html#cb159-22"></a>           LETTERS[i], </span>
+<span id="cb159-23"><a href="proper-roc-models.html#cb159-23"></a>           <span class="st">&quot;:&quot;</span>, </span>
+<span id="cb159-24"><a href="proper-roc-models.html#cb159-24"></a>           <span class="kw">sprintf</span>(<span class="st">&quot; r = %3.2f, lambda = %3.2f&quot;</span>, </span>
+<span id="cb159-25"><a href="proper-roc-models.html#cb159-25"></a>                   r, lambda)))</span>
+<span id="cb159-26"><a href="proper-roc-models.html#cb159-26"></a></span>
+<span id="cb159-27"><a href="proper-roc-models.html#cb159-27"></a></span>
+<span id="cb159-28"><a href="proper-roc-models.html#cb159-28"></a>  <span class="co"># taking mean + 3 times the standard deviation</span></span>
+<span id="cb159-29"><a href="proper-roc-models.html#cb159-29"></a>  x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>, r<span class="op">/</span>lambda <span class="op">+</span><span class="st"> </span><span class="dv">3</span><span class="op">*</span><span class="kw">sqrt</span>(r<span class="op">/</span>lambda<span class="op">^</span><span class="dv">2</span>), <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb159-30"><a href="proper-roc-models.html#cb159-30"></a>  </span>
+<span id="cb159-31"><a href="proper-roc-models.html#cb159-31"></a>  Pdf1 &lt;-<span class="st"> </span><span class="kw">dgamma</span>(x, r)</span>
+<span id="cb159-32"><a href="proper-roc-models.html#cb159-32"></a>  Pdf2 &lt;-<span class="st"> </span><span class="kw">dgamma</span>(x, r, <span class="dt">scale =</span> <span class="dv">1</span><span class="op">/</span>lambda)</span>
+<span id="cb159-33"><a href="proper-roc-models.html#cb159-33"></a>  </span>
+<span id="cb159-34"><a href="proper-roc-models.html#cb159-34"></a>  df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(x, x), <span class="dt">pdf =</span> <span class="kw">c</span>(Pdf1, Pdf2), </span>
+<span id="cb159-35"><a href="proper-roc-models.html#cb159-35"></a>                   <span class="dt">truth =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&#39;non-diseased&#39;</span>, <span class="kw">length</span>(Pdf1)), </span>
+<span id="cb159-36"><a href="proper-roc-models.html#cb159-36"></a>                             <span class="kw">rep</span>(<span class="st">&#39;diseased&#39;</span>, <span class="kw">length</span>(Pdf2))))</span>
+<span id="cb159-37"><a href="proper-roc-models.html#cb159-37"></a>  </span>
+<span id="cb159-38"><a href="proper-roc-models.html#cb159-38"></a>  pdfs[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(</span>
+<span id="cb159-39"><a href="proper-roc-models.html#cb159-39"></a>    df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pdf, <span class="dt">color =</span> truth)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb159-40"><a href="proper-roc-models.html#cb159-40"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb159-41"><a href="proper-roc-models.html#cb159-41"></a><span class="st">    </span><span class="kw">scale_colour_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;green&quot;</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb159-42"><a href="proper-roc-models.html#cb159-42"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.title =</span> <span class="kw">element_blank</span>(), </span>
+<span id="cb159-43"><a href="proper-roc-models.html#cb159-43"></a>          <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.9</span>, <span class="fl">0.9</span>))</span>
+<span id="cb159-44"><a href="proper-roc-models.html#cb159-44"></a>  </span>
+<span id="cb159-45"><a href="proper-roc-models.html#cb159-45"></a>  <span class="co"># may need to adjust limits to view detail of slope plot</span></span>
+<span id="cb159-46"><a href="proper-roc-models.html#cb159-46"></a>  x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb159-47"><a href="proper-roc-models.html#cb159-47"></a></span>
+<span id="cb159-48"><a href="proper-roc-models.html#cb159-48"></a>  slope &lt;-<span class="st"> </span>(<span class="kw">dgamma</span>(x, r, <span class="dt">scale =</span> <span class="dv">1</span><span class="op">/</span>lambda))<span class="op">/</span><span class="kw">pgamma</span>(x, r)</span>
+<span id="cb159-49"><a href="proper-roc-models.html#cb159-49"></a></span>
+<span id="cb159-50"><a href="proper-roc-models.html#cb159-50"></a>  slopePlot &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">slope =</span> slope)</span>
+<span id="cb159-51"><a href="proper-roc-models.html#cb159-51"></a>  plotSlope[[i]] &lt;-<span class="st"> </span><span class="kw">ggplot</span>(slopePlot, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> slope)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</span>
+<span id="cb159-52"><a href="proper-roc-models.html#cb159-52"></a>}</span></code></pre></div>
 <p>The bigamma-model formulae, coded above, generates ROC plots, Fig. <a href="proper-roc-models.html#fig:proper-roc-models-bigamma-plots-1">17.7</a>, pdfs plots for non-diseased and diseased cases, Fig. <a href="proper-roc-models.html#fig:proper-roc-models-bigamma-plots-2">17.8</a> and likelihood ratio (slope) plots Fig. <a href="proper-roc-models.html#fig:proper-roc-models-bigamma-plots-3">17.9</a> for four pairs of values of the <span class="math inline">\((r, \lambda)\)</span> bigamma model parameters. Plot A is for <span class="math inline">\((r = 1, \lambda = 1)\)</span> when the ROC becomes the chance diagonal regardless of the value of <span class="math inline">\(r\)</span>. Plot B is for <span class="math inline">\((r = 4.39, \lambda = 0.439)\)</span> identical to those used for simulations in.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> Plot C is for $(r = 5, = 0.3) and Plot D is for $(r = 10, = 0.1).</p>
 </div>
 <div id="proper-roc-models-bigamma-rocs" class="section level3 hasAnchor">

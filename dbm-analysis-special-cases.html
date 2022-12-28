@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 11 DBM method special cases | The RJafroc Roc Book</title>
   <meta name="description" content="Artificial intelligence and observer performance book based on RJafroc." />
-  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 11 DBM method special cases | The RJafroc Roc Book" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2022-09-29" />
+<meta name="date" content="2022-12-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -606,51 +606,51 @@ CI_{1-\alpha}=\left ( \theta_{i \bullet} - \theta_{i&#39; \bullet} \right ) \pm 
 <p>With a single reader interpreting cases in two or more treatments, the reader factor must necessarily be regarded as fixed. The preceding analysis is applicable. One simply puts <span class="math inline">\(J = 1\)</span> in the equations above.</p>
 <div id="example-5-code-illustrating-p-values-for-frrc-analysis-van-dyke-data" class="section level4 hasAnchor">
 <h4><span class="header-section-number">11.2.1.1</span> Example 5: Code illustrating p-values for FRRC analysis, Van Dyke data<a href="dbm-analysis-special-cases.html#example-5-code-illustrating-p-values-for-frrc-analysis-van-dyke-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="dbm-analysis-special-cases.html#cb69-1"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
-<span id="cb69-2"><a href="dbm-analysis-special-cases.html#cb69-2"></a>retMS &lt;-<span class="st"> </span><span class="kw">UtilMeanSquares</span>(dataset02)</span>
-<span id="cb69-3"><a href="dbm-analysis-special-cases.html#cb69-3"></a>I &lt;-<span class="st"> </span><span class="kw">length</span>(dataset02<span class="op">$</span>ratings<span class="op">$</span>NL[,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span>
-<span id="cb69-4"><a href="dbm-analysis-special-cases.html#cb69-4"></a>J &lt;-<span class="st"> </span><span class="kw">length</span>(dataset02<span class="op">$</span>ratings<span class="op">$</span>NL[<span class="dv">1</span>,,<span class="dv">1</span>,<span class="dv">1</span>])</span>
-<span id="cb69-5"><a href="dbm-analysis-special-cases.html#cb69-5"></a>K &lt;-<span class="st"> </span><span class="kw">length</span>(dataset02<span class="op">$</span>ratings<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,,<span class="dv">1</span>])</span>
-<span id="cb69-6"><a href="dbm-analysis-special-cases.html#cb69-6"></a>FDbmFR &lt;-<span class="st"> </span>retMS<span class="op">$</span>msT <span class="op">/</span><span class="st"> </span>retMS<span class="op">$</span>msTC</span>
-<span id="cb69-7"><a href="dbm-analysis-special-cases.html#cb69-7"></a>ndf &lt;-<span class="st"> </span>(I<span class="dv">-1</span>); ddf &lt;-<span class="st"> </span>(I<span class="dv">-1</span>)<span class="op">*</span>(K<span class="dv">-1</span>)</span>
-<span id="cb69-8"><a href="dbm-analysis-special-cases.html#cb69-8"></a>pValue &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pf</span>(FDbmFR, ndf, ddf)</span>
-<span id="cb69-9"><a href="dbm-analysis-special-cases.html#cb69-9"></a></span>
-<span id="cb69-10"><a href="dbm-analysis-special-cases.html#cb69-10"></a>theta &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">UtilFigureOfMerit</span>(dataset02, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>))</span>
-<span id="cb69-11"><a href="dbm-analysis-special-cases.html#cb69-11"></a>theta_i_dot &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> I)</span>
-<span id="cb69-12"><a href="dbm-analysis-special-cases.html#cb69-12"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>I) theta_i_dot[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(theta[i,])</span>
-<span id="cb69-13"><a href="dbm-analysis-special-cases.html#cb69-13"></a></span>
-<span id="cb69-14"><a href="dbm-analysis-special-cases.html#cb69-14"></a>trtDiff &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(I,I))</span>
-<span id="cb69-15"><a href="dbm-analysis-special-cases.html#cb69-15"></a><span class="cf">for</span> (i1 <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(I<span class="dv">-1</span>)) {    </span>
-<span id="cb69-16"><a href="dbm-analysis-special-cases.html#cb69-16"></a>  <span class="cf">for</span> (i2 <span class="cf">in</span> (i1<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>I) {</span>
-<span id="cb69-17"><a href="dbm-analysis-special-cases.html#cb69-17"></a>    trtDiff[i1,i2] &lt;-<span class="st"> </span>theta_i_dot[i1]<span class="op">-</span><span class="st"> </span>theta_i_dot[i2]    </span>
-<span id="cb69-18"><a href="dbm-analysis-special-cases.html#cb69-18"></a>  }</span>
-<span id="cb69-19"><a href="dbm-analysis-special-cases.html#cb69-19"></a>}</span>
-<span id="cb69-20"><a href="dbm-analysis-special-cases.html#cb69-20"></a>trtDiff &lt;-<span class="st"> </span>trtDiff[<span class="op">!</span><span class="kw">is.na</span>(trtDiff)]</span>
-<span id="cb69-21"><a href="dbm-analysis-special-cases.html#cb69-21"></a>nDiffs &lt;-<span class="st"> </span>I<span class="op">*</span>(I<span class="dv">-1</span>)<span class="op">/</span><span class="dv">2</span></span>
-<span id="cb69-22"><a href="dbm-analysis-special-cases.html#cb69-22"></a></span>
-<span id="cb69-23"><a href="dbm-analysis-special-cases.html#cb69-23"></a>std_DIFF_FOM_FRRC &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>retMS<span class="op">$</span>msTC<span class="op">/</span>J<span class="op">/</span>K)</span>
-<span id="cb69-24"><a href="dbm-analysis-special-cases.html#cb69-24"></a>nDiffs &lt;-<span class="st"> </span>I<span class="op">*</span>(I<span class="dv">-1</span>)<span class="op">/</span><span class="dv">2</span></span>
-<span id="cb69-25"><a href="dbm-analysis-special-cases.html#cb69-25"></a>CI_DIFF_FOM_FRRC &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(nDiffs, <span class="dv">3</span>))</span>
-<span id="cb69-26"><a href="dbm-analysis-special-cases.html#cb69-26"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span> <span class="op">:</span><span class="st"> </span>nDiffs) {</span>
-<span id="cb69-27"><a href="dbm-analysis-special-cases.html#cb69-27"></a>  CI_DIFF_FOM_FRRC[i,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">qt</span>(alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> ddf)<span class="op">*</span>std_DIFF_FOM_FRRC <span class="op">+</span><span class="st"> </span>trtDiff[i]</span>
-<span id="cb69-28"><a href="dbm-analysis-special-cases.html#cb69-28"></a>  CI_DIFF_FOM_FRRC[i,<span class="dv">2</span>] &lt;-<span class="st"> </span>trtDiff[i]</span>
-<span id="cb69-29"><a href="dbm-analysis-special-cases.html#cb69-29"></a>  CI_DIFF_FOM_FRRC[i,<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> ddf)<span class="op">*</span>std_DIFF_FOM_FRRC <span class="op">+</span><span class="st"> </span>trtDiff[i]</span>
-<span id="cb69-30"><a href="dbm-analysis-special-cases.html#cb69-30"></a>  <span class="kw">print</span>(<span class="kw">data.frame</span>(<span class="st">&quot;pValue&quot;</span> =<span class="st"> </span>pValue, </span>
-<span id="cb69-31"><a href="dbm-analysis-special-cases.html#cb69-31"></a>                   <span class="st">&quot;Lower&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_FRRC[i,<span class="dv">1</span>], </span>
-<span id="cb69-32"><a href="dbm-analysis-special-cases.html#cb69-32"></a>                   <span class="st">&quot;Mid&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_FRRC[i,<span class="dv">2</span>], </span>
-<span id="cb69-33"><a href="dbm-analysis-special-cases.html#cb69-33"></a>                   <span class="st">&quot;Upper&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_FRRC[i,<span class="dv">3</span>]))</span>
-<span id="cb69-34"><a href="dbm-analysis-special-cases.html#cb69-34"></a>}</span>
-<span id="cb69-35"><a href="dbm-analysis-special-cases.html#cb69-35"></a><span class="co">#&gt;       pValue       Lower         Mid        Upper</span></span>
-<span id="cb69-36"><a href="dbm-analysis-special-cases.html#cb69-36"></a><span class="co">#&gt; 1 0.02103497 -0.08088303 -0.04380032 -0.006717613</span></span>
-<span id="cb69-37"><a href="dbm-analysis-special-cases.html#cb69-37"></a></span>
-<span id="cb69-38"><a href="dbm-analysis-special-cases.html#cb69-38"></a>retRJafroc &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(dataset02, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;DBM&quot;</span>)</span>
-<span id="cb69-39"><a href="dbm-analysis-special-cases.html#cb69-39"></a></span>
-<span id="cb69-40"><a href="dbm-analysis-special-cases.html#cb69-40"></a><span class="kw">data.frame</span>(<span class="st">&quot;pValue&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>FRRC<span class="op">$</span>FTests<span class="op">$</span>p[<span class="dv">1</span>],</span>
-<span id="cb69-41"><a href="dbm-analysis-special-cases.html#cb69-41"></a>           <span class="st">&quot;Lower&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>FRRC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;CILower&quot;</span>], </span>
-<span id="cb69-42"><a href="dbm-analysis-special-cases.html#cb69-42"></a>           <span class="st">&quot;Mid&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>FRRC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;Estimate&quot;</span>], </span>
-<span id="cb69-43"><a href="dbm-analysis-special-cases.html#cb69-43"></a>           <span class="st">&quot;Upper&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>FRRC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;CIUpper&quot;</span>])</span>
-<span id="cb69-44"><a href="dbm-analysis-special-cases.html#cb69-44"></a><span class="co">#&gt;        pValue        Lower          Mid         Upper</span></span>
-<span id="cb69-45"><a href="dbm-analysis-special-cases.html#cb69-45"></a><span class="co">#&gt; 1 0.021034969 -0.080883031 -0.043800322 -0.0067176131</span></span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="dbm-analysis-special-cases.html#cb70-1"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
+<span id="cb70-2"><a href="dbm-analysis-special-cases.html#cb70-2"></a>retMS &lt;-<span class="st"> </span><span class="kw">UtilMeanSquares</span>(dataset02)</span>
+<span id="cb70-3"><a href="dbm-analysis-special-cases.html#cb70-3"></a>I &lt;-<span class="st"> </span><span class="kw">length</span>(dataset02<span class="op">$</span>ratings<span class="op">$</span>NL[,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb70-4"><a href="dbm-analysis-special-cases.html#cb70-4"></a>J &lt;-<span class="st"> </span><span class="kw">length</span>(dataset02<span class="op">$</span>ratings<span class="op">$</span>NL[<span class="dv">1</span>,,<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb70-5"><a href="dbm-analysis-special-cases.html#cb70-5"></a>K &lt;-<span class="st"> </span><span class="kw">length</span>(dataset02<span class="op">$</span>ratings<span class="op">$</span>NL[<span class="dv">1</span>,<span class="dv">1</span>,,<span class="dv">1</span>])</span>
+<span id="cb70-6"><a href="dbm-analysis-special-cases.html#cb70-6"></a>FDbmFR &lt;-<span class="st"> </span>retMS<span class="op">$</span>msT <span class="op">/</span><span class="st"> </span>retMS<span class="op">$</span>msTC</span>
+<span id="cb70-7"><a href="dbm-analysis-special-cases.html#cb70-7"></a>ndf &lt;-<span class="st"> </span>(I<span class="dv">-1</span>); ddf &lt;-<span class="st"> </span>(I<span class="dv">-1</span>)<span class="op">*</span>(K<span class="dv">-1</span>)</span>
+<span id="cb70-8"><a href="dbm-analysis-special-cases.html#cb70-8"></a>pValue &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pf</span>(FDbmFR, ndf, ddf)</span>
+<span id="cb70-9"><a href="dbm-analysis-special-cases.html#cb70-9"></a></span>
+<span id="cb70-10"><a href="dbm-analysis-special-cases.html#cb70-10"></a>theta &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">UtilFigureOfMerit</span>(dataset02, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>))</span>
+<span id="cb70-11"><a href="dbm-analysis-special-cases.html#cb70-11"></a>theta_i_dot &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> I)</span>
+<span id="cb70-12"><a href="dbm-analysis-special-cases.html#cb70-12"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>I) theta_i_dot[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(theta[i,])</span>
+<span id="cb70-13"><a href="dbm-analysis-special-cases.html#cb70-13"></a></span>
+<span id="cb70-14"><a href="dbm-analysis-special-cases.html#cb70-14"></a>trtDiff &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(I,I))</span>
+<span id="cb70-15"><a href="dbm-analysis-special-cases.html#cb70-15"></a><span class="cf">for</span> (i1 <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(I<span class="dv">-1</span>)) {    </span>
+<span id="cb70-16"><a href="dbm-analysis-special-cases.html#cb70-16"></a>  <span class="cf">for</span> (i2 <span class="cf">in</span> (i1<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span>I) {</span>
+<span id="cb70-17"><a href="dbm-analysis-special-cases.html#cb70-17"></a>    trtDiff[i1,i2] &lt;-<span class="st"> </span>theta_i_dot[i1]<span class="op">-</span><span class="st"> </span>theta_i_dot[i2]    </span>
+<span id="cb70-18"><a href="dbm-analysis-special-cases.html#cb70-18"></a>  }</span>
+<span id="cb70-19"><a href="dbm-analysis-special-cases.html#cb70-19"></a>}</span>
+<span id="cb70-20"><a href="dbm-analysis-special-cases.html#cb70-20"></a>trtDiff &lt;-<span class="st"> </span>trtDiff[<span class="op">!</span><span class="kw">is.na</span>(trtDiff)]</span>
+<span id="cb70-21"><a href="dbm-analysis-special-cases.html#cb70-21"></a>nDiffs &lt;-<span class="st"> </span>I<span class="op">*</span>(I<span class="dv">-1</span>)<span class="op">/</span><span class="dv">2</span></span>
+<span id="cb70-22"><a href="dbm-analysis-special-cases.html#cb70-22"></a></span>
+<span id="cb70-23"><a href="dbm-analysis-special-cases.html#cb70-23"></a>std_DIFF_FOM_FRRC &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>retMS<span class="op">$</span>msTC<span class="op">/</span>J<span class="op">/</span>K)</span>
+<span id="cb70-24"><a href="dbm-analysis-special-cases.html#cb70-24"></a>nDiffs &lt;-<span class="st"> </span>I<span class="op">*</span>(I<span class="dv">-1</span>)<span class="op">/</span><span class="dv">2</span></span>
+<span id="cb70-25"><a href="dbm-analysis-special-cases.html#cb70-25"></a>CI_DIFF_FOM_FRRC &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(nDiffs, <span class="dv">3</span>))</span>
+<span id="cb70-26"><a href="dbm-analysis-special-cases.html#cb70-26"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span> <span class="op">:</span><span class="st"> </span>nDiffs) {</span>
+<span id="cb70-27"><a href="dbm-analysis-special-cases.html#cb70-27"></a>  CI_DIFF_FOM_FRRC[i,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">qt</span>(alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> ddf)<span class="op">*</span>std_DIFF_FOM_FRRC <span class="op">+</span><span class="st"> </span>trtDiff[i]</span>
+<span id="cb70-28"><a href="dbm-analysis-special-cases.html#cb70-28"></a>  CI_DIFF_FOM_FRRC[i,<span class="dv">2</span>] &lt;-<span class="st"> </span>trtDiff[i]</span>
+<span id="cb70-29"><a href="dbm-analysis-special-cases.html#cb70-29"></a>  CI_DIFF_FOM_FRRC[i,<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> ddf)<span class="op">*</span>std_DIFF_FOM_FRRC <span class="op">+</span><span class="st"> </span>trtDiff[i]</span>
+<span id="cb70-30"><a href="dbm-analysis-special-cases.html#cb70-30"></a>  <span class="kw">print</span>(<span class="kw">data.frame</span>(<span class="st">&quot;pValue&quot;</span> =<span class="st"> </span>pValue, </span>
+<span id="cb70-31"><a href="dbm-analysis-special-cases.html#cb70-31"></a>                   <span class="st">&quot;Lower&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_FRRC[i,<span class="dv">1</span>], </span>
+<span id="cb70-32"><a href="dbm-analysis-special-cases.html#cb70-32"></a>                   <span class="st">&quot;Mid&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_FRRC[i,<span class="dv">2</span>], </span>
+<span id="cb70-33"><a href="dbm-analysis-special-cases.html#cb70-33"></a>                   <span class="st">&quot;Upper&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_FRRC[i,<span class="dv">3</span>]))</span>
+<span id="cb70-34"><a href="dbm-analysis-special-cases.html#cb70-34"></a>}</span>
+<span id="cb70-35"><a href="dbm-analysis-special-cases.html#cb70-35"></a><span class="co">#&gt;       pValue       Lower         Mid        Upper</span></span>
+<span id="cb70-36"><a href="dbm-analysis-special-cases.html#cb70-36"></a><span class="co">#&gt; 1 0.02103497 -0.08088303 -0.04380032 -0.006717613</span></span>
+<span id="cb70-37"><a href="dbm-analysis-special-cases.html#cb70-37"></a></span>
+<span id="cb70-38"><a href="dbm-analysis-special-cases.html#cb70-38"></a>retRJafroc &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(dataset02, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;DBM&quot;</span>)</span>
+<span id="cb70-39"><a href="dbm-analysis-special-cases.html#cb70-39"></a></span>
+<span id="cb70-40"><a href="dbm-analysis-special-cases.html#cb70-40"></a><span class="kw">data.frame</span>(<span class="st">&quot;pValue&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>FRRC<span class="op">$</span>FTests<span class="op">$</span>p[<span class="dv">1</span>],</span>
+<span id="cb70-41"><a href="dbm-analysis-special-cases.html#cb70-41"></a>           <span class="st">&quot;Lower&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>FRRC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;CILower&quot;</span>], </span>
+<span id="cb70-42"><a href="dbm-analysis-special-cases.html#cb70-42"></a>           <span class="st">&quot;Mid&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>FRRC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;Estimate&quot;</span>], </span>
+<span id="cb70-43"><a href="dbm-analysis-special-cases.html#cb70-43"></a>           <span class="st">&quot;Upper&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>FRRC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;CIUpper&quot;</span>])</span>
+<span id="cb70-44"><a href="dbm-analysis-special-cases.html#cb70-44"></a><span class="co">#&gt;        pValue        Lower          Mid         Upper</span></span>
+<span id="cb70-45"><a href="dbm-analysis-special-cases.html#cb70-45"></a><span class="co">#&gt; 1 0.021034969 -0.080883031 -0.043800322 -0.0067176131</span></span></code></pre></div>
 <p>As one might expect, if one “freezes” reader variability, the FOM difference becomes significant, whether viewed from the point of view of the F-statistic exceeding the critical value, the observed p-value being smaller than alpha or the 95% CI for the difference FOM not including zero.</p>
 </div>
 </div>
@@ -692,30 +692,30 @@ CI_{1-\alpha}=\left ( \theta_{i \bullet} - \theta_{i&#39; \bullet} \right ) \pm 
 \end{equation}\]</span></p>
 <div id="example-6-code-illustrating-analysis-for-rrfc-analysis-van-dyke-data" class="section level4 hasAnchor">
 <h4><span class="header-section-number">11.3.0.1</span> Example 6: Code illustrating analysis for RRFC analysis, Van Dyke data<a href="dbm-analysis-special-cases.html#example-6-code-illustrating-analysis-for-rrfc-analysis-van-dyke-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="dbm-analysis-special-cases.html#cb70-1"></a>FDbmFC &lt;-<span class="st"> </span>retMS<span class="op">$</span>msT <span class="op">/</span><span class="st"> </span>retMS<span class="op">$</span>msTR</span>
-<span id="cb70-2"><a href="dbm-analysis-special-cases.html#cb70-2"></a>ndf &lt;-<span class="st"> </span>(I<span class="dv">-1</span>)</span>
-<span id="cb70-3"><a href="dbm-analysis-special-cases.html#cb70-3"></a>ddf &lt;-<span class="st"> </span>(I<span class="dv">-1</span>)<span class="op">*</span>(J<span class="dv">-1</span>)</span>
-<span id="cb70-4"><a href="dbm-analysis-special-cases.html#cb70-4"></a>pValue &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pf</span>(FDbmFC, ndf, ddf)</span>
-<span id="cb70-5"><a href="dbm-analysis-special-cases.html#cb70-5"></a></span>
-<span id="cb70-6"><a href="dbm-analysis-special-cases.html#cb70-6"></a>nDiffs &lt;-<span class="st"> </span>I<span class="op">*</span>(I<span class="dv">-1</span>)<span class="op">/</span><span class="dv">2</span></span>
-<span id="cb70-7"><a href="dbm-analysis-special-cases.html#cb70-7"></a>CI_DIFF_FOM_RRFC &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(nDiffs, <span class="dv">3</span>))</span>
-<span id="cb70-8"><a href="dbm-analysis-special-cases.html#cb70-8"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span> <span class="op">:</span><span class="st"> </span>nDiffs) {</span>
-<span id="cb70-9"><a href="dbm-analysis-special-cases.html#cb70-9"></a>  CI_DIFF_FOM_RRFC[i,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">qt</span>(alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> ddf)<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>retMS<span class="op">$</span>msTR<span class="op">/</span>J<span class="op">/</span>K) <span class="op">+</span><span class="st"> </span>trtDiff[i]</span>
-<span id="cb70-10"><a href="dbm-analysis-special-cases.html#cb70-10"></a>  CI_DIFF_FOM_RRFC[i,<span class="dv">2</span>] &lt;-<span class="st"> </span>trtDiff[i]</span>
-<span id="cb70-11"><a href="dbm-analysis-special-cases.html#cb70-11"></a>  CI_DIFF_FOM_RRFC[i,<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> ddf)<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>retMS<span class="op">$</span>msTR<span class="op">/</span>J<span class="op">/</span>K) <span class="op">+</span><span class="st"> </span>trtDiff[i]</span>
-<span id="cb70-12"><a href="dbm-analysis-special-cases.html#cb70-12"></a>  <span class="kw">print</span>(<span class="kw">data.frame</span>(<span class="st">&quot;pValue&quot;</span> =<span class="st"> </span>pValue, </span>
-<span id="cb70-13"><a href="dbm-analysis-special-cases.html#cb70-13"></a>                   <span class="st">&quot;Lower&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_RRFC[i,<span class="dv">1</span>], </span>
-<span id="cb70-14"><a href="dbm-analysis-special-cases.html#cb70-14"></a>                   <span class="st">&quot;Mid&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_RRFC[i,<span class="dv">2</span>], </span>
-<span id="cb70-15"><a href="dbm-analysis-special-cases.html#cb70-15"></a>                   <span class="st">&quot;Upper&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_RRFC[i,<span class="dv">3</span>]))</span>
-<span id="cb70-16"><a href="dbm-analysis-special-cases.html#cb70-16"></a>}</span>
-<span id="cb70-17"><a href="dbm-analysis-special-cases.html#cb70-17"></a><span class="co">#&gt;        pValue        Lower          Mid         Upper</span></span>
-<span id="cb70-18"><a href="dbm-analysis-special-cases.html#cb70-18"></a><span class="co">#&gt; 1 0.041958752 -0.085020224 -0.043800322 -0.0025804202</span></span>
-<span id="cb70-19"><a href="dbm-analysis-special-cases.html#cb70-19"></a><span class="kw">data.frame</span>(<span class="st">&quot;pValue&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>RRFC<span class="op">$</span>FTests<span class="op">$</span>p[<span class="dv">1</span>],</span>
-<span id="cb70-20"><a href="dbm-analysis-special-cases.html#cb70-20"></a>           <span class="st">&quot;Lower&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>RRFC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;CILower&quot;</span>], </span>
-<span id="cb70-21"><a href="dbm-analysis-special-cases.html#cb70-21"></a>           <span class="st">&quot;Mid&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>RRFC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;Estimate&quot;</span>], </span>
-<span id="cb70-22"><a href="dbm-analysis-special-cases.html#cb70-22"></a>           <span class="st">&quot;Upper&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>RRFC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;CIUpper&quot;</span>])</span>
-<span id="cb70-23"><a href="dbm-analysis-special-cases.html#cb70-23"></a><span class="co">#&gt;        pValue        Lower          Mid         Upper</span></span>
-<span id="cb70-24"><a href="dbm-analysis-special-cases.html#cb70-24"></a><span class="co">#&gt; 1 0.041958752 -0.085020224 -0.043800322 -0.0025804202</span></span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="dbm-analysis-special-cases.html#cb71-1"></a>FDbmFC &lt;-<span class="st"> </span>retMS<span class="op">$</span>msT <span class="op">/</span><span class="st"> </span>retMS<span class="op">$</span>msTR</span>
+<span id="cb71-2"><a href="dbm-analysis-special-cases.html#cb71-2"></a>ndf &lt;-<span class="st"> </span>(I<span class="dv">-1</span>)</span>
+<span id="cb71-3"><a href="dbm-analysis-special-cases.html#cb71-3"></a>ddf &lt;-<span class="st"> </span>(I<span class="dv">-1</span>)<span class="op">*</span>(J<span class="dv">-1</span>)</span>
+<span id="cb71-4"><a href="dbm-analysis-special-cases.html#cb71-4"></a>pValue &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pf</span>(FDbmFC, ndf, ddf)</span>
+<span id="cb71-5"><a href="dbm-analysis-special-cases.html#cb71-5"></a></span>
+<span id="cb71-6"><a href="dbm-analysis-special-cases.html#cb71-6"></a>nDiffs &lt;-<span class="st"> </span>I<span class="op">*</span>(I<span class="dv">-1</span>)<span class="op">/</span><span class="dv">2</span></span>
+<span id="cb71-7"><a href="dbm-analysis-special-cases.html#cb71-7"></a>CI_DIFF_FOM_RRFC &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(nDiffs, <span class="dv">3</span>))</span>
+<span id="cb71-8"><a href="dbm-analysis-special-cases.html#cb71-8"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span> <span class="op">:</span><span class="st"> </span>nDiffs) {</span>
+<span id="cb71-9"><a href="dbm-analysis-special-cases.html#cb71-9"></a>  CI_DIFF_FOM_RRFC[i,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">qt</span>(alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> ddf)<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>retMS<span class="op">$</span>msTR<span class="op">/</span>J<span class="op">/</span>K) <span class="op">+</span><span class="st"> </span>trtDiff[i]</span>
+<span id="cb71-10"><a href="dbm-analysis-special-cases.html#cb71-10"></a>  CI_DIFF_FOM_RRFC[i,<span class="dv">2</span>] &lt;-<span class="st"> </span>trtDiff[i]</span>
+<span id="cb71-11"><a href="dbm-analysis-special-cases.html#cb71-11"></a>  CI_DIFF_FOM_RRFC[i,<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> ddf)<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>retMS<span class="op">$</span>msTR<span class="op">/</span>J<span class="op">/</span>K) <span class="op">+</span><span class="st"> </span>trtDiff[i]</span>
+<span id="cb71-12"><a href="dbm-analysis-special-cases.html#cb71-12"></a>  <span class="kw">print</span>(<span class="kw">data.frame</span>(<span class="st">&quot;pValue&quot;</span> =<span class="st"> </span>pValue, </span>
+<span id="cb71-13"><a href="dbm-analysis-special-cases.html#cb71-13"></a>                   <span class="st">&quot;Lower&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_RRFC[i,<span class="dv">1</span>], </span>
+<span id="cb71-14"><a href="dbm-analysis-special-cases.html#cb71-14"></a>                   <span class="st">&quot;Mid&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_RRFC[i,<span class="dv">2</span>], </span>
+<span id="cb71-15"><a href="dbm-analysis-special-cases.html#cb71-15"></a>                   <span class="st">&quot;Upper&quot;</span> =<span class="st"> </span>CI_DIFF_FOM_RRFC[i,<span class="dv">3</span>]))</span>
+<span id="cb71-16"><a href="dbm-analysis-special-cases.html#cb71-16"></a>}</span>
+<span id="cb71-17"><a href="dbm-analysis-special-cases.html#cb71-17"></a><span class="co">#&gt;        pValue        Lower          Mid         Upper</span></span>
+<span id="cb71-18"><a href="dbm-analysis-special-cases.html#cb71-18"></a><span class="co">#&gt; 1 0.041958752 -0.085020224 -0.043800322 -0.0025804202</span></span>
+<span id="cb71-19"><a href="dbm-analysis-special-cases.html#cb71-19"></a><span class="kw">data.frame</span>(<span class="st">&quot;pValue&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>RRFC<span class="op">$</span>FTests<span class="op">$</span>p[<span class="dv">1</span>],</span>
+<span id="cb71-20"><a href="dbm-analysis-special-cases.html#cb71-20"></a>           <span class="st">&quot;Lower&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>RRFC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;CILower&quot;</span>], </span>
+<span id="cb71-21"><a href="dbm-analysis-special-cases.html#cb71-21"></a>           <span class="st">&quot;Mid&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>RRFC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;Estimate&quot;</span>], </span>
+<span id="cb71-22"><a href="dbm-analysis-special-cases.html#cb71-22"></a>           <span class="st">&quot;Upper&quot;</span> =<span class="st"> </span>retRJafroc<span class="op">$</span>RRFC<span class="op">$</span>ciDiffTrt[<span class="dv">1</span>,<span class="st">&quot;CIUpper&quot;</span>])</span>
+<span id="cb71-23"><a href="dbm-analysis-special-cases.html#cb71-23"></a><span class="co">#&gt;        pValue        Lower          Mid         Upper</span></span>
+<span id="cb71-24"><a href="dbm-analysis-special-cases.html#cb71-24"></a><span class="co">#&gt; 1 0.041958752 -0.085020224 -0.043800322 -0.0025804202</span></span></code></pre></div>
 </div>
 </div>
 <div id="dbm-analysis-special-cases-references" class="section level2 hasAnchor">

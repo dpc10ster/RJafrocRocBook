@@ -188,6 +188,8 @@ ROCPlot <- ggplot(
                     gp = gpar(fontsize = 22)), 
     xmin = 0.49, xmax = 0.49, 
     ymin = 0.94, ymax = 0.94)  
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
 
 p <- ggplotGrob(ROCPlot)
 p$layout$clip[p$layout$name=="panel"] <- "off"
