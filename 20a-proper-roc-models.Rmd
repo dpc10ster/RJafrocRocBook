@@ -3,19 +3,6 @@
 # Proper ROC models {#proper-roc-models}
 
 
----
-title: "Proper ROC models"
-author: "Dev P. Chakraborty, PhD"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-fig_caption: yes
-fig.width: 4
-vignette: >
-  %\VignetteIndexEntry{Proper ROC models}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-  
 ```{r setup, include = FALSE}
   knitr::opts_chunk$set(
   collapse = TRUE,

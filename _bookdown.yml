@@ -4,7 +4,7 @@ repo: https://github.com/dpc10ster/RJafrocRocBook
 output_dir: docs
 delete_merged_file: TRUE
 rmd_files: [
-  "00-preface.Rmd", 
+  "index.Rmd", 
   "01-preliminaries.Rmd", 
   "02-binary-task.Rmd", 
   "03-modeling-binary-task.Rmd", 
