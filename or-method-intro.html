@@ -139,9 +139,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">RJafroc documentation</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="0.1" data-path="preface.html"><a href="preface.html#rationale-and-organization"><i class="fa fa-check"></i><b>0.1</b> Rationale and Organization</a></li>
-<li class="chapter" data-level="0.2" data-path="preface.html"><a href="preface.html#tba-acknowledgements"><i class="fa fa-check"></i><b>0.2</b> TBA Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#rationale-and-organization"><i class="fa fa-check"></i><b>0.1</b> Rationale and Organization</a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#tba-acknowledgements"><i class="fa fa-check"></i><b>0.2</b> TBA Acknowledgements</a></li>
 </ul></li>
 <li class="part"><span><b>ROC paradigm</b></span></li>
 <li class="chapter" data-level="1" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>1</b> Preliminaries</a><ul>
@@ -1236,7 +1236,7 @@ Cov(X,Y) =\frac{\sum_{i=1}^{N}(x_{i}-x_{\bullet})(y_{i}-y_{\bullet})}{N-1}=E(XY)
 <span id="cb114-5"><a href="or-method-intro.html#cb114-5"></a>           <span class="st">&quot;ORBoot:ddf&quot;</span> =<span class="st"> </span>ret4<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;DF&quot;</span>], </span>
 <span id="cb114-6"><a href="or-method-intro.html#cb114-6"></a>           <span class="st">&quot;ORBoot:P-val&quot;</span> =<span class="st"> </span>ret4<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;p&quot;</span>])</span></code></pre></div>
 <pre><code>##   ORBoot.Chisq ORBoot.ddf ORBoot.P.val
-## 1    1.2270005          1   0.26799116</code></pre>
+## 1    1.2504798          1   0.26346086</code></pre>
 <p>The DBM and OR-jackknife methods yield identical F-statistics, but the denominator degrees of freedom are different, <span class="math inline">\((I-1)(K-1)\)</span> = 113 for DBM and <span class="math inline">\(\infty\)</span> for OR. The F-statistics for OR-bootstrap and OR-DeLong are different.</p>
 <p>Shown below is a first-principles implementation of OR significance testing for the one-reader case.</p>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="or-method-intro.html#cb116-1"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span></span>

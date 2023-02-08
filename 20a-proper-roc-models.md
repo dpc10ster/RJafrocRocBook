@@ -3,19 +3,6 @@
 # Proper ROC models {#proper-roc-models}
 
 
----
-title: "Proper ROC models"
-author: "Dev P. Chakraborty, PhD"
-date: "2023-02-08"
-output: rmarkdown::html_vignette
-fig_caption: yes
-fig.width: 4
-vignette: >
-  %\VignetteIndexEntry{Proper ROC models}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-  
 
 
 
