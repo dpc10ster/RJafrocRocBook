@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 The Binary Task | The RJafroc Roc Book</title>
+  <title>Chapter 19 Metz Eqn 36 numerical check | The RJafroc Roc Book</title>
   <meta name="description" content="Artificial intelligence and observer performance book based on RJafroc." />
   <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 The Binary Task | The RJafroc Roc Book" />
+  <meta property="og:title" content="Chapter 19 Metz Eqn 36 numerical check | The RJafroc Roc Book" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Artificial intelligence and observer performance book based on RJafroc." />
   <meta name="github-repo" content="dpc10ster/RJafrocRocBook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 The Binary Task | The RJafroc Roc Book" />
+  <meta name="twitter:title" content="Chapter 19 Metz Eqn 36 numerical check | The RJafroc Roc Book" />
   
   <meta name="twitter:description" content="Artificial intelligence and observer performance book based on RJafroc." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="preliminaries.html"/>
-<link rel="next" href="binary-task-model.html"/>
+<link rel="prev" href="proproc-rocs.html"/>
+<link rel="next" href="bivariate-binormal-model.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -596,410 +596,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="binary-task" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Chapter 2</span> The Binary Task<a href="binary-task.html#binary-task" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="binary-task-how-much-finished" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.1</span> TBA How much finished<a href="binary-task.html#binary-task-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>85%</p>
+<div id="metz-eqn-36" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 19</span> Metz Eqn 36 numerical check<a href="metz-eqn-36.html#metz-eqn-36" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="helper-functions-1" class="section level2 hasAnchor">
+<h2><span class="header-section-number">19.1</span> Helper functions<a href="metz-eqn-36.html#helper-functions-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div id="binary-taskIntro" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.2</span> Introduction<a href="binary-task.html#binary-taskIntro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In the previous chapter four observer performance paradigms were introduced: the receiver operating characteristic (ROC), the free-response ROC (FROC), the location ROC (LROC) and the region of interest (ROI). The next few chapters focus on the ROC paradigm, where each case is rated for confidence in presence of disease. While a multiple point rating scale is generally used, in this chapter it is assumed that the ratings are binary, and the allowed values are “1” vs. “2”. Equivalently, the ratings could be “non-diseased” vs. “diseased”, “negative” vs. “positive”, etc. In the literature this method of data acquisition is also termed the “yes/no” procedure <span class="citation">(Green, Swets, and others <a href="#ref-green1966signal" role="doc-biblioref">1966</a>; Egan <a href="#ref-egan1975book" role="doc-biblioref">1975</a><a href="#ref-egan1975book" role="doc-biblioref">a</a>)</span>. The reason for restricting, for now, to the binary task is that the multiple rating task can be shown to be equivalent to a number of simultaneously conducted binary tasks. Therefore, understanding the simpler method is a good starting point.</p>
-<p>Since the truth is also binary, this chapter could be named the binary-truth binary-decision task. The starting point is a 2 x 2 table summarizing the outcomes in such studies and useful fractions that can be defined from the counts in this table, the most important ones being true positive fraction (TPF) and false positive fraction (FPF). These are used to construct measures of performance, some of which are desirable from the researcher’s point of view, but others are more relevant to radiologists. The concept of disease prevalence is introduced and used to formulate relations between the different types of measures. An R example of calculation of these quantities is given that is only slightly more complicated than the demonstration in the prior chapter.</p>
+<div id="main-code-and-output-1" class="section level2 hasAnchor">
+<h2><span class="header-section-number">19.2</span> Main code and output<a href="metz-eqn-36.html#main-code-and-output-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="metz-eqn-36.html#cb161-1"></a>npts &lt;-<span class="st">  </span><span class="dv">10000</span></span>
+<span id="cb161-2"><a href="metz-eqn-36.html#cb161-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>) {</span>
+<span id="cb161-3"><a href="metz-eqn-36.html#cb161-3"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</span>
+<span id="cb161-4"><a href="metz-eqn-36.html#cb161-4"></a>    C  &lt;-<span class="st">  </span>c1[i,j]</span>
+<span id="cb161-5"><a href="metz-eqn-36.html#cb161-5"></a>    da  &lt;-<span class="st">  </span>d_a1[i,j]</span>
+<span id="cb161-6"><a href="metz-eqn-36.html#cb161-6"></a>    ret &lt;-<span class="st"> </span><span class="kw">GetLimits</span>(da,C)</span>
+<span id="cb161-7"><a href="metz-eqn-36.html#cb161-7"></a>    LL &lt;-<span class="st"> </span>ret<span class="op">$</span>LL;UL &lt;-<span class="st"> </span>ret<span class="op">$</span>UL</span>
+<span id="cb161-8"><a href="metz-eqn-36.html#cb161-8"></a>    vc  &lt;-<span class="st">  </span><span class="kw">seq</span> (LL, UL, <span class="dt">length.out =</span> npts)</span>
+<span id="cb161-9"><a href="metz-eqn-36.html#cb161-9"></a>    TPF  &lt;-<span class="st">  </span><span class="kw">TruePositiveFraction</span> (vc, da, C)</span>
+<span id="cb161-10"><a href="metz-eqn-36.html#cb161-10"></a>    FPF &lt;-<span class="st"> </span><span class="kw">FalsePositiveFraction</span> (vc, da, C)</span>
+<span id="cb161-11"><a href="metz-eqn-36.html#cb161-11"></a>    FPF &lt;-<span class="st"> </span><span class="kw">rev</span>(FPF);TPF &lt;-<span class="st"> </span><span class="kw">rev</span>(TPF)</span>
+<span id="cb161-12"><a href="metz-eqn-36.html#cb161-12"></a>    df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">FPF =</span> FPF, <span class="dt">TPF =</span> TPF)</span>
+<span id="cb161-13"><a href="metz-eqn-36.html#cb161-13"></a>    <span class="co"># do integral numerically</span></span>
+<span id="cb161-14"><a href="metz-eqn-36.html#cb161-14"></a>    numAuc &lt;-<span class="st"> </span><span class="kw">trapz</span>(FPF, TPF)</span>
+<span id="cb161-15"><a href="metz-eqn-36.html#cb161-15"></a>    <span class="co"># Implement Eqn. 36 from Metz-Pan paper </span></span>
+<span id="cb161-16"><a href="metz-eqn-36.html#cb161-16"></a>    rho &lt;-<span class="st"> </span><span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>C<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>C<span class="op">^</span><span class="dv">2</span>);sigma &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, rho), <span class="kw">c</span>(rho, <span class="dv">1</span>))</span>
+<span id="cb161-17"><a href="metz-eqn-36.html#cb161-17"></a>    lower &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="op">-</span><span class="ot">Inf</span>,<span class="dv">2</span>);upper &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span>da<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">2</span>),<span class="dv">0</span>)</span>
+<span id="cb161-18"><a href="metz-eqn-36.html#cb161-18"></a>    aucProproc &lt;-<span class="st"> </span><span class="kw">pnorm</span>(da<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">pmvnorm</span>(lower, upper, <span class="dt">sigma =</span> sigma)</span>
+<span id="cb161-19"><a href="metz-eqn-36.html#cb161-19"></a>    aucProproc &lt;-<span class="st">  </span><span class="kw">as.numeric</span>(aucProproc)</span>
+<span id="cb161-20"><a href="metz-eqn-36.html#cb161-20"></a>    <span class="kw">cat</span>(<span class="st">&quot;i = &quot;</span>, i,<span class="st">&quot;j = &quot;</span>, j,<span class="st">&quot;C = &quot;</span>, C, <span class="st">&quot;, da = &quot;</span>, da, <span class="st">&quot;aucProproc =&quot;</span>, aucProproc, <span class="st">&quot;Norm. Diff. = &quot;</span>, (aucProproc<span class="op">-</span>numAuc)<span class="op">/</span>aucProproc,<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb161-21"><a href="metz-eqn-36.html#cb161-21"></a>  }</span>
+<span id="cb161-22"><a href="metz-eqn-36.html#cb161-22"></a>}</span>
+<span id="cb161-23"><a href="metz-eqn-36.html#cb161-23"></a><span class="co">#&gt; i =  1 j =  1 C =  -0.1322804 , da =  1.197239 aucProproc = 0.8014164 Norm. Diff. =  3.520017e-08 </span></span>
+<span id="cb161-24"><a href="metz-eqn-36.html#cb161-24"></a><span class="co">#&gt; i =  1 j =  2 C =  -0.08696513 , da =  1.771176 aucProproc = 0.8947898 Norm. Diff. =  4.741875e-08 </span></span>
+<span id="cb161-25"><a href="metz-eqn-36.html#cb161-25"></a><span class="co">#&gt; i =  1 j =  3 C =  -0.1444419 , da =  1.481935 aucProproc = 0.8526605 Norm. Diff. =  3.515431e-08 </span></span>
+<span id="cb161-26"><a href="metz-eqn-36.html#cb161-26"></a><span class="co">#&gt; i =  1 j =  4 C =  0.08046016 , da =  1.513757 aucProproc = 0.8577776 Norm. Diff. =  4.971428e-08 </span></span>
+<span id="cb161-27"><a href="metz-eqn-36.html#cb161-27"></a><span class="co">#&gt; i =  1 j =  5 C =  0.2225588 , da =  1.740157 aucProproc = 0.8909392 Norm. Diff. =  2.699855e-08 </span></span>
+<span id="cb161-28"><a href="metz-eqn-36.html#cb161-28"></a><span class="co">#&gt; i =  2 j =  1 C =  -0.08174248 , da =  0.6281251 aucProproc = 0.6716574 Norm. Diff. =  2.801793e-08 </span></span>
+<span id="cb161-29"><a href="metz-eqn-36.html#cb161-29"></a><span class="co">#&gt; i =  2 j =  2 C =  0.04976448 , da =  0.9738786 aucProproc = 0.7544739 Norm. Diff. =  5.275242e-08 </span></span>
+<span id="cb161-30"><a href="metz-eqn-36.html#cb161-30"></a><span class="co">#&gt; i =  2 j =  3 C =  -0.1326126 , da =  1.155871 aucProproc = 0.7931787 Norm. Diff. =  3.472577e-08 </span></span>
+<span id="cb161-31"><a href="metz-eqn-36.html#cb161-31"></a><span class="co">#&gt; i =  2 j =  4 C =  0.1182226 , da =  1.620176 aucProproc = 0.8740274 Norm. Diff. =  3.922161e-08 </span></span>
+<span id="cb161-32"><a href="metz-eqn-36.html#cb161-32"></a><span class="co">#&gt; i =  2 j =  5 C =  0.0781033 , da =  0.8928816 aucProproc = 0.7360989 Norm. Diff. =  3.798459e-08</span></span></code></pre></div>
 </div>
-<div id="binary-taskTruth" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.3</span> The fundamental 2x2 table<a href="binary-task.html#binary-taskTruth" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this book, the term case is used for images obtained for diagnostic purposes, of a patient; often multiple images of a patient, sometimes from different modalities, are involved in an interpretation; all images of a single patient, that are used in the interpretation, are collectively referred to as a case. A familiar example is the 4-view presentation used in screening mammography, where two views of each breast are available for viewing.</p>
-<p>Let <span class="math inline">\(D\)</span> represent the radiologist’s decision, with <span class="math inline">\(D=1\)</span> representing the decision “case is non-diseased” and <span class="math inline">\(D=2\)</span> representing the decision “case is diseased”. Let <span class="math inline">\(T\)</span> denote the truth with <span class="math inline">\(T=1\)</span> representing “case is actually non-diseased” and <span class="math inline">\(T=2\)</span> representing “case is actually diseased”. Each decision, one of two values, will be associated with one of two truth states, resulting in an entry in one of 4 cells arranged in a 2 x 2 layout, termed the decision vs. truth table, Table <a href="binary-task.html#tab:binary-tasktruthTable">2.1</a>, which is of fundamental importance in observer performance. The cells are labeled as follows. The abbreviation <span class="math inline">\(TN\)</span>, for true negative, represents a <span class="math inline">\(D=1\)</span> decision on a <span class="math inline">\(T=1\)</span> case. <span class="math inline">\(FN\)</span>, for false negative, represents a <span class="math inline">\(D=1\)</span> decision on a <span class="math inline">\(T=2\)</span> case (also termed a “miss”). <span class="math inline">\(FP\)</span>, for false positive, represents a <span class="math inline">\(D=2\)</span> decision on a <span class="math inline">\(T=1\)</span> case (a “false-alarm”) and <span class="math inline">\(TP\)</span>, for true positive, represents a <span class="math inline">\(D=2\)</span> decision on a <span class="math inline">\(T=2\)</span> case (a “hit”).</p>
-<table>
-<caption>
-<span id="tab:binary-tasktruthTable">TABLE 2.1: </span>Truth Table.
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-T=1
-</th>
-<th style="text-align:left;">
-T=2
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-D=1
-</td>
-<td style="text-align:left;">
-TN
-</td>
-<td style="text-align:left;">
-FN
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-D=2
-</td>
-<td style="text-align:left;">
-FP
-</td>
-<td style="text-align:left;">
-TP
-</td>
-</tr>
-</tbody>
-</table>
-<p>Table <a href="binary-task.html#tab:binary-tasktruthTable2">2.2</a> shows the numbers of decisions in each of the four categories defined in Table <a href="binary-task.html#tab:binary-tasktruthTable">2.1</a>. Specifically, <span class="math inline">\(n(TN)\)</span> is the number of true negative decisions, <span class="math inline">\(n(FN)\)</span> is the number of false negative decisions, etc. The last row is the sum of the corresponding columns. The sum of the number of true negative decisions <span class="math inline">\(n(TN)\)</span> and the number of false positive decisions <span class="math inline">\(n(FP)\)</span> must equal the total number of non-diseased cases, denoted <span class="math inline">\(K_1\)</span>. Likewise, the sum of the number of false negative decisions <span class="math inline">\(n(FN)\)</span> and the number of true positive decisions <span class="math inline">\(n(TP)\)</span> must equal the total number of diseased cases, denoted <span class="math inline">\(K_2\)</span>. The last column is the sum of the corresponding rows. The sum of the number of true negative <span class="math inline">\(n(TN)\)</span> and false negative <span class="math inline">\(n(FN)\)</span> decisions is the total number of negative decisions, denoted <span class="math inline">\(n(N)\)</span>. Likewise, the sum of the number of false positive <span class="math inline">\(n(FP)\)</span> and true positive <span class="math inline">\(n(TP)\)</span> decisions is the total number of positive decisions, denoted <span class="math inline">\(n(P)\)</span>. Since each case yields a decision, the bottom-right corner cell is <span class="math inline">\(n(N) + n(P)\)</span>, which must also equal <span class="math inline">\(K_1+K_2\)</span>, the total number of cases <span class="math inline">\(K\)</span>. These statements are summarized in Eqn. <a href="binary-task.html#eq:binary-taskTruthTableEqns">(2.1)</a>.</p>
-<p><span class="math display" id="eq:binary-taskTruthTableEqns">\[\begin{equation} 
-\left.\begin{aligned}
-K_1&amp;=n(TN)+n(FP)\\ 
-K_2&amp;=n(FN)+n(TN)\\ 
-n(N)&amp;=n(TN)+n(FN)\\ 
-n(P)&amp;=n(TP)+n(FP)\\
-K=K_1+K_2&amp;=n(N)+n(P)
-\end{aligned}\right\}
-\tag{2.1}
-\end{equation}\]</span></p>
-<table>
-<caption>
-<span id="tab:binary-tasktruthTable2">TABLE 2.2: </span>Cell counts.
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-T=1
-</th>
-<th style="text-align:left;">
-T=2
-</th>
-<th style="text-align:left;">
-RowSums
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-D=1
-</td>
-<td style="text-align:left;">
-n(TN)
-</td>
-<td style="text-align:left;">
-n(FN)
-</td>
-<td style="text-align:left;">
-n(N)=n(TN)+n(FN)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-D=2
-</td>
-<td style="text-align:left;">
-n(FP)
-</td>
-<td style="text-align:left;">
-n(TP)
-</td>
-<td style="text-align:left;">
-n(P)=n(FP)+n(TP)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ColSums
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K_1\)</span>=n(TN)+n(FP)
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K_2\)</span>=n(FN)+n(TP)
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K=K_1+K_2\)</span>=n(N)+n(P)
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="sensitivity-and-specificity" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.4</span> Sensitivity and specificity<a href="binary-task.html#sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The notation <span class="math inline">\(P(D|T)\)</span> indicates the probability of diagnosis D given truth state T (the vertical bar symbol is used to denote a conditional probability, i.e., what is to the left of the vertical bar depends on the condition appearing to the right of the vertical bar being true).</p>
-<p><span class="math display" id="eq:binary-taskPDGivenT">\[\begin{equation} 
-P(D|T) = P(\text{diagnosis is D} | \text{truth is T})
-\tag{2.2}
-\end{equation}\]</span></p>
-<p>Therefore the probability that the radiologist will diagnose “case is diseased” when the case is actually diseased is <span class="math inline">\(P(D=2|T=2)\)</span>, which is the probability of a true positive <span class="math inline">\(P(TP)\)</span>.</p>
-<p><span class="math display" id="eq:binary-taskPTP">\[\begin{equation} 
-P(TP) = P(\text{D = 2} | \text{T = 2})
-\tag{2.3}
-\end{equation}\]</span></p>
-<p>Likewise, the probability that the radiologist will diagnose “case is non-diseased” when the case is actually diseased is <span class="math inline">\(P(D=1|T=2)\)</span>, which is the probability of a false negative <span class="math inline">\(P(FN)\)</span>.</p>
-<p><span class="math display" id="eq:binary-taskPFN">\[\begin{equation} 
-P(FN) = P(\text{D = 1} | \text{T = 2})
-\tag{2.4}
-\end{equation}\]</span></p>
-<p>The corresponding probabilities for non-diseased cases, <span class="math inline">\(P(TN)\)</span> and <span class="math inline">\(P(FP)\)</span>, are defined by:</p>
-<p><span class="math display" id="eq:binary-taskPTNFP">\[\begin{equation} 
-\left.\begin{aligned}
-P(TN)&amp;=P(D=1|T=1)\\ 
-\\
-P(FP)&amp;=P(D=2|T=1)
-\end{aligned}\right\}
-\tag{2.5}
-\end{equation}\]</span></p>
-<p>Since the diagnosis must be either <span class="math inline">\(D=1\)</span> or <span class="math inline">\(D=2\)</span>, for each truth state the probabilities on non-diseased and diseased cases must sum to unity:</p>
-<p><span class="math display" id="eq:binary-taskPSumsToUnity">\[\begin{equation} 
-\left.\begin{matrix}
-P(D=1|T=1)+P(D=2|T=1)=1\\ 
-\\  
-P(D=1|T=2)+P(D=2|T=2)=1
-\end{matrix}\right\}
-\tag{2.6}
-\end{equation}\]</span></p>
-<p>Equivalently, these equations can be written:</p>
-<p><span class="math display" id="eq:binary-taskPSumsToUnity2">\[\begin{equation} 
-\left.\begin{matrix}
-P(TN)+P(FP)=1\\ 
-\\
-P(FN)+P(TP)=1
-\end{matrix}\right\}
-\tag{2.7}
-\end{equation}\]</span></p>
-<p>Comments:</p>
-<ul>
-<li>An easy way to remember Eqn. <a href="binary-task.html#eq:binary-taskPSumsToUnity2">(2.7)</a> is to start by writing down the probability of one of the four probabilities, e.g., <span class="math inline">\(P(TN)\)</span>, and “reversing” both terms inside the parentheses, i.e., <span class="math inline">\(T \Rightarrow F\)</span>, and <span class="math inline">\(N \Rightarrow P\)</span>. This yields the term <span class="math inline">\(P(FP)\)</span> which when added to the previous probability, <span class="math inline">\(P(TN)\)</span>, yields unity, i.e., the 1st equation in Eqn. <a href="binary-task.html#eq:binary-taskPSumsToUnity2">(2.7)</a>.</li>
-<li>Because there are two equations in four unknowns, only two of the four probabilities, one per equation, are independent. By tradition these are chosen to be <span class="math inline">\(P(D=1|T=1)\)</span> and <span class="math inline">\(P(D=2|T=2)\)</span>, i.e., <span class="math inline">\(P(TN)\)</span> and <span class="math inline">\(P(TP)\)</span>, which happen to be the probabilities of correct decisions on non-diseased and diseased cases, respectively. The two basic probabilities are so important that they have names: <span class="math inline">\(P(D=2|T=2)=P(TP)\)</span> is termed sensitivity (Se) and <span class="math inline">\(P(D=1|T=1)=P(TN)\)</span> is termed specificity (Sp):</li>
-</ul>
-<p><span class="math display" id="eq:binary-taskSeSp">\[\begin{equation} 
-\left.\begin{matrix}
-\text{Se}=P(TP)=P(D=2|T=2)\\ 
-\\
-\text{Sp}=P(TN)=P(D=1|T=1)
-\end{matrix}\right\}
-\tag{2.8}
-\end{equation}\]</span></p>
-<p>The radiologist can be regarded as a diagnostic “test” yielding a binary decision under the binary truth condition. More generally, any test (e.g., a blood test for HIV) yielding a binary result (positive or negative) under a binary truth condition is said to be sensitive if it correctly detects the diseased condition most of the time. The test is said to be specific if it correctly detects the non-diseased condition most of the time. Sensitivity is how correct the test is at detecting a diseased condition, and specificity is how correct the test is at detecting a non-diseased condition.</p>
-<div id="reasons-for-the-names-sensitivity-and-specificity" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.4.1</span> Reasons for the names sensitivity and specificity<a href="binary-task.html#reasons-for-the-names-sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>It is important to understand the reason for these names and an analogy may be helpful. Most of us are sensitive to temperature, especially if the choice is between ice-cold vs. steaming hot. The sense of touch is said to be sensitive to temperature. One can imagine some neurological condition rendering a person hypersensitive to temperature, such that the person responds “hot” no matter what is being touched. For such a person the sense of touch is not very specific, as it is unable to distinguish between the two temperatures. This person would be characterized by unit sensitivity (since the response is “hot” to all steaming hot objects) and zero specificity (since the response is never “cold” to ice-cold objects). Likewise, a different neurological condition could render a person hypersensitive to cold, and the response is “cold” no matter what is being touched. Such a person would have zero sensitivity (since the response is never “hot” when touching steaming hot) and unit specificity (since the response is “cold” when touching ice-cold). Already one suspects that there is an inverse relation between sensitivity and specificity.</p>
-</div>
-<div id="estimating-sensitivity-and-specificity" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.4.2</span> Estimating sensitivity and specificity<a href="binary-task.html#estimating-sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Sensitivity and specificity are the probabilities of correct decisions, over diseased and non-diseased cases, respectively. The true values of these probabilities would require interpreting all diseased and non-diseased cases in the entire population of cases. In reality, one has a finite sample of cases and the corresponding quantities, calculated from this finite sample, are termed estimates. Population values are fixed, and in general unknown, while estimates are random variables. Intuitively, an estimate calculated over a larger number of cases is expected to be closer to the true or population value than an estimate calculated over a smaller number of cases.</p>
-<p>Estimates of sensitivity and specificity follow from counting the numbers of TP and TN decisions in Table 2.2 and dividing by the appropriate denominators. For sensitivity, the appropriate denominator is the number of actually diseased cases, namely , and for specificity, the appropriate denominator is the number of actually non-diseased cases, namely . The estimation equations for sensitivity specificity are (estimates are denoted by the “hat” or circumflex symbol ^):</p>
-<p><span class="math display" id="eq:binary-taskSeSpEstimates">\[\begin{equation} 
-\left.\begin{matrix}
-\widehat{\text{Se}}=\widehat{P(TP)}=\frac{n(TP)}{K_2}\\
-\\ 
-\widehat{\text{Sp}}=\widehat{P(TN)}=\frac{n(TN)}{K_1}
-\end{matrix}\right\}
-\tag{2.9}
-\end{equation}\]</span></p>
-<p>The ratio of the number of TP decisions to the number of actually diseased cases is termed true positive fraction <span class="math inline">\(\widehat{TPF}\)</span>, which is an estimate of sensitivity, or equivalently, an estimate of <span class="math inline">\(\widehat{P(TP)}\)</span>. Likewise, the ratio of the number of TN decisions to the number of actually non-diseased cases is termed true negative fraction <span class="math inline">\(\widehat{TNF}\)</span>, which is an estimate of specificity, or equivalently, an estimate of <span class="math inline">\(\widehat{P(TN)}\)</span>. The complements of <span class="math inline">\(\widehat{TPF}\)</span> and <span class="math inline">\(\widehat{TNF}\)</span> are termed false negative fraction <span class="math inline">\(\widehat{FNF}\)</span> and false positive fraction <span class="math inline">\(\widehat{FPF}\)</span>, respectively.</p>
-</div>
-</div>
-<div id="disease-prevalence" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.5</span> Disease prevalence<a href="binary-task.html#disease-prevalence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Disease prevalence, often abbreviated to prevalence, is defined as the actual or true probability that a randomly sampled case is of a diseased patient, i.e., the fraction of the entire population that is diseased. It is denoted <span class="math inline">\(P(D|pop)\)</span> when patients are randomly sampled from the population (“pop”) and otherwise it is denoted <span class="math inline">\(P(D|lab)\)</span>, where the condition “lab” stands for a laboratory study, where cases may be artificially enriched, and thus not representative of the population value:</p>
-<p><span class="math display" id="eq:binary-taskDisPrev">\[\begin{equation} 
-\left.\begin{matrix}
-P(D|\text{pop})=P(T=2|\text{pop})\\
-\\ 
-P(D|\text{lab})=P(T=2|\text{lab})
-\end{matrix}\right\}
-\tag{2.10}
-\end{equation}\]</span></p>
-<p>Since the patients must be either diseased on non-diseased, it follows with either sampling method, that:</p>
-<p><span class="math display">\[\begin{equation} 
-\left.\begin{aligned}
-P(T=1|\text{pop})+P(T=2|\text{pop})&amp;=1\\
-\\
-P(T=1|\text{lab})+P(T=2|\text{lab})&amp;=1
-\end{aligned}\right\}
-\end{equation}\]</span></p>
-<p>If a finite number of patients are sampled randomly from the population the fraction of diseased patients in the sample is an estimate of true disease prevalence.</p>
-<p><span class="math display" id="eq:binary-taskDisPrevEst">\[\begin{equation} 
-\left.\begin{matrix}
-\widehat{P(D|\text{pop})}=
-\frac{K_2}{K_1+K_2}
-\end{matrix}\right|_{pop}
-\tag{2.11}
-\end{equation}\]</span></p>
-<p>It is important to appreciate the distinction between true (population) prevalence and laboratory prevalence. As an example, true disease prevalence for breast cancer is about five per 1000 patients in the US, but most mammography studies are conducted with comparable numbers of non-diseased and diseased cases:</p>
-<p><span class="math display" id="eq:binary-taskDisPrevLabVsPop">\[\begin{equation} 
-\left.\begin{aligned}
-\widehat{P(D|\text{pop})}&amp;\sim 0.005\\
-\\
-\widehat{P(D|\text{lab})}&amp;\sim 0.5\gg \widehat{P(D|\text{pop})}
-\end{aligned}\right\}
-\tag{2.12}
-\end{equation}\]</span></p>
-</div>
-<div id="accuracy" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.6</span> Accuracy<a href="binary-task.html#accuracy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Accuracy is defined as the fraction of all decisions that are in fact correct. Denoting it by <span class="math inline">\(Ac\)</span> one has for the corresponding estimate:</p>
-<p><span class="math display" id="eq:binary-taskAccuracyEst">\[\begin{equation} 
-\widehat{Ac}=\frac{n(TN)+n(TP)}{n(TN)+n(TP)+n(FP)+n(FN)}
-\tag{2.13}
-\end{equation}\]</span></p>
-<p>The numerator is the total number of correct decisions and the denominator is the total number of decisions. An equivalent expression is:</p>
-<p><span class="math display" id="eq:binary-taskAccuracyEst2">\[\begin{equation} 
-\widehat{Ac}=\widehat{Sp}\widehat{P(!D)}+\widehat{Se}\widehat{P(D)}
-\tag{2.14}
-\end{equation}\]</span></p>
-<p>The exclamation mark symbol is used to denote the “not” or negation operator. For example, <span class="math inline">\(P(!D)\)</span> means the probability that the patient is not diseased. Eqn. <a href="binary-task.html#eq:binary-taskAccuracyEst2">(2.14)</a> applies equally to laboratory or population studies, <em>provided sensitivity and specificity are estimated consistently</em>. One cannot combine a population estimate of prevalence with a laboratory measurement of sensitivity and / or specificity.</p>
-<p>Eqn. <a href="binary-task.html#eq:binary-taskAccuracyEst2">(2.14)</a> can be understood from the following argument. <span class="math inline">\(\widehat{Sp}\)</span> is the fraction of correct (i.e., negative) decisions on non-diseased cases. Multiplying this by <span class="math inline">\(\widehat{P(!D)}\)</span> yields <span class="math inline">\(\widehat{Sp} \widehat{P(!D)}\)</span>, the fraction of correct negative decisions on all cases. Similarly, <span class="math inline">\(\widehat{Sp}\)</span> is the fraction of correct positive decisions on all cases. Therefore, their sum is the fraction of (all, i.e., negative and positive) correct decisions on all cases. A formal mathematical derivation follows. The terms on the right hand side of Eqn. <a href="binary-task.html#eq:binary-taskSeSpEstimates">(2.9)</a> can be “turned around” yielding:</p>
-<p><span class="math display" id="eq:binary-tasknTpnTN">\[\begin{equation} 
-\left.\begin{matrix}
-n(TP)=K_2 \widehat{Se}\\ 
-\\
-n(TN)=K_1 \widehat{Sp}
-\end{matrix}\right\}
-\tag{2.15}
-\end{equation}\]</span></p>
-<p>Therefore,</p>
-<p><span class="math display" id="eq:binary-taskAccuracyDeriv">\[\begin{equation} 
-\begin{aligned}
-\widehat{Ac}&amp;=\frac{n(TN)+n(TP)}{K}\\
-\\
-&amp;=\frac{K_1 \widehat{Sp}+K_2 \widehat{Se}}{K}\\
-\\
-&amp;=\widehat{Sp} \widehat{P(!D)}+\widehat{Se}\widehat{P(D)}
-\end{aligned}
-\tag{2.16}
-\end{equation}\]</span></p>
-</div>
-<div id="negative-and-positive-predictive-values" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.7</span> Negative and positive predictive values<a href="binary-task.html#negative-and-positive-predictive-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Sensitivity and specificity have desirable characteristics insofar as they reward the observer for correct decisions on actually diseased and actually non-diseased cases, respectively, so these quantities are expected to be independent of disease prevalence; one is dividing by the relevant denominator, so increased numbers of non-diseased cases are balanced by a corresponding increased number of correct decisions on non-diseased cases, and likewise for diseased cases. However, radiologists interpret cases in a “mixed” situation where cases could be positive or negative for disease and disease prevalence plays a crucial role in their decision-making – this point will be clarified shortly. Therefore, a measure of performance that is desirable from the researcher’s point of view is not necessarily desirable from the radiologist’s point of view. It should be obvious that if most cases are non-diseased, i.e., disease prevalence is close to zero, specificity, being correct on non-diseased cases, is more important to the radiologist than sensitivity. Otherwise, the radiologist would figuratively be crying “wolf” most of the time. The radiologist who makes too many FPs would discover it from subsequent clinical audits or daily case conferences, which are held in most large imaging departments. There is a cost to unnecessary false positives – the cost of additional imaging and / or needle-biopsy to rule out cancer, not to mention the pain and emotional trauma inflicted on the patient. Conversely, if disease prevalence is high, then sensitivity, being correct on diseased cases, is more important to the radiologist than specificity. With intermediate disease prevalence a weighted average of sensitivity and specificity, where the weighting involves disease prevalence, would appear to be desirable from the radiologist’s point of view.</p>
-<p>The radiologist is less interested in the normalized probability of a correct decision on non-diseased cases. Rather interest is in the probability that a patient diagnosed as non-diseased is actually non-diseased. The reader should notice how the two probability definitions are “turned around” - more on this below. Likewise, the radiologist is less interested in the normalized probability of correct decisions on diseased cases; rather interest is in the probability that a patient diagnosed as diseased is actually diseased. These are termed negative and positive predictive values, respectively, and denoted <span class="math inline">\(NPV\)</span> and <span class="math inline">\(PPV\)</span>.</p>
-<p><span class="math inline">\(NPV\)</span> is defined as the probability, given a non-diseased diagnosis, that the patient is actually non-diseased:</p>
-<p><span class="math display" id="eq:binary-taskNPV1">\[\begin{equation} 
-NPV = P(T=1|D=1)
-\tag{2.17}
-\end{equation}\]</span></p>
-<p>PPV is defined as the probability, given a diseased diagnosis, that the patient is actually diseased:</p>
-<p><span class="math display" id="eq:binary-taskPPV1">\[\begin{equation} 
-PPV = P(T=2|D=2)
-\tag{2.18}
-\end{equation}\]</span></p>
-<p>Note that both equations are “turned around” from the definition of specificity and sensitivity, Eqn. <a href="binary-task.html#eq:binary-taskSeSp">(2.8)</a>, i.e., specificity = <span class="math inline">\(P(D=1|T=1)\)</span> and sensitivity = <span class="math inline">\(P(D=2|T=2)\)</span>.</p>
-<p>For now we focus on <span class="math inline">\(NPV\)</span>. To estimate <span class="math inline">\(NPV\)</span> one divides the number of correct negative decisions <span class="math inline">\(n(TN)\)</span> by the total number of negative decisions <span class="math inline">\(n(N)\)</span>. The latter is the sum of the number of correct negative decisions <span class="math inline">\(n(TN)\)</span> and the number of incorrect negative decisions <span class="math inline">\(n(FN)\)</span>. Therefore,</p>
-<p><span class="math display" id="eq:binary-taskNPV2">\[\begin{equation} 
-\widehat{NPV}=\frac{n(TN)}{n(TN)+n(FN)}
-\tag{2.19}
-\end{equation}\]</span></p>
-<p>Dividing the numerator and denominator by the total number of negative cases, one gets:</p>
-<p><span class="math display" id="eq:binary-taskNPV3">\[\begin{equation} 
-\widehat{NPV}=\frac{\widehat{P(TN)}}{\widehat{P(TN)}+\widehat{P(FN)}}
-\tag{2.20}
-\end{equation}\]</span></p>
-<p>The estimate of the probability of a TN equals the estimate of true negative fraction <span class="math inline">\(1-\widehat{FPF}\)</span> multiplied by the estimate that the patient is non-diseased, i.e., <span class="math inline">\(\widehat{P(!D)}\)</span>:</p>
-<p><span class="math display" id="eq:binary-taskPTNEst">\[\begin{equation} 
-\widehat{P(TN)}=\widehat{P(!D)}(1-\widehat{FPF})
-\tag{2.21}
-\end{equation}\]</span></p>
-<p>Explanation: A similar logic to that used earlier applies: <span class="math inline">\((1-\widehat{FPF})\)</span> is the probability of being correct on non-diseased cases. Multiplying this by the estimate of probability of disease absence yields the estimate of <span class="math inline">\(\widehat{P(TN)}\)</span>.</p>
-<p>Likewise, the estimate of the probability of a FN equals the estimate of false negative fraction, which is <span class="math inline">\((1-\widehat{TPF})\)</span>, multiplied by the estimate of the probability that the patient is diseased, i.e., <span class="math inline">\((\widehat{P(D)}\)</span> :</p>
-<p><span class="math display" id="eq:binary-taskPFNEst">\[\begin{equation} 
-\widehat{P(FN)}=\widehat{P(D)}(1-\widehat{TPF})
-\tag{2.22}
-\end{equation}\]</span></p>
-<p>Putting this all together, one has:</p>
-<p><span class="math display" id="eq:binary-taskNPVFormula">\[\begin{equation} 
-\widehat{NPV}=\frac{\widehat{P(!D)}(1-\widehat{FPF})}{(\widehat{P(!D)}(1-\widehat{FPF})+(\widehat{P(D)}(1-\widehat{TPF})}
-\tag{2.23}
-\end{equation}\]</span></p>
-<p>For the population,</p>
-<p><span class="math display" id="eq:binary-taskNPVFormula-pop">\[\begin{equation} 
-NPV=\frac{P(!D)(1-FPF)}{(P(!D)(1-FPF)+(P(D)(1-TPF)}
-\tag{2.24}
-\end{equation}\]</span></p>
-<p>Likewise, it can be shown that <span class="math inline">\(PPV\)</span> is given by:</p>
-<p><span class="math display" id="eq:binary-taskPPV">\[\begin{equation} 
-PPV =\frac{P(D)(TPF)}{P(D)(TPF)+P(!D)FPF}
-\tag{2.25}
-\end{equation}\]</span></p>
-<p>The equations defining NPV and PPV are actually special cases of Bayes’ theorem <span class="citation">(Larsen and Marx <a href="#ref-RN1492" role="doc-biblioref">2001</a>)</span>. The general theorem is:</p>
-<p><span class="math display" id="eq:binary-taskBayesTheorem">\[\begin{equation} 
-\begin{aligned}
-P(A|B)&amp;=\frac{P(B|A)P(A)}{P(B)} \\
-\\
-&amp;=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
-\end{aligned}
-\tag{2.26}
-\end{equation}\]</span></p>
-<p>An easy way to remember Eqn. <a href="binary-task.html#eq:binary-taskBayesTheorem">(2.26)</a> is to start with the numerator on the right hand side, which is the “reversed” form of the desired probability on the left hand side, multiplied by an appropriate probability. For example, if the desired probability is <span class="math inline">\(P(A|B)\)</span>, one starts with the “reversed” form, i.e., <span class="math inline">\(P(B|A)\)</span>, multiplied by <span class="math inline">\(P(A)\)</span>. This yields the numerator. The denominator is the sum of two probabilities: the probability of B given A, i.e., <span class="math inline">\(P(B|A)\)</span>, multiplied by <span class="math inline">\(P(A)\)</span> plus the probability of B given <span class="math inline">\(!A\)</span>, i.e., <span class="math inline">\(P(B|!A)\)</span>, multiplied by <span class="math inline">\(P(!A)\)</span>.</p>
-<div id="binary-taskNpvPpvCode" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.7.1</span> Example calculation of PPV, NPV and accuracy<a href="binary-task.html#binary-taskNpvPpvCode" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>Typical disease prevalence in the US in screening mammography is 0.005.</li>
-<li>A typical operating point, for an expert mammographer, is FPF = 0.1, TPF = 0.8. What are NPV and PPV?</li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="binary-task.html#cb1-1"></a><span class="co"># disease prevalence in </span></span>
-<span id="cb1-2"><a href="binary-task.html#cb1-2"></a><span class="co"># USA screening mammography </span></span>
-<span id="cb1-3"><a href="binary-task.html#cb1-3"></a>prevalence &lt;-<span class="st"> </span><span class="fl">0.005</span> <span class="co"># Line 3 </span></span>
-<span id="cb1-4"><a href="binary-task.html#cb1-4"></a>FPF &lt;-<span class="st"> </span><span class="fl">0.1</span> <span class="co"># typical operating point </span></span>
-<span id="cb1-5"><a href="binary-task.html#cb1-5"></a>TPF &lt;-<span class="st"> </span><span class="fl">0.8</span> <span class="co">#        do: </span></span>
-<span id="cb1-6"><a href="binary-task.html#cb1-6"></a>specificity &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span>FPF </span>
-<span id="cb1-7"><a href="binary-task.html#cb1-7"></a>sensitivity &lt;-<span class="st"> </span>TPF </span>
-<span id="cb1-8"><a href="binary-task.html#cb1-8"></a>NPV &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>prevalence)<span class="op">*</span>(specificity)<span class="op">/</span>((<span class="dv">1</span><span class="op">-</span>prevalence)<span class="op">*</span>(specificity) <span class="op">+</span><span class="st"> </span>prevalence<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>sensitivity)) </span>
-<span id="cb1-9"><a href="binary-task.html#cb1-9"></a>PPV &lt;-<span class="st"> </span>prevalence<span class="op">*</span>sensitivity<span class="op">/</span>(prevalence<span class="op">*</span>sensitivity <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>prevalence)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>specificity)) </span>
-<span id="cb1-10"><a href="binary-task.html#cb1-10"></a><span class="kw">cat</span>(<span class="st">&quot;NPV = &quot;</span>, NPV, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">PPV = &quot;</span>, PPV, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1-11"><a href="binary-task.html#cb1-11"></a><span class="co">#&gt; NPV =  0.9988846 </span></span>
-<span id="cb1-12"><a href="binary-task.html#cb1-12"></a><span class="co">#&gt; PPV =  0.03864734</span></span>
-<span id="cb1-13"><a href="binary-task.html#cb1-13"></a>accuracy &lt;-(<span class="dv">1</span><span class="op">-</span>prevalence)<span class="op">*</span>(specificity)<span class="op">+</span>(prevalence)<span class="op">*</span>(sensitivity) </span>
-<span id="cb1-14"><a href="binary-task.html#cb1-14"></a><span class="kw">cat</span>(<span class="st">&quot;accuracy = &quot;</span>, accuracy, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1-15"><a href="binary-task.html#cb1-15"></a><span class="co">#&gt; accuracy =  0.8995</span></span></code></pre></div>
-<ul>
-<li>Line 3 initializes the variable <code>prevalence</code>, the disease prevalence, to 0.005.</li>
-<li>Line 4 assigns <code>0.1</code> to <code>FPF</code> and line 5 assigns <code>0.8</code> to <code>TPF</code>.</li>
-<li>Lines 6 and 7 initialize the variables specificity and sensitivity, respectively.</li>
-<li>Line 8 calculates <code>NPV</code> using Eqn. <a href="binary-task.html#eq:binary-taskNPVFormula-pop">(2.24)</a>.</li>
-<li>Line 9 calculates <code>PPV</code> using Eqn. <a href="binary-task.html#eq:binary-taskPPV">(2.25)</a>.</li>
-</ul>
-</div>
-<div id="binary-taskNpvPpvComments" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.7.2</span> Comments<a href="binary-task.html#binary-taskNpvPpvComments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If a woman has a negative diagnosis, chances are very small that she has breast cancer: the probability that the radiologist is incorrect in the negative diagnosis is 1 - NPV = 0.0011154. Even is she has a positive diagnosis, the probability that she actually has cancer is still only 0.0386473. That is why following a positive screening diagnosis the woman is recalled for further imaging, and if that reveals cause for reasonable suspicion, then additional imaging is performed, perhaps augmented with a needle-biopsy to confirm actual disease status. If the biopsy turns out positive, only then is the woman referred for cancer therapy. Overall, accuracy is 0.8995. The numbers in this illustration are for expert radiologists. In practice there is wide variability in radiologist performance.</p>
-</div>
-<div id="binary-taskNpvPpvIrrel2LabTasks" class="section level3 hasAnchor">
-<h3><span class="header-section-number">2.7.3</span> PPV and NPV are irrelevant to laboratory tasks<a href="binary-task.html#binary-taskNpvPpvIrrel2LabTasks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>According to the hierarchy of assessment methods described in (book) Chapter 01, Table 1.1, PPV and NPV are level- 3 measurements, which are calculated from “live” interpretations (recall that the higher the level the greater the clinical relevance). In the clinic, the radiologist adjusts the operating point to achieve a balance between sensitivity and specificity. The balance depends critically on the known disease prevalence. Based on geographical location and type of practice, the radiologist over time develops an idea of actual disease prevalence, or it can be found in various databases. For example, a breast-imaging clinic that specializes in imaging high-risk women will have higher disease prevalence than the general population and the radiologist is expected to err more on the side of reduced specificity because of the expected benefit of increased sensitivity. However, in the context of a laboratory study, where one uses enriched case sets, the concepts of NPV and PPV are meaningless. For example, it would be rather difficult to perform a laboratory study with 10,000 randomly sampled women, which would ensure about 50 actually diseased patients, which is large enough to get a reasonably precise estimate of sensitivity (estimating specificity is inherently more precise because most women are actually non-diseased). Rather, in a laboratory study one uses enriched data sets where the numbers of diseased-cases is much larger than in the general population, Eqn. <a href="binary-task.html#eq:binary-taskDisPrevLabVsPop">(2.12)</a>. The radiologist cannot interpret these cases pretending that the actual prevalence is very low. Negative and positive predictive values, while they can be calculated from laboratory data, have very little, if any, clinical meanings, since they have no effect on radiologist thinking. As noted in (book) Chapter 01 the purpose of level-3 measurements is to determine the effect on radiologist thinking. There are no diagnostic decisions riding on laboratory ROC interpretations of retrospectively acquired patient images. However, PPV and NPV do have clinical meanings when calculated from very large population based “live” studies. For example, the <span class="citation">(Fenton et al. <a href="#ref-fenton2007influence" role="doc-biblioref">2007</a>)</span> study sampled 684,956 women and used the results of “live” interpretations of their images. In contrast, laboratory ROC studies are typically conducted with 50-100 non-diseased and 50-100 diseased cases. A study using about 300 cases total would be considered a “large” ROC study.</p>
-</div>
-</div>
-<div id="binary-task-Summary" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.8</span> Summary<a href="binary-task.html#binary-task-Summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This chapter introduced the terms sensitivity (identical to TPF), specificity (the complement of FPF), disease prevalence, and positive and negative predictive values and accuracy. It is shown that, due to its strong dependence on disease prevalence, accuracy is a relatively poor measure of performance. Radiologists generally have a good, almost visceral, understanding of positive and negative predictive values, as these terms are relevant in the clinical context, being in effect, their “batting averages”. A caveat on the use of PPV and NPV calculated from laboratory studies is noted; these quantities only make sense in the context of “live” clinical interpretations.</p>
-</div>
-<div id="binary-task-Discussion" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.9</span> Discussion<a href="binary-task.html#binary-task-Discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-</div>
-<div id="binary-task-references" class="section level2 hasAnchor">
-<h2><span class="header-section-number">2.10</span> References<a href="binary-task.html#binary-task-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="discussion-1" class="section level2 hasAnchor">
+<h2><span class="header-section-number">19.3</span> Discussion<a href="metz-eqn-36.html#discussion-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Note the close correspondence between the formula, Eqn. 36 in the Metz-Pan paper and the numerical estimate. As a historical note, Eqn. 31 and Eqn. 36 (they differ only in parameterizations) in the referenced publication are provided without proof – it was probably obvious to Prof Metz or he wanted to leave it to us “mere mortals” to figure it out, as a final parting gesture of his legacy. The author once put a significant effort into proving it and even had a bright graduate student from the biostatistics department work on it to no avail. The author has observed that these equations always yield very close to the numerical estimates, to within numerical precisions, so the theorem is correct empirically, but he has been unable to prove it analytically. It is left as an exercise for a gifted reader to prove/disprove these equations.</p>
 
-</div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-egan1975book">
-<p>Egan, James P. 1975a. <em>Signal Detection Theory and ROC Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.</p>
-</div>
-<div id="ref-fenton2007influence">
-<p>Fenton, Joshua J, Stephen H Taplin, Patricia A Carney, Linn Abraham, Edward A Sickles, Carl D’Orsi, Eric A Berns, et al. 2007. “Influence of Computer-Aided Detection on Performance of Screening Mammography.” <em>New England Journal of Medicine</em> 356 (14): 1399–1409.</p>
-</div>
-<div id="ref-green1966signal">
-<p>Green, David Marvin, John A Swets, and others. 1966. <em>Signal Detection Theory and Psychophysics</em>. Vol. 1. Wiley New York.</p>
-</div>
-<div id="ref-RN1492">
-<p>Larsen, Richard J., and Morris L. Marx. 2001. <em>An Introduction to Mathematical Statistics and Its Applications</em>. Book. 3rd ed. Upper Saddle River, NJ: Prentice-Hall Inc.</p>
 </div>
 </div>
             </section>
@@ -1007,8 +647,8 @@ P(A|B)&amp;=\frac{P(B|A)P(A)}{P(B)} \\
           </div>
         </div>
       </div>
-<a href="preliminaries.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="binary-task-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="proproc-rocs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bivariate-binormal-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
