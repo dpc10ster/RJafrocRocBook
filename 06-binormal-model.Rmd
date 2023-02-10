@@ -489,7 +489,7 @@ The bivariate (two-dimensional) integral can be evaluated numerically. The follo
 
 
 ```{r, attr.source = ".numberLines"}
-a <- 2;b <- 1; zeta1 <- 1.5
+a <- 2;b <- 1; zeta1 <- 1.5#;zeta1 <- -3.5
 A_z <- pnorm(a/sqrt(1+b^2))
 opPtx <- pnorm(-zeta1)
 opPty <- pnorm(a - b * zeta1)
@@ -503,16 +503,30 @@ A_zc <- as.numeric(pmvnorm(
   c(Lower1, Lower2), 
   c(Upper1, Upper2), 
   sigma = sigma))
+
+A_zc_norm <- A_zc/pnorm(-zeta1)/pnorm(a - b*zeta1)
 ```
 
 
-The partial-area measure is $A_{z;c}$ = `r A_zc`. The corresponding full-area measure is $A_z$ = `r A_z`. $A_{z;c}$ is small because the reporting threshold is high. However, $A_{z;c}$ should not be confused with true performance of the observer, as shown in Section \@ref(binormal-model-partial-true).
+The partial-area measure is $A_{z;c}$ = `r A_zc`. The corresponding full-area measure is $A_z$ = `r A_z`. $A_{z;c}$ is small because the reporting threshold $\zeta_1 = 1.5$ is high. $A_{z;c}$ should not be confused with true performance of the observer, as shown in Section \@ref(binormal-model-partial-true).
 
 
+### Meaning of partial AUC {#binormal-model-meaning-partial-auc}
+
+The partial AUC measure has a simple *geometric* meaning. A *physically* meaningful quantity can be derived from it as follows. *Consider the truncated dataset where all z-samples smaller than $\zeta_1$ are ignored*. A binormal model based ROC curve can be defined over the truncated dataset and the area under it is the normalized partial area measure, denoted $A_{z;c;norm}$. For the above code example, $A_{z;c;norm}$ = `r A_zc_norm`. This quantity has the following physical meaning: it is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset. As $\zeta_1 \rightarrow -\infty$ the three measures become identical.
+
+
+\begin{equation}
+A_{z;c;norm} = \frac{A_{z;c}}{\text{TPF}_c \times \text{FPF}_c}
+(\#eq:binormal-model-normalized-partial-auc)
+\end{equation}
+
+
+In this equation $\text{TPF}_c$ is the ordinate and $\text{FPF}_c$ is the abscissa at the designated value of $c$.
 
 ### Full AUC {#binormal-model-full-auc}
 
-A special case of this formula is the area under the full ROC curve, shown below using both parameterizations of the binormal model:
+A special case of the partial AUC formula is the area under the full ROC curve, shown below using both parameterizations of the binormal model:
 
 \begin{equation} 
 A_z=\Phi\left ( \frac{a}{\sqrt{1+b^2}} \right )=\Phi\left ( \frac{\mu}{\sqrt{1+\sigma^2}} \right )
