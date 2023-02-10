@@ -1,4 +1,4 @@
-# Sample size estimation for ROC studies  OR method {#roc-sample-size-or}
+# Sample size estimation: OR method {#roc-sample-size-or}
 
 
 ```{r setup, include = FALSE}
@@ -14,7 +14,7 @@ library(RJafroc)
 
 
 ## TBA How much finished {#roc-sample-size-or-how-much-finished}
-70%
+30%
 
 
 

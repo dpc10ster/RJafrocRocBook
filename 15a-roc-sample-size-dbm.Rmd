@@ -1,4 +1,4 @@
-# Sample size estimation for ROC studies DBM method {#roc-sample-size-dbm}
+# Sample size estimation: DBM method {#roc-sample-size-dbm}
 
 
 
