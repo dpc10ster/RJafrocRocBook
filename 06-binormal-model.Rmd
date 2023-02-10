@@ -524,6 +524,12 @@ A_{z;c;norm} = \frac{A_{z;c}}{\text{TPF}_c \times \text{FPF}_c}
 
 In this equation $\text{TPF}_c$ is the ordinate and $\text{FPF}_c$ is the abscissa at the designated value of $c$.
 
+
+### Full AUC {#binormal-model-partial-auc-recommendation}
+
+Some researchers have recommended usage of the partial area measure on the grounds that it emphasizes the clinically relevant part of the ROC curve, by which they mean the initial steep portion, i.e., near the origin. I disagree. The partial area measure ignores all cases with z-samples smaller than that corresponding to $c$, i.e., $\Phi^{-1}(-c)$. This is a bad idea for several reasons. (1) There is an inevitable statistical power penalty that results from the reduced number of cases. (2) The z-samples corresponding to the steep portion of the curve are those of relatively easy cases (high z-samples).  
+
+
 ### Full AUC {#binormal-model-full-auc}
 
 A special case of the partial AUC formula is the area under the full ROC curve, shown below using both parameterizations of the binormal model:
