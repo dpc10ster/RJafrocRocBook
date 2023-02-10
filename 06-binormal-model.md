@@ -9,24 +9,24 @@
 
 
 
-## TBA How much finished {#binormal-model-how-much-finished}
-70%
+## How much finished {#binormal-model-how-much-finished}
+
+50%
 
 
 
 
-## TBA Introduction {#binormal-model-introduction}
+## Introduction {#binormal-model-introduction}
+
 The equal variance binormal model was described in TBA Chapter 02. The ratings method of acquiring ROC data and calculation of operating points was discussed in TBA Chapter 04. It was shown, TBA Fig. \@ref(fig:ratings-paradigm-eq-var-fit-a), that for a clinical dataset the unequal-variance binormal model visually fitted the data better than the equal-variance binormal model, although how the unequal variance fit was obtained was not discussed. This chapter deals with details of the unequal-variance binormal model, often abbreviated to **binormal model**, establishes necessary notation, and derives expressions for sensitivity, specificity and the area under the predicted ROC curve). 
 
-The binormal model describes univariate datasets, in which there is *one ROC rating per case*, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier "univariate" is often omitted. In TBA Chapter 21 a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the homologous problem of two observers interpreting cases in a single modality. 
+The binormal model describes univariate datasets in which there is *one ROC rating per case*, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier "univariate" is often omitted. In Chapter \@ref(bivariate-binormal-model) a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality. 
 
-The main aim of this chapter is to demystify statistical curve fitting. With the passing of Dorfman, Metz and Swensson, parametric modeling is being neglected. Researchers are instead focusing on non-parametric analysis using the empirical AUC. While useful and practical, empirical AUC yields almost no insight into what is limiting performance. Taking the mystery out of curve fitting will allow the reader to appreciate later chapters that describe more complex fitting methods, which yield important insights into factors limiting performance. 
+The main aim of this chapter is to demystify statistical curve fitting. With the passing of Profs. Donald Dorfman, Charles Metz and Richard Swensson, parametric modeling is much neglected (with the exception of my research). Several researchers have instead focused on non-parametric analysis (using the empirical AUC). A claimed advantage (overstated in my opinion, see \@ref(binormal-model-invariance-property)) of non-parametric analysis is the absence of distributional assumptions. Non-parametric analysis yields no insight into what is limiting performance. Binormal model based curve fitting, described in this chapter, will allow the reader to appreciate a later chapter (see RSM fitting chapter in `RJafrocFrocBook`) that describes a more complex fitting method which yields important insights into the factors limiting human observer (or artificial intelligence algorithm) performance. 
 
-Here is the organization of this chapter. It starts with a description of the binormal model and how it accommodates data binning. An important point, on which there is much confusion, on the invariance of the binormal model to arbitrary monotone transformations of the ratings is explicated with an example. Expressions for sensitivity and specificity are derived. Two notations used to characterize the binormal model are explained. Expressions for the pdfs of the binormal model are derived. A simple linear fitting method is illustrated: this used to be the only recourse a researcher had before Dorfman and Alf's seminal publication [@RN1081]. The maximum likelihood method for estimating parameters of the binormal model is detailed. Validation of the fitting method is described, i.e., how can one be confident that the fitting method, which makes normality and other assumptions, is valid for a dataset arising from an unknown distribution. The Appendix has a detailed derivation, originally published in a terse paper [@thompson1989statistical] on the partial-area under the ROC curve. The partial-area is defined by the area under the binormal ROC curve from $FPF = 0$ to $FPF = c$, where $0 \leq c \leq 1$. As a special case $c = 1$ yields the total area under the binormal ROC. 
+TBA Here is the organization of this chapter. It starts with a description of the binormal model and how it accommodates data binning. An important point, on which there is much confusion -- the invariance of the binormal model to arbitrary monotone transformations of the ratings -- is illustrated with an example. Expressions for sensitivity and specificity are derived. Two notations used to characterize the binormal model are explained. Expressions for the pdfs of the binormal model are derived. A simple linear fitting method is illustrated: this used to be the only recourse a researcher had before Dorfman and Alf's seminal publication [@RN1081]. The maximum likelihood method for estimating parameters of the binormal model is detailed. Validation of the fitting method is described, i.e., how can one be confident that the fitting method, which makes normality and other assumptions, is valid for a dataset arising from an unknown distribution. The Appendix has a detailed derivation, originally published in a terse paper [@thompson1989statistical] on the partial-area under the ROC curve. The partial-area is defined by the area under the binormal ROC curve from $FPF = 0$ to $FPF = c$, where $0 \leq c \leq 1$. As a special case $c = 1$ yields the total area under the binormal ROC. 
 
 ## Binormal model {#binormal-model-definition}
-
-### The basic model
 
 The unequal-variance binormal model (henceforth abbreviated to binormal model; when I mean equal variances, it will be made explicit) is defined by (capital letters indicate random variables and their lower-case counterparts are realized values):
 
@@ -55,6 +55,7 @@ Eqn. \@ref(eq:binormal-model-z-samples-1) states that the z-samples for non-dise
 
 
 ### Additional parameters for binned data
+
 In an R-rating ROC study the observed ratings $r$ take on integer values, 1 through $R$, it being understood that higher ratings correspond to greater confidence for disease. Defining dummy cutoffs $\zeta_0 = -\infty$ and  $\zeta_R = +\infty$, the binning rule for a case with realized z-sample z is (Chapter \@ref(ratings-paradigm), Eqn. \@ref(eq:ratings-paradigm-binningRule)):
 
 \begin{equation} 
@@ -74,11 +75,12 @@ In an R-rating ROC study the observed ratings $r$ take on integer values, 1 thro
 In the unequal-variance binormal model, the variance $\sigma^2$ of the z-samples for diseased cases is allowed to be different from unity. Most ROC datasets are consistent with  $\sigma > 1$. The above figure, generated with  $\mu = 1.5, \sigma = 1.5, \zeta_1 = -2, \zeta_2 = -0.5, \zeta_3 = 1, \zeta_4 = 2.5$, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule \@ref(eq:binormal-modelZBinning). For example, a case with  z-sample equal to -2.5 would be rated "1", and one with  z-sample equal to -1 would be rated "2", cases with z-samples greater than 2.5 would be rated "5", etc.
 
 ### Sensitivity and specificity
-Let $Z_t$ denote the random z-sample for truth state $t$ ($t$ = 1 for non-diseased and $t$ = 2 for diseased cases).  Since the distribution of z-samples from disease-free cases is $N(0,1)$, the expression for specificity, Chapter "Modeling Binary Paradigm", Eqn. 3.13, applies. It is reproduced below: 
+
+Let $Z_t$ denote the random z-sample for truth state $t$ ($t$ = 1 for non-diseased and $t$ = 2 for diseased cases).  Since the distribution of z-samples from disease-free cases is $N(0,1)$, the expression for specificity in Chapter \@ref(binary-task-model), applies. It is reproduced below: 
 
 \begin{equation} 
 Sp\left ( \zeta \right )=P\left ( Z_1 < \zeta \right )=\Phi\left ( \zeta \right )
-(\#eq:binormal-modelSp)
+(\#eq:binormal-model-specificity)
 \end{equation}
 
 To obtain an expression for sensitivity, consider that for truth state $t = 2$, the random variable $\frac{Z_2-\mu}{\sigma}$  is distributed as $N(0,1)$: 
@@ -91,7 +93,7 @@ Sensitivity is $P\left ( Z_2 > \zeta \right )$, which implies, because $\sigma$ 
 
 \begin{equation} 
 Se\left ( \zeta | \mu, \sigma \right )= P\left ( Z_2 > \zeta \right )=P\left ( \frac{Z_2-\mu}{\sigma} > \frac{\zeta-\mu}{\sigma} \right )
-(\#eq:binormal-modelSe)
+(\#eq:binormal-model-sensitivity)
 \end{equation}
 
 The right-hand-side can be rewritten as follows:
@@ -106,7 +108,7 @@ Summarizing, the formulae for the specificity and sensitivity for the binormal m
 \begin{equation} 
 Sp\left ( \zeta \right ) = \Phi\left ( \zeta \right )\\
 Se\left ( \zeta | \mu, \sigma \right ) = \Phi\left (  \frac{\mu-\zeta}{\sigma}\right )
-(\#eq:binormal-modelSeSp)
+(\#eq:binormal-model-sensitivitySp)
 \end{equation}
 
 The coordinates of the operating point defined by $\zeta$ are given by:
@@ -139,23 +141,24 @@ This equation gives the dependence of TPF on FPF, i.e., the equation for the ROC
 
 
 ### Binormal model in conventional notation
+
 The following notation is widely used in the literature: 
 
 \begin{equation} 
 a=\frac{\mu}{\sigma};b=\frac{1}{\sigma}
-(\#eq:binormal-modelabParameters)
+(\#eq:binormal-model-ab-parameters)
 \end{equation}
 
 The reason for the $(a,b)$  instead of the  $(\mu,\sigma)$ notation is that Dorfman and Alf assumed, in their seminal paper [@RN1081], that the diseased distribution (signal distribution in signal detection theory) had unit variance, and the non-diseased distribution (noise) had standard deviation $b$ ($b > 0$) or variance $b^2$, and that the separation of the two distributions was $a$, see figure below. In this example: $a = 1.11$ and $b = 0.556$, corresponding to $\mu = 2$ and $\sigma = 1.8$. Dorfman and Alf's fundamental contribution, namely estimating these parameters from ratings data, to be described below, led to the widespread usage of the  $(a,b)$ parameters estimated by their software (RSCORE), and its newer variants (e.g., RSCORE–II, ROCFIT and ROCKIT). 
 
-By dividing the z-samples by $b$, the variance of the distribution labeled "Noise" becomes unity, its mean stays at zero, and the variance of the distribution labeled "Signal" becomes $1/b$, and its mean becomes $a/b$, as shown below. It illustrates that the inverses of Eqn. \@ref(eq:binormal-modelabParameters) are:
+By dividing the z-samples by $b$, the variance of the distribution labeled "Noise" becomes unity, its mean stays at zero, and the variance of the distribution labeled "Signal" becomes $1/b$, and its mean becomes $a/b$, as shown below. It illustrates that the inverses of Eqn. \@ref(eq:binormal-model-ab-parameters) are:
 
 \begin{equation} 
 \mu=\frac{a}{b};\sigma=\frac{1}{b}
-(\#eq:binormal-modelabParametersInv)
+(\#eq:binormal-model-ab-parametersInv)
 \end{equation}
 
-Eqns. \@ref(eq:binormal-modelabParameters) and \@ref(eq:binormal-modelabParametersInv) allow conversion from one notation to another.
+Eqns. \@ref(eq:binormal-model-ab-parameters) and \@ref(eq:binormal-model-ab-parametersInv) allow conversion from one notation to another.
 
 
 
@@ -171,6 +174,7 @@ grid.arrange(p1,p2,ncol=2)
 
 
 ## Binormal ROC curve {#binormal-model-roc-curve}
+
 Using the $(a,b)$ notation, Eqn. \@ref(eq:binormal-model-roc-curve1) for the ROC curve reduces to:
 
 \begin{equation} 
@@ -192,21 +196,21 @@ TPF &= \Phi\left ( a - b \zeta \right )
 (\#eq:binormal-model-op-point-ab)
 \end{equation}
 
-## Scalar threshold-independent measure {#binormal-model-scalar-measure}
+## Threshold-independent performance measure {#binormal-model-scalar-measure}
 
-Sensitivity-specificity is a dual (two-valued) measure of performance. Using a dual measure it is difficult to unambiguously compare two systems since one cannot separate the effect of reporting threshold from the measures. For example, if sensitivity is higher for one system but specificity is higher for another, this could be due to different thresholds. Sensitivity and specificity depend on the threshold. As the threshold changes, sensitivitya nd specificity are both affected in opposite directions. Desirable is a scalard measure of performance that takes this variation into account and does not depend on any specific threshold. 
+Sensitivity and specificity is a dual (two-valued) measure of performance. Using a dual measure it is difficult to unambiguously compare two systems. For example, if sensitivity is higher for one system but specificity is higher for another, this could be due to the first system using a lower threshold (sensitivity and specificity are affected in opposite directions by a changing threshold). Desirable is a scalar (one-valued) measure of performance that takes this variation into account and therefore does not depend on any specific threshold. 
 
 Generally accepted measures are the partial-area $A_{z;c}$ under the ROC, Eqn. \@ref(eq:binormal-model-partial-area-final), the full-area $A_z$ under the ROC, Eqn. \@ref(eq:binormal-model-ab-2az), and the $d'$ index Eqn. \@ref(eq:binormal-model-ab-2dprime). 
 
-Before deriving analytical expressions for these measures let us further examine the premise that sensitivity-specificity is undesirable because it is a 2D measure. A trivial way to convert it to a scalar measure is to sum the two values: high sensitivity and high specificity are both desirable, so a high value of their sum is certainly also desirable. In fact this is the basis for the Youden index, defined as sensitivity plust specificity minus one [@youden1950index]. (Subtracting one makes the Youden index range from 0 to 1.) However, this index varies with the position of the operating point on the ROC curve. (The operating point at which it is maximum is often thought of as the optimal operating point on the ROC curve.)
+Before deriving analytical expressions for these measures let us further examine the premise that sensitivity-specificity is undesirable because it is a two-valued measure. A trivial way to convert a two-valued measure to a scalar measure is to sum the two values: high sensitivity and high specificity are both desirable, so a high value of their sum is certainly also desirable. In fact this is the basis for the Youden index, defined as sensitivity plus specificity minus one [@youden1950index] -- subtracting one makes the Youden index range from 0 to 1. However, this index varies with the position of the operating point on the ROC curve - from zero at the bottom-left corner of the ROC, rising to a maximum near the top-left, and falling to zero at the top-right. (The operating point at which it is maximum is sometimes regarded as the optimal operating point on the ROC curve.)
 
-To emphasize, we desire a scalar measure that is threshold independent.
+To emphasize, we desire a scalar measure that is independent of threshold.
 
 
 
 ### Partial AUC {#binormal-model-partial-auc}
 
-While this is a scalar measure, it does depend on choice of operating point. It is included here as it yields, as a special case, a scalar measure that does not depend on choice of operating point. The details are in Section \@ref(binormal-model-appendix-1-partial-auc), which derives the formula for the partial-area under the unequal-variance binormal model. The final result is:
+While this is a scalar measure, it does depend on choice of operating point. It is included here as it yields, as a special case, a scalar measure that does not depend on choice of operating point. The details are in Section \@ref(binormal-model-partial-auc-derivation), which derives the formula for the partial-area using the unequal-variance binormal model. The final result is:
 
 \begin{equation}
 A_{z;c} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
@@ -228,7 +232,7 @@ $A_{z;c}$ is the area under the partial ROC curve extending from $FPF = 0$ to $F
 (\#eq:binormal-model-rho-final)
 \end{equation}
 
-The bivariate 2D integral can be evaluated numerically. The following code illustrates calculation of the partial-area measure using the function `pmvnorm` in `R` package `mvtnorm`. The following parameter values were used: $a = 2$, $b = 1$ and $\zeta_1 = 1.5$. (The parameter $b$ was deliberately chosen equal to one so that we do not have to worry about improper ROC curves.)
+The bivariate (two-dimensional) integral can be evaluated numerically. The following code illustrates calculation of the partial-area measure using the function `pmvnorm` in `R` package `mvtnorm`. The following parameter values were used: $a = 2$, $b = 1$ and $\zeta_1 = 1.5$. (The parameter $b$ was deliberately chosen equal to one so that we do not have to worry about improper ROC curves.)
 
 
 
@@ -277,20 +281,18 @@ d'=\sqrt{2}\Phi^{-1}\left ( A_z \right )
 \end{equation} 
 
 
-
-
 The d' index corresponding to the above binormal parameters is 2. The transformation from an index that ranges from 0.5 to 1 to one that ranges from 0 to infinity can be viewed as desirable. The d' index can be regarded as a perceptual signal-to-noise-ratio. 
-
-
 
 
 ## Partial AUC vs. true performance {#binormal-model-partial-true}
 
-* A *partial-area observer* such as in Section \@ref(binormal-model-partial-auc) rates cases as follows: for the sub-set of cases defined by $z \ge \zeta_1$ the observer reports *explicit* ratings exactly equal to the observed z-samples (or some monotonic transformation of the z-samples). For the remaining cases the observer assigns a *fixed value rating that is smaller than $\zeta_1$* (the exact value does not matter; these cases are said to be assigned *implicit* ratings). 
+* A *partial-area observer* such as in Section \@ref(binormal-model-partial-auc), rates cases as follows: for the sub-set of cases defined by $z \ge \zeta_1$ the observer reports *explicit* ratings exactly equal to the observed z-samples (or some monotonic transformation of the z-samples). For the remaining cases the observer assigns a *fixed value rating that is smaller than $\zeta_1$* (the exact value does not matter; these cases are said to be assigned *implicit* ratings). 
 
 * In contrast, the *full-area observer* reports explicit ratings *for all cases*. 
 
-*To measure true performance of the partial-area observer one must, of course, include all cases.* The ROC curve extends continuously from the origin to the solid dot *plus the area under the dotted line* extending from the solid dot to (1,1). True performance, the area under the continuous section plus that under the straight line extension, is denoted $A_{z;c,TRUE}$ and is defined by:
+* To measure true performance of the partial-area observer one must, of course, include all cases.
+
+* The ROC curve extends continuously from the origin to the solid dot *plus the area under the dotted line* extending from the solid dot to (1,1). True performance, the area under the continuous section plus that under the straight line extension, is denoted $A_{z;c,TRUE}$ and is defined by:
 
 
 \begin{equation} 
@@ -306,7 +308,6 @@ Since the partial-area observer does not preserve ordering information, *true pe
 A_{z;c,\text{TRUE}} \le A_{z}
 (\#eq:binormal-model-true-performance-az-inequality)
 \end{equation}
-
 
 
 True performance is illustrated with the following simulation 2AFC study. The `Wilcoxon` function, defined next, can be thought of as the mathematical equivalent of a 2AFC study, conducted with all possible pairings of non-diseased and diseased cases. For each pairing, if the z-sample of the diseased case exceeds that of the non-diseased case one adds unity to a zero-initialized counter; if it is smaller one does nothing; if they are equal one adds 0.5; and finally one divides by the number of comparisons.
@@ -354,9 +355,9 @@ The following code prints the predicted and observed full areas under the ROCs f
 
 ```
 #> A_z predicted =  0.9213504 
-#> A_z observed =  0.9210913
+#> A_z observed =  0.9232929
 #> A_z{c;true} predicted =  0.8244498 
-#> A_z{c;true} observed =  0.8233194
+#> A_z{c;true} observed =  0.825137
 ```
 
 
@@ -371,7 +372,7 @@ Note that:
 In the ROC plots below the partial-area observer curve is shown as a continuous line extending from the origin to the limiting point *plus* a dotted line extending from the limiting point to (1,1). The continuous section is determined by cumulating cases with z-samples $z \ge \zeta_1$ while the (1,1) point is determined by cumulating all cases. 
 
 
-The ROC curve for both types of observers is shown in the left panel of \@ref(fig:binormal-model-threshold-dependence-2) for the following parameters: $a = 2$, $b = 1$ and $\zeta_1 = 1.5$; $\zeta_1$ corresponds to $c \equiv FPF =  \Phi(-\zeta_1)$ = 0.0668072 and $TPF =  \Phi(a - b\zeta_1)$ = 0.6914625. In other words the limiting point coordinates are (0.067, 0.691), shown in the plot by the solid dot. Partial AUC $A_{z;c}$ equals 0.0352195. The full-area ROC curve, shown by the complete solid curve, extends from (0,0) to (1,1), the area under which is $A_z$ = 0.9213504. 
+The ROC curve for both types of observers is shown in the left panel of \@ref(fig:binormal-model-threshold-dependence-2) for the following parameters: $a = 2$, $b = 1$ and $\zeta_1 = 1.5$; $\zeta_1$ corresponds to $c \equiv FPF =  \Phi(-\zeta_1)$ = 0.0668072 and $TPF =  \Phi(a - b\zeta_1)$ = 0.6914625. This point is shown in the plot by the solid dot. Partial AUC $A_{z;c}$ equals 0.0352195. The full-area ROC curve, shown by the complete solid curve, extends from (0,0) to (1,1), the area under which is $A_z$ = 0.9213504. 
 
 
 
@@ -393,7 +394,7 @@ The ROC curve for both types of observers is shown in the left panel of \@ref(fi
 </div>
 
 
-As FPF increases true-performance increases. the right panel of Fig. \@ref(fig:binormal-model-threshold-dependence-2) shows the variation of true performance $A_{z;c,\text{TRUE}}$ with FPF. The curve starts from (0, 0.5) and ends at (1.000, 0.921). For low values of FPF the curve is very steep while for FPF > 0.25 the curve levels out, approaching the maximum value defined by $A_z$ = 0.9213504. True performance is maximized at $\zeta_1 = -\infty$.
+The right panel of Fig. \@ref(fig:binormal-model-threshold-dependence-2) shows the variation of true performance $A_{z;c,\text{TRUE}}$ with FPF. As FPF increases true-performance increases. The curve starts from (0, 0.5) and ends at (1.000, 0.921). For low values of FPF the curve is very steep while for FPF > 0.25 the curve levels out, approaching the maximum value defined by $A_z$ = 0.9213504. True performance is maximized at $\zeta_1 = -\infty$.
 
 
 
@@ -429,9 +430,10 @@ The geometry ensures that true performance for a proper ROC is maximized at $\ze
 
 
 ## Optimal operating point on ROC {#binormal-model-optimal-op-pt} 
-We have seen that optimal ROC AUC is achieved by setting $\zeta_1 = -\infty$, i.e., by reporting all cases as diseased. Of course, from clinical considerations, this is nonsense. Consider screening mammography, where typically for every 1000 cases only 5 are malignant. Recalling everybody would incur huge costs from having to rule out cancer in 995 actually non-diseased patients. Of course the 5 malignant cancers would be confirmed at the follow-up diagnostic mammography examination. But one can clearly see that the benefit of correctly detecting the 5 malignancies is far outweighed by the 995 unnecessary recalls. And if one is going to recall everybody, why perform the initial screeing mammography exam?
 
-So what is going on? The problem is that AUC measures classification performance in a 2AFC task. A screening examination is not a 2AFC task: the radiologist is not presented two cases, one non-diseased and one diseased, and asked to pick the diseased patient. Rather, the radiologist is shown images of a single patient, and the object is to maximize the detection rate while minimizing false positives. 
+We have seen that optimal ROC AUC is achieved by setting $\zeta_1 = -\infty$, i.e., by reporting all cases as diseased. Of course, from clinical considerations, this is nonsense. Consider screening mammography, where typically for every 1000 cases only 5 are malignant. Recalling everybody would incur huge costs from having to rule out cancer in 995 actually non-diseased patients. Of course the 5 malignant cancers would be confirmed at the follow-up diagnostic mammography examination. But one can clearly see that the benefit of correctly detecting the 5 malignancies is far outweighed by the 995 unnecessary recalls. And if one is going to recall everybody, why perform the initial screening mammography exam?
+
+So what is going on? The problem is that AUC measures classification performance in a 2AFC task. A screening examination is not a 2AFC task: the radiologist is not presented two cases, one non-diseased and one diseased, and asked to pick the diseased patient. Rather, the radiologist is shown images of a single patient, and the object is to maximize the detection rate for an acceptable number of false positives. 
 
 To address this optimization task one needs to know the costs and benefits of the four decision outcomes in the binary paradigm: true and false positives, and true and false negatives. This has been addressed in [@metz1978rocmethodology]. Here is the reasonaing. Let 
 
@@ -533,6 +535,7 @@ if (indxDist != indxYoud) stop("The two indices are different") else {
 
 
 ## Discussion{#binormal-model-discussion}
+
 The binormal model is historically very important and the contribution by Dorfman and Alf [@RN1081] was seminal. Prior to their work, there was no valid way of estimating AUC from observed ratings counts. Their work and a key paper [@RN1487] accelerated research using ROC methods. The number of publications using their algorithm, and the more modern versions developed by Metz and colleagues, is probably well in excess of 500. Because of its key role, I have endeavored to take out some of the mystery about how the binormal model parameters are estimated. In particular, a common misunderstanding that the binormal model assumptions are violated by real datasets, when in fact it is quite robust to apparent deviations from normality, is addressed. 
 
 A good understanding of this chapter should enable the reader to better understand alternative ROC models, discussed later.
@@ -548,6 +551,7 @@ The unphysical nature of the hook (predicting worse than chance-level performanc
 To this day the binormal model is widely used to fit ROC datasets. In spite of its limitations, the binormal model has been very useful in bringing a level of quantification to this field that did not exist prior to [@RN1081].
 
 ## Appendix I: Density functions {#binormal-model-pdf-curves-appendix-1}
+
 According to Eqn. \@ref(eq:binormal-model-z-samples-1) the probability that a z-sample is smaller than a specified threshold  $\zeta$, i.e., the CDF function, is:
 
 \begin{equation*} 
@@ -576,7 +580,9 @@ pdf_D\left ( \zeta \right ) = b\phi\left ( b\zeta-a \right ) = \frac{b}{\sqrt{2 
 
 
 ## Appendix II: Area under binormal ROC {#binormal-model-appendix-2}
-### General case (partial-area) {#binormal-model-appendix-1-partial-auc}
+
+### General case (partial-area) {#binormal-model-partial-auc-derivation}
+
 This section is based on [@thompson1989statistical]. In what follows, FPF is abbreviates to x and TPF to y. Then the equation for the ROC curve is \@ref(eq:binormal-model-roc-curve):
 
 \begin{equation} 
@@ -798,7 +804,7 @@ A_{z;c} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^
 
 
 
-### Special case (total area) {#binormal-model-appendix-1-total-auc}
+### Special case (total area) {#binormal-model-total-auc}
 
 Since $c$ is the upper limit of FPF, setting $c = 1$ yields the total area under the binormal ROC curve ^[Since the integral over $z_2$ is over the entire range it integrates out to unity leaving the one-dimensional density function $\phi\left ( z_1 \right )$ inside the integral. The last step follows from the definition of the $\Phi$ function.]:
 
@@ -829,7 +835,8 @@ A_{z} =  & \Phi\left ( \frac{a}{\sqrt{1+b^2}} \right ) \\
 (\#eq:binormal-model-partial-area-special-case-2)
 \end{equation}
 
-## Appendix III: Invariance property of pdfs {#binormal-model-invariance-property-appendix-3}
+## Appendix III: Invariance property of pdfs {#binormal-model-invariance-property}
+
 The binormal model is not as restrictive as might appear at first sight. Any monotone increasing transformation $Y=f(Z)$ applied to the observed z-samples, and the associated thresholds, will yield the same observed data, e.g., Table \@ref(tab:ratings-paradigmExampleTable). This is because such a transformation leaves the ordering of the ratings unaltered and hence results in the same operating points. While the distributions for $Y$ will not be binormal (i.e., two independent normal distributions), one can safely "pretend" that one is still dealing with an underlying binormal model. An alternative way of stating this is that any pair of distributions is allowed as long as they are reducible to a binormal model form by a monotonic increasing transformation of  Y: e.g., $Z=f^{-1}$. [If $f$ is a monotone increasing function of its argument, so is  $f^{-1}$}.]  For this reason, the term “pair of latent underlying normal distributions” is sometimes used to describe the binormal model. The robustness of the binormal model has been investigated [@hanley1988robustness; @dorfman1997proper]. The referenced paper by Dorfman et al has an excellent discussion of the robustness of the binormal model.
 
 The robustness of the binormal model, i.e., the flexibility allowed by the infinite choices of monotonic increasing functions, application of each of which leaves the ordering of the data unaltered, is widely misunderstood. The non-Gaussian appearance of histograms of ratings in ROC studies can lead one to incorrect conclusions that the binormal model is inapplicable to these datasets. To quote a reviewer of one of my recent papers:

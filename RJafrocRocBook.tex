@@ -134,7 +134,7 @@
 
 \title{The RJafroc Roc Book}
 \author{Dev P. Chakraborty, PhD}
-\date{2023-02-08}
+\date{2023-02-10}
 
 \begin{document}
 \maketitle
@@ -959,7 +959,7 @@ A few facts concerning the normal (or Gaussian) distribution are summarized next
 \hypertarget{binary-task-model-normal-distribution}{%
 \section{The normal distribution}\label{binary-task-model-normal-distribution}}
 
-In probability theory, a probability density function (pdf), or density of a continuous random variable, is a function giving the relative chance that the random variable takes on a given value. For a continuous distribution, the probability of the random variable being exactly equal to a given value is zero. The probability of the random variable falling in a range of values is given by the integral of this variable's pdf function over that range. For the normal distribution \(N(\mu,\sigma^2)\) the pdf is denoted \(\phi(z|\mu,\sigma)\).
+A probability density function (pdf), or density of a continuous random variable, is a function giving the relative chance that the random variable takes on a given value. For a continuous distribution, the probability of the random variable being exactly equal to a given value is zero. The probability of the random variable falling in a range of values is given by the integral of this variable's pdf function over that range. For the normal distribution \(N(\mu,\sigma^2)\) the pdf is denoted \(\phi(z|\mu,\sigma)\).
 
 By definition,
 
@@ -1868,6 +1868,7 @@ Fig. \ref{fig:beam-study-fig} and Table \ref{tab:binary-task-model-table-beam-st
 
 TBA
 \#\# Discussion\{\#binary-task-model-discussion\}
+
 The concepts of sensitivity and specificity are of fundamental importance and are widely used in the medical imaging literature. However, it is important to realize that sensitivity and specificity do not provide a complete picture of diagnostic performance, since they represent performance at a particular threshold. As demonstrated in Fig. 3.6, expert observers can and do operate at different points, and the reporting threshold depends on cost-benefit considerations, disease prevalence and personal reporting styles. If using sensitivity and specificity the dependence on reporting threshold often makes it difficult to unambiguously compare observers. Even if one does compare them, there is loss of statistical power (equivalent to loss of precision of the measurement) due to the additional source of variability introduced by the varying thresholds.
 
 The ROC curve is the locus of operating points as the threshold is varied. It and AUC are completely defined by the parameter of the equal variance binormal model. Since both are independent of reporting threshold , they overcome the ambiguity inherent in comparing sensitivity/specificity pairs. Both are scalar measures of performance. AUC is widely used in assessing imaging systems. It should impress the reader that a subjective internal sensory perception of disease presence and an equally subjective internal threshold can be translated into an objective performance measure, such as the area under an ROC curve or equivalently, the parameter. The latter has the physical meaning of a perceptual signal to noise ratio.
@@ -2929,26 +2930,23 @@ Multiplication of the last two expressions yields \(A_4\).
 \chapter{Binormal model}\label{binormal-model}}
 
 \hypertarget{binormal-model-how-much-finished}{%
-\section{TBA How much finished}\label{binormal-model-how-much-finished}}
+\section{How much finished}\label{binormal-model-how-much-finished}}
 
-70\%
+50\%
 
 \hypertarget{binormal-model-introduction}{%
-\section{TBA Introduction}\label{binormal-model-introduction}}
+\section{Introduction}\label{binormal-model-introduction}}
 
 The equal variance binormal model was described in TBA Chapter 02. The ratings method of acquiring ROC data and calculation of operating points was discussed in TBA Chapter 04. It was shown, TBA Fig. \ref{fig:ratings-paradigm-eq-var-fit-a}, that for a clinical dataset the unequal-variance binormal model visually fitted the data better than the equal-variance binormal model, although how the unequal variance fit was obtained was not discussed. This chapter deals with details of the unequal-variance binormal model, often abbreviated to \textbf{binormal model}, establishes necessary notation, and derives expressions for sensitivity, specificity and the area under the predicted ROC curve).
 
-The binormal model describes univariate datasets, in which there is \emph{one ROC rating per case}, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier ``univariate'' is often omitted. In TBA Chapter 21 a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the homologous problem of two observers interpreting cases in a single modality.
+The binormal model describes univariate datasets in which there is \emph{one ROC rating per case}, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier ``univariate'' is often omitted. In Chapter \ref{bivariate-binormal-model} a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality.
 
-The main aim of this chapter is to demystify statistical curve fitting. With the passing of Dorfman, Metz and Swensson, parametric modeling is being neglected. Researchers are instead focusing on non-parametric analysis using the empirical AUC. While useful and practical, empirical AUC yields almost no insight into what is limiting performance. Taking the mystery out of curve fitting will allow the reader to appreciate later chapters that describe more complex fitting methods, which yield important insights into factors limiting performance.
+The main aim of this chapter is to demystify statistical curve fitting. With the passing of Profs. Donald Dorfman, Charles Metz and Richard Swensson, parametric modeling is much neglected (with the exception of my research). Several researchers have instead focused on non-parametric analysis (using the empirical AUC). A claimed advantage (overstated in my opinion, see \ref{binormal-model-invariance-property}) of non-parametric analysis is the absence of distributional assumptions. Non-parametric analysis yields no insight into what is limiting performance. Binormal model based curve fitting, described in this chapter, will allow the reader to appreciate a later chapter (see RSM fitting chapter in \texttt{RJafrocFrocBook}) that describes a more complex fitting method which yields important insights into the factors limiting human observer (or artificial intelligence algorithm) performance.
 
-Here is the organization of this chapter. It starts with a description of the binormal model and how it accommodates data binning. An important point, on which there is much confusion, on the invariance of the binormal model to arbitrary monotone transformations of the ratings is explicated with an example. Expressions for sensitivity and specificity are derived. Two notations used to characterize the binormal model are explained. Expressions for the pdfs of the binormal model are derived. A simple linear fitting method is illustrated: this used to be the only recourse a researcher had before Dorfman and Alf's seminal publication \citep{RN1081}. The maximum likelihood method for estimating parameters of the binormal model is detailed. Validation of the fitting method is described, i.e., how can one be confident that the fitting method, which makes normality and other assumptions, is valid for a dataset arising from an unknown distribution. The Appendix has a detailed derivation, originally published in a terse paper \citep{thompson1989statistical} on the partial-area under the ROC curve. The partial-area is defined by the area under the binormal ROC curve from \(FPF = 0\) to \(FPF = c\), where \(0 \leq c \leq 1\). As a special case \(c = 1\) yields the total area under the binormal ROC.
+TBA Here is the organization of this chapter. It starts with a description of the binormal model and how it accommodates data binning. An important point, on which there is much confusion -- the invariance of the binormal model to arbitrary monotone transformations of the ratings -- is illustrated with an example. Expressions for sensitivity and specificity are derived. Two notations used to characterize the binormal model are explained. Expressions for the pdfs of the binormal model are derived. A simple linear fitting method is illustrated: this used to be the only recourse a researcher had before Dorfman and Alf's seminal publication \citep{RN1081}. The maximum likelihood method for estimating parameters of the binormal model is detailed. Validation of the fitting method is described, i.e., how can one be confident that the fitting method, which makes normality and other assumptions, is valid for a dataset arising from an unknown distribution. The Appendix has a detailed derivation, originally published in a terse paper \citep{thompson1989statistical} on the partial-area under the ROC curve. The partial-area is defined by the area under the binormal ROC curve from \(FPF = 0\) to \(FPF = c\), where \(0 \leq c \leq 1\). As a special case \(c = 1\) yields the total area under the binormal ROC.
 
 \hypertarget{binormal-model-definition}{%
 \section{Binormal model}\label{binormal-model-definition}}
-
-\hypertarget{the-basic-model}{%
-\subsection{The basic model}\label{the-basic-model}}
 
 The unequal-variance binormal model (henceforth abbreviated to binormal model; when I mean equal variances, it will be made explicit) is defined by (capital letters indicate random variables and their lower-case counterparts are realized values):
 
@@ -2995,11 +2993,11 @@ In the unequal-variance binormal model, the variance \(\sigma^2\) of the z-sampl
 \hypertarget{sensitivity-and-specificity-1}{%
 \subsection{Sensitivity and specificity}\label{sensitivity-and-specificity-1}}
 
-Let \(Z_t\) denote the random z-sample for truth state \(t\) (\(t\) = 1 for non-diseased and \(t\) = 2 for diseased cases). Since the distribution of z-samples from disease-free cases is \(N(0,1)\), the expression for specificity, Chapter ``Modeling Binary Paradigm'', Eqn. 3.13, applies. It is reproduced below:
+Let \(Z_t\) denote the random z-sample for truth state \(t\) (\(t\) = 1 for non-diseased and \(t\) = 2 for diseased cases). Since the distribution of z-samples from disease-free cases is \(N(0,1)\), the expression for specificity in Chapter \ref{binary-task-model}, applies. It is reproduced below:
 
 \begin{equation} 
 Sp\left ( \zeta \right )=P\left ( Z_1 < \zeta \right )=\Phi\left ( \zeta \right )
-\label{eq:binormal-modelSp}
+\label{eq:binormal-model-specificity}
 \end{equation}
 
 To obtain an expression for sensitivity, consider that for truth state \(t = 2\), the random variable \(\frac{Z_2-\mu}{\sigma}\) is distributed as \(N(0,1)\):
@@ -3012,7 +3010,7 @@ Sensitivity is \(P\left ( Z_2 > \zeta \right )\), which implies, because \(\sigm
 
 \begin{equation} 
 Se\left ( \zeta | \mu, \sigma \right )= P\left ( Z_2 > \zeta \right )=P\left ( \frac{Z_2-\mu}{\sigma} > \frac{\zeta-\mu}{\sigma} \right )
-\label{eq:binormal-modelSe}
+\label{eq:binormal-model-sensitivity}
 \end{equation}
 
 The right-hand-side can be rewritten as follows:
@@ -3027,7 +3025,7 @@ Summarizing, the formulae for the specificity and sensitivity for the binormal m
 \begin{equation} 
 Sp\left ( \zeta \right ) = \Phi\left ( \zeta \right )\\
 Se\left ( \zeta | \mu, \sigma \right ) = \Phi\left (  \frac{\mu-\zeta}{\sigma}\right )
-\label{eq:binormal-modelSeSp}
+\label{eq:binormal-model-sensitivitySp}
 \end{equation}
 
 The coordinates of the operating point defined by \(\zeta\) are given by:
@@ -3065,19 +3063,19 @@ The following notation is widely used in the literature:
 
 \begin{equation} 
 a=\frac{\mu}{\sigma};b=\frac{1}{\sigma}
-\label{eq:binormal-modelabParameters}
+\label{eq:binormal-model-ab-parameters}
 \end{equation}
 
 The reason for the \((a,b)\) instead of the \((\mu,\sigma)\) notation is that Dorfman and Alf assumed, in their seminal paper \citep{RN1081}, that the diseased distribution (signal distribution in signal detection theory) had unit variance, and the non-diseased distribution (noise) had standard deviation \(b\) (\(b > 0\)) or variance \(b^2\), and that the separation of the two distributions was \(a\), see figure below. In this example: \(a = 1.11\) and \(b = 0.556\), corresponding to \(\mu = 2\) and \(\sigma = 1.8\). Dorfman and Alf's fundamental contribution, namely estimating these parameters from ratings data, to be described below, led to the widespread usage of the \((a,b)\) parameters estimated by their software (RSCORE), and its newer variants (e.g., RSCORE--II, ROCFIT and ROCKIT).
 
-By dividing the z-samples by \(b\), the variance of the distribution labeled ``Noise'' becomes unity, its mean stays at zero, and the variance of the distribution labeled ``Signal'' becomes \(1/b\), and its mean becomes \(a/b\), as shown below. It illustrates that the inverses of Eqn. \eqref{eq:binormal-modelabParameters} are:
+By dividing the z-samples by \(b\), the variance of the distribution labeled ``Noise'' becomes unity, its mean stays at zero, and the variance of the distribution labeled ``Signal'' becomes \(1/b\), and its mean becomes \(a/b\), as shown below. It illustrates that the inverses of Eqn. \eqref{eq:binormal-model-ab-parameters} are:
 
 \begin{equation} 
 \mu=\frac{a}{b};\sigma=\frac{1}{b}
-\label{eq:binormal-modelabParametersInv}
+\label{eq:binormal-model-ab-parametersInv}
 \end{equation}
 
-Eqns. \eqref{eq:binormal-modelabParameters} and \eqref{eq:binormal-modelabParametersInv} allow conversion from one notation to another.
+Eqns. \eqref{eq:binormal-model-ab-parameters} and \eqref{eq:binormal-model-ab-parametersInv} allow conversion from one notation to another.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3116,20 +3114,20 @@ TPF &= \Phi\left ( a - b \zeta \right )
 \end{equation}
 
 \hypertarget{binormal-model-scalar-measure}{%
-\section{Scalar threshold-independent measure}\label{binormal-model-scalar-measure}}
+\section{Threshold-independent performance measure}\label{binormal-model-scalar-measure}}
 
-Sensitivity-specificity is a dual (two-valued) measure of performance. Using a dual measure it is difficult to unambiguously compare two systems since one cannot separate the effect of reporting threshold from the measures. For example, if sensitivity is higher for one system but specificity is higher for another, this could be due to different thresholds. Sensitivity and specificity depend on the threshold. As the threshold changes, sensitivitya nd specificity are both affected in opposite directions. Desirable is a scalard measure of performance that takes this variation into account and does not depend on any specific threshold.
+Sensitivity and specificity is a dual (two-valued) measure of performance. Using a dual measure it is difficult to unambiguously compare two systems. For example, if sensitivity is higher for one system but specificity is higher for another, this could be due to the first system using a lower threshold (sensitivity and specificity are affected in opposite directions by a changing threshold). Desirable is a scalar (one-valued) measure of performance that takes this variation into account and therefore does not depend on any specific threshold.
 
 Generally accepted measures are the partial-area \(A_{z;c}\) under the ROC, Eqn. \eqref{eq:binormal-model-partial-area-final}, the full-area \(A_z\) under the ROC, Eqn. \eqref{eq:binormal-model-ab-2az}, and the \(d'\) index Eqn. \eqref{eq:binormal-model-ab-2dprime}.
 
-Before deriving analytical expressions for these measures let us further examine the premise that sensitivity-specificity is undesirable because it is a 2D measure. A trivial way to convert it to a scalar measure is to sum the two values: high sensitivity and high specificity are both desirable, so a high value of their sum is certainly also desirable. In fact this is the basis for the Youden index, defined as sensitivity plust specificity minus one \citep{youden1950index}. (Subtracting one makes the Youden index range from 0 to 1.) However, this index varies with the position of the operating point on the ROC curve. (The operating point at which it is maximum is often thought of as the optimal operating point on the ROC curve.)
+Before deriving analytical expressions for these measures let us further examine the premise that sensitivity-specificity is undesirable because it is a two-valued measure. A trivial way to convert a two-valued measure to a scalar measure is to sum the two values: high sensitivity and high specificity are both desirable, so a high value of their sum is certainly also desirable. In fact this is the basis for the Youden index, defined as sensitivity plus specificity minus one \citep{youden1950index} -- subtracting one makes the Youden index range from 0 to 1. However, this index varies with the position of the operating point on the ROC curve - from zero at the bottom-left corner of the ROC, rising to a maximum near the top-left, and falling to zero at the top-right. (The operating point at which it is maximum is sometimes regarded as the optimal operating point on the ROC curve.)
 
-To emphasize, we desire a scalar measure that is threshold independent.
+To emphasize, we desire a scalar measure that is independent of threshold.
 
 \hypertarget{binormal-model-partial-auc}{%
 \subsection{Partial AUC}\label{binormal-model-partial-auc}}
 
-While this is a scalar measure, it does depend on choice of operating point. It is included here as it yields, as a special case, a scalar measure that does not depend on choice of operating point. The details are in Section \ref{binormal-model-appendix-1-partial-auc}, which derives the formula for the partial-area under the unequal-variance binormal model. The final result is:
+While this is a scalar measure, it does depend on choice of operating point. It is included here as it yields, as a special case, a scalar measure that does not depend on choice of operating point. The details are in Section \ref{binormal-model-partial-auc-derivation}, which derives the formula for the partial-area using the unequal-variance binormal model. The final result is:
 
 \begin{equation}
 A_{z;c} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
@@ -3150,7 +3148,7 @@ The threshold \(\zeta_1\) corresponding to \(FPF = c\) is given by:
 \label{eq:binormal-model-rho-final}
 \end{equation}
 
-The bivariate 2D integral can be evaluated numerically. The following code illustrates calculation of the partial-area measure using the function \texttt{pmvnorm} in \texttt{R} package \texttt{mvtnorm}. The following parameter values were used: \(a = 2\), \(b = 1\) and \(\zeta_1 = 1.5\). (The parameter \(b\) was deliberately chosen equal to one so that we do not have to worry about improper ROC curves.)
+The bivariate (two-dimensional) integral can be evaluated numerically. The following code illustrates calculation of the partial-area measure using the function \texttt{pmvnorm} in \texttt{R} package \texttt{mvtnorm}. The following parameter values were used: \(a = 2\), \(b = 1\) and \(\zeta_1 = 1.5\). (The parameter \(b\) was deliberately chosen equal to one so that we do not have to worry about improper ROC curves.)
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
@@ -3202,12 +3200,14 @@ The d' index corresponding to the above binormal parameters is 2. The transforma
 
 \begin{itemize}
 \item
-  A \emph{partial-area observer} such as in Section \ref{binormal-model-partial-auc} rates cases as follows: for the sub-set of cases defined by \(z \ge \zeta_1\) the observer reports \emph{explicit} ratings exactly equal to the observed z-samples (or some monotonic transformation of the z-samples). For the remaining cases the observer assigns a \emph{fixed value rating that is smaller than \(\zeta_1\)} (the exact value does not matter; these cases are said to be assigned \emph{implicit} ratings).
+  A \emph{partial-area observer} such as in Section \ref{binormal-model-partial-auc}, rates cases as follows: for the sub-set of cases defined by \(z \ge \zeta_1\) the observer reports \emph{explicit} ratings exactly equal to the observed z-samples (or some monotonic transformation of the z-samples). For the remaining cases the observer assigns a \emph{fixed value rating that is smaller than \(\zeta_1\)} (the exact value does not matter; these cases are said to be assigned \emph{implicit} ratings).
 \item
   In contrast, the \emph{full-area observer} reports explicit ratings \emph{for all cases}.
+\item
+  To measure true performance of the partial-area observer one must, of course, include all cases.
+\item
+  The ROC curve extends continuously from the origin to the solid dot \emph{plus the area under the dotted line} extending from the solid dot to (1,1). True performance, the area under the continuous section plus that under the straight line extension, is denoted \(A_{z;c,TRUE}\) and is defined by:
 \end{itemize}
-
-\emph{To measure true performance of the partial-area observer one must, of course, include all cases.} The ROC curve extends continuously from the origin to the solid dot \emph{plus the area under the dotted line} extending from the solid dot to (1,1). True performance, the area under the continuous section plus that under the straight line extension, is denoted \(A_{z;c,TRUE}\) and is defined by:
 
 \begin{equation} 
 A_{z;c,\text{TRUE}} = A_{z;c} + \frac {\left ( 1 - FPF \right ) \left ( 1 + TPF \right )}{2}
@@ -3260,9 +3260,9 @@ The following code prints the predicted and observed full areas under the ROCs f
 
 \begin{verbatim}
 #> A_z predicted =  0.9213504 
-#> A_z observed =  0.9220006
+#> A_z observed =  0.9233058
 #> A_z{c;true} predicted =  0.8244498 
-#> A_z{c;true} observed =  0.8227307
+#> A_z{c;true} observed =  0.8249262
 \end{verbatim}
 
 Note that:
@@ -3280,7 +3280,7 @@ Note that:
 
 In the ROC plots below the partial-area observer curve is shown as a continuous line extending from the origin to the limiting point \emph{plus} a dotted line extending from the limiting point to (1,1). The continuous section is determined by cumulating cases with z-samples \(z \ge \zeta_1\) while the (1,1) point is determined by cumulating all cases.
 
-The ROC curve for both types of observers is shown in the left panel of \ref{fig:binormal-model-threshold-dependence-2} for the following parameters: \(a = 2\), \(b = 1\) and \(\zeta_1 = 1.5\); \(\zeta_1\) corresponds to \(c \equiv FPF = \Phi(-\zeta_1)\) = 0.0668072 and \(TPF = \Phi(a - b\zeta_1)\) = 0.6914625. In other words the limiting point coordinates are (0.067, 0.691), shown in the plot by the solid dot. Partial AUC \(A_{z;c}\) equals 0.0352195. The full-area ROC curve, shown by the complete solid curve, extends from (0,0) to (1,1), the area under which is \(A_z\) = 0.9213504.
+The ROC curve for both types of observers is shown in the left panel of \ref{fig:binormal-model-threshold-dependence-2} for the following parameters: \(a = 2\), \(b = 1\) and \(\zeta_1 = 1.5\); \(\zeta_1\) corresponds to \(c \equiv FPF = \Phi(-\zeta_1)\) = 0.0668072 and \(TPF = \Phi(a - b\zeta_1)\) = 0.6914625. This point is shown in the plot by the solid dot. Partial AUC \(A_{z;c}\) equals 0.0352195. The full-area ROC curve, shown by the complete solid curve, extends from (0,0) to (1,1), the area under which is \(A_z\) = 0.9213504.
 
 \begin{figure}
 \centering
@@ -3288,7 +3288,7 @@ The ROC curve for both types of observers is shown in the left panel of \ref{fig
 \caption{\label{fig:binormal-model-threshold-dependence-2}Left panel: binormal ROC curve corresponding to a = 2 and b = 1. The dot is the operating point corresponding to \(\zeta_1 = 1.5\). The continuous curve extending from the origin to (1,1) represents the full ROC. Note that in the region above the dot the continuus curve is above the dotted line, meaning true performance of an observer who only rates a sub-set of cases is less than performance of an observer who rates all cases. Right panel: variation of true performance with FPF; at FPF = 0 the plot starts at ordinate equal to 0.5 and levels out at FPF = 1 at AUC = \(A_z = 0.921.\)}
 \end{figure}
 
-As FPF increases true-performance increases. the right panel of Fig. \ref{fig:binormal-model-threshold-dependence-2} shows the variation of true performance \(A_{z;c,\text{TRUE}}\) with FPF. The curve starts from (0, 0.5) and ends at (1.000, 0.921). For low values of FPF the curve is very steep while for FPF \textgreater{} 0.25 the curve levels out, approaching the maximum value defined by \(A_z\) = 0.9213504. True performance is maximized at \(\zeta_1 = -\infty\).
+The right panel of Fig. \ref{fig:binormal-model-threshold-dependence-2} shows the variation of true performance \(A_{z;c,\text{TRUE}}\) with FPF. As FPF increases true-performance increases. The curve starts from (0, 0.5) and ends at (1.000, 0.921). For low values of FPF the curve is very steep while for FPF \textgreater{} 0.25 the curve levels out, approaching the maximum value defined by \(A_z\) = 0.9213504. True performance is maximized at \(\zeta_1 = -\infty\).
 
 Fig. \ref{fig:binormal-model-threshold-dependence-3}, left panel, corresponding to \(a = 1\), \(b = 0.2\) and \(\zeta_1 = 1.5\), shows an improper ROC curve. The dashed line is well above the continuous curve and true performance is maximized at a finite value of \(\zeta_1\), corresponding to \(FPF = 0.153\), see right panel. This is an invalid conclusion since an improper ROC curve is a fitting artifact of the binormal model easily avoided by using modern curve-fitting methods (eg., PROPROC, CBM or RSM). TBA However, since the wAFROC has an operating characteristic with an improper-like feature but which is not a fitting artifact, this example serves a purpose, elaborated on in TBA Chapter (optim-op-point), where it is shown that by maximizing the area under the wAFROC one can find the optimal threshold of an algorithmic observer.
 
@@ -3322,9 +3322,9 @@ The geometry ensures that true performance for a proper ROC is maximized at \(\z
 \hypertarget{binormal-model-optimal-op-pt}{%
 \section{Optimal operating point on ROC}\label{binormal-model-optimal-op-pt}}
 
-We have seen that optimal ROC AUC is achieved by setting \(\zeta_1 = -\infty\), i.e., by reporting all cases as diseased. Of course, from clinical considerations, this is nonsense. Consider screening mammography, where typically for every 1000 cases only 5 are malignant. Recalling everybody would incur huge costs from having to rule out cancer in 995 actually non-diseased patients. Of course the 5 malignant cancers would be confirmed at the follow-up diagnostic mammography examination. But one can clearly see that the benefit of correctly detecting the 5 malignancies is far outweighed by the 995 unnecessary recalls. And if one is going to recall everybody, why perform the initial screeing mammography exam?
+We have seen that optimal ROC AUC is achieved by setting \(\zeta_1 = -\infty\), i.e., by reporting all cases as diseased. Of course, from clinical considerations, this is nonsense. Consider screening mammography, where typically for every 1000 cases only 5 are malignant. Recalling everybody would incur huge costs from having to rule out cancer in 995 actually non-diseased patients. Of course the 5 malignant cancers would be confirmed at the follow-up diagnostic mammography examination. But one can clearly see that the benefit of correctly detecting the 5 malignancies is far outweighed by the 995 unnecessary recalls. And if one is going to recall everybody, why perform the initial screening mammography exam?
 
-So what is going on? The problem is that AUC measures classification performance in a 2AFC task. A screening examination is not a 2AFC task: the radiologist is not presented two cases, one non-diseased and one diseased, and asked to pick the diseased patient. Rather, the radiologist is shown images of a single patient, and the object is to maximize the detection rate while minimizing false positives.
+So what is going on? The problem is that AUC measures classification performance in a 2AFC task. A screening examination is not a 2AFC task: the radiologist is not presented two cases, one non-diseased and one diseased, and asked to pick the diseased patient. Rather, the radiologist is shown images of a single patient, and the object is to maximize the detection rate for an acceptable number of false positives.
 
 To address this optimization task one needs to know the costs and benefits of the four decision outcomes in the binary paradigm: true and false positives, and true and false negatives. This has been addressed in \citep{metz1978rocmethodology}. Here is the reasonaing. Let
 
@@ -3479,8 +3479,8 @@ pdf_D\left ( \zeta \right ) = b\phi\left ( b\zeta-a \right ) = \frac{b}{\sqrt{2 
 \hypertarget{binormal-model-appendix-2}{%
 \section{Appendix II: Area under binormal ROC}\label{binormal-model-appendix-2}}
 
-\hypertarget{binormal-model-appendix-1-partial-auc}{%
-\subsection{General case (partial-area)}\label{binormal-model-appendix-1-partial-auc}}
+\hypertarget{binormal-model-partial-auc-derivation}{%
+\subsection{General case (partial-area)}\label{binormal-model-partial-auc-derivation}}
 
 This section is based on \citep{thompson1989statistical}. In what follows, FPF is abbreviates to x and TPF to y. Then the equation for the ROC curve is \eqref{eq:binormal-model-roc-curve}:
 
@@ -3663,8 +3663,8 @@ A_{z;c} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^
 \label{eq:binormal-model-partial-area-final1}
 \end{equation}
 
-\hypertarget{binormal-model-appendix-1-total-auc}{%
-\subsection{Special case (total area)}\label{binormal-model-appendix-1-total-auc}}
+\hypertarget{binormal-model-total-auc}{%
+\subsection{Special case (total area)}\label{binormal-model-total-auc}}
 
 Since \(c\) is the upper limit of FPF, setting \(c = 1\) yields the total area under the binormal ROC curve \footnote{Since the integral over \(z_2\) is over the entire range it integrates out to unity leaving the one-dimensional density function \(\phi\left ( z_1 \right )\) inside the integral. The last step follows from the definition of the \(\Phi\) function.}:
 
@@ -3692,8 +3692,8 @@ A_{z} =  & \Phi\left ( \frac{a}{\sqrt{1+b^2}} \right ) \\
 \label{eq:binormal-model-partial-area-special-case-2}
 \end{equation}
 
-\hypertarget{binormal-model-invariance-property-appendix-3}{%
-\section{Appendix III: Invariance property of pdfs}\label{binormal-model-invariance-property-appendix-3}}
+\hypertarget{binormal-model-invariance-property}{%
+\section{Appendix III: Invariance property of pdfs}\label{binormal-model-invariance-property}}
 
 The binormal model is not as restrictive as might appear at first sight. Any monotone increasing transformation \(Y=f(Z)\) applied to the observed z-samples, and the associated thresholds, will yield the same observed data, e.g., Table \ref{tab:ratings-paradigmExampleTable}. This is because such a transformation leaves the ordering of the ratings unaltered and hence results in the same operating points. While the distributions for \(Y\) will not be binormal (i.e., two independent normal distributions), one can safely ``pretend'' that one is still dealing with an underlying binormal model. An alternative way of stating this is that any pair of distributions is allowed as long as they are reducible to a binormal model form by a monotonic increasing transformation of Y: e.g., \(Z=f^{-1}\). {[}If \(f\) is a monotone increasing function of its argument, so is \(f^{-1}\)\}.{]} For this reason, the term ``pair of latent underlying normal distributions'' is sometimes used to describe the binormal model. The robustness of the binormal model has been investigated \citep{hanley1988robustness, dorfman1997proper}. The referenced paper by Dorfman et al has an excellent discussion of the robustness of the binormal model.
 
@@ -7432,7 +7432,7 @@ Shown below are results obtained using \texttt{RJafroc} function \texttt{StSigni
 
 \begin{verbatim}
 ##   ORBoot.Chisq ORBoot.ddf ORBoot.P.val
-## 1    1.0501981          1   0.30546148
+## 1    1.2181456          1   0.26972489
 \end{verbatim}
 
 The DBM and OR-jackknife methods yield identical F-statistics, but the denominator degrees of freedom are different, \((I-1)(K-1)\) = 113 for DBM and \(\infty\) for OR. The F-statistics for OR-bootstrap and OR-DeLong are different.
@@ -9659,7 +9659,7 @@ A comparison was run between results of OR and DBM for the FROC dataset. Except 
 \section{References}\label{or-applications-references}}
 
 \hypertarget{roc-sample-size-dbm}{%
-\chapter{Sample size estimation for ROC studies DBM method}\label{roc-sample-size-dbm}}
+\chapter{Sample size estimation: DBM method}\label{roc-sample-size-dbm}}
 
 \hypertarget{roc-sample-size-dbm-how-much-finished}{%
 \section{TBA How much finished}\label{roc-sample-size-dbm-how-much-finished}}
@@ -9811,13 +9811,394 @@ Here \(J^*\) and \(K^*\) refer to the number of readers and cases in the \emph{p
 \hypertarget{roc-sample-size-dbm-references}{%
 \section{References}\label{roc-sample-size-dbm-references}}
 
+\hypertarget{part-rjafroc-vignettes}{%
+\part*{RJafroc Vignettes}\label{part-rjafroc-vignettes}}
+\addcontentsline{toc}{part}{RJafroc Vignettes}
+
+\hypertarget{background-f-distribution}{%
+\chapter{F-distribution}\label{background-f-distribution}}
+
+\hypertarget{background-f-distribution-how-much-finished}{%
+\section{TBA How much finished}\label{background-f-distribution-how-much-finished}}
+
+10\%
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Since it plays an important role in sample size estimation, it is helpful to examine the behavior of the F-distribution. In the following \texttt{ndf} = numerator degrees of freedom, \texttt{ddf} = denominator degrees of freedom and \texttt{ncp} = non-centrality parameter (i.e., the \(\Delta\) appearing in Eqn. (11.6) of \citep{chakraborty2017observer}).
+
+The use of three \texttt{R} functions is demonstrated.
+
+\begin{itemize}
+\item
+  \texttt{qf(p,ndf,ddf)} is the \emph{quantile} function of the F-distribution for specified values of \texttt{p}, \texttt{ndf} and \texttt{ddf}, i.e., the value \texttt{x} such that fraction \texttt{p} of the area under the F-distribution lies to the right of \texttt{x}. Since \texttt{ncp} is not included as a parameter, the default value, i.e., zero, is used. This is called the \emph{central} F-distribution.
+\item
+  \texttt{df(x,ndf,ddf,ncp)} is the probability density function (\emph{pdf}) of the F-distribution, as a function of \texttt{x}, for specified values of \texttt{ndf}, \texttt{ddf} and \texttt{ncp}.
+\item
+  \texttt{pf(x,ndf,ddf,ncp)} is the probability (or cumulative) distribution function of the F-distribution for specified values of \texttt{ndf}, \texttt{ddf} and \texttt{ncp}.
+\end{itemize}
+
+\hypertarget{effect-of-ncp-for-ndf-2-and-ddf-10}{%
+\section{\texorpdfstring{Effect of \texttt{ncp} for \texttt{ndf} = 2 and \texttt{ddf} = 10}{Effect of ncp for ndf = 2 and ddf = 10}}\label{effect-of-ncp-for-ndf-2-and-ddf-10}}
+
+\begin{itemize}
+\tightlist
+\item
+  Four values of \texttt{ncp} are considered (0, 2, 5, 10) for \texttt{ddf} = 10.
+\item
+  \texttt{fCrit} is the critical value of the F distribution, i.e., that value such that fraction \(\alpha\) of the area is to the right of the critical value, i.e., \texttt{fCrit} is identical in statistical notation to \({{F}_{1-\alpha ,ndf,ddf}}\).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ndf <-}\StringTok{ }\DecValTok{2}\NormalTok{;ddf <-}\StringTok{ }\DecValTok{10}\NormalTok{;ncp <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{)}
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.05}
+\NormalTok{fCrit <-}\StringTok{ }\KeywordTok{qf}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha, ndf,ddf)}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{20}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
+\NormalTok{myLabel <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"D"}\NormalTok{)}
+\NormalTok{myLabelIndx <-}\StringTok{ }\DecValTok{1}
+\NormalTok{pFgtFCrit <-}\StringTok{ }\OtherTok{NULL}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(ncp))}
+\NormalTok{\{}
+\NormalTok{  y <-}\StringTok{ }\KeywordTok{df}\NormalTok{(x,ndf,ddf,}\DataTypeTok{ncp=}\NormalTok{ncp[i])}
+\NormalTok{  pFgtFCrit <-}\StringTok{ }\KeywordTok{c}\NormalTok{(pFgtFCrit, }\DecValTok{1}\OperatorTok{-}\KeywordTok{pf}\NormalTok{(fCrit, ndf, ddf, }\DataTypeTok{ncp =}\NormalTok{ ncp[i]))}
+\NormalTok{\}  }
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(ncp))}
+\NormalTok{\{}
+\NormalTok{  y <-}\StringTok{ }\KeywordTok{df}\NormalTok{(x,ndf,ddf,}\DataTypeTok{ncp=}\NormalTok{ncp[i])}
+\NormalTok{  curveData <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{pdf =}\NormalTok{ y)}
+\NormalTok{  curvePlot <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ curveData, }\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ pdf)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(myLabel[myLabelIndx]);myLabelIndx <-}\StringTok{ }\NormalTok{myLabelIndx }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+  \KeywordTok{print}\NormalTok{(curvePlot)}
+\NormalTok{\}}
+\NormalTok{fCrit_}\DecValTok{2}\NormalTok{_}\DecValTok{10}\NormalTok{ <-}\StringTok{ }\NormalTok{fCrit }\CommentTok{# convention fCrit_ndf_ddf}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{15b-fdistribution_files/figure-latex/unnamed-chunk-1-1.pdf} \includegraphics{15b-fdistribution_files/figure-latex/unnamed-chunk-1-2.pdf} \includegraphics{15b-fdistribution_files/figure-latex/unnamed-chunk-1-3.pdf} \includegraphics{15b-fdistribution_files/figure-latex/unnamed-chunk-1-4.pdf}
+
+\begin{tabular}{l|r|r|r|r|r}
+\hline
+  & ndf & ddf & fCrit & ncp & pFgtFCrit\\
+\hline
+A & 2 & 10 & 4.102821 & 0 & 0.0500000\\
+\hline
+B & 2 & 10 & 4.102821 & 2 & 0.1775840\\
+\hline
+C & 2 & 10 & 4.102821 & 5 & 0.3876841\\
+\hline
+D & 2 & 10 & 4.102821 & 10 & 0.6769776\\
+\hline
+\end{tabular}
+
+\hypertarget{comments}{%
+\section{Comments}\label{comments}}
+
+\hypertarget{fig.-a}{%
+\subsection{Fig. A}\label{fig.-a}}
+
+\begin{itemize}
+\tightlist
+\item
+  This corresponds to \texttt{ncp\ =\ 0}, i.e., the \emph{central} F-distribution.
+\item
+  The integral under this distribution is unity (this is also true for all plots in this vignette).
+\item
+  The critical value, \texttt{fCrit} in the above code block, is the value of \texttt{x} such that the probability of exceeding \texttt{x} is \(\alpha\). The corresponding parameter \texttt{alpha} is defined above as 0.05.
+\item
+  In the current example \texttt{fCrit} = 4.102821. Notice the use of the quantile function \texttt{qf()} to determine this value, and the default value of \texttt{ncp}, namely zero, is used; specifically, one does not pass a 4th argument to \texttt{qf()}.
+\item
+  \textbf{The decision rule for rejecting the NH uses the NH distribution of the F-statistic}, i.e., reject the NH if F \textgreater= \texttt{fCrit}. As expected, \texttt{prob\ \textgreater{}\ fCrit} = 0.05 because this is how \texttt{fCrit} was defined.
+\end{itemize}
+
+\hypertarget{fig.-b}{%
+\subsection{Fig. B}\label{fig.-b}}
+
+\begin{itemize}
+\tightlist
+\item
+  This corresponds to \texttt{ncp\ =\ 2}, \texttt{ndf} = 2 and \texttt{ddf} = 10.
+\item
+  The distribution is slightly shifted to the right as compared to Fig. A, thereby making it more likely that the observed value of the F-statistic will exceed the critical value determined for the NH distribution.
+\item
+  In fact, \texttt{prob\ \textgreater{}\ fCrit} = 0.177584, i.e., the \emph{statistical power} (compare this to Fig. A where \texttt{prob\ \textgreater{}\ fCrit} was 0.05).
+\end{itemize}
+
+\hypertarget{fig.-c}{%
+\subsection{Fig. C}\label{fig.-c}}
+
+\begin{itemize}
+\tightlist
+\item
+  This corresponds to \texttt{ncp\ =\ 5}, \texttt{ndf} = 2 and \texttt{ddf} = 10.
+\item
+  Now \texttt{prob\ \textgreater{}\ fCrit} = 0.3876841.
+\item
+  Power has increased compared to Fig. B.
+\end{itemize}
+
+\hypertarget{fig.-d}{%
+\subsection{Fig. D}\label{fig.-d}}
+
+\begin{itemize}
+\tightlist
+\item
+  This corresponds to \texttt{ncp\ =\ 10}, \texttt{ndf} = 2 and \texttt{ddf} = 10.
+\item
+  Now \texttt{prob\ \textgreater{}\ fCrit} is 0.6769776.
+\item
+  Power has increased compared to Fig. C.
+\item
+  The effect of the shift is most obvious in Fig. C and Fig. D.
+\item
+  Considering a vertical line at \texttt{x} = 4.102821, fraction 0.6769776 of the probability distribution in Fig. D lies to the right of this line
+\item
+  Therefore the NH is likely to be rejected with probability 0.6769776.
+\end{itemize}
+
+\hypertarget{summary}{%
+\subsection{Summary}\label{summary}}
+
+The larger that non-centrality parameter, the greater the shift to the right of the F-distribution, and the greater the statistical power.
+
+\hypertarget{effect-of-ncp-for-ndf-2-and-ddf-100}{%
+\section{\texorpdfstring{Effect of \texttt{ncp} for \texttt{ndf} = 2 and \texttt{ddf} = 100}{Effect of ncp for ndf = 2 and ddf = 100}}\label{effect-of-ncp-for-ndf-2-and-ddf-100}}
+
+\includegraphics{15b-fdistribution_files/figure-latex/unnamed-chunk-3-1.pdf} \includegraphics{15b-fdistribution_files/figure-latex/unnamed-chunk-3-2.pdf} \includegraphics{15b-fdistribution_files/figure-latex/unnamed-chunk-3-3.pdf} \includegraphics{15b-fdistribution_files/figure-latex/unnamed-chunk-3-4.pdf}
+
+\begin{tabular}{l|r|r|r|r|r}
+\hline
+  & ndf & ddf & fCrit & ncp & pFgtFCrit\\
+\hline
+A & 2 & 10 & 4.102821 & 0 & 0.0500000\\
+\hline
+B & 2 & 10 & 4.102821 & 2 & 0.1775840\\
+\hline
+C & 2 & 10 & 4.102821 & 5 & 0.3876841\\
+\hline
+D & 2 & 10 & 4.102821 & 10 & 0.6769776\\
+\hline
+E & 2 & 100 & 3.087296 & 0 & 0.0500000\\
+\hline
+F & 2 & 100 & 3.087296 & 2 & 0.2199264\\
+\hline
+G & 2 & 100 & 3.087296 & 5 & 0.4910802\\
+\hline
+H & 2 & 100 & 3.087296 & 10 & 0.8029764\\
+\hline
+\end{tabular}
+
+\hypertarget{comments-1}{%
+\section{Comments}\label{comments-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  All comparisons in this sections are at the same values of \texttt{ncp} defined above.
+\item
+  And between \texttt{ddf} = 100 and \texttt{ddf} = 10.
+\end{itemize}
+
+\hypertarget{fig.-e}{%
+\subsection{Fig. E}\label{fig.-e}}
+
+\begin{itemize}
+\tightlist
+\item
+  This corresponds to \texttt{ncp} = 0, \texttt{ndf} = 2 and \texttt{ddf} = 100.
+\item
+  The critical value is \texttt{fCrit\_2\_100} = 3.0872959. Notice the decrease compared to the previous value for \texttt{ncp} = 0, i.e., 4.102821, for \texttt{ddf} = 10.
+\item
+  One expects that increasing \texttt{ddf} will make it more likely that the NH will be rejected, and this is confirmed below.
+\item
+  All else equal, statistical power increases with increasing \texttt{ddf}.
+\end{itemize}
+
+\hypertarget{fig.-f}{%
+\subsection{Fig. F}\label{fig.-f}}
+
+\begin{itemize}
+\tightlist
+\item
+  This corresponds to \texttt{ncp} = 2, \texttt{ndf} = 2 and \texttt{ddf} = 100.
+\item
+  The probability of exceeding the critical value is \texttt{prob\ \textgreater{}\ fCrit\_2\_100} = 0.2199264, greater than the previous value, i.e., 0.177584 for \texttt{ddf} = 10.
+\end{itemize}
+
+\hypertarget{fig.-g}{%
+\subsection{Fig. G}\label{fig.-g}}
+
+\begin{itemize}
+\tightlist
+\item
+  This corresponds to \texttt{ncp\ =\ 5}, \texttt{ndf} = 2 and \texttt{ddf} = 100.
+\item
+  The probability of exceeding the critical value is \texttt{prob\ \textgreater{}\ fCrit\_2\_100} = 0.4910802.
+\item
+  This is greater than the previous value, i.e., 0.3876841 for \texttt{ddf} = 10.
+\end{itemize}
+
+\hypertarget{fig.-h}{%
+\subsection{Fig. H}\label{fig.-h}}
+
+\begin{itemize}
+\tightlist
+\item
+  This corresponds to \texttt{ncp\ =\ 10}, \texttt{ndf} = 2 and \texttt{ddf} = 100.
+\item
+  The probability of exceeding the critical value is \texttt{prob\ \textgreater{}\ fCrit\_2\_100} is 0.8029764.
+\item
+  This is greater than the previous value, i.e., 0.6769776 for \texttt{ddf} = 10.
+\end{itemize}
+
+\hypertarget{effect-of-ncp-for-ndf-1-ddf-100}{%
+\section{\texorpdfstring{Effect of \texttt{ncp} for \texttt{ndf} = 1, \texttt{ddf} = 100}{Effect of ncp for ndf = 1, ddf = 100}}\label{effect-of-ncp-for-ndf-1-ddf-100}}
+
+\includegraphics{15b-fdistribution_files/figure-latex/unnamed-chunk-5-1.pdf} \includegraphics{15b-fdistribution_files/figure-latex/unnamed-chunk-5-2.pdf} \includegraphics{15b-fdistribution_files/figure-latex/unnamed-chunk-5-3.pdf} \includegraphics{15b-fdistribution_files/figure-latex/unnamed-chunk-5-4.pdf}
+
+\begin{tabular}{l|r|r|r|r|r}
+\hline
+  & ndf & ddf & fCrit & ncp & pFgtFCrit\\
+\hline
+A & 2 & 10 & 4.102821 & 0 & 0.0500000\\
+\hline
+B & 2 & 10 & 4.102821 & 2 & 0.1775840\\
+\hline
+C & 2 & 10 & 4.102821 & 5 & 0.3876841\\
+\hline
+D & 2 & 10 & 4.102821 & 10 & 0.6769776\\
+\hline
+E & 2 & 100 & 3.087296 & 0 & 0.0500000\\
+\hline
+F & 2 & 100 & 3.087296 & 2 & 0.2199264\\
+\hline
+G & 2 & 100 & 3.087296 & 5 & 0.4910802\\
+\hline
+H & 2 & 100 & 3.087296 & 10 & 0.8029764\\
+\hline
+I & 1 & 100 & 3.936143 & 0 & 0.0500000\\
+\hline
+J & 1 & 100 & 3.936143 & 2 & 0.2883607\\
+\hline
+K & 1 & 100 & 3.936143 & 5 & 0.6004962\\
+\hline
+L & 1 & 100 & 3.936143 & 10 & 0.8793619\\
+\hline
+\end{tabular}
+
+\hypertarget{comments-2}{%
+\section{Comments}\label{comments-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  All comparisons in this sections are at the same values of \texttt{ncp} defined above and at \texttt{ddf} = 100.
+\item
+  And between \texttt{ndf} = 1 and \texttt{ndf} = 2.
+\end{itemize}
+
+\hypertarget{fig.-i}{%
+\subsection{Fig. I}\label{fig.-i}}
+
+\begin{itemize}
+\tightlist
+\item
+  This corresponds to \texttt{ncp} = 0, \texttt{ndf} = 1 and \texttt{ddf} = 100.
+\item
+  The critical value is \texttt{fCrit\_1\_100} = 3.936143.
+\item
+  Notice the increase in the critical value as compared to the corresponding value for \texttt{ndf\ =\ 2}, i.e., 3.0872959.
+\item
+  One expects power to decrease: the following code demonstrates that as \texttt{ndf} increases, the critical value \texttt{fCrit} decreases.
+\item
+  In significance testing generally \texttt{ndf} = I -1.
+\item
+  It more likely that the NH will be rejected with increasing numbers of treatments.
+\end{itemize}
+
+\begin{tabular}{r|r|r}
+\hline
+ndf & ddf & fCrit\\
+\hline
+1 & 100 & 3.936143\\
+\hline
+2 & 100 & 3.087296\\
+\hline
+5 & 100 & 2.305318\\
+\hline
+10 & 100 & 1.926692\\
+\hline
+12 & 100 & 1.850255\\
+\hline
+15 & 100 & 1.767530\\
+\hline
+20 & 100 & 1.676434\\
+\hline
+\end{tabular}
+
+\hypertarget{fig.-j}{%
+\subsection{Fig. J}\label{fig.-j}}
+
+\begin{itemize}
+\tightlist
+\item
+  This corresponds to \texttt{ncp} = 2, \texttt{ndf} = 1 and \texttt{ddf} = 100.
+\item
+  Now \texttt{prob\ \textgreater{}\ fCrit\_1\_100} = 0.2883607, 0.1351602, 0.0168844, \ensuremath{8.9992114\times 10^{-4}}, \ensuremath{3.2584757\times 10^{-4}}, \ensuremath{8.1619807\times 10^{-5}}, \ensuremath{1.1084132\times 10^{-5}}, larger than the previous value 0.2199264.
+\item
+  The power has actually increased.
+\end{itemize}
+
+\hypertarget{fig.-k}{%
+\subsection{Fig. K}\label{fig.-k}}
+
+\begin{itemize}
+\tightlist
+\item
+  This corresponds to \texttt{ncp} = 5, \texttt{ndf} = 1 and \texttt{ddf} = 100`',
+\item
+  Now \texttt{prob\ \textgreater{}\ fCrit\_1\_100} = 0.6004962, 0.3632847, 0.0699798, 0.0048836, 0.0018367, \ensuremath{4.6889533\times 10^{-4}}, \ensuremath{6.2058692\times 10^{-5}}, larger than the previous value 0.4910802.
+\item
+  Again, the power has actually increased.
+\end{itemize}
+
+\hypertarget{fig.-l}{%
+\subsection{Fig. L}\label{fig.-l}}
+
+\begin{itemize}
+\tightlist
+\item
+  This corresponds to \texttt{ncp} = 10, \texttt{ndf} = 1 and \texttt{ddf} = 100
+\item
+  Now \texttt{prob\ \textgreater{}\ fCrit\_1\_100} is 0.8793619, 0.7000168, 0.2459501, 0.0290856, 0.0123033, 0.0035298, \ensuremath{5.1213398\times 10^{-4}}, larger than the previous value 0.8029764.
+\item
+  The power has actually increased.
+\end{itemize}
+
+\hypertarget{summary-1}{%
+\section{Summary}\label{summary-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Power increases with increasing \texttt{ddf} and \texttt{ncp}.
+\item
+  The effect of increasing \texttt{ncp} is quite dramatic. This is because power depends on the square of \texttt{ncp}.
+\item
+  As \texttt{ndf} increases, \texttt{fCrit} decreases, which makes it more likely that the NH will be rejected.
+\item
+  With increasing numbers of treatments the probability is greater that the F-statistic will be large enough to exceed the critical value.
+\end{itemize}
+
 \hypertarget{roc-sample-size-or}{%
-\chapter{Sample size estimation for ROC studies OR method}\label{roc-sample-size-or}}
+\chapter{Sample size estimation: OR method}\label{roc-sample-size-or}}
 
 \hypertarget{roc-sample-size-or-how-much-finished}{%
 \section{TBA How much finished}\label{roc-sample-size-or-how-much-finished}}
 
-70\%
+30\%
 
 \hypertarget{roc-sample-size-or-introduction}{%
 \section{Introduction}\label{roc-sample-size-or-introduction}}
@@ -10041,6 +10422,150 @@ For 10 readers, the numbers of cases needed for 80\% power is largest (163) for 
 \hypertarget{roc-sample-size-or-references}{%
 \section{References}\label{roc-sample-size-or-references}}
 
+\hypertarget{improper-rocs}{%
+\chapter{Improper ROC curves}\label{improper-rocs}}
+
+\hypertarget{improper-rocs-how-much-finished}{%
+\section{TBA How much finished}\label{improper-rocs-how-much-finished}}
+
+10\%
+
+\hypertarget{the-binormal-model}{%
+\section{The binormal model}\label{the-binormal-model}}
+
+The binormal model has two parameters, \texttt{a} and \texttt{b}. The signal (or diseased cases) distribution has unit standard deviation.
+The noise (or non-diseased cases) distribution has standard deviation \texttt{b}. The \texttt{a} parameter is the separation of the two distributions.
+
+\hypertarget{improper-rocs-1}{%
+\section{Improper ROCs}\label{improper-rocs-1}}
+
+Binormal model fits invariably lead to ROC curves that inappropriately cross the chance diagonal, leading to a prediction of a region of the ROC curve where performance is worse than chance, even for expert observers. By convention, such curves are termed \emph{improper}. This vignette illustrates improper ROCs predicted by the binormal model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{  aArray <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.7}\NormalTok{, }\FloatTok{0.7}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{  bArray <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{  chance_diag <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{y =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\NormalTok{  p <-}\StringTok{ }\KeywordTok{PlotBinormalFit}\NormalTok{(aArray, bArray) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.85}\NormalTok{, }\FloatTok{0.2}\NormalTok{))}
+\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ chance_diag, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y), }\DataTypeTok{linetype=}\StringTok{"dotted"}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{19c-improper-rocs_files/figure-latex/unnamed-chunk-1-1} \end{center}
+
+The red plot is the clearest example of an improper ROC. This type of curve occurs whenever \texttt{b\ \textless{}\ 1}. The chance line crossing near the upper right corner, around (0.919,0.919), and the fact that the ROC curve must eventually reach (1, 1) implies the curve must turn upwards as one approaches (1, 1), thereby displaying a ``hook''. Whenever \texttt{b\ !=\ 1} the hook is there, regardless of whether it is easily visible or not. If \texttt{b\ \textless{}\ 1} the hook is near the upper right corner. If \texttt{b\ \textgreater{}\ 1} the hook is near the origin (see green line, corresponding to \texttt{b\ =\ 1.5}). With increasing \texttt{a} the hook is less prominent (blue line corresponding to \texttt{a\ =\ 1.5,\ b\ =\ 0.5} and purple line corresponding to \texttt{a\ =\ 2,\ b\ =\ 0.5}). But it is there.
+
+\hypertarget{reason-for-improper-rocs}{%
+\section{Reason for improper ROCs}\label{reason-for-improper-rocs}}
+
+The reason for the ``hook''" becomes apparent upon examination of the pdfs.
+\includegraphics{19c-improper-rocs_files/figure-latex/unnamed-chunk-2-1.pdf} \includegraphics{19c-improper-rocs_files/figure-latex/unnamed-chunk-2-2.pdf}
+
+\begin{verbatim}
+#> a =  0.7 , b =  0.5
+\end{verbatim}
+
+Since \texttt{b\ \textless{}\ 1}, the diseased \emph{pdf} is broader and has a lower peak (since the integral under each distribution is unity) than the non-diseased pdf. Sliding an imaginary threshold to the left, starting from the extreme right, one sees that initially, just below \texttt{z\ =\ 7}, the diseased distribution starts being \emph{``picked up''} while the non-diseased distribution is not \emph{``picked up''}, causing the ROC to start with infinite slope near the origin (because TPF is increasing while FPF is not). Around \texttt{z\ =\ 2.5} the non-diseased distribution starts being \emph{``picked up''}, causing the ROC slope to decrease. Around \texttt{z\ =\ -3}, almost all of the non-diseased distribution has been \emph{``picked up''} which means FPF is near unity, but since not all of the broader diseased distribution has been \emph{``picked up''}, TPF is less than unity. Here is a region where \texttt{TPF\ \textless{}\ FPF}, meaning \emph{the operating point is below the chance diagonal}. As the threshold is lowered further, TPF continues to increase, as the rest of the diseased distribution is \emph{``picked up''} while FPF stays almost constant at unity. In this region, the ROC curve is approaching the upper right corner with almost infinite slope (because TPF is increasing but FPF is not).
+
+\hypertarget{degenerate-rocs}{%
+\chapter{Degenerate ROC curves}\label{degenerate-rocs}}
+
+\hypertarget{two-helper-functions}{%
+\section{Two helper functions}\label{two-helper-functions}}
+
+\hypertarget{degenerate-datasets}{%
+\section{Degenerate datasets}\label{degenerate-datasets}}
+
+Metz defined binormal degenerate data sets as those that result in exact-fit binormal ROC curves of inappropriate shape consisting of a series of horizontal and/or vertical line segments in which the ROC ``curve'' crosses the chance line. The crossing of the chance line occurs because the degenerate data sets can be fitted exactly by infinite or zero values for the model slope parameter \texttt{b}, and infinite values for the decision thresholds, or both.
+
+\hypertarget{understanding-degenerate-datasets}{%
+\section{Understanding degenerate datasets}\label{understanding-degenerate-datasets}}
+
+To understand this, consider that the non-diseased distribution is a Dirac delta function centered at zero (by definition such a function integrates to unity) and the unit variance diseased distribution is centered at 0.6744898. In other words this binormal model is characterized by \texttt{a\ =\ 0.6744898} and \texttt{b\ =\ 0}. What is the expected ROC curve? As the threshold \(\zeta\) is moved from the far right, gradually to the left, TPF will increase but FPF is stuck at zero until the threshold reaches zero. Just before reaching this point, the coordinates of the ROC operating point are (0, 0.75). The 0.75 is due to the fact that \texttt{z\ =\ 0} is -0.6744898 units relative to the center of the diseased distribution, so the area under the diseased distribution below \texttt{z\ =\ 0} is 0.25. Since \texttt{pnorm} is the probability \emph{below} the threshold, TPF must be its complement, namely 0.75. This explains the operating point (0,0.75), which lies on the y-axis. As the threshold crosses the zero-width delta function, FPF shoots up from 0 to 1, but TPF stays constant. Therefore, the operating point has jumped from (0, 0.75) to (1, 0.75). When the threshold is reduced further, the operating point moves up vertically, along the right side of the ROC plot, until the threshold is so small that virtually all of diseased distribution exceeds it and the operating point reaches (1, 1). The ROC curve is illustrated in plot A.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plotOP <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =} \DecValTok{0}\NormalTok{, }\DataTypeTok{TPF =} \FloatTok{0.75}\NormalTok{)}
+\NormalTok{a <-}\StringTok{ }\FloatTok{0.6744898}\NormalTok{; b <-}\StringTok{ }\DecValTok{0}
+\NormalTok{plotCurve <-}\StringTok{ }\KeywordTok{BMPoints}\NormalTok{(a, b)}
+\NormalTok{figA <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ plotCurve) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ plotOP)  }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"A"}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(figA)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{19d-degenerate-rocs_files/figure-latex/unnamed-chunk-2-1} \end{center}
+
+This is an extreme example of an ROC curve with a ``hook''. If the data is such that the only operating point provided by the observer is (0,0.75) then this curve will be an exact fit to the operating point.
+
+\hypertarget{the-exact-fit-is-not-unique}{%
+\section{The exact fit is not unique}\label{the-exact-fit-is-not-unique}}
+
+Actually, given one operating point (0, 0.75) the preceding fit is not even unique. If the diseased distribution is shifted appropriately to the right of its previous position, and one can determine the necessary value of a, then the ROC curve will shoot upwards through the operating point (0, 0.75) to (0, 0.9), as in plot B, before proceeding horizontally to (1, 0.9) and then completing the curve to (1, 1). If the diseased distribution is shifted well to the right, i.e., a is very large, then the ROC curve will shoot upwards past the operating point, as in plot C, all the way to (0,1) before proceeding horizontally to (1, 1).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a <-}\StringTok{ }\FloatTok{1.281552}\NormalTok{; b <-}\StringTok{ }\DecValTok{0}
+\NormalTok{plotCurve <-}\StringTok{ }\KeywordTok{BMPoints}\NormalTok{(a, b)}
+\NormalTok{figB <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ plotCurve) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ plotOP)  }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"B"}\NormalTok{)}
+
+\NormalTok{a <-}\StringTok{ }\OtherTok{Inf}\NormalTok{; b <-}\StringTok{ }\DecValTok{0}
+\NormalTok{plotCurve <-}\StringTok{ }\KeywordTok{BMPoints}\NormalTok{(a, b)}
+\NormalTok{figC <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ plotCurve) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ plotOP)  }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"C"}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(figB);}\KeywordTok{print}\NormalTok{(figC)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{19d-degenerate-rocs_files/figure-latex/unnamed-chunk-3-1.pdf} \includegraphics{19d-degenerate-rocs_files/figure-latex/unnamed-chunk-3-2.pdf}
+
+All of these represent exact fits to the observed operating point, with \texttt{b\ =\ 0} and different values of \texttt{a}. Not one of them is reasonable.
+
+\hypertarget{comments-on-degeneracy}{%
+\section{Comments on degeneracy}\label{comments-on-degeneracy}}
+
+Degeneracy occurs if the observer does not provide any interior operating points. So why worry about it? Perhaps one has a non-cooperating observer, who is not heeding the instructions to \emph{spread the ratings, use all the bins}. A simple example shows that the observer could if fact be cooperating fully and is still unable to provide any interior data points. Consider 100 diseased cases consisting of 75 easy cases and 25 difficult ones and 100 easy non-diseased cases. The observer is expected to rate the 75 easy diseased cases as \emph{fives}, the difficult ones as \emph{ones} and the 100 non-diseased cases are rated \emph{ones}. No amount of coaxing \emph{please, please spread your ratings} is going to convince this observer to rate with twos, threes and fours any of the 75 easy diseased cases. If the cases are obviously diseased, and that is what is meant by \emph{easy cases}, they are supposed to be rated fives: \emph{definitely diseased}. Forcing them to rate some of them as \emph{probably diseased} or \emph{possibly diseased} would be irrational and guilty of bending the reading paradigm to fit the convenience of the researcher (early in his research career, the author used to believe in the existence of non-cooperating observers, so Metz's advice to \emph{spread the ratings} did not seem unreasonable at that time).
+
+\hypertarget{a-reasonable-fit-to-the-degenerate-dataset}{%
+\section{A reasonable fit to the degenerate dataset}\label{a-reasonable-fit-to-the-degenerate-dataset}}
+
+If the dataset yields a single operating point (0, 0.75), what is a reasonable ROC plot? There is a theorem that given an observed operating point, the line connecting that point to (1, 1) represents a lower bound on achievable performance by the observer. The observer using a guessing mechanism to classify the remaining cases achieves the lower bound. Here is an explanation of this theorem. Having rated the 75 easy diseased cases as fives, the observer is left with 25 diseased cases and 100 non-diseased cases, all of which appear definitely non-diseased to the observer. Suppose the observer randomly rates 20\% of the remaining cases as fours. This would pick up five of the actually diseased cases and 20 non-diseased ones. Therefore, the total number of diseased cases rated four or higher is 80, and the corresponding number of non-diseased cases is 20. The new operating point of the observer is (0.20, 0.80). Now, one has two operating points, the original one on the y-axis at (0, 0.75) and an interior point (0.20, 0.80). Next, instead of randomly rating 20\% of the remaining cases as fours, the observer rates 40\% of them as fours, then the interior point would have been (0.40, 0.85). The reader can appreciate that simply by increasing the fraction of remaining cases that are randomly rated fours, the observer can move the operating point along the straight line connecting (0, 0.75) and (1, 1), as in plot D. Since a guessing mechanism is being used, this must represent a lower bound on performance. The resulting ROC curve is proper and the net AUC = 0.875.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu <-}\StringTok{ }\OtherTok{Inf}\NormalTok{; alpha <-}\StringTok{ }\FloatTok{0.75}
+\NormalTok{plotCurve <-}\StringTok{ }\KeywordTok{CBMPoints}\NormalTok{(mu, alpha)}
+\NormalTok{figD <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ plotCurve) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ plotOP)  }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"D"}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(figD)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{19d-degenerate-rocs_files/figure-latex/unnamed-chunk-4-1} \end{center}
+
+For this dataset this is in fact the fit yielded by the contaminated binormal model (CBM) and the radiological search model (RSM). Why should one select the lowest possible performance consistent with the data? Because it yields a \emph{unique} value for performance: any higher performance would not be unique.
+
 \hypertarget{part-advanced-topics}{%
 \part*{Advanced topics}\label{part-advanced-topics}}
 \addcontentsline{toc}{part}{Advanced topics}
@@ -10187,8 +10712,8 @@ Actually, given one operating point (0, 0.75) the preceding fit is not even uniq
 
 Restricting to the more common situation, the reason for the hook can be appreciated from Fig. 20.2 (B) showing the pdf functions for non-diseased and diseased cases as functions of z. The plot corresponds to the same parameter value that generated Fig. 20.1(A). Since , the diseased pdf is broader and has a lower peak (since the integrals under each distribution are unity) than the non-diseased pdf. Sliding an imaginary threshold to the left, starting from the extreme right, one sees that initially, just below z = 7, the diseased distribution starts being ``picked up'' while the non-diseased distribution is not ``picked up'', causing the ROC, Fig. 20.2 (A), to start with infinite slope near the origin (because TPF increases while FPF does not). Around z = 2.5 the non-diseased distribution starts being ``picked up'', causing the ROC slope to decrease. Around z = -3, almost all of the non-diseased distribution has been ``picked up'' which mean FPF is near unity, but since not all of the broader diseased distribution has been ``picked up'', TPF is less than unity. Here is a region where TPF \textless{} FPF, meaning the operating point is below the chance diagonal. As the threshold is lowered further, TPF continues to increase, as the rest of the diseased distribution is ``picked up'' while FPF stays almost constant at unity. In this region, the ROC curve is approaching the upper right corner with almost infinite slope (because TPF is increasing but FPF is not).
 
-\hypertarget{comments-on-degeneracy}{%
-\subsection{Comments on degeneracy}\label{comments-on-degeneracy}}
+\hypertarget{comments-on-degeneracy-1}{%
+\subsection{Comments on degeneracy}\label{comments-on-degeneracy-1}}
 
 ratings" is going to convince this observer to rate with twos, threes and fours any of the 75 easy diseased cases. If the cases are obviously diseased, and that is what the author means by ``easy cases'', they are supposed to be rated fives: ``definitely diseased''. Forcing them to rate some of them as ``probably diseased'' or ``possibly diseased'' would be irrational and guilty of bending the reading paradigm to fit the convenience of the researcher.
 

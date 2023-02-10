@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Hypothesis Testing | The RJafroc Roc Book</title>
+  <title>Chapter 16 F-distribution | The RJafroc Roc Book</title>
   <meta name="description" content="Artificial intelligence and observer performance book based on RJafroc." />
   <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Hypothesis Testing | The RJafroc Roc Book" />
+  <meta property="og:title" content="Chapter 16 F-distribution | The RJafroc Roc Book" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Artificial intelligence and observer performance book based on RJafroc." />
   <meta name="github-repo" content="dpc10ster/RJafrocRocBook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Hypothesis Testing | The RJafroc Roc Book" />
+  <meta name="twitter:title" content="Chapter 16 F-distribution | The RJafroc Roc Book" />
   
   <meta name="twitter:description" content="Artificial intelligence and observer performance book based on RJafroc." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="sources-of-variability.html"/>
-<link rel="next" href="dbm-analysis-background.html"/>
+<link rel="prev" href="roc-sample-size-dbm.html"/>
+<link rel="next" href="roc-sample-size-or.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -637,376 +637,849 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="hypothesis-testing" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Chapter 8</span> Hypothesis Testing<a href="hypothesis-testing.html#hypothesis-testing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="hypothesis-testing-how-much-finished" class="section level2 hasAnchor">
-<h2><span class="header-section-number">8.1</span> TBA How much finished<a href="hypothesis-testing.html#hypothesis-testing-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>60%</p>
+<div id="background-f-distribution" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 16</span> F-distribution<a href="background-f-distribution.html#background-f-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="background-f-distribution-how-much-finished" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.1</span> TBA How much finished<a href="background-f-distribution.html#background-f-distribution-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>10%</p>
 </div>
-<div id="hypothesis-testing-introduction" class="section level2 hasAnchor">
-<h2><span class="header-section-number">8.2</span> Introduction<a href="hypothesis-testing.html#hypothesis-testing-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The problem addressed here is how to decide whether an estimate of AUC is consistent with a pre-specified value. One example of this is when a single-reader rates a set of cases in a single-modality, from which one estimates AUC, and the question is whether the estimate is statistically consistent with a pre-specified value. From a clinical point of view, this is generally not a useful exercise, but its simplicity is conducive to illustrating the broader concepts involved in this and later chapters. The clinically more useful analysis is when multiple readers interpret the same cases in two or more modalities. [With two modalities, for example, one obtains an estimate AUC for each reader in each modality, averages the AUC values over all readers within each modality, and computes the inter-modality difference in reader-averaged AUC values. The question forming the main subject of this book is whether the observed difference is consistent with zero.]</p>
-<p>Each situation outlined above admits a binary (yes/no) answer, which is different from the estimation problem that was dealt with in connection with the maximum likelihood method in (book) Chapter 06, where one computed numerical estimates (and confidence intervals) of the parameters of the fitting model.</p>
-<p><strong>Hypothesis testing is the process of dichotomizing the possible outcomes of a statistical study and then using probabilistic arguments to choose one option over the other.</strong></p>
-<p>The two options are termed the <em>null hypothesis</em> (NH) and the <em>alternative hypothesis</em> (AH). The hypothesis testing procedure is analogous to the jury trial system in the US, with 20 instead of 12 jurors, with the NH being the presumption of innocence and the AH being the defendant is guilty. The decision rule is to assume the defendant is innocent unless all 20 jurors agree the defendant is guilty. If even one juror disagrees, the defendant is deemed innocent (equivalent to choosing an <span class="math inline">\(\alpha\)</span> – defined below - of 0.05, or 1/20).</p>
-</div>
-<div id="single-modality-single-reader-roc-study" class="section level2 hasAnchor">
-<h2><span class="header-section-number">8.3</span> Single-modality single-reader ROC study<a href="hypothesis-testing.html#single-modality-single-reader-roc-study" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The binormal model described in Chapter 06 can be used to generate sets of ratings to illustrate the methods being described in this chapter. To recapitulate, the model is described by:</p>
-<p><span class="math display">\[\begin{align*} 
-Z_{k_11} &amp;\sim N\left ( 0,1 \right ) \\ 
-Z_{k_22} &amp;\sim N\left ( \mu,\sigma^2 \right )
-\end{align*}\]</span></p>
-<p>The following code chunk encodes the <code>Wilcoxon</code> function:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="hypothesis-testing.html#cb53-1"></a>Wilcoxon &lt;-<span class="st"> </span><span class="cf">function</span> (zk1, zk2)</span>
-<span id="cb53-2"><a href="hypothesis-testing.html#cb53-2"></a>{</span>
-<span id="cb53-3"><a href="hypothesis-testing.html#cb53-3"></a>  K1 =<span class="st"> </span><span class="kw">length</span>(zk1)</span>
-<span id="cb53-4"><a href="hypothesis-testing.html#cb53-4"></a>  K2 =<span class="st"> </span><span class="kw">length</span>(zk2)</span>
-<span id="cb53-5"><a href="hypothesis-testing.html#cb53-5"></a>  W &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb53-6"><a href="hypothesis-testing.html#cb53-6"></a>  <span class="cf">for</span> (k1 <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K1) {</span>
-<span id="cb53-7"><a href="hypothesis-testing.html#cb53-7"></a>    W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">&lt;</span><span class="st"> </span>zk2)</span>
-<span id="cb53-8"><a href="hypothesis-testing.html#cb53-8"></a>    W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">==</span><span class="st"> </span>zk2)</span>
-<span id="cb53-9"><a href="hypothesis-testing.html#cb53-9"></a>  }</span>
-<span id="cb53-10"><a href="hypothesis-testing.html#cb53-10"></a>  W &lt;-<span class="st"> </span>W<span class="op">/</span>K1<span class="op">/</span>K2</span>
-<span id="cb53-11"><a href="hypothesis-testing.html#cb53-11"></a>  <span class="kw">return</span> (W)</span>
-<span id="cb53-12"><a href="hypothesis-testing.html#cb53-12"></a>}</span></code></pre></div>
-<p>In the next code chunk we set <span class="math inline">\(\mu = 1.5\)</span> and <span class="math inline">\(\sigma = 1.3\)</span> and simulate <span class="math inline">\(K_1 = 50\)</span> non-diseased cases and <span class="math inline">\(K_2 = 52\)</span> diseased cases. The <code>for</code>-loop draws 50 samples from the <span class="math inline">\(N(0,1)\)</span> distribution and 52 samples from the <span class="math inline">\(N(\mu,\sigma^2)\)</span> distribution, calculates the empirical AUC using the Wilcoxon, and the process is repeated 10,000 times, the AUC values are saved to a huge array <code>AUC_c</code> (the c-subscript is for case sample, where each case sample represents 102 cases). After exit from the <code>for</code>-loop we calculate the mean and standard deviation of the <code>AUC</code> values.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="hypothesis-testing.html#cb54-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
-<span id="cb54-2"><a href="hypothesis-testing.html#cb54-2"></a>mu &lt;-<span class="st"> </span><span class="fl">1.5</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span></span>
-<span id="cb54-3"><a href="hypothesis-testing.html#cb54-3"></a></span>
-<span id="cb54-4"><a href="hypothesis-testing.html#cb54-4"></a><span class="co"># cheat to find the population mean and std. dev.</span></span>
-<span id="cb54-5"><a href="hypothesis-testing.html#cb54-5"></a>AUC_c &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="dv">10000</span>)</span>
-<span id="cb54-6"><a href="hypothesis-testing.html#cb54-6"></a><span class="cf">for</span> (c <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(AUC_c)) {</span>
-<span id="cb54-7"><a href="hypothesis-testing.html#cb54-7"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)  </span>
-<span id="cb54-8"><a href="hypothesis-testing.html#cb54-8"></a>  AUC_c[c] &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
-<span id="cb54-9"><a href="hypothesis-testing.html#cb54-9"></a>}</span>
-<span id="cb54-10"><a href="hypothesis-testing.html#cb54-10"></a>meanAUC   &lt;-<span class="st">  </span><span class="kw">mean</span>(AUC_c);sigmaAUC  &lt;-<span class="st">  </span><span class="kw">sd</span>(AUC_c)</span>
-<span id="cb54-11"><a href="hypothesis-testing.html#cb54-11"></a><span class="kw">cat</span>(<span class="st">&quot;pop mean AUC_c = &quot;</span>, meanAUC, </span>
-<span id="cb54-12"><a href="hypothesis-testing.html#cb54-12"></a>    <span class="st">&quot;, pop sigma AUC_c = &quot;</span>, sigmaAUC, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb54-13"><a href="hypothesis-testing.html#cb54-13"></a><span class="co">#&gt; pop mean AUC_c =  0.819178 , pop sigma AUC_c =  0.04176683</span></span></code></pre></div>
-<p>By the simple (if unimaginative) approach of sampling 10,000 times, one has estimates of the <em>population</em> mean and standard deviation of empirical AUC, denoted below by <span class="math inline">\(AUC_{pop}\)</span> and <span class="math inline">\(\sigma_{\text{AUC}}\)</span>, respectively.</p>
-<p>The next code-chunk simulates one more independent ROC study with the same numbers of cases, and the resulting area under the empirical curve is denoted AUC in the code.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="hypothesis-testing.html#cb55-1"></a><span class="co"># one more trial, this is the one we want </span></span>
-<span id="cb55-2"><a href="hypothesis-testing.html#cb55-2"></a><span class="co"># to compare to meanAUC</span></span>
-<span id="cb55-3"><a href="hypothesis-testing.html#cb55-3"></a>zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma) </span>
-<span id="cb55-4"><a href="hypothesis-testing.html#cb55-4"></a>AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
-<span id="cb55-5"><a href="hypothesis-testing.html#cb55-5"></a><span class="kw">cat</span>(<span class="st">&quot;New AUC = &quot;</span>, AUC, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb55-6"><a href="hypothesis-testing.html#cb55-6"></a><span class="co">#&gt; New AUC =  0.8626923</span></span>
-<span id="cb55-7"><a href="hypothesis-testing.html#cb55-7"></a></span>
-<span id="cb55-8"><a href="hypothesis-testing.html#cb55-8"></a>z &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
-<span id="cb55-9"><a href="hypothesis-testing.html#cb55-9"></a><span class="kw">cat</span>(<span class="st">&quot;z-statistic = &quot;</span>, z, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb55-10"><a href="hypothesis-testing.html#cb55-10"></a><span class="co">#&gt; z-statistic =  1.04184</span></span></code></pre></div>
-<p>Is the new value, 0.8626923, sufficiently different from the population mean, 0.819178, to reject the null hypothesis <span class="math inline">\(NH: \text{AUC} = \text{AUC}_{pop}\)</span>? Note that the answer to this question can be either yes or no: equivocation is not allowed!</p>
-<p>The new value is “somewhat close” to the population mean, but how does one decide if “somewhat close” is close enough? Needed is the statistical distribution of the random variable <span class="math inline">\(\text{AUC}\)</span> under the hypothesis that the true mean is <span class="math inline">\(\text{AUC}_{pop}\)</span>. In the limit of a large number of cases, the pdf of <span class="math inline">\(\text{AUC}\)</span> under the null hypothesis is a normal distribution <span class="math inline">\(N\left ( \text{AUC}_{pop}, \sigma_{\text{AUC}}^{2} \right )\)</span>:</p>
-<p><span class="math display">\[\begin{equation*} 
-\text{pdf}_{\text{AUC}}\left ( \text{AUC}\mid \text{AUC}_{pop}, \sigma_{\text{AUC}} \right )=\frac{1}{\sigma_{\text{AUC}}\sqrt{2\pi}}exp\left ( -\frac{1}{2} \left ( \frac{\text{AUC}-\text{AUC}_{pop}}{\sigma_{\text{AUC}}} \right )^2\right )
-\end{equation*}\]</span></p>
-<p>The translated and scaled value is distributed as a unit normal distribution, i.e.,</p>
-<p><span class="math display">\[\begin{equation*} 
-Z \equiv \frac{\text{AUC}-\text{AUC}_{pop}}{\sigma_{\text{AUC}}}\sim N\left ( 0,1 \right )
-\end{equation*}\]</span></p>
-<p>[The <span class="math inline">\(Z\)</span> notation here should not be confused with z-sample, decision variable or rating of a case in an ROC study; the latter, when sampled over a set of non-diseased and diseased cases, yield a realization of <span class="math inline">\(\text{AUC}\)</span>. The author trusts the distinction will be clear from the context.] The observed magnitude of <span class="math inline">\(z\)</span> is 1.0418397. [Upper-case for random variable, lower-case for realized or observed value.]</p>
-<p><strong>The ubiquitous p-value is the probability that the observed magnitude of <span class="math inline">\(z\)</span>, or larger, occurs under the null hypothesis (NH) that the true mean of <span class="math inline">\(Z\)</span> is zero.</strong> Stated somewhat differently, but equivalently, it is the probability that a random sample from <span class="math inline">\(N(0,1)\)</span> exceeds <span class="math inline">\(z\)</span>.</p>
-<p>The p-value corresponding to an observed <span class="math inline">\(z\)</span> of 1.0418397 is given by:</p>
-<p><span class="math display">\[\begin{align*} 
-\Pr\left ( \lvert Z \rvert \geq \lvert z \rvert \mid Z\sim N\left ( 0,1 \right )\right )&amp;=\Pr\left ( \lvert Z \rvert \geq 1.042 \mid Z\sim N\left ( 0,1 \right )\right )\\
-&amp;= 2\Phi\left ( -1.042 \right )\\
-&amp;= 0.2975
-\end{align*}\]</span></p>
-<p>To recapitulate statistical notation, <span class="math inline">\(\Pr\left ( \lvert Z \rvert \geq \lvert z \rvert \mid Z\sim N\left ( 0,1 \right )\right )\)</span> is parsed as <span class="math inline">\(\Pr\left ( A\mid B \right )\)</span>, that is, the probability <span class="math inline">\(\lvert Z \rvert \geq \lvert z \rvert\)</span> given that <span class="math inline">\(Z\sim N\left ( 0,1 \right )\)</span>. The second line in the preceding equation follows from the symmetry of the unit normal distribution, i.e., the area above 1.042 must equal the area below -1.042.</p>
-<p>Since <span class="math inline">\(z\)</span> is a continuous variable, there is zero probability that a sampled value will exactly equal the observed value. Therefore, one must pose the statement as above, namely the probability that <span class="math inline">\(Z\)</span> is at least as extreme as the observed value (by “extreme” I mean further from zero, in either positive or negative directions). If the observed was <span class="math inline">\(z\)</span> = 2.5 then the corresponding p-value would be <span class="math inline">\(2\Phi(-2.5)\)</span>=0.01242, which is smaller than 0.2975. Under the zero-mean null hypothesis, the larger the magnitude of the observed value <span class="math inline">\(z\)</span>, the smaller the p-value, and the more unlikely that the data supports the NH. <strong>The p-value can be interpreted as the degree of unlikelihood that the data is consistent with the NH.</strong></p>
-<p>By convention one adopts a fixed value of the probability, denoted and usually <span class="math inline">\(\alpha\)</span> = 0.05, which is termed <em>the significance level</em> of the test, and the decision rule is to reject the null hypothesis if the observed p-value &lt; <span class="math inline">\(\alpha\)</span>. <span class="math inline">\(\alpha\)</span> is also referred to as the <em>size</em> of the test.</p>
-<p><span class="math display">\[\begin{equation*} 
-p &lt; \alpha \Rightarrow \text{Reject NH}
-\end{equation*}\]</span></p>
-<p>If the p-value is exactly 0.05 (unlikely with ROC analysis, but one needs to account for it), then one does not reject the NH. In the 20-juror analogy, of one juror insists the defendant is not guilty, the observed p-value is 0.05, and one does not reject the NH that the defendant is innocent (the double negatives, very common in statistics, can be confusing; in plain English, the defendant goes home).</p>
-<p>According to the previous discussion, the critical magnitude of <span class="math inline">\(z\)</span> that determines whether to reject the null hypothesis is given by:</p>
-<p><span class="math display">\[\begin{equation*} 
-z_{\alpha / 2}=-\Phi^{-1}\left ( {\alpha/2} \right )
-\end{equation*}\]</span></p>
-<p>For <span class="math inline">\(\alpha\)</span> = 0.05 this evaluates to 1.95996 (which is sometimes rounded up to two, good enough for “government work” as the saying goes) and the decision rule is to reject the null hypothesis only if the observed magnitude of <span class="math inline">\(z\)</span> is larger than <span class="math inline">\(z_{\alpha/2}\)</span>.</p>
-<p><strong>The decision rule based on comparing the observed z to a critical value is equivalent to a decision rule based on comparing the observed p-value to <span class="math inline">\(\alpha\)</span>. It is also equivalent, as will be shown later, to a decision rule based on a <span class="math inline">\(\left ( 1-\alpha \right )\)</span> confidence interval for the observed statistic. One rejects the NH if the closed confidence interval does not include zero.</strong></p>
-</div>
-<div id="type-i-errors" class="section level2 hasAnchor">
-<h2><span class="header-section-number">8.4</span> Type-I errors<a href="hypothesis-testing.html#type-i-errors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Just because one rejects the null hypothesis does not mean that the null hypothesis is false. Following the decision rule puts an upper limit on, or “caps”, the probability of incorrectly rejecting the null hypothesis at <span class="math inline">\(\alpha\)</span>. In other words, by agreeing to reject the NH only if <span class="math inline">\(p \leq \alpha\)</span>, one has set an upper limit, namely <span class="math inline">\(\alpha\)</span>, on errors of this type, termed <em>Type-I</em> errors. These could be termed false positives in the hypothesis testing sense, not to be confused with false positive occurring on individual case-level decisions. According to the definition of <span class="math inline">\(\alpha\)</span>:</p>
-<p><span class="math display">\[\begin{equation*} 
-\Pr( \text{Type I error} \mid \text{NH} )=\alpha
-\end{equation*}\]</span></p>
-<p>To demonstrate the ideas one needs to have a very cooperative reader interpreting new sets of independent cases not just one more time, but 2000 more times (the reason for the 2000 trials will be explained below). The simulation code follows:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="hypothesis-testing.html#cb56-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
-<span id="cb56-2"><a href="hypothesis-testing.html#cb56-2"></a>mu &lt;-<span class="st"> </span><span class="fl">1.5</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span></span>
-<span id="cb56-3"><a href="hypothesis-testing.html#cb56-3"></a></span>
-<span id="cb56-4"><a href="hypothesis-testing.html#cb56-4"></a>nTrials &lt;-<span class="st"> </span><span class="dv">2000</span></span>
-<span id="cb56-5"><a href="hypothesis-testing.html#cb56-5"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span> <span class="co"># size of test</span></span>
-<span id="cb56-6"><a href="hypothesis-testing.html#cb56-6"></a>reject =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="dt">dim =</span> nTrials)</span>
-<span id="cb56-7"><a href="hypothesis-testing.html#cb56-7"></a><span class="cf">for</span> (trial <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(reject)) {  </span>
-<span id="cb56-8"><a href="hypothesis-testing.html#cb56-8"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)  </span>
-<span id="cb56-9"><a href="hypothesis-testing.html#cb56-9"></a>  AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)  </span>
-<span id="cb56-10"><a href="hypothesis-testing.html#cb56-10"></a>  z &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
-<span id="cb56-11"><a href="hypothesis-testing.html#cb56-11"></a>  p &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(z)) <span class="co"># p value for individual trial</span></span>
-<span id="cb56-12"><a href="hypothesis-testing.html#cb56-12"></a>  <span class="cf">if</span> (p <span class="op">&lt;</span><span class="st"> </span>alpha) reject[trial] =<span class="st"> </span><span class="dv">1</span> </span>
-<span id="cb56-13"><a href="hypothesis-testing.html#cb56-13"></a>}</span>
-<span id="cb56-14"><a href="hypothesis-testing.html#cb56-14"></a></span>
-<span id="cb56-15"><a href="hypothesis-testing.html#cb56-15"></a>CI &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>); width &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">qnorm</span>(alpha<span class="op">/</span><span class="dv">2</span>)</span>
-<span id="cb56-16"><a href="hypothesis-testing.html#cb56-16"></a>ObsvdTypeIErrRate &lt;-<span class="st"> </span><span class="kw">sum</span>(reject)<span class="op">/</span><span class="kw">length</span>(reject)</span>
-<span id="cb56-17"><a href="hypothesis-testing.html#cb56-17"></a>CI[<span class="dv">1</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">-</span><span class="st"> </span></span>
-<span id="cb56-18"><a href="hypothesis-testing.html#cb56-18"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>nTrials)</span>
-<span id="cb56-19"><a href="hypothesis-testing.html#cb56-19"></a>CI[<span class="dv">2</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">+</span><span class="st"> </span></span>
-<span id="cb56-20"><a href="hypothesis-testing.html#cb56-20"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>nTrials)</span>
-<span id="cb56-21"><a href="hypothesis-testing.html#cb56-21"></a><span class="kw">cat</span>(<span class="st">&quot;alpha = &quot;</span>, alpha, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb56-22"><a href="hypothesis-testing.html#cb56-22"></a><span class="co">#&gt; alpha =  0.05</span></span>
-<span id="cb56-23"><a href="hypothesis-testing.html#cb56-23"></a><span class="kw">cat</span>(<span class="st">&quot;ObsvdTypeIErrRate = &quot;</span>, ObsvdTypeIErrRate, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb56-24"><a href="hypothesis-testing.html#cb56-24"></a><span class="co">#&gt; ObsvdTypeIErrRate =  0.0535</span></span>
-<span id="cb56-25"><a href="hypothesis-testing.html#cb56-25"></a><span class="kw">cat</span>(<span class="st">&quot;95% confidence interval = &quot;</span>, CI, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb56-26"><a href="hypothesis-testing.html#cb56-26"></a><span class="co">#&gt; 95% confidence interval =  0.04363788 0.06336212</span></span>
-<span id="cb56-27"><a href="hypothesis-testing.html#cb56-27"></a>exact &lt;-<span class="st"> </span><span class="kw">binom.test</span>(<span class="kw">sum</span>(reject),<span class="dt">n =</span> <span class="dv">2000</span>,<span class="dt">p =</span> alpha)</span>
-<span id="cb56-28"><a href="hypothesis-testing.html#cb56-28"></a><span class="kw">cat</span>(<span class="st">&quot;exact 95% CI = &quot;</span>, <span class="kw">as.numeric</span>(exact<span class="op">$</span>conf.int), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb56-29"><a href="hypothesis-testing.html#cb56-29"></a><span class="co">#&gt; exact 95% CI =  0.04404871 0.06428544</span></span></code></pre></div>
-<p>The population means were calculated in an earlier code chunk. One initializes <code>NTrials</code> to 2000 and <span class="math inline">\(\alpha\)</span> to 0.05. The <code>for-loop</code> describes our captive reader interpreting independent sets of cases 2000 times. <em>Each completed interpretation of 102 cases is termed a trial.</em> For each trial one calculates the observed value of <code>AUC</code>, the observed <code>z</code> statistic and the the observed p-value. The observed p-value is compared against the fixed value <span class="math inline">\(\alpha\)</span> and one sets the corresponding <code>reject[trial]</code> flag to unity if <span class="math inline">\(p &lt; \alpha\)</span>. In other words, if the trial-specific p-value is less than <span class="math inline">\(\alpha\)</span> one counts an instance of rejection of the null hypothesis. The process is repeated 2000 times.</p>
-<p>Upon exit from the for-loop, one calculates the observed Type-I error rate, denoted <code>ObsvdTypeIErrRate</code> by summing the reject array and dividing by 2000. One calculates a 95% confidence interval for <code>ObsvdTypeIErrRate</code> based on the binomial distribution, as in (book) Chapter 03.</p>
-<p>The observed Type-I error rate is a realization of a random variable, as is the estimated 95% confidence interval. The fact that the confidence interval includes <span class="math inline">\(\alpha\)</span> = 0.05 is no coincidence - it shows that the hypothesis testing procedure is working as expected. To distinguish between the selected <span class="math inline">\(\alpha\)</span> (a fixed value) and that observed in a simulation study (a realization of a random variable), the term <em>empirical <span class="math inline">\(\alpha\)</span></em> is sometimes used to denote the observed rejection rate.</p>
-<p>It is a mistake to state that one wishes to minimize the Type-I error probability. The minimum value of <span class="math inline">\(\alpha\)</span> (a probability) is zero. Run the software with this value of <span class="math inline">\(\alpha\)</span>: one finds that the NH is never rejected. The downside of minimizing the expected Type-I error rate is that the NH will never be rejected, even when the NH is patently false. The aim of a valid method of analyzing the data is not minimizing the Type-I error rate, rather, the observed Type-I error rate should equal the specified value of <span class="math inline">\(\alpha\)</span> (0.05 in our example), allowance being made for the inherent variability in it’s estimate. This is the reason 2000 trials were chosen for testing the validity of the NH testing procedure. With this choice, the 95% confidence interval, assuming that observed value is close to 0.05, is roughly ±0.01 as explained next.</p>
-<p>Following analogous reasoning to (book) Chapter 03, Eqn. (3.10.10), and defining <span class="math inline">\(f\)</span> as the observed rejection fraction over <span class="math inline">\(T\)</span> trials, and as usual, <span class="math inline">\(F\)</span> is a random variable and <span class="math inline">\(f\)</span> a realized value,</p>
-<p><span class="math display">\[\begin{equation*} 
-\sigma_f = \sqrt{f(1-f)/T} \\
-F \sim N\left ( f,\sigma_{f}^{2} \right )
-\end{equation*}\]</span></p>
-<p>An approximate <span class="math inline">\((1-\alpha)100\)</span> percent CI for <span class="math inline">\(f\)</span> is:</p>
-<p><span class="math display">\[\begin{equation*} 
-{CI}_f = \left [ f-z_{\alpha/2}\sigma_f, f+z_{\alpha/2}\sigma_f \right ]
-\end{equation*}\]</span></p>
-<p>If <span class="math inline">\(f\)</span> is close to 0.05, then for 2000 trials, the 95% CI for <span class="math inline">\(f\)</span> is <span class="math inline">\(f \pm 0.01\)</span>, i.e., <code>qnorm(alpha/2) * sqrt(.05*(.95)/2000)</code> = 0.009551683 ~ 0.01.</p>
-<p>The only way to reduce the width of the CI, and thereby run a more stringent test of the validity of the analysis, is to increase the number of trials <span class="math inline">\(T\)</span>. Since the width of the CI depends on the inverse square root of the number of trials, one soon reaches a point of diminishing returns. Usually <span class="math inline">\(T = 2000\)</span> trials are enough for most statisticians and me, but studies using more simulations have been published.</p>
-</div>
-<div id="one-vs.-two-sided-tests" class="section level2 hasAnchor">
-<h2><span class="header-section-number">8.5</span> One vs. two sided tests<a href="hypothesis-testing.html#one-vs.-two-sided-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The test described above is termed 2-tailed. Here, briefly, is the distinction between 2-tailed vs. 1-tailed p-values:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="hypothesis-testing.html#cb57-1"></a>alpha  &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
-<span id="cb57-2"><a href="hypothesis-testing.html#cb57-2"></a><span class="co"># Example 1</span></span>
-<span id="cb57-3"><a href="hypothesis-testing.html#cb57-3"></a><span class="co"># p value for two-sided AH</span></span>
-<span id="cb57-4"><a href="hypothesis-testing.html#cb57-4"></a>p2tailed &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(z)) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="kw">abs</span>(z))) </span>
-<span id="cb57-5"><a href="hypothesis-testing.html#cb57-5"></a><span class="kw">cat</span>(<span class="st">&quot;pvalue 2-tailed, AH: z ne 0 = &quot;</span>, p2tailed, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb57-6"><a href="hypothesis-testing.html#cb57-6"></a><span class="co">#&gt; pvalue 2-tailed, AH: z ne 0 =  0.2943993</span></span>
-<span id="cb57-7"><a href="hypothesis-testing.html#cb57-7"></a></span>
-<span id="cb57-8"><a href="hypothesis-testing.html#cb57-8"></a><span class="co"># Example 2</span></span>
-<span id="cb57-9"><a href="hypothesis-testing.html#cb57-9"></a><span class="co"># p value for one-sided AH gt 0</span></span>
-<span id="cb57-10"><a href="hypothesis-testing.html#cb57-10"></a>p1tailedGT &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(z) </span>
-<span id="cb57-11"><a href="hypothesis-testing.html#cb57-11"></a><span class="kw">cat</span>(<span class="st">&quot;pvalue 1-tailed, AH: z gt 0 = &quot;</span>, p1tailedGT, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb57-12"><a href="hypothesis-testing.html#cb57-12"></a><span class="co">#&gt; pvalue 1-tailed, AH: z gt 0 =  0.8528004</span></span>
-<span id="cb57-13"><a href="hypothesis-testing.html#cb57-13"></a></span>
-<span id="cb57-14"><a href="hypothesis-testing.html#cb57-14"></a><span class="co"># Example 2</span></span>
-<span id="cb57-15"><a href="hypothesis-testing.html#cb57-15"></a><span class="co"># p value for one-sided AH lt 0 </span></span>
-<span id="cb57-16"><a href="hypothesis-testing.html#cb57-16"></a>p1tailedLT &lt;-<span class="st"> </span><span class="kw">pnorm</span>(z)</span>
-<span id="cb57-17"><a href="hypothesis-testing.html#cb57-17"></a><span class="kw">cat</span>(<span class="st">&quot;pvalue 1-tailed, AH: z lt 0 = &quot;</span>, p1tailedGT, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb57-18"><a href="hypothesis-testing.html#cb57-18"></a><span class="co">#&gt; pvalue 1-tailed, AH: z lt 0 =  0.8528004</span></span>
-<span id="cb57-19"><a href="hypothesis-testing.html#cb57-19"></a></span>
-<span id="cb57-20"><a href="hypothesis-testing.html#cb57-20"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">p2tailed =</span> p2tailed,</span>
-<span id="cb57-21"><a href="hypothesis-testing.html#cb57-21"></a>                 <span class="dt">p1tailedGT =</span> p1tailedGT,</span>
-<span id="cb57-22"><a href="hypothesis-testing.html#cb57-22"></a>                 <span class="dt">p1tailedGT =</span> p1tailedGT)</span>
-<span id="cb57-23"><a href="hypothesis-testing.html#cb57-23"></a><span class="kw">print</span>(df)</span>
-<span id="cb57-24"><a href="hypothesis-testing.html#cb57-24"></a><span class="co">#&gt;    p2tailed p1tailedGT p1tailedGT.1</span></span>
-<span id="cb57-25"><a href="hypothesis-testing.html#cb57-25"></a><span class="co">#&gt; 1 0.2943993  0.8528004    0.8528004</span></span></code></pre></div>
-<p>The only difference between these tests is in how the alternative hypotheses is stated.</p>
+<div id="introduction" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.2</span> Introduction<a href="background-f-distribution.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Since it plays an important role in sample size estimation, it is helpful to examine the behavior of the F-distribution. In the following <code>ndf</code> = numerator degrees of freedom, <code>ddf</code> = denominator degrees of freedom and <code>ncp</code> = non-centrality parameter (i.e., the <span class="math inline">\(\Delta\)</span> appearing in Eqn. (11.6) of <span class="citation">(Chakraborty <a href="#ref-chakraborty2017observer" role="doc-biblioref">2017</a>)</span>).</p>
+<p>The use of three <code>R</code> functions is demonstrated.</p>
 <ul>
-<li>For a two-tailed test the alternative hypothesis is <span class="math inline">\(\text{AUC} \ne \text{AUC}_{pop}\)</span>. Large deviations, in either direction, cause rejection of the NH.</li>
-<li>For the first one-tailed test the alternative hypothesis is <span class="math inline">\(\text{AUC} &gt; \text{AUC}_{pop}\)</span>. Large positive observed values of <span class="math inline">\(z\)</span> result in rejection of the NH. Large negative values do not.</li>
-<li>For the second one-tailed test the alternative hypothesis is <span class="math inline">\(\text{AUC} &lt; \text{AUC}_{pop}\)</span>. Large negative observed values of <span class="math inline">\(z\)</span> result in rejection of the NH. Large positive values do not.</li>
-<li>The last two statements are illustrated below with the following code-fragments:</li>
+<li><p><code>qf(p,ndf,ddf)</code> is the <em>quantile</em> function of the F-distribution for specified values of <code>p</code>, <code>ndf</code> and <code>ddf</code>, i.e., the value <code>x</code> such that fraction <code>p</code> of the area under the F-distribution lies to the right of <code>x</code>. Since <code>ncp</code> is not included as a parameter, the default value, i.e., zero, is used. This is called the <em>central</em> F-distribution.</p></li>
+<li><p><code>df(x,ndf,ddf,ncp)</code> is the probability density function (<em>pdf</em>) of the F-distribution, as a function of <code>x</code>, for specified values of <code>ndf</code>, <code>ddf</code> and <code>ncp</code>.</p></li>
+<li><p><code>pf(x,ndf,ddf,ncp)</code> is the probability (or cumulative) distribution function of the F-distribution for specified values of <code>ndf</code>, <code>ddf</code> and <code>ncp</code>.</p></li>
 </ul>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="hypothesis-testing.html#cb58-1"></a><span class="co"># p1tailedGT</span></span>
-<span id="cb58-2"><a href="hypothesis-testing.html#cb58-2"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">1</span>) <span class="co"># do not reject</span></span>
-<span id="cb58-3"><a href="hypothesis-testing.html#cb58-3"></a><span class="co">#&gt; [1] 0.1586553</span></span>
-<span id="cb58-4"><a href="hypothesis-testing.html#cb58-4"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>) <span class="co"># reject</span></span>
-<span id="cb58-5"><a href="hypothesis-testing.html#cb58-5"></a><span class="co">#&gt; [1] 0.02275013</span></span>
-<span id="cb58-6"><a href="hypothesis-testing.html#cb58-6"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">2</span>) <span class="co"># do not reject</span></span>
-<span id="cb58-7"><a href="hypothesis-testing.html#cb58-7"></a><span class="co">#&gt; [1] 0.9772499</span></span>
-<span id="cb58-8"><a href="hypothesis-testing.html#cb58-8"></a></span>
-<span id="cb58-9"><a href="hypothesis-testing.html#cb58-9"></a><span class="co"># p1tailedGT</span></span>
-<span id="cb58-10"><a href="hypothesis-testing.html#cb58-10"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">1</span>) <span class="co"># do not reject</span></span>
-<span id="cb58-11"><a href="hypothesis-testing.html#cb58-11"></a><span class="co">#&gt; [1] 0.1586553</span></span>
-<span id="cb58-12"><a href="hypothesis-testing.html#cb58-12"></a><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">2</span>) <span class="co"># reject</span></span>
-<span id="cb58-13"><a href="hypothesis-testing.html#cb58-13"></a><span class="co">#&gt; [1] 0.02275013</span></span>
-<span id="cb58-14"><a href="hypothesis-testing.html#cb58-14"></a><span class="kw">pnorm</span>(<span class="dv">2</span>) <span class="co"># do not reject</span></span>
-<span id="cb58-15"><a href="hypothesis-testing.html#cb58-15"></a><span class="co">#&gt; [1] 0.9772499</span></span></code></pre></div>
-<p>Note that the p-value of the 1-tailed tests are half that of the 2-tailed test. Further discussion of the difference between 2-tailed and 1-tailed tests, and when the latter might be appropriate, is given below.</p>
-<p>If the null hypothesis is rejected anytime the magnitude of the observed value of <span class="math inline">\(z\)</span> exceeded the critical value <span class="math inline">\(-\Phi^{-1}\left ( {\alpha/2} \right)\)</span>. This is a statement of the alternative hypothesis (AH) <span class="math inline">\(\text{AUC}\neq \text{AUC}_{pop}\)</span>, in other words too high or too low values of <span class="math inline">\(z\)</span> <em>both</em> result in rejection of the null hypothesis. This is referred to as a two-sided AH and the resulting p-value is termed a <em>two-sided</em> p-value. This is the most common one used in the literature.</p>
-<p>Suppose the additional trial performed by the radiologist was performed after an intervention following which the radiologist’s performance is expected to increase. To make matters clearer, assume the interpretations in the 10,000 trials used to estimate <span class="math inline">\(\text{AUC}_{pop}\)</span> were performed with the radiologist wearing an old pair of eye-glasses, possibly out of proper strength, and the additional trial is performed after the radiologist gets a new set of prescription eye-glasses. Because the radiologist’s eyesight has improved, the expectation is that performance should increase. In this situation, it is appropriate to use the one-sided alternative hypothesis <span class="math inline">\(\text{AUC} &gt; \text{AUC}_{pop}\)</span>. Now, large positive values of <span class="math inline">\(z\)</span> result in rejection of the null hypothesis, but large negative values do not. The critical value of <span class="math inline">\(z\)</span> is defined by <span class="math inline">\(z_\alpha = \Phi\left ( 1-\alpha \right )\)</span>, which for <span class="math inline">\(\alpha\)</span> = 0.05 is 1.645 (i.e., <code>qnorm(1-alpha) = 1.644854</code>). Compare 1.64 to the critical value <span class="math inline">\(-\Phi^{-1}\left ( {\alpha/2} \right)\)</span> = 1.96 for a two-sided test. If the change is in the expected direction, it is more likely that one will reject the NH with a one-sided than with a two-sided test. The p-value for a one-sided test is given by:</p>
-<p><span class="math display">\[\begin{equation*} 
-\Pr\left ( Z \geq 1.042 \mid \text{NH} \right ) = \Phi \left (-1.042  \right ) = 0.1487
-\end{equation*}\]</span></p>
-<p>Notice that this is half the corresponding two-sided test p-value; this is because one is only interested in the area under the unit normal that is above the observed value of <span class="math inline">\(z\)</span>. If the intent is to obtain a significant finding, it is tempting to use one-sided tests. The down side of a one-sided test is that even with a large excursion of the observed <span class="math inline">\(z\)</span> in the other direction one cannot reject the null hypothesis. So if the new eye-glasses are so bad as to render the radiologist practically blind (think of a botched cataract surgery) the observed <span class="math inline">\(z\)</span> would be large and negative, but one cannot reject the null hypothesis <span class="math inline">\(\text{AUC}=\text{AUC}_{pop}\)</span>.</p>
-<p>The one-sided test could be run the other way, with the alternative hypothesis being stated as <span class="math inline">\(\text{AUC}&lt;\text{AUC}_{pop}\)</span>. Now, large negative excursions of the observed value of AUC cause rejection of the null hypothesis, but large positive excursions do not. The critical value is defined by <span class="math inline">\(z_\alpha = \Phi^{-1}\left (\alpha \right )\)</span>, which for <span class="math inline">\(\alpha\)</span> = 0.05 is -1.645. The p-value is given by (note the reversed sign compared to the previous one-sided test:</p>
-<p><span class="math display">\[\begin{equation*} 
-\Pr\left ( Z \leq 1.042 \mid \text{NH}  \right ) = \Phi(1.042) = 1 - 0.1487 = 0.8513
-\end{equation*}\]</span></p>
-<p>This is the complement of the value for a one-sided test with the alternative hypothesis going the other way: obviously the probability that <span class="math inline">\(Z\)</span> is smaller than the observed value (1.042) plus the probability that <span class="math inline">\(Z\)</span> is larger than the same value must equal one.</p>
 </div>
-<div id="statistical-power" class="section level2 hasAnchor">
-<h2><span class="header-section-number">8.6</span> Statistical power<a href="hypothesis-testing.html#statistical-power" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>So far, focus has been on the null hypothesis. The Type-I error probability was introduced, defined as the probability of incorrectly rejecting the null hypothesis, the control, or “cap” on which is <span class="math inline">\(\alpha\)</span>, usually set to 0.05. What if the null hypothesis is actually false and the study fails to reject it? This is termed a Type-II error, the control on which is denoted <span class="math inline">\(\beta\)</span>, the probability of a Type-II error. <strong>The complement of <span class="math inline">\(\beta\)</span> is called statistical power.</strong></p>
-<p>The following table summarizes the two types of errors and the two correct decisions that can occur in hypothesis testing. In the context of hypothesis testing, a Type-II error could be termed a false negative, not to be confused with false negatives occurring on individual case-level decisions.</p>
-<table>
+<div id="effect-of-ncp-for-ndf-2-and-ddf-10" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.3</span> Effect of <code>ncp</code> for <code>ndf</code> = 2 and <code>ddf</code> = 10<a href="background-f-distribution.html#effect-of-ncp-for-ndf-2-and-ddf-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Four values of <code>ncp</code> are considered (0, 2, 5, 10) for <code>ddf</code> = 10.</li>
+<li><code>fCrit</code> is the critical value of the F distribution, i.e., that value such that fraction <span class="math inline">\(\alpha\)</span> of the area is to the right of the critical value, i.e., <code>fCrit</code> is identical in statistical notation to <span class="math inline">\({{F}_{1-\alpha ,ndf,ddf}}\)</span>.</li>
+</ul>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="background-f-distribution.html#cb152-1"></a>ndf &lt;-<span class="st"> </span><span class="dv">2</span>;ddf &lt;-<span class="st"> </span><span class="dv">10</span>;ncp &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">10</span>)</span>
+<span id="cb152-2"><a href="background-f-distribution.html#cb152-2"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
+<span id="cb152-3"><a href="background-f-distribution.html#cb152-3"></a>fCrit &lt;-<span class="st"> </span><span class="kw">qf</span>(<span class="dv">1</span><span class="op">-</span>alpha, ndf,ddf)</span>
+<span id="cb152-4"><a href="background-f-distribution.html#cb152-4"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">20</span>, <span class="fl">0.1</span>)</span>
+<span id="cb152-5"><a href="background-f-distribution.html#cb152-5"></a>myLabel &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>)</span>
+<span id="cb152-6"><a href="background-f-distribution.html#cb152-6"></a>myLabelIndx &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb152-7"><a href="background-f-distribution.html#cb152-7"></a>pFgtFCrit &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb152-8"><a href="background-f-distribution.html#cb152-8"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(ncp))</span>
+<span id="cb152-9"><a href="background-f-distribution.html#cb152-9"></a>{</span>
+<span id="cb152-10"><a href="background-f-distribution.html#cb152-10"></a>  y &lt;-<span class="st"> </span><span class="kw">df</span>(x,ndf,ddf,<span class="dt">ncp=</span>ncp[i])</span>
+<span id="cb152-11"><a href="background-f-distribution.html#cb152-11"></a>  pFgtFCrit &lt;-<span class="st"> </span><span class="kw">c</span>(pFgtFCrit, <span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(fCrit, ndf, ddf, <span class="dt">ncp =</span> ncp[i]))</span>
+<span id="cb152-12"><a href="background-f-distribution.html#cb152-12"></a>}  </span>
+<span id="cb152-13"><a href="background-f-distribution.html#cb152-13"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(ncp))</span>
+<span id="cb152-14"><a href="background-f-distribution.html#cb152-14"></a>{</span>
+<span id="cb152-15"><a href="background-f-distribution.html#cb152-15"></a>  y &lt;-<span class="st"> </span><span class="kw">df</span>(x,ndf,ddf,<span class="dt">ncp=</span>ncp[i])</span>
+<span id="cb152-16"><a href="background-f-distribution.html#cb152-16"></a>  curveData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">pdf =</span> y)</span>
+<span id="cb152-17"><a href="background-f-distribution.html#cb152-17"></a>  curvePlot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> curveData, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pdf)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb152-18"><a href="background-f-distribution.html#cb152-18"></a><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb152-19"><a href="background-f-distribution.html#cb152-19"></a><span class="st">    </span><span class="kw">ggtitle</span>(myLabel[myLabelIndx]);myLabelIndx &lt;-<span class="st"> </span>myLabelIndx <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb152-20"><a href="background-f-distribution.html#cb152-20"></a>  <span class="kw">print</span>(curvePlot)</span>
+<span id="cb152-21"><a href="background-f-distribution.html#cb152-21"></a>}</span>
+<span id="cb152-22"><a href="background-f-distribution.html#cb152-22"></a>fCrit_<span class="dv">2</span>_<span class="dv">10</span> &lt;-<span class="st"> </span>fCrit <span class="co"># convention fCrit_ndf_ddf</span></span></code></pre></div>
+<p><img src="15b-fdistribution_files/figure-html/unnamed-chunk-1-1.png" width="672" /><img src="15b-fdistribution_files/figure-html/unnamed-chunk-1-2.png" width="672" /><img src="15b-fdistribution_files/figure-html/unnamed-chunk-1-3.png" width="672" /><img src="15b-fdistribution_files/figure-html/unnamed-chunk-1-4.png" width="672" /></p>
+<table class="table table-striped" style="width: auto !important; ">
 <thead>
-<tr class="header">
-<th align="left">Truth</th>
-<th align="left">Fail to reject NH</th>
-<th align="left">Reject NH</th>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+ndf
+</th>
+<th style="text-align:right;">
+ddf
+</th>
+<th style="text-align:right;">
+fCrit
+</th>
+<th style="text-align:right;">
+ncp
+</th>
+<th style="text-align:right;">
+pFgtFCrit
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">NH is True</td>
-<td align="left">1 - <span class="math inline">\(\alpha\)</span></td>
-<td align="left"><span class="math inline">\(\alpha\)</span> (FPF)</td>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+4.102821
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0500000
+</td>
 </tr>
-<tr class="even">
-<td align="left">NH is False</td>
-<td align="left"><span class="math inline">\(\beta\)</span> (FNF)</td>
-<td align="left">Power = 1 - <span class="math inline">\(\beta\)</span></td>
+<tr>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+4.102821
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.1775840
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+4.102821
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.3876841
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+4.102821
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.6769776
+</td>
 </tr>
 </tbody>
 </table>
-<p>This resembles the 2 x 2 table encountered in (book) Chapter 02, which led to the concepts of <span class="math inline">\(FPF\)</span>, <span class="math inline">\(TPF\)</span> and the ROC curve. Indeed, it is possible think of an analogous plot of empirical (i.e., observed) power vs. empirical <span class="math inline">\(\alpha\)</span>, which looks like an ROC plot, with empirical <span class="math inline">\(\alpha\)</span> playing the role of <span class="math inline">\(FPF\)</span> and empirical power playing the role of <span class="math inline">\(TPF\)</span>, see below. If <span class="math inline">\(\alpha\)</span> = 0, then power = 0; i.e., if Type-I errors are minimized all the way to zero, then power is zero and one makes Type-II errors all the time. On the other hand, if <span class="math inline">\(\alpha\)</span> = 1 then Power = 1, and one makes Type-I errors all the time.</p>
-<p>A little history is due at this point. The author’s first FROC study, which led to his entry into this field <span class="citation">(Chakraborty et al. <a href="#ref-Chakraborty1986DigitalVsConv" role="doc-biblioref">1986</a>)</span>, was published in Radiology in 1986 after a lot of help from a reviewer, who we (correctly) guessed was the late Prof. Charles E. Metz. Prof. Gary T. Barnes (my mentor at that time at the University of Alabama at Birmingham) and I visited Prof. Charles Metz in Chicago for a day ca. 1986, to figuratively “pick Charlie’s brain”. Prof. Metz referred to the concept outlined in the previous paragraph, as an <em>ROC within an ROC</em>.</p>
-<p>This curve does not summarize the result of a single ROC study. Rather it summarizes the probabilistic behavior of the two types of errors that occur when one conducts thousands of such studies, under both NH and AH conditions, each time with different values of <span class="math inline">\(\alpha\)</span>, with each trial ending in a decision to reject or not reject the null hypothesis. The long sentence is best explained with an example.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="hypothesis-testing.html#cb59-1"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
-<span id="cb59-2"><a href="hypothesis-testing.html#cb59-2"></a>muNH &lt;-<span class="st"> </span><span class="fl">1.5</span>;muAH &lt;-<span class="st"> </span><span class="fl">2.1</span>;sigma &lt;-<span class="st"> </span><span class="fl">1.3</span>;K1 &lt;-<span class="st"> </span><span class="dv">50</span>;K2 &lt;-<span class="st"> </span><span class="dv">52</span><span class="co"># Line 6</span></span>
-<span id="cb59-3"><a href="hypothesis-testing.html#cb59-3"></a></span>
-<span id="cb59-4"><a href="hypothesis-testing.html#cb59-4"></a><span class="co"># cheat to find the population mean and std. dev.</span></span>
-<span id="cb59-5"><a href="hypothesis-testing.html#cb59-5"></a>AUC &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="dv">10000</span>) <span class="co"># line 8</span></span>
-<span id="cb59-6"><a href="hypothesis-testing.html#cb59-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(AUC)) {</span>
-<span id="cb59-7"><a href="hypothesis-testing.html#cb59-7"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> muNH, <span class="dt">sd =</span> sigma)  </span>
-<span id="cb59-8"><a href="hypothesis-testing.html#cb59-8"></a>  AUC[i] &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)</span>
-<span id="cb59-9"><a href="hypothesis-testing.html#cb59-9"></a>}</span>
-<span id="cb59-10"><a href="hypothesis-testing.html#cb59-10"></a>sigmaAUC &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">var</span>(AUC));meanAUC &lt;-<span class="st"> </span><span class="kw">mean</span>(AUC) <span class="co"># Line 14</span></span>
-<span id="cb59-11"><a href="hypothesis-testing.html#cb59-11"></a></span>
-<span id="cb59-12"><a href="hypothesis-testing.html#cb59-12"></a>T &lt;-<span class="st"> </span><span class="dv">2000</span>  <span class="co"># Line 16</span></span>
-<span id="cb59-13"><a href="hypothesis-testing.html#cb59-13"></a>mu &lt;-<span class="st"> </span><span class="kw">c</span>(muNH,muAH) <span class="co"># Line 17</span></span>
-<span id="cb59-14"><a href="hypothesis-testing.html#cb59-14"></a>alphaArr &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">length.out =</span> <span class="dv">10</span>)</span>
-<span id="cb59-15"><a href="hypothesis-testing.html#cb59-15"></a>EmpAlpha &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">length</span>(alphaArr))</span>
-<span id="cb59-16"><a href="hypothesis-testing.html#cb59-16"></a>EmpPower &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">length</span>(alphaArr))</span>
-<span id="cb59-17"><a href="hypothesis-testing.html#cb59-17"></a><span class="cf">for</span> (a <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(alphaArr)) { <span class="co"># Line 20</span></span>
-<span id="cb59-18"><a href="hypothesis-testing.html#cb59-18"></a>  alpha &lt;-<span class="st"> </span>alphaArr[a] </span>
-<span id="cb59-19"><a href="hypothesis-testing.html#cb59-19"></a>  reject &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>, T))</span>
-<span id="cb59-20"><a href="hypothesis-testing.html#cb59-20"></a>  <span class="cf">for</span> (h <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>) {  </span>
-<span id="cb59-21"><a href="hypothesis-testing.html#cb59-21"></a>    <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(reject[h,])) {  </span>
-<span id="cb59-22"><a href="hypothesis-testing.html#cb59-22"></a>      zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> mu[h], <span class="dt">sd =</span> sigma)  </span>
-<span id="cb59-23"><a href="hypothesis-testing.html#cb59-23"></a>      AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)  </span>
-<span id="cb59-24"><a href="hypothesis-testing.html#cb59-24"></a>      obsvdZ &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
-<span id="cb59-25"><a href="hypothesis-testing.html#cb59-25"></a>      p &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(obsvdZ)) <span class="co"># p value for individual t</span></span>
-<span id="cb59-26"><a href="hypothesis-testing.html#cb59-26"></a>      <span class="cf">if</span> (p <span class="op">&lt;</span><span class="st"> </span>alpha) reject[h,t] =<span class="st"> </span><span class="dv">1</span> </span>
-<span id="cb59-27"><a href="hypothesis-testing.html#cb59-27"></a>    }</span>
-<span id="cb59-28"><a href="hypothesis-testing.html#cb59-28"></a>  }</span>
-<span id="cb59-29"><a href="hypothesis-testing.html#cb59-29"></a>  EmpAlpha[a] &lt;-<span class="st"> </span><span class="kw">sum</span>(reject[<span class="dv">1</span>,])<span class="op">/</span><span class="kw">length</span>(reject[<span class="dv">1</span>,])</span>
-<span id="cb59-30"><a href="hypothesis-testing.html#cb59-30"></a>  EmpPower[a] &lt;-<span class="st"> </span><span class="kw">sum</span>(reject[<span class="dv">2</span>,])<span class="op">/</span><span class="kw">length</span>(reject[<span class="dv">2</span>,])</span>
-<span id="cb59-31"><a href="hypothesis-testing.html#cb59-31"></a>}</span>
-<span id="cb59-32"><a href="hypothesis-testing.html#cb59-32"></a>EmpAlpha &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,EmpAlpha,<span class="dv">1</span>); EmpPower &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,EmpPower,<span class="dv">1</span>) <span class="co"># Line 19</span></span>
-<span id="cb59-33"><a href="hypothesis-testing.html#cb59-33"></a></span>
-<span id="cb59-34"><a href="hypothesis-testing.html#cb59-34"></a>pointData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">EmpAlpha =</span> EmpAlpha, <span class="dt">EmpPower =</span> EmpPower)</span>
-<span id="cb59-35"><a href="hypothesis-testing.html#cb59-35"></a>zetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb59-36"><a href="hypothesis-testing.html#cb59-36"></a>muRoc &lt;-<span class="st"> </span><span class="fl">1.8</span></span>
-<span id="cb59-37"><a href="hypothesis-testing.html#cb59-37"></a>curveData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">EmpAlpha =</span> <span class="kw">pnorm</span>(<span class="op">-</span>zetas),</span>
-<span id="cb59-38"><a href="hypothesis-testing.html#cb59-38"></a>  <span class="dt">EmpPower =</span> <span class="kw">pnorm</span>(muRoc <span class="op">-</span><span class="st"> </span>zetas))</span>
-<span id="cb59-39"><a href="hypothesis-testing.html#cb59-39"></a>alphaPowerPlot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> EmpAlpha, <span class="dt">y =</span> EmpPower)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb59-40"><a href="hypothesis-testing.html#cb59-40"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> pointData, <span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb59-41"><a href="hypothesis-testing.html#cb59-41"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> curveData)</span>
-<span id="cb59-42"><a href="hypothesis-testing.html#cb59-42"></a><span class="kw">print</span>(alphaPowerPlot)</span></code></pre></div>
-<p><img src="08-hypothesis-testing_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p>Relevant line numbers are shown above as comments. Line 6 creates two variables, <code>muNH</code> = 1.5 (the binormal model separation parameter under the NH) and <code>muAH</code> = 2.1 (the separation parameter under the AH). Under either hypotheses, the same diseased case standard deviation <code>sigma</code> = 1.3 and 50 non-diseased and 52 diseased cases are assumed. As before, lines 8 – 14 use the “brute force” technique to determine population AUC and standard deviation of AUC under the NH condition. Line 16 defines the number of trials <code>T</code> = 2000. Line 17 creates a vector <code>mu</code> containing the NH and AH values defined at line 6. Line 18 creates <code>alphaArr</code>, a sequence of 10 equally spaced values in the range 0.05 to 0.95, which represent 10 values for <span class="math inline">\(\alpha\)</span>. Line 19 creates two arrays of length 10 each, named <code>EmpAlpha</code> and <code>EmpPower</code>, to hold the values of the observed Type-I error rate, i.e., empirical <span class="math inline">\(\alpha\)</span>, and the empirical power, respectively. The program will run <code>T</code> = 2000 NH and <code>T</code> = 2000 AH trials using as <span class="math inline">\(\alpha\)</span> each successive value in <code>alphaArr</code> and save the observed Type-I error rates and observed powers to the arrays <code>EmpAlpha</code> and <code>EmpPower</code>, respectively.</p>
-<p>Line 20 begins a for-loop in <code>a</code>, an index into <code>alphaArr.</code> Line 21 selects the appropriate value for <code>alpha</code> (0.05 on the first pass, 0.15 on the next pass, etc.). Line 22 initializes <code>reject[2,2000]</code> with zeroes, to hold the result of each trial; the first index corresponds to hypothesis <code>h</code> and the second to trial <code>t</code>. Line 23 begins a for-loop in <code>h</code>, with <code>h</code> = 1 corresponding to the NH and <code>h</code> = 2 to the AH. Line 24 begins a for-loop in <code>t</code>, the trial index. The code within this block is similar to previous examples. It simulates ratings, computes AUC, calculates the p-value, and saves a rejection of the NH as a one at the appropriate array location <code>reject[h,t]</code>. Lines 32 – 33 calculate the empirical <span class="math inline">\(\alpha\)</span> and empirical power for each value of <span class="math inline">\(\alpha\)</span> in <code>alphaArr</code>. After padding the ends with zero and ones (the trivial points), the remaining lines plot the “ROC within an ROC”.</p>
-<p>Each of the circles in the figure corresponds to a specific value of <span class="math inline">\(\alpha\)</span>. For example the lowest non-trivial corresponds to <span class="math inline">\(\alpha\)</span> = 0.05, for which the empirical <span class="math inline">\(\alpha\)</span> is 0.049 and the corresponding empirical Power is 0.4955. True <span class="math inline">\(\alpha\)</span> increases as the operating point moves up the plot, with empirical <span class="math inline">\(\alpha\)</span> and empirical power increasing correspondingly. The <span class="math inline">\(\text{AUC}\)</span> under this curve is determined by the effect size, defined as the difference between the AH and NH values of the separation parameter. If the effect size is zero, then the circles will scatter around the chance diagonal; the scatter will be consistent with the 2000 trials used to generate each coordinate of a point. As the effect size increases, the plot approaches the perfect “ROC”, i.e., approaching the top-left corner. One could use AUC under this “ROC” as a measure of the incremental performance, the advantage being that it would be totally independent of <span class="math inline">\(\alpha\)</span>, but this would not be practical as it requires replication of the study under NH and AH conditions about 2000 times each and the entire process has to be repeated for several values of <span class="math inline">\(\alpha\)</span>. The purpose of this demonstration was to illustrate the concept behind Metz’s profound remark.</p>
-<p>It is time to move on to factors affecting statistical power in a single study.</p>
-<div id="factors-affecting-statistical-power" class="section level3 hasAnchor">
-<h3><span class="header-section-number">8.6.1</span> Factors affecting statistical power<a href="hypothesis-testing.html#factors-affecting-statistical-power" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="comments" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.4</span> Comments<a href="background-f-distribution.html#comments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="fig.-a" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.4.1</span> Fig. A<a href="background-f-distribution.html#fig.-a" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>Effect size: effect size is defined as the difference in <span class="math inline">\(\text{AUC}_{pop}\)</span> values between the alternative hypothesis condition and the null hypothesis condition. Recall that <span class="math inline">\(\text{AUC}_{pop}\)</span> is defined as the true or population value of the empirical ROC-AUC for the relevant hypothesis. One can use the “cheat method” to estimate it under the alternative hypothesis. The formalism is easier if one assumes it is equal to the asymptotic binormal model predicted value. The binormal model yields an estimate of the parameters, which only approach the population values in the asymptotic limit of a large number of cases. In the following, it is assumed that the parameters on the right hand side are the population values)
-It follows that effect size (ES) is given by (all quantities on the right hand side of Eqn. (8.13) are population values):</li>
+<li>This corresponds to <code>ncp = 0</code>, i.e., the <em>central</em> F-distribution.</li>
+<li>The integral under this distribution is unity (this is also true for all plots in this vignette).</li>
+<li>The critical value, <code>fCrit</code> in the above code block, is the value of <code>x</code> such that the probability of exceeding <code>x</code> is <span class="math inline">\(\alpha\)</span>. The corresponding parameter <code>alpha</code> is defined above as 0.05.</li>
+<li>In the current example <code>fCrit</code> = 4.102821. Notice the use of the quantile function <code>qf()</code> to determine this value, and the default value of <code>ncp</code>, namely zero, is used; specifically, one does not pass a 4th argument to <code>qf()</code>.</li>
+<li><strong>The decision rule for rejecting the NH uses the NH distribution of the F-statistic</strong>, i.e., reject the NH if F &gt;= <code>fCrit</code>. As expected, <code>prob &gt; fCrit</code> = 0.05 because this is how <code>fCrit</code> was defined.</li>
 </ul>
-<p><span class="math display">\[\begin{equation*} 
-\text{AUC} = \Phi\left ( \frac{ \mu }{\sqrt{ 1 + \sigma^2}} \right )
-\end{equation*}\]</span></p>
-<p>It follows that effect size (ES) is given by (all quantities on the right hand side of above equation are population values):</p>
-<p><span class="math display">\[\begin{equation*} 
-ES = \Phi\left ( \frac{\mu_{AH}}{\sqrt{1+\sigma^2}} \right ) - \Phi\left ( \frac{\mu_{NH}}{\sqrt{1+\sigma^2}} \right )
-\end{equation*}\]</span></p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="hypothesis-testing.html#cb60-1"></a>EffectSize &lt;-<span class="st"> </span><span class="cf">function</span> (muNH, sigmaNH, muAH, sigmaAH)</span>
-<span id="cb60-2"><a href="hypothesis-testing.html#cb60-2"></a>{</span>
-<span id="cb60-3"><a href="hypothesis-testing.html#cb60-3"></a>  ES &lt;-<span class="st"> </span><span class="kw">pnorm</span>(muAH<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>sigmaAH<span class="op">^</span><span class="dv">2</span>)) <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(muNH<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>sigmaNH<span class="op">^</span><span class="dv">2</span>))</span>
-<span id="cb60-4"><a href="hypothesis-testing.html#cb60-4"></a>  <span class="kw">return</span> (ES)</span>
-<span id="cb60-5"><a href="hypothesis-testing.html#cb60-5"></a>}</span>
-<span id="cb60-6"><a href="hypothesis-testing.html#cb60-6"></a></span>
-<span id="cb60-7"><a href="hypothesis-testing.html#cb60-7"></a>seed &lt;-<span class="st"> </span><span class="dv">1</span>;<span class="kw">set.seed</span>(seed)</span>
-<span id="cb60-8"><a href="hypothesis-testing.html#cb60-8"></a>muAH &lt;-<span class="st"> </span><span class="fl">2.1</span> <span class="co"># NH value, defined previously, was mu = 1.5</span></span>
-<span id="cb60-9"><a href="hypothesis-testing.html#cb60-9"></a></span>
-<span id="cb60-10"><a href="hypothesis-testing.html#cb60-10"></a>T &lt;-<span class="st"> </span><span class="dv">2000</span></span>
-<span id="cb60-11"><a href="hypothesis-testing.html#cb60-11"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span> <span class="co"># size of test</span></span>
-<span id="cb60-12"><a href="hypothesis-testing.html#cb60-12"></a>reject =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="dt">dim =</span> T)</span>
-<span id="cb60-13"><a href="hypothesis-testing.html#cb60-13"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(reject)) {  </span>
-<span id="cb60-14"><a href="hypothesis-testing.html#cb60-14"></a>  zk1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K1);zk2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(K2, <span class="dt">mean =</span> muAH, <span class="dt">sd =</span> sigma)  </span>
-<span id="cb60-15"><a href="hypothesis-testing.html#cb60-15"></a>  AUC &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span>(zk1, zk2)  </span>
-<span id="cb60-16"><a href="hypothesis-testing.html#cb60-16"></a>  obsvdZ &lt;-<span class="st"> </span>(AUC <span class="op">-</span><span class="st"> </span>meanAUC)<span class="op">/</span>sigmaAUC</span>
-<span id="cb60-17"><a href="hypothesis-testing.html#cb60-17"></a>  p &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(obsvdZ)) <span class="co"># p value for individual t</span></span>
-<span id="cb60-18"><a href="hypothesis-testing.html#cb60-18"></a>  <span class="cf">if</span> (p <span class="op">&lt;</span><span class="st"> </span>alpha) reject[t] =<span class="st"> </span><span class="dv">1</span> </span>
-<span id="cb60-19"><a href="hypothesis-testing.html#cb60-19"></a>}</span>
-<span id="cb60-20"><a href="hypothesis-testing.html#cb60-20"></a></span>
-<span id="cb60-21"><a href="hypothesis-testing.html#cb60-21"></a>ObsvdTypeIErrRate &lt;-<span class="st"> </span><span class="kw">sum</span>(reject)<span class="op">/</span><span class="kw">length</span>(reject)</span>
-<span id="cb60-22"><a href="hypothesis-testing.html#cb60-22"></a>CI &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>);width &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">qnorm</span>(alpha<span class="op">/</span><span class="dv">2</span>)</span>
-<span id="cb60-23"><a href="hypothesis-testing.html#cb60-23"></a>CI[<span class="dv">1</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">-</span><span class="st"> </span></span>
-<span id="cb60-24"><a href="hypothesis-testing.html#cb60-24"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>T)</span>
-<span id="cb60-25"><a href="hypothesis-testing.html#cb60-25"></a>CI[<span class="dv">2</span>] &lt;-<span class="st"> </span>ObsvdTypeIErrRate <span class="op">+</span><span class="st"> </span></span>
-<span id="cb60-26"><a href="hypothesis-testing.html#cb60-26"></a><span class="st">  </span>width<span class="op">*</span><span class="kw">sqrt</span>(ObsvdTypeIErrRate<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>ObsvdTypeIErrRate)<span class="op">/</span>T)</span>
-<span id="cb60-27"><a href="hypothesis-testing.html#cb60-27"></a><span class="kw">cat</span>(<span class="st">&quot;obsvdPower = &quot;</span>, ObsvdTypeIErrRate, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb60-28"><a href="hypothesis-testing.html#cb60-28"></a><span class="co">#&gt; obsvdPower =  0.489</span></span>
-<span id="cb60-29"><a href="hypothesis-testing.html#cb60-29"></a><span class="kw">cat</span>(<span class="st">&quot;95% confidence interval = &quot;</span>, CI, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb60-30"><a href="hypothesis-testing.html#cb60-30"></a><span class="co">#&gt; 95% confidence interval =  0.4670922 0.5109078</span></span>
-<span id="cb60-31"><a href="hypothesis-testing.html#cb60-31"></a><span class="kw">cat</span>(<span class="st">&quot;Effect Size = &quot;</span>, <span class="kw">EffectSize</span>(mu, sigma, muAH, sigma), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb60-32"><a href="hypothesis-testing.html#cb60-32"></a><span class="co">#&gt; Effect Size =  0.08000617 0</span></span></code></pre></div>
-<p>The ES for the code above is 0.08 (in AUC units). It should be obvious that if effect size is zero, then power equals <span class="math inline">\(\alpha\)</span>. This is because then there is no distinction between the null and alternative hypotheses conditions. Conversely, as effect size increases, statistical power increases, the limiting value being unity, when every trial results in rejection of the null hypothesis. The reader should experiment with different values of <code>muAH</code> to be convinced of the truth of these statements.</p>
+</div>
+<div id="fig.-b" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.4.2</span> Fig. B<a href="background-f-distribution.html#fig.-b" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>Sample size: increase the number of cases by a factor of two, and run the above code chunk.</li>
+<li>This corresponds to <code>ncp = 2</code>, <code>ndf</code> = 2 and <code>ddf</code> = 10.</li>
+<li>The distribution is slightly shifted to the right as compared to Fig. A, thereby making it more likely that the observed value of the F-statistic will exceed the critical value determined for the NH distribution.</li>
+<li>In fact, <code>prob &gt; fCrit</code> = 0.177584, i.e., the <em>statistical power</em> (compare this to Fig. A where <code>prob &gt; fCrit</code> was 0.05).</li>
 </ul>
-<pre><code>#&gt; pop NH mean AUC =  0.8594882 , pop NH sigma AUC =  0.02568252
-#&gt; num. non-diseased images =  100 num. diseased images =  104
-#&gt; obsvdPower =  0.313
-#&gt; 95% confidence interval =  0.2926772 0.3333228
-#&gt; Effect Size =  0.08000617 0</code></pre>
-<p>So doubling the numbers of cases (both non-diseased and diseased) results in statistical power increasing from 0.509 to 0.844. Increasing the numbers of cases decreases <span class="math inline">\(\sigma_{\text{AUC}}\)</span>, the standard deviation of the empirical AUC. The new value of <span class="math inline">\(\sigma_{\text{AUC}}\)</span> is 0.02947, which should be compared to the value 0.04177 for K1 = 50, K2 = 52. Recall that <span class="math inline">\(\sigma_{\text{AUC}}\)</span> enters the denominator of the Z-statistic, so decreasing it will increase the probability of rejecting the null hypothesis.</p>
+</div>
+<div id="fig.-c" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.4.3</span> Fig. C<a href="background-f-distribution.html#fig.-c" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>Alpha: Statistical power depends on <span class="math inline">\(alpha\)</span>. The results below are for two runs of the code, the first with the original value <span class="math inline">\(\alpha\)</span> = 0.05, the second with <span class="math inline">\(\alpha\)</span> = 0.01:</li>
+<li>This corresponds to <code>ncp = 5</code>, <code>ndf</code> = 2 and <code>ddf</code> = 10.</li>
+<li>Now <code>prob &gt; fCrit</code> = 0.3876841.</li>
+<li>Power has increased compared to Fig. B.</li>
 </ul>
-<pre><code>#&gt; alpha =  0.05 obsvdPower =  0.1545 
-#&gt; alpha =  0.01 obsvdPower =  0.0265</code></pre>
-<p>Decreasing <span class="math inline">\(\alpha\)</span> results in decreased statistical power.</p>
+</div>
+<div id="fig.-d" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.4.4</span> Fig. D<a href="background-f-distribution.html#fig.-d" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>This corresponds to <code>ncp = 10</code>, <code>ndf</code> = 2 and <code>ddf</code> = 10.</li>
+<li>Now <code>prob &gt; fCrit</code> is 0.6769776.</li>
+<li>Power has increased compared to Fig. C.</li>
+<li>The effect of the shift is most obvious in Fig. C and Fig. D.</li>
+<li>Considering a vertical line at <code>x</code> = 4.102821, fraction 0.6769776 of the probability distribution in Fig. D lies to the right of this line</li>
+<li>Therefore the NH is likely to be rejected with probability 0.6769776.</li>
+</ul>
+</div>
+<div id="summary" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.4.5</span> Summary<a href="background-f-distribution.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The larger that non-centrality parameter, the greater the shift to the right of the F-distribution, and the greater the statistical power.</p>
 </div>
 </div>
-<div id="hypothesis-testingComments" class="section level2 hasAnchor">
-<h2><span class="header-section-number">8.7</span> Comments<a href="hypothesis-testing.html#hypothesis-testingComments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Wilcoxon statistic was used to estimate the area under the ROC curve. One could have used the binormal model, introduced in Chapter 06, to obtain maximum likelihood estimates of the area under the binormal model fitted ROC curve. The reasons for choosing the simpler empirical area are as follows. (1) With continuous ratings and 102 operating points, the area under the empirical ROC curve is expected to be a close approximation to the fitted area. (2) With maximum likelihood estimation, the code would be more complex – in addition to the fitting routine one would require a binning routine and that would introduce yet another variable in the analysis, namely the number of bins and how the bin boundaries were chosen. (3) The maximum likelihood fitting code can sometimes fail to converge, while the Wilcoxon method is always guaranteed to yield a result. The non-convergence issue is overcome by modern methods of curve fitting described in later chapters. (4) The aim was to provide an understanding of null hypothesis testing and statistical power without being bogged down in the details of curve fitting.</p>
+<div id="effect-of-ncp-for-ndf-2-and-ddf-100" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.5</span> Effect of <code>ncp</code> for <code>ndf</code> = 2 and <code>ddf</code> = 100<a href="background-f-distribution.html#effect-of-ncp-for-ndf-2-and-ddf-100" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="15b-fdistribution_files/figure-html/unnamed-chunk-3-1.png" width="672" /><img src="15b-fdistribution_files/figure-html/unnamed-chunk-3-2.png" width="672" /><img src="15b-fdistribution_files/figure-html/unnamed-chunk-3-3.png" width="672" /><img src="15b-fdistribution_files/figure-html/unnamed-chunk-3-4.png" width="672" /></p>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+ndf
+</th>
+<th style="text-align:right;">
+ddf
+</th>
+<th style="text-align:right;">
+fCrit
+</th>
+<th style="text-align:right;">
+ncp
+</th>
+<th style="text-align:right;">
+pFgtFCrit
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+4.102821
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0500000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+4.102821
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.1775840
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+4.102821
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.3876841
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+4.102821
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.6769776
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+E
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.087296
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0500000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.087296
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.2199264
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+G
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.087296
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.4910802
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.087296
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.8029764
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="why-alpha-is-chosen-as-5" class="section level2 hasAnchor">
-<h2><span class="header-section-number">8.8</span> Why alpha is chosen as 5%<a href="hypothesis-testing.html#why-alpha-is-chosen-as-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>One might ask why <span class="math inline">\(\alpha\)</span> is traditionally chosen to be 5%. It is not a magical number, rather the result of a cost benefit tradeoff. Choosing too small a value of <span class="math inline">\(\alpha\)</span> would result in greater probability <span class="math inline">\((1-\alpha)\)</span> of the NH not being rejected, even when it is false. Sometimes it is important to detect a true difference between the measured AUC and the postulated value. For example, a new eye-laser surgery procedure is invented and the number of patients is necessarily small as one does not wish to subject a large number of patients to an untried procedure. One seeks some leeway on the Type-I error probability, possibly increasing it to <span class="math inline">\(\alpha\)</span> = 0.1, in order to have a reasonable chance of success in detecting an improvement in performance due to better eyesight after the surgery. If the NH is rejected and the change is in the right direction, then that is good news for the researcher. One might then consider a larger clinical trial and set <span class="math inline">\(\alpha\)</span> at the traditional 0.05, making up the lost statistical power by increasing the number of patients on which the surgery is tried.</p>
-<p>If a whole branch of science hinges on the results of a study, such as discovering the Higg’s Boson in particle physics, statistical significance is often expressed in multiples of the standard deviation (<span class="math inline">\(\sigma\)</span>) of the normal distribution, with the significance threshold set at a much stricter level (e.g. <span class="math inline">\(5\sigma\)</span>). This corresponds to <span class="math inline">\(\alpha\)</span> ~ 1 in 3.5 million (<code>1/pnorm(-5)</code> = 3.5 x 10^6, a one-sided test of significance). There is an article in Scientific American (<a href="https://blogs.scientificamerican.com/observations/five-sigmawhats-that/" class="uri">https://blogs.scientificamerican.com/observations/five-sigmawhats-that/</a>) on the use of <span class="math inline">\(n\sigma\)</span>, where <code>n</code> is an integer, e.g. 5, to denote the significance level of a study, and some interesting anecdotes on why such high significance levels (ie., small <span class="math inline">\(\alpha\)</span>) are used in some fields of research.</p>
-<p>Similar concerns apply to manufacturing where the cost of a mistake could be the very expensive recall of an entire product line. For background on Six Sigma Performance, see <a href="http://www.six-sigma-material.com/Six-Sigma.html" class="uri">http://www.six-sigma-material.com/Six-Sigma.html</a>. An article downloaded 3/30/17 from <a href="https://en.wikipedia.org/wiki/Six_Sigma" class="uri">https://en.wikipedia.org/wiki/Six_Sigma</a> is included as supplemental material to this chapter (Six Sigma.pdf). It has an explanation of why <span class="math inline">\(6\sigma\)</span> translates to one defect per 3.4 million opportunities (it has to do with short-term and long-term drifts in a process). In my opinion, looking at other fields offers a deeper understanding of this material than simply stating that by tradition one adopts alpha = 5%.</p>
-<p>Most observer performance studies, while important in the search for better imaging methods, are not of such “earth-shattering” importance, and it is somewhat important to detect true differences at a reasonable alpha, so alpha = 5% and beta = 20% represent a good compromise. If one adopted a <span class="math inline">\(5\sigma\)</span> criterion, the NH would never be rejected, and progress in image quality optimization would come to a grinding halt. That is not to say that a <span class="math inline">\(5\sigma\)</span> criterion cannot be used; rather if used, the number of patients needed to detect a reasonable difference (effect size) with 80% probability would be astronomically large. Truth-proven cases are a precious commodity in observer performance studies. Particle physicists working on discovering the Higg’s Boson can get away with <span class="math inline">\(5\sigma\)</span> criterion because the number of independent observations and/or effect size is much larger than corresponding numbers in observer performance research.</p>
+<div id="comments-1" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.6</span> Comments<a href="background-f-distribution.html#comments-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>All comparisons in this sections are at the same values of <code>ncp</code> defined above.</li>
+<li>And between <code>ddf</code> = 100 and <code>ddf</code> = 10.</li>
+</ul>
+<div id="fig.-e" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.6.1</span> Fig. E<a href="background-f-distribution.html#fig.-e" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>This corresponds to <code>ncp</code> = 0, <code>ndf</code> = 2 and <code>ddf</code> = 100.</li>
+<li>The critical value is <code>fCrit_2_100</code> = 3.0872959. Notice the decrease compared to the previous value for <code>ncp</code> = 0, i.e., 4.102821, for <code>ddf</code> = 10.</li>
+<li>One expects that increasing <code>ddf</code> will make it more likely that the NH will be rejected, and this is confirmed below.</li>
+<li>All else equal, statistical power increases with increasing <code>ddf</code>.</li>
+</ul>
 </div>
-<div id="hypothesis-testingDiscussion" class="section level2 hasAnchor">
-<h2><span class="header-section-number">8.9</span> Discussion<a href="hypothesis-testing.html#hypothesis-testingDiscussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In most statistics books, the subject of hypothesis testing is demonstrated in different (i.e., non-ROC) contexts. That is to be expected since the ROC-analysis field is a small sub-specialty of statistics (Prof. Howard E. Rockette, private communication, ca. 2002). Since this book is about ROC analysis, I decided to use a demonstration using ROC analysis. Using a data simulator, one can “cheat” by conducting a very large number of simulations to estimate the population <span class="math inline">\(\text{AUC}\)</span> under the null hypothesis. This permitted us to explore the related concepts of Type-I and Type-II errors within the context of ROC analysis. Ideally, both errors should be zero, but the nature of statistics leads one to two compromises. Usually one accepts a Type-I error capped at 5% and a Type-II error capped at 20%. These translate to <span class="math inline">\(\alpha\)</span> = 0.05 and desired statistical power = 80%. The dependence of statistical power on <span class="math inline">\(\alpha\)</span>, the numbers of cases and the effect size was explored.</p>
-<p>In TBA Chapter 11 sample-size calculations are described that allow one to estimate the numbers of readers and cases needed to detect a specified difference in inter-modality AUCs with expected statistical power = <span class="math inline">\(1-\beta\)</span>. The word “detect” in the preceding sentence is shorthand for “reject the NH with incorrect rejection probability capped at <span class="math inline">\(\alpha\)</span>”.</p>
-<p>This chapter also gives the first example of validation of a hypothesis testing method. Statisticians sometimes refer to this as showing a proposed test is a “5% test”. What is meant is that one needs to be assured that when the NH is true the probability of NH rejection is consistent with the expected value. Since the observed NH rejection rate over 2000 simulations is a random variable, one does not expect the NH rejection rate to exactly equal 5%, rather the constructed 95% confidence interval (also a random interval variable) should include the NH value with probability 1 - <span class="math inline">\(\alpha\)</span>.</p>
-<p>Comparing a single reader’s performance to a specified value is not a clinically interesting problem. The next few chapters describe methods for significance testing of multiple-reader multiple-case (MRMC) ROC datasets, consisting of interpretations by a group of readers of a common set of cases in typically two modalities. It turns out that the analyses yield variability estimates that permit sample size calculation. After all, sample size calculation is all about estimation of variability, the denominator of the z-statistic. The formulae will look more complex, as interest is not in determining the standard deviation of AUC, but in the standard deviation of the inter-modality reader-averaged AUC difference. However, the basic concepts remain the same.</p>
+<div id="fig.-f" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.6.2</span> Fig. F<a href="background-f-distribution.html#fig.-f" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>This corresponds to <code>ncp</code> = 2, <code>ndf</code> = 2 and <code>ddf</code> = 100.</li>
+<li>The probability of exceeding the critical value is <code>prob &gt; fCrit_2_100</code> = 0.2199264, greater than the previous value, i.e., 0.177584 for <code>ddf</code> = 10.</li>
+</ul>
 </div>
-<div id="hypothesis-testing-references" class="section level2 hasAnchor">
-<h2><span class="header-section-number">8.10</span> References<a href="hypothesis-testing.html#hypothesis-testing-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="fig.-g" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.6.3</span> Fig. G<a href="background-f-distribution.html#fig.-g" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>This corresponds to <code>ncp = 5</code>, <code>ndf</code> = 2 and <code>ddf</code> = 100.</li>
+<li>The probability of exceeding the critical value is <code>prob &gt; fCrit_2_100</code> = 0.4910802.</li>
+<li>This is greater than the previous value, i.e., 0.3876841 for <code>ddf</code> = 10.</li>
+</ul>
+</div>
+<div id="fig.-h" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.6.4</span> Fig. H<a href="background-f-distribution.html#fig.-h" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>This corresponds to <code>ncp = 10</code>, <code>ndf</code> = 2 and <code>ddf</code> = 100.</li>
+<li>The probability of exceeding the critical value is <code>prob &gt; fCrit_2_100</code> is 0.8029764.</li>
+<li>This is greater than the previous value, i.e., 0.6769776 for <code>ddf</code> = 10.</li>
+</ul>
+</div>
+</div>
+<div id="effect-of-ncp-for-ndf-1-ddf-100" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.7</span> Effect of <code>ncp</code> for <code>ndf</code> = 1, <code>ddf</code> = 100<a href="background-f-distribution.html#effect-of-ncp-for-ndf-1-ddf-100" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="15b-fdistribution_files/figure-html/unnamed-chunk-5-1.png" width="672" /><img src="15b-fdistribution_files/figure-html/unnamed-chunk-5-2.png" width="672" /><img src="15b-fdistribution_files/figure-html/unnamed-chunk-5-3.png" width="672" /><img src="15b-fdistribution_files/figure-html/unnamed-chunk-5-4.png" width="672" /></p>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+ndf
+</th>
+<th style="text-align:right;">
+ddf
+</th>
+<th style="text-align:right;">
+fCrit
+</th>
+<th style="text-align:right;">
+ncp
+</th>
+<th style="text-align:right;">
+pFgtFCrit
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+4.102821
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0500000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+4.102821
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.1775840
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+4.102821
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.3876841
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+4.102821
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.6769776
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+E
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.087296
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0500000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.087296
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.2199264
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+G
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.087296
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.4910802
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+H
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.087296
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.8029764
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+I
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.936143
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0500000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.936143
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.2883607
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+K
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.936143
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.6004962
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+L
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.936143
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.8793619
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="comments-2" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.8</span> Comments<a href="background-f-distribution.html#comments-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>All comparisons in this sections are at the same values of <code>ncp</code> defined above and at <code>ddf</code> = 100.</li>
+<li>And between <code>ndf</code> = 1 and <code>ndf</code> = 2.</li>
+</ul>
+<div id="fig.-i" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.8.1</span> Fig. I<a href="background-f-distribution.html#fig.-i" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>This corresponds to <code>ncp</code> = 0, <code>ndf</code> = 1 and <code>ddf</code> = 100.</li>
+<li>The critical value is <code>fCrit_1_100</code> = 3.936143.</li>
+<li>Notice the increase in the critical value as compared to the corresponding value for <code>ndf = 2</code>, i.e., 3.0872959.</li>
+<li>One expects power to decrease: the following code demonstrates that as <code>ndf</code> increases, the critical value <code>fCrit</code> decreases.</li>
+<li>In significance testing generally <code>ndf</code> = I -1.</li>
+<li>It more likely that the NH will be rejected with increasing numbers of treatments.</li>
+</ul>
+<table class="table table-striped" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:right;">
+ndf
+</th>
+<th style="text-align:right;">
+ddf
+</th>
+<th style="text-align:right;">
+fCrit
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.936143
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+3.087296
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+2.305318
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+1.926692
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+1.850255
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+1.767530
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+1.676434
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="fig.-j" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.8.2</span> Fig. J<a href="background-f-distribution.html#fig.-j" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>This corresponds to <code>ncp</code> = 2, <code>ndf</code> = 1 and <code>ddf</code> = 100.</li>
+<li>Now <code>prob &gt; fCrit_1_100</code> = 0.2883607, 0.1351602, 0.0168844, 8.999211410^{-4}, 3.258475710^{-4}, 8.161980710^{-5}, 1.108413210^{-5}, larger than the previous value 0.2199264.</li>
+<li>The power has actually increased.</li>
+</ul>
+</div>
+<div id="fig.-k" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.8.3</span> Fig. K<a href="background-f-distribution.html#fig.-k" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>This corresponds to <code>ncp</code> = 5, <code>ndf</code> = 1 and <code>ddf</code> = 100`’,</li>
+<li>Now <code>prob &gt; fCrit_1_100</code> = 0.6004962, 0.3632847, 0.0699798, 0.0048836, 0.0018367, 4.688953310^{-4}, 6.205869210^{-5}, larger than the previous value 0.4910802.</li>
+<li>Again, the power has actually increased.</li>
+</ul>
+</div>
+<div id="fig.-l" class="section level3 hasAnchor">
+<h3><span class="header-section-number">16.8.4</span> Fig. L<a href="background-f-distribution.html#fig.-l" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>This corresponds to <code>ncp</code> = 10, <code>ndf</code> = 1 and <code>ddf</code> = 100</li>
+<li>Now <code>prob &gt; fCrit_1_100</code> is 0.8793619, 0.7000168, 0.2459501, 0.0290856, 0.0123033, 0.0035298, 5.121339810^{-4}, larger than the previous value 0.8029764.</li>
+<li>The power has actually increased.</li>
+</ul>
+</div>
+</div>
+<div id="summary-1" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.9</span> Summary<a href="background-f-distribution.html#summary-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Power increases with increasing <code>ddf</code> and <code>ncp</code>.</li>
+<li>The effect of increasing <code>ncp</code> is quite dramatic. This is because power depends on the square of <code>ncp</code>.</li>
+<li>As <code>ndf</code> increases, <code>fCrit</code> decreases, which makes it more likely that the NH will be rejected.</li>
+<li>With increasing numbers of treatments the probability is greater that the F-statistic will be large enough to exceed the critical value.</li>
+</ul>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-Chakraborty1986DigitalVsConv">
-<p>Chakraborty, D. P., E. S. Breatnach, M. V. Yester, B. Soto, G. T. Barnes, and R. G. Fraser. 1986. “Digital and Conventional Chest Imaging: A Modified ROC Study of Observer Performance Using Simulated Nodules.” Journal Article. <em>Radiology</em> 158: 35–39. <a href="https://doi.org/10.1148/radiology.158.1.3940394">https://doi.org/10.1148/radiology.158.1.3940394</a>.</p>
+<div id="ref-chakraborty2017observer">
+<p>Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging: Foundations, Modeling, and Applications with R-Based Examples</em>. Boca Raton, FL: CRC Press.</p>
 </div>
 </div>
             </section>
@@ -1014,8 +1487,8 @@ ES = \Phi\left ( \frac{\mu_{AH}}{\sqrt{1+\sigma^2}} \right ) - \Phi\left ( \frac
           </div>
         </div>
       </div>
-<a href="sources-of-variability.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="dbm-analysis-background.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="roc-sample-size-dbm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="roc-sample-size-or.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
