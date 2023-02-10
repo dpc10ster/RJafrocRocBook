@@ -118,6 +118,7 @@ eq:binormal-model-op-point-ab
 eq:binormal-model-partial-area-final
 eq:binormal-model-zeta-c-relation
 eq:binormal-model-rho-final
+eq:binormal-model-normalized-partial-auc
 eq:binormal-model-ab-2az
 eq:binormal-model-ab-2dprime
 eq:binormal-model-partial-area-true-performance
@@ -471,6 +472,8 @@ binormal-model-in-conventional-notation
 binormal-model-roc-curve
 binormal-model-scalar-measure
 binormal-model-partial-auc
+binormal-model-meaning-partial-auc
+binormal-model-partial-auc-recommendation
 binormal-model-full-auc
 binormal-model-d-prime
 binormal-model-partial-true

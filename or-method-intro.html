@@ -273,8 +273,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-roc-curve"><i class="fa fa-check"></i><b>6.4</b> Binormal ROC curve</a></li>
 <li class="chapter" data-level="6.5" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-scalar-measure"><i class="fa fa-check"></i><b>6.5</b> Threshold-independent performance measure</a><ul>
 <li class="chapter" data-level="6.5.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc"><i class="fa fa-check"></i><b>6.5.1</b> Partial AUC</a></li>
-<li class="chapter" data-level="6.5.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-full-auc"><i class="fa fa-check"></i><b>6.5.2</b> Full AUC</a></li>
-<li class="chapter" data-level="6.5.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-d-prime"><i class="fa fa-check"></i><b>6.5.3</b> The d’ measure</a></li>
+<li class="chapter" data-level="6.5.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-meaning-partial-auc"><i class="fa fa-check"></i><b>6.5.2</b> Meaning of partial AUC</a></li>
+<li class="chapter" data-level="6.5.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc-recommendation"><i class="fa fa-check"></i><b>6.5.3</b> Full AUC</a></li>
+<li class="chapter" data-level="6.5.4" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-full-auc"><i class="fa fa-check"></i><b>6.5.4</b> Full AUC</a></li>
+<li class="chapter" data-level="6.5.5" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-d-prime"><i class="fa fa-check"></i><b>6.5.5</b> The d’ measure</a></li>
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-true"><i class="fa fa-check"></i><b>6.6</b> Partial AUC vs. true performance</a></li>
 <li class="chapter" data-level="6.7" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-illustrative-plots"><i class="fa fa-check"></i><b>6.7</b> Illustrative plots</a></li>
@@ -1277,7 +1279,7 @@ Cov(X,Y) =\frac{\sum_{i=1}^{N}(x_{i}-x_{\bullet})(y_{i}-y_{\bullet})}{N-1}=E(XY)
 <span id="cb114-5"><a href="or-method-intro.html#cb114-5"></a>           <span class="st">&quot;ORBoot:ddf&quot;</span> =<span class="st"> </span>ret4<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;DF&quot;</span>], </span>
 <span id="cb114-6"><a href="or-method-intro.html#cb114-6"></a>           <span class="st">&quot;ORBoot:P-val&quot;</span> =<span class="st"> </span>ret4<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;p&quot;</span>])</span></code></pre></div>
 <pre><code>##   ORBoot.Chisq ORBoot.ddf ORBoot.P.val
-## 1    1.1626389          1   0.28091892</code></pre>
+## 1    1.2852823          1   0.25691919</code></pre>
 <p>The DBM and OR-jackknife methods yield identical F-statistics, but the denominator degrees of freedom are different, <span class="math inline">\((I-1)(K-1)\)</span> = 113 for DBM and <span class="math inline">\(\infty\)</span> for OR. The F-statistics for OR-bootstrap and OR-DeLong are different.</p>
 <p>Shown below is a first-principles implementation of OR significance testing for the one-reader case.</p>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="or-method-intro.html#cb116-1"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span></span>

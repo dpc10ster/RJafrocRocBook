@@ -273,8 +273,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-roc-curve"><i class="fa fa-check"></i><b>6.4</b> Binormal ROC curve</a></li>
 <li class="chapter" data-level="6.5" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-scalar-measure"><i class="fa fa-check"></i><b>6.5</b> Threshold-independent performance measure</a><ul>
 <li class="chapter" data-level="6.5.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc"><i class="fa fa-check"></i><b>6.5.1</b> Partial AUC</a></li>
-<li class="chapter" data-level="6.5.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-full-auc"><i class="fa fa-check"></i><b>6.5.2</b> Full AUC</a></li>
-<li class="chapter" data-level="6.5.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-d-prime"><i class="fa fa-check"></i><b>6.5.3</b> The d’ measure</a></li>
+<li class="chapter" data-level="6.5.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-meaning-partial-auc"><i class="fa fa-check"></i><b>6.5.2</b> Meaning of partial AUC</a></li>
+<li class="chapter" data-level="6.5.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc-recommendation"><i class="fa fa-check"></i><b>6.5.3</b> Full AUC</a></li>
+<li class="chapter" data-level="6.5.4" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-full-auc"><i class="fa fa-check"></i><b>6.5.4</b> Full AUC</a></li>
+<li class="chapter" data-level="6.5.5" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-d-prime"><i class="fa fa-check"></i><b>6.5.5</b> The d’ measure</a></li>
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-true"><i class="fa fa-check"></i><b>6.6</b> Partial AUC vs. true performance</a></li>
 <li class="chapter" data-level="6.7" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-illustrative-plots"><i class="fa fa-check"></i><b>6.7</b> Illustrative plots</a></li>
@@ -774,29 +776,29 @@ TPF &amp;= \Phi\left ( a - b \zeta \right )
 </div>
 <div id="binormal-model-scalar-measure" class="section level2 hasAnchor">
 <h2><span class="header-section-number">6.5</span> Threshold-independent performance measure<a href="binormal-model.html#binormal-model-scalar-measure" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Sensitivity and specificity is a dual (two-valued) measure of performance. Using a dual measure it is difficult to unambiguously compare two systems. For example, if sensitivity is higher for one system but specificity is higher for another, this could be due to the first system using a lower threshold (sensitivity and specificity are affected in opposite directions by a changing threshold). Desirable is a scalar (one-valued) measure of performance that takes this variation into account and therefore does not depend on any specific threshold.</p>
-<p>Generally accepted measures are the partial-area <span class="math inline">\(A_{z;c}\)</span> under the ROC, Eqn. <a href="binormal-model.html#eq:binormal-model-partial-area-final">(6.15)</a>, the full-area <span class="math inline">\(A_z\)</span> under the ROC, Eqn. <a href="binormal-model.html#eq:binormal-model-ab-2az">(6.18)</a>, and the <span class="math inline">\(d&#39;\)</span> index Eqn. <a href="binormal-model.html#eq:binormal-model-ab-2dprime">(6.19)</a>.</p>
-<p>Before deriving analytical expressions for these measures let us further examine the premise that sensitivity-specificity is undesirable because it is a two-valued measure. A trivial way to convert a two-valued measure to a scalar measure is to sum the two values: high sensitivity and high specificity are both desirable, so a high value of their sum is certainly also desirable. In fact this is the basis for the Youden index, defined as sensitivity plus specificity minus one <span class="citation">(Youden <a href="#ref-youden1950index" role="doc-biblioref">1950</a>)</span> – subtracting one makes the Youden index range from 0 to 1. However, this index varies with the position of the operating point on the ROC curve - from zero at the bottom-left corner of the ROC, rising to a maximum near the top-left, and falling to zero at the top-right. (The operating point at which it is maximum is sometimes regarded as the optimal operating point on the ROC curve.)</p>
-<p>To emphasize, we desire a scalar measure that is independent of threshold.</p>
+<p>A sensitivity-specificity pair is a two-valued measure of performance. Using such a measure it is difficult to unambiguously compare two systems. For example, if sensitivity is higher for one system but specificity is higher for another, this could be due to the first system using a lower threshold (since sensitivity and specificity are affected in opposite directions by a changing threshold). Desirable is a scalar (one-valued) measure of performance that does not depend on any specific threshold.</p>
+<p>Generally accepted measures are the partial-area <span class="math inline">\(A_{z;c}\)</span> under the ROC, Eqn. <a href="binormal-model.html#eq:binormal-model-partial-area-final">(6.15)</a>, the full-area <span class="math inline">\(A_z\)</span> under the ROC, Eqn. <a href="binormal-model.html#eq:binormal-model-ab-2az">(6.19)</a>, and the <span class="math inline">\(d&#39;\)</span> index, Eqn. <a href="binormal-model.html#eq:binormal-model-ab-2dprime">(6.20)</a>.</p>
+<p>Before deriving analytical expressions for these measures let us further examine the premise that sensitivity-specificity is undesirable because it is a two-valued measure. A trivial way to convert a two-valued measure to a scalar measure is to sum the two values: high sensitivity and high specificity are both desirable, so a high value of their sum is certainly also desirable. In fact this is the basis for the Youden index, defined as sensitivity plus specificity minus one <span class="citation">(Youden <a href="#ref-youden1950index" role="doc-biblioref">1950</a>)</span> – subtracting one makes the Youden index range from 0 to 1. However, this index varies with the position of the operating point on the ROC curve - from zero at the bottom-left corner of the ROC, rising to a maximum near the top-left, and falling to zero at the top-right. (The operating point at which it is maximum is sometimes regarded as the optimal operating point on the ROC curve. This issue is examined in detail in the chapter on optimal operating point in <code>RJafrocFrocBook</code>.)</p>
+<p>To emphasize, we desire a scalar measure that is independent of threshold. This is approached in two steps in the following section.</p>
 <div id="binormal-model-partial-auc" class="section level3 hasAnchor">
 <h3><span class="header-section-number">6.5.1</span> Partial AUC<a href="binormal-model.html#binormal-model-partial-auc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>While this is a scalar measure, it does depend on choice of operating point. It is included here as it yields, as a special case, a scalar measure that does not depend on choice of operating point. The details are in Section <a href="binormal-model.html#binormal-model-partial-auc-derivation">6.12.1</a>, which derives the formula for the partial-area using the unequal-variance binormal model. The final result is:</p>
+<p>A partial area under the ROC can be defined as that extending from <span class="math inline">\(\text{FPF} = 0\)</span> to <span class="math inline">\(\text{FPF} = c\)</span>, where <span class="math inline">\(c \le 1\)</span>. This scalar measure depends on the choice of operating point. As a special case – namely, for <span class="math inline">\(c=1\)</span> – it yields a scalar measure that (trivially) does not depend on choice of operating point. The details are in Section <a href="binormal-model.html#binormal-model-partial-auc-derivation">6.12.1</a>, which derives the formula for the partial-area using the unequal-variance binormal model. The final result is:</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-final">\[\begin{equation}
 A_{z;c} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
 \tag{6.15}
 \end{equation}\]</span></p>
-<p>The threshold <span class="math inline">\(\zeta_1\)</span> corresponding to <span class="math inline">\(FPF = c\)</span> is given by:</p>
+<p>The threshold <span class="math inline">\(\zeta_1\)</span> corresponding to <span class="math inline">\(\text{FPF} = c\)</span> is given by:</p>
 <p><span class="math display" id="eq:binormal-model-zeta-c-relation">\[\begin{equation} 
 \zeta_1 = - \Phi^{-1}   \left ( c \right )
 \tag{6.16}
 \end{equation}\]</span></p>
-<p><span class="math inline">\(A_{z;c}\)</span> is the area under the partial ROC curve extending from <span class="math inline">\(FPF = 0\)</span> to <span class="math inline">\(FPF = c\)</span> and <span class="math inline">\(\phi\left ( z_1,z_2;\rho \right )\)</span> is the standard bivariate normal distribution, where the correlation coefficient <span class="math inline">\(\rho\)</span> of the distribution is defined by:</p>
+<p><span class="math inline">\(A_{z;c}\)</span> is the area under the partial ROC curve extending from <span class="math inline">\(\text{FPF} = 0\)</span> to <span class="math inline">\(\text{FPF} = c\)</span> and <span class="math inline">\(\phi\left ( z_1,z_2;\rho \right )\)</span> is the standard bivariate normal distribution, where the correlation coefficient <span class="math inline">\(\rho\)</span> of the distribution is defined by:</p>
 <p><span class="math display" id="eq:binormal-model-rho-final">\[\begin{equation}
 \rho = - \frac{b}{\sqrt{1+b^2}}
 \tag{6.17}
 \end{equation}\]</span></p>
 <p>The bivariate (two-dimensional) integral can be evaluated numerically. The following code illustrates calculation of the partial-area measure using the function <code>pmvnorm</code> in <code>R</code> package <code>mvtnorm</code>. The following parameter values were used: <span class="math inline">\(a = 2\)</span>, <span class="math inline">\(b = 1\)</span> and <span class="math inline">\(\zeta_1 = 1.5\)</span>. (The parameter <span class="math inline">\(b\)</span> was deliberately chosen equal to one so that we do not have to worry about improper ROC curves.)</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb29-1"><a href="binormal-model.html#cb29-1"></a>a &lt;-<span class="st"> </span><span class="dv">2</span>;b &lt;-<span class="st"> </span><span class="dv">1</span>; zeta1 &lt;-<span class="st"> </span><span class="fl">1.5</span></span>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb29-1"><a href="binormal-model.html#cb29-1"></a>a &lt;-<span class="st"> </span><span class="dv">2</span>;b &lt;-<span class="st"> </span><span class="dv">1</span>; zeta1 &lt;-<span class="st"> </span><span class="fl">1.5</span><span class="co">#;zeta1 &lt;- -3.5</span></span>
 <span id="cb29-2"><a href="binormal-model.html#cb29-2"></a>A_z &lt;-<span class="st"> </span><span class="kw">pnorm</span>(a<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>b<span class="op">^</span><span class="dv">2</span>))</span>
 <span id="cb29-3"><a href="binormal-model.html#cb29-3"></a>opPtx &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span>zeta1)</span>
 <span id="cb29-4"><a href="binormal-model.html#cb29-4"></a>opPty &lt;-<span class="st"> </span><span class="kw">pnorm</span>(a <span class="op">-</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span>zeta1)</span>
@@ -809,24 +811,39 @@ A_{z;c} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^
 <span id="cb29-11"><a href="binormal-model.html#cb29-11"></a>A_zc &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">pmvnorm</span>(</span>
 <span id="cb29-12"><a href="binormal-model.html#cb29-12"></a>  <span class="kw">c</span>(Lower1, Lower2), </span>
 <span id="cb29-13"><a href="binormal-model.html#cb29-13"></a>  <span class="kw">c</span>(Upper1, Upper2), </span>
-<span id="cb29-14"><a href="binormal-model.html#cb29-14"></a>  <span class="dt">sigma =</span> sigma))</span></code></pre></div>
-<p>The partial-area measure is <span class="math inline">\(A_{z;c}\)</span> = 0.0352195. The corresponding full-area measure is <span class="math inline">\(A_z\)</span> = 0.9213504. <span class="math inline">\(A_{z;c}\)</span> is small because the reporting threshold is high. However, <span class="math inline">\(A_{z;c}\)</span> should not be confused with true performance of the observer, as shown in Section <a href="binormal-model.html#binormal-model-partial-true">6.6</a>.</p>
+<span id="cb29-14"><a href="binormal-model.html#cb29-14"></a>  <span class="dt">sigma =</span> sigma))</span>
+<span id="cb29-15"><a href="binormal-model.html#cb29-15"></a></span>
+<span id="cb29-16"><a href="binormal-model.html#cb29-16"></a>A_zc_norm &lt;-<span class="st"> </span>A_zc<span class="op">/</span><span class="kw">pnorm</span>(<span class="op">-</span>zeta1)<span class="op">/</span><span class="kw">pnorm</span>(a <span class="op">-</span><span class="st"> </span>b<span class="op">*</span>zeta1)</span></code></pre></div>
+<p>The partial-area measure is <span class="math inline">\(A_{z;c}\)</span> = 0.0352195. The corresponding full-area measure is <span class="math inline">\(A_z\)</span> = 0.9213504. <span class="math inline">\(A_{z;c}\)</span> is small because the reporting threshold <span class="math inline">\(\zeta_1 = 1.5\)</span> is high. <span class="math inline">\(A_{z;c}\)</span> should not be confused with true performance of the observer, as shown in Section <a href="binormal-model.html#binormal-model-partial-true">6.6</a>.</p>
+</div>
+<div id="binormal-model-meaning-partial-auc" class="section level3 hasAnchor">
+<h3><span class="header-section-number">6.5.2</span> Meaning of partial AUC<a href="binormal-model.html#binormal-model-meaning-partial-auc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The partial AUC measure has a simple <em>geometric</em> meaning. A <em>physically</em> meaningful quantity can be derived from it as follows. <em>Consider the truncated dataset where all z-samples smaller than <span class="math inline">\(\zeta_1\)</span> are ignored</em>. A binormal model based ROC curve can be defined over the truncated dataset and the area under it is the normalized partial area measure, denoted <span class="math inline">\(A_{z;c;norm}\)</span>. For the above code example, <span class="math inline">\(A_{z;c;norm}\)</span> = 0.7624153. This quantity has the following physical meaning: it is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset. As <span class="math inline">\(\zeta_1 \rightarrow -\infty\)</span> the three measures become identical.</p>
+<p><span class="math display" id="eq:binormal-model-normalized-partial-auc">\[\begin{equation}
+A_{z;c;norm} = \frac{A_{z;c}}{\text{TPF}_c \times \text{FPF}_c}
+\tag{6.18}
+\end{equation}\]</span></p>
+<p>In this equation <span class="math inline">\(\text{TPF}_c\)</span> is the ordinate and <span class="math inline">\(\text{FPF}_c\)</span> is the abscissa at the designated value of <span class="math inline">\(c\)</span>.</p>
+</div>
+<div id="binormal-model-partial-auc-recommendation" class="section level3 hasAnchor">
+<h3><span class="header-section-number">6.5.3</span> Full AUC<a href="binormal-model.html#binormal-model-partial-auc-recommendation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Some researchers have recommended usage of the partial area measure on the grounds that it emphasizes the clinically relevant part of the ROC curve, by which they mean the initial steep portion, i.e., near the origin. I disagree. The partial area measure ignores all cases with z-samples smaller than that corresponding to <span class="math inline">\(c\)</span>, i.e., <span class="math inline">\(\Phi^{-1}(-c)\)</span>. This is a bad idea for several reasons. (1) There is an inevitable statistical power penalty that results from the reduced number of cases. (2) The z-samples corresponding to the steep portion of the curve are those of relatively easy cases (high z-samples).</p>
 </div>
 <div id="binormal-model-full-auc" class="section level3 hasAnchor">
-<h3><span class="header-section-number">6.5.2</span> Full AUC<a href="binormal-model.html#binormal-model-full-auc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>A special case of this formula is the area under the full ROC curve, shown below using both parameterizations of the binormal model:</p>
+<h3><span class="header-section-number">6.5.4</span> Full AUC<a href="binormal-model.html#binormal-model-full-auc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A special case of the partial AUC formula is the area under the full ROC curve, shown below using both parameterizations of the binormal model:</p>
 <p><span class="math display" id="eq:binormal-model-ab-2az">\[\begin{equation} 
 A_z=\Phi\left ( \frac{a}{\sqrt{1+b^2}} \right )=\Phi\left ( \frac{\mu}{\sqrt{1+\sigma^2}} \right )
-\tag{6.18}
+\tag{6.19}
 \end{equation}\]</span></p>
 <p>The binormal fitted AUC increases as <span class="math inline">\(a\)</span> increases or as <span class="math inline">\(b\)</span> decreases. Equivalently, it increases as <span class="math inline">\(\mu\)</span> increases or as <span class="math inline">\(\sigma\)</span> decreases. In the example just given, the full AUC is <span class="math inline">\(A_z\)</span> = 0.9213504.</p>
 </div>
 <div id="binormal-model-d-prime" class="section level3 hasAnchor">
-<h3><span class="header-section-number">6.5.3</span> The d’ measure<a href="binormal-model.html#binormal-model-d-prime" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">6.5.5</span> The d’ measure<a href="binormal-model.html#binormal-model-d-prime" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <span class="math inline">\(d&#39;\)</span> parameter is defined as the separation of two unit-variance normal distributions yielding the same AUC as that predicted by the <span class="math inline">\((a,b)\)</span> parameter binormal model. It is defined by:</p>
 <p><span class="math display" id="eq:binormal-model-ab-2dprime">\[\begin{equation} 
 d&#39;=\sqrt{2}\Phi^{-1}\left ( A_z \right )
-\tag{6.19}
+\tag{6.20}
 \end{equation}\]</span></p>
 <p>The d’ index corresponding to the above binormal parameters is 2. The transformation from an index that ranges from 0.5 to 1 to one that ranges from 0 to infinity can be viewed as desirable. The d’ index can be regarded as a perceptual signal-to-noise-ratio.</p>
 </div>
@@ -841,13 +858,13 @@ d&#39;=\sqrt{2}\Phi^{-1}\left ( A_z \right )
 </ul>
 <p><span class="math display" id="eq:binormal-model-partial-area-true-performance">\[\begin{equation} 
 A_{z;c,\text{TRUE}} = A_{z;c} + \frac {\left ( 1 - FPF \right ) \left ( 1 + TPF \right )}{2}
-\tag{6.20}
+\tag{6.21}
 \end{equation}\]</span></p>
 <p>In other words one adds to <span class="math inline">\(A_{z;c}\)</span> the area of the trapezoid with bases each equal to <span class="math inline">\((1 - FPF)\)</span> and opposing sides equal to <span class="math inline">\(TPF\)</span> and unity.</p>
 <p>Since the partial-area observer does not preserve ordering information, <em>true performance of a partial-area observer is smaller than performance <span class="math inline">\(A_z\)</span> of a full-area observer</em>.</p>
 <p><span class="math display" id="eq:binormal-model-true-performance-az-inequality">\[\begin{equation} 
 A_{z;c,\text{TRUE}} \le A_{z}
-\tag{6.21}
+\tag{6.22}
 \end{equation}\]</span></p>
 <p>True performance is illustrated with the following simulation 2AFC study. The <code>Wilcoxon</code> function, defined next, can be thought of as the mathematical equivalent of a 2AFC study, conducted with all possible pairings of non-diseased and diseased cases. For each pairing, if the z-sample of the diseased case exceeds that of the non-diseased case one adds unity to a zero-initialized counter; if it is smaller one does nothing; if they are equal one adds 0.5; and finally one divides by the number of comparisons.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb30-1"><a href="binormal-model.html#cb30-1"></a>Wilcoxon &lt;-<span class="st"> </span><span class="cf">function</span> (zk1, zk2)</span>
@@ -872,9 +889,9 @@ A_{z;c,\text{TRUE}} \le A_{z}
 <span id="cb31-7"><a href="binormal-model.html#cb31-7"></a>zc[<span class="dv">2</span>,z[<span class="dv">2</span>,] <span class="op">&lt;</span><span class="st"> </span>zeta1] &lt;-<span class="st"> </span><span class="dv">-100</span> <span class="co"># do:</span></span></code></pre></div>
 <p>The following code prints the predicted and observed full areas under the ROCs followed by the predicted and observed true performances. With this many cases sampling variability is small and the predicted and observed values are close.</p>
 <pre><code>#&gt; A_z predicted =  0.9213504 
-#&gt; A_z observed =  0.9232929
+#&gt; A_z observed =  0.9197378
 #&gt; A_z{c;true} predicted =  0.8244498 
-#&gt; A_z{c;true} observed =  0.825137</code></pre>
+#&gt; A_z{c;true} observed =  0.8237192</code></pre>
 <p>Note that:</p>
 <ul>
 <li><span class="math inline">\(A_{z;c,\text{TRUE}} &lt; A_z\)</span>, because ordering information is lost for all cases with z-samples less than <span class="math inline">\(\zeta_1\)</span>.</li>
@@ -929,7 +946,7 @@ FIGURE 6.3: The left panel shows the visibly improper ROC curve for a = 1 and b 
 + C_{\text{TN}} P(\text{TN})
 + C_{\text{FP}} P(\text{FP})
 + C_{\text{FN}} P(\text{FN})
-\tag{6.22}
+\tag{6.23}
 \end{equation}\]</span></p>
 <p>In this equation <span class="math inline">\(P(\text{TP})\)</span> is the probability of a TP-event, etc. These probabilities are related to disease prevalence <span class="math inline">\(P(+)\)</span> and the operating point by:</p>
 <p><span class="math display" id="eq:binormal-model-cost2">\[\begin{equation} 
@@ -941,19 +958,19 @@ P(\text{FP}) =&amp; (1-P(+)) \text{FPF} \\
 P(\text{FN}) =&amp; P(+) (1-\text{TPF}) 
 \end{aligned}
 \right \}
-\tag{6.23}
+\tag{6.24}
 \end{equation}\]</span></p>
 <p>With these substitutions one gets for the average cost:</p>
 <p><span class="math display" id="eq:binormal-model-cost3">\[\begin{equation} 
 \overline{C} = C_0 + C_{\text{TN}} P(-) + C_{\text{FN}}  P(+) \\
 + (C_{\text{TP}} - C_{\text{FN}}) P(+) \text{TPF} \\
 + (C_{\text{FP}} - C_{\text{TN}}) P(-) \text{FPF} \\
-\tag{6.24}
+\tag{6.25}
 \end{equation}\]</span></p>
 <p>Equating the derivative of the average cost to zero, to minimize the average cost, one gets:</p>
 <p><span class="math display" id="eq:binormal-model-cost4">\[\begin{equation} 
 \frac{d(\text{TPF})}{d(\text{FPF})} = \frac{C_{\text{FP}} - C_{\text{TN}}}{C_{\text{FN}} - C_{\text{TP}}}\frac{P(-)}{P(+)}
-\tag{6.25}
+\tag{6.26}
 \end{equation}\]</span></p>
 <p>This defines the slope <span class="math inline">\(\frac{d(\text{TPF})}{d(\text{FPF})}\)</span> of the ROC at the optimal operating point, i.e., the point that minimizes the average cost of the examination. Note that <span class="math inline">\(P(-) = 1 - P(+)\)</span>.</p>
 <ul>
@@ -961,7 +978,7 @@ P(\text{FN}) =&amp; P(+) (1-\text{TPF})
 <li><p>For a given disease prevalence, if the cost of a FP decision is high (or if the benefit of a TN is high - recall that a benefit is the same as a negative cost), then the optimal operating point is where the slope of the ROC is high, which is near the lower-left corner. One sets the operating point at low sensitivity and high specificity.</p></li>
 <li><p>For a given disease prevalence, if the cost of a FN decision is high (or if the benefit of a TP is high), then the optimal operating point is where the slope of the ROC is low, which is near the upper-right corner. One sets the operating point at high sensitivity and low specificity.</p></li>
 </ul>
-<p>The costs and benefits are often difficult to quantify. If one assumes that the right hand side of Eqn. <a href="binormal-model.html#eq:binormal-model-cost4">(6.25)</a> equals unity (e.g., the four costs / benefits are equal and disease-prevalence is 50%) then the optimal operating point is defined by that point on the ROC curve where the slope is unity, which is the point of nearest approach of the curve to the upper-left corner. This corresponds to maximizing the Youden index <span class="citation">(Youden <a href="#ref-youden1950index" role="doc-biblioref">1950</a>)</span>, defined as the sum of sensitivity and specificity minus one. This is demonstrated in the following code.</p>
+<p>The costs and benefits are often difficult to quantify. If one assumes that the right hand side of Eqn. <a href="binormal-model.html#eq:binormal-model-cost4">(6.26)</a> equals unity (e.g., the four costs / benefits are equal and disease-prevalence is 50%) then the optimal operating point is defined by that point on the ROC curve where the slope is unity, which is the point of nearest approach of the curve to the upper-left corner. This corresponds to maximizing the Youden index <span class="citation">(Youden <a href="#ref-youden1950index" role="doc-biblioref">1950</a>)</span>, defined as the sum of sensitivity and specificity minus one. This is demonstrated in the following code.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="binormal-model.html#cb34-1"></a>a &lt;-<span class="st"> </span><span class="dv">2</span>;b &lt;-<span class="st"> </span><span class="dv">1</span></span>
 <span id="cb34-2"><a href="binormal-model.html#cb34-2"></a>z &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>,<span class="fl">5.5</span>,<span class="fl">0.05</span>)</span>
 <span id="cb34-3"><a href="binormal-model.html#cb34-3"></a>FPF &lt;-<span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span>z)</span>
@@ -1031,17 +1048,17 @@ pdf_D\left ( \zeta \right ) = b\phi\left ( b\zeta-a \right ) = \frac{b}{\sqrt{2 
 <p>This section is based on <span class="citation">(Thompson and Zucchini <a href="#ref-thompson1989statistical" role="doc-biblioref">1989</a>)</span>. In what follows, FPF is abbreviates to x and TPF to y. Then the equation for the ROC curve is <a href="binormal-model.html#eq:binormal-model-roc-curve">(6.13)</a>:</p>
 <p><span class="math display" id="eq:binormal-model-xy">\[\begin{equation} 
 y=\Phi\left ( a + b \Phi^{-1} \left ( x \right ) \right )
-\tag{6.26}
+\tag{6.27}
 \end{equation}\]</span></p>
 <p>The partial-area under the ROC curve from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = c\)</span>, where <span class="math inline">\(0 ≤ c ≤ 1\)</span>, is given by:</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-1">\[\begin{equation} 
 A_{z;c} = \int_{0}^{c} y dx =  \int_{0}^{c} dx \Phi\left ( a + b \Phi^{-1} \left ( x \right ) \right ) 
-\tag{6.27}
+\tag{6.28}
 \end{equation}\]</span></p>
 <p>Define change of variable:</p>
 <p><span class="math display" id="eq:binormal-model-change-variable-1">\[\begin{equation} 
 x = \Phi\left ( x_1 \right )
-\tag{6.28}
+\tag{6.29}
 \end{equation}\]</span></p>
 <p>which implies:</p>
 <p><span class="math display" id="eq:binormal-model-dx-dx1">\[\begin{equation}
@@ -1051,7 +1068,7 @@ x_1 = &amp;  \Phi^{-1}\left ( x \right ) \\
 dx = &amp;  dx_1 \phi\left ( x_1 \right )
 \end{aligned}
 \right \}
-\tag{6.29}
+\tag{6.30}
 \end{equation}\]</span></p>
 <p>This yields:</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-2">\[\begin{equation}
@@ -1061,12 +1078,12 @@ A_{z;c} = &amp;  \int_{0}^{c} dx \Phi \left ( a + b x_1 \right )\\
  = &amp;  \int_{-\infty}^{\Phi^{-1}\left ( c \right )} dx_1 \phi\left ( x_1 \right )\Phi \left ( a + b x_1 \right )
 \end{aligned}
 \right \}
-\tag{6.30}
+\tag{6.31}
 \end{equation}\]</span></p>
-<p>The right hand side of Eqn. <a href="binormal-model.html#eq:binormal-model-partial-area-2">(6.30)</a> can be expressed as an integral over the bivariate normal distribution as follows. From the definition of the <span class="math inline">\(\Phi\)</span> function the above integral can be written as the following double integral:</p>
+<p>The right hand side of Eqn. <a href="binormal-model.html#eq:binormal-model-partial-area-2">(6.31)</a> can be expressed as an integral over the bivariate normal distribution as follows. From the definition of the <span class="math inline">\(\Phi\)</span> function the above integral can be written as the following double integral:</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-double-integral-1">\[\begin{equation}
 A_{z;c} = \int_{x_1=-\infty}^{\Phi^{-1}\left ( c \right )} dx_1 \phi\left ( x_1 \right ) \int_{x_2=-\infty}^{a+bx_1} \phi\left ( x_2 \right ) dx_2
-\tag{6.31}
+\tag{6.32}
 \end{equation}\]</span></p>
 <p>Change variables from <span class="math inline">\((x_1, x_2)\)</span> to <span class="math inline">\((z_1, z_2)\)</span> as follows:</p>
 <p><span class="math display" id="eq:binormal-model-change-variable-2">\[\begin{equation}
@@ -1076,12 +1093,12 @@ z_2= &amp;  x_1 \\
 z_1= &amp;  \left ( x_2 - b x_1 \right ) f
 \end{aligned}
 \right \}
-\tag{6.32}
+\tag{6.33}
 \end{equation}\]</span></p>
 <p>Here <span class="math inline">\(f\)</span> is a quantity to be determined, which will allow us to complete the transformation to the desired bivariate integral. The second equation above can be written as:</p>
 <p><span class="math display" id="eq:binormal-model-dx2-z1-f">\[\begin{equation}
 x_2= \frac{z_1}{f} + bx_1 = \frac{z_1}{f}  + bz_2
-\tag{6.33}
+\tag{6.34}
 \end{equation}\]</span></p>
 <p>The Jacobian <span class="citation">(Stein and Barcellos <a href="#ref-stein1992calculus" role="doc-biblioref">1992</a>)</span> of the transformation is</p>
 <p><span class="math display" id="eq:binormal-model-jacobian">\[\begin{equation}
@@ -1089,78 +1106,78 @@ J = \left (\begin{matrix}
 0 &amp; 1\\ 
 \frac{1}{f} &amp; b
 \end{matrix}
-  \right )\tag{6.34}
+  \right )\tag{6.35}
 \end{equation}\]</span></p>
 <p>The magnitude of the determinant of J is <span class="math inline">\(1/f\)</span>.</p>
 <p>From a theorem in calculus <span class="citation">(Stein and Barcellos <a href="#ref-stein1992calculus" role="doc-biblioref">1992</a>)</span>, the double integral over <span class="math inline">\((x_1,x_2)\)</span> can be expressed in terms of a double integral over <span class="math inline">\((z_1,z_2)\)</span> as follows:</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-double-integral-2">\[\begin{equation}
 A_{z;c} = \frac{1}{f}\int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )} dz_2 \phi\left ( z_2 \right ) \int_{z_1=-\infty}^{z_{1}^{UL}} \phi\left ( \frac{z_1}{f} + b z_2\right ) dz_1
-\tag{6.35}
-\end{equation}\]</span></p>
-<p>The upper limit of the inner integral can be calculated as follows. Using the second equation in Eqn. <a href="binormal-model.html#eq:binormal-model-change-variable-2">(6.32)</a>:</p>
-<p><span class="math display" id="eq:binormal-model-upper-limit-simplified">\[\begin{equation}
-z_{1}^{UL}=\left ( x_{2}^{UL} - b x_1\right ) f = \left ( a+b x_1-bx_1 \right ) f = af
 \tag{6.36}
 \end{equation}\]</span></p>
-<p>Eqn. <a href="binormal-model.html#eq:binormal-model-partial-area-double-integral-2">(6.35)</a> simplifies to:</p>
+<p>The upper limit of the inner integral can be calculated as follows. Using the second equation in Eqn. <a href="binormal-model.html#eq:binormal-model-change-variable-2">(6.33)</a>:</p>
+<p><span class="math display" id="eq:binormal-model-upper-limit-simplified">\[\begin{equation}
+z_{1}^{UL}=\left ( x_{2}^{UL} - b x_1\right ) f = \left ( a+b x_1-bx_1 \right ) f = af
+\tag{6.37}
+\end{equation}\]</span></p>
+<p>Eqn. <a href="binormal-model.html#eq:binormal-model-partial-area-double-integral-2">(6.36)</a> simplifies to:</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-double-integral-3">\[\begin{equation}
 A_{z;c} = \frac{1}{f}\int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )} dz_2 \phi\left ( z_2 \right ) \int_{z_1=-\infty}^{af} \phi\left ( \frac{z_1}{f} + b z_2\right ) dz_1
-\tag{6.37}
+\tag{6.38}
 \end{equation}\]</span></p>
 <p>Perform a change of variable from <span class="math inline">\(f\)</span> to a correlation-like quantity <span class="math inline">\(\rho\)</span> defined by:</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-rho2">\[\begin{equation}
 f= \sqrt{1-\rho^2}
-\tag{6.38}
+\tag{6.39}
 \end{equation}\]</span></p>
 <p>Define <span class="math inline">\(\rho\)</span> in terms of the b-parameter as follows:</p>
 <p><span class="math display" id="eq:binormal-model-partial-b-rho">\[\begin{equation}
 b\sqrt{1-\rho^2} = - \rho
-\tag{6.39}
+\tag{6.40}
 \end{equation}\]</span></p>
 <p>This implies that <span class="math inline">\(\rho\)</span> is given by:</p>
 <p><span class="math display" id="eq:binormal-model-rho-final1">\[\begin{equation}
 \rho = - \frac{b}{\sqrt{1+b^2}}
-\tag{6.40}
+\tag{6.41}
 \end{equation}\]</span></p>
-<p>The argument of the right-most <span class="math inline">\(\phi\)</span> function in Eqn. <a href="binormal-model.html#eq:binormal-model-partial-area-double-integral-3">(6.37)</a> simplifies as follows:</p>
+<p>The argument of the right-most <span class="math inline">\(\phi\)</span> function in Eqn. <a href="binormal-model.html#eq:binormal-model-partial-area-double-integral-3">(6.38)</a> simplifies as follows:</p>
 <p><span class="math display" id="eq:binormal-model-partial-simplification">\[\begin{equation}
 \frac{z_1}{f} + bz_2 = \frac{z_1 + b z_2 \sqrt{1-\rho^2}}{\sqrt{1-\rho^2}} = \frac{z_1 - \rho z_2}{\sqrt{1-\rho^2}}
-\tag{6.41}
+\tag{6.42}
 \end{equation}\]</span></p>
 <p>The expression for the partial-area under the ROC reduces to:</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-double-integral-4">\[\begin{equation}
 A_{z;c} = \frac{1}{\sqrt{1-\rho^2}}\int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )} dz_2 \phi\left ( z_2 \right ) \int_{z_1=-\infty}^{a\sqrt{1-\rho^2}} \phi\left ( \frac{z_1 - \rho z_2}{\sqrt{1-\rho^2}}\right ) dz_1
-\tag{6.42}
+\tag{6.43}
 \end{equation}\]</span></p>
-<p>Eqn. <a href="binormal-model.html#eq:binormal-model-partial-b-rho">(6.39)</a> implies:</p>
+<p>Eqn. <a href="binormal-model.html#eq:binormal-model-partial-b-rho">(6.40)</a> implies:</p>
 <p><span class="math display" id="eq:binormal-model-simplification-4">\[\begin{equation}
 1 - \rho^2 = \frac{1}{1+b^2}\\
-\tag{6.43}
+\tag{6.44}
 \end{equation}\]</span></p>
 <p>Therefore,</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-double-integral-5">\[\begin{equation}
 A_{z;c} = \frac{1}{\sqrt{1-\rho^2}}\int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )} dz_2 \phi\left ( z_2 \right ) \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( \frac{z_1 - \rho z_2}{\sqrt{1-\rho^2}}\right ) dz_1
-\tag{6.44}
+\tag{6.45}
 \end{equation}\]</span></p>
 <p>The standard bivariate normal distribution with correlation coefficient <span class="math inline">\(\rho\)</span> is defined by:</p>
 <p><span class="math display" id="eq:binormal-model-definition-standard-bivariate-distribution">\[\begin{equation}
 \phi\left ( z_1,z_2;\rho \right ) = \frac{1}{2 \pi \sqrt{1-\rho^2}} \exp  \left ( -\frac{z_1^2 - 2 \rho z_1 z_2 + z_2^2}{2(1-\rho^2)}  \right )
-\tag{6.45}
+\tag{6.46}
 \end{equation}\]</span></p>
 <p>The standard normal distribution is defined by:</p>
 <p><span class="math display" id="eq:binormal-model-definition-standard-normal-distribution">\[\begin{equation}
 \phi\left ( z\right ) = \frac{1}{\sqrt{2 \pi }} \exp  \left ( -\frac{z^2}{2}  \right )
-\tag{6.46}
+\tag{6.47}
 \end{equation}\]</span></p>
 <p>It can be shown using these definitions that:</p>
 <p><span class="math display" id="eq:binormal-model-standard-bivariate-distribution-2">\[\begin{equation}
 \phi\left ( z_1,z_2;\rho \right ) = \frac{1}{\sqrt{1-\rho^2}}\phi\left ( z_2 \right )\phi\left ( \frac{z_1-\rho z_2}{\sqrt{1-\rho^2}} \right )
-\tag{6.47}
+\tag{6.48}
 \end{equation}\]</span></p>
 <p>Using this form the expression for the partial-area is:</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-final1">\[\begin{equation}
 A_{z;c} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
-\tag{6.48}
+\tag{6.49}
 \end{equation}\]</span></p>
 </div>
 <div id="binormal-model-total-auc" class="section level3 hasAnchor">
@@ -1174,7 +1191,7 @@ A_{z} = &amp; \int_{z_2=-\infty}^{\infty}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1
 = &amp; \Phi\left ( \frac{a}{\sqrt{1+b^2}} \right )
 \end{aligned}
 \right \}
-\tag{6.49}
+\tag{6.50}
 \end{equation}\]</span></p>
 <p>An equivalent forms for the total area under the unequal variance binormal ROC curve is:</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-special-case-2">\[\begin{equation}
@@ -1185,7 +1202,7 @@ A_{z} =  &amp; \Phi\left ( \frac{a}{\sqrt{1+b^2}} \right ) \\
 = &amp; \Phi\left ( \frac{\mu}{\sqrt{1 + \sigma^2}} \right )
 \end{aligned}
 \right \}
-\tag{6.50}
+\tag{6.51}
 \end{equation}\]</span></p>
 </div>
 </div>
@@ -1274,7 +1291,7 @@ A_{z} =  &amp; \Phi\left ( \frac{a}{\sqrt{1+b^2}} \right ) \\
 <p>The idea is to simulate continuous ratings data in the range 0 to 100 from a binormal model. <span class="math inline">\(K_1 = 900\)</span> non-diseased cases are sampled from a Gaussian centered at <span class="math inline">\(\mu_1\)</span> = 30 and standard deviation <span class="math inline">\(\sigma_1 = 7\)</span>. <span class="math inline">\(K_2 = 1000\)</span> diseased cases are sampled from a Gaussian centered at <span class="math inline">\(\mu_2\)</span> = 55 and standard deviation <span class="math inline">\(\sigma_2\)</span> = 7. The variable <span class="math inline">\(f\)</span>, which is in the range (0,1), controls the shape of the transformed distribution. If <span class="math inline">\(f\)</span> is small, the transformed distribution will be peaked towards 0 and if <span class="math inline">\(f\)</span> is unity, it will be peaked at 100. If <span class="math inline">\(f\)</span> equals 0.5, the transformed distribution is flat. Insight into the reason for this transformation is in <span class="citation">(Press et al. <a href="#ref-RN300" role="doc-biblioref">2007</a>)</span>, Chapter 7: it has to do with transformations of random variables. The transformation function, <span class="math inline">\(Y(Z)\)</span>, implements:</p>
 <p><span class="math display" id="eq:binormal-modelDemoMisconception">\[\begin{equation} 
 Y\left ( Z \right )=\left [ \left ( 1-f \right )\Phi\left ( \frac{Z-\mu_1}{\sigma_1} \right )+f\Phi\left ( \frac{Z-\mu_2}{\sigma_2} \right ) \right ]100
-\tag{6.51}
+\tag{6.52}
 \end{equation}\]</span></p>
 <p>The multiplication by 100 ensures that the transformed variable is in the range 0 to 100 (if not, it is code-constrained to be). The code realizes the random samples, calculates the empirical AUC, displays the histogram of the true binormal samples, plots the transformation function, calculates the empirical AUC using the transformed samples, and plots the histogram of the transformed samples (the latent binormal).</p>
 <ul>
@@ -1371,26 +1388,26 @@ P\left ( \text{count in diseased bin }r \right ) &amp;= \Phi\left ( \frac{\zeta_
 <p>Similar expressions apply for all integer values of <span class="math inline">\(r\)</span> ranging from <span class="math inline">\(1,2,...,R\)</span>. Therefore the probability of observing the entire data set is the product of expressions like Eqn. (6.4.5), over all values of <span class="math inline">\(r\)</span>:</p>
 <p><span class="math display" id="eq:binormal-modelProductProb">\[\begin{equation} 
 \prod_{r=1}^{R}\left [\left (\Phi\left ( \zeta_{r+1}  \right ) - \Phi\left ( \zeta_r  \right )  \right )^{K_{1r}} \left (\Phi\left ( b\zeta_{r+1}-a  \right ) - \Phi\left ( b\zeta_r-a  \right )  \right )^{K_{2r}}  \right ]
-\tag{6.52}
+\tag{6.53}
 \end{equation}\]</span></p>
 <p>We are almost there. A specific combination of <span class="math inline">\(K_{11},K_{12},...,K_{1R}\)</span> counts from <span class="math inline">\(K_1\)</span> non-diseased cases and counts <span class="math inline">\(K_{21},K_{22},...,K_{2R}\)</span> from <span class="math inline">\(K_2\)</span> diseased cases can occur the following number of times (given by the multinomial factor shown below):</p>
 <p><span class="math display" id="eq:binormal-modelCombFactor">\[\begin{equation} 
 \frac{K_1!}{\prod_{r=1}^{R}K_{1r}!}\frac{K_2!}{\prod_{r=1}^{R}K_{2r}!}
-\tag{6.53}
+\tag{6.54}
 \end{equation}\]</span></p>
-<p>The likelihood function is the product of Eqn. <a href="binormal-model.html#eq:binormal-modelProductProb">(6.52)</a> and Eqn. <a href="binormal-model.html#eq:binormal-modelCombFactor">(6.53)</a>:</p>
+<p>The likelihood function is the product of Eqn. <a href="binormal-model.html#eq:binormal-modelProductProb">(6.53)</a> and Eqn. <a href="binormal-model.html#eq:binormal-modelCombFactor">(6.54)</a>:</p>
 <p><span class="math display" id="eq:binormal-modelLikelihood">\[\begin{equation} 
 \begin{split}
 L\left ( a,b,\overrightarrow{\zeta} \right ) &amp;= \left (\frac{K_1!}{\prod_{r=1}^{R}K_{1r}!}\frac{K_2!}{\prod_{r=1}^{R}K_{2r}!}  \right ) \times \\
 &amp;\quad\prod_{r=1}^{R}\left [\left (\Phi\left ( \zeta_{r+1}  \right ) - \Phi\left ( \zeta_r  \right )  \right )^{K_{1r}} \left (\Phi\left ( b\zeta_{r+1}-a  \right ) - \Phi\left ( b\zeta_r-a  \right )  \right )^{K_{2r}}  \right ]
 \end{split}
-\tag{6.54}
+\tag{6.55}
 \end{equation}\]</span></p>
-<p>The left hand side of Eqn. <a href="binormal-model.html#eq:binormal-modelLikelihood">(6.54)</a> shows explicitly the dependence of the likelihood function on the parameters of the model, namely <span class="math inline">\(a,b,\overrightarrow{\zeta}\)</span>, where the vector of thresholds <span class="math inline">\(\overrightarrow{\zeta}\)</span> is a compact notation for the set of thresholds <span class="math inline">\(\zeta_1,\zeta_2,...,\zeta_R\)</span>, (note that since <span class="math inline">\(\zeta_0 = -\infty\)</span>, and <span class="math inline">\(\zeta_R = +\infty\)</span>, only <span class="math inline">\(R-1\)</span> free threshold parameters are involved, and the total number of free parameters in the model is <span class="math inline">\(R+1\)</span>). For example, for a 5-rating ROC study, the total number of free parameters is 6, i.e., <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> and 4 thresholds <span class="math inline">\(\zeta_1,\zeta_2,\zeta_3,\zeta_4\)</span>.</p>
-<p>Eqn. <a href="binormal-model.html#eq:binormal-modelLikelihood">(6.54)</a> is forbidding but here comes a simplification. The difference of probabilities such as <span class="math inline">\(\Phi\left ( \zeta_r \right )-\Phi\left ( \zeta_{r-1} \right )\)</span> is guaranteed to be positive and less than one [the <span class="math inline">\(\Phi\)</span> function is a probability, i.e., in the range 0 to 1, and since <span class="math inline">\(\zeta_r\)</span> is greater than <span class="math inline">\(\zeta_{r-1}\)</span>, the difference is positive and less than one]. When the difference is raised to the power of <span class="math inline">\(K_{1r}\)</span> (a non-negative integer) a very small number can result. Multiplication of all these small numbers may result in an even smaller number, which may be too small to be represented as a floating-point value, especially as the number of counts increases. To prevent this we resort to a trick. Instead of maximizing the likelihood function <span class="math inline">\(L\left ( a,b,\overrightarrow{\zeta} \right )\)</span> we choose to maximize the logarithm of the likelihood function (the base of the logarithm is immaterial). The logarithm of the likelihood function is:</p>
+<p>The left hand side of Eqn. <a href="binormal-model.html#eq:binormal-modelLikelihood">(6.55)</a> shows explicitly the dependence of the likelihood function on the parameters of the model, namely <span class="math inline">\(a,b,\overrightarrow{\zeta}\)</span>, where the vector of thresholds <span class="math inline">\(\overrightarrow{\zeta}\)</span> is a compact notation for the set of thresholds <span class="math inline">\(\zeta_1,\zeta_2,...,\zeta_R\)</span>, (note that since <span class="math inline">\(\zeta_0 = -\infty\)</span>, and <span class="math inline">\(\zeta_R = +\infty\)</span>, only <span class="math inline">\(R-1\)</span> free threshold parameters are involved, and the total number of free parameters in the model is <span class="math inline">\(R+1\)</span>). For example, for a 5-rating ROC study, the total number of free parameters is 6, i.e., <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> and 4 thresholds <span class="math inline">\(\zeta_1,\zeta_2,\zeta_3,\zeta_4\)</span>.</p>
+<p>Eqn. <a href="binormal-model.html#eq:binormal-modelLikelihood">(6.55)</a> is forbidding but here comes a simplification. The difference of probabilities such as <span class="math inline">\(\Phi\left ( \zeta_r \right )-\Phi\left ( \zeta_{r-1} \right )\)</span> is guaranteed to be positive and less than one [the <span class="math inline">\(\Phi\)</span> function is a probability, i.e., in the range 0 to 1, and since <span class="math inline">\(\zeta_r\)</span> is greater than <span class="math inline">\(\zeta_{r-1}\)</span>, the difference is positive and less than one]. When the difference is raised to the power of <span class="math inline">\(K_{1r}\)</span> (a non-negative integer) a very small number can result. Multiplication of all these small numbers may result in an even smaller number, which may be too small to be represented as a floating-point value, especially as the number of counts increases. To prevent this we resort to a trick. Instead of maximizing the likelihood function <span class="math inline">\(L\left ( a,b,\overrightarrow{\zeta} \right )\)</span> we choose to maximize the logarithm of the likelihood function (the base of the logarithm is immaterial). The logarithm of the likelihood function is:</p>
 <p><span class="math display" id="eq:binormal-modelLogLikelihood">\[\begin{equation} 
 LL\left ( a,b,\overrightarrow{\zeta} \right )=\log \left ( L\left ( a,b,\overrightarrow{\zeta} \right ) \right )
-\tag{6.55}
+\tag{6.56}
 \end{equation}\]</span></p>
 <p>Since the logarithm is a monotonically increasing function of its argument, maximizing the logarithm of the likelihood function is equivalent to maximizing the likelihood function. Taking the logarithm converts the product symbols in Eqn. (6.4.8) to summations, so instead of multiplying small numbers one is adding them, thereby avoiding underflow errors. Another simplification is that one can ignore the logarithm of the multinomial factor involving the factorials, because these do not depend on the parameters of the model. Putting all this together, we get the following expression for the logarithm of the likelihood function:</p>
 <p><span class="math display" id="eq:binormal-modelLL">\[\begin{equation} 
@@ -1398,9 +1415,9 @@ LL\left ( a,b,\overrightarrow{\zeta} \right )=\log \left ( L\left ( a,b,\overrig
 LL\left ( a,b,\overrightarrow{\zeta} \right ) \propto&amp; \sum_{r=1}^{R} K_{1r}\log \left ( \Phi\left ( \zeta_{r+1} \right ) - \Phi\left ( \zeta_r \right ) \right ) \\
 &amp;+ \sum_{r=1}^{R} K_{2r}\log \left ( \Phi\left (b \zeta_{r+1} - a \right ) - \Phi\left ( b \zeta_r - a \right ) \right ) 
 \end{split}
-\tag{6.56}
+\tag{6.57}
 \end{equation}\]</span></p>
-<p>The left hand side of Eqn. <a href="binormal-model.html#eq:binormal-modelLL">(6.56)</a> is a function of the model parameters <span class="math inline">\(a,b,\overrightarrow{\zeta}\)</span> and the observed data, the latter being the counts contained in the vectors <span class="math inline">\(\overrightarrow{K_1}\)</span> and <span class="math inline">\(\overrightarrow{K_2}\)</span>, where the vector notation is used as a compact form for the counts <span class="math inline">\(K_{11},K_{12},...,K_{1R}\)</span> and <span class="math inline">\(K_{21},K_{22},...,K_{2R}\)</span>, respectively. The right hand side of Eqn. <a href="binormal-model.html#eq:binormal-modelLL">(6.56)</a> is monotonically related to the probability of observing the data given the model parameters <span class="math inline">\(a,b,\overrightarrow{\zeta}\)</span>. If the choice of model parameters is poor, then the probability of observing the data will be small and log likelihood will be small. With a better choice of model parameters the probability and log likelihood will increase. With optimal choice of model parameters the probability and log likelihood will be maximized, and the corresponding optimal values of the model parameters are called maximum likelihood estimates (MLEs). These are the estimates produced by the programs RSCORE and ROCFIT.</p>
+<p>The left hand side of Eqn. <a href="binormal-model.html#eq:binormal-modelLL">(6.57)</a> is a function of the model parameters <span class="math inline">\(a,b,\overrightarrow{\zeta}\)</span> and the observed data, the latter being the counts contained in the vectors <span class="math inline">\(\overrightarrow{K_1}\)</span> and <span class="math inline">\(\overrightarrow{K_2}\)</span>, where the vector notation is used as a compact form for the counts <span class="math inline">\(K_{11},K_{12},...,K_{1R}\)</span> and <span class="math inline">\(K_{21},K_{22},...,K_{2R}\)</span>, respectively. The right hand side of Eqn. <a href="binormal-model.html#eq:binormal-modelLL">(6.57)</a> is monotonically related to the probability of observing the data given the model parameters <span class="math inline">\(a,b,\overrightarrow{\zeta}\)</span>. If the choice of model parameters is poor, then the probability of observing the data will be small and log likelihood will be small. With a better choice of model parameters the probability and log likelihood will increase. With optimal choice of model parameters the probability and log likelihood will be maximized, and the corresponding optimal values of the model parameters are called maximum likelihood estimates (MLEs). These are the estimates produced by the programs RSCORE and ROCFIT.</p>
 </div>
 <div id="code-implementing-mle" class="section level3 hasAnchor">
 <h3><span class="header-section-number">6.14.4</span> Code implementing MLE<a href="binormal-model.html#code-implementing-mle" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1441,7 +1458,7 @@ LL\left ( a,b,\overrightarrow{\zeta} \right ) \propto&amp; \sum_{r=1}^{R} K_{1r}
 <p><span class="math display" id="eq:binormal-modelGoodnessFit">\[\begin{equation} 
 C^2=\sum_{t=1}^{2}\sum_{r=1}^{R}\frac{\left (K_{tr}-\left \langle K_{tr} \right \rangle  \right )^2}{\left \langle K_{tr} \right \rangle}\\
 K_{tr} \geq 5
-\tag{6.57}
+\tag{6.58}
 \end{equation}\]</span></p>
 <p>The expected values are given by:</p>
 <p><span class="math display" id="eq:binormal-modelGoodnessFitExpVals">\[\begin{equation}
@@ -1449,18 +1466,18 @@ K_{tr} \geq 5
 \left \langle K_{1r} \right \rangle &amp;=K_1\left ( \Phi\left ( \zeta_{r+1} \right ) - \Phi\left ( \zeta_r \right )  \right ) \\
 \left \langle K_{2r} \right \rangle &amp;=K_2\left ( \Phi\left ( a\zeta_{r+1}-b \right ) - \Phi\left ( a\zeta_r - b\right )  \right )
 \end{split}
-\tag{6.58}
+\tag{6.59}
 \end{equation}\]</span></p>
 <p>These expressions should make sense: the difference between the two CDF functions is the probability of a count in the specified bin, and multiplication by the total number of relevant cases should yield the expected counts (a non-integer).</p>
 <p>It can be shown that under the null hypothesis that the assumed probability distribution functions for the counts equals the true probability distributions, i.e., the model is valid, the statistic <span class="math inline">\(C^2\)</span> is distributed as:</p>
 <p><span class="math display" id="eq:binormal-modelGoodnessFitDistr">\[\begin{equation} 
 C^2\sim \chi_{df}^{2}
-\tag{6.59}
+\tag{6.60}
 \end{equation}\]</span></p>
 <p>Here <span class="math inline">\(C^2\sim \chi_{df}^{2}\)</span> is the chi-square distribution with degrees of freedom <em>df</em> defined by:</p>
 <p><span class="math display" id="eq:binormal-modelGoodnessFitdf">\[\begin{equation} 
 df=\left ( R-1 \right )+\left ( R-1 \right )-\left (2+ R-1 \right )=\left ( R-3 \right )
-\tag{6.60}
+\tag{6.61}
 \end{equation}\]</span></p>
 <p>The right hand side of the above equation has been written in an expansive form to illustrate the general rule: for <span class="math inline">\(R\)</span> non-diseased cells in the ratings table, the degree of freedom is <span class="math inline">\(R-1\)</span>: this is because when all but one cells are specified, the last is determined, because they must sum to <span class="math inline">\(K_1\)</span> . Similarly, the degree of freedom for the diseased cells is also <span class="math inline">\(R-1\)</span>. Last, we need to subtract the number of free parameters in the model, which is <span class="math inline">\((2+R-1)\)</span>, i.e., the <span class="math inline">\(a,b\)</span> parameters and the <span class="math inline">\(R-1\)</span> thresholds. It is evident that if <span class="math inline">\(R = 3\)</span> then <span class="math inline">\(df = 0\)</span>. In this situation, there are only two non-trivial operating points and the straight-line fit shown will pass through both of them. With two basic parameters, fitting two points is trivial, and goodness of fit cannot be calculated.</p>
 <p>Under the null hypothesis (i.e., model is valid) <span class="math inline">\(C^2\)</span> is distributed as <span class="math inline">\(\chi_{df}^{2}\)</span>. Therefore, one computes the probability that this statistic is larger than the observed value, called the <em>p-value</em>. If this probability is very small, that means that the deviations of the observed values of the cell counts from the expected values are so large that it is unlikely that the model is correct. The degree of unlikeliness is quantified by the p-value. Poor fits lead to small p values.</p>

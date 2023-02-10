@@ -198,33 +198,32 @@ TPF &= \Phi\left ( a - b \zeta \right )
 
 ## Threshold-independent performance measure {#binormal-model-scalar-measure}
 
-Sensitivity and specificity is a dual (two-valued) measure of performance. Using a dual measure it is difficult to unambiguously compare two systems. For example, if sensitivity is higher for one system but specificity is higher for another, this could be due to the first system using a lower threshold (sensitivity and specificity are affected in opposite directions by a changing threshold). Desirable is a scalar (one-valued) measure of performance that takes this variation into account and therefore does not depend on any specific threshold. 
+A sensitivity-specificity pair is a two-valued measure of performance. Using such a measure it is difficult to unambiguously compare two systems. For example, if sensitivity is higher for one system but specificity is higher for another, this could be due to the first system using a lower threshold (since sensitivity and specificity are affected in opposite directions by a changing threshold). Desirable is a scalar (one-valued) measure of performance that does not depend on any specific threshold. 
 
-Generally accepted measures are the partial-area $A_{z;c}$ under the ROC, Eqn. \@ref(eq:binormal-model-partial-area-final), the full-area $A_z$ under the ROC, Eqn. \@ref(eq:binormal-model-ab-2az), and the $d'$ index Eqn. \@ref(eq:binormal-model-ab-2dprime). 
+Generally accepted measures are the partial-area $A_{z;c}$ under the ROC, Eqn. \@ref(eq:binormal-model-partial-area-final), the full-area $A_z$ under the ROC, Eqn. \@ref(eq:binormal-model-ab-2az), and the $d'$ index, Eqn. \@ref(eq:binormal-model-ab-2dprime). 
 
-Before deriving analytical expressions for these measures let us further examine the premise that sensitivity-specificity is undesirable because it is a two-valued measure. A trivial way to convert a two-valued measure to a scalar measure is to sum the two values: high sensitivity and high specificity are both desirable, so a high value of their sum is certainly also desirable. In fact this is the basis for the Youden index, defined as sensitivity plus specificity minus one [@youden1950index] -- subtracting one makes the Youden index range from 0 to 1. However, this index varies with the position of the operating point on the ROC curve - from zero at the bottom-left corner of the ROC, rising to a maximum near the top-left, and falling to zero at the top-right. (The operating point at which it is maximum is sometimes regarded as the optimal operating point on the ROC curve.)
+Before deriving analytical expressions for these measures let us further examine the premise that sensitivity-specificity is undesirable because it is a two-valued measure. A trivial way to convert a two-valued measure to a scalar measure is to sum the two values: high sensitivity and high specificity are both desirable, so a high value of their sum is certainly also desirable. In fact this is the basis for the Youden index, defined as sensitivity plus specificity minus one [@youden1950index] -- subtracting one makes the Youden index range from 0 to 1. However, this index varies with the position of the operating point on the ROC curve - from zero at the bottom-left corner of the ROC, rising to a maximum near the top-left, and falling to zero at the top-right. (The operating point at which it is maximum is sometimes regarded as the optimal operating point on the ROC curve. This issue is examined in detail in the chapter on optimal operating point in `RJafrocFrocBook`.)
 
-To emphasize, we desire a scalar measure that is independent of threshold.
-
+To emphasize, we desire a scalar measure that is independent of threshold. This is approached in two steps in the following section.
 
 
 ### Partial AUC {#binormal-model-partial-auc}
 
-While this is a scalar measure, it does depend on choice of operating point. It is included here as it yields, as a special case, a scalar measure that does not depend on choice of operating point. The details are in Section \@ref(binormal-model-partial-auc-derivation), which derives the formula for the partial-area using the unequal-variance binormal model. The final result is:
+A partial area under the ROC can be defined as that extending from $\text{FPF} = 0$ to $\text{FPF} = c$, where $c \le 1$. This scalar measure depends on the choice of operating point. As a special case -- namely, for $c=1$ -- it yields a scalar measure that (trivially) does not depend on choice of operating point. The details are in Section \@ref(binormal-model-partial-auc-derivation), which derives the formula for the partial-area using the unequal-variance binormal model. The final result is:
 
 \begin{equation}
 A_{z;c} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
 (\#eq:binormal-model-partial-area-final)
 \end{equation}
 
-The threshold $\zeta_1$ corresponding to $FPF = c$ is given by:
+The threshold $\zeta_1$ corresponding to $\text{FPF} = c$ is given by:
 
 \begin{equation} 
 \zeta_1 = - \Phi^{-1}   \left ( c \right )
 (\#eq:binormal-model-zeta-c-relation)
 \end{equation}
 
-$A_{z;c}$ is the area under the partial ROC curve extending from $FPF = 0$ to $FPF = c$ and $\phi\left ( z_1,z_2;\rho \right )$ is the standard bivariate normal distribution, where the correlation coefficient $\rho$ of the distribution is defined by:
+$A_{z;c}$ is the area under the partial ROC curve extending from $\text{FPF} = 0$ to $\text{FPF} = c$ and $\phi\left ( z_1,z_2;\rho \right )$ is the standard bivariate normal distribution, where the correlation coefficient $\rho$ of the distribution is defined by:
 
 
 \begin{equation}
@@ -238,7 +237,7 @@ The bivariate (two-dimensional) integral can be evaluated numerically. The follo
 
 
 ```{.r .numberLines}
-a <- 2;b <- 1; zeta1 <- 1.5
+a <- 2;b <- 1; zeta1 <- 1.5#;zeta1 <- -3.5
 A_z <- pnorm(a/sqrt(1+b^2))
 opPtx <- pnorm(-zeta1)
 opPty <- pnorm(a - b * zeta1)
@@ -252,16 +251,36 @@ A_zc <- as.numeric(pmvnorm(
   c(Lower1, Lower2), 
   c(Upper1, Upper2), 
   sigma = sigma))
+
+A_zc_norm <- A_zc/pnorm(-zeta1)/pnorm(a - b*zeta1)
 ```
 
 
-The partial-area measure is $A_{z;c}$ = 0.0352195. The corresponding full-area measure is $A_z$ = 0.9213504. $A_{z;c}$ is small because the reporting threshold is high. However, $A_{z;c}$ should not be confused with true performance of the observer, as shown in Section \@ref(binormal-model-partial-true).
+The partial-area measure is $A_{z;c}$ = 0.0352195. The corresponding full-area measure is $A_z$ = 0.9213504. $A_{z;c}$ is small because the reporting threshold $\zeta_1 = 1.5$ is high. $A_{z;c}$ should not be confused with true performance of the observer, as shown in Section \@ref(binormal-model-partial-true).
 
+
+### Meaning of partial AUC {#binormal-model-meaning-partial-auc}
+
+The partial AUC measure has a simple *geometric* meaning. A *physically* meaningful quantity can be derived from it as follows. *Consider the truncated dataset where all z-samples smaller than $\zeta_1$ are ignored*. A binormal model based ROC curve can be defined over the truncated dataset and the area under it is the normalized partial area measure, denoted $A_{z;c;norm}$. For the above code example, $A_{z;c;norm}$ = 0.7624153. This quantity has the following physical meaning: it is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset. As $\zeta_1 \rightarrow -\infty$ the three measures become identical.
+
+
+\begin{equation}
+A_{z;c;norm} = \frac{A_{z;c}}{\text{TPF}_c \times \text{FPF}_c}
+(\#eq:binormal-model-normalized-partial-auc)
+\end{equation}
+
+
+In this equation $\text{TPF}_c$ is the ordinate and $\text{FPF}_c$ is the abscissa at the designated value of $c$.
+
+
+### Full AUC {#binormal-model-partial-auc-recommendation}
+
+Some researchers have recommended usage of the partial area measure on the grounds that it emphasizes the clinically relevant part of the ROC curve, by which they mean the initial steep portion, i.e., near the origin. I disagree. The partial area measure ignores all cases with z-samples smaller than that corresponding to $c$, i.e., $\Phi^{-1}(-c)$. This is a bad idea for several reasons. (1) There is an inevitable statistical power penalty that results from the reduced number of cases. (2) The z-samples corresponding to the steep portion of the curve are those of relatively easy cases (high z-samples).  
 
 
 ### Full AUC {#binormal-model-full-auc}
 
-A special case of this formula is the area under the full ROC curve, shown below using both parameterizations of the binormal model:
+A special case of the partial AUC formula is the area under the full ROC curve, shown below using both parameterizations of the binormal model:
 
 \begin{equation} 
 A_z=\Phi\left ( \frac{a}{\sqrt{1+b^2}} \right )=\Phi\left ( \frac{\mu}{\sqrt{1+\sigma^2}} \right )
@@ -355,9 +374,9 @@ The following code prints the predicted and observed full areas under the ROCs f
 
 ```
 #> A_z predicted =  0.9213504 
-#> A_z observed =  0.9232929
+#> A_z observed =  0.9197378
 #> A_z{c;true} predicted =  0.8244498 
-#> A_z{c;true} observed =  0.825137
+#> A_z{c;true} observed =  0.8237192
 ```
 
 
