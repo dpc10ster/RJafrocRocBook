@@ -462,27 +462,29 @@ To emphasize, we desire a scalar measure that is independent of threshold. This 
 
 ### Partial AUC {#binormal-model-partial-auc}
 
-A partial area under the ROC can be defined as that extending from $\text{FPF} = 0$ to $\text{FPF} = c$, where $c \le 1$. This scalar measure depends on the choice of operating point. As a special case -- namely, for $c=1$ -- it yields a scalar measure that (trivially) does not depend on choice of operating point. The details are in Section \@ref(binormal-model-partial-auc-derivation), which derives the formula for the partial-area using the unequal-variance binormal model. The final result is:
-
-\begin{equation}
-A_{z;c} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
-(\#eq:binormal-model-partial-area-final)
-\end{equation}
-
-The threshold $\zeta_1$ corresponding to $\text{FPF} = c$ is given by:
+A partial area under the ROC can be defined as that extending from $\text{FPF} = 0$ to $\text{FPF} = c$, where $c \le 1$. This scalar measure, denoted $A_{z;c}$, depends on the choice of operating point. The threshold $\zeta_1$ corresponding to $\text{FPF} = c$ is given by:
 
 \begin{equation} 
 \zeta_1 = - \Phi^{-1}   \left ( c \right )
 (\#eq:binormal-model-zeta-c-relation)
 \end{equation}
 
-$A_{z;c}$ is the area under the partial ROC curve extending from $\text{FPF} = 0$ to $\text{FPF} = c$ and $\phi\left ( z_1,z_2;\rho \right )$ is the standard bivariate normal distribution, where the correlation coefficient $\rho$ of the distribution is defined by:
+(As a special case, namely $c=1$, it yields the full area under the ROC, usually denoted $A_z$, discussed below.) 
 
+Section \@ref(binormal-model-partial-auc-derivation) derives a formula for the partial-area using the unequal-variance binormal model. The final result is:
+
+\begin{equation}
+A_{z;c} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
+(\#eq:binormal-model-partial-area-final)
+\end{equation}
+
+On the right hand side $\phi\left ( z_1,z_2;\rho \right )$ is the standard bivariate normal distribution function with correlation coefficient $\rho$ defined by:
 
 \begin{equation}
 \rho = - \frac{b}{\sqrt{1+b^2}}
 (\#eq:binormal-model-rho-final)
 \end{equation}
+
 
 The bivariate (two-dimensional) integral can be evaluated numerically. The following code illustrates calculation of the partial-area measure using the function `pmvnorm` in `R` package `mvtnorm`. The following parameter values were used: $a = 2$, $b = 1$ and $\zeta_1 = 1.5$. (The parameter $b$ was deliberately chosen equal to one so that we do not have to worry about improper ROC curves.)
 
