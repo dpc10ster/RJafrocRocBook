@@ -21,9 +21,10 @@ In the previous chapter four observer performance paradigms were introduced: the
 Since the truth is also binary, this chapter could be named the binary-truth binary-decision task. The starting point is a 2 x 2 table summarizing the outcomes in such studies and useful fractions that can be defined from the counts in this table, the most important ones being true positive fraction (TPF) and false positive fraction (FPF). These are used to construct measures of performance, some of which are desirable from the researcher's point of view, but others are more relevant to radiologists. The concept of disease prevalence is introduced and used to formulate relations between the different types of measures. An R example of calculation of these quantities is given that is only slightly more complicated than the demonstration in the prior chapter. 
 
 ## The fundamental 2x2 table {#binary-taskTruth}
+
 In this book, the term case is used for images obtained for diagnostic purposes, of a patient; often multiple images of a patient, sometimes from different modalities, are involved in an interpretation; all images of a single patient, that are used in the interpretation, are collectively referred to as a case. A familiar example is the 4-view presentation used in screening mammography, where two views of each breast are available for viewing.
 
-Let $D$ represent the radiologist’s decision, with $D=1$  representing the decision “case is non-diseased” and $D=2$ representing the decision “case is diseased”. Let $T$ denote the truth with $T=1$ representing “case is actually non-diseased” and $T=2$ representing “case is actually diseased”. Each decision, one of two values, will be associated with one of two truth states, resulting in an entry in one of 4 cells arranged in a 2 x 2 layout, termed the decision vs. truth table, Table \@ref(tab:binary-tasktruthTable), which is of fundamental importance in observer performance. The cells are labeled as follows. The abbreviation $TN$, for true negative, represents a  $D=1$  decision on a  $T=1$ case. $FN$, for false negative, represents a  $D=1$ decision on a $T=2$ case (also termed a "miss"). $FP$, for false positive, represents a $D=2$  decision on a $T=1$  case (a "false-alarm") and $TP$, for true positive, represents a  $D=2$ decision on a $T=2$ case (a "hit"). 
+Let $D$ represent the radiologist’s decision, with $D=1$  representing the decision “case is non-diseased” and $D=2$ representing the decision “case is diseased”. Let $T$ denote the truth with $T=1$ representing “case is actually non-diseased” and $T=2$ representing “case is actually diseased”. Each decision, one of two values, will be associated with one of two truth states, resulting in an entry in one of 4 cells arranged in a 2 x 2 layout, termed the decision vs. truth table, Table \@ref(tab:binary-task-truth-table), which is of fundamental importance in observer performance. The cells are labeled as follows. The abbreviation $TN$, for true negative, represents a  $D=1$  decision on a  $T=1$ case. $FN$, for false negative, represents a  $D=1$ decision on a $T=2$ case (also termed a "miss"). $FP$, for false positive, represents a $D=2$  decision on a $T=1$  case (a "false-alarm") and $TP$, for true positive, represents a  $D=2$ decision on a $T=2$ case (a "hit"). 
 
 ```{r, echo=FALSE}
 df <- array(dim = c(2,2))
@@ -36,11 +37,11 @@ colnames(df) <- c("T=1", "T=2")
 rownames(df) <- c("D=1", "D=2")
 ```
 
-```{r binary-tasktruthTable, echo=FALSE}
+```{r binary-task-truth-table, echo=FALSE}
 kable(df, caption = "Truth Table.", escape = FALSE)
 ```
 
-Table \@ref(tab:binary-tasktruthTable2) shows the numbers of decisions in each of the four categories defined in Table \@ref(tab:binary-tasktruthTable). Specifically, $n(TN)$ is the number of true negative decisions, $n(FN)$ is the number of false negative decisions, etc. The last row is the sum of the corresponding columns. The sum of the number of true negative decisions $n(TN)$ and the number of false positive decisions $n(FP)$ must equal the total number of non-diseased cases, denoted $K_1$. Likewise, the sum of the number of false negative decisions $n(FN)$ and the number of true positive decisions $n(TP)$ must equal the total number of diseased cases, denoted $K_2$. The last column is the sum of the corresponding rows. The sum of the number of true negative $n(TN)$ and false negative $n(FN)$ decisions is the total number of negative decisions, denoted $n(N)$. Likewise, the sum of the number of false positive $n(FP)$ and true positive $n(TP)$ decisions is the total number of positive decisions, denoted $n(P)$. Since each case yields a decision, the bottom-right corner cell is $n(N) + n(P)$, which must also equal $K_1+K_2$, the total number of cases $K$. These statements are summarized in Eqn. \@ref(eq:binary-taskTruthTableEqns).
+Table \@ref(tab:binary-task-truth-table2) shows the numbers of decisions in each of the four categories defined in Table \@ref(tab:binary-task-truth-table). Specifically, $n(TN)$ is the number of true negative decisions, $n(FN)$ is the number of false negative decisions, etc. The last row is the sum of the corresponding columns. The sum of the number of true negative decisions $n(TN)$ and the number of false positive decisions $n(FP)$ must equal the total number of non-diseased cases, denoted $K_1$. Likewise, the sum of the number of false negative decisions $n(FN)$ and the number of true positive decisions $n(TP)$ must equal the total number of diseased cases, denoted $K_2$. The last column is the sum of the corresponding rows. The sum of the number of true negative $n(TN)$ and false negative $n(FN)$ decisions is the total number of negative decisions, denoted $n(N)$. Likewise, the sum of the number of false positive $n(FP)$ and true positive $n(TP)$ decisions is the total number of positive decisions, denoted $n(P)$. Since each case yields a decision, the bottom-right corner cell is $n(N) + n(P)$, which must also equal $K_1+K_2$, the total number of cases $K$. These statements are summarized in Eqn. \@ref(eq:binary-task-truth-tableEqns).
 
 \begin{equation} 
 \left.\begin{aligned}
@@ -50,7 +51,7 @@ n(N)&=n(TN)+n(FN)\\
 n(P)&=n(TP)+n(FP)\\
 K=K_1+K_2&=n(N)+n(P)
 \end{aligned}\right\}
-(\#eq:binary-taskTruthTableEqns)
+(\#eq:binary-task-truth-tableEqns)
 \end{equation} 
 
 ```{r, echo=FALSE}
@@ -69,7 +70,7 @@ colnames(df) <- c("T=1", "T=2", "RowSums")
 rownames(df) <- c("D=1", "D=2", "ColSums")
 ```
 
-```{r binary-tasktruthTable2, echo=FALSE}
+```{r binary-task-truth-table2, echo=FALSE}
 kable(df, caption = "Cell counts.", escape=FALSE)
 ```
 

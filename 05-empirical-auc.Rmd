@@ -118,7 +118,7 @@ ROCOp <- data.frame(FPF = FPF, TPF = TPF)
 ROCPlot <- ggplot(
   data = ROCOp, 
   mapping = aes(x = FPF, y = TPF)) + 
-  geom_line(size = 1) + 
+  geom_line(linewidth = 1) + 
   geom_point(size = 4) + 
   theme_bw() + 
   theme(panel.grid.major = element_blank(), 
@@ -217,7 +217,7 @@ shade <- data.frame(
 p <- ggplot(ROC_Points, 
             aes(x = FPF, y = TPF) ) + 
   geom_polygon(data = shade, fill = 'grey') + 
-  geom_line(size = 1) + 
+  geom_line(linewidth = 1) + 
   geom_point(size = 4) + 
   theme_bw() + 
   theme(
@@ -377,7 +377,7 @@ p <- ggplot(
   geom_polygon(
     data = shade, 
     fill = 'grey') + 
-  geom_line(size = 1) + 
+  geom_line(linewidth = 1) + 
   geom_point(size = 4) + 
   geom_line(
     data = zeta1, 

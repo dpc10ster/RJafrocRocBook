@@ -9,7 +9,7 @@ PlotBMErrBar <- function(a, b, rocDataTable){
   plotBM <- data.frame(FPF = FPFBM, TPF = TPFBM)
   plotOpPnts <- data.frame(FPF = FPF, TPF = TPF)
   
-  fitPlot <- ggplot() + geom_line(mapping = aes(x = FPF, y = TPF), data = plotBM, size = 1) + 
+  fitPlot <- ggplot() + geom_line(mapping = aes(x = FPF, y = TPF), data = plotBM, linewidth = 1) + 
     geom_point(mapping = aes(x = FPF, y = TPF), data = plotOpPnts, size = 3) + 
     # labs(title = rowIndx) + theme(plot.title = element_text(hjust = 0.5)) +
     scale_x_continuous(expand = c(0, 0)) + 
