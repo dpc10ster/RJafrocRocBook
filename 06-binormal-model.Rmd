@@ -17,14 +17,11 @@ library(gridExtra)
 ```{r, echo=FALSE}
 shadedPlotsRoc <- function (mu, sigma, fpf)
 {
-  zeta <- seq(- mu - 2,+ mu + 2,0.1)
-  fpfArr <- array(dim = length(zeta))
-  tpfArr <- array(dim = length(zeta))
-  for (i in 1:length(zeta)) {
-    fpfArr[i] <- pnorm(-zeta[i])
-    tpfArr[i] <- pnorm((mu -zeta[i])/sigma) 
-  }
-  x <- data.frame(FPF = c(1, fpfArr, 0), TPF = c(1, tpfArr, 0))
+  zeta <- seq(- mu - 2,+ mu + 2, 0.1)
+  fpfArr <- sort(c(c(0, pnorm(zeta), 1),fpf))
+  tpfArr <- sort(c(rev(c(1, pnorm((mu - zeta)/sigma), 0)),pnorm((mu + qnorm(fpf))/sigma)))
+  x <- data.frame(FPF = fpfArr, TPF = tpfArr)
+  
   x$fill <- "no fill"
   x$fill[(x$FPF >= 0) & (x$FPF <= fpf)] <- "fill"
   
@@ -32,12 +29,13 @@ shadedPlotsRoc <- function (mu, sigma, fpf)
   geom_line(aes(y = TPF)) + 
   geom_ribbon(data=subset(x, 0 <= x & x <= fpf), 
               aes(ymin=0,ymax=TPF), fill="blue", alpha=0.5) 
+  
   x$fill <- "no fill"
   x$fill[(x$FPF >= fpf) & (x$FPF <= 1)] <- "fill"
   p <- p +
   geom_ribbon(data=subset(x, fpf <= x & x <= 1), 
               aes(ymin=TPF,ymax=1), fill="green", alpha=0.5)
-  print(p)
+  return(p)
 }
 ```
 
@@ -54,33 +52,6 @@ simplePrint <- function(x) {
 }
 ```
 
-```{r}
-Ktr = array(dim = c(2,5))
-Ktr[1,]  <- rev(c(30,19,8,2,1)) # Table 4.2.1
-Ktr[2,]  <- rev(c(5,6,5,12,22))
-
-R <- length(Ktr[1,]) 
-OpPts <- array(0,dim = c(2,R))
-for (r in 1:R) {
-  OpPts[1,r] <- sum(Ktr[1, 1:r])/sum(Ktr[1,])
-  OpPts[2,r] <- sum(Ktr[2, 1:r])/sum(Ktr[2,])    
-}
-
-options(digits = 3)
-FPF <- OpPts[1,]
-TPF <- OpPts[2,]
-df <- data.frame(FPF = FPF, TPF = TPF)
-df <- t(df)
-print(df)
-mu <- qnorm(.5)+qnorm(.9);sigma <- 1
-Az <- pnorm(mu/sqrt(2))
-cat("uppermost point based estimate of mu = ", mu, "\n")
-cat("corresponding estimate of Az = ", Az, "\n")
-
-x <- 0.5
-p1 <- shadedPlotRoc (mu, sigma, x)
-
-```
 
 ## How much finished {#binormal-model-how-much-finished}
 
@@ -530,7 +501,7 @@ A_z <- pnorm(a/sqrt(1+b^2))
 The d' index can be regarded as a perceptual signal-to-noise-ratio. 
 
 
-## Partial AUC measure {#binormal-model-partial-auc}
+## Partial AUC measures {#binormal-model-partial-auc}
 
 Shorthand: denote $A \equiv A_z$, $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$ and the subscript B denotes the integral *below* the ROC (another index using the integral above the ROC will be introduced shortly). The partial area below the ROC, $A_c^{B}$, is defined as that extending from $x = 0$ to $x = c$, where $0 \le c \le 1$ (in our notation $c$ always means a cutoff applied to the x-axis of the ROC): 
 
@@ -571,7 +542,7 @@ On the right hand side the integrand $\phi\left ( z_1,z_2;\rho \right )$ is the 
 The two-dimensional integral occurring on the right hand side of Eqn. \@ref(eq:binormal-model-partial-area-final) can be evaluated numerically (as demonstrated later). 
 
 
-## Meaning of partial AUC {#binormal-model-meaning-partial-auc}
+### Meaning of partial AUC {#binormal-model-meaning-partial-auc}
 
 As an area measure the partial AUC $A_c^{B}$ has a simple *geometric* meaning. A *physical* meaning is as follows: 
 
@@ -585,7 +556,7 @@ A_c^{BN} = \frac{A_c^{B}}{\text{TPF}\left ( c \right ) \times c}
 
 
 
-## An alternative partial AUC measure {#binormal-model-metz-partial-auc}
+### Alternative partial AUC measure {#binormal-model-metz-partial-auc}
 
 Since the integral in Eqn. \@ref(eq:binormal-model-partial-area-a1) is from $x = 0$ to $x = c$ the above partial AUC measure emphasizes the *high specificity* region of the ROC curve (since $x = 0$ corresponds to unit, i.e. highest, specificity).
 
@@ -609,6 +580,14 @@ A *physical* meaning is as follows:
 
 > A binormal model based ROC curve can be defined over the truncated dataset where all z-samples **greater** than $-\Phi^{-1}(c)$ are ignored. **$A_c^{AN}$ is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** By definition the normalized area ranges between 0 and 1.
 
+
+
+```{r binormal-model-partial-areas, fig.cap = "Un-normalized partial AUC measures: : the blue area is $A_c^{B}$, the area below, and the green shaded area is $A_c^{A}$ the area above the ROC. Parameters are $\\mu = 1.8$, $\\sigma = 1$ and $c = 0.3$.", fig.show='hold', echo=FALSE}
+print(shadedPlotsRoc(mu = 1.8, sigma = 1, fpf = 0.3))
+```
+
+
+Fig. \@ref(fig:binormal-model-partial-areas) shows the two un-normalized area .
 
 ## Discussion{#binormal-model-discussion}
 
@@ -1074,7 +1053,7 @@ print(fit)
 ```             
 
 
-```{r binormal-modelStraightLineFit, fig.cap = "The straight line fit method of estimating parameters of the fitting model.", fig.show='hold', echo=FALSE}
+```{r binormal-model-line-fit, fig.cap = "The straight line fit method of estimating parameters of the fitting model.", fig.show='hold', echo=FALSE}
 pointsData <- data.frame(PhiInvFPF = PhiInvFPF, 
                          PhiInvTPF = PhiInvTPF)
 pointsPlot <- ggplot(data = pointsData, 
@@ -1092,7 +1071,7 @@ p1 <- pointsPlot
 print(p1)
 ```
 
-Fig. \@ref(fig:binormal-modelStraightLineFit) shows operating points from Table \@ref(tab:ratings-paradigmExampleTable), transformed by the $\Phi^{-1}$ function; the slope of the line is the least-squares estimate of the $b$ parameter and the intercept is the corresponding $a$ parameter of the binormal model.
+Fig. \@ref(fig:binormal-model-line-fit) shows operating points from Table \@ref(tab:ratings-paradigmExampleTable), transformed by the $\Phi^{-1}$ function; the slope of the line is the least-squares estimate of the $b$ parameter and the intercept is the corresponding $a$ parameter of the binormal model.
 
 The last line contains the least squares estimated values, $a$ = 1.3288 and $b$ = 0.6307. The corresponding maximum likelihood estimates of these parameters, as yielded by the Eng web code, Appendix B, are listed in line 4 of the main program: $a$ = 1.3204 and $b$ = 0.6075. The estimates appear to be close, particularly the estimate of $a$ , but there are a few things wrong with the least-squares approach. First, the method of least squares assumes that the data points are independent. Because of the manner in which they are constructed, namely by cumulating points, the independence assumption is not valid for ROC operating points. Cumulating the 4 and 5 responses constrains the resulting operating point to be above and to the right of the point obtained by cumulating the 5 responses only, so the data points are definitely not independent. Similarly, cumulating the 3, 4 and 5 responses constrains the resulting operating point to be above and to the right of the point obtained by cumulating the 4 and 5 responses, and so on. The second problem is the linear least-squares method assumes there is no error in measuring x; the only source of error that is accounted for is in the y-coordinate. In fact, both coordinates of an ROC operating point are subject to sampling error. Third, disregard of error in the x-direction is further implicit in the estimates of the thresholds, which according to Eqn. (6.2.19), is given by:
 
