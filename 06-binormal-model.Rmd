@@ -617,7 +617,7 @@ A_ln <- A_l/pnorm(-zeta)/pnorm(a - b*zeta)
 ```
 
 
-The lower un-normalized partial-area measure is $A_c^{L}$ = `r A_l`. The corresponding full AUC measure is $A_z$ = `r A_z`. $A_c^{L}$ is small because the reporting threshold is relatively high. The normalized measure is $A_c^{LN}$ = `r A_ln`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$. This measure emphasizes specificity.
+The lower un-normalized partial-area measure is $A_c^{L}$ = `r A_l`. The corresponding full AUC measure is $A_z$ = `r A_z`. $A_c^{L}$ is small because the reporting threshold is relatively high. The normalized measure is $A_c^{LN}$ = `r A_ln`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$ = `r -qnorm(fpf_c)`. This measure emphasizes specificity.
 
 
 The upper area can be calculated using geometry. One subtracts the lower area $A_c^{L}$ from the full area $A_z$ to get the area under the ROC to the right of the selected value of FPF. Next one subtracts this quantity from the area of the rectangle with base (1 - FPF) and unit height. This yields the area if the green shaded region $A_c^{U}$.
@@ -630,7 +630,7 @@ A_un <- 1 - A_u/(1-tpf_c)/(1-fpf_c)
 ```
 
 
-The upper un-normalized partial-area measure is $A_c^{U}$ = `r A_u`. $A_c^{U}$ is small because the sensitivity is high. The normalized measure is $A_c^{UN}$ = `r A_un`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than $-\Phi^{-1}(c)$. This measure emphasizes sensitivity.
+The upper un-normalized partial-area measure is $A_c^{U}$ = `r A_u`. $A_c^{U}$ is small because the sensitivity is high. The normalized measure is $A_c^{UN}$ = `r A_un`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than $-\Phi^{-1}(c)$ = `r -qnorm(fpf_c)`. This measure emphasizes sensitivity.
 
 
 ```{r, echo=FALSE}
