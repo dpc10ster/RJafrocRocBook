@@ -36,35 +36,6 @@ To emphasize, we desire a scalar measure that is independent of threshold. This 
 Some researchers have recommended usage of the partial area measure on the grounds that it emphasizes the clinically relevant part of the ROC curve, by which they mean the initial steep portion, i.e., near the origin. I disagree. The partial area measure ignores all cases with z-samples smaller than that corresponding to $c$, i.e., $\Phi^{-1}(-c)$. This is a bad idea for several reasons. (1) There is an inevitable statistical power penalty that results from the reduced number of cases. (2) The z-samples corresponding to the steep portion of the curve are those of relatively easy cases (high z-samples).  
 
 
-## More on the partial area measure {#binormal-model-partial-auc-more}
-
-The following code illustrates calculation of the partial-area measure using the function `pmvnorm` in `R` package `mvtnorm`. The following parameter values were used: $a = 2$, $b = 1$ and $\zeta_1 = 1.5$. (The parameter $b = 1$ was deliberately chosen so that we do not have to worry about improper ROC curves.)
-
-
-
-```{r, attr.source = ".numberLines"}
-a <- 2;b <- 1; zeta1 <- 1.5#;zeta1 <- -3.5
-A_z <- pnorm(a/sqrt(1+b^2))
-opPtx <- pnorm(-zeta1)
-opPty <- pnorm(a - b * zeta1)
-rho <- -b/sqrt(1+b^2)
-Lower1 <- -Inf
-Upper1 <- qnorm(opPtx)
-Lower2 <- -Inf
-Upper2 <- a/sqrt(1+b^2)
-sigma <- rbind(c(1, rho), c(rho, 1))
-A_zc <- as.numeric(pmvnorm(
-  c(Lower1, Lower2), 
-  c(Upper1, Upper2), 
-  sigma = sigma))
-
-A_zc_norm <- A_zc/pnorm(-zeta1)/pnorm(a - b*zeta1)
-```
-
-
-The partial-area measure is $A_{z;c}$ = `r A_zc`. The corresponding full-area measure is $A_z$ = `r A_z`. $A_{z;c}$ is small because the reporting threshold $\zeta_1 = 1.5$ is high. $A_{z;c}$ should not be confused with true performance of the observer, as shown in Section \@ref(binormal-model-partial-true).
-
-
 ## Partial AUC vs. true performance {#binormal-model-partial-true}
 
 * A *partial-area observer* such as in Section \@ref(binormal-model-partial-auc), rates cases as follows: for the sub-set of cases defined by $z \ge \zeta_1$ the observer reports *explicit* ratings exactly equal to the observed z-samples (or some monotonic transformation of the z-samples). For the remaining cases the observer assigns a *fixed value rating that is smaller than $\zeta_1$* (the exact value does not matter; these cases are said to be assigned *implicit* ratings). 
