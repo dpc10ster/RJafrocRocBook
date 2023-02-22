@@ -472,7 +472,7 @@ One can then write TPF as a function of FPF as in:
 \end{equation}
 
 
-## Az and d' measures {#binormal-model-full-auc}
+## Az and d-prime measures {#binormal-model-full-auc}
 
 The (full) area under the ROC, denoted $A_z$, is derived in Appendix TBA. The final results, using both parameterizations of the binormal model, are:
 
@@ -503,12 +503,12 @@ The d' index can be regarded as a perceptual signal-to-noise-ratio.
 
 ## Partial AUC measures {#binormal-model-partial-auc}
 
-Shorthand: denote $A \equiv A_z$, $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$ and the subscript B denotes the integral *below* the ROC (another index using the integral above the ROC will be introduced shortly). The partial area below the ROC, $A_c^{B}$, is defined as that extending from $x = 0$ to $x = c$, where $0 \le c \le 1$ (in our notation $c$ always means a cutoff applied to the x-axis of the ROC): 
+Shorthand: denote $A \equiv A_z$, $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$ and the superscript L denotes the *lower* integral, below the ROC (another measure using the upper integral, above the ROC, will be introduced shortly). The partial area below the ROC, $A_c^{L}$, is defined as that extending from $x = 0$ to $x = c$, where $0 \le c \le 1$ (in our notation $c$ always means a cutoff applied to the x-axis of the ROC): 
 
 \begin{equation} 
 \left. 
 \begin{aligned}
-A_c^{B} &= \int_{x=0}^{x=c} y \, dx 
+A_c^{L} &= \int_{x=0}^{x=c} y \, dx 
 \\&=  \int_{x=0}^{x=c} \Phi\left ( a + b \; \Phi^{-1} \left ( x \right ) \right ) \, dx 
 \end{aligned}
 \right \}
@@ -521,7 +521,7 @@ A_c^{B} &= \int_{x=0}^{x=c} y \, dx
 Section \@ref(binormal-model-partial-auc-derivation) derives a formula for the partial-area in terms of the binormal model parameters $a$ and $b$. The final result is:
 
 \begin{equation}
-A_c^{B} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
+A_c^{L} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
 (\#eq:binormal-model-partial-area-final)
 \end{equation}
 
@@ -544,13 +544,13 @@ The two-dimensional integral occurring on the right hand side of Eqn. \@ref(eq:b
 
 ### Meaning of partial AUC {#binormal-model-meaning-partial-auc}
 
-As an area measure the partial AUC $A_c^{B}$ has a simple *geometric* meaning. A *physical* meaning is as follows: 
+As an area measure the partial AUC $A_c^{L}$ has a simple *geometric* meaning. A *physical* meaning is as follows: 
 
-> A binormal model based ROC curve can be defined over the truncated dataset where all z-samples **smaller** than $-\Phi^{-1}(c)$ are ignored. The maximum area of this curve is that defined by the rectangle with corners at $(0,0)$ and $(c,\text{TPF}\left ( c \right ))$: $c$ is the abscissa at the upper limit of the integration interval along the x-axis and $\text{TPF}\left ( c \right )$ is the corresponding ordinate: see Eqn. \@ref(eq:binormal-model-op-point-ab2). Dividing $A_c^{B}$ by $\text{TPF}\left ( c \right ) \times c$ yields a normalized partial area measure, denoted $A_c^{BN}$. **This is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** By definition the normalized area ranges between 0 and 1.
+> A binormal model based ROC curve can be defined over the truncated dataset where all z-samples **smaller** than $-\Phi^{-1}(c)$ are ignored. The maximum area of this curve is that defined by the rectangle with corners at $(0,0)$ and $(c,\text{TPF}\left ( c \right ))$: $c$ is the abscissa at the upper limit of the integration interval along the x-axis and $\text{TPF}\left ( c \right )$ is the corresponding ordinate: see Eqn. \@ref(eq:binormal-model-op-point-ab2). Dividing $A_c^{L}$ by $\text{TPF}\left ( c \right ) \times c$ yields a normalized partial area measure, denoted $A_c^{LN}$. **This is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** By definition the normalized area ranges between 0 and 1.
 
 
 \begin{equation}
-A_c^{BN} = \frac{A_c^{B}}{\text{TPF}\left ( c \right ) \times c}
+A_c^{LN} = \frac{A_c^{L}}{\text{TPF}\left ( c \right ) \times c}
 (\#eq:binormal-model-normalized-partial-auc)
 \end{equation}
 
@@ -563,31 +563,74 @@ Since the integral in Eqn. \@ref(eq:binormal-model-partial-area-a1) is from $x =
 An alternative partial AUC measure has been defined [@jiang1996receiver] that emphasizes the *high sensitivity* region of the ROC as follows:
 
 \begin{equation} 
-A_c^{A} = \int_{y=\text{TPF}(c)}^{y=1} x \, dy
+A_c^{U} = \int_{y=\text{TPF}(c)}^{y=1} x \, dy
 (\#eq:binormal-model-partial-area-a2)
 \end{equation}
 
 
-Note that this is the (un-normalized) area *above* (hence the A subscript) the ROC extending from $y = \text{TPF}(c)$ to $y = 1$. The maximum value of this integral is the area of the rectangle defined by the corner points $(c,\text{TPF}(c))$ and $(1,1)$. Therefore the normalized area is defined by: 
+Note that this is the (un-normalized) *upper* (hence the U superscript) area above the ROC extending from $y = \text{TPF}(c)$ to $y = 1$. The maximum value of this integral is the area of the rectangle defined by the corner points $(c,\text{TPF}(c))$ and $(1,1)$. Therefore the normalized area is defined by: 
 
 
 \begin{equation}
-A_c^{AN} = 1-\frac{A_c^{A}}{\left (1 - \text{TPF}(c)  \right ) \times \left (1-c  \right )}
+A_c^{UN} = 1-\frac{A_c^{U}}{\left (1 - \text{TPF}(c)  \right ) \times \left (1-c  \right )}
 (\#eq:binormal-model-normalized-partial-auc-upper)
 \end{equation}
 
 A *physical* meaning is as follows: 
 
-> A binormal model based ROC curve can be defined over the truncated dataset where all z-samples **greater** than $-\Phi^{-1}(c)$ are ignored. **$A_c^{AN}$ is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** By definition the normalized area ranges between 0 and 1.
+> A binormal model based ROC curve can be defined over the truncated dataset where all z-samples **greater** than $-\Phi^{-1}(c)$ are ignored. **$A_c^{UN}$ is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** By definition the normalized area ranges between 0 and 1.
 
 
+### Numerical examples {#binormal-model-metz-partial-auc}
 
-```{r binormal-model-partial-areas, fig.cap = "Un-normalized partial AUC measures: : the blue area is $A_c^{B}$, the area below, and the green shaded area is $A_c^{A}$ the area above the ROC. Parameters are $\\mu = 1.8$, $\\sigma = 1$ and $c = 0.3$.", fig.show='hold', echo=FALSE}
+Fig. \@ref(fig:binormal-model-partial-areas) shows the two un-normalized areas.
+
+```{r binormal-model-partial-areas, fig.cap = "Un-normalized partial AUC measures: the blue shaded area is $A_c^{L}$, the partial area below the ROC; the green shaded area is $A_c^{U}$ the partial area above the ROC. Parameters are $\\mu = 1.8$, $\\sigma = 1$ and $c = 0.3$.", fig.show='hold', echo=FALSE}
 print(shadedPlotsRoc(mu = 1.8, sigma = 1, fpf = 0.3))
 ```
 
 
-Fig. \@ref(fig:binormal-model-partial-areas) shows the two un-normalized area .
+The following code illustrates calculation of the partial-area measure using the function `pmvnorm` in the `R` package `mvtnorm`. The following parameter values were used: $a = 1.8$, $b = 1$ and $c = 0.3$.
+
+
+```{r, attr.source = ".numberLines"}
+a <- 1.8
+b <- 1
+fpf_c <- 0.3 # cannot use c as variable name here
+zeta <- -qnorm(fpf_c)
+A_z <- pnorm(a/sqrt(1+b^2))
+tpf_c <- pnorm(a - b * zeta)
+rho <- -b/sqrt(1+b^2)
+Lower1 <- -Inf
+Upper1 <- qnorm(fpf_c)
+Lower2 <- -Inf
+Upper2 <- a/sqrt(1+b^2)
+sigma <- rbind(c(1, rho), c(rho, 1))
+A_l <- as.numeric(pmvnorm(
+  c(Lower1, Lower2), 
+  c(Upper1, Upper2), 
+  sigma = sigma))
+
+A_ln <- A_l/pnorm(-zeta)/pnorm(a - b*zeta)
+```
+
+
+The lower un-normalized partial-area measure is $A_c^{L}$ = `r A_l`. The corresponding full AUC measure is $A_z$ = `r A_z`. $A_c^{L}$ is small because the reporting threshold is relatively high. The normalized measure is $A_c^{LN}$ = `r A_ln`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$. This measure emphasizes specificity.
+
+
+The upper area can be calculated using geometry. One subtracts the lower area $A_c^{L}$ from the full area $A_z$ to get the area under the ROC to the right of the selected value of FPF. Next one subtracts this quantity from the area of the rectangle with base (1 - FPF) and unit height. This yields the area if the green shaded region $A_c^{U}$.
+
+
+```{r}
+A_u <- (1-fpf_c)-(A_z - A_l)
+tpf_c <- pnorm(a + b * qnorm(fpf_c))
+A_un <- 1 - A_u/(1-tpf_c)/(1-fpf_c) 
+```
+
+
+The upper un-normalized partial-area measure is $A_c^{U}$ = `r A_u`. $A_c^{U}$ is small because the sensitivity is high. The normalized measure is $A_c^{UN}$ = `r A_un`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than $-\Phi^{-1}(c)$. This measure emphasizes sensitivity.
+
+
 
 ## Discussion{#binormal-model-discussion}
 
@@ -617,7 +660,7 @@ P\left ( Z \le \zeta \mid  Z\sim N\left ( 0,1 \right ) \right ) = 1-FPF\left ( \
 P\left ( Z \le \zeta \mid  Z\sim N\left ( \mu,\sigma^2 \right ) \right ) = 1-\text{TPF}\left ( \zeta \right ) = \Phi \left ( \frac{\zeta - \mu}{\sigma}  \right )
 \end{equation*}
 
-Since the *pdf* is the derivative of the corresponding CDF function, it follows that (the subscripts N and D denote non-diseased and diseased cases, respectively):
+Since the *pdf* is the derivative of the corresponding CDF function, it follows that (the superscripts N and D denote non-diseased and diseased cases, respectively):
 
 \begin{equation*} 
 pdf_N\left ( \zeta \right ) = \frac{\partial \Phi\left ( \zeta \right )}{\partial \zeta} = \phi\left ( \zeta \right ) \equiv \frac{1}{\sqrt{2 \pi}}\exp\left ( -\frac{\zeta^2}{2} \right )
