@@ -503,6 +503,8 @@ The d' index can be regarded as a perceptual signal-to-noise-ratio.
 
 ## Partial AUC measures {#binormal-model-partial-auc}
 
+### Definition {#binormal-model-meaning-partial-auc-definitions}
+
 Shorthand: denote $A \equiv A_z$, $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$ and the superscript L denotes the *lower* integral, below the ROC (another measure using the upper integral, above the ROC, will be introduced shortly). The partial area below the ROC, $A_c^{L}$, is defined as that extending from $x = 0$ to $x = c$, where $0 \le c \le 1$ (in our notation $c$ always means a cutoff applied to the x-axis of the ROC): 
 
 \begin{equation} 
@@ -581,7 +583,7 @@ A *physical* meaning is as follows:
 > A binormal model based ROC curve can be defined over the truncated dataset where all z-samples **greater** than $-\Phi^{-1}(c)$ are ignored. **$A_c^{UN}$ is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** By definition the normalized area ranges between 0 and 1.
 
 
-### Numerical examples {#binormal-model-metz-partial-auc}
+### Numerical examples {#binormal-model-metz-partial-auc-example}
 
 Fig. \@ref(fig:binormal-model-partial-areas) shows the two un-normalized areas.
 
@@ -630,6 +632,60 @@ A_un <- 1 - A_u/(1-tpf_c)/(1-fpf_c)
 
 The upper un-normalized partial-area measure is $A_c^{U}$ = `r A_u`. $A_c^{U}$ is small because the sensitivity is high. The normalized measure is $A_c^{UN}$ = `r A_un`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than $-\Phi^{-1}(c)$. This measure emphasizes sensitivity.
 
+
+```{r, echo=FALSE}
+normalizedAreas <- function (a, b, fpf_c)
+{
+  zeta <- -qnorm(fpf_c)
+  A_z <- pnorm(a/sqrt(1+b^2))
+  tpf_c <- pnorm(a - b * zeta)
+  rho <- -b/sqrt(1+b^2)
+  Lower1 <- -Inf
+  Upper1 <- qnorm(fpf_c)
+  Lower2 <- -Inf
+  Upper2 <- a/sqrt(1+b^2)
+  sigma <- rbind(c(1, rho), c(rho, 1))
+  A_l <- as.numeric(pmvnorm(
+    c(Lower1, Lower2), 
+    c(Upper1, Upper2), 
+    sigma = sigma))
+  
+  A_ln <- A_l/pnorm(-zeta)/pnorm(a - b*zeta)
+  A_u <- (1-fpf_c)-(A_z - A_l)
+  
+  tpf_c <- pnorm(a + b * qnorm(fpf_c))
+  A_un <- 1 - A_u/(1-tpf_c)/(1-fpf_c) 
+  return(list(
+    A_ln = A_ln,
+    A_un = A_un
+    )
+  )
+}
+```
+
+
+```{r, echo=FALSE}
+a_arr = seq(0,9)
+A_ln_arr <- array(dim = length(a_arr))
+A_un_arr <- array(dim = length(a_arr))
+for (i in 1:length(a_arr)) {
+  x <- normalizedAreas(a_arr[i], 1, 0.1)
+  A_ln_arr[i] <- x$A_ln
+  A_un_arr[i] <- x$A_un
+  # cat("a = ", a_arr[i], 
+  #     "lower = ", A_ln_arr[i], 
+  #     "upper = ", A_un_arr[i],"\n")
+}
+```
+
+
+Table \@ref(tab:summary-table-partial-normalized-areas) shows normalized lower $A_c^{LN}$ and upper $A_c^{UN}$ partial AUCs for different values of the a-parameter, where $b = 1$ and $c = 0.1$. It demonstrates that the normalized areas are constrained between 0.5 and 1. For numerical reasons (basically a zero-divided-by-zero condition) it is difficult to show that $A_c^{UN}$ approaches 1 in the limit or very large a-parameter (the green shaded area shrinks to zero).
+
+
+```{r summary-table-partial-normalized-areas, echo=FALSE}
+df <- data.frame(a_parameter = a_arr, lower_norm = A_ln_arr, upper_norm = A_un_arr)
+knitr::kable(df, caption = "Summary of normalized lower $A_c^{LN}$ and upper $A_c^{UN}$ partial AUCs for different values of the a-parameter, where $b = 1$ and $c = 0.1$.", escape = FALSE)
+```
 
 
 ## Discussion{#binormal-model-discussion}
