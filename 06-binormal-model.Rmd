@@ -17,9 +17,10 @@ library(gridExtra)
 ```{r, echo=FALSE}
 shadedPlotsRoc <- function (mu, sigma, fpf)
 {
+  tpf <- pnorm((mu + qnorm(fpf))/sigma)
   zeta <- seq(- mu - 2,+ mu + 2, 0.1)
   fpfArr <- sort(c(c(0, pnorm(zeta), 1),fpf))
-  tpfArr <- sort(c(rev(c(1, pnorm((mu - zeta)/sigma), 0)),pnorm((mu + qnorm(fpf))/sigma)))
+  tpfArr <- sort(c(rev(c(1, pnorm((mu - zeta)/sigma), 0)),tpf))
   x <- data.frame(FPF = fpfArr, TPF = tpfArr)
   
   x$fill <- "no fill"
@@ -31,14 +32,13 @@ shadedPlotsRoc <- function (mu, sigma, fpf)
               aes(ymin=0,ymax=TPF), fill="blue", alpha=0.5) 
   
   x$fill <- "no fill"
-  x$fill[(x$FPF >= fpf) & (x$FPF <= 1)] <- "fill"
+  x$fill[(x$TPF >= tpf) & (x$TPF <= 1)] <- "fill"
   p <- p +
   geom_ribbon(data=subset(x, fpf <= x & x <= 1), 
-              aes(ymin=TPF,ymax=1), fill="green", alpha=0.5)
+              aes(ymin=tpf,ymax=TPF), fill="green", alpha=0.5)
   return(p)
 }
 ```
-
 
 
 ```{r, echo=FALSE}
@@ -503,14 +503,16 @@ The d' index can be regarded as a perceptual signal-to-noise-ratio.
 
 ## Partial AUC measures {#binormal-model-partial-auc}
 
+Shorthand: denote $A \equiv A_z$, $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$. Two partial AUC measures can be defined, one as a partial integral along the x-axis and the other as a partial integral along the y-axis. These are denoted by X and Y superscripts.
+
 ### Definition {#binormal-model-meaning-partial-auc-definitions}
 
-Shorthand: denote $A \equiv A_z$, $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$ and the superscript L denotes the *lower* integral, below the ROC (another measure using the upper integral, above the ROC, will be introduced shortly). The partial area below the ROC, $A_c^{L}$, is defined as that extending from $x = 0$ to $x = c$, where $0 \le c \le 1$ (in our notation $c$ always means a cutoff applied to the x-axis of the ROC): 
+The partial area under the ROC, $A_c^{X}$, is defined as that extending from $x = 0$ to $x = c$, where $0 \le c \le 1$ (in our notation $c$ always means a cutoff on the x-axis of the ROC): 
 
 \begin{equation} 
 \left. 
 \begin{aligned}
-A_c^{L} &= \int_{x=0}^{x=c} y \, dx 
+A_c^{X} &= \int_{x=0}^{x=c} y \, dx 
 \\&=  \int_{x=0}^{x=c} \Phi\left ( a + b \; \Phi^{-1} \left ( x \right ) \right ) \, dx 
 \end{aligned}
 \right \}
@@ -523,7 +525,7 @@ A_c^{L} &= \int_{x=0}^{x=c} y \, dx
 Section \@ref(binormal-model-partial-auc-derivation) derives a formula for the partial-area in terms of the binormal model parameters $a$ and $b$. The final result is:
 
 \begin{equation}
-A_c^{L} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
+A_c^{X} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
 (\#eq:binormal-model-partial-area-final)
 \end{equation}
 
@@ -546,48 +548,47 @@ The two-dimensional integral occurring on the right hand side of Eqn. \@ref(eq:b
 
 ### Meaning of partial AUC {#binormal-model-meaning-partial-auc}
 
-As an area measure the partial AUC $A_c^{L}$ has a simple *geometric* meaning. A *physical* meaning is as follows: 
+As an area measure the partial AUC $A_c^{X}$ has a simple *geometric* meaning. A *physical* meaning is as follows: 
 
-> A binormal model based ROC curve can be defined over the truncated dataset where all z-samples **smaller** than $-\Phi^{-1}(c)$ are ignored. The maximum area of this curve is that defined by the rectangle with corners at $(0,0)$ and $(c,\text{TPF}\left ( c \right ))$: $c$ is the abscissa at the upper limit of the integration interval along the x-axis and $\text{TPF}\left ( c \right )$ is the corresponding ordinate: see Eqn. \@ref(eq:binormal-model-op-point-ab2). Dividing $A_c^{L}$ by $\text{TPF}\left ( c \right ) \times c$ yields a normalized partial area measure, denoted $A_c^{LN}$. **This is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** By definition the normalized area ranges between 0 and 1.
+> A binormal model based ROC curve can be defined over the truncated dataset where all z-samples **smaller** than $-\Phi^{-1}(c)$ are ignored. The maximum area of this curve is that defined by the rectangle with corners at $(0,0)$ and $(c,\text{TPF}\left ( c \right ))$: $c$ is the abscissa at the upper limit of the integration interval along the x-axis and $\text{TPF}\left ( c \right )$ is the corresponding ordinate: see Eqn. \@ref(eq:binormal-model-op-point-ab2). Dividing $A_c^{X}$ by $\text{TPF}\left ( c \right ) \times c$ yields a normalized partial area measure, denoted $A_c^{XN}$. **This is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** By definition the normalized area ranges between 0 and 1.
 
 
 \begin{equation}
-A_c^{LN} = \frac{A_c^{L}}{\text{TPF}\left ( c \right ) \times c}
+A_c^{XN} = \frac{A_c^{X}}{\text{TPF}\left ( c \right ) \times c}
 (\#eq:binormal-model-normalized-partial-auc)
 \end{equation}
 
 
-
 ### Alternative partial AUC measure {#binormal-model-metz-partial-auc}
 
-Since the integral in Eqn. \@ref(eq:binormal-model-partial-area-a1) is from $x = 0$ to $x = c$ the above partial AUC measure emphasizes the *high specificity* region of the ROC curve (since $x = 0$ corresponds to unit, i.e. highest, specificity).
+Since the integral in Eqn. \@ref(eq:binormal-model-partial-area-a1) is from $x = 0$ to $x = c$ this partial AUC measure emphasizes the *high specificity* region of the ROC curve (since $x = 0$ corresponds to unit, i.e. highest, specificity).
 
 An alternative partial AUC measure has been defined [@jiang1996receiver] that emphasizes the *high sensitivity* region of the ROC as follows:
 
 \begin{equation} 
-A_c^{U} = \int_{y=\text{TPF}(c)}^{y=1} x \, dy
-(\#eq:binormal-model-partial-area-a2)
+A_c^{Y} = \int_{y=\text{TPF}(c)}^{y=1} \left (1-x  \right ) \, dy
+(\#eq:binormal-model-partial-area-ac-metz)
 \end{equation}
 
 
-Note that this is the (un-normalized) *upper* (hence the U superscript) area above the ROC extending from $y = \text{TPF}(c)$ to $y = 1$. The maximum value of this integral is the area of the rectangle defined by the corner points $(c,\text{TPF}(c))$ and $(1,1)$. Therefore the normalized area is defined by: 
+$A_c^{Y}$ is the (un-normalized) area below the ROC extending from $y = \text{TPF}(c)$ to $y = 1$. The superscript Y denotes that the integral is over part of the y-axis. The maximum value of this integral is the area of the rectangle defined by the corner points $(c,\text{TPF}(c))$ and $(1,1)$. Therefore the normalized area is defined by: 
 
 
 \begin{equation}
-A_c^{UN} = 1-\frac{A_c^{U}}{\left (1 - \text{TPF}(c)  \right ) \times \left (1-c  \right )}
-(\#eq:binormal-model-normalized-partial-auc-upper)
+A_c^{YN} = \frac{A_c^{Y}}{\left (1 - \text{TPF}(c)  \right ) \times \left (1-c  \right )}
+(\#eq:binormal-model-normalized-partial-auc-upper2)
 \end{equation}
 
 A *physical* meaning is as follows: 
 
-> A binormal model based ROC curve can be defined over the truncated dataset where all z-samples **greater** than $-\Phi^{-1}(c)$ are ignored. **$A_c^{UN}$ is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** By definition the normalized area ranges between 0 and 1.
+> A binormal model based ROC curve can be defined over the truncated dataset where all z-samples **greater** than $-\Phi^{-1}(c)$ are ignored. **$A_c^{YN}$ is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** By definition the normalized area ranges between 0 and 1.
 
 
 ### Numerical examples {#binormal-model-metz-partial-auc-example}
 
 Fig. \@ref(fig:binormal-model-partial-areas) shows the two un-normalized areas.
 
-```{r binormal-model-partial-areas, fig.cap = "Un-normalized partial AUC measures: the blue shaded area is $A_c^{L}$, the partial area below the ROC; the green shaded area is $A_c^{U}$ the partial area above the ROC. Parameters are $\\mu = 1.8$, $\\sigma = 1$ and $c = 0.3$.", fig.show='hold', echo=FALSE}
+```{r binormal-model-partial-areas, fig.cap = "Un-normalized partial AUC measures: the blue shaded area is $A_c^{X}$, the partial area below the ROC; the green shaded area is $A_c^{Y}$ the partial area above the ROC. Parameters are $\\mu = 1.8$, $\\sigma = 1$ and $c = 0.3$.", fig.show='hold', echo=FALSE}
 print(shadedPlotsRoc(mu = 1.8, sigma = 1, fpf = 0.3))
 ```
 
@@ -598,39 +599,42 @@ The following code illustrates calculation of the partial-area measure using the
 ```{r, attr.source = ".numberLines"}
 a <- 1.8
 b <- 1
-fpf_c <- 0.3 # cannot use c as variable name here
-zeta <- -qnorm(fpf_c)
+fpf_c <- 0.3 # cannot use c as variable name
 A_z <- pnorm(a/sqrt(1+b^2))
-tpf_c <- pnorm(a - b * zeta)
+tpf_c <- pnorm(a + b * qnorm(fpf_c))
 rho <- -b/sqrt(1+b^2)
 Lower1 <- -Inf
 Upper1 <- qnorm(fpf_c)
 Lower2 <- -Inf
 Upper2 <- a/sqrt(1+b^2)
 sigma <- rbind(c(1, rho), c(rho, 1))
-A_l <- as.numeric(pmvnorm(
+A_x <- as.numeric(pmvnorm(
   c(Lower1, Lower2), 
   c(Upper1, Upper2), 
   sigma = sigma))
 
-A_ln <- A_l/pnorm(-zeta)/pnorm(a - b*zeta)
+# divide by area of rectangle
+A_xn <- A_x/fpf_c/tpf_c
 ```
 
 
-The lower un-normalized partial-area measure is $A_c^{L}$ = `r A_l`. The corresponding full AUC measure is $A_z$ = `r A_z`. $A_c^{L}$ is small because the reporting threshold is relatively high. The normalized measure is $A_c^{LN}$ = `r A_ln`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$ = `r -qnorm(fpf_c)`. This measure emphasizes specificity.
+The un-normalized partial-area measure $A_c^{X}$ = `r A_x`. The corresponding full AUC measure is $A_z$ = `r A_z`. $A_c^{X}$ is small because the reporting threshold is relatively high. The normalized measure is $A_c^{XN}$ = `r A_xn`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$ = `r -qnorm(fpf_c)`. This measure emphasizes specificity.
 
 
-The upper area can be calculated using geometry. One subtracts the lower area $A_c^{L}$ from the full area $A_z$ to get the area under the ROC to the right of the selected value of FPF. Next one subtracts this quantity from the area of the rectangle with base (1 - FPF) and unit height. This yields the area if the green shaded region $A_c^{U}$.
+$A_c^{Y}$ can be calculated using geometry. One subtracts the lower area $A_c^{X}$ from the full area $A_z$ to get the area under the ROC to the right of $\text{FPF}=c$. Next one subtracts from this quantity the area of the rectangle with base $(1 - c)$ and height $\text{TPF}_c$. This yields the area if the green shaded region $A_c^{Y}$. To normalize it one divides by the area of the rectangle defined by the corner points $c,\text{TPF}_c$ and (1,1).
 
 
 ```{r}
-A_u <- (1-fpf_c)-(A_z - A_l)
 tpf_c <- pnorm(a + b * qnorm(fpf_c))
-A_un <- 1 - A_u/(1-tpf_c)/(1-fpf_c) 
+A_y <- (A_z - A_x)-(1-fpf_c)*(tpf_c)
+A_yn <- A_y/(1-tpf_c)/(1-fpf_c) 
 ```
 
 
-The upper un-normalized partial-area measure is $A_c^{U}$ = `r A_u`. $A_c^{U}$ is small because the sensitivity is high. The normalized measure is $A_c^{UN}$ = `r A_un`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than $-\Phi^{-1}(c)$ = `r -qnorm(fpf_c)`. This measure emphasizes sensitivity.
+The un-normalized partial-area measure $A_c^{Y}$ = `r A_y`. $A_c^{Y}$ is small because the sensitivity is high. The normalized measure is $A_c^{YN}$ = `r A_yn`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than $-\Phi^{-1}(c)$ = `r -qnorm(fpf_c)`. This measure emphasizes sensitivity.
+
+
+The variation with $a$ of the two normalized AUC measures is shown next. The function `normalizedAreas((a, b, fpf_c))` encapsulates the calculations detailed above and is called repeatedly for different values of $a$.
 
 
 ```{r, echo=FALSE}
@@ -645,47 +649,44 @@ normalizedAreas <- function (a, b, fpf_c)
   Lower2 <- -Inf
   Upper2 <- a/sqrt(1+b^2)
   sigma <- rbind(c(1, rho), c(rho, 1))
-  A_l <- as.numeric(pmvnorm(
+  A_x <- as.numeric(pmvnorm(
     c(Lower1, Lower2), 
     c(Upper1, Upper2), 
     sigma = sigma))
+  A_xn <- A_x/fpf_c/tpf_c # normalized X-area
   
-  A_ln <- A_l/pnorm(-zeta)/pnorm(a - b*zeta)
-  A_u <- (1-fpf_c)-(A_z - A_l)
+  A_y <- (A_z - A_x)-(1-fpf_c)*(tpf_c) # geometry
+  A_yn <- A_y/(1-tpf_c)/(1-fpf_c) # normalized Y-area
   
-  tpf_c <- pnorm(a + b * qnorm(fpf_c))
-  A_un <- 1 - A_u/(1-tpf_c)/(1-fpf_c) 
   return(list(
-    A_ln = A_ln,
-    A_un = A_un
+    A_xn = A_xn,
+    A_yn = A_yn
     )
   )
 }
 ```
 
 
-```{r, echo=FALSE}
-a_arr = seq(0,9)
-A_ln_arr <- array(dim = length(a_arr))
-A_un_arr <- array(dim = length(a_arr))
+```{r, echo=TRUE}
+a_arr = seq(0,8)
+A_xn_arr <- array(dim = length(a_arr))
+A_yn_arr <- array(dim = length(a_arr))
 for (i in 1:length(a_arr)) {
-  x <- normalizedAreas(a_arr[i], 1, 0.1)
-  A_ln_arr[i] <- x$A_ln
-  A_un_arr[i] <- x$A_un
-  # cat("a = ", a_arr[i], 
-  #     "lower = ", A_ln_arr[i], 
-  #     "upper = ", A_un_arr[i],"\n")
+  x <- normalizedAreas(a_arr[i], 1, 0.1) # c = 0.1
+  A_xn_arr[i] <- x$A_xn
+  A_yn_arr[i] <- x$A_yn
 }
 ```
 
 
-Table \@ref(tab:summary-table-partial-normalized-areas) shows normalized lower $A_c^{LN}$ and upper $A_c^{UN}$ partial AUCs for different values of the a-parameter, where $b = 1$ and $c = 0.1$. It demonstrates that the normalized areas are constrained between 0.5 and 1. For numerical reasons (basically a zero-divided-by-zero condition) it is difficult to show that $A_c^{UN}$ approaches 1 in the limit or very large a-parameter (the green shaded area shrinks to zero).
-
 
 ```{r summary-table-partial-normalized-areas, echo=FALSE}
-df <- data.frame(a_parameter = a_arr, lower_norm = A_ln_arr, upper_norm = A_un_arr)
-knitr::kable(df, caption = "Summary of normalized lower $A_c^{LN}$ and upper $A_c^{UN}$ partial AUCs for different values of the a-parameter, where $b = 1$ and $c = 0.1$.", escape = FALSE)
+df <- data.frame(a_parm = a_arr, A_XN = A_xn_arr, A_YN = A_yn_arr)
+knitr::kable(df, caption = "Summary of normalized lower $A_c^{XN}$ and upper $A_c^{YN}$ partial AUCs for different values of the a-parameter, where $b = 1$ and $c = 0.1$.", escape = FALSE)
 ```
+
+
+Table \@ref(tab:summary-table-partial-normalized-areas) shows $A_c^{XN}$ and $A_c^{YN}$ partial AUCs for different values of the a-parameter for $b = 1$ and $c = 0.1$. It demonstrates that the normalized areas are constrained between 0.5 and 1. For numerical reasons (basically a zero-divided-by-zero condition) it is difficult to show that $A_c^{YN}$ approaches 1 in the limit of very large a-parameter (since the green shaded area shrinks to zero).
 
 
 ## Discussion{#binormal-model-discussion}
