@@ -832,9 +832,9 @@ for (i in 1:length(a_arr)) {
 
 
 ```{r summary-table-partial-normalized-areas, echo=FALSE}
-df <- data.frame(a = a_arr, A_XN = A_xn_arr, A_YN = A_yn_arr)
-# df <- data.frame(a_arr, A_xn_arr, A_yn_arr)
-# colnames(df) <- c("$a$","$A^{XN}_c$", "$A^{YN}_c$")
+# df <- data.frame(a = a_arr, A_XN = A_xn_arr, A_YN = A_yn_arr)
+df <- data.frame(a_arr, A_xn_arr, A_yn_arr)
+colnames(df) <- c("$a$","$A^{XN}_c$", "$A^{YN}_c$")
 knitr::kable(df, caption = "Summary of normalized $A_c^{XN}$ and $A_c^{YN}$ partial AUCs for different values of the $a$ parameter, where $b = 1$ and $c = 0.1$.", escape = FALSE)
 ```
 
