@@ -275,7 +275,7 @@ p1 <- ggplot() + ggtitle("A") +
               aes(x = z, 
                   y = pdfs, 
                   linetype = curves), 
-            linewidth = 0.5) +
+            linewidth = 0.25) +
   scale_linetype_manual(
     values = c("dashed", "solid")) + theme_bw() +
   theme(axis.title.y = 
@@ -300,12 +300,12 @@ p1 <- ggplot() + ggtitle("A") +
   annotate(
     "text", 
     x = 1, 
-    y = 0.39, 
+    y = 0.43, 
     label = "a", 
     size = 5) +
   annotate(
     "text", 
-    x = 1.2, 
+    x = 1.5, 
     y = 0.35, 
     label = "Noise", 
     size = 5) +
@@ -359,7 +359,7 @@ y <- data.frame(z = c(z, z),
 p2 <- ggplot()  + ggtitle("B") + geom_line(
   data = y, 
   mapping = aes(x = z, 
-                y = pdfs, linetype = curves), linewidth = 0.75) +
+                y = pdfs, linetype = curves), linewidth = 0.25) +
   scale_linetype_manual(
     values = c("dashed", "solid")) + 
   theme_bw() +
@@ -382,10 +382,10 @@ p2 <- ggplot()  + ggtitle("B") + geom_line(
         xend = mu * sigma, 
         yend = 0.405 / sigma), 
     arrow = arrow(length = unit(0.3, "cm"))) + 
-  annotate("text", x = 1 * sigma, y = 0.39 / sigma, label = "mu == a/b", 
+  annotate("text", x = 1 * sigma, y = 0.43 / sigma, label = "mu == a/b", 
            size = 5, fontface = "bold", parse = TRUE) + 
   annotate("text", 
-           x = 1.2 * sigma, 
+           x = 1.5 * sigma, 
            y = 0.35 / sigma, 
            label = "Noise", 
            size = 5, 
@@ -432,7 +432,7 @@ p2 <- ggplot()  + ggtitle("B") + geom_line(
            fontface = "bold", parse = TRUE)
 ```
 
-```{r binormal-model-ab2-mu-sigma, fig.cap="Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance, thereby illustrations between (a,b) and the ($\\mu,\\sigma$) parameters.", fig.show='hold'}
+```{r binormal-model-ab2-mu-sigma, fig.cap="Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\\mu,\\sigma$) parameters. In this figure $\\mu = 2$ and $\\sigma = 1.8$", fig.show='hold'}
 grid.arrange(p1,p2,ncol=2)
 ```
 
