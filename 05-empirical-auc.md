@@ -135,7 +135,7 @@ O_4 \equiv \left ( FPF_4, TPF_4 \right ) = \left ( 0.017, 0.44 \right )\\
 (\#eq:empirical-OperatingPointFPF-TPF-4)
 \end{equation}
 
-In Table \@ref(tab:ratings-paradigmExampleTable) a sample clinical ratings data set was introduced. Shown below is a partial code listing of mainEmpRocPlot.R showing implementation of Eqn. (5.7). Except for the last statement, the plotting part of the code is suppressed. 
+In Table \@ref(tab:ratings-paradigm-example-table) a sample clinical ratings data set was introduced. Shown below is a partial code listing of mainEmpRocPlot.R showing implementation of Eqn. (5.7). Except for the last statement, the plotting part of the code is suppressed. 
 
 
 
@@ -149,7 +149,7 @@ ROCOp <- data.frame(FPF = FPF, TPF = TPF)
 ROCPlot <- ggplot(
   data = ROCOp, 
   mapping = aes(x = FPF, y = TPF)) + 
-  geom_line(size = 1) + 
+  geom_line(linewidth = 1) + 
   geom_point(size = 4) + 
   theme_bw() + 
   theme(panel.grid.major = element_blank(), 
@@ -188,8 +188,6 @@ ROCPlot <- ggplot(
                     gp = gpar(fontsize = 22)), 
     xmin = 0.49, xmax = 0.49, 
     ymin = 0.94, ymax = 0.94)  
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `linewidth` instead.
 
 p <- ggplotGrob(ROCPlot)
 p$layout$clip[p$layout$name=="panel"] <- "off"
@@ -237,7 +235,7 @@ shade <- data.frame(
 p <- ggplot(ROC_Points, 
             aes(x = FPF, y = TPF) ) + 
   geom_polygon(data = shade, fill = 'grey') + 
-  geom_line(size = 1) + 
+  geom_line(linewidth = 1) + 
   geom_point(size = 4) + 
   theme_bw() + 
   theme(
