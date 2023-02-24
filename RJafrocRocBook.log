@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.2.24)  24 FEB 2023 12:49
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.2.24)  24 FEB 2023 12:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -508,7 +508,8 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip74
-) (./RJafrocRocBook.aux)
+)
+No file RJafrocRocBook.aux.
 \openout1 = `RJafrocRocBook.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 143.
@@ -764,9 +765,11 @@ LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/b/n on input line 143.
 Package hyperref Info: Link coloring OFF on input line 143.
-(./RJafrocRocBook.out) (./RJafrocRocBook.out)
 \@outlinefile=\write4
 \openout4 = `RJafrocRocBook.out'.
+
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 (Font)              scaled to size 12.0pt on input line 145.
@@ -802,49 +805,64 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 ] [2
 
-] (./RJafrocRocBook.toc
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.00092pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.00064pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 9.99893pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.99925pt on input line 2.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 2.
-[3] [4] [5])
+]
+No file RJafrocRocBook.toc.
 \tf@toc=\write5
 \openout5 = `RJafrocRocBook.toc'.
 
-[6] [7
+[3] [4
 
-] [8
+]
 
-] [9] [10]
+Package natbib Warning: Citation `chakraborty2017observer' on page 5 undefined on input line 162.
+
+
+Package natbib Warning: Citation `R-RJafroc' on page 5 undefined on input line 164.
+
+[5] [6
+
+] [7] [8]
 Chapter 1.
-[11
 
-] [12]
+Package natbib Warning: Citation `metz1978rocmethodology' on page 9 undefined on input line 209.
+
+
+Package natbib Warning: Citation `metz1978rocmethodology' on page 9 undefined on input line 209.
+
+
+Package natbib Warning: Citation `metz1978rocmethodology' on page 9 undefined on input line 209.
+
+
+Package natbib Warning: Citation `metz1989some' on page 9 undefined on input line 209.
+
+
+Package natbib Warning: Citation `kundel2008receiver' on page 9 undefined on input line 209.
+
+
+Package natbib Warning: Citation `metz1986rocmethodology' on page 9 undefined on input line 209.
+
+
+Package natbib Warning: Citation `RN1443' on page 9 undefined on input line 209.
+
+[9
+
+] [10]
 Underfull \vbox (badness 5302) has occurred while \output is active []
+
+[11] [12]
+Overfull \hbox (28.26343pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 1.4.  IMAGING DEVICE DEVELOPMENT AND ITS CLINICAL DEPLOYMENT \TU/lmr/m/n/10 13
+ []
 
 [13] [14]
 Overfull \hbox (28.26343pt too wide) has occurred while \output is active
 \TU/lmr/m/sl/10 1.4.  IMAGING DEVICE DEVELOPMENT AND ITS CLINICAL DEPLOYMENT \TU/lmr/m/n/10 15
  []
 
-[15] [16]
-Overfull \hbox (28.26343pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 1.4.  IMAGING DEVICE DEVELOPMENT AND ITS CLINICAL DEPLOYMENT \TU/lmr/m/n/10 17
- []
+[15]
 
-[17]
+LaTeX Warning: Reference `fig:acr-phantom-clinical' on page 16 undefined on input line 263.
+
 File: images/AcrPhantom.png Graphic file (type bmp)
 <images/AcrPhantom.png>
 File: images/Clinical.png Graphic file (type bmp)
@@ -854,92 +872,364 @@ Overfull \hbox (2.22542pt too wide) in paragraph at lines 266--266
 [][] [] 
  []
 
-[18]
+
+LaTeX Warning: Reference `fig:acr-phantom-clinical' on page 16 undefined on input line 269.
+
+[16]
+
+LaTeX Warning: Reference `fig:acr-phantom-clinical' on page 17 undefined on input line 273.
+
+
+LaTeX Warning: Reference `fig:acr-phantom-clinical' on page 17 undefined on input line 273.
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \hbox (28.26343pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 1.4.  IMAGING DEVICE DEVELOPMENT AND ITS CLINICAL DEPLOYMENT \TU/lmr/m/n/10 19
+\TU/lmr/m/sl/10 1.4.  IMAGING DEVICE DEVELOPMENT AND ITS CLINICAL DEPLOYMENT \TU/lmr/m/n/10 17
  []
 
-[19] [20] [21]
+[17] [18]
+
+LaTeX Warning: Reference `fig:acr-phantom-clinical' on page 19 undefined on input line 289.
+
+
+LaTeX Warning: Reference `fig:acr-phantom-clinical' on page 19 undefined on input line 289.
+
+
+LaTeX Warning: Reference `fig:acr-phantom-clinical' on page 19 undefined on input line 289.
+
+[19]
 Overfull \hbox (0.242pt too wide) in paragraph at lines 298--299
 \TU/lmr/m/n/10 disk-free locations. To be technical, the procedure yields the signal-to-noise-ratio
  []
 
-[22]
+[20]
 Underfull \hbox (badness 3907) in paragraph at lines 307--307
 []\TU/lmr/bx/n/14.4 Measuring observer performance: four
  []
 
-[23] [24] [25]
+[21] [22]
+
+Package natbib Warning: Citation `kundel2008receiver' on page 23 undefined on input line 332.
+
+
+Package natbib Warning: Citation `fryback1991efficacy' on page 23 undefined on input line 332.
+
+
+LaTeX Warning: Reference `tab:fryback-thornbury' on page 23 undefined on input line 332.
+
+[23]
+
+LaTeX Warning: Reference `tab:fryback-thornbury' on page 24 undefined on input line 334.
+
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 7.0pt on input line 340.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 5.0pt on input line 340.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 10.00092pt on input line 340.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 7.00064pt on input line 340.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 5.00046pt on input line 340.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 9.99893pt on input line 340.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 6.99925pt on input line 340.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 4.99947pt on input line 340.
+
 Overfull \hbox (1.85002pt too wide) in paragraph at lines 340--357
  [][] 
  []
 
-[26]
+[24]
 Underfull \vbox (badness 2698) has occurred while \output is active []
 
-[27] [28] [29] [30]
+[25] [26] [27] [28]
 Chapter 2.
-[31
 
-] [32]
+Package natbib Warning: Citation `green1966signal' on page 29 undefined on input line 431.
+
+
+Package natbib Warning: Citation `egan1975book' on page 29 undefined on input line 431.
+
+[29
+
+]
+
+LaTeX Warning: Reference `tab:binary-task-truth-table' on page 30 undefined on input line 440.
+
+
+LaTeX Warning: Reference `tab:binary-task-truth-table2' on page 30 undefined on input line 457.
+
+
+LaTeX Warning: Reference `tab:binary-task-truth-table' on page 30 undefined on input line 457.
+
+
+LaTeX Warning: Reference `eq:binary-task-truth-tableEqns' on page 30 undefined on input line 457.
+
+[30]
 Overfull \hbox (26.36287pt too wide) in paragraph at lines 474--485
  [][] 
  []
 
-[33] [34] [35] [36] [37] [38] [39] [40] [41] [42]
-Chapter 3.
-[43
+[31]
 
-] [44] [45] [46]
+LaTeX Warning: Reference `eq:binary-taskPSumsToUnity2' on page 32 undefined on input line 549.
+
+
+LaTeX Warning: Reference `eq:binary-taskPSumsToUnity2' on page 32 undefined on input line 549.
+
+[32] [33] [34]
+
+LaTeX Warning: Reference `eq:binary-taskAccuracyEst2' on page 35 undefined on input line 650.
+
+
+LaTeX Warning: Reference `eq:binary-taskAccuracyEst2' on page 35 undefined on input line 652.
+
+
+LaTeX Warning: Reference `eq:binary-taskSeSpEstimates' on page 35 undefined on input line 652.
+
+[35]
+
+LaTeX Warning: Reference `eq:binary-taskSeSp' on page 36 undefined on input line 697.
+
+[36] [37]
+
+Package natbib Warning: Citation `RN1492' on page 38 undefined on input line 750.
+
+
+LaTeX Warning: Reference `eq:binary-taskBayesTheorem' on page 38 undefined on input line 761.
+
+[38]
+
+LaTeX Warning: Reference `eq:binary-taskNPVFormula-pop' on page 39 undefined on input line 803.
+
+
+LaTeX Warning: Reference `eq:binary-taskPPV' on page 39 undefined on input line 805.
+
+
+LaTeX Warning: Reference `eq:binary-taskDisPrevLabVsPop' on page 39 undefined on input line 816.
+
+
+Package natbib Warning: Citation `fenton2007influence' on page 39 undefined on input line 816.
+
+[39] [40]
+Chapter 3.
+
+LaTeX Warning: Reference `binary-task-model' on page 41 undefined on input line 840.
+
+[41
+
+] [42] [43]
+
+LaTeX Warning: Reference `eq:binary-task-modelFPF' on page 44 undefined on input line 895.
+
+
+LaTeX Warning: Reference `eq:binary-task-modelTPF' on page 44 undefined on input line 895.
+
+
+LaTeX Warning: Reference `eq:binary-task-modelFPF' on page 44 undefined on input line 902.
+
+
+LaTeX Warning: Reference `eq:binary-task-modelTPF' on page 44 undefined on input line 902.
+
+[44]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[47] [48] [49] [50]
+[45] [46]
+
+LaTeX Warning: Reference `eq:binary-task-modeleq-variance-binormal-model' on page 47 undefined on input line 955.
+
+
+LaTeX Warning: Reference `eq:binary-task-modeleq-variance-binormal-model' on page 47 undefined on input line 959.
+
+
+LaTeX Warning: Reference `eq:binary-task-modeleq-variance-binormal-model' on page 47 undefined on input line 959.
+
+[47]
+
+LaTeX Warning: Reference `eq:binary-task-model-phi-def' on page 48 undefined on input line 975.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-Phi' on page 48 undefined on input line 982.
+
+
+LaTeX Warning: Reference `fig:binary-task-model-plots1' on page 48 undefined on input line 989.
+
+
+LaTeX Warning: Reference `fig:binary-task-model-plots1' on page 48 undefined on input line 989.
+
+[48]
 File: 03-modeling-binary-task_files/figure-latex/binary-task-model-plots1-1.pdf Graphic file (type pdf)
 <use 03-modeling-binary-task_files/figure-latex/binary-task-model-plots1-1.pdf>
-[51] [52]
+
+LaTeX Warning: Reference `eq:binary-task-model-Phi' on page 49 undefined on input line 1014.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-Phi' on page 49 undefined on input line 1014.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-Phi' on page 49 undefined on input line 1021.
+
+[49]
+
+LaTeX Warning: Reference `eq:binary-task-model-Phi-Inv-alpha-by2' on page 50 undefined on input line 1068.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-PhiInv-One-Minus-alphaby2' on page 50 undefined on input line 1068.
+
+
+LaTeX Warning: Reference `fig:binary-task-model-shaded-tails' on page 50 undefined on input line 1068.
+
+[50]
 File: 03-modeling-binary-task_files/figure-latex/binary-task-model-shaded-tails-1.pdf Graphic file (type pdf)
 <use 03-modeling-binary-task_files/figure-latex/binary-task-model-shaded-tails-1.pdf>
-[53] [54] [55]
+[51] [52]
+
+LaTeX Warning: Reference `eq:binary-task-model-Sensitivity-Specificity' on page 53 undefined on input line 1155.
+
+[53]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 1195.
-[56]
+[54]
 File: 03-modeling-binary-task_files/figure-latex/binary-task-model-shaded-plots-1.pdf Graphic file (type pdf)
 <use 03-modeling-binary-task_files/figure-latex/binary-task-model-shaded-plots-1.pdf>
 
+LaTeX Warning: Reference `fig:binary-task-model-shaded-plots' on page 55 undefined on input line 1240.
+
+
+Overfull \hbox (54.51231pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 3.9.  DEMONSTRATION OF THE CONCEPTS OF SENSITIVITY AND SPECIFICITY \TU/lmr/m/n/10 55
+ []
+
+[55] [56]
 Overfull \hbox (54.51231pt too wide) has occurred while \output is active
 \TU/lmr/m/sl/10 3.9.  DEMONSTRATION OF THE CONCEPTS OF SENSITIVITY AND SPECIFICITY \TU/lmr/m/n/10 57
  []
 
 [57] [58]
+
+LaTeX Warning: Reference `tab:binary-task-modelSeSpMuvsCaseSizeSeed' on page 59 undefined on input line 1354.
+
+
 Overfull \hbox (54.51231pt too wide) has occurred while \output is active
 \TU/lmr/m/sl/10 3.9.  DEMONSTRATION OF THE CONCEPTS OF SENSITIVITY AND SPECIFICITY \TU/lmr/m/n/10 59
  []
 
-[59] [60]
-Overfull \hbox (54.51231pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 3.9.  DEMONSTRATION OF THE CONCEPTS OF SENSITIVITY AND SPECIFICITY \TU/lmr/m/n/10 61
- []
+[59]
 
-[61] [62] [63] [64]
+LaTeX Warning: Reference `tab:binary-task-modelSeSpMuvsCaseSizeSeed' on page 60 undefined on input line 1414.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-solve-mu' on page 60 undefined on input line 1414.
+
+
+LaTeX Warning: Reference `tab:binary-task-modelSeSpMuvsCaseSizeSeed' on page 60 undefined on input line 1416.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-Specificity' on page 60 undefined on input line 1421.
+
+
+LaTeX Warning: Reference `fig:binary-task-model-shaded-plots' on page 60 undefined on input line 1421.
+
+
+Package natbib Warning: Citation `RN2637' on page 60 undefined on input line 1421.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-solve-mu' on page 60 undefined on input line 1421.
+
+[60]
+
+LaTeX Warning: Reference `eq:binary-task-model-Sensitivity-Specificity' on page 61 undefined on input line 1426.
+
+[61]
+
+LaTeX Warning: Reference `fig:binary-task-model-RocCurvesEqVarModel' on page 62 undefined on input line 1448.
+
+[62]
 File: 03-modeling-binary-task_files/figure-latex/binary-task-model-RocCurvesEqVarModel-1.pdf Graphic file (type pdf)
 <use 03-modeling-binary-task_files/figure-latex/binary-task-model-RocCurvesEqVarModel-1.pdf>
-[65] [66] [67] [68]
+
+LaTeX Warning: Reference `fig:binary-task-model-RocCurvesEqVarModel' on page 63 undefined on input line 1494.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-op-pt' on page 63 undefined on input line 1494.
+
+
+LaTeX Warning: Reference `fig:binary-task-model-shaded-plots' on page 63 undefined on input line 1497.
+
+[63]
+
+LaTeX Warning: Reference `fig:binary-task-model-RocCurvesEqVarModel' on page 64 undefined on input line 1507.
+
+
+LaTeX Warning: Reference `fig:binary-task-model-RocCurvesEqVarModel' on page 64 undefined on input line 1507.
+
+[64]
+
+LaTeX Warning: Reference `eq:binary-task-model-Az-EqVarModel' on page 65 undefined on input line 1543.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-Az-EqVarModel' on page 65 undefined on input line 1553.
+
+[65]
+
+LaTeX Warning: Reference `eq:binary-task-model-slopeROC1' on page 66 undefined on input line 1600.
+
+[66]
+
+LaTeX Warning: Reference `fig:binary-task-model-MainAnalyticalROC' on page 67 undefined on input line 1602.
+
 File: 03-modeling-binary-task_files/figure-latex/binary-task-model-MainAnalyticalROC-1.pdf Graphic file (type pdf)
 <use 03-modeling-binary-task_files/figure-latex/binary-task-model-MainAnalyticalROC-1.pdf>
-[69] [70]
+
+Package natbib Warning: Citation `macmillan2004detection' on page 67 undefined on input line 1636.
+
+
+Package natbib Warning: Citation `green1966signal' on page 67 undefined on input line 1636.
+
+
+Package natbib Warning: Citation `egan1975book' on page 67 undefined on input line 1636.
+
+
+Package natbib Warning: Citation `marcum1947statistical' on page 67 undefined on input line 1636.
+
+
+Package natbib Warning: Citation `marcum1960statistical' on page 67 undefined on input line 1636.
+
+[67] [68]
+
+LaTeX Warning: Reference `eq:binary-task-model-BinDistrFPF' on page 69 undefined on input line 1675.
+
+
+Overfull \hbox (11.94344pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 3.12.  ASSIGNING CONFIDENCE INTERVALS TO AN OPERATING POINT \TU/lmr/m/n/10 69
+ []
+
+[69]
+
+LaTeX Warning: Reference `eq:binary-task-model-BinDistrDef' on page 70 undefined on input line 1685.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-BinDistrDef2' on page 70 undefined on input line 1694.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-ci-fpf' on page 70 undefined on input line 1726.
+
+[70]
+
+LaTeX Warning: Reference `eq:binary-task-model-ci-tpf' on page 71 undefined on input line 1763.
+
+
 Overfull \hbox (11.94344pt too wide) has occurred while \output is active
 \TU/lmr/m/sl/10 3.12.  ASSIGNING CONFIDENCE INTERVALS TO AN OPERATING POINT \TU/lmr/m/n/10 71
  []
 
-[71] [72]
-Overfull \hbox (11.94344pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 3.12.  ASSIGNING CONFIDENCE INTERVALS TO AN OPERATING POINT \TU/lmr/m/n/10 73
- []
-
-[73]
+[71]
 Underfull \vbox (badness 10000) detected at line 1821
  []
 
@@ -947,30 +1237,154 @@ Underfull \vbox (badness 10000) detected at line 1821
 Underfull \vbox (badness 10000) detected at line 1821
  []
 
-[74]
+[72]
+
+Package natbib Warning: Citation `RN1087' on page 73 undefined on input line 1828.
+
+
+LaTeX Warning: Reference `tab:binary-task-model-table-beam-study' on page 73 undefined on input line 1828.
+
 File: images/BeamStudy.png Graphic file (type bmp)
 <images/BeamStudy.png>
 
+LaTeX Warning: Reference `fig:beam-study-fig' on page 73 undefined on input line 1863.
+
+
 Overfull \hbox (62.39124pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 3.13.  VARIABILITY IN SENSITIVITY AND SPECIFICITY: THE BEAM ET AL STUDY \TU/lmr/m/n/10 75
+\TU/lmr/m/sl/10 3.13.  VARIABILITY IN SENSITIVITY AND SPECIFICITY: THE BEAM ET AL STUDY \TU/lmr/m/n/10 73
  []
 
-[75] [76] [77] [78]
-Chapter 4.
-[79
+[73] [74]
 
-] [80] [81] [82] [83]
+LaTeX Warning: Reference `fig:beam-study-fig' on page 75 undefined on input line 1865.
+
+
+LaTeX Warning: Reference `tab:binary-task-model-table-beam-study' on page 75 undefined on input line 1865.
+
+
+LaTeX Warning: Reference `fig:beam-study-fig' on page 75 undefined on input line 1868.
+
+[75] [76]
+Chapter 4.
+
+LaTeX Warning: Reference `binary-task' on page 77 undefined on input line 1900.
+
+
+LaTeX Warning: Reference `binary-task' on page 77 undefined on input line 1900.
+
+[77
+
+]
+
+LaTeX Warning: Reference `binary-task' on page 78 undefined on input line 1923.
+
+
+LaTeX Warning: Reference `tab:binary-task-truth-table' on page 78 undefined on input line 1923.
+
+
+LaTeX Warning: Reference `tab:ratings-paradigm-example-table' on page 78 undefined on input line 1925.
+
+
+Package natbib Warning: Citation `RN4343' on page 78 undefined on input line 1925.
+
+[78]
+
+LaTeX Warning: Reference `binormal-model' on page 79 undefined on input line 1988.
+
+
+LaTeX Warning: Reference `tab:ratings-paradigm-table-2' on page 79 undefined on input line 1993.
+
+
+LaTeX Warning: Reference `tab:ratings-paradigm-table-2' on page 79 undefined on input line 2020.
+
+[79] [80]
+
+LaTeX Warning: Reference `eq:ratings-paradigm-FPF-TPF-from-counts' on page 81 undefined on input line 2057.
+
+
+LaTeX Warning: Reference `eq:ratings-paradigm-FPF-TPF-from-counts' on page 81 undefined on input line 2057.
+
+
+LaTeX Warning: Reference `fig:empirical-auc-EmpiricalPlot' on page 81 undefined on input line 2057.
+
+[81]
 Overfull \hbox (94.39871pt too wide) detected at line 2112
 [][][][] [] [] [] [][] [] [] [] [][] [] [][][][][] [] [][][][] [] [] [] [][] [] [] [] [][] [] [][][][]
  []
 
-[84] [85]
+[82]
+
+LaTeX Warning: Reference `tab:ratings-paradigm-table-2' on page 83 undefined on input line 2143.
+
+
+LaTeX Warning: Reference `binary-task' on page 83 undefined on input line 2143.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-solve-mu' on page 83 undefined on input line 2143.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-az-var' on page 83 undefined on input line 2143.
+
+[83]
 File: 04-ratings-task_files/figure-latex/ratings-paradigm-eq-var-fit-a-1.pdf Graphic file (type pdf)
 <use 04-ratings-task_files/figure-latex/ratings-paradigm-eq-var-fit-a-1.pdf>
-[86]
+[84]
+
+LaTeX Warning: Reference `fig:ratings-paradigm-eq-var-fit-a' on page 85 undefined on input line 2204.
+
+
+LaTeX Warning: Reference `fig:ratings-paradigm-eq-var-fit-a' on page 85 undefined on input line 2206.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-ci-fpf' on page 85 undefined on input line 2208.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-ci-tpf' on page 85 undefined on input line 2208.
+
+
+LaTeX Warning: Reference `tab:ratings-paradigm-example-table' on page 85 undefined on input line 2214.
+
+
+LaTeX Warning: Reference `tab:ratings-paradigm-table-2' on page 85 undefined on input line 2214.
+
+
+LaTeX Warning: Reference `binary-task' on page 85 undefined on input line 2214.
+
+
+LaTeX Warning: Reference `eq:ratings-paradigm-binningRule' on page 85 undefined on input line 2214.
+
+
 Underfull \vbox (badness 1533) has occurred while \output is active []
 
-[87] [88] [89]
+[85]
+
+LaTeX Warning: Reference `tab:ratings-paradigm-table-2' on page 86 undefined on input line 2232.
+
+
+LaTeX Warning: Reference `eq:ratings-paradigm-Zeta' on page 86 undefined on input line 2246.
+
+
+LaTeX Warning: Reference `tab:ratings-paradigm-example-table' on page 86 undefined on input line 2248.
+
+
+LaTeX Warning: Reference `eq:ratings-paradigm-binningRule' on page 86 undefined on input line 2248.
+
+[86] [87]
+
+LaTeX Warning: Reference `tab:ratings-paradigm-example-table' on page 88 undefined on input line 2260.
+
+
+Package natbib Warning: Citation `RN2660' on page 88 undefined on input line 2262.
+
+
+Package natbib Warning: Citation `macmillan2004detection' on page 88 undefined on input line 2262.
+
+
+LaTeX Warning: Reference `binary-task' on page 88 undefined on input line 2262.
+
+
+LaTeX Warning: Reference `fig:SixPointScale' on page 88 undefined on input line 2262.
+
 File: images/AcquiringData6PointScale.png Graphic file (type bmp)
 <images/AcquiringData6PointScale.png>
 
@@ -978,12 +1392,25 @@ Overfull \hbox (478.12323pt too wide) in paragraph at lines 2265--2265
 [][] 
  []
 
-[90]
+[88]
 Overfull \hbox (4.84233pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.8.  A SINGLE “CLINICAL” OPERATING POINT FROM RATINGS DATA \TU/lmr/m/n/10 91
+\TU/lmr/m/sl/10 4.8.  A SINGLE “CLINICAL” OPERATING POINT FROM RATINGS DATA \TU/lmr/m/n/10 89
  []
 
-[91] [92]
+[89]
+
+Package natbib Warning: Citation `green1966signal' on page 90 undefined on input line 2273.
+
+
+LaTeX Warning: Reference `fig:2AFC' on page 90 undefined on input line 2273.
+
+
+Package natbib Warning: Citation `burgess2011visual' on page 90 undefined on input line 2273.
+
+
+Package natbib Warning: Citation `RN1067' on page 90 undefined on input line 2275.
+
+[90]
 File: images/2AFC.png Graphic file (type bmp)
 <images/2AFC.png>
 
@@ -992,50 +1419,329 @@ Overfull \hbox (377.61893pt too wide) in paragraph at lines 2278--2278
  []
 
 
+LaTeX Warning: Reference `fig:2AFC' on page 91 undefined on input line 2281.
+
+
+Package natbib Warning: Citation `RN2026' on page 91 undefined on input line 2288.
+
+
+Package natbib Warning: Citation `RN2373' on page 91 undefined on input line 2288.
+
+
 Overfull \hbox (140.64127pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.10.  OBSERVER PERFORMANCE STUDIES AS LABORATORY SIMULATIONS OF CLINICAL TASKS \TU/lmr/m/n/10 93
+\TU/lmr/m/sl/10 4.10.  OBSERVER PERFORMANCE STUDIES AS LABORATORY SIMULATIONS OF CLINICAL TASKS \TU/lmr/m/n/10 91
  []
 
-[93] [94] [95] [96] [97] [98] [99] [100] [101] [102] [103] [104
+[91] [92]
+
+Package natbib Warning: Citation `rockette1992use' on page 93 undefined on input line 2304.
+
+
+Package natbib Warning: Citation `RN2179' on page 93 undefined on input line 2304.
+
+
+LaTeX Warning: Reference `fig:SixPointScale' on page 93 undefined on input line 2304.
+
+
+Package natbib Warning: Citation `RN930' on page 93 undefined on input line 2306.
+
+[93]
+
+Package natbib Warning: Citation `RN2476' on page 94 undefined on input line 2308.
+
+
+Package natbib Warning: Citation `RN2474' on page 94 undefined on input line 2308.
+
+
+Package natbib Warning: Citation `RN2474' on page 94 undefined on input line 2312.
+
+[94]
+
+Package natbib Warning: Citation `RN2179' on page 95 undefined on input line 2329.
+
+
+Package natbib Warning: Citation `RN2474' on page 95 undefined on input line 2331.
+
+[95]
+
+Package natbib Warning: Citation `RN2179' on page 96 undefined on input line 2340.
+
+[96]
+
+LaTeX Warning: Reference `fig:SixPointScale' on page 97 undefined on input line 2344.
+
+
+Package natbib Warning: Citation `RN2145' on page 97 undefined on input line 2346.
+
+
+Package natbib Warning: Citation `barlow2004accuracy' on page 97 undefined on input line 2357.
+
+
+Package natbib Warning: Citation `fenton2007influence' on page 97 undefined on input line 2357.
+
+
+Package natbib Warning: Citation `RN1087' on page 97 undefined on input line 2357.
+
+
+LaTeX Warning: Reference `binary-task' on page 97 undefined on input line 2357.
+
+[97]
+
+LaTeX Warning: Reference `tab:BIRADS-study' on page 98 undefined on input line 2359.
+
+
+LaTeX Warning: Reference `tab:BIRADS-study' on page 98 undefined on input line 2396.
+
+
+Package natbib Warning: Citation `RN2166' on page 98 undefined on input line 2396.
+
+[98]
+
+LaTeX Warning: Reference `tab:BIRADS-study' on page 99 undefined on input line 2406.
+
+
+Package natbib Warning: Citation `hartmann2005benign' on page 99 undefined on input line 2406.
+
+
+LaTeX Warning: Reference `tab:BIRADS-study' on page 99 undefined on input line 2416.
+
+
+LaTeX Warning: Reference `tab:BIRADS-study' on page 99 undefined on input line 2416.
+
+
+LaTeX Warning: Reference `tab:BIRADS-study' on page 99 undefined on input line 2416.
+
+
+LaTeX Warning: Reference `tab:BIRADS-study' on page 99 undefined on input line 2418.
+
+
+Package natbib Warning: Citation `RN1784' on page 99 undefined on input line 2418.
+
+[99]
+
+LaTeX Warning: Reference `tab:BIRADS-study' on page 100 undefined on input line 2420.
+
+
+Package natbib Warning: Citation `fenton2007influence' on page 100 undefined on input line 2422.
+
+
+LaTeX Warning: Reference `tab:BIRADS-study' on page 100 undefined on input line 2422.
+
+
+Package natbib Warning: Citation `RN2321' on page 100 undefined on input line 2422.
+
+
+Package natbib Warning: Citation `RN2404' on page 100 undefined on input line 2422.
+
+
+Package natbib Warning: Citation `macmillan2004detection' on page 100 undefined on input line 2427.
+
+
+LaTeX Warning: Reference `fig:SixPointScale' on page 100 undefined on input line 2427.
+
+[100] [101] [102
 
 ]
 Chapter 5.
-[105] [106]
+[103]
+
+LaTeX Warning: Reference `tab:empirical-ROC-2index-notation' on page 104 undefined on input line 2482.
+
+[104]
+
+LaTeX Warning: Reference `eq:empirical-auc-op-pt' on page 105 undefined on input line 2501.
+
+
+LaTeX Warning: Reference `eq:empirical-auc-op-pt' on page 105 undefined on input line 2508.
+
+
+LaTeX Warning: Reference `eq:binary-task-model-op-pt' on page 105 undefined on input line 2508.
+
+
 Overfull \hbox (0.22551pt too wide) in paragraph at lines 2511--2511
 []\TU/lmr/bx/n/14.4 Empirical operating points from ratings data 
  []
 
-[107] [108]
+
+LaTeX Warning: Reference `eq:ratings-paradigm-EmpZeta' on page 105 undefined on input line 2513.
+
+[105]
+
+LaTeX Warning: Reference `tab:ratings-paradigm-example-table' on page 106 undefined on input line 2551.
+
+[106]
 File: 05-empirical-auc_files/figure-latex/empirical-auc-EmpiricalPlot-1.pdf Graphic file (type pdf)
 <use 05-empirical-auc_files/figure-latex/empirical-auc-EmpiricalPlot-1.pdf>
-[109] [110] [111]
+
+LaTeX Warning: Reference `eq:empirical-OperatingPointFPF-TPF-r' on page 107 undefined on input line 2616.
+
+[107] [108]
+
+LaTeX Warning: Reference `fig:empirical-auc-EmpiricalPlot' on page 109 undefined on input line 2618.
+
+
+LaTeX Warning: Reference `fig:empirical-auc-EmpiricalAUC' on page 109 undefined on input line 2623.
+
+
+Package natbib Warning: Citation `RN2191' on page 109 undefined on input line 2623.
+
+
+Package natbib Warning: Citation `RN2197' on page 109 undefined on input line 2623.
+
+[109]
 File: 05-empirical-auc_files/figure-latex/empirical-auc-EmpiricalAUC-1.pdf Graphic file (type pdf)
 <use 05-empirical-auc_files/figure-latex/empirical-auc-EmpiricalAUC-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[112]
+[110]
+
+LaTeX Warning: Reference `eq:empirical-auc-Wilcoxon' on page 111 undefined on input line 2694.
+
+
+LaTeX Warning: Reference `eq:empirical-auc-Wilcoxon' on page 111 undefined on input line 2706.
+
 
 LaTeX Font Warning: Font shape `TU/lmtt/bx/it' in size <10> not available
 (Font)              Font shape `TU/lmtt/b/sl' tried instead on input line 2711.
 
-[113] [114]
+[111] [112]
+
+Package natbib Warning: Citation `RN2174' on page 113 undefined on input line 2777.
+
+
+LaTeX Warning: Reference `fig:empirical-auc-BambersTheorem' on page 113 undefined on input line 2777.
+
 File: 05-empirical-auc_files/figure-latex/empirical-auc-BambersTheorem-1.pdf Graphic file (type pdf)
 <use 05-empirical-auc_files/figure-latex/empirical-auc-BambersTheorem-1.pdf>
-[115] [116] [117] [118] [119] [120
+
+LaTeX Warning: Reference `fig:empirical-auc-BambersTheorem' on page 113 undefined on input line 2785.
+
+
+LaTeX Warning: Reference `fig:empirical-auc-BambersTheorem' on page 113 undefined on input line 2813.
+
+[113] [114]
+
+LaTeX Warning: Reference `fig:empirical-auc-BambersTheorem' on page 115 undefined on input line 2838.
+
+
+LaTeX Warning: Reference `eq:empirical-auc-BambersTheoremProof6' on page 115 undefined on input line 2840.
+
+
+LaTeX Warning: Reference `eq:empirical-auc-Wilcoxon' on page 115 undefined on input line 2847.
+
+
+LaTeX Warning: Reference `eq:empirical-auc-BambersTheoremProof7' on page 115 undefined on input line 2847.
+
+
+Package natbib Warning: Citation `RN2268' on page 115 undefined on input line 2852.
+
+
+Package natbib Warning: Citation `RN112' on page 115 undefined on input line 2852.
+
+
+Package natbib Warning: Citation `RN1970' on page 115 undefined on input line 2852.
+
+[115]
+
+LaTeX Warning: Reference `eq:empirical-auc-BambersTheoremProof5' on page 116 undefined on input line 2867.
+
+
+LaTeX Warning: Reference `eq:empirical-auc-BambersTheoremProof5' on page 116 undefined on input line 2895.
+
+[116] [117] [118
 
 ]
 Chapter 6.
 
-LaTeX Warning: Reference `bivariate-binormal-model' on page 121 undefined on input line 2946.
+LaTeX Warning: Reference `binary-task' on page 119 undefined on input line 2942.
 
-[121] [122]
+
+LaTeX Warning: Reference `ratings-paradigm' on page 119 undefined on input line 2942.
+
+
+LaTeX Warning: Reference `bivariate-binormal-model' on page 119 undefined on input line 2946.
+
+
+LaTeX Warning: Reference `empirical-auc' on page 119 undefined on input line 2948.
+
+
+LaTeX Warning: Reference `binormal-model-invariance-property' on page 119 undefined on input line 2948.
+
+[119]
+
+Package natbib Warning: Citation `RN1081' on page 120 undefined on input line 2950.
+
+
+LaTeX Warning: Reference `eq:binormal-model-z-samples-1' on page 120 undefined on input line 2976.
+
+
+LaTeX Warning: Reference `eq:binormal-model-z-samples-1' on page 120 undefined on input line 2976.
+
+
+LaTeX Warning: Reference `ratings-paradigm' on page 120 undefined on input line 2981.
+
+
+LaTeX Warning: Reference `eq:ratings-paradigm-binningRule' on page 120 undefined on input line 2981.
+
+[120]
 File: 06-binormal-model_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pdf)
 <use 06-binormal-model_files/figure-latex/unnamed-chunk-3-1.pdf>
-[123] [124] [125]
+
+LaTeX Warning: Reference `eq:binormal-modelZBinning' on page 121 undefined on input line 2990.
+
+
+LaTeX Warning: Reference `binary-task-model' on page 121 undefined on input line 2995.
+
+[121]
+
+LaTeX Warning: Reference `eq:binormal-model-fpf' on page 122 undefined on input line 3042.
+
+
+LaTeX Warning: Reference `eq:binormal-model-zeta' on page 122 undefined on input line 3049.
+
+
+LaTeX Warning: Reference `eq:binormal-model-tpf' on page 122 undefined on input line 3049.
+
+[122]
+
+Package natbib Warning: Citation `RN1081' on page 123 undefined on input line 3068.
+
+
+LaTeX Warning: Reference `eq:binormal-model-ab-parameters' on page 123 undefined on input line 3070.
+
+
+LaTeX Warning: Reference `eq:binormal-model-ab-parameters' on page 123 undefined on input line 3077.
+
+
+LaTeX Warning: Reference `eq:binormal-model-ab-parametersInv' on page 123 undefined on input line 3077.
+
 File: 06-binormal-model_files/figure-latex/binormal-model-ab2-mu-sigma-1.pdf Graphic file (type pdf)
 <use 06-binormal-model_files/figure-latex/binormal-model-ab2-mu-sigma-1.pdf>
-[126] [127] [128]
+
+LaTeX Warning: Reference `eq:binormal-model-roc-curve1' on page 123 undefined on input line 3094.
+
+[123] [124]
+
+LaTeX Warning: Reference `eq:binormal-model-fpf' on page 125 undefined on input line 3103.
+
+
+LaTeX Warning: Reference `eq:binormal-model-tpf' on page 125 undefined on input line 3103.
+
+
+LaTeX Warning: Reference `eq:binormal-model-z-samples-1' on page 125 undefined on input line 3132.
+
+[125]
+
+LaTeX Warning: Reference `tab:ratings-paradigm-example-table' on page 126 undefined on input line 3161.
+
+
+Package natbib Warning: Citation `hanley1988robustness' on page 126 undefined on input line 3161.
+
+
+Package natbib Warning: Citation `dorfman1997proper' on page 126 undefined on input line 3161.
+
+[126]
 Underfull \vbox (badness 10000) detected at line 3246
  []
 
@@ -1043,7 +1749,7 @@ Underfull \vbox (badness 10000) detected at line 3246
 Underfull \vbox (badness 10000) detected at line 3246
  []
 
-[129]
+[127]
 File: 06-binormal-model_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 <use 06-binormal-model_files/figure-latex/unnamed-chunk-6-1.pdf>
 File: 06-binormal-model_files/figure-latex/unnamed-chunk-6-2.pdf Graphic file (type pdf)
@@ -1077,35 +1783,56 @@ Overfull \hbox (0.98206pt too wide) in paragraph at lines 3248--3249
 [] [] [] 
  []
 
-[130] [131] [132] [133]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[128]
+
+Package natbib Warning: Citation `RN300' on page 129 undefined on input line 3252.
+
+[129]
+
+Package natbib Warning: Citation `thompson1989statistical' on page 130 undefined on input line 3282.
+
+[130]
+
+LaTeX Warning: Reference `eq:binormal-model-roc-curve' on page 131 undefined on input line 3322.
+
+
+Package natbib Warning: Citation `thompson1989statistical' on page 131 undefined on input line 3324.
+
+[131]
+
+LaTeX Warning: Reference `eq:binormal-model-partial-area-final' on page 132 undefined on input line 3343.
+
+
+LaTeX Warning: Reference `eq:binormal-model-op-point-ab2' on page 132 undefined on input line 3351.
+
+
+LaTeX Warning: Reference `eq:binormal-model-partial-area-a1' on page 132 undefined on input line 3362.
+
+
+Package natbib Warning: Citation `jiang1996receiver' on page 132 undefined on input line 3364.
+
+[132]
+
+LaTeX Warning: Reference `fig:binormal-model-partial-areas' on page 133 undefined on input line 3387.
+
 File: 06-binormal-model_files/figure-latex/binormal-model-partial-areas-1.pdf Graphic file (type pdf)
 <use 06-binormal-model_files/figure-latex/binormal-model-partial-areas-1.pdf>
-[134] [135] [136] [137] [138]
-Overfull \hbox (59.25pt too wide) in paragraph at lines 3550--3550
-[]\TU/lmtt/m/n/10 #> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.[] 
- []
-
-File: 06-binormal-model_files/figure-latex/binormal-model-line-fit-1.pdf Graphic file (type pdf)
-<use 06-binormal-model_files/figure-latex/binormal-model-line-fit-1.pdf>
-[139] [140] [141] [142] [143]
-File: 06-binormal-model_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
-<use 06-binormal-model_files/figure-latex/unnamed-chunk-13-1.pdf>
-[144] [145] (./RJafrocRocBook.bbl [146] [147
-
-] [148] [149]) [150] (./RJafrocRocBook.aux)
-
-LaTeX Warning: There were undefined references.
-
-Package rerunfilecheck Info: File `RJafrocRocBook.out' has not changed.
-(rerunfilecheck)             Checksum: 7198A061AB279EA5F47FA81AEAEB6F31;16052.
- ) 
+[133] [134]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.3455 a & A_
+             XN & A_YN\\ 
 Here is how much of TeX's memory you used:
- 19729 strings out of 478687
- 373691 string characters out of 5848240
- 1869007 words of memory out of 5000000
- 39487 multiletter control sequences out of 15000+600000
- 518908 words of font info for 94 fonts, out of 8000000 for 9000
+ 19347 strings out of 478687
+ 363366 string characters out of 5848240
+ 1867007 words of memory out of 5000000
+ 39118 multiletter control sequences out of 15000+600000
+ 518916 words of font info for 95 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 86i,18n,121p,3189b,507s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,12n,121p,3189b,426s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on RJafrocRocBook.pdf (150 pages).
+Output written on RJafrocRocBook.pdf (134 pages).
