@@ -170,7 +170,7 @@ grid.arrange(p1,p2,ncol=2)
 </div>
 
 
-## Binormal ROC curve {#binormal-model-roc-curve}
+## ROC curve {#binormal-model-roc-curve}
 
 Using the $(a,b)$ notation, Eqn. \@ref(eq:binormal-model-roc-curve1) for the ROC curve reduces to:
 
