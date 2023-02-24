@@ -105,7 +105,7 @@ O_4 \equiv \left ( FPF_4, TPF_4 \right ) = \left ( 0.017, 0.44 \right )\\
 (\#eq:empirical-OperatingPointFPF-TPF-4)
 \end{equation}
 
-In Table \@ref(tab:ratings-paradigmExampleTable) a sample clinical ratings data set was introduced. Shown below is a partial code listing of mainEmpRocPlot.R showing implementation of Eqn. (5.7). Except for the last statement, the plotting part of the code is suppressed. 
+In Table \@ref(tab:ratings-paradigm-example-table) a sample clinical ratings data set was introduced. Shown below is a partial code listing of mainEmpRocPlot.R showing implementation of Eqn. (5.7). Except for the last statement, the plotting part of the code is suppressed. 
 
 
 ```{r empirical-auc-EmpiricalPlot, fig.cap="Empirical ROC plot for the data in Table 4.1. By convention the operating points are numbered starting with the uppermost non-trivial one and working down the plot and the trivial operating points (0,0) and (1,1) are not shown."}

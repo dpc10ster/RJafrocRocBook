@@ -15,8 +15,10 @@ library(gridExtra)
 
 
 ```{r, echo=FALSE}
-shadedPlotsRoc <- function (mu, sigma, fpf)
+shadedPlotsRoc <- function (a, b, fpf)
 {
+  mu <- a/b
+  sigma <- 1/b
   tpf <- pnorm((mu + qnorm(fpf))/sigma)
   zeta <- seq(- mu - 2,+ mu + 2, 0.1)
   fpfArr <- sort(c(c(0, pnorm(zeta), 1),fpf))
@@ -62,13 +64,16 @@ simplePrint <- function(x) {
 
 ## Introduction {#binormal-model-introduction}
 
-The equal variance binormal model was described in TBA Chapter 02. The ratings method of acquiring ROC data and calculation of operating points was discussed in TBA Chapter 04. It was shown, TBA Fig. \@ref(fig:ratings-paradigm-eq-var-fit-a), that for a clinical dataset the unequal-variance binormal model visually fitted the data better than the equal-variance binormal model, although how the unequal variance fit was obtained was not discussed. This chapter deals with details of the unequal-variance binormal model, often abbreviated to **binormal model**, establishes necessary notation, and derives expressions for sensitivity, specificity and the area under the predicted ROC curve). 
+The equal variance binormal model was described in Chapter \@ref(binary-task). The ratings method of acquiring ROC data and calculation of operating points was discussed in Chapter \@ref(ratings-paradigm). It was shown there that for a clinical dataset the unequal-variance binormal model visually fitted the data better than the equal-variance binormal model but how the unequal variance fit was obtained was not discussed. 
+
+This chapter deals with the unequal-variance binormal model, often abbreviated to **binormal model**, establishes necessary notation, and derives expressions for sensitivity, specificity and the area under the predicted ROC curve. 
 
 The binormal model describes univariate datasets in which there is *one ROC rating per case*, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier "univariate" is often omitted. In Chapter \@ref(bivariate-binormal-model) a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality. 
 
-The main aim of this chapter is to demystify statistical curve fitting. With the passing of Profs. Donald Dorfman, Charles Metz and Richard Swensson, parametric modeling is much neglected (with the exception of my research). Several researchers have instead focused on non-parametric analysis (using the empirical AUC). A claimed advantage (overstated in my opinion, see \@ref(binormal-model-invariance-property)) of non-parametric analysis is the absence of distributional assumptions. Non-parametric analysis yields no insight into what is limiting performance. Binormal model based curve fitting, described in this chapter, will allow the reader to appreciate a later chapter (see RSM fitting chapter in `RJafrocFrocBook`) that describes a more complex fitting method which yields important insights into the factors limiting human observer (or artificial intelligence algorithm) performance. 
+The main aim of this chapter is to demystify statistical curve fitting. With the passing of Profs. Donald Dorfman, Charles Metz and Richard Swensson, parametric modeling is much neglected (with the notable exception of my research). Researchers have instead focused on non-parametric analysis using the empirical AUC defined in Chapter \@ref(empirical-auc). A claimed advantage (overstated in my opinion, see Section \@ref(binormal-model-invariance-property)) of non-parametric analysis is the absence of distributional assumptions. Non-parametric analysis yields no insight into what is limiting performance. Binormal model based curve fitting described in this chapter will allow the reader to appreciate a later chapter (see RSM fitting chapter in `RJafrocFrocBook`) that describes a more complex fitting method which yields important insights into the factors limiting human observer (or artificial intelligence algorithm) performance. 
 
-TBA Here is the organization of this chapter. It starts with a description of the binormal model and how it accommodates data binning. An important point, on which there is much confusion -- the invariance of the binormal model to arbitrary monotone transformations of the ratings -- is illustrated with an example. Expressions for sensitivity and specificity are derived. Two notations used to characterize the binormal model are explained. Expressions for the pdfs of the binormal model are derived. A simple linear fitting method is illustrated: this used to be the only recourse a researcher had before Dorfman and Alf's seminal publication [@RN1081]. The maximum likelihood method for estimating parameters of the binormal model is detailed. Validation of the fitting method is described, i.e., how can one be confident that the fitting method, which makes normality and other assumptions, is valid for a dataset arising from an unknown distribution. The Appendix has a detailed derivation, originally published in a terse paper [@thompson1989statistical] on the partial-area under the ROC curve. The partial-area is defined by the area under the binormal ROC curve from $\text{FPF} = 0$ to $\text{FPF} = c$, where $0 \leq c \leq 1$. As a special case $c = 1$ yields the total area under the binormal ROC. 
+TBA Here is the organization of this chapter. It starts with a description of the binormal model and how it accommodates data binning. Two notations used to characterize the binormal model are explained. Expressions for the pdfs of the binormal model are derived. A simple linear fitting method is illustrated: this used to be the only recourse a researcher had before Dorfman and Alf's seminal publication [@RN1081]. The maximum likelihood method for estimating parameters of the binormal model is detailed. Validation of the fitting method is described, i.e., how can one be confident that the fitting method, which makes normality and other assumptions, is valid for a dataset arising from an unknown distribution. 
+
 
 ## Binormal model {#binormal-model-definition}
 
@@ -94,7 +99,7 @@ where
 \end{equation}
 
 
-Eqn. \@ref(eq:binormal-model-z-samples-1) states that the z-samples for non-diseased cases are distributed as a $N(0,1)$  distribution, i.e., the unit normal distribution, while the z-samples for diseased cases are distributed as a  $N(\mu,\sigma^2)$ distribution, i.e., a normal distribution with mean $\mu$  and variance $\sigma^2$. *This is a 2-parameter model of the z-samples, not counting additional threshold parameters needed for data binning.* ^[A more complicated version of this model allows the mean of the non-diseased distribution to be non-zero and its variance different from unity. The 4-parameter model is no more general than the 2-parameter model. The reason is that one is free to transform the decision variable, and associated thresholds, by applying arbitrary monotonic increasing function transformation, which do not change the ordering of the ratings and hence do not change the ROC curve. So if the mean of the noise distribution were non-zero, subtracting this value from all Z-samples would shift the effective mean of the non-diseased distribution to zero (the shifted Z-values are monotonically related to the original values) and the mean of the shifted diseased distribution becomes $\mu_2-\mu_1$. Next, one scales or divides (division by a positive number is also a monotonic transformation) all the Z-samples by $\sigma_1$, resulting in the scaled non-diseased distribution having unit variance, and the scaled diseased distribution has mean $\frac{\mu_2-\mu_1}{\sigma_1}$  and variance $(\frac{\sigma_2}{\sigma_1})^2$. Therefore, if one starts with 4 parameters then one can, by simple shifting and scaling operations, reduce the model to 2 parameters, as in Eqn. \@ref(eq:binormal-model-z-samples-1). [The author has seen a publication on Bayesian ROC estimation using the four-parameter model.]]
+Eqn. \@ref(eq:binormal-model-z-samples-1) states that the z-samples for non-diseased cases are distributed as a $N(0,1)$  distribution, i.e., the unit normal distribution, while the z-samples for diseased cases are distributed as a  $N(\mu,\sigma^2)$ distribution, i.e., a normal distribution with mean $\mu$  and variance $\sigma^2$. *This is a 2-parameter model of the z-samples, not counting additional threshold parameters needed for data binning.* ^[A more complicated version of this model would allow the mean of the non-diseased distribution to be non-zero and its variance different from unity. The resulting 4-parameter model is no more general than the 2-parameter model. The reason is that one is free to transform the decision variable, and associated thresholds, by applying arbitrary monotonic increasing function transformation, which do not change the ordering of the ratings and hence do not change the ROC curve. So if the mean of the noise distribution were non-zero, subtracting this value from all Z-samples would shift the effective mean of the non-diseased distribution to zero (the shifted Z-values are monotonically related to the original values) and the mean of the shifted diseased distribution becomes $\mu_2-\mu_1$. Next, one scales or divides (division by a positive number is also a monotonic transformation) all the Z-samples by $\sigma_1$, resulting in the scaled non-diseased distribution having unit variance, and the scaled diseased distribution has mean $\frac{\mu_2-\mu_1}{\sigma_1}$  and variance $(\frac{\sigma_2}{\sigma_1})^2$. Therefore, if one starts with 4 parameters then one can, by simple shifting and scaling operations, reduce the model to 2 parameters, as in Eqn. \@ref(eq:binormal-model-z-samples-1).]
 
 
 
@@ -215,10 +220,10 @@ These expressions allow calculation of the operating point for any $\zeta$. An e
 
 \begin{equation} 
 \zeta = -\Phi^{-1}\left ( \text{FPF} \right )
-(\#eq:binormal-modelZeta)
+(\#eq:binormal-model-zeta)
 \end{equation}
 
-Substitution of Eqn. \@ref(eq:binormal-modelZeta) in Eqn. \@ref(eq:binormal-model-tpf) yields:
+Substitution of Eqn. \@ref(eq:binormal-model-zeta) in Eqn. \@ref(eq:binormal-model-tpf) yields:
 
 \begin{equation} 
 \text{TPF} = \Phi\left ( \frac{\mu + \Phi^{-1}\left (\text{FPF}  \right )}{\sigma} \right )
@@ -450,7 +455,6 @@ From Eqn. \@ref(eq:binormal-model-fpf) and Eqn. \@ref(eq:binormal-model-tpf), th
 \begin{aligned}
 \text{FPF}\left ( \zeta \right ) &= \Phi\left ( -\zeta \right )\\
 \text{TPF}\left (a,b; \zeta \right ) &= \Phi\left ( a - b \zeta \right )
-
 \end{aligned}
 \right \}
 (\#eq:binormal-model-op-point-ab)
@@ -472,242 +476,9 @@ One can then write TPF as a function of FPF as in:
 \end{equation}
 
 
-## Az and d-prime measures {#binormal-model-full-auc}
+## Density functions {#binormal-model-pdfs}
 
-The (full) area under the ROC, denoted $A_z$, is derived in Appendix TBA. The final results, using both parameterizations of the binormal model, are:
-
-\begin{equation} 
-A_z=\Phi\left ( \frac{a}{\sqrt{1+b^2}} \right )=\Phi\left ( \frac{\mu}{\sqrt{1+\sigma^2}} \right )
-(\#eq:binormal-model-ab-2az)
-\end{equation} 
-
-The binormal fitted AUC increases as $a$ increases or as $b$ decreases. Equivalently, it increases as $\mu$ increases or as $\sigma$ decreases. 
-
-The reason for the name $A_z$ is that historically (prior to maximum likelihood estimation) this quantity was estimated by converting the probabilities FPF and TPF to *z-deviates* (see TBA), which of-course assumes normal distributions. The z-subscript is meant to emphasize that this is a binormal model derived estimate.
-
-
-The $d'$ parameter is defined as the separation of two unit-variance normal distributions yielding the same AUC as that predicted by the $(a,b)$ parameter binormal model. It is defined by:
-
-\begin{equation} 
-d'=\sqrt{2}\Phi^{-1}\left ( A_z \right )
-(\#eq:binormal-model-ab-2dprime)
-\end{equation} 
-
-```{r echo=FALSE}
-A_z <- pnorm(a/sqrt(1+b^2))
-```
-
-
-The d' index can be regarded as a perceptual signal-to-noise-ratio. 
-
-
-## Partial AUC measures {#binormal-model-partial-auc}
-
-Shorthand: denote $A \equiv A_z$, $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$. Two partial AUC measures can be defined, one as a partial integral along the x-axis and the other as a partial integral along the y-axis. These are denoted by X and Y superscripts.
-
-### Definition {#binormal-model-meaning-partial-auc-definitions}
-
-The partial area under the ROC, $A_c^{X}$, is defined as that extending from $x = 0$ to $x = c$, where $0 \le c \le 1$ (in our notation $c$ always means a cutoff on the x-axis of the ROC): 
-
-\begin{equation} 
-\left. 
-\begin{aligned}
-A_c^{X} &= \int_{x=0}^{x=c} y \, dx 
-\\&=  \int_{x=0}^{x=c} \Phi\left ( a + b \; \Phi^{-1} \left ( x \right ) \right ) \, dx 
-\end{aligned}
-\right \}
-(\#eq:binormal-model-partial-area-a1)
-\end{equation}
-
-(See Eqn. \@ref(eq:binormal-model-roc-curve)).
-
-
-Section \@ref(binormal-model-partial-auc-derivation) derives a formula for the partial-area in terms of the binormal model parameters $a$ and $b$. The final result is:
-
-\begin{equation}
-A_c^{X} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
-(\#eq:binormal-model-partial-area-final)
-\end{equation}
-
-On the right hand side the integrand $\phi\left ( z_1,z_2;\rho \right )$ is the standard bivariate normal density function with correlation coefficient $\rho$. It is defined by:
-
-
-\begin{equation}
-\left. 
-\begin{aligned}
-\phi\left (z_1,z_2;\rho \right ) &= \frac{1}{2 \pi \sqrt{1-\rho^2}} \exp\left ( -\frac{z_1^2 -2\rho z_1 z_2 +z_2^2}{2\left ( 1-\rho^2 \right )} \right ) \\
-\rho &= - \frac{b}{\sqrt{1+b^2}}
-\end{aligned}
-\right \}
-(\#eq:binormal-model-bivariate-density)
-\end{equation}
-
-
-The two-dimensional integral occurring on the right hand side of Eqn. \@ref(eq:binormal-model-partial-area-final) can be evaluated numerically (as demonstrated later). 
-
-
-### Meaning of partial AUC {#binormal-model-meaning-partial-auc}
-
-As an area measure the partial AUC $A_c^{X}$ has a simple *geometric* meaning. A *physical* meaning is as follows: 
-
-> A binormal model based ROC curve can be defined over the truncated dataset where all z-samples **smaller** than $-\Phi^{-1}(c)$ are ignored. The maximum area of this curve is that defined by the rectangle with corners at $(0,0)$ and $(c,\text{TPF}\left ( c \right ))$: $c$ is the abscissa at the upper limit of the integration interval along the x-axis and $\text{TPF}\left ( c \right )$ is the corresponding ordinate: see Eqn. \@ref(eq:binormal-model-op-point-ab2). Dividing $A_c^{X}$ by $\text{TPF}\left ( c \right ) \times c$ yields a normalized partial area measure, denoted $A_c^{XN}$. **This is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** By definition the normalized area ranges between 0 and 1.
-
-
-\begin{equation}
-A_c^{XN} = \frac{A_c^{X}}{\text{TPF}\left ( c \right ) \times c}
-(\#eq:binormal-model-normalized-partial-auc)
-\end{equation}
-
-
-### Alternative partial AUC measure {#binormal-model-metz-partial-auc}
-
-Since the integral in Eqn. \@ref(eq:binormal-model-partial-area-a1) is from $x = 0$ to $x = c$ this partial AUC measure emphasizes the *high specificity* region of the ROC curve (since $x = 0$ corresponds to unit, i.e. highest, specificity).
-
-An alternative partial AUC measure has been defined [@jiang1996receiver] that emphasizes the *high sensitivity* region of the ROC as follows:
-
-\begin{equation} 
-A_c^{Y} = \int_{y=\text{TPF}(c)}^{y=1} \left (1-x  \right ) \, dy
-(\#eq:binormal-model-partial-area-ac-metz)
-\end{equation}
-
-
-$A_c^{Y}$ is the (un-normalized) area below the ROC extending from $y = \text{TPF}(c)$ to $y = 1$. The superscript Y denotes that the integral is over part of the y-axis. The maximum value of this integral is the area of the rectangle defined by the corner points $(c,\text{TPF}(c))$ and $(1,1)$. Therefore the normalized area is defined by: 
-
-
-\begin{equation}
-A_c^{YN} = \frac{A_c^{Y}}{\left (1 - \text{TPF}(c)  \right ) \times \left (1-c  \right )}
-(\#eq:binormal-model-normalized-partial-auc-upper2)
-\end{equation}
-
-A *physical* meaning is as follows: 
-
-> A binormal model based ROC curve can be defined over the truncated dataset where all z-samples **greater** than $-\Phi^{-1}(c)$ are ignored. **$A_c^{YN}$ is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** By definition the normalized area ranges between 0 and 1.
-
-
-### Numerical examples {#binormal-model-metz-partial-auc-example}
-
-Fig. \@ref(fig:binormal-model-partial-areas) shows the two un-normalized areas.
-
-```{r binormal-model-partial-areas, fig.cap = "Un-normalized partial AUC measures: the blue shaded area is $A_c^{X}$, the partial area below the ROC; the green shaded area is $A_c^{Y}$ the partial area above the ROC. Parameters are $\\mu = 1.8$, $\\sigma = 1$ and $c = 0.3$.", fig.show='hold', echo=FALSE}
-print(shadedPlotsRoc(mu = 1.8, sigma = 1, fpf = 0.3))
-```
-
-
-The following code illustrates calculation of the partial-area measure using the function `pmvnorm` in the `R` package `mvtnorm`. The following parameter values were used: $a = 1.8$, $b = 1$ and $c = 0.3$.
-
-
-```{r, attr.source = ".numberLines"}
-a <- 1.8
-b <- 1
-fpf_c <- 0.3 # cannot use c as variable name
-A_z <- pnorm(a/sqrt(1+b^2))
-tpf_c <- pnorm(a + b * qnorm(fpf_c))
-rho <- -b/sqrt(1+b^2)
-Lower1 <- -Inf
-Upper1 <- qnorm(fpf_c)
-Lower2 <- -Inf
-Upper2 <- a/sqrt(1+b^2)
-sigma <- rbind(c(1, rho), c(rho, 1))
-A_x <- as.numeric(pmvnorm(
-  c(Lower1, Lower2), 
-  c(Upper1, Upper2), 
-  sigma = sigma))
-
-# divide by area of rectangle
-A_xn <- A_x/fpf_c/tpf_c
-```
-
-
-The un-normalized partial-area measure $A_c^{X}$ = `r A_x`. The corresponding full AUC measure is $A_z$ = `r A_z`. $A_c^{X}$ is small because the reporting threshold is relatively high. The normalized measure is $A_c^{XN}$ = `r A_xn`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$ = `r -qnorm(fpf_c)`. This measure emphasizes specificity.
-
-
-$A_c^{Y}$ can be calculated using geometry. One subtracts the lower area $A_c^{X}$ from the full area $A_z$ to get the area under the ROC to the right of $\text{FPF}=c$. Next one subtracts from this quantity the area of the rectangle with base $(1 - c)$ and height $\text{TPF}_c$. This yields the area if the green shaded region $A_c^{Y}$. To normalize it one divides by the area of the rectangle defined by the corner points $c,\text{TPF}_c$ and (1,1).
-
-
-```{r}
-tpf_c <- pnorm(a + b * qnorm(fpf_c))
-A_y <- (A_z - A_x)-(1-fpf_c)*(tpf_c)
-A_yn <- A_y/(1-tpf_c)/(1-fpf_c) 
-```
-
-
-The un-normalized partial-area measure $A_c^{Y}$ = `r A_y`. $A_c^{Y}$ is small because the sensitivity is high. The normalized measure is $A_c^{YN}$ = `r A_yn`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than $-\Phi^{-1}(c)$ = `r -qnorm(fpf_c)`. This measure emphasizes sensitivity.
-
-
-The variation with $a$ of the two normalized AUC measures is shown next. The function `normalizedAreas((a, b, fpf_c))` encapsulates the calculations detailed above and is called repeatedly for different values of $a$.
-
-
-```{r, echo=FALSE}
-normalizedAreas <- function (a, b, fpf_c)
-{
-  zeta <- -qnorm(fpf_c)
-  A_z <- pnorm(a/sqrt(1+b^2))
-  tpf_c <- pnorm(a - b * zeta)
-  rho <- -b/sqrt(1+b^2)
-  Lower1 <- -Inf
-  Upper1 <- qnorm(fpf_c)
-  Lower2 <- -Inf
-  Upper2 <- a/sqrt(1+b^2)
-  sigma <- rbind(c(1, rho), c(rho, 1))
-  A_x <- as.numeric(pmvnorm(
-    c(Lower1, Lower2), 
-    c(Upper1, Upper2), 
-    sigma = sigma))
-  A_xn <- A_x/fpf_c/tpf_c # normalized X-area
-  
-  A_y <- (A_z - A_x)-(1-fpf_c)*(tpf_c) # geometry
-  A_yn <- A_y/(1-tpf_c)/(1-fpf_c) # normalized Y-area
-  
-  return(list(
-    A_xn = A_xn,
-    A_yn = A_yn
-    )
-  )
-}
-```
-
-
-```{r, echo=TRUE}
-a_arr = seq(0,8)
-A_xn_arr <- array(dim = length(a_arr))
-A_yn_arr <- array(dim = length(a_arr))
-for (i in 1:length(a_arr)) {
-  x <- normalizedAreas(a_arr[i], 1, 0.1) # c = 0.1
-  A_xn_arr[i] <- x$A_xn
-  A_yn_arr[i] <- x$A_yn
-}
-```
-
-
-
-```{r summary-table-partial-normalized-areas, echo=FALSE}
-df <- data.frame(a_parm = a_arr, A_XN = A_xn_arr, A_YN = A_yn_arr)
-knitr::kable(df, caption = "Summary of normalized lower $A_c^{XN}$ and upper $A_c^{YN}$ partial AUCs for different values of the a-parameter, where $b = 1$ and $c = 0.1$.", escape = FALSE)
-```
-
-
-Table \@ref(tab:summary-table-partial-normalized-areas) shows $A_c^{XN}$ and $A_c^{YN}$ partial AUCs for different values of the a-parameter for $b = 1$ and $c = 0.1$. It demonstrates that the normalized areas are constrained between 0.5 and 1. For numerical reasons (basically a zero-divided-by-zero condition) it is difficult to show that $A_c^{YN}$ approaches 1 in the limit of very large a-parameter (since the green shaded area shrinks to zero).
-
-
-## Discussion{#binormal-model-discussion}
-
-The binormal model is historically very important and the contribution by Dorfman and Alf [@RN1081] was seminal. Prior to their work, there was no valid way of estimating AUC from observed ratings counts. Their work and a key paper [@RN1487] accelerated research using ROC methods. The number of publications using their algorithm, and the more modern versions developed by Metz and colleagues, is probably well in excess of 500. Because of its key role, I have endeavored to take out some of the mystery about how the binormal model parameters are estimated. In particular, a common misunderstanding that the binormal model assumptions are violated by real datasets, when in fact it is quite robust to apparent deviations from normality, is addressed. 
-
-A good understanding of this chapter should enable the reader to better understand alternative ROC models, discussed later.
-
-It has been stated that the `b`-parameter of the binormal model is generally observed to be less than one, consistent with the diseased distribution being wider than the non-diseased one. The ROC literature is largely silent on the reason for this finding. One reason, namely location uncertainty, is presented in Chapter "Predictions of the RSM", where RSM stands for Radiological Search Model. Basically, if the location of the lesion is unknown, then z-samples from diseased cases can be of two types, samples from the correct lesion location, or samples from other non-lesion locations. The resulting mixture distribution will then appear to have larger variance than the corresponding samples from non-diseased cases. This type of mixing need not be restricted to location uncertainty. Even is location is known, if the lesions are non-homogenous (e.g., they contain a range of contrasts) then a similar mixture-distribution induced broadening is expected. The contaminated binormal model (CBM) - see Chapter TBA - also predicts that the diseased distribution is wider than the non-diseased one.
-
-The fact that the `b`-parameter is less than unity implies that the predicted ROC curve is improper, meaning its slope is not monotone decreasing as the operating point moves up the curve. The result is that a portion of the curve, near (1,1) that crosses the chance-diagonal and hooks upward approaching (1,1) with infinite slope. Ways of fitting proper ROC curves are described in Chapter "Other proper ROC models". Usually the hook is not readily visible, which has been used as an excuse to ignore the problem. For example, in Fig. 6.4, one would have to "zoom-in" on the upper right corner to see it, but the reader should make no mistake about it, the hook is there as  . 
-
-A recent example is Fig. 1 in the publication resulting from the Digital Mammographic Imaging Screening Trial (DMIST) clinical trial [@RN1784] involving 49,528 asymptomatic women from 33 clinical sites and involving 153 radiologists, where each of the film modality ROC plots crosses the chance diagonal and hooks upwards to (1,1), which as is known, results anytime $b <1$.
-
-The unphysical nature of the hook (predicting worse than chance-level performance for supposedly expert readers) is not the only reason for seeking alternate ROC models. The binormal model is susceptible to degeneracy problems. If the dataset does not provide any interior operating points (i.e., all observed points lie on the axes defined by FPF = 0 or TPF = 1) then the model fits these points with b = 0. The resulting straight-line segment fits do not make physical sense. These problems are addressed by the contaminated binormal model16 to be discussed in Chapter "Other proper ROC models". The first paper in the series has particularly readable accounts of data degeneracy.
-
-To this day the binormal model is widely used to fit ROC datasets. In spite of its limitations, the binormal model has been very useful in bringing a level of quantification to this field that did not exist prior to [@RN1081].
-
-## Appendix I: Density functions {#binormal-model-pdf-curves-appendix-1}
-
-According to Eqn. \@ref(eq:binormal-model-z-samples-1) the probability that a z-sample is smaller than a specified threshold  $\zeta$, i.e., the CDF function, is:
+According to Eqn. \@ref(eq:binormal-model-z-samples-1) the probability that a z-sample is smaller than a specified threshold  $\zeta$, i.e., the cumulative distribution function (CDF) function, is:
 
 \begin{equation*} 
 P\left ( Z \le \zeta \mid  Z\sim N\left ( 0,1 \right ) \right ) = 1-FPF\left ( \zeta \right ) = \Phi \left ( \zeta  \right )
@@ -734,267 +505,9 @@ pdf_D\left ( \zeta \right ) = b\phi\left ( b\zeta-a \right ) = \frac{b}{\sqrt{2 
 \end{equation*}
 
 
-## Appendix II: Area under binormal ROC {#binormal-model-appendix-2}
+## Invariance property of pdfs {#binormal-model-invariance-property}
 
-This section is based on [@thompson1989statistical]. 
-
-### General case (partial-area) {#binormal-model-partial-auc-derivation}
-
-In what follows, FPF is abbreviates to x and TPF to y. Then the equation for the ROC curve is \@ref(eq:binormal-model-roc-curve):
-
-\begin{equation} 
-y=\Phi\left ( a + b \Phi^{-1} \left ( x \right ) \right )
-(\#eq:binormal-model-xy)
-\end{equation}
-
-The partial-area under the ROC curve from $x = 0$ to $x = c$, where $0 ≤ c ≤ 1$, is given by: 
-
-\begin{equation} 
-A_{z;c} = \int_{0}^{c} y dx =  \int_{0}^{c} dx \Phi\left ( a + b \Phi^{-1} \left ( x \right ) \right ) 
-(\#eq:binormal-model-partial-area-1)
-\end{equation}
-
-Define change of variable:
-
-\begin{equation} 
-x = \Phi\left ( x_1 \right )
-(\#eq:binormal-model-change-variable-1)
-\end{equation}
-
-which implies:
-
-\begin{equation}
-\left. 
-\begin{aligned}
-x_1 = &  \Phi^{-1}\left ( x \right ) \\
-dx = &  dx_1 \phi\left ( x_1 \right )
-\end{aligned}
-\right \}
-(\#eq:binormal-model-dx-dx1)
-\end{equation}
-
-This yields:
-
-\begin{equation}
-\left. 
-\begin{aligned}
-A_{z;c} = &  \int_{0}^{c} dx \Phi \left ( a + b x_1 \right )\\
- = &  \int_{-\infty}^{\Phi^{-1}\left ( c \right )} dx_1 \phi\left ( x_1 \right )\Phi \left ( a + b x_1 \right )
-\end{aligned}
-\right \}
-(\#eq:binormal-model-partial-area-2)
-\end{equation}
-
-
-
-The right hand side of Eqn. \@ref(eq:binormal-model-partial-area-2) can be expressed as an integral over the bivariate normal distribution as follows. From the definition of the $\Phi$ function the above integral can be written as the following double integral:
-
-
-\begin{equation}
-A_{z;c} = \int_{x_1=-\infty}^{\Phi^{-1}\left ( c \right )} dx_1 \phi\left ( x_1 \right ) \int_{x_2=-\infty}^{a+bx_1} \phi\left ( x_2 \right ) dx_2
-(\#eq:binormal-model-partial-area-double-integral-1)
-\end{equation}
-
-
-Change variables from $(x_1, x_2)$ to $(z_1, z_2)$ as follows: 
-
-
-\begin{equation}
-\left. 
-\begin{aligned}
-z_2= &  x_1 \\
-z_1= &  \left ( x_2 - b x_1 \right ) f
-\end{aligned}
-\right \}
-(\#eq:binormal-model-change-variable-2)
-\end{equation}
-
-
-Here $f$ is a quantity to be determined, which will allow us to complete the transformation to the desired bivariate integral. The second equation above can be written as:
-
-
-\begin{equation}
-x_2= \frac{z_1}{f} + bx_1 = \frac{z_1}{f}  + bz_2
-(\#eq:binormal-model-dx2-z1-f)
-\end{equation}
-
-
-The Jacobian [@stein1992calculus] of the transformation is
-
-
-\begin{equation}
-J = \left (\begin{matrix}
-0 & 1\\ 
-\frac{1}{f} & b
-\end{matrix}
-  \right )(\#eq:binormal-model-jacobian)
-\end{equation}
-
-
-The magnitude of the determinant of J is $1/f$.
-
-
-From a theorem in calculus [@stein1992calculus], the double integral over $(x_1,x_2)$ can be expressed in terms of a double integral over $(z_1,z_2)$ as follows:
-
-
-\begin{equation}
-A_{z;c} = \frac{1}{f}\int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )} dz_2 \phi\left ( z_2 \right ) \int_{z_1=-\infty}^{z_{1}^{UL}} \phi\left ( \frac{z_1}{f} + b z_2\right ) dz_1
-(\#eq:binormal-model-partial-area-double-integral-2)
-\end{equation}
-
-
-The upper limit of the inner integral can be calculated as follows. Using the second equation in Eqn. \@ref(eq:binormal-model-change-variable-2):
-
-
-\begin{equation}
-z_{1}^{UL}=\left ( x_{2}^{UL} - b x_1\right ) f = \left ( a+b x_1-bx_1 \right ) f = af
-(\#eq:binormal-model-upper-limit-simplified)
-\end{equation}
-
-
-Eqn. \@ref(eq:binormal-model-partial-area-double-integral-2) simplifies to: 
-
-
-\begin{equation}
-A_{z;c} = \frac{1}{f}\int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )} dz_2 \phi\left ( z_2 \right ) \int_{z_1=-\infty}^{af} \phi\left ( \frac{z_1}{f} + b z_2\right ) dz_1
-(\#eq:binormal-model-partial-area-double-integral-3)
-\end{equation}
-
-
-Perform a change of variable from $f$ to a correlation-like quantity $\rho$ defined by:
-
-
-\begin{equation}
-f= \sqrt{1-\rho^2}
-(\#eq:binormal-model-partial-area-rho2)
-\end{equation}
-
-
-Define $\rho$ in terms of the b-parameter as follows:
-
-
-\begin{equation}
-b\sqrt{1-\rho^2} = - \rho
-(\#eq:binormal-model-partial-b-rho)
-\end{equation}
-
-
-This implies that $\rho$ is given by:
-
-
-\begin{equation}
-\rho = - \frac{b}{\sqrt{1+b^2}}
-(\#eq:binormal-model-rho-final1)
-\end{equation}
-
-
-The argument of the right-most $\phi$ function in Eqn. \@ref(eq:binormal-model-partial-area-double-integral-3) simplifies as follows:
-
-
-\begin{equation}
-\frac{z_1}{f} + bz_2 = \frac{z_1 + b z_2 \sqrt{1-\rho^2}}{\sqrt{1-\rho^2}} = \frac{z_1 - \rho z_2}{\sqrt{1-\rho^2}}
-(\#eq:binormal-model-partial-simplification)
-\end{equation}
-
-
-The expression for the partial-area under the ROC reduces to:
-
-
-\begin{equation}
-A_{z;c} = \frac{1}{\sqrt{1-\rho^2}}\int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )} dz_2 \phi\left ( z_2 \right ) \int_{z_1=-\infty}^{a\sqrt{1-\rho^2}} \phi\left ( \frac{z_1 - \rho z_2}{\sqrt{1-\rho^2}}\right ) dz_1
-(\#eq:binormal-model-partial-area-double-integral-4)
-\end{equation}
-
-
-Eqn. \@ref(eq:binormal-model-partial-b-rho) implies:
-
-
-\begin{equation}
-1 - \rho^2 = \frac{1}{1+b^2}\\
-(\#eq:binormal-model-simplification-4)
-\end{equation}
-
-
-
-Therefore,
-
-
-\begin{equation}
-A_{z;c} = \frac{1}{\sqrt{1-\rho^2}}\int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )} dz_2 \phi\left ( z_2 \right ) \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( \frac{z_1 - \rho z_2}{\sqrt{1-\rho^2}}\right ) dz_1
-(\#eq:binormal-model-partial-area-double-integral-5)
-\end{equation}
-
-
-The standard bivariate normal distribution with correlation coefficient $\rho$ is defined by:
-
-
-\begin{equation}
-\phi\left ( z_1,z_2;\rho \right ) = \frac{1}{2 \pi \sqrt{1-\rho^2}} \exp  \left ( -\frac{z_1^2 - 2 \rho z_1 z_2 + z_2^2}{2(1-\rho^2)}  \right )
-(\#eq:binormal-model-definition-standard-bivariate-distribution)
-\end{equation}
-
-
-The standard normal distribution is defined by:
-
-\begin{equation}
-\phi\left ( z\right ) = \frac{1}{\sqrt{2 \pi }} \exp  \left ( -\frac{z^2}{2}  \right )
-(\#eq:binormal-model-definition-standard-normal-distribution)
-\end{equation}
-
-It can be shown using these definitions that:
-
-
-
-\begin{equation}
-\phi\left ( z_1,z_2;\rho \right ) = \frac{1}{\sqrt{1-\rho^2}}\phi\left ( z_2 \right )\phi\left ( \frac{z_1-\rho z_2}{\sqrt{1-\rho^2}} \right )
-(\#eq:binormal-model-standard-bivariate-distribution-2)
-\end{equation}
-
-
-Using this form the expression for the partial-area is:
-
-
-\begin{equation}
-A_{z;c} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
-(\#eq:binormal-model-partial-area-final1)
-\end{equation}
-
-
-
-### Special case (total area) {#binormal-model-total-auc}
-
-Since $c$ is the upper limit of FPF, setting $c = 1$ yields the total area under the binormal ROC curve ^[Since the integral over $z_2$ is over the entire range it integrates out to unity leaving the one-dimensional density function $\phi\left ( z_1 \right )$ inside the integral. The last step follows from the definition of the $\Phi$ function.]:
-
-
-\begin{equation}
-\left. 
-\begin{aligned}
-A_{z} = & \int_{z_2=-\infty}^{\infty}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2 \\
-= &  \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1 \right ) dz_1 \\
-= & \Phi\left ( \frac{a}{\sqrt{1+b^2}} \right )
-\end{aligned}
-\right \}
-(\#eq:binormal-model-partial-area-special-case)
-\end{equation}
-
-
-An equivalent forms for the total area under the unequal variance binormal ROC curve is:
-
-
-\begin{equation}
-\left. 
-\begin{aligned}
-A_{z} =  & \Phi\left ( \frac{a}{\sqrt{1+b^2}} \right ) \\
-= & \Phi\left ( \frac{\frac{a}{b}}{\sqrt{1+\frac{1}{b^2}}} \right ) \\
-= & \Phi\left ( \frac{\mu}{\sqrt{1 + \sigma^2}} \right )
-\end{aligned}
-\right \}
-(\#eq:binormal-model-partial-area-special-case-2)
-\end{equation}
-
-## Appendix III: Invariance property of pdfs {#binormal-model-invariance-property}
-
-The binormal model is not as restrictive as might appear at first sight. Any monotone increasing transformation $Y=f(Z)$ applied to the observed z-samples, and the associated thresholds, will yield the same observed data, e.g., Table \@ref(tab:ratings-paradigmExampleTable). This is because such a transformation leaves the ordering of the ratings unaltered and hence results in the same operating points. While the distributions for $Y$ will not be binormal (i.e., two independent normal distributions), one can safely "pretend" that one is still dealing with an underlying binormal model. An alternative way of stating this is that any pair of distributions is allowed as long as they are reducible to a binormal model form by a monotonic increasing transformation of  Y: e.g., $Z=f^{-1}$. [If $f$ is a monotone increasing function of its argument, so is  $f^{-1}$}.]  For this reason, the term “pair of latent underlying normal distributions” is sometimes used to describe the binormal model. The robustness of the binormal model has been investigated [@hanley1988robustness; @dorfman1997proper]. The referenced paper by Dorfman et al has an excellent discussion of the robustness of the binormal model.
+The binormal model is not as restrictive as might appear at first sight. Any monotone increasing transformation $Y=f(Z)$ applied to the observed z-samples, and the associated thresholds, will yield the same observed data, e.g., Table \@ref(tab:ratings-paradigm-example-table). This is because such a transformation leaves the ordering of the ratings unaltered and hence results in the same operating points. While the distributions for $Y$ will not be binormal (i.e., two independent normal distributions), one can safely "pretend" that one is still dealing with an underlying binormal model. An alternative way of stating this is that any pair of distributions is allowed as long as they are reducible to a binormal model form by a monotonic increasing transformation of  Y: e.g., $Z=f^{-1}$. [If $f$ is a monotone increasing function of its argument, so is  $f^{-1}$}.]  For this reason, the term “pair of latent underlying normal distributions” is sometimes used to describe the binormal model. The robustness of the binormal model has been investigated [@hanley1988robustness; @dorfman1997proper]. The referenced paper by Dorfman et al has an excellent discussion of the robustness of the binormal model.
 
 The robustness of the binormal model, i.e., the flexibility allowed by the infinite choices of monotonic increasing functions, application of each of which leaves the ordering of the data unaltered, is widely misunderstood. The non-Gaussian appearance of histograms of ratings in ROC studies can lead one to incorrect conclusions that the binormal model is inapplicable to these datasets. To quote a reviewer of one of my recent papers:
 
@@ -1111,12 +624,240 @@ The histograms in C1, C2 and C3 appear to be non-Gaussian. The corresponding non
 
 
 
-## Appendix IV: Fitting an ROC curve {#binormal-model-curve-fitting-appendix-4}
+## Az and d-prime measures {#binormal-model-full-auc}
+
+The (full) area under the ROC, denoted $A_z$, is derived in [@thompson1989statistical]: 
+
+\begin{equation} 
+A_z=\Phi\left ( \frac{a}{\sqrt{1+b^2}} \right )=\Phi\left ( \frac{\mu}{\sqrt{1+\sigma^2}} \right )
+(\#eq:binormal-model-ab-2az)
+\end{equation} 
+
+The binormal fitted AUC increases as $a$ increases or as $b$ decreases. Equivalently, it increases as $\mu$ increases or as $\sigma$ decreases. 
+
+The reason for the name $A_z$ is that historically (prior to maximum likelihood estimation) this quantity was estimated by converting the probabilities FPF and TPF to *z-deviates* (see TBA), which of-course assumes normal distributions. The z-subscript is meant to emphasize that this is a binormal model derived estimate.
+
+The $d'$ parameter is defined as the separation of two unit-variance normal distributions yielding the same AUC as that predicted by the $(a,b)$ parameter binormal model. It is defined by:
+
+\begin{equation} 
+d'=\sqrt{2}\Phi^{-1}\left ( A_z \right )
+(\#eq:binormal-model-ab-2dprime)
+\end{equation} 
+
+```{r echo=FALSE}
+A_z <- pnorm(a/sqrt(1+b^2))
+```
+
+
+The d' index can be regarded as a perceptual signal-to-noise-ratio. 
+
+
+## Partial AUC measures {#binormal-model-partial-auc}
+
+Shorthand: denote $A \equiv A_z$, $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$. Two partial AUC measures are defined, one as a partial integral along the x-axis and the other as a partial integral along the y-axis. These are denoted by X and Y superscripts.
+
+### Definition {#binormal-model-meaning-partial-auc-definitions}
+
+The partial area under the ROC, $A_c^{X}$, is defined as that extending from $x = 0$ to $x = c$, where $0 \le c \le 1$ (in our notation $c$ always means a cutoff on the x-axis of the ROC): 
+
+\begin{equation} 
+\left. 
+\begin{aligned}
+A_c^{X} &= \int_{x=0}^{x=c} y \, dx 
+\\&=  \int_{x=0}^{x=c} \Phi\left ( a + b \; \Phi^{-1} \left ( x \right ) \right ) \, dx 
+\end{aligned}
+\right \}
+(\#eq:binormal-model-partial-area-a1)
+\end{equation}
+
+The second form follows from Eqn. \@ref(eq:binormal-model-roc-curve).
+
+
+[@thompson1989statistical] derives a formula for the partial-area in terms of the binormal model parameters $a$ and $b$:
+
+\begin{equation}
+A_c^{X} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
+(\#eq:binormal-model-partial-area-final)
+\end{equation}
+
+On the right hand side the integrand $\phi\left ( z_1,z_2;\rho \right )$ is the standard bivariate normal density function with correlation coefficient $\rho$. It is defined by:
+
+
+\begin{equation}
+\left. 
+\begin{aligned}
+\phi\left (z_1,z_2;\rho \right ) &= \frac{1}{2 \pi \sqrt{1-\rho^2}} \exp\left ( -\frac{z_1^2 -2\rho z_1 z_2 +z_2^2}{2\left ( 1-\rho^2 \right )} \right ) \\
+\rho &= - \frac{b}{\sqrt{1+b^2}}
+\end{aligned}
+\right \}
+(\#eq:binormal-model-bivariate-density)
+\end{equation}
+
+
+As demonstrated later the integrals occurring on the right hand side of Eqn. \@ref(eq:binormal-model-partial-area-final) can be evaluated numerically. 
+
+
+### Meaning of partial AUC {#binormal-model-meaning-partial-auc}
+
+As an area measure the partial AUC $A_c^{X}$ has a simple *geometric* meaning. A *physical* meaning is as follows: 
+
+> An ROC curve^[This curve is not binormal as the truncation destroys the normality of the two distributions] can be defined over the truncated dataset where all z-samples **smaller** than $-\Phi^{-1}(c)$ are ignored. The maximum area of this curve is that defined by the rectangle with corners at $(0,0)$ and $(c,\text{TPF}\left ( c \right ))$: $c$ is the abscissa at the upper limit of the integration interval along the x-axis and $\text{TPF}\left ( c \right )$ is the corresponding ordinate: see Eqn. \@ref(eq:binormal-model-op-point-ab2). Dividing $A_c^{X}$ by $\text{TPF}\left ( c \right ) \times c$ yields a normalized partial area measure, denoted $A_c^{XN}$, where $0 \le A_c^{XN} \le 1$. **This is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** If $a \ge 0$ it is constrained to (0.5, 1).
+
+
+\begin{equation}
+A_c^{XN} = \frac{A_c^{X}}{\text{TPF}\left ( c \right ) \times c}
+(\#eq:binormal-model-normalized-partial-auc)
+\end{equation}
+
+
+### Alternative partial AUC measure {#binormal-model-metz-partial-auc}
+
+Since the integral in Eqn. \@ref(eq:binormal-model-partial-area-a1) is from $x = 0$ to $x = c$ this partial AUC measure emphasizes the *high specificity* region of the ROC curve (since $x = 0$ corresponds to unit, i.e. highest, specificity).
+
+An alternative partial AUC measure has been defined [@jiang1996receiver] that emphasizes the *high sensitivity* region of the ROC as follows:
+
+\begin{equation} 
+A_c^{Y} = \int_{y=\text{TPF}(c)}^{y=1} \left (1-x  \right ) \, dy
+(\#eq:binormal-model-partial-area-ac-metz)
+\end{equation}
+
+
+$A_c^{Y}$ is the (un-normalized) area below the ROC extending from $y = \text{TPF}(c)$ to $y = 1$. The superscript Y denotes that the integral is over part of the y-axis. The maximum value of this integral is the area of the rectangle defined by the corner points $(c,\text{TPF}(c))$ and $(1,1)$. Therefore the normalized area is defined by (our normalization differs from that in the cited reference): 
+
+
+\begin{equation}
+A_c^{YN} = \frac{A_c^{Y}}{\left (1 - \text{TPF}(c)  \right ) \times \left (1-c  \right )}
+(\#eq:binormal-model-normalized-partial-auc-upper2)
+\end{equation}
+
+A *physical* meaning is as follows: 
+
+> An ROC curve can be defined over the truncated dataset where all z-samples **greater** than $-\Phi^{-1}(c)$ are ignored. **$A_c^{YN}$ is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** By definition the normalized area ranges between 0 and 1.
+
+
+### Numerical examples {#binormal-model-metz-partial-auc-example}
+
+Fig. \@ref(fig:binormal-model-partial-areas) shows the two un-normalized areas.
+
+```{r binormal-model-partial-areas, fig.cap = "Un-normalized partial AUC measures: the blue shaded area is $A_c^{X}$, the partial area below the ROC; the green shaded area is $A_c^{Y}$ the partial area above the ROC. Parameters are $a = 1.8$, $b = 1$ and $c = 0.3$.", fig.show='hold', echo=FALSE}
+print(shadedPlotsRoc(a = 1.8, b = 1, fpf = 0.3))
+```
+
+
+The following code illustrates calculation of the partial-area measure using the function `pmvnorm` in the `R` package `mvtnorm`. The following parameter values were used: $a = 1.8$, $b = 1$ and $c = 0.3$.
+
+
+```{r, attr.source = ".numberLines"}
+a <- 1.8
+b <- 1
+fpf_c <- 0.3 # cannot use c as variable name
+tpf_c <- pnorm(a + b * qnorm(fpf_c))
+A_z <- pnorm(a/sqrt(1+b^2))
+rho <- -b/sqrt(1+b^2)
+Lower1 <- -Inf
+Upper1 <- qnorm(fpf_c)
+Lower2 <- -Inf
+Upper2 <- a/sqrt(1+b^2)
+sigma <- rbind(c(1, rho), c(rho, 1))
+A_x <- as.numeric(pmvnorm(
+  c(Lower1, Lower2), 
+  c(Upper1, Upper2), 
+  sigma = sigma))
+
+# divide by area of rectangle
+A_xn <- A_x/fpf_c/tpf_c
+```
+
+
+The un-normalized partial-area measure $A_c^{X}$ = `r A_x`. The corresponding full AUC measure is $A_z$ = `r A_z`. The normalized measure is $A_c^{XN}$ = `r A_xn`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$ = `r -qnorm(fpf_c)`. This measure emphasizes specificity.
+
+
+$A_c^{Y}$ can be calculated using geometry. One subtracts $A_c^{X}$ from $A_z$ to get the area under the ROC to the right of $\text{FPF}=c$. Next one subtracts from this quantity the area of the rectangle with base $(1 - c)$ and height $\text{TPF}_c$. This yields the area if the green shaded region $A_c^{Y}$. To normalize it one divides by the area of the rectangle defined by the corner points $(c,\text{TPF}_c)$ and (1,1).
+
+
+```{r}
+# implement geometrical logic
+A_y <- (A_z - A_x)-(1-fpf_c)*(tpf_c)
+A_yn <- A_y/(1-tpf_c)/(1-fpf_c) 
+```
+
+
+The un-normalized partial-area measure $A_c^{Y}$ = `r A_y`. The normalized measure is $A_c^{YN}$ = `r A_yn`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than $-\Phi^{-1}(c)$ = `r -qnorm(fpf_c)`. This measure emphasizes sensitivity.
+
+
+The variation with $a$ of the two normalized AUC measures is shown next. The function `normalizedAreas` encapsulates the above calculations and is called for different values of $a$.
+
+
+```{r, echo=FALSE}
+normalizedAreas <- function (a, b, fpf_c)
+{
+  zeta <- -qnorm(fpf_c)
+  A_z <- pnorm(a/sqrt(1+b^2))
+  tpf_c <- pnorm(a - b * zeta)
+  rho <- -b/sqrt(1+b^2)
+  Lower1 <- -Inf
+  Upper1 <- qnorm(fpf_c)
+  Lower2 <- -Inf
+  Upper2 <- a/sqrt(1+b^2)
+  sigma <- rbind(c(1, rho), c(rho, 1))
+  A_x <- as.numeric(pmvnorm(
+    c(Lower1, Lower2), 
+    c(Upper1, Upper2), 
+    sigma = sigma))
+  A_xn <- A_x/fpf_c/tpf_c # normalized X-area
+  
+  A_y <- (A_z - A_x)-(1-fpf_c)*(tpf_c) # geometry
+  A_yn <- A_y/(1-tpf_c)/(1-fpf_c) # normalized Y-area
+  
+  return(list(
+    A_xn = A_xn,
+    A_yn = A_yn
+    )
+  )
+}
+```
+
+
+```{r, echo=TRUE}
+a_arr = seq(0,8)
+A_xn_arr <- array(dim = length(a_arr))
+A_yn_arr <- array(dim = length(a_arr))
+for (i in 1:length(a_arr)) {
+  x <- normalizedAreas(a_arr[i], 1, 0.1) # c = 0.1
+  A_xn_arr[i] <- x$A_xn
+  A_yn_arr[i] <- x$A_yn
+}
+```
+
+
+
+```{r summary-table-partial-normalized-areas, echo=FALSE}
+df <- data.frame(a_arr, A_xn_arr, A_yn_arr)
+colnames(df) <- c("$a$","$A^{XN}_c$", "$A^{YN}_c$")
+knitr::kable(df, caption = "Summary of normalized $A_c^{XN}$ and $A_c^{YN}$ partial AUCs for different values of the $a$ parameter, where $b = 1$ and $c = 0.1$.", escape = FALSE)
+```
+
+
+Table \@ref(tab:summary-table-partial-normalized-areas) shows $A_c^{XN}$ and $A_c^{YN}$ partial AUCs for different values of the $a$ parameter for $b = 1$ and $c = 0.1$. It demonstrates that the normalized areas are constrained between 0.5 and 1 (as long as $a$ in non-negative). For numerical reasons (basically a zero-divided-by-zero condition) it is difficult to show that $A_c^{YN}$ approaches 1 in the limit of very large a-parameter (since the green shaded area shrinks to zero).
+
+
+## Discussion{#binormal-model-discussion}
+
+The binormal model is historically very important and the contribution by Dorfman and Alf [@RN1081] was seminal. Prior to their work, there was no statistically valid way of estimating AUC from observed ratings counts. Their work and a key paper [@RN1487] accelerated research using ROC methods. The number of publications using their algorithm, and the more modern versions developed by Metz and colleagues, is probably well in excess of 500. Because of its key role, I have endeavored to take out some of the mystery about how the binormal model parameters are estimated. In particular, a common misunderstanding that the binormal model assumptions are violated by real datasets, when in fact it is quite robust to apparent deviations from normality, is addressed (details are in Section \@ref(binormal-model-invariance-property)). 
+
+A good understanding of this chapter should enable the reader to better understand alternative ROC models, discussed later.
+
+To this day the binormal model is widely used to fit ROC datasets. In spite of its limitations, the binormal model has been very useful in bringing a level of quantification to this field that did not exist prior to 1969.
+
+
+## Appendix: Fitting an ROC curve {#binormal-model-curve-fitting}
 ### JAVA fitted ROC curve
+
 This section, described in the physical book, has been abbreviated to a [relevant website](http://www.rad.jhmi.edu/jeng/javarad/roc/JROCFITi.html).
 
 ### Simplistic straight line fit to the ROC curve
-To be described next is a method for fitting data such as in Table \@ref(tab:ratings-paradigmExampleTable) to the binormal model, i.e., determining the parameters $(a,b)$ and the thresholds $\zeta_r , \quad r = 1, 2, ..., R-1$, to best fit, in some to-be-defined sense, the observed cell counts. The most common method uses an algorithm called maximum likelihood. But before getting to that, I describe the least-square method, which is conceptually simpler, but not really applicable, as will be explained shortly.
+
+To be described next is a method for fitting data such as in Table \@ref(tab:ratings-paradigm-example-table) to the binormal model, i.e., determining the parameters $(a,b)$ and the thresholds $\zeta_r , \quad r = 1, 2, ..., R-1$, to best fit, in some to-be-defined sense, the observed cell counts. The most common method uses an algorithm called maximum likelihood. But before getting to that, I describe the least-square method, which is conceptually simpler, but not really applicable, as will be explained shortly.
 
 #### Least-squares estimation
 By applying the function $\Phi^{-1}$  to both sides of Eqn. \@ref(eq:binormal-model-roc-curve1), one gets (the "inverse" function cancels the "forward" function on the right hand side):
@@ -1171,9 +912,9 @@ p1 <- pointsPlot
 print(p1)
 ```
 
-Fig. \@ref(fig:binormal-model-line-fit) shows operating points from Table \@ref(tab:ratings-paradigmExampleTable), transformed by the $\Phi^{-1}$ function; the slope of the line is the least-squares estimate of the $b$ parameter and the intercept is the corresponding $a$ parameter of the binormal model.
+Fig. \@ref(fig:binormal-model-line-fit) shows operating points from Table \@ref(tab:ratings-paradigm-example-table), transformed by the $\Phi^{-1}$ function; the slope of the line is the least-squares estimate of the $b$ parameter and the intercept is the corresponding $a$ parameter of the binormal model.
 
-The last line contains the least squares estimated values, $a$ = 1.3288 and $b$ = 0.6307. The corresponding maximum likelihood estimates of these parameters, as yielded by the Eng web code, Appendix B, are listed in line 4 of the main program: $a$ = 1.3204 and $b$ = 0.6075. The estimates appear to be close, particularly the estimate of $a$ , but there are a few things wrong with the least-squares approach. First, the method of least squares assumes that the data points are independent. Because of the manner in which they are constructed, namely by cumulating points, the independence assumption is not valid for ROC operating points. Cumulating the 4 and 5 responses constrains the resulting operating point to be above and to the right of the point obtained by cumulating the 5 responses only, so the data points are definitely not independent. Similarly, cumulating the 3, 4 and 5 responses constrains the resulting operating point to be above and to the right of the point obtained by cumulating the 4 and 5 responses, and so on. The second problem is the linear least-squares method assumes there is no error in measuring x; the only source of error that is accounted for is in the y-coordinate. In fact, both coordinates of an ROC operating point are subject to sampling error. Third, disregard of error in the x-direction is further implicit in the estimates of the thresholds, which according to Eqn. (6.2.19), is given by:
+The last line contains the least squares estimated values, $a$ = 1.3288 and $b$ = 0.6307. The corresponding maximum likelihood estimates of these parameters, as yielded by the Eng web code, see Appendix, are listed in line 4 of the main program: $a$ = 1.3204 and $b$ = 0.6075. The estimates appear to be close, particularly the estimate of $a$ , but there are a few things wrong with the least-squares approach. First, the method of least squares assumes that the data points are independent. Because of the manner in which they are constructed, namely by cumulating points, the independence assumption is not valid for ROC operating points. Cumulating the 4 and 5 responses constrains the resulting operating point to be above and to the right of the point obtained by cumulating the 5 responses only, so the data points are definitely not independent. Similarly, cumulating the 3, 4 and 5 responses constrains the resulting operating point to be above and to the right of the point obtained by cumulating the 4 and 5 responses, and so on. The second problem is the linear least-squares method assumes there is no error in measuring x; the only source of error that is accounted for is in the y-coordinate. In fact, both coordinates of an ROC operating point are subject to sampling error. Third, disregard of error in the x-direction is further implicit in the estimates of the thresholds, which according to Eqn. (6.2.19), is given by:
 
 \begin{equation*} 
 \zeta_r = - \Phi^{-1}\left ( FPF_r \right )
@@ -1184,6 +925,7 @@ These are "rigid" estimates that assume no error in the FPF values. As was shown
 A historical note: prior to computers and easy access to statistical functions the analyst had to use a special plotting paper, termed “double probability paper”, that converted probabilities into x and y distances using the inverse function.
 
 ### Maximum likelihood estimation (MLE)
+
 The approach taken by Dorfman and Alf was to maximize the likelihood function instead of S. The likelihood function is the probability of the observed data given a set of parameter values, i.e.,
 
 \begin{equation*} 
@@ -1278,7 +1020,8 @@ print(retFit$fittedPlot)
 
 Note the usage of the `RJafroc` package [@R-RJafroc]. Specifically, the function `FitBinormalRoc`. The ratings table is converted to an `RJafroc` dataset object, followed by application of the fitting function. The results, contained in `retFit` should be compared to those obtained from the [website implementation of ROCFIT](http://www.rad.jhmi.edu/jeng/javarad/roc/JROCFITi.html).
 
-## Appendix V: Validating fitting model {#binormal-model-curve-fitting-validation-appendix-5}
+### Validating the fit {#binormal-model-curve-fitting-validation}
+
 The above ROC curve is a good visual fit to the observed operating points. Quantification of the validity of the fitting model is accomplished by calculating the Pearson goodness-of-fit test [@RN2656], also known as the chi-square test, which uses the statistic defined by [@RN1492]:
 
 \begin{equation} 
@@ -1323,10 +1066,11 @@ At the 5% significance level, one concludes that the fit is not good if $p < 0.0
 TBA See book chapter 6.4.3. This is implemented in `RJafroc.`
 
 ### Estimating the variance of Az
+
 TBA See book chapter 6.4.4. This is implemented in `RJafroc`.
 
 
-## References {#binormal-model-references}
+
 
 
 
