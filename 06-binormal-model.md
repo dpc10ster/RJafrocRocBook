@@ -11,7 +11,7 @@
 
 ## How much finished {#binormal-model-how-much-finished}
 
-50%
+60%
 
 
 
@@ -67,7 +67,16 @@ In an R-rating ROC study the observed ratings $r$ take on integer values, 1 thro
 \end{equation}
 
 
-<img src="06-binormal-model_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+
+
+
+
+<div class="figure">
+<img src="06-binormal-model_files/figure-html/binormal-model-pdfs-1.png" alt="The pdfs of the two binormal model distributions for $\mu = 1.5$ and $\sigma = 1.5$. Four thresholds $\zeta_1, \zeta_2, \zeta_3, \zeta_4$ are shown corresponding to a five-rating ROC study. The rating assigned to a case is determined by its z-sample according to the binning rule." width="672" />
+<p class="caption">(\#fig:binormal-model-pdfs)The pdfs of the two binormal model distributions for $\mu = 1.5$ and $\sigma = 1.5$. Four thresholds $\zeta_1, \zeta_2, \zeta_3, \zeta_4$ are shown corresponding to a five-rating ROC study. The rating assigned to a case is determined by its z-sample according to the binning rule.</p>
+</div>
+
+
 
 In the unequal-variance binormal model, the variance $\sigma^2$ of the z-samples for diseased cases is allowed to be different from unity. Most ROC datasets are consistent with  $\sigma > 1$. The above figure, generated with  $\mu = 1.5, \sigma = 1.5, \zeta_1 = -2, \zeta_2 = -0.5, \zeta_3 = 1, \zeta_4 = 2.5$, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule \@ref(eq:binormal-modelZBinning). For example, a case with  z-sample equal to -2.5 would be rated "1", and one with  z-sample equal to -1 would be rated "2", cases with z-samples greater than 2.5 would be rated "5", etc.
 
@@ -160,13 +169,14 @@ Eqns. \@ref(eq:binormal-model-ab-parameters) and \@ref(eq:binormal-model-ab-para
 
 
 
+
 ```r
 grid.arrange(p1,p2,ncol=2)
 ```
 
 <div class="figure">
-<img src="06-binormal-model_files/figure-html/binormal-model-ab2-mu-sigma-1.png" alt="Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\mu,\sigma$) parameters. In this figure $\mu = 2$ and $\sigma = 1.8 which correspond to $a = 1.11$ and $b = 0.56$." width="672" />
-<p class="caption">(\#fig:binormal-model-ab2-mu-sigma)Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\mu,\sigma$) parameters. In this figure $\mu = 2$ and $\sigma = 1.8 which correspond to $a = 1.11$ and $b = 0.56$.</p>
+<img src="06-binormal-model_files/figure-html/binormal-model-ab2-mu-sigma-1.png" alt="Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\mu,\sigma$) parameters. In this figure $\mu = 2$ and $\sigma = 1.8$ which correspond to $a = 1.11$ and $b = 0.56$." width="672" />
+<p class="caption">(\#fig:binormal-model-ab2-mu-sigma)Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\mu,\sigma$) parameters. In this figure $\mu = 2$ and $\sigma = 1.8$ which correspond to $a = 1.11$ and $b = 0.56$.</p>
 </div>
 
 
@@ -399,7 +409,7 @@ A_c^{X} &= \int_{x=0}^{x=c} y \, dx
 The second form follows from Eqn. \@ref(eq:binormal-model-roc-curve).
 
 
-[@thompson1989statistical] derives a formula for the partial-area in terms of the binormal model parameters $a$ and $b$:
+[@thompson1989statistical] derive a formula for the partial-area in terms of the binormal model parameters $a$ and $b$:
 
 \begin{equation}
 A_c^{X} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
@@ -497,7 +507,7 @@ A_xn <- A_x/fpf_c/tpf_c
 ```
 
 
-The un-normalized partial-area measure $A_c^{X}$ = 0.216299086. The corresponding full AUC measure is $A_z$ = 0.898454106. The normalized measure is $A_c^{XN}$ = 0.802042166. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$ = 0.524400513. This measure emphasizes specificity.
+The un-normalized partial-area measure $A_c^{X}$ = 0.216. The corresponding full AUC measure is $A_z$ = 0.898. The normalized measure is $A_c^{XN}$ = 0.802. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$ = 0.524. This measure emphasizes specificity.
 
 
 $A_c^{Y}$ can be calculated using geometry. One subtracts $A_c^{X}$ from $A_z$ to get the area under the ROC to the right of $\text{FPF}=c$. Next one subtracts from this quantity the area of the rectangle with base $(1 - c)$ and height $\text{TPF}_c$. This yields the area if the green shaded region $A_c^{Y}$. To normalize it one divides by the area of the rectangle defined by the corner points $(c,\text{TPF}_c)$ and (1,1).
@@ -511,7 +521,7 @@ A_yn <- A_y/(1-tpf_c)/(1-fpf_c)
 ```
 
 
-The un-normalized partial-area measure $A_c^{Y}$ = 0.052889017. The normalized measure is $A_c^{YN}$ = 0.747717071. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than $-\Phi^{-1}(c)$ = 0.524400513. This measure emphasizes sensitivity.
+The un-normalized partial-area measure $A_c^{Y}$ = 0.053. The normalized measure is $A_c^{YN}$ = 0.748. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than $-\Phi^{-1}(c)$ = 0.524. This measure emphasizes sensitivity.
 
 
 The variation with $a$ of the two normalized AUC measures is shown next. The function `normalizedAreas` encapsulates the above calculations and is called for different values of $a$.
@@ -546,48 +556,48 @@ for (i in 1:length(a_arr)) {
 <tbody>
   <tr>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.500000000 </td>
-   <td style="text-align:right;"> 0.500000000 </td>
+   <td style="text-align:right;"> 0.5000 </td>
+   <td style="text-align:right;"> 0.5000 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.625964432 </td>
-   <td style="text-align:right;"> 0.701495407 </td>
+   <td style="text-align:right;"> 0.6260 </td>
+   <td style="text-align:right;"> 0.7015 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 0.778492533 </td>
-   <td style="text-align:right;"> 0.820767723 </td>
+   <td style="text-align:right;"> 0.7785 </td>
+   <td style="text-align:right;"> 0.8208 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 3 </td>
-   <td style="text-align:right;"> 0.914366101 </td>
-   <td style="text-align:right;"> 0.884233752 </td>
+   <td style="text-align:right;"> 0.9144 </td>
+   <td style="text-align:right;"> 0.8842 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 4 </td>
-   <td style="text-align:right;"> 0.982225335 </td>
-   <td style="text-align:right;"> 0.918927420 </td>
+   <td style="text-align:right;"> 0.9822 </td>
+   <td style="text-align:right;"> 0.9189 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 5 </td>
-   <td style="text-align:right;"> 0.998120044 </td>
-   <td style="text-align:right;"> 0.939283854 </td>
+   <td style="text-align:right;"> 0.9981 </td>
+   <td style="text-align:right;"> 0.9393 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 0.999891247 </td>
-   <td style="text-align:right;"> 0.952142103 </td>
+   <td style="text-align:right;"> 0.9999 </td>
+   <td style="text-align:right;"> 0.9521 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 7 </td>
-   <td style="text-align:right;"> 0.999996292 </td>
-   <td style="text-align:right;"> 0.960801438 </td>
+   <td style="text-align:right;"> 1.0000 </td>
+   <td style="text-align:right;"> 0.9608 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 8 </td>
-   <td style="text-align:right;"> 0.999999923 </td>
-   <td style="text-align:right;"> 0.966951574 </td>
+   <td style="text-align:right;"> 1.0000 </td>
+   <td style="text-align:right;"> 0.9670 </td>
   </tr>
 </tbody>
 </table>

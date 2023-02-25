@@ -315,7 +315,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 6</span> Binormal model<a href="binormal-model.html#binormal-model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="binormal-model-how-much-finished" class="section level2 hasAnchor">
 <h2><span class="header-section-number">6.1</span> How much finished<a href="binormal-model.html#binormal-model-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>50%</p>
+<p>60%</p>
 </div>
 <div id="binormal-model-introduction" class="section level2 hasAnchor">
 <h2><span class="header-section-number">6.2</span> Introduction<a href="binormal-model.html#binormal-model-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -352,7 +352,12 @@ Z_{k_tt}\sim N\left ( \mu_t,\sigma_{t}^{2} \right );t=1,2
 \text{if} \left (\zeta_{r-1} \le z \le \zeta_r  \right )\Rightarrow \text {rating} = r
 \tag{6.3}
 \end{equation}\]</span></p>
-<p><img src="06-binormal-model_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="figure"><span style="display:block;" id="fig:binormal-model-pdfs"></span>
+<img src="06-binormal-model_files/figure-html/binormal-model-pdfs-1.png" alt="The pdfs of the two binormal model distributions for $\mu = 1.5$ and $\sigma = 1.5$. Four thresholds $\zeta_1, \zeta_2, \zeta_3, \zeta_4$ are shown corresponding to a five-rating ROC study. The rating assigned to a case is determined by its z-sample according to the binning rule." width="672" />
+<p class="caption">
+FIGURE 6.1: The pdfs of the two binormal model distributions for <span class="math inline">\(\mu = 1.5\)</span> and <span class="math inline">\(\sigma = 1.5\)</span>. Four thresholds <span class="math inline">\(\zeta_1, \zeta_2, \zeta_3, \zeta_4\)</span> are shown corresponding to a five-rating ROC study. The rating assigned to a case is determined by its z-sample according to the binning rule.
+</p>
+</div>
 <p>In the unequal-variance binormal model, the variance <span class="math inline">\(\sigma^2\)</span> of the z-samples for diseased cases is allowed to be different from unity. Most ROC datasets are consistent with <span class="math inline">\(\sigma &gt; 1\)</span>. The above figure, generated with <span class="math inline">\(\mu = 1.5, \sigma = 1.5, \zeta_1 = -2, \zeta_2 = -0.5, \zeta_3 = 1, \zeta_4 = 2.5\)</span>, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule <a href="binormal-model.html#eq:binormal-modelZBinning">(6.3)</a>. For example, a case with z-sample equal to -2.5 would be rated “1”, and one with z-sample equal to -1 would be rated “2”, cases with z-samples greater than 2.5 would be rated “5”, etc.</p>
 </div>
 <div id="sensitivity-and-specificity-1" class="section level3 hasAnchor">
@@ -419,9 +424,9 @@ a=\frac{\mu}{\sigma};b=\frac{1}{\sigma}
 <p>Eqns. <a href="binormal-model.html#eq:binormal-model-ab-parameters">(6.11)</a> and <a href="binormal-model.html#eq:binormal-model-ab-parametersInv">(6.12)</a> allow conversion from one notation to another.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="binormal-model.html#cb27-1"></a><span class="kw">grid.arrange</span>(p1,p2,<span class="dt">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:binormal-model-ab2-mu-sigma"></span>
-<img src="06-binormal-model_files/figure-html/binormal-model-ab2-mu-sigma-1.png" alt="Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\mu,\sigma$) parameters. In this figure $\mu = 2$ and $\sigma = 1.8 which correspond to $a = 1.11$ and $b = 0.56$." width="672" />
+<img src="06-binormal-model_files/figure-html/binormal-model-ab2-mu-sigma-1.png" alt="Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\mu,\sigma$) parameters. In this figure $\mu = 2$ and $\sigma = 1.8$ which correspond to $a = 1.11$ and $b = 0.56$." width="672" />
 <p class="caption">
-FIGURE 6.1: Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the (<span class="math inline">\(\mu,\sigma\)</span>) parameters. In this figure <span class="math inline">\(\mu = 2\)</span> and $= 1.8 which correspond to <span class="math inline">\(a = 1.11\)</span> and <span class="math inline">\(b = 0.56\)</span>.
+FIGURE 6.2: Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the (<span class="math inline">\(\mu,\sigma\)</span>) parameters. In this figure <span class="math inline">\(\mu = 2\)</span> and <span class="math inline">\(\sigma = 1.8\)</span> which correspond to <span class="math inline">\(a = 1.11\)</span> and <span class="math inline">\(b = 0.56\)</span>.
 </p>
 </div>
 </div>
@@ -606,7 +611,7 @@ A_c^{X} &amp;= \int_{x=0}^{x=c} y \, dx
 \tag{6.20}
 \end{equation}\]</span></p>
 <p>The second form follows from Eqn. <a href="binormal-model.html#eq:binormal-model-roc-curve">(6.13)</a>.</p>
-<p><span class="citation">(Thompson and Zucchini <a href="#ref-thompson1989statistical" role="doc-biblioref">1989</a>)</span> derives a formula for the partial-area in terms of the binormal model parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>:</p>
+<p><span class="citation">(Thompson and Zucchini <a href="#ref-thompson1989statistical" role="doc-biblioref">1989</a>)</span> derive a formula for the partial-area in terms of the binormal model parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>:</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-final">\[\begin{equation}
 A_c^{X} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
 \tag{6.21}
@@ -654,11 +659,11 @@ A_c^{YN} = \frac{A_c^{Y}}{\left (1 - \text{TPF}(c)  \right ) \times \left (1-c  
 </div>
 <div id="binormal-model-metz-partial-auc-example" class="section level3 hasAnchor">
 <h3><span class="header-section-number">6.8.4</span> Numerical examples<a href="binormal-model.html#binormal-model-metz-partial-auc-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Fig. <a href="binormal-model.html#fig:binormal-model-partial-areas">6.2</a> shows the two un-normalized areas.</p>
+<p>Fig. <a href="binormal-model.html#fig:binormal-model-partial-areas">6.3</a> shows the two un-normalized areas.</p>
 <div class="figure"><span style="display:block;" id="fig:binormal-model-partial-areas"></span>
 <img src="06-binormal-model_files/figure-html/binormal-model-partial-areas-1.png" alt="Un-normalized partial AUC measures: the blue shaded area is $A_c^{X}$, the partial area below the ROC; the green shaded area is $A_c^{Y}$ the partial area above the ROC. Parameters are $a = 1.8$, $b = 1$ and $c = 0.3$." width="672" />
 <p class="caption">
-FIGURE 6.2: Un-normalized partial AUC measures: the blue shaded area is <span class="math inline">\(A_c^{X}\)</span>, the partial area below the ROC; the green shaded area is <span class="math inline">\(A_c^{Y}\)</span> the partial area above the ROC. Parameters are <span class="math inline">\(a = 1.8\)</span>, <span class="math inline">\(b = 1\)</span> and <span class="math inline">\(c = 0.3\)</span>.
+FIGURE 6.3: Un-normalized partial AUC measures: the blue shaded area is <span class="math inline">\(A_c^{X}\)</span>, the partial area below the ROC; the green shaded area is <span class="math inline">\(A_c^{Y}\)</span> the partial area above the ROC. Parameters are <span class="math inline">\(a = 1.8\)</span>, <span class="math inline">\(b = 1\)</span> and <span class="math inline">\(c = 0.3\)</span>.
 </p>
 </div>
 <p>The following code illustrates calculation of the partial-area measure using the function <code>pmvnorm</code> in the <code>R</code> package <code>mvtnorm</code>. The following parameter values were used: <span class="math inline">\(a = 1.8\)</span>, <span class="math inline">\(b = 1\)</span> and <span class="math inline">\(c = 0.3\)</span>.</p>
@@ -680,12 +685,12 @@ FIGURE 6.2: Un-normalized partial AUC measures: the blue shaded area is <span cl
 <span id="cb29-16"><a href="binormal-model.html#cb29-16"></a></span>
 <span id="cb29-17"><a href="binormal-model.html#cb29-17"></a><span class="co"># divide by area of rectangle</span></span>
 <span id="cb29-18"><a href="binormal-model.html#cb29-18"></a>A_xn &lt;-<span class="st"> </span>A_x<span class="op">/</span>fpf_c<span class="op">/</span>tpf_c</span></code></pre></div>
-<p>The un-normalized partial-area measure <span class="math inline">\(A_c^{X}\)</span> = 0.216299086. The corresponding full AUC measure is <span class="math inline">\(A_z\)</span> = 0.898454106. The normalized measure is <span class="math inline">\(A_c^{XN}\)</span> = 0.802042166. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than <span class="math inline">\(-\Phi^{-1}(c)\)</span> = 0.524400513. This measure emphasizes specificity.</p>
+<p>The un-normalized partial-area measure <span class="math inline">\(A_c^{X}\)</span> = 0.216. The corresponding full AUC measure is <span class="math inline">\(A_z\)</span> = 0.898. The normalized measure is <span class="math inline">\(A_c^{XN}\)</span> = 0.802. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than <span class="math inline">\(-\Phi^{-1}(c)\)</span> = 0.524. This measure emphasizes specificity.</p>
 <p><span class="math inline">\(A_c^{Y}\)</span> can be calculated using geometry. One subtracts <span class="math inline">\(A_c^{X}\)</span> from <span class="math inline">\(A_z\)</span> to get the area under the ROC to the right of <span class="math inline">\(\text{FPF}=c\)</span>. Next one subtracts from this quantity the area of the rectangle with base <span class="math inline">\((1 - c)\)</span> and height <span class="math inline">\(\text{TPF}_c\)</span>. This yields the area if the green shaded region <span class="math inline">\(A_c^{Y}\)</span>. To normalize it one divides by the area of the rectangle defined by the corner points <span class="math inline">\((c,\text{TPF}_c)\)</span> and (1,1).</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="binormal-model.html#cb30-1"></a><span class="co"># implement geometrical logic</span></span>
 <span id="cb30-2"><a href="binormal-model.html#cb30-2"></a>A_y &lt;-<span class="st"> </span>(A_z <span class="op">-</span><span class="st"> </span>A_x)<span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>fpf_c)<span class="op">*</span>(tpf_c)</span>
 <span id="cb30-3"><a href="binormal-model.html#cb30-3"></a>A_yn &lt;-<span class="st"> </span>A_y<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>tpf_c)<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>fpf_c) </span></code></pre></div>
-<p>The un-normalized partial-area measure <span class="math inline">\(A_c^{Y}\)</span> = 0.052889017. The normalized measure is <span class="math inline">\(A_c^{YN}\)</span> = 0.747717071. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than <span class="math inline">\(-\Phi^{-1}(c)\)</span> = 0.524400513. This measure emphasizes sensitivity.</p>
+<p>The un-normalized partial-area measure <span class="math inline">\(A_c^{Y}\)</span> = 0.053. The normalized measure is <span class="math inline">\(A_c^{YN}\)</span> = 0.748. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than <span class="math inline">\(-\Phi^{-1}(c)\)</span> = 0.524. This measure emphasizes sensitivity.</p>
 <p>The variation with <span class="math inline">\(a\)</span> of the two normalized AUC measures is shown next. The function <code>normalizedAreas</code> encapsulates the above calculations and is called for different values of <span class="math inline">\(a\)</span>.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="binormal-model.html#cb31-1"></a>a_arr =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>)</span>
 <span id="cb31-2"><a href="binormal-model.html#cb31-2"></a>A_xn_arr &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">length</span>(a_arr))</span>
@@ -718,10 +723,10 @@ FIGURE 6.2: Un-normalized partial AUC measures: the blue shaded area is <span cl
 0
 </td>
 <td style="text-align:right;">
-0.500000000
+0.5000
 </td>
 <td style="text-align:right;">
-0.500000000
+0.5000
 </td>
 </tr>
 <tr>
@@ -729,10 +734,10 @@ FIGURE 6.2: Un-normalized partial AUC measures: the blue shaded area is <span cl
 1
 </td>
 <td style="text-align:right;">
-0.625964432
+0.6260
 </td>
 <td style="text-align:right;">
-0.701495407
+0.7015
 </td>
 </tr>
 <tr>
@@ -740,10 +745,10 @@ FIGURE 6.2: Un-normalized partial AUC measures: the blue shaded area is <span cl
 2
 </td>
 <td style="text-align:right;">
-0.778492533
+0.7785
 </td>
 <td style="text-align:right;">
-0.820767723
+0.8208
 </td>
 </tr>
 <tr>
@@ -751,10 +756,10 @@ FIGURE 6.2: Un-normalized partial AUC measures: the blue shaded area is <span cl
 3
 </td>
 <td style="text-align:right;">
-0.914366101
+0.9144
 </td>
 <td style="text-align:right;">
-0.884233752
+0.8842
 </td>
 </tr>
 <tr>
@@ -762,10 +767,10 @@ FIGURE 6.2: Un-normalized partial AUC measures: the blue shaded area is <span cl
 4
 </td>
 <td style="text-align:right;">
-0.982225335
+0.9822
 </td>
 <td style="text-align:right;">
-0.918927420
+0.9189
 </td>
 </tr>
 <tr>
@@ -773,10 +778,10 @@ FIGURE 6.2: Un-normalized partial AUC measures: the blue shaded area is <span cl
 5
 </td>
 <td style="text-align:right;">
-0.998120044
+0.9981
 </td>
 <td style="text-align:right;">
-0.939283854
+0.9393
 </td>
 </tr>
 <tr>
@@ -784,10 +789,10 @@ FIGURE 6.2: Un-normalized partial AUC measures: the blue shaded area is <span cl
 6
 </td>
 <td style="text-align:right;">
-0.999891247
+0.9999
 </td>
 <td style="text-align:right;">
-0.952142103
+0.9521
 </td>
 </tr>
 <tr>
@@ -795,10 +800,10 @@ FIGURE 6.2: Un-normalized partial AUC measures: the blue shaded area is <span cl
 7
 </td>
 <td style="text-align:right;">
-0.999996292
+1.0000
 </td>
 <td style="text-align:right;">
-0.960801438
+0.9608
 </td>
 </tr>
 <tr>
@@ -806,10 +811,10 @@ FIGURE 6.2: Un-normalized partial AUC measures: the blue shaded area is <span cl
 8
 </td>
 <td style="text-align:right;">
-0.999999923
+1.0000
 </td>
 <td style="text-align:right;">
-0.966951574
+0.9670
 </td>
 </tr>
 </tbody>
@@ -871,10 +876,10 @@ S  = \sum_{i=1}^{R-1}\left ( y_i - \left ( a + bx_i \right ) \right )^2
 <div class="figure"><span style="display:block;" id="fig:binormal-model-line-fit"></span>
 <img src="06-binormal-model_files/figure-html/binormal-model-line-fit-1.png" alt="The straight line fit method of estimating parameters of the fitting model." width="672" />
 <p class="caption">
-FIGURE 6.3: The straight line fit method of estimating parameters of the fitting model.
+FIGURE 6.4: The straight line fit method of estimating parameters of the fitting model.
 </p>
 </div>
-<p>Fig. <a href="binormal-model.html#fig:binormal-model-line-fit">6.3</a> shows operating points from Table <a href="ratings-paradigm.html#tab:ratings-paradigm-example-table">4.1</a>, transformed by the <span class="math inline">\(\Phi^{-1}\)</span> function; the slope of the line is the least-squares estimate of the <span class="math inline">\(b\)</span> parameter and the intercept is the corresponding <span class="math inline">\(a\)</span> parameter of the binormal model.</p>
+<p>Fig. <a href="binormal-model.html#fig:binormal-model-line-fit">6.4</a> shows operating points from Table <a href="ratings-paradigm.html#tab:ratings-paradigm-example-table">4.1</a>, transformed by the <span class="math inline">\(\Phi^{-1}\)</span> function; the slope of the line is the least-squares estimate of the <span class="math inline">\(b\)</span> parameter and the intercept is the corresponding <span class="math inline">\(a\)</span> parameter of the binormal model.</p>
 <p>The last line contains the least squares estimated values, <span class="math inline">\(a\)</span> = 1.3288 and <span class="math inline">\(b\)</span> = 0.6307. The corresponding maximum likelihood estimates of these parameters, as yielded by the Eng web code, see Appendix, are listed in line 4 of the main program: <span class="math inline">\(a\)</span> = 1.3204 and <span class="math inline">\(b\)</span> = 0.6075. The estimates appear to be close, particularly the estimate of <span class="math inline">\(a\)</span> , but there are a few things wrong with the least-squares approach. First, the method of least squares assumes that the data points are independent. Because of the manner in which they are constructed, namely by cumulating points, the independence assumption is not valid for ROC operating points. Cumulating the 4 and 5 responses constrains the resulting operating point to be above and to the right of the point obtained by cumulating the 5 responses only, so the data points are definitely not independent. Similarly, cumulating the 3, 4 and 5 responses constrains the resulting operating point to be above and to the right of the point obtained by cumulating the 4 and 5 responses, and so on. The second problem is the linear least-squares method assumes there is no error in measuring x; the only source of error that is accounted for is in the y-coordinate. In fact, both coordinates of an ROC operating point are subject to sampling error. Third, disregard of error in the x-direction is further implicit in the estimates of the thresholds, which according to Eqn. (6.2.19), is given by:</p>
 <p><span class="math display">\[\begin{equation*} 
 \zeta_r = - \Phi^{-1}\left ( FPF_r \right )

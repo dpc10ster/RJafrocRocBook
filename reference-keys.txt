@@ -103,6 +103,7 @@ eq:empirical-auc-BambersTheoremProof7
 eq:binormal-model-z-samples-1
 eq:binormal-model-z-samples-2
 eq:binormal-modelZBinning
+fig:binormal-model-pdfs
 eq:binormal-model-specificity
 eq:binormal-model-sensitivity
 eq:binormal-model-sensitivitySp
