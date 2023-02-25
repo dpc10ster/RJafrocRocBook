@@ -259,8 +259,8 @@ sigma <- 1.8
 a <- mu/sigma
 b <- 1/sigma
 z <- seq(-3, 6, by = 0.01)
-y1 <- dnorm(z)
-y2 <- dnorm(z, mu, sigma)
+y1 <- dnorm(z, 0, sd = b)
+y2 <- dnorm(z, a)
 
 y <- data.frame(
   z = c(z, z), 
@@ -286,70 +286,75 @@ p1 <- ggplot() + ggtitle("A") +
           element_blank(), panel.grid.minor = element_blank(),
         panel.border = 
           element_rect(color = "black"), legend.position="none") +
-  geom_segment(aes(x = 1, 
-                   y = 0.405, 
+  geom_segment(aes(x = a/2, 
+                   y = 0.73, 
                    xend = 0, 
-                   yend = 0.405),
+                   yend = 0.73),
                arrow = 
                  arrow(length = unit(0.3, "cm"))) +
-  geom_segment(aes(x = 1, 
-                   y = 0.405, 
-                   xend = mu, 
-                   yend = 0.405),
+  geom_segment(aes(x = a/2, 
+                   y = 0.73, 
+                   xend = a, 
+                   yend = 0.73),
                arrow = arrow(length = unit(0.3, "cm"))) +
   annotate(
     "text", 
-    x = 1, 
-    y = 0.43, 
+    x = a/2, 
+    y = 0.76, 
     label = "a", 
     size = 5) +
   annotate(
     "text", 
-    x = 1.5, 
-    y = 0.35, 
+    x = 1.6, 
+    y = 0.45, 
     label = "Noise", 
     size = 5) +
   geom_segment(aes(
     x = 0, 
-    y = 0.205, 
-    xend = 1.15, 
-    yend = 0.205),
+    y = 0.39, 
+    xend = b, 
+    yend = 0.39),
     arrow = 
       arrow(length = unit(0.3, "cm"))) +
   geom_segment(aes(
     x = 0, 
-    y = 0.205, 
-    xend = -1.15, 
-    yend = 0.205),
+    y = 0.39, 
+    xend = -b, 
+    yend = 0.39),
     arrow = 
       arrow(length = unit(0.3, "cm"))) +
   annotate(
     "text", 
     x = 0, 
-    y = 0.19, 
+    y = 0.42, 
     label = "b", 
     size = 5) +
   geom_segment(
-    aes(x = 2, 
-        y = 0.105, xend = -0.2, yend = 0.105),
+    aes(x = 0+a, 
+        y = 0.17, 
+        xend = 1*1.2 +a, 
+        yend = 0.17),
     arrow = arrow(length = unit(0.3, "cm"))) +
   geom_segment(
-    aes(x = 2, y = 0.105, xend = 4.2, yend = 0.105),
+    aes(x = 0+a, 
+        y = 0.17, 
+        xend = -1*1.2+a, 
+        yend = 0.17),
     arrow = arrow(length = unit(0.3, "cm"))) +
   annotate("text", 
-           x = 2, 
-           y = 0.09, 
+           x = a, 
+           y = 0.19, 
            label = "1", 
            size = 5) +
   annotate("text", 
-           x = 4.2, 
-           y = 0.18, 
+           x = 4, 
+           y = 0.1, 
            label = "Signal", 
            size = 5)
 
 z <- seq(-3*sigma, 6*sigma, by = 0.01)
-y1 <- dnorm(z, sd = sigma)
-y2 <- dnorm(z, mean = mu*sigma, sd = sigma^2)
+y1 <- dnorm(z, 0, 1)
+y2 <- dnorm(z, mu, sigma)
 
 y <- data.frame(z = c(z, z), 
                 pdfs = c(y1, y2), 
@@ -371,68 +376,71 @@ p2 <- ggplot()  + ggtitle("B") + geom_line(
         panel.border = element_rect(color = "black"), 
         legend.position="none") + 
   geom_segment(
-    aes(x = 1 * sigma, 
-        y = 0.405 / sigma, 
+    aes(x = mu/2, 
+        y = 0.41, 
         xend = 0, 
-        yend = 0.405 / sigma), 
+        yend = 0.41), 
     arrow = arrow(length = unit(0.3, "cm"))) +
   geom_segment(
-    aes(x = 1 * sigma, 
-        y = 0.405 / sigma, 
-        xend = mu * sigma, 
-        yend = 0.405 / sigma), 
+    aes(x = 0, 
+        y = 0.41, 
+        xend = mu, 
+        yend = 0.41), 
     arrow = arrow(length = unit(0.3, "cm"))) + 
-  annotate("text", x = 1 * sigma, y = 0.43 / sigma, label = "mu == a/b", 
+  annotate("text", 
+           x = mu/2, 
+           y = 0.44, 
+           label = "mu == a/b", 
            size = 5, fontface = "bold", parse = TRUE) + 
   annotate("text", 
-           x = 1.5 * sigma, 
-           y = 0.35 / sigma, 
+           x = 2.8, 
+           y = 0.28, 
            label = "Noise", 
            size = 5, 
            fontface = "bold", parse = TRUE) + 
   geom_segment(
     aes(x = 0, 
-        y = 0.205 / sigma, 
-        xend = 1.15 * sigma, 
-        yend = 0.205 / sigma), 
+        y = 0.22, 
+        xend = 1, 
+        yend = 0.22), 
     arrow = arrow(length = unit(0.3, "cm"))) +
   geom_segment(
     aes(x = 0, 
-        y = 0.205 / sigma, 
-        xend = -1.15 * sigma, 
-        yend = 0.205 / sigma), 
+        y = 0.22, 
+        xend = -1, 
+        yend = 0.22), 
     arrow = arrow(length = unit(0.3, "cm"))) + 
   annotate("text", 
            x = 0, 
-           y = 0.19 / sigma, 
+           y = 0.24, 
            label = "1", 
            size = 5, fontface = "bold", parse=TRUE) + 
   geom_segment(
-    aes(x = 2 * sigma, 
-        y = 0.105 / sigma, 
-        xend = -0.2 * sigma, 
-        yend = 0.105 / sigma), 
+    aes(x = 0+mu, 
+        y = 0.1, 
+        xend = sigma*1.2 + mu, 
+        yend = 0.1), 
     arrow = arrow(length = unit(0.3, "cm"))) +
-  geom_segment(aes(x = 2 * sigma, 
-                   y = 0.105 / sigma, 
-                   xend = 4.2 * sigma, 
-                   yend = 0.105 / sigma), 
+  geom_segment(aes(x = 0+mu, 
+                   y = 0.1, 
+                   xend = -sigma*1.2 +mu, 
+                   yend = 0.1), 
                arrow = arrow(length = unit(0.3, "cm"))) + 
   annotate("text", 
-           x = 2 * sigma + 0.1, 
-           y = 0.09 / sigma, 
+           x = mu, 
+           y = 0.12, 
            label = "sigma == 1/b", 
            size = 5, 
            fontface = "bold", parse = TRUE) + 
   annotate("text", 
-           x = 4.2 * sigma, 
-           y = 0.18 / sigma, 
+           x = 6.4, 
+           y = 0.1, 
            label = "Signal", 
            size = 5, 
            fontface = "bold", parse = TRUE)
 ```
 
-```{r binormal-model-ab2-mu-sigma, fig.cap="Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\\mu,\\sigma$) parameters. In this figure $\\mu = 2$ and $\\sigma = 1.8$", fig.show='hold'}
+```{r binormal-model-ab2-mu-sigma, fig.cap="Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\\mu,\\sigma$) parameters. In this figure $\\mu = 2$ and $\\sigma = 1.8 which correspond to $a = 1.11$ and $b = 0.56$.", fig.show='hold'}
 grid.arrange(p1,p2,ncol=2)
 ```
 
