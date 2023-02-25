@@ -290,7 +290,7 @@ p1 <- ggplot() + ggtitle("A") +
                    y = 0.73, 
                    xend = 0, 
                    yend = 0.73),
-               arrow = arrow(length = unit(0.3, "cm"), ends = "both")) +
+               arrow = grid::arrow(length = unit(0.3, "cm"), ends = "both")) +
   annotate(
     "text", 
     x = a/2, 
@@ -308,7 +308,7 @@ p1 <- ggplot() + ggtitle("A") +
     y = 0.39, 
     xend = -b, 
     yend = 0.39),
-    arrow = arrow(length = unit(0.3, "cm"), ends = "both")) +
+    arrow = grid::arrow(length = unit(0.3, "cm"), ends = "both")) +
   annotate(
     "text", 
     x = 0, 
@@ -320,7 +320,7 @@ p1 <- ggplot() + ggtitle("A") +
         y = 0.17, 
         xend = -1*1.2 +a, 
         yend = 0.17),
-    arrow = arrow(length = unit(0.3, "cm"), ends = "both")) +
+    arrow = grid::arrow(length = unit(0.3, "cm"), ends = "both")) +
   annotate("text", 
            x = a, 
            y = 0.19, 
@@ -360,7 +360,7 @@ p2 <- ggplot()  + ggtitle("B") + geom_line(
         y = 0.41, 
         xend = mu, 
         yend = 0.41), 
-    arrow = arrow(length = unit(0.3, "cm"), ends = "both")) +
+    arrow = grid::arrow(length = unit(0.3, "cm"), ends = "both")) +
   annotate("text", 
            x = mu/2, 
            y = 0.44, 
@@ -377,7 +377,7 @@ p2 <- ggplot()  + ggtitle("B") + geom_line(
         y = 0.22, 
         xend = -1, 
         yend = 0.22), 
-    arrow = arrow(length = unit(0.3, "cm"), ends = "both")) +
+    arrow = grid::arrow(length = unit(0.3, "cm"), ends = "both")) +
   annotate("text", 
            x = 0, 
            y = 0.24, 
@@ -388,7 +388,7 @@ p2 <- ggplot()  + ggtitle("B") + geom_line(
         y = 0.1, 
         xend = sigma*1.2 + mu, 
         yend = 0.1), 
-    arrow = arrow(length = unit(0.3, "cm"), ends = "both")) +
+    arrow = grid::arrow(length = unit(0.3, "cm"), ends = "both")) +
   annotate("text", 
            x = mu, 
            y = 0.12, 
