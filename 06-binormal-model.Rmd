@@ -652,7 +652,7 @@ A_c^{X} &= \int_{x=0}^{x=c} y \, dx
 The second form follows from Eqn. \@ref(eq:binormal-model-roc-curve).
 
 
-[@thompson1989statistical] derives a formula for the partial-area in terms of the binormal model parameters $a$ and $b$:
+[@thompson1989statistical] derive a formula for the partial-area in terms of the binormal model parameters $a$ and $b$:
 
 \begin{equation}
 A_c^{X} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
@@ -748,7 +748,7 @@ A_xn <- A_x/fpf_c/tpf_c
 ```
 
 
-The un-normalized partial-area measure $A_c^{X}$ = `r A_x`. The corresponding full AUC measure is $A_z$ = `r A_z`. The normalized measure is $A_c^{XN}$ = `r A_xn`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$ = `r -qnorm(fpf_c)`. This measure emphasizes specificity.
+The un-normalized partial-area measure $A_c^{X}$ = `r simplePrint(A_x)`. The corresponding full AUC measure is $A_z$ = `r simplePrint(A_z)`. The normalized measure is $A_c^{XN}$ = `r simplePrint(A_xn)`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$ = `r simplePrint(-qnorm(fpf_c))`. This measure emphasizes specificity.
 
 
 $A_c^{Y}$ can be calculated using geometry. One subtracts $A_c^{X}$ from $A_z$ to get the area under the ROC to the right of $\text{FPF}=c$. Next one subtracts from this quantity the area of the rectangle with base $(1 - c)$ and height $\text{TPF}_c$. This yields the area if the green shaded region $A_c^{Y}$. To normalize it one divides by the area of the rectangle defined by the corner points $(c,\text{TPF}_c)$ and (1,1).
@@ -761,7 +761,7 @@ A_yn <- A_y/(1-tpf_c)/(1-fpf_c)
 ```
 
 
-The un-normalized partial-area measure $A_c^{Y}$ = `r A_y`. The normalized measure is $A_c^{YN}$ = `r A_yn`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than $-\Phi^{-1}(c)$ = `r -qnorm(fpf_c)`. This measure emphasizes sensitivity.
+The un-normalized partial-area measure $A_c^{Y}$ = `r simplePrint(A_y)`. The normalized measure is $A_c^{YN}$ = `r simplePrint(A_yn)`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than $-\Phi^{-1}(c)$ = `r simplePrint(-qnorm(fpf_c))`. This measure emphasizes sensitivity.
 
 
 The variation with $a$ of the two normalized AUC measures is shown next. The function `normalizedAreas` encapsulates the above calculations and is called for different values of $a$.
@@ -813,6 +813,8 @@ for (i in 1:length(a_arr)) {
 ```{r summary-table-partial-normalized-areas, echo=FALSE}
 # df <- data.frame(a = a_arr, A_XN = A_xn_arr, A_YN = A_yn_arr)
 df <- data.frame(a_arr, A_xn_arr, A_yn_arr)
+df$A_xn_arr <- round(df$A_xn_arr, digits = 4)
+df$A_yn_arr <- round(df$A_yn_arr, digits = 4)
 colnames(df) <- c("$a$","$A^{XN}_c$", "$A^{YN}_c$")
 knitr::kable(df, caption = "Summary of normalized $A_c^{XN}$ and $A_c^{YN}$ partial AUCs for different values of the $a$ parameter, where $b = 1$ and $c = 0.1$.", escape = FALSE)
 ```
