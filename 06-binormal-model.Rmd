@@ -57,7 +57,7 @@ simplePrint <- function(x) {
 
 ## How much finished {#binormal-model-how-much-finished}
 
-50%
+60%
 
 
 
@@ -144,7 +144,7 @@ rocPdfs <- ggplot(df, aes(x = z, y = pdfs, color = truth)) +
              linetype = "dashed", linewidth = 0.25) +
   annotation_custom(
     grob = 
-      textGrob(bquote(italic("O")),
+      grid::textGrob(bquote(italic("O")),
                gp = gpar(fontsize = 12)), 
     xmin = -3.2, xmax = -3.2, # adjust the position of "O"
     ymin = -0.0, ymax = -0.01) +
@@ -155,15 +155,22 @@ for (i in 1 : length(cut_point$z)){
   rocPdfs <- rocPdfs +
     annotation_custom(
       grob = 
-        textGrob(bquote(zeta[.(i)]),gp = gpar(fontsize = 12)),
+        grid::textGrob(bquote(zeta[.(i)]),gp = gpar(fontsize = 12)),
       xmin = cut_point$z[i], xmax = cut_point$z[i],
       ymin = -0.025, ymax = -0.045)
 }
 
 gt <- ggplot_gtable(ggplot_build(rocPdfs))
 gt$layout$clip[gt$layout$name == "panel"] <- "off"
-grid.draw(gt)
 ```             
+
+
+
+```{r binormal-model-pdfs, fig.cap="The pdfs of the two binormal model distributions for $\\mu = 1.5$ and $\\sigma = 1.5$. Four thresholds $\\zeta_1, \\zeta_2, \\zeta_3, \\zeta_4$ are shown corresponding to a five-rating ROC study. The rating assigned to a case is determined by its z-sample according to the binning rule.", fig.show='hold', echo=FALSE}
+grid.draw(gt)
+```
+
+
 
 In the unequal-variance binormal model, the variance $\sigma^2$ of the z-samples for diseased cases is allowed to be different from unity. Most ROC datasets are consistent with  $\sigma > 1$. The above figure, generated with  $\mu = 1.5, \sigma = 1.5, \zeta_1 = -2, \zeta_2 = -0.5, \zeta_3 = 1, \zeta_4 = 2.5$, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule \@ref(eq:binormal-modelZBinning). For example, a case with  z-sample equal to -2.5 would be rated "1", and one with  z-sample equal to -1 would be rated "2", cases with z-samples greater than 2.5 would be rated "5", etc.
 
@@ -402,6 +409,7 @@ p2 <- ggplot()  + ggtitle("B") + geom_line(
            size = 5, 
            fontface = "bold", parse = TRUE)
 ```
+
 
 ```{r binormal-model-ab2-mu-sigma, fig.cap="Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\\mu,\\sigma$) parameters. In this figure $\\mu = 2$ and $\\sigma = 1.8$ which correspond to $a = 1.11$ and $b = 0.56$.", fig.show='hold'}
 grid.arrange(p1,p2,ncol=2)
