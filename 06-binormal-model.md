@@ -11,22 +11,14 @@
 
 ## How much finished {#binormal-model-how-much-finished}
 
-60%
-
-
+95%
 
 
 ## Introduction {#binormal-model-introduction}
 
 The equal variance binormal model was described in Chapter \@ref(binary-task). The ratings method of acquiring ROC data and calculation of operating points was discussed in Chapter \@ref(ratings-paradigm). It was shown there that for a clinical dataset the unequal-variance binormal model visually fitted the data better than the equal-variance binormal model but how the unequal variance fit was obtained was not discussed. 
 
-This chapter deals with the unequal-variance binormal model, often abbreviated to **binormal model**, establishes necessary notation, and derives expressions for sensitivity, specificity and the area under the predicted ROC curve. 
-
-The binormal model describes univariate datasets in which there is *one ROC rating per case*, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier "univariate" is often omitted. In Chapter \@ref(bivariate-binormal-model) a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality. 
-
-The main aim of this chapter is to demystify statistical curve fitting. With the passing of Profs. Donald Dorfman, Charles Metz and Richard Swensson, parametric modeling is much neglected (with the notable exception of my research). Researchers have instead focused on non-parametric analysis using the empirical AUC defined in Chapter \@ref(empirical-auc). A claimed advantage (overstated in my opinion, see Section \@ref(binormal-model-invariance-property)) of non-parametric analysis is the absence of distributional assumptions. Non-parametric analysis yields no insight into what is limiting performance. Binormal model based curve fitting described in this chapter will allow the reader to appreciate a later chapter (see RSM fitting chapter in `RJafrocFrocBook`) that describes a more complex fitting method which yields important insights into the factors limiting human observer (or artificial intelligence algorithm) performance. 
-
-TBA Here is the organization of this chapter. It starts with a description of the binormal model and how it accommodates data binning. Two notations used to characterize the binormal model are explained. Expressions for the pdfs of the binormal model are derived. A simple linear fitting method is illustrated: this used to be the only recourse a researcher had before Dorfman and Alf's seminal publication [@RN1081]. The maximum likelihood method for estimating parameters of the binormal model is detailed. Validation of the fitting method is described, i.e., how can one be confident that the fitting method, which makes normality and other assumptions, is valid for a dataset arising from an unknown distribution. 
+This chapter deals with the unequal-variance binormal model, often abbreviated to **binormal model**. It is applicable to univariate datasets in which there is *one ROC rating per case*, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier "univariate" is often omitted. In Chapter \@ref(bivariate-binormal-model) a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality. 
 
 
 ## Binormal model {#binormal-model-definition}
@@ -97,32 +89,57 @@ To obtain an expression for sensitivity, consider that for truth state $t = 2$, 
 
 Sensitivity is $P\left ( Z_2 > \zeta \right )$, which implies, because $\sigma$ is positive (subtract $\mu$ from both sides of the “greater than” symbol and divide by $\sigma$):
 
-\begin{equation} 
-Se\left ( \zeta | \mu, \sigma \right )= P\left ( Z_2 > \zeta \right )=P\left ( \frac{Z_2-\mu}{\sigma} > \frac{\zeta-\mu}{\sigma} \right )
-(\#eq:binormal-model-sensitivity)
-\end{equation}
+
+\begin{equation*} 
+\left. 
+\begin{aligned}
+Se\left ( \zeta | \mu, \sigma \right )&= P\left ( Z_2 > \zeta \right )\\
+&=P\left ( \frac{Z_2-\mu}{\sigma} > \frac{\zeta-\mu}{\sigma} \right )
+\end{aligned}
+\right \}
+\end{equation*}
 
 The right-hand-side can be rewritten as follows:
 
-\begin{equation*} 
-Se\left ( \zeta | \mu, \sigma \right )= 1 - P\left ( \frac{Z_2-\mu}{\sigma} \leq  \frac{\zeta-\mu}{\sigma} \right )\\
-=1-\Phi\left (  \frac{\zeta-\mu}{\sigma}\right )=\Phi\left (  \frac{\mu-\zeta}{\sigma}\right )
-\end{equation*}
+\begin{equation} 
+\left. 
+\begin{aligned}
+Se\left ( \zeta | \mu, \sigma \right )&= 1 - P\left ( \frac{Z_2-\mu}{\sigma} \leq  \frac{\zeta-\mu}{\sigma} \right )\\
+&=1-\Phi\left (  \frac{\zeta-\mu}{\sigma}\right )=\Phi\left (  \frac{\mu-\zeta}{\sigma}\right )
+\end{aligned}
+\right \}
+(\#eq:binormal-model-sensitivity2)
+\end{equation}
+
+
 
 Summarizing, the formulae for the specificity and sensitivity for the binormal model are: 
 
 \begin{equation} 
-Sp\left ( \zeta \right ) = \Phi\left ( \zeta \right )\\
-Se\left ( \zeta | \mu, \sigma \right ) = \Phi\left (  \frac{\mu-\zeta}{\sigma}\right )
-(\#eq:binormal-model-sensitivitySp)
+\left. 
+\begin{aligned}
+Sp\left ( \zeta \right ) &= \Phi\left ( \zeta \right )\\
+Se\left ( \zeta | \mu, \sigma \right ) &= \Phi\left (  \frac{\mu-\zeta}{\sigma}\right )
+\end{aligned}
+\right \}
+(\#eq:binormal-model-se-sp)
 \end{equation}
+
 
 The coordinates of the operating point defined by $\zeta$ are given by:
 
 \begin{equation} 
-\text{FPF}\left ( \zeta \right ) = 1 - Sp\left ( \zeta \right ) = 1 - \Phi\left ( \zeta \right ) = \Phi\left ( -\zeta \right )
+\left. 
+\begin{aligned}
+\text{FPF}\left ( \zeta \right ) &= 1 - Sp\left ( \zeta \right ) \\
+&= 1 - \Phi\left ( \zeta \right ) \\
+&= \Phi\left ( -\zeta \right )
+\end{aligned}
+\right \}
 (\#eq:binormal-model-fpf)
 \end{equation}
+
+
 
 \begin{equation} 
 \text{TPF}\left ( \zeta | \mu, \sigma \right ) = \Phi\left ( \frac{\mu-\zeta}{\sigma} \right )
@@ -151,28 +168,35 @@ This equation gives the dependence of TPF on FPF, i.e., the equation for the ROC
 The following notation is widely used in the literature: 
 
 \begin{equation} 
-a=\frac{\mu}{\sigma};b=\frac{1}{\sigma}
+\left. 
+\begin{aligned}
+a&=\frac{\mu}{\sigma}\\
+b&=\frac{1}{\sigma}
+\end{aligned}
+\right \}
 (\#eq:binormal-model-ab-parameters)
 \end{equation}
+
 
 The reason for the $(a,b)$  instead of the  $(\mu,\sigma)$ notation is that Dorfman and Alf assumed, in their seminal paper [@RN1081], that the diseased distribution (signal distribution in signal detection theory) had unit variance, and the non-diseased distribution (noise) had standard deviation $b$ ($b > 0$) or variance $b^2$, and that the separation of the two distributions was $a$, see figure below. In this example: $a = 1.11$ and $b = 0.556$, corresponding to $\mu = 2$ and $\sigma = 1.8$. Dorfman and Alf's fundamental contribution, namely estimating these parameters from ratings data, to be described below, led to the widespread usage of the  $(a,b)$ parameters estimated by their software (RSCORE), and its newer variants (e.g., RSCORE–II, ROCFIT and ROCKIT). 
 
 By dividing the z-samples by $b$, the variance of the distribution labeled "Noise" becomes unity, its mean stays at zero, and the variance of the distribution labeled "Signal" becomes $1/b$, and its mean becomes $a/b$, as shown below. It illustrates that the inverses of Eqn. \@ref(eq:binormal-model-ab-parameters) are:
 
 \begin{equation} 
-\mu=\frac{a}{b};\sigma=\frac{1}{b}
-(\#eq:binormal-model-ab-parametersInv)
+\left. 
+\begin{aligned}
+\mu&=\frac{a}{b}\\
+\sigma&=\frac{1}{b}
+\end{aligned}
+\right \}
+(\#eq:binormal-model-ab-parameters-inv)
 \end{equation}
 
-Eqns. \@ref(eq:binormal-model-ab-parameters) and \@ref(eq:binormal-model-ab-parametersInv) allow conversion from one notation to another.
+Eqns. \@ref(eq:binormal-model-ab-parameters) and \@ref(eq:binormal-model-ab-parameters-inv) allow conversion from one notation to another.
 
 
 
 
-
-```r
-grid.arrange(p1,p2,ncol=2)
-```
 
 <div class="figure">
 <img src="06-binormal-model_files/figure-html/binormal-model-ab2-mu-sigma-1.png" alt="Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\mu,\sigma$) parameters. In this figure $\mu = 2$ and $\sigma = 1.8$ which correspond to $a = 1.11$ and $b = 0.56$." width="672" />
@@ -261,102 +285,18 @@ The reviewer is correct. The misconception is illustrated next.
 
 
 
-
-```r
-# shows that monotone transformations have no effect on 
-# AUC even though the pdfs look non-gaussian
-# common misconception about ROC analysis
-fArray <- c(0.1,0.5,0.9)
-seedArray <- c(10,11,12)
-for (row in 1:3) { 
-  f <- fArray[row]
-  seed <- seedArray[row]
-  set.seed(seed) 
-  # numbers of cases simulated
-  K1 <- 900
-  K2 <- 1000
-  mu1 <- 30
-  sigma1 <- 7
-  mu2 <- 55
-  sigma2 <- 7 
-  # Simulate true gaussian ratings using above parameter values
-  z1 <- rnorm(K1,mean = mu1,sd = sigma1)
-  z1[z1>100] <- 100;z1[z1<0] <- 0 # constrain to 0 to 100
-  z2 <- rnorm(K2,mean = mu2,sd = sigma2)
-  z2[z2>100] <- 100;z2[z2<0] <- 0 # constrain to 0 to 100
-  # calculate AUC for true Gaussian ratings
-  AUC1 <- TrapezoidalArea(z1, z2)
-  Gaussians <- c(z1, z2)
-  # display histograms of true Gaussian ratings, A1, A2 or A3
-  x <- data.frame(x=Gaussians) #  line 27
-  x <-  
-    ggplot(data = x, mapping = aes(x = x)) +
-    geom_histogram(binwidth = 5, color = "black", fill="grey") + 
-    xlab(label = "Original Rating") + 
-    ggtitle(label = paste0("A", row, ": ", "Gaussians"))
-  print(x)
-  z <- seq(0.0, 100, 0.1)
-  # transform the latent Gaussians to true Gaussians
-  transformation <- 
-    data.frame(
-      x = z, 
-      z =  Y(z,mu1,mu2,sigma1,sigma2,f))
-  # display transformation functions, B1, B2 or B3
-  x <- 
-    ggplot(mapping = aes(x = x, y = z)) + 
-    geom_line(data = transformation, linewidth = 1) +
-    xlab(label = "Original Rating") +
-    ylab(label = "Transformed Rating") + 
-    ggtitle(label = paste0("B", row, ": ","Monotone Transformation"))
-  print(x)
-  y <- Y(c(z1, z2),mu1,mu2,sigma1,sigma2,f)
-  y1 <- y[1:K1];y2 <- y[(K1+1):(K1+K2)]
-  # calculate AUC for transformed ratings
-  AUC2 <- TrapezoidalArea( y1, y2)
-  # display histograms of latent Gaussian ratings, C1, C2 or C3
-  x <- data.frame(x=y)
-  x <-  ggplot(data = x, mapping = aes(x = x)) +
-    geom_histogram(binwidth = 5, color = "black", fill="grey") +
-    xlab(label = "Transformed Rating") + 
-    ggtitle(label = paste0("C", row, ": ", "Latent Gaussians"))
-  print(x)
-# print AUCs, note they are identical (for each row)  
-options(digits = 9)
-  cat("row =", row, ", seed =", seed, ", f =", f, 
-      "\nAUC of actual Gaussians =", AUC1, 
-      "\nAUC of latent Gaussians =", AUC2, "\n")
-}
-#> row = 1 , seed = 10 , f = 0.1 
-#> AUC of actual Gaussians = 0.99308 
-#> AUC of latent Gaussians = 0.99308
-#> row = 2 , seed = 11 , f = 0.5 
-#> AUC of actual Gaussians = 0.993668889 
-#> AUC of latent Gaussians = 0.993668889
-#> row = 3 , seed = 12 , f = 0.9 
-#> AUC of actual Gaussians = 0.995041111 
-#> AUC of latent Gaussians = 0.995041111
-```
-
 <img src="06-binormal-model_files/figure-html/unnamed-chunk-6-1.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-6-2.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-6-3.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-6-4.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-6-5.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-6-6.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-6-7.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-6-8.png" width="33%" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-6-9.png" width="33%" />
 
-**Figure captions (A1 - C3):** Illustrating the invariance of ROC analysis to arbitrary monotone transformations of the ratings. Each row contains 3 plots: labeled 1, 2 and 3. Each column contains 3 plots labeled A, B and C. So, for example, plot C2 refers to the second row and third column. The for-loop generates the plot one row at a time. Each of the latent Gaussian plots C1, C2 and C3 appears not binormal. However, using the inverse of the monotone transformations shown B1, B2 and B3, they can be transformed to the binormal model histograms A1, A2 and A3. Plot A1 shows the histogram of simulated ratings from a binormal model. Two peaks, one at 30 and the other at 55 are evident (by design, all ratings in this figure are in the range 0 to 100). Plot B1 shows the monotone transformation for $f = 0.1$. Plot C1 shows the histogram of the transformed rating. The choice of $f$ leads to a transformed rating histogram that is peaked near the high end of the rating scale. For A1 and C1 the corresponding AUCs are identical (0.993080000). Plot A2 is for a different seed value, plot B2 is the transformation for $f = 0.5$ and now the transformed histogram is almost flat, plot C2. For plots A2 and C2 the corresponding AUCs are identical (0.993668889). Plot A3 is for a different seed value, B3 is the transformation for $f = 0.9$ and the transformed histogram C3 is peaked near the low end of the transformed rating scale. For plots A3 and (C3) the corresponding AUCs are identical (0.995041111).
+**This figure illustrates the invariance of ROC analysis to arbitrary monotone transformations of the ratings.** 
 
-The idea is to simulate continuous ratings data in the range 0 to 100 from a binormal model. $K_1 = 900$ non-diseased cases are sampled from a Gaussian centered at $\mu_1$ = 30 and standard deviation $\sigma_1 = 7$. $K_2 = 1000$ diseased cases are sampled from a Gaussian centered at $\mu_2$ = 55 and standard deviation $\sigma_2$ = 7. The variable $f$, which is in the range (0,1), controls the shape of the transformed distribution. If $f$ is small, the transformed distribution will be peaked towards 0 and if $f$ is unity, it will be peaked at 100. If $f$ equals 0.5, the transformed distribution is flat. Insight into the reason for this transformation is in [@RN300], Chapter 7: it has to do with transformations of random variables. The transformation function, $Y(Z)$, implements:
+* Each row contains 3 plots: labeled 1, 2 and 3. Each column contains 3 plots labeled A, B and C. So, for example, plot C2 refers to the second row and third column. Each of the latent Gaussian plots C1, C2 and C3 appears to be not binormal. However, using the monotone transformations shown (B1, B2 and B3) they can be transformed to the binormal model histograms A1, A2 and A3. 
 
-\begin{equation} 
-Y\left ( Z \right )=\left [ \left ( 1-f \right )\Phi\left ( \frac{Z-\mu_1}{\sigma_1} \right )+f\Phi\left ( \frac{Z-\mu_2}{\sigma_2} \right ) \right ]100
-(\#eq:binormal-modelDemoMisconception)
-\end{equation}
+* Plot A1 shows the histogram of simulated ratings from a binormal model. Two peaks, one at 30 and the other at 55 are evident (by design, all ratings in this figure are in the range 0 to 100). Plot B1 shows the monotone transformation. Plot C1 shows the histogram of the transformed rating. The choice of $f$ leads to a transformed rating histogram that is peaked near the high end of the rating scale. For A1 and C1 the corresponding AUCs are identical. 
 
-The multiplication by 100 ensures that the transformed variable is in the range 0 to 100 (if not, it is code-constrained to be). The code realizes the random samples, calculates the empirical AUC, displays the histogram of the true binormal samples, plots the transformation function, calculates the empirical AUC using the transformed samples, and plots the histogram of the transformed samples (the latent binormal). 
+* Plot A2 is for a different seed value, plot B2 is the transformation and now the transformed histogram is almost flat, plot C2. For plots A2 and C2 the corresponding AUCs are identical. 
 
-* B1 shows the transformation for $f = 0.1$. The steep initial rise of the curve has the effect of flattening the histogram of the transformed ratings at the low end of the rating scale, C1. Conversely, the flat nature of the curve near upper end of the rating range has the effect of causing the histogram of the transformed variable to peak in that range. 
-* B2 shows the transformation for $f = 0.5$. This time the latent rating histogram, C2, is almost flat over the entire range, definitely not visually binormal. 
-* B3 shows the transformation for $f = 0.9$. This time the transformed rating histogram, C3, is peaked at the low end of the transformed rating scale.
-* The output lists the values of the seed variable and the value of the shape parameter $f$. *For each value of seed and the shape parameter, the AUCs of the actual Gaussians and the transformed variables are identical*. 
-* The values of the parameters were chosen to best illustrate the true binormal nature of the plots A2 and A3. This has the effect of making the AUCs close to unity. 
+* Plot A3 is for a different seed value, B3 is the transformation and the transformed histogram C3 is peaked near the low end of the transformed rating scale. For plots A3 and (C3) the corresponding AUCs are identical.
 
-The histograms in C1, C2 and C3 appear to be non-Gaussian. The corresponding non-diseased and diseased ratings will fail tests of normality. [Showing this is left as an exercise for the reader.] Nevertheless, they are latent Gaussians in the sense that the inverses of the transformations shown in B1, B2 and B3 will yield histograms that are strictly binormal, i.e., A1, A2 and A3. By appropriate changes to the monotone transformation function, the histograms shown in C1, C2 and C3 can be made to resemble a wide variety of shapes, for example, quasi-bimodal (don't confuse bimodal with binormal) histograms.] 
 
 **Visual examination of the shape of the histograms of ratings, or standard tests for normality, yield little, if any, insight into whether the underlying binormal model assumptions are being violated.**
 
@@ -616,6 +556,10 @@ To this day the binormal model is widely used to fit ROC datasets. In spite of i
 
 
 ## Appendix: Fitting an ROC curve {#binormal-model-curve-fitting}
+
+One aim of this chapter is to demystify statistical curve fitting. With the passing of Profs. Donald Dorfman, Charles Metz and Richard Swensson, parametric modeling is much neglected. Researchers have instead focused on non-parametric analysis using the empirical AUC defined in Chapter \@ref(empirical-auc). A claimed advantage (overstated in my opinion, see Section \@ref(binormal-model-invariance-property)) of non-parametric analysis is the absence of distributional assumptions. Non-parametric analysis yields no insight into what is limiting performance. Binormal model based curve fitting described in this chapter will allow the reader to appreciate a later chapter (see RSM fitting chapter in `RJafrocFrocBook`) that describes a more complex fitting method which yields important insights into the factors limiting human observer (or artificial intelligence algorithm) performance. 
+
+
 ### JAVA fitted ROC curve
 
 This section, described in the physical book, has been abbreviated to a [relevant website](http://www.rad.jhmi.edu/jeng/javarad/roc/JROCFITi.html).
