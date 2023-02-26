@@ -266,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-how-much-finished"><i class="fa fa-check"></i><b>6.1</b> How much finished</a></li>
 <li class="chapter" data-level="6.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-introduction"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
 <li class="chapter" data-level="6.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-definition"><i class="fa fa-check"></i><b>6.3</b> Binormal model</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="binormal-model.html"><a href="binormal-model.html#additional-parameters-for-binned-data"><i class="fa fa-check"></i><b>6.3.1</b> Additional parameters for binned data</a></li>
+<li class="chapter" data-level="6.3.1" data-path="binormal-model.html"><a href="binormal-model.html#binned-data"><i class="fa fa-check"></i><b>6.3.1</b> Binned data</a></li>
 <li class="chapter" data-level="6.3.2" data-path="binormal-model.html"><a href="binormal-model.html#sensitivity-and-specificity-1"><i class="fa fa-check"></i><b>6.3.2</b> Sensitivity and specificity</a></li>
 <li class="chapter" data-level="6.3.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-in-conventional-notation"><i class="fa fa-check"></i><b>6.3.3</b> Binormal model in conventional notation</a></li>
 </ul></li>
@@ -316,17 +316,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="binormal-model-how-much-finished" class="section level2 hasAnchor">
 <h2><span class="header-section-number">6.1</span> How much finished<a href="binormal-model.html#binormal-model-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>95%</p>
+<p>Comments on limitation of ROCFIT
+Comments on partial AUC</p>
 </div>
 <div id="binormal-model-introduction" class="section level2 hasAnchor">
 <h2><span class="header-section-number">6.2</span> Introduction<a href="binormal-model.html#binormal-model-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The equal variance binormal model was described in Chapter <a href="binary-task.html#binary-task">2</a>. The ratings method of acquiring ROC data and calculation of operating points was discussed in Chapter <a href="ratings-paradigm.html#ratings-paradigm">4</a>. It was shown there that for a clinical dataset the unequal-variance binormal model visually fitted the data better than the equal-variance binormal model but how the unequal variance fit was obtained was not discussed.</p>
-<p>This chapter deals with the unequal-variance binormal model, often abbreviated to <strong>binormal model</strong>. It is applicable to univariate datasets in which there is <em>one ROC rating per case</em>, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier “univariate” is often omitted. In Chapter <a href="#bivariate-binormal-model"><strong>??</strong></a> a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality.</p>
+<p>The equal variance binormal model was described in Chapter <a href="binary-task.html#binary-task">2</a>. The ratings method of acquiring ROC data and calculation of operating points was discussed in Chapter <a href="ratings-paradigm.html#ratings-paradigm">4</a>. It was shown there that for a clinical dataset the unequal-variance binormal model visually fitted the data better than the equal-variance binormal model.</p>
+<p>This chapter deals with the unequal-variance binormal model, often abbreviated to <strong>binormal model</strong>. It is applicable to univariate datasets in which there is <em>one rating per case</em>, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier “univariate” is often omitted. In Chapter <a href="#bivariate-binormal-model"><strong>??</strong></a> a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality.</p>
 </div>
 <div id="binormal-model-definition" class="section level2 hasAnchor">
 <h2><span class="header-section-number">6.3</span> Binormal model<a href="binormal-model.html#binormal-model-definition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The unequal-variance binormal model (henceforth abbreviated to binormal model; when I mean equal variances, it will be made explicit) is defined by (capital letters indicate random variables and their lower-case counterparts are realized values):</p>
+<p>The binormal model is defined by (capital letters indicate random variables lower-case are realized values and <span class="math inline">\(t\)</span> denotes the truth state):</p>
 <p><span class="math display" id="eq:binormal-model-z-samples-1">\[\begin{equation} 
-Z_{k_tt}\sim N\left ( \mu_t,\sigma_{t}^{2} \right );t=1,2
+\left.
+\begin{aligned}
+Z_{k_tt} \sim &amp;N\left ( \mu_t,\sigma_{t}^{2} \right )\\
+t&amp;=1,2
+\end{aligned}
+\right \}
 \tag{6.1}
 \end{equation}\]</span></p>
 <p>where</p>
@@ -341,11 +348,11 @@ Z_{k_tt}\sim N\left ( \mu_t,\sigma_{t}^{2} \right );t=1,2
 \right \}
 \tag{6.2}
 \end{equation}\]</span></p>
-<p>Eqn. <a href="binormal-model.html#eq:binormal-model-z-samples-1">(6.1)</a> states that the z-samples for non-diseased cases are distributed as a <span class="math inline">\(N(0,1)\)</span> distribution, i.e., the unit normal distribution, while the z-samples for diseased cases are distributed as a <span class="math inline">\(N(\mu,\sigma^2)\)</span> distribution, i.e., a normal distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. <em>This is a 2-parameter model of the z-samples, not counting additional threshold parameters needed for data binning.</em><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
-<div id="additional-parameters-for-binned-data" class="section level3 hasAnchor">
-<h3><span class="header-section-number">6.3.1</span> Additional parameters for binned data<a href="binormal-model.html#additional-parameters-for-binned-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In an R-rating ROC study the observed ratings <span class="math inline">\(r\)</span> take on integer values, 1 through <span class="math inline">\(R\)</span>, it being understood that higher ratings correspond to greater confidence for disease. Defining dummy cutoffs <span class="math inline">\(\zeta_0 = -\infty\)</span> and <span class="math inline">\(\zeta_R = +\infty\)</span>, the binning rule for a case with realized z-sample z is (Chapter <a href="ratings-paradigm.html#ratings-paradigm">4</a>, Eqn. <a href="ratings-paradigm.html#eq:ratings-paradigm-binningRule">(4.4)</a>):</p>
-<p><span class="math display" id="eq:binormal-modelZBinning">\[\begin{equation} 
+<p>Eqn. <a href="binormal-model.html#eq:binormal-model-z-samples-1">(6.1)</a> states that the z-samples for non-diseased cases (<span class="math inline">\(t = 1\)</span>) are distributed as a <span class="math inline">\(N(0,1)\)</span> distribution, i.e., the unit normal distribution, while the z-samples for diseased cases (<span class="math inline">\(t = 2\)</span>) are distributed as a <span class="math inline">\(N(\mu,\sigma^2)\)</span> distribution, i.e., a normal distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. <em>This is a 2-parameter model of the z-samples, not counting additional threshold parameters needed for data binning.</em><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<div id="binned-data" class="section level3 hasAnchor">
+<h3><span class="header-section-number">6.3.1</span> Binned data<a href="binormal-model.html#binned-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In an R-rating ROC study the observed ratings <span class="math inline">\(r\)</span> take on integer values 1 through <span class="math inline">\(R\)</span>, it being understood that higher ratings correspond to greater confidence for presence of disease. Defining <span class="math inline">\(R-1\)</span> cutoffs <span class="math inline">\(\zeta_i\)</span> where <span class="math inline">\(i=1,2,...,R-1\)</span> and two dummy cutoffs <span class="math inline">\(\zeta_0 = -\infty\)</span> and <span class="math inline">\(\zeta_R = +\infty\)</span>, the binning rule for a case with realized z-sample z is (Chapter <a href="ratings-paradigm.html#ratings-paradigm">4</a>, Eqn. <a href="ratings-paradigm.html#eq:ratings-paradigm-binning-rule">(4.4)</a>):</p>
+<p><span class="math display" id="eq:binormal-model-binning">\[\begin{equation} 
 \text{if} \left (\zeta_{r-1} \le z \le \zeta_r  \right )\Rightarrow \text {rating} = r
 \tag{6.3}
 \end{equation}\]</span></p>
@@ -355,7 +362,7 @@ Z_{k_tt}\sim N\left ( \mu_t,\sigma_{t}^{2} \right );t=1,2
 FIGURE 6.1: The pdfs of the two binormal model distributions for <span class="math inline">\(\mu = 1.5\)</span> and <span class="math inline">\(\sigma = 1.5\)</span>. Four thresholds <span class="math inline">\(\zeta_1, \zeta_2, \zeta_3, \zeta_4\)</span> are shown corresponding to a five-rating ROC study. The rating assigned to a case is determined by its z-sample according to the binning rule.
 </p>
 </div>
-<p>In the unequal-variance binormal model, the variance <span class="math inline">\(\sigma^2\)</span> of the z-samples for diseased cases is allowed to be different from unity. Most ROC datasets are consistent with <span class="math inline">\(\sigma &gt; 1\)</span>. The above figure, generated with <span class="math inline">\(\mu = 1.5, \sigma = 1.5, \zeta_1 = -2, \zeta_2 = -0.5, \zeta_3 = 1, \zeta_4 = 2.5\)</span>, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule <a href="binormal-model.html#eq:binormal-modelZBinning">(6.3)</a>. For example, a case with z-sample equal to -2.5 would be rated “1”, and one with z-sample equal to -1 would be rated “2”, cases with z-samples greater than 2.5 would be rated “5”, etc.</p>
+<p>In the unequal-variance binormal model, the variance <span class="math inline">\(\sigma^2\)</span> of the z-samples for diseased cases is allowed to be different from unity. Most ROC datasets are consistent with <span class="math inline">\(\sigma &gt; 1\)</span>. The above figure, generated with <span class="math inline">\(\mu = 1.5\)</span>, <span class="math inline">\(\sigma = 1.5\)</span>, <span class="math inline">\(\zeta_1 = -2\)</span>, <span class="math inline">\(\zeta_2 = -0.5\)</span>, <span class="math inline">\(\zeta_3 = 1\)</span> and <span class="math inline">\(\zeta_4 = 2.5\)</span>, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule <a href="binormal-model.html#eq:binormal-model-binning">(6.3)</a>. For example, a case with z-sample equal to -2.5 would be rated “1”, and one with z-sample equal to -1 would be rated “2”, cases with z-samples greater than 2.5 would be rated “5”.</p>
 </div>
 <div id="sensitivity-and-specificity-1" class="section level3 hasAnchor">
 <h3><span class="header-section-number">6.3.2</span> Sensitivity and specificity<a href="binormal-model.html#sensitivity-and-specificity-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>

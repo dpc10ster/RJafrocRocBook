@@ -13,20 +13,28 @@
 
 95%
 
+Comments on limitation of ROCFIT
+Comments on partial AUC
+
 
 ## Introduction {#binormal-model-introduction}
 
-The equal variance binormal model was described in Chapter \@ref(binary-task). The ratings method of acquiring ROC data and calculation of operating points was discussed in Chapter \@ref(ratings-paradigm). It was shown there that for a clinical dataset the unequal-variance binormal model visually fitted the data better than the equal-variance binormal model but how the unequal variance fit was obtained was not discussed. 
+The equal variance binormal model was described in Chapter \@ref(binary-task). The ratings method of acquiring ROC data and calculation of operating points was discussed in Chapter \@ref(ratings-paradigm). It was shown there that for a clinical dataset the unequal-variance binormal model visually fitted the data better than the equal-variance binormal model. 
 
-This chapter deals with the unequal-variance binormal model, often abbreviated to **binormal model**. It is applicable to univariate datasets in which there is *one ROC rating per case*, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier "univariate" is often omitted. In Chapter \@ref(bivariate-binormal-model) a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality. 
+This chapter deals with the unequal-variance binormal model, often abbreviated to **binormal model**. It is applicable to univariate datasets in which there is *one rating per case*, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier "univariate" is often omitted. In Chapter \@ref(bivariate-binormal-model) a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality. 
 
 
 ## Binormal model {#binormal-model-definition}
 
-The unequal-variance binormal model (henceforth abbreviated to binormal model; when I mean equal variances, it will be made explicit) is defined by (capital letters indicate random variables and their lower-case counterparts are realized values):
+The binormal model is defined by (capital letters indicate random variables lower-case are realized values and $t$ denotes the truth state):
 
 \begin{equation} 
-Z_{k_tt}\sim N\left ( \mu_t,\sigma_{t}^{2} \right );t=1,2
+\left.
+\begin{aligned}
+Z_{k_tt} \sim &N\left ( \mu_t,\sigma_{t}^{2} \right )\\
+t&=1,2
+\end{aligned}
+\right \}
 (\#eq:binormal-model-z-samples-1)
 \end{equation}
 
@@ -45,17 +53,17 @@ where
 \end{equation}
 
 
-Eqn. \@ref(eq:binormal-model-z-samples-1) states that the z-samples for non-diseased cases are distributed as a $N(0,1)$  distribution, i.e., the unit normal distribution, while the z-samples for diseased cases are distributed as a  $N(\mu,\sigma^2)$ distribution, i.e., a normal distribution with mean $\mu$  and variance $\sigma^2$. *This is a 2-parameter model of the z-samples, not counting additional threshold parameters needed for data binning.* ^[A more complicated version of this model would allow the mean of the non-diseased distribution to be non-zero and its variance different from unity. The resulting 4-parameter model is no more general than the 2-parameter model. The reason is that one is free to transform the decision variable, and associated thresholds, by applying arbitrary monotonic increasing function transformation, which do not change the ordering of the ratings and hence do not change the ROC curve. So if the mean of the noise distribution were non-zero, subtracting this value from all Z-samples would shift the effective mean of the non-diseased distribution to zero (the shifted Z-values are monotonically related to the original values) and the mean of the shifted diseased distribution becomes $\mu_2-\mu_1$. Next, one scales or divides (division by a positive number is also a monotonic transformation) all the Z-samples by $\sigma_1$, resulting in the scaled non-diseased distribution having unit variance, and the scaled diseased distribution has mean $\frac{\mu_2-\mu_1}{\sigma_1}$  and variance $(\frac{\sigma_2}{\sigma_1})^2$. Therefore, if one starts with 4 parameters then one can, by simple shifting and scaling operations, reduce the model to 2 parameters, as in Eqn. \@ref(eq:binormal-model-z-samples-1).]
+Eqn. \@ref(eq:binormal-model-z-samples-1) states that the z-samples for non-diseased cases ($t = 1$) are distributed as a $N(0,1)$  distribution, i.e., the unit normal distribution, while the z-samples for diseased cases ($t = 2$) are distributed as a  $N(\mu,\sigma^2)$ distribution, i.e., a normal distribution with mean $\mu$  and variance $\sigma^2$. *This is a 2-parameter model of the z-samples, not counting additional threshold parameters needed for data binning.* ^[A more complicated version of this model would allow the mean of the non-diseased distribution to be non-zero and its variance different from unity. The resulting 4-parameter model is no more general than the 2-parameter model. The reason is that one is free to transform the decision variable, and associated thresholds, by applying arbitrary monotonic increasing function transformation, which do not change the ordering of the ratings and hence do not change the ROC curve. So if the mean of the noise distribution were non-zero, subtracting this value from all Z-samples would shift the effective mean of the non-diseased distribution to zero (the shifted Z-values are monotonically related to the original values) and the mean of the shifted diseased distribution becomes $\mu_2-\mu_1$. Next, one scales or divides (division by a positive number is also a monotonic transformation) all the Z-samples by $\sigma_1$, resulting in the scaled non-diseased distribution having unit variance, and the scaled diseased distribution has mean $\frac{\mu_2-\mu_1}{\sigma_1}$  and variance $(\frac{\sigma_2}{\sigma_1})^2$. Therefore, if one starts with 4 parameters then one can, by simple shifting and scaling operations, reduce the model to 2 parameters, as in Eqn. \@ref(eq:binormal-model-z-samples-1).]
 
 
 
-### Additional parameters for binned data
+### Binned data
 
-In an R-rating ROC study the observed ratings $r$ take on integer values, 1 through $R$, it being understood that higher ratings correspond to greater confidence for disease. Defining dummy cutoffs $\zeta_0 = -\infty$ and  $\zeta_R = +\infty$, the binning rule for a case with realized z-sample z is (Chapter \@ref(ratings-paradigm), Eqn. \@ref(eq:ratings-paradigm-binningRule)):
+In an R-rating ROC study the observed ratings $r$ take on integer values 1 through $R$, it being understood that higher ratings correspond to greater confidence for presence of disease. Defining $R-1$ cutoffs $\zeta_i$ where $i=1,2,...,R-1$ and two dummy cutoffs $\zeta_0 = -\infty$ and  $\zeta_R = +\infty$, the binning rule for a case with realized z-sample z is (Chapter \@ref(ratings-paradigm), Eqn. \@ref(eq:ratings-paradigm-binning-rule)):
 
 \begin{equation} 
 \text{if} \left (\zeta_{r-1} \le z \le \zeta_r  \right )\Rightarrow \text {rating} = r
-(\#eq:binormal-modelZBinning)
+(\#eq:binormal-model-binning)
 \end{equation}
 
 
@@ -70,7 +78,7 @@ In an R-rating ROC study the observed ratings $r$ take on integer values, 1 thro
 
 
 
-In the unequal-variance binormal model, the variance $\sigma^2$ of the z-samples for diseased cases is allowed to be different from unity. Most ROC datasets are consistent with  $\sigma > 1$. The above figure, generated with  $\mu = 1.5, \sigma = 1.5, \zeta_1 = -2, \zeta_2 = -0.5, \zeta_3 = 1, \zeta_4 = 2.5$, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule \@ref(eq:binormal-modelZBinning). For example, a case with  z-sample equal to -2.5 would be rated "1", and one with  z-sample equal to -1 would be rated "2", cases with z-samples greater than 2.5 would be rated "5", etc.
+In the unequal-variance binormal model, the variance $\sigma^2$ of the z-samples for diseased cases is allowed to be different from unity. Most ROC datasets are consistent with  $\sigma > 1$. The above figure, generated with  $\mu = 1.5$, $\sigma = 1.5$, $\zeta_1 = -2$, $\zeta_2 = -0.5$, $\zeta_3 = 1$ and $\zeta_4 = 2.5$, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule \@ref(eq:binormal-model-binning). For example, a case with  z-sample equal to -2.5 would be rated "1", and one with  z-sample equal to -1 would be rated "2", cases with z-samples greater than 2.5 would be rated "5".
 
 ### Sensitivity and specificity
 

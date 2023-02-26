@@ -76,7 +76,7 @@ eq:ratings-paradigm-FPF-TPF-from-counts
 fig:ratings-paradigm-eq-var-fit-a
 eq:ratings-paradigm-Zeta
 eq:ratings-paradigm-Mu
-eq:ratings-paradigm-binningRule
+eq:ratings-paradigm-binning-rule
 eq:ratings-paradigm-EmpZeta
 fig:SixPointScale
 fig:2AFC
@@ -102,7 +102,7 @@ eq:empirical-auc-BambersTheoremProof6
 eq:empirical-auc-BambersTheoremProof7
 eq:binormal-model-z-samples-1
 eq:binormal-model-z-samples-2
-eq:binormal-modelZBinning
+eq:binormal-model-binning
 fig:binormal-model-pdfs
 eq:binormal-model-specificity
 eq:binormal-model-sensitivity2
@@ -250,7 +250,7 @@ binormal-model
 binormal-model-how-much-finished
 binormal-model-introduction
 binormal-model-definition
-additional-parameters-for-binned-data
+binned-data
 sensitivity-and-specificity-1
 binormal-model-in-conventional-notation
 binormal-model-roc-curve
