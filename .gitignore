@@ -9,3 +9,4 @@ docs/
 _bookdown_files
 
 *.rds
+*.log

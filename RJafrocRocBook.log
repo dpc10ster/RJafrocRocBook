@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.2.24)  25 FEB 2023 16:37
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.2.24)  25 FEB 2023 17:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1027,20 +1027,20 @@ File: 05-empirical-auc_files/figure-latex/empirical-auc-BambersTheorem-1.pdf Gra
 ]
 Chapter 6.
 
-LaTeX Warning: Reference `bivariate-binormal-model' on page 121 undefined on input line 2946.
+LaTeX Warning: Reference `bivariate-binormal-model' on page 121 undefined on input line 2944.
 
-[121] [122]
+[121]
 File: 06-binormal-model_files/figure-latex/binormal-model-pdfs-1.pdf Graphic file (type pdf)
 <use 06-binormal-model_files/figure-latex/binormal-model-pdfs-1.pdf>
-[123] [124] [125]
+[122] [123] [124] [125]
 File: 06-binormal-model_files/figure-latex/binormal-model-ab2-mu-sigma-1.pdf Graphic file (type pdf)
 <use 06-binormal-model_files/figure-latex/binormal-model-ab2-mu-sigma-1.pdf>
 [126] [127] [128]
-Underfull \vbox (badness 10000) detected at line 3250
+Underfull \vbox (badness 10000) detected at line 3244
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3250
+Underfull \vbox (badness 10000) detected at line 3244
  []
 
 [129]
@@ -1063,17 +1063,17 @@ File: 06-binormal-model_files/figure-latex/unnamed-chunk-6-8.pdf Graphic file (t
 File: 06-binormal-model_files/figure-latex/unnamed-chunk-6-9.pdf Graphic file (type pdf)
 <use 06-binormal-model_files/figure-latex/unnamed-chunk-6-9.pdf>
 
-Overfull \hbox (0.98206pt too wide) in paragraph at lines 3252--3253
+Overfull \hbox (0.98206pt too wide) in paragraph at lines 3246--3247
 [][] [] []
  []
 
 
-Overfull \hbox (0.98206pt too wide) in paragraph at lines 3252--3253
+Overfull \hbox (0.98206pt too wide) in paragraph at lines 3246--3247
 [] [] []
  []
 
 
-Overfull \hbox (0.98206pt too wide) in paragraph at lines 3252--3253
+Overfull \hbox (0.98206pt too wide) in paragraph at lines 3246--3247
 [] [] [] 
  []
 
@@ -1081,7 +1081,7 @@ Overfull \hbox (0.98206pt too wide) in paragraph at lines 3252--3253
 File: 06-binormal-model_files/figure-latex/binormal-model-partial-areas-1.pdf Graphic file (type pdf)
 <use 06-binormal-model_files/figure-latex/binormal-model-partial-areas-1.pdf>
 [134] [135] [136] [137] [138]
-Overfull \hbox (59.25pt too wide) in paragraph at lines 3554--3554
+Overfull \hbox (59.25pt too wide) in paragraph at lines 3550--3550
 []\TU/lmtt/m/n/10 #> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.[] 
  []
 
@@ -1090,6 +1090,9 @@ File: 06-binormal-model_files/figure-latex/binormal-model-line-fit-1.pdf Graphic
 [139] [140] [141] [142] [143]
 File: 06-binormal-model_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
 <use 06-binormal-model_files/figure-latex/unnamed-chunk-13-1.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 [144] [145] (./RJafrocRocBook.bbl [146] [147
 
 ] [148] [149]) [150] (./RJafrocRocBook.aux)
@@ -1102,7 +1105,7 @@ Package rerunfilecheck Info: File `RJafrocRocBook.out' has not changed.
 Here is how much of TeX's memory you used:
  19730 strings out of 478687
  373748 string characters out of 5848240
- 1869007 words of memory out of 5000000
+ 1871007 words of memory out of 5000000
  39488 multiletter control sequences out of 15000+600000
  518908 words of font info for 94 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
