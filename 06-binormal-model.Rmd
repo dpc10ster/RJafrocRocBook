@@ -59,6 +59,9 @@ simplePrint <- function(x) {
 
 95%
 
+Comments on limitation of ROCFIT
+Comments on partial AUC
+
 
 ## Introduction {#binormal-model-introduction}
 
