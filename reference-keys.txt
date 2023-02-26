@@ -117,7 +117,6 @@ fig:binormal-model-ab2-mu-sigma
 eq:binormal-model-roc-curve
 eq:binormal-model-op-point-ab
 eq:binormal-model-op-point-ab1
-eq:binormal-model-op-point-ab2
 eq:binormal-model-ab-2az
 eq:binormal-model-ab-2dprime
 eq:binormal-model-partial-area-a1

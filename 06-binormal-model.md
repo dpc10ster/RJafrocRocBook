@@ -14,7 +14,8 @@
 95%
 
 Comments on limitation of ROCFIT
-Comments on partial AUC
+
+Comments on partial AUC; add to RJafroc
 
 
 ## Introduction {#binormal-model-introduction}
@@ -53,13 +54,13 @@ where
 \end{equation}
 
 
-Eqn. \@ref(eq:binormal-model-z-samples-1) states that the z-samples for non-diseased cases ($t = 1$) are distributed as a $N(0,1)$  distribution, i.e., the unit normal distribution, while the z-samples for diseased cases ($t = 2$) are distributed as a  $N(\mu,\sigma^2)$ distribution, i.e., a normal distribution with mean $\mu$  and variance $\sigma^2$. *This is a 2-parameter model of the z-samples, not counting additional threshold parameters needed for data binning.* ^[A more complicated version of this model would allow the mean of the non-diseased distribution to be non-zero and its variance different from unity. The resulting 4-parameter model is no more general than the 2-parameter model. The reason is that one is free to transform the decision variable, and associated thresholds, by applying arbitrary monotonic increasing function transformation, which do not change the ordering of the ratings and hence do not change the ROC curve. So if the mean of the noise distribution were non-zero, subtracting this value from all Z-samples would shift the effective mean of the non-diseased distribution to zero (the shifted Z-values are monotonically related to the original values) and the mean of the shifted diseased distribution becomes $\mu_2-\mu_1$. Next, one scales or divides (division by a positive number is also a monotonic transformation) all the Z-samples by $\sigma_1$, resulting in the scaled non-diseased distribution having unit variance, and the scaled diseased distribution has mean $\frac{\mu_2-\mu_1}{\sigma_1}$  and variance $(\frac{\sigma_2}{\sigma_1})^2$. Therefore, if one starts with 4 parameters then one can, by simple shifting and scaling operations, reduce the model to 2 parameters, as in Eqn. \@ref(eq:binormal-model-z-samples-1).]
+Eqn. \@ref(eq:binormal-model-z-samples-1) states that the z-samples for non-diseased cases ($t = 1$) are distributed as a $N(0,1)$  distribution, i.e., the unit normal distribution, while the z-samples for diseased cases ($t = 2$) are distributed as a  $N(\mu,\sigma^2)$ distribution, i.e., a normal distribution with mean $\mu$  and variance $\sigma^2$. In the unequal-variance binormal model, the variance $\sigma^2$ of the z-samples for diseased cases is allowed to be different from unity. Most ROC datasets are consistent with  $\sigma > 1$.^[A more complicated version of this model would allow the mean of the non-diseased distribution to be non-zero and its variance different from unity. The resulting 4-parameter model is no more general than the 2-parameter model. The reason is that one is free to transform the decision variable, and associated thresholds, by applying arbitrary monotonic increasing function transformation, which do not change the ordering of the ratings and hence do not change the ROC curve. So if the mean of the noise distribution were non-zero, subtracting this value from all Z-samples would shift the effective mean of the non-diseased distribution to zero (the shifted Z-values are monotonically related to the original values) and the mean of the shifted diseased distribution becomes $\mu_2-\mu_1$. Next, one scales or divides (division by a positive number is also a monotonic transformation) all the Z-samples by $\sigma_1$, resulting in the scaled non-diseased distribution having unit variance, and the scaled diseased distribution has mean $\frac{\mu_2-\mu_1}{\sigma_1}$  and variance $(\frac{\sigma_2}{\sigma_1})^2$. Therefore, if one starts with 4 parameters then one can, by simple shifting and scaling operations, reduce the model to 2 parameters, as in Eqn. \@ref(eq:binormal-model-z-samples-1).] 
 
 
 
 ### Binned data
 
-In an R-rating ROC study the observed ratings $r$ take on integer values 1 through $R$, it being understood that higher ratings correspond to greater confidence for presence of disease. Defining $R-1$ cutoffs $\zeta_i$ where $i=1,2,...,R-1$ and two dummy cutoffs $\zeta_0 = -\infty$ and  $\zeta_R = +\infty$, the binning rule for a case with realized z-sample z is (Chapter \@ref(ratings-paradigm), Eqn. \@ref(eq:ratings-paradigm-binning-rule)):
+In an R-rating ROC study the observed ratings $r$ take on integer values 1 through $R$ (it is understood that higher ratings correspond to greater confidence for presence of disease). Define $R-1$ cutoffs $\zeta_i$ where $i=1,2,...,R-1$ and two dummy cutoffs $\zeta_0 = -\infty$ and  $\zeta_R = +\infty$, the **binning rule** for a case with realized z-sample z is (Chapter \@ref(ratings-paradigm), Eqn. \@ref(eq:ratings-paradigm-binning-rule)):
 
 \begin{equation} 
 \text{if} \left (\zeta_{r-1} \le z \le \zeta_r  \right )\Rightarrow \text {rating} = r
@@ -78,14 +79,14 @@ In an R-rating ROC study the observed ratings $r$ take on integer values 1 throu
 
 
 
-In the unequal-variance binormal model, the variance $\sigma^2$ of the z-samples for diseased cases is allowed to be different from unity. Most ROC datasets are consistent with  $\sigma > 1$. The above figure, generated with  $\mu = 1.5$, $\sigma = 1.5$, $\zeta_1 = -2$, $\zeta_2 = -0.5$, $\zeta_3 = 1$ and $\zeta_4 = 2.5$, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule \@ref(eq:binormal-model-binning). For example, a case with  z-sample equal to -2.5 would be rated "1", and one with  z-sample equal to -1 would be rated "2", cases with z-samples greater than 2.5 would be rated "5".
+The above figure, generated with  $\mu = 1.5$, $\sigma = 1.5$, $\zeta_1 = -2$, $\zeta_2 = -0.5$, $\zeta_3 = 1$ and $\zeta_4 = 2.5$, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule \@ref(eq:binormal-model-binning). For example, a case with  z-sample equal to -2.5 would be rated "1", and one with  z-sample equal to -1 would be rated "2", cases with z-samples greater than 2.5 would be rated "5".
 
 ### Sensitivity and specificity
 
-Let $Z_t$ denote the random z-sample for truth state $t$ ($t$ = 1 for non-diseased and $t$ = 2 for diseased cases).  Since the distribution of z-samples from disease-free cases is $N(0,1)$, the expression for specificity in Chapter \@ref(binary-task-model), applies. It is reproduced below: 
+Let $Z_t$ denote the random z-sample for truth state $t$ ($t$ = 1 for non-diseased and $t$ = 2 for diseased cases).  Since the distribution of z-samples from disease-free cases is $N(0,1)$, the expression for specificity in Chapter \@ref(binary-task-model) applies: 
 
 \begin{equation} 
-Sp\left ( \zeta \right )=P\left ( Z_1 < \zeta \right )=\Phi\left ( \zeta \right )
+\text{Sp}\left ( \zeta \right )=P\left ( Z_1 < \zeta \right )=\Phi\left ( \zeta \right )
 (\#eq:binormal-model-specificity)
 \end{equation}
 
@@ -95,16 +96,11 @@ To obtain an expression for sensitivity, consider that for truth state $t = 2$, 
 \frac{Z_2-\mu}{\sigma}\sim N\left ( 0,1 \right )
 \end{equation*}
 
-Sensitivity is $P\left ( Z_2 > \zeta \right )$, which implies, because $\sigma$ is positive (subtract $\mu$ from both sides of the “greater than” symbol and divide by $\sigma$):
+Sensitivity, abbreviated to $\text{Se}$, is defined by $\text{Se} \equiv P\left ( Z_2 > \zeta \right )$. It follows, because $\sigma$ is positive, that:
 
 
 \begin{equation*} 
-\left. 
-\begin{aligned}
-Se\left ( \zeta | \mu, \sigma \right )&= P\left ( Z_2 > \zeta \right )\\
-&=P\left ( \frac{Z_2-\mu}{\sigma} > \frac{\zeta-\mu}{\sigma} \right )
-\end{aligned}
-\right \}
+\text{Se}\left ( \zeta | \mu, \sigma \right ) = P\left ( \frac{Z_2-\mu}{\sigma} > \frac{\zeta-\mu}{\sigma} \right )
 \end{equation*}
 
 The right-hand-side can be rewritten as follows:
@@ -112,7 +108,7 @@ The right-hand-side can be rewritten as follows:
 \begin{equation} 
 \left. 
 \begin{aligned}
-Se\left ( \zeta | \mu, \sigma \right )&= 1 - P\left ( \frac{Z_2-\mu}{\sigma} \leq  \frac{\zeta-\mu}{\sigma} \right )\\
+\text{Se}\left ( \zeta | \mu, \sigma \right )&= 1 - P\left ( \frac{Z_2-\mu}{\sigma} \leq  \frac{\zeta-\mu}{\sigma} \right )\\
 &=1-\Phi\left (  \frac{\zeta-\mu}{\sigma}\right )=\Phi\left (  \frac{\mu-\zeta}{\sigma}\right )
 \end{aligned}
 \right \}
@@ -126,8 +122,8 @@ Summarizing, the formulae for the specificity and sensitivity for the binormal m
 \begin{equation} 
 \left. 
 \begin{aligned}
-Sp\left ( \zeta \right ) &= \Phi\left ( \zeta \right )\\
-Se\left ( \zeta | \mu, \sigma \right ) &= \Phi\left (  \frac{\mu-\zeta}{\sigma}\right )
+\text{Sp}\left ( \zeta \right ) &= \Phi\left ( \zeta \right )\\
+\text{Se}\left ( \zeta | \mu, \sigma \right ) &= \Phi\left (  \frac{\mu-\zeta}{\sigma}\right )
 \end{aligned}
 \right \}
 (\#eq:binormal-model-se-sp)
@@ -139,7 +135,7 @@ The coordinates of the operating point defined by $\zeta$ are given by:
 \begin{equation} 
 \left. 
 \begin{aligned}
-\text{FPF}\left ( \zeta \right ) &= 1 - Sp\left ( \zeta \right ) \\
+\text{FPF}\left ( \zeta \right ) &= 1 - \text{Sp}\left ( \zeta \right ) \\
 &= 1 - \Phi\left ( \zeta \right ) \\
 &= \Phi\left ( -\zeta \right )
 \end{aligned}
@@ -154,7 +150,7 @@ The coordinates of the operating point defined by $\zeta$ are given by:
 (\#eq:binormal-model-tpf)
 \end{equation}
 
-These expressions allow calculation of the operating point for any $\zeta$. An equation for a curve is usually expressed as $y=f(x)$. An expression of this form for the ROC curve, i.e., the y-coordinate (TPF) expressed as a function of the x-coordinate (FPF), follows upon inversion of the expression for FPF, Eqn.  \@ref(eq:binormal-model-fpf):
+An equation for a curve is usually expressed as $y=f(x)$. An expression of this form for the ROC curve, i.e., the y-coordinate (TPF) expressed as a function of the x-coordinate (FPF), follows upon inversion of the expression for FPF, Eqn.  \@ref(eq:binormal-model-fpf):
 
 \begin{equation} 
 \zeta = -\Phi^{-1}\left ( \text{FPF} \right )
@@ -168,7 +164,7 @@ Substitution of Eqn. \@ref(eq:binormal-model-zeta) in Eqn. \@ref(eq:binormal-mod
 (\#eq:binormal-model-roc-curve1)
 \end{equation}
 
-This equation gives the dependence of TPF on FPF, i.e., the equation for the ROC curve. It will be put into standard notation next.  
+This equation will be put into conventional notation next.  
 
 
 ### Binormal model in conventional notation
@@ -186,9 +182,9 @@ b&=\frac{1}{\sigma}
 \end{equation}
 
 
-The reason for the $(a,b)$  instead of the  $(\mu,\sigma)$ notation is that Dorfman and Alf assumed, in their seminal paper [@RN1081], that the diseased distribution (signal distribution in signal detection theory) had unit variance, and the non-diseased distribution (noise) had standard deviation $b$ ($b > 0$) or variance $b^2$, and that the separation of the two distributions was $a$, see figure below. In this example: $a = 1.11$ and $b = 0.556$, corresponding to $\mu = 2$ and $\sigma = 1.8$. Dorfman and Alf's fundamental contribution, namely estimating these parameters from ratings data, to be described below, led to the widespread usage of the  $(a,b)$ parameters estimated by their software (RSCORE), and its newer variants (e.g., RSCORE–II, ROCFIT and ROCKIT). 
+>The reason for the $(a,b)$  instead of the  $(\mu,\sigma)$ notation is historical. [@RN1081] assumed that the diseased distribution had unit variance, and the non-diseased distribution had standard deviation $b$ and their separation was $a$, see Plot A in Fig. \@ref(fig:binormal-model-ab2-mu-sigma).
 
-By dividing the z-samples by $b$, the variance of the distribution labeled "Noise" becomes unity, its mean stays at zero, and the variance of the distribution labeled "Signal" becomes $1/b$, and its mean becomes $a/b$, as shown below. It illustrates that the inverses of Eqn. \@ref(eq:binormal-model-ab-parameters) are:
+By dividing the z-samples by $b$, the variance of the distribution labeled "Noise" becomes unity, its mean stays at zero, and the variance of the distribution labeled "Signal" becomes $1/b$, and its mean becomes $a/b$, see plot B. Accordingly the inverses of Eqn. \@ref(eq:binormal-model-ab-parameters) are:
 
 \begin{equation} 
 \left. 
@@ -207,8 +203,8 @@ Eqns. \@ref(eq:binormal-model-ab-parameters) and \@ref(eq:binormal-model-ab-para
 
 
 <div class="figure">
-<img src="06-binormal-model_files/figure-html/binormal-model-ab2-mu-sigma-1.png" alt="Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\mu,\sigma$) parameters. In this figure $\mu = 2$ and $\sigma = 1.8$ which correspond to $a = 1.11$ and $b = 0.56$." width="672" />
-<p class="caption">(\#fig:binormal-model-ab2-mu-sigma)Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\mu,\sigma$) parameters. In this figure $\mu = 2$ and $\sigma = 1.8$ which correspond to $a = 1.11$ and $b = 0.56$.</p>
+<img src="06-binormal-model_files/figure-html/binormal-model-ab2-mu-sigma-1.png" alt="Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\mu,\sigma$) parameters. In this figure $\mu = 2$ and $\sigma = 1.8$ which correspond to $a = 1.11$ and $b = 0.556$." width="672" />
+<p class="caption">(\#fig:binormal-model-ab2-mu-sigma)Plot A shows the definitions of the (a,b) parameters of the binormal model. In plot B the x-axis has been rescaled so that the noise distribution has unit variance; this illustrates the difference between the (a,b) and the ($\mu,\sigma$) parameters. In this figure $\mu = 2$ and $\sigma = 1.8$ which correspond to $a = 1.11$ and $b = 0.556$.</p>
 </div>
 
 
@@ -221,7 +217,7 @@ Using the $(a,b)$ notation, Eqn. \@ref(eq:binormal-model-roc-curve1) for the ROC
 (\#eq:binormal-model-roc-curve)
 \end{equation}
 
-Since $\Phi^{-1}(\text{FPF})$  is an increasing function of its argument $\text{FPF}$, and $b > 0$, the argument of the  $\Phi$ function is an increasing function of $\text{FPF}$. Since $\Phi$  is a monotonically increasing function of its argument, $\text{TPF}$ is a monotonically increasing function of $\text{FPF}$. This is true regardless of the sign of $a$. If $\text{FPF} = 0$, then $\Phi^{-1}(0) = -\infty$  and $\text{TPF} = 0$. If $\text{FPF} = 1$, then $\Phi^{-1}(1) = +\infty$ and $\text{TPF} = 1$. Regardless of the value of $a$, as long as $b \ge 0$, the ROC curve starts at (0,0) and increases monotonically ending at (1,1).
+Since $\Phi^{-1}(\text{FPF})$  is an increasing function of its argument $\text{FPF}$, and $b > 0$, the argument of the  $\Phi$ function is an increasing function of $\text{FPF}$. Since $\Phi$  is a monotonically increasing function of its argument, $\text{TPF}$ is a monotonically increasing function of $\text{FPF}$. This is true regardless of the sign of $a$. If $\text{FPF} = 0$, then $\Phi^{-1}(0) = -\infty$  and $\text{TPF} = 0$. If $\text{FPF} = 1$, then $\Phi^{-1}(1) = +\infty$ and $\text{TPF} = 1$. Regardless of the value of $a$, as long as $b \ge 0$, the ROC curve starts at (0,0) and increases monotonically to (1,1).
 
 From Eqn. \@ref(eq:binormal-model-fpf) and Eqn. \@ref(eq:binormal-model-tpf), the expressions for $\text{FPF}$ and $\text{TPF}$ in terms of model parameters $(a,b)$ are:
 
@@ -229,7 +225,7 @@ From Eqn. \@ref(eq:binormal-model-fpf) and Eqn. \@ref(eq:binormal-model-tpf), th
 \left.
 \begin{aligned}
 \text{FPF}\left ( \zeta \right ) &= \Phi\left ( -\zeta \right )\\
-\text{TPF}\left (a,b; \zeta \right ) &= \Phi\left ( a - b \zeta \right )
+\text{TPF}\left (\zeta | a,b \right ) &= \Phi\left ( a - b \zeta \right )
 \end{aligned}
 \right \}
 (\#eq:binormal-model-op-point-ab)
@@ -243,21 +239,18 @@ Solve for $\zeta$ from the equation for FPF:
 (\#eq:binormal-model-op-point-ab1)
 \end{equation}
 
-One can then write TPF as a function of FPF as in: 
-
-\begin{equation}
-\text{TPF}\left (\text{FPF} \right ) = \Phi\left ( a - b \; \Phi^{-1}\left ( \text{FPF} \right ) \right ) 
-(\#eq:binormal-model-op-point-ab2)
-\end{equation}
 
 
 ## Density functions {#binormal-model-pdfs}
 
-According to Eqn. \@ref(eq:binormal-model-z-samples-1) the probability that a z-sample is smaller than a specified threshold  $\zeta$, i.e., the cumulative distribution function (CDF) function, is:
+According to Eqn. \@ref(eq:binormal-model-z-samples-1) the probability that a non-diseased case z-sample is smaller than $\zeta$, i.e., the cumulative distribution function (CDF) function for non-diseased cases, is:
 
 \begin{equation*} 
 P\left ( Z \le \zeta \mid  Z\sim N\left ( 0,1 \right ) \right ) = 1-FPF\left ( \zeta \right ) = \Phi \left ( \zeta  \right )
 \end{equation*}
+
+
+Likewise, the CDF for diseased case z-samples is:
 
 \begin{equation*} 
 P\left ( Z \le \zeta \mid  Z\sim N\left ( \mu,\sigma^2 \right ) \right ) = 1-\text{TPF}\left ( \zeta \right ) = \Phi \left ( \frac{\zeta - \mu}{\sigma}  \right )
