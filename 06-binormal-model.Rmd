@@ -745,7 +745,7 @@ print(shadedPlotsRoc(a = 1.8, b = 1, fpf = 0.3))
 ```
 
 
-The following code illustrates calculation of the partial-area measure using the function `pmvnorm` in the `R` package `mvtnorm`. The following parameter values were used: $a = 1.8$, $b = 1$ and $c = 0.3$.
+The following code illustrates calculation of the partial-area measure using the function `pmvnorm` in the `R` package `mvtnorm` [@R-mvtnorm]. The parameter values were: $a = 1.8$, $b = 1$ and $c = 0.3$ (see lines 1-3 below).
 
 
 ```{r, attr.source = ".numberLines"}
@@ -770,7 +770,7 @@ A_xn <- A_x/fpf_c/tpf_c
 ```
 
 
-The un-normalized partial-area measure $A_c^{X}$ = `r simplePrint(A_x)`. The corresponding full AUC measure is $A_z$ = `r simplePrint(A_z)`. The normalized measure is $A_c^{XN}$ = `r simplePrint(A_xn)`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$ = `r simplePrint(-qnorm(fpf_c))`. This measure emphasizes specificity.
+The function `pmvnorm` is called at line 12. The un-normalized partial-area measure $A_c^{X}$ = `r simplePrint(A_x)`. The corresponding full AUC measure is $A_z$ = `r simplePrint(A_z)`. The normalized measure is $A_c^{XN}$ = `r simplePrint(A_xn)`. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$ = `r simplePrint(-qnorm(fpf_c))`. This measure emphasizes specificity.
 
 
 $A_c^{Y}$ can be calculated using geometry. One subtracts $A_c^{X}$ from $A_z$ to get the area under the ROC to the right of $\text{FPF}=c$. Next one subtracts from this quantity the area of the rectangle with base $(1 - c)$ and height $\text{TPF}_c$. This yields the area if the green shaded region $A_c^{Y}$. To normalize it one divides by the area of the rectangle defined by the corner points $(c,\text{TPF}_c)$ and (1,1).
