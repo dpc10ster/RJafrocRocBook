@@ -85,5 +85,5 @@ Testing validity of an analysis method via simulation testing is only as good as
 
 Since ROC studies in medical imaging have serious health-care related consequences, no method should be used unless it has been thoroughly validated. Much work still remains to be done in proper simulator design, on which validation is dependent.
 
-## References {#dbm-analysis-background-references}
+## Chapter References {#dbm-analysis-background-references}
 

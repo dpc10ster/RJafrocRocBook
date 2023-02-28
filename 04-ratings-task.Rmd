@@ -504,5 +504,5 @@ Two controversial but important issues were addressed: the reason for my recomme
 The next step is to describe a model for ratings data. Before doing that, it is necessary to introduce an empirical performance measure, namely the area under the empirical or trapezoidal ROC, which does not require any modeling.
 
 
-## References  {#ratings-paradigm-references} 
+## Chapter References  {#ratings-paradigm-references} 
 

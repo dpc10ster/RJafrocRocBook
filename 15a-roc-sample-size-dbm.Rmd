@@ -123,5 +123,5 @@ Here $J^*$ and $K^*$ refer to the number of readers and cases in the *pilot* stu
 
 ## Discussion/Summary/2
 
-## References {#roc-sample-size-dbm-references}
+## Chapter References {#roc-sample-size-dbm-references}
 

@@ -196,5 +196,5 @@ For 10 readers, the numbers of cases needed for 80% power is largest (163) for R
 
 ## Discussion/Summary/3
 
-## References {#roc-sample-size-or-references}
+## Chapter References {#roc-sample-size-or-references}
 

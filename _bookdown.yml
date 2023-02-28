@@ -11,6 +11,7 @@ rmd_files: [
   "04-ratings-task.Rmd", 
   "05-empirical-auc.Rmd", 
   "06-binormal-model.Rmd",
+  "99-references.Rmd",
 ]
 
 

@@ -771,6 +771,6 @@ This concludes Part A of this book. The next chapter begins Part B, namely the s
 
 TBA: what to do with removed sections?
 
-## References {#sources-of-variability-references}
+## Chapter References {#sources-of-variability-references}
 
 

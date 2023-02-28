@@ -584,5 +584,5 @@ P\left ( Z_2 \geq 5 \right ) = P\left ( Z_2 = 5 \right )
 
 Multiplication of the last two expressions yields $A_4$.
 
-## References {#empirical-auc-references} 
+## Chapter References {#empirical-auc-references} 
 

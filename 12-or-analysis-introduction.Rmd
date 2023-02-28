@@ -950,4 +950,4 @@ If RRRC analysis were conducted, the values are [one needs to analyze a dataset 
 
 For `RRFC` analysis, one replaces `RRRC` with `RRFC`, etc. I should note that the auto-prompt feature of `RStudio` makes it unnecessary to enter the complex string names shown above - `RStudio` will suggest them.
 
-## References {#or-method-intro-references}
+## Chapter References {#or-method-intro-references}
