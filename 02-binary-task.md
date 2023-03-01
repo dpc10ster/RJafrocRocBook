@@ -394,5 +394,5 @@ According to the hierarchy of assessment methods described in (book) Chapter 01,
 This chapter introduced the terms sensitivity (identical to TPF), specificity (the complement of FPF), disease prevalence, and positive and negative predictive values and accuracy. It is shown that, due to its strong dependence on disease prevalence, accuracy is a relatively poor measure of performance. Radiologists generally have a good, almost visceral, understanding of positive and negative predictive values, as these terms are relevant in the clinical context, being in effect, their "batting averages". A caveat on the use of PPV and NPV calculated from laboratory studies is noted; these quantities only make sense in the context of "live" clinical interpretations.
 
 ## Discussion{#binary-task-Discussion}
-## References {#binary-task-references}
+## Chapter References {#binary-task-references}
 

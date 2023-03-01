@@ -11,18 +11,14 @@
 
 ## How much finished {#binormal-model-how-much-finished}
 
-95%
-
-Comments on limitation of ROCFIT
-
-Comments on partial AUC; add to RJafroc
+97%
 
 
 ## Introduction {#binormal-model-introduction}
 
 The equal variance binormal model was described in Chapter \@ref(binary-task). The ratings method of acquiring ROC data and calculation of operating points was discussed in Chapter \@ref(ratings-paradigm). It was shown there that for a clinical dataset the unequal-variance binormal model visually fitted the data better than the equal-variance binormal model. 
 
-This chapter deals with the unequal-variance binormal model, often abbreviated to **binormal model**. It is applicable to univariate datasets in which there is *one rating per case*, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier "univariate" is often omitted. In Chapter \@ref(bivariate-binormal-model) a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality. 
+This chapter deals with the unequal-variance binormal model, often abbreviated to **binormal model**. It is applicable to univariate datasets in which there is *one rating per case*, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier "univariate" is often omitted. In Chapter `TempComment \@ref(bivariate-binormal-model)` a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality. 
 
 
 ## Binormal model {#binormal-model-definition}
@@ -169,7 +165,7 @@ This equation will be put into conventional notation next.
 
 ### Binormal model in conventional notation
 
-The following notation is widely used in the literature: 
+The $(\mu,\sigma)$ notation just described makes sense when extending the binormal model to newer models described later (see Chapter ` TempComment \@ref(proper-roc-models)`). However, it was not the way the binormal model was originally parameterized. Instead the following notation is widely used in the literature: 
 
 \begin{equation} 
 \left. 
@@ -212,10 +208,12 @@ Eqns. \@ref(eq:binormal-model-ab-parameters) and \@ref(eq:binormal-model-ab-para
 
 Using the $(a,b)$ notation, Eqn. \@ref(eq:binormal-model-roc-curve1) for the ROC curve reduces to:
 
+
 \begin{equation} 
-\text{TPF} = \Phi\left ( a+ b \Phi^{-1}\left (\text{FPF}  \right ) \right )
-(\#eq:binormal-model-roc-curve)
+\text{TPF}\left ( \text{FPF} \right ) = \Phi\left ( a+ b \Phi^{-1}\left (\text{FPF}  \right ) \right )
+(\#eq:binormal-model-roc-curve-tpf-fpf)
 \end{equation}
+
 
 Since $\Phi^{-1}(\text{FPF})$  is an increasing function of its argument $\text{FPF}$, and $b > 0$, the argument of the  $\Phi$ function is an increasing function of $\text{FPF}$. Since $\Phi$  is a monotonically increasing function of its argument, $\text{TPF}$ is a monotonically increasing function of $\text{FPF}$. This is true regardless of the sign of $a$. If $\text{FPF} = 0$, then $\Phi^{-1}(0) = -\infty$  and $\text{TPF} = 0$. If $\text{FPF} = 1$, then $\Phi^{-1}(1) = +\infty$ and $\text{TPF} = 1$. Regardless of the value of $a$, as long as $b \ge 0$, the ROC curve starts at (0,0) and increases monotonically to (1,1).
 
@@ -258,19 +256,41 @@ P\left ( Z \le \zeta \mid  Z\sim N\left ( \mu,\sigma^2 \right ) \right ) = 1-\te
 
 Since the *pdf* is the derivative of the corresponding CDF function, it follows that (the superscripts N and D denote non-diseased and diseased cases, respectively):
 
-\begin{equation*} 
-pdf_N\left ( \zeta \right ) = \frac{\partial \Phi\left ( \zeta \right )}{\partial \zeta} = \phi\left ( \zeta \right ) \equiv \frac{1}{\sqrt{2 \pi}}\exp\left ( -\frac{\zeta^2}{2} \right )
-\end{equation*}
+\begin{equation} 
+\left.
+\begin{aligned}
+pdf_N\left ( \zeta \right ) &= \frac{\partial \Phi\left ( \zeta \right )}{\partial \zeta} \\
+&= \phi\left ( \zeta \right ) \\
+&\equiv \frac{1}{\sqrt{2 \pi}}\exp\left ( -\frac{\zeta^2}{2} \right )
+\end{aligned}
+\right \}
+(\#eq:binormal-model-pdf-n)
+\end{equation}
 
-\begin{equation*} 
-pdf_D\left ( \zeta \right ) = \frac{\partial \Phi\left ( \frac{\zeta - \mu}{\sigma} \right )}{\partial \zeta} = \frac{1}{\sigma} \phi\left ( \frac{\zeta - \mu}{\sigma} \right ) \equiv \frac{1}{\sqrt{2 \pi}\sigma}\exp\left ( -\frac{\left (\zeta-\mu  \right )^2}{2\sigma} \right )
-\end{equation*}
+
+\begin{equation} 
+\left.
+\begin{aligned}
+pdf_D\left ( \zeta \right ) &= \frac{\partial \Phi\left ( \frac{\zeta - \mu}{\sigma} \right )}{\partial \zeta} \\ &= \frac{1}{\sigma} \phi\left ( \frac{\zeta - \mu}{\sigma} \right ) \\
+&\equiv \frac{1}{\sqrt{2 \pi}\sigma}\exp\left ( -\frac{\left (\zeta-\mu  \right )^2}{2\sigma} \right )
+\end{aligned}
+\right \}
+(\#eq:binormal-model-pdf-d-mu-sigma)
+\end{equation}
+
 
 The second equation can be written in $(a,b)$  notation as:
 
-\begin{equation*} 
-pdf_D\left ( \zeta \right ) = b\phi\left ( b\zeta-a \right ) = \frac{b}{\sqrt{2 \pi}}\exp\left ( -\frac{\left (b\zeta - a \right )^2}{2} \right )
-\end{equation*}
+\begin{equation} 
+\left.
+\begin{aligned}
+pdf_D\left ( \zeta \right ) &= b\phi\left ( b\zeta-a \right ) \\
+&= \frac{b}{\sqrt{2 \pi}}\exp\left ( -\frac{\left (b\zeta - a \right )^2}{2} \right )
+\end{aligned}
+\right \}
+(\#eq:binormal-model-pdf-d-a-b)
+\end{equation}
+
 
 
 ## Invariance property of pdfs {#binormal-model-invariance-property}
@@ -329,11 +349,20 @@ d'=\sqrt{2}\Phi^{-1}\left ( A_z \right )
 The d' index can be regarded as a perceptual signal-to-noise-ratio. 
 
 
+## Fitting the binormal model {#binormal-model-fitting}
+
+[@dorfman1969maximum] were the first to fit ratings data to the binormal model. The details of the procedure are in Appendix \@ref(binormal-model-curve-fitting-appendix). While historically very important in showing how statistically valid quantitative analysis is possible using ROC ratings data, the fitting procedure suffers from what are termed "degeneracy issues" and "fitting artifacts" discussed in Appendix \@ref(binormal-model-degeneracy-artifacts). Degeneracy is when the fitting procedure yields unreasonable parameter values. Fitting artifacts occur when the fitted curve predicts worse than chance level performance in some region of the fitted ROC curve. Because of these issues usage of this method is now discouraged as it has largely been supplanted by other software such as the CBM fitting method, the proper ROC fitting method implemented in PROPROC and the RSM (radiological search model) based fitting method. These are discussed in later chapters. 
+
+
+
 ## Partial AUC measures {#binormal-model-partial-auc}
 
-Shorthand: denote $A \equiv A_z$, $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$. Two partial AUC measures are defined, one as a partial integral along the x-axis and the other as a partial integral along the y-axis. These are denoted by X and Y superscripts.
+Two partial AUC measures have been defined. The idea is to have an AUC-like measure that emphasizes some region of the ROC curve, one that is argued to be clinically more significant, instead of $A_z$ which characterizes the whole curve. In the following two definitions are considered, one that emphasizes the high specificity region of the ROC curve and one which emphasizes the high sensitivity region of the curve.
 
-### Definition {#binormal-model-meaning-partial-auc-definitions}
+Shorthand: denote $A \equiv A_z$, $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$. The two partial AUC measures correspond to a partial integral along the x-axis starting from the origin (high specificity) and the other to a partial integral along the y-axis ending at (1,1) corresponding to high sensitivity. These are denoted by X and Y superscripts.
+
+
+### Measure emphasizing high specificity {#binormal-model-meaning-partial-auc-definitions}
 
 The partial area under the ROC, $A_c^{X}$, is defined as that extending from $x = 0$ to $x = c$, where $0 \le c \le 1$ (in our notation $c$ always means a cutoff on the x-axis of the ROC): 
 
@@ -347,7 +376,7 @@ A_c^{X} &= \int_{x=0}^{x=c} y \, dx
 (\#eq:binormal-model-partial-area-a1)
 \end{equation}
 
-The second form follows from Eqn. \@ref(eq:binormal-model-roc-curve).
+The second form follows from Eqn. \@ref(eq:binormal-model-roc-curve-tpf-fpf).
 
 
 [@thompson1989statistical] derive a formula for the partial-area in terms of the binormal model parameters $a$ and $b$:
@@ -374,20 +403,18 @@ On the right hand side the integrand $\phi\left ( z_1,z_2;\rho \right )$ is the 
 As demonstrated later the integrals occurring on the right hand side of Eqn. \@ref(eq:binormal-model-partial-area-final) can be evaluated numerically. 
 
 
-### Meaning of partial AUC {#binormal-model-meaning-partial-auc}
-
 As an area measure the partial AUC $A_c^{X}$ has a simple *geometric* meaning. A *physical* meaning is as follows: 
 
-> An ROC curve^[This curve is not binormal as the truncation destroys the normality of the two distributions] can be defined over the truncated dataset where all z-samples **smaller** than $-\Phi^{-1}(c)$ are ignored. The maximum area of this curve is that defined by the rectangle with corners at $(0,0)$ and $(c,\text{TPF}\left ( c \right ))$: $c$ is the abscissa at the upper limit of the integration interval along the x-axis and $\text{TPF}\left ( c \right )$ is the corresponding ordinate: see Eqn. \@ref(eq:binormal-model-op-point-ab2). Dividing $A_c^{X}$ by $\text{TPF}\left ( c \right ) \times c$ yields a normalized partial area measure, denoted $A_c^{XN}$, where $0 \le A_c^{XN} \le 1$. **This is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** If $a \ge 0$ it is constrained to (0.5, 1).
+> An ROC curve^[This curve is not binormal as the truncation destroys the normality of the two distributions] can be defined over the truncated dataset where all z-samples **smaller** than $-\Phi^{-1}(c)$ are ignored. The maximum area of this curve is that defined by the rectangle with corners at $(0,0)$ and $(c,\text{TPF}\left ( c \right ))$: $c$ is the abscissa at the upper limit of the integration interval along the x-axis and $\text{TPF}\left ( c \right )$ is the corresponding ordinate: see Eqn. \@ref(eq:binormal-model-roc-curve-tpf-fpf). Dividing $A_c^{X}$ by $\text{TPF}\left ( c \right ) \times c$ yields a normalized partial area measure, denoted $A_c^{XN}$, where $0 \le A_c^{XN} \le 1$. **This is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** If $a \ge 0$ it is constrained to (0.5, 1).
 
 
 \begin{equation}
 A_c^{XN} = \frac{A_c^{X}}{\text{TPF}\left ( c \right ) \times c}
-(\#eq:binormal-model-normalized-partial-auc)
+(\#eq:binormal-model-normalized-partial-auc-specificity)
 \end{equation}
 
 
-### Alternative partial AUC measure {#binormal-model-metz-partial-auc}
+### Measure emphasizing high sensitivity {#binormal-model-metz-partial-auc}
 
 Since the integral in Eqn. \@ref(eq:binormal-model-partial-area-a1) is from $x = 0$ to $x = c$ this partial AUC measure emphasizes the *high specificity* region of the ROC curve (since $x = 0$ corresponds to unit, i.e. highest, specificity).
 
@@ -404,7 +431,7 @@ $A_c^{Y}$ is the (un-normalized) area below the ROC extending from $y = \text{TP
 
 \begin{equation}
 A_c^{YN} = \frac{A_c^{Y}}{\left (1 - \text{TPF}(c)  \right ) \times \left (1-c  \right )}
-(\#eq:binormal-model-normalized-partial-auc-upper2)
+(\#eq:binormal-model-normalized-partial-auc-sensitivity)
 \end{equation}
 
 A *physical* meaning is as follows: 
@@ -422,7 +449,7 @@ Fig. \@ref(fig:binormal-model-partial-areas) shows the two un-normalized areas.
 </div>
 
 
-The following code illustrates calculation of the partial-area measure using the function `pmvnorm` in the `R` package `mvtnorm`. The following parameter values were used: $a = 1.8$, $b = 1$ and $c = 0.3$.
+The following code illustrates calculation of the partial-area measure using the function `pmvnorm` in the `R` package `mvtnorm` [@R-mvtnorm]. The parameter values were: $a = 1.8$, $b = 1$ and $c = 0.3$ (see lines 1-3 below).
 
 
 
@@ -448,7 +475,7 @@ A_xn <- A_x/fpf_c/tpf_c
 ```
 
 
-The un-normalized partial-area measure $A_c^{X}$ = 0.216. The corresponding full AUC measure is $A_z$ = 0.898. The normalized measure is $A_c^{XN}$ = 0.802. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$ = 0.524. This measure emphasizes specificity.
+The function `pmvnorm` is called at line 12. The un-normalized partial-area measure $A_c^{X}$ = 0.216. The corresponding full AUC measure is $A_z$ = 0.898. The normalized measure is $A_c^{XN}$ = 0.802. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than $-\Phi^{-1}(c)$ = 0.524. This measure emphasizes specificity.
 
 
 $A_c^{Y}$ can be calculated using geometry. One subtracts $A_c^{X}$ from $A_z$ to get the area under the ROC to the right of $\text{FPF}=c$. Next one subtracts from this quantity the area of the rectangle with base $(1 - c)$ and height $\text{TPF}_c$. This yields the area if the green shaded region $A_c^{Y}$. To normalize it one divides by the area of the rectangle defined by the corner points $(c,\text{TPF}_c)$ and (1,1).
@@ -547,6 +574,24 @@ for (i in 1:length(a_arr)) {
 Table \@ref(tab:summary-table-partial-normalized-areas) shows $A_c^{XN}$ and $A_c^{YN}$ partial AUCs for different values of the $a$ parameter for $b = 1$ and $c = 0.1$. It demonstrates that the normalized areas are constrained between 0.5 and 1 (as long as $a$ in non-negative). For numerical reasons (basically a zero-divided-by-zero condition) it is difficult to show that $A_c^{YN}$ approaches 1 in the limit of very large a-parameter (since the green shaded area shrinks to zero).
 
 
+
+
+## Comments on partial AUC measures {#binormal-model-partial-auc-comments}
+
+There are several issues with the adoption of either partial AUC measure.
+
+1. Since a partial area measure corresponds to classification accuracy measured over a **truncated** dataset a fundamental correspondence between $A_z$ and classification accuracy measured over the **entire** dataset is lost. A basic statistical principle of an estimate valid for the entire population is being violated. 
+
+2. The choice of the truncation cutoff is arbitrary and subject to bias on the part of the investigator. This is similar to the type of bias that is inherent in a single point (sensitivity-specificity) based approach to analysis: this was the very reason for adoption of a measure such as $A_z$ that averages over the whole curve, as argued so eloquently in [@metz1978rocmethodology]. 
+
+3. Then there is the issue of possible loss of statistical power. If $A_z$ is estimated from the whole dataset and either Eqn. \@ref(eq:binormal-model-normalized-partial-auc-specificity) or Eqn. \@ref(eq:binormal-model-normalized-partial-auc-sensitivity) is used to estimate partial AUC, then one expects no loss in statistical power, as these equations represent noiseless mathematical transformations using the $(a,b)$ parameters estimated over the entire dataset. However, if an empirical partial AUC measure is used there will surely be loss of statistical power resulting from ignoring some of the data. Due to degeneracy issues usage of the empirical partial AUC is often unavoidable. This is because performing significance testing requires that the dataset be repeatedly re-sampled many times and the parametric fit must work every time. 
+
+The second point is illustrated by the study reported in [@jiang1996receiver]. The ROC curves of a developmental-stage CAD system and that of radiologists cross: at high specificity the radiologists were better but the reverse was true at high sensitivity. By choosing the latter region the authors demonstrated statistically significant superiority of CAD over radiologists. Analysis using $A_z$ failed to reach statistical significance. 
+
+
+Two very large clinical studies [@fenton2007influence, @fenton2011effectiveness] using 222,135 and 684,956 women, respectively, showed that CAD can actually have a detrimental effect on patient outcome[@philpotts2009can]. A more recent study has confirmed the negative view of the efficacy of CAD[@lehman2015diagnostic] and there has even been a call for ending Medicare reimbursement for CAD interpretations[@fenton2015time]. I have not followed the field since ca. 2016 and it is likely that newer versions of CAD now being used in the clinic are actually better than what was evaluated in the cited studies. But the point is that even using a ca. 1996 developmental-stage CAD the authors were able to claim, using a partial AUC measure, that CAD outperformed radiologists, a result clearly not borne out by later large clinical studies while the $A_z$ measure did not allow this conclusion. 
+
+
 ## Discussion{#binormal-model-discussion}
 
 The binormal model is historically very important and the contribution by Dorfman and Alf [@RN1081] was seminal. Prior to their work, there was no statistically valid way of estimating AUC from observed ratings counts. Their work and a key paper [@RN1487] accelerated research using ROC methods. The number of publications using their algorithm, and the more modern versions developed by Metz and colleagues, is probably well in excess of 500. Because of its key role, I have endeavored to take out some of the mystery about how the binormal model parameters are estimated. In particular, a common misunderstanding that the binormal model assumptions are violated by real datasets, when in fact it is quite robust to apparent deviations from normality, is addressed (details are in Section \@ref(binormal-model-invariance-property)). 
@@ -556,7 +601,7 @@ A good understanding of this chapter should enable the reader to better understa
 To this day the binormal model is widely used to fit ROC datasets. In spite of its limitations, the binormal model has been very useful in bringing a level of quantification to this field that did not exist prior to 1969.
 
 
-## Appendix: Fitting an ROC curve {#binormal-model-curve-fitting}
+## Appendix: Fitting an ROC curve {#binormal-model-curve-fitting-appendix}
 
 One aim of this chapter is to demystify statistical curve fitting. With the passing of Profs. Donald Dorfman, Charles Metz and Richard Swensson, parametric modeling is much neglected. Researchers have instead focused on non-parametric analysis using the empirical AUC defined in Chapter \@ref(empirical-auc). A claimed advantage (overstated in my opinion, see Section \@ref(binormal-model-invariance-property)) of non-parametric analysis is the absence of distributional assumptions. Non-parametric analysis yields no insight into what is limiting performance. Binormal model based curve fitting described in this chapter will allow the reader to appreciate a later chapter (see RSM fitting chapter in `RJafrocFrocBook`) that describes a more complex fitting method which yields important insights into the factors limiting human observer (or artificial intelligence algorithm) performance. 
 
@@ -805,3 +850,102 @@ TBA See book chapter 6.4.4. This is implemented in `RJafroc`.
 
 
 
+
+## Appendix: Binormal model degeneracy and artifacts {#binormal-model-degeneracy-artifacts}
+
+Two helper functions are introduced here, `BMPoints` for binormal model predicted operating points and `CBMPoints` for for CBM (contaminated binormal model) operating points. The latter will become clearer in Chapter `TempComment \@ref(proper-roc-models)`. As always, to view the hidden code one needs to `fork` the repository.
+
+
+
+
+It has been stated that the `b`-parameter of the binormal model is generally observed to be less than one, consistent with the diseased distribution being wider than the non-diseased one. The ROC literature is largely silent on the reason for this finding. One reason, namely location uncertainty, is presented in Chapter "Predictions of the RSM", where RSM stands for Radiological Search Model. Basically, if the location of the lesion is unknown, then z-samples from diseased cases can be of two types, samples from the correct lesion location, or samples from non-lesion locations. The resulting mixture distribution will then appear to have larger variance than samples from non-diseased regions. This type of mixing need not be restricted to location uncertainty. Even is location is known, if the lesions are non-homogenous (e.g., they contain a range of contrasts) then a similar mixture-distribution induced broadening is expected. The contaminated binormal model (CBM) -- see Chapter `TempComment \@ref(proper-roc-models)` -- also predicts that the diseased distribution is wider than the non-diseased one.
+
+The fact that the `b`-parameter is less than unity implies that the predicted ROC curve is improper, meaning its slope is not monotone decreasing as the operating point moves up the curve. The result is that a portion of the curve, near (1,1) that crosses the chance-diagonal and hooks upward approaching (1,1) with infinite slope. Ways of fitting proper ROC curves are described in Chapter `TempComment \@ref(proper-roc-models)`. Usually the hook is not readily visible, which has been used as an excuse to ignore the problem. For example, in Fig. 6.4, one would have to "zoom-in" on the upper right corner to see it, but the reader should make no mistake about it, the hook is there as  . 
+
+A recent example is Fig. 1 in the publication resulting from the Digital Mammographic Imaging Screening Trial (DMIST) clinical trial [@RN1784] involving 49,528 asymptomatic women from 33 clinical sites and involving 153 radiologists, where each of the film modality ROC plots crosses the chance diagonal and hooks upwards to (1,1), which as is known, results anytime $b <1$.
+
+The unphysical nature of the hook (predicting worse than chance-level performance for supposedly expert readers) is not the only reason for seeking alternate ROC models. The binormal model is susceptible to degeneracy problems. If the dataset does not provide any interior operating points (i.e., all observed points lie on the axes defined by FPF = 0 or TPF = 1) then the model fits these points with b = 0. The resulting straight-line segment fits do not make physical sense. These problems are addressed by the contaminated binormal model16 to be discussed in Chapter "Other proper ROC models". The first paper in the series has particularly readable accounts of data degeneracy.
+
+  
+### Degenerate datasets
+
+Metz defined binormal degenerate data sets as those that result in exact-fit binormal ROC curves of inappropriate shape consisting of a series of horizontal and/or vertical line segments in which the ROC "curve" crosses the chance line. The crossing of the chance line occurs because the degenerate data sets can be fitted exactly by infinite or zero values for the model slope parameter `b`, and infinite values for the decision thresholds, or both. 
+  
+### Understanding degenerate datasets
+
+To understand this, consider that the non-diseased distribution is a Dirac delta function centered at zero (by definition such a function integrates to unity) and the unit variance diseased distribution is centered at 0.6744898.  In other words this binormal model is characterized by `a = 0.6744898` and `b = 0`.  What is the expected ROC curve? As the threshold $\zeta$ is moved from the far right, gradually to the left, TPF will increase but FPF is stuck at zero until the threshold reaches zero. Just before reaching this point, the coordinates of the ROC operating point are (0, 0.75). The 0.75 is due to the fact that `z = 0` is -0.6744898 units relative to the center of the diseased distribution, so the area under the diseased distribution below `z = 0` is 0.249999984.  Since `pnorm` is the probability *below* the threshold, TPF must be its complement, namely 0.75. This explains the operating point (0,0.75), which lies on the y-axis. As the threshold crosses the zero-width delta function, FPF shoots up from 0 to 1, but TPF stays constant. Therefore, the operating point has jumped from (0, 0.75) to (1, 0.75). When the threshold is reduced further, the operating point moves up vertically, along the right side of the ROC plot, until the threshold is so small that virtually all of diseased distribution exceeds it and the operating point reaches (1, 1). The ROC curve is illustrated in plot A. 
+  
+
+```r
+plotOP <- data.frame(FPF = 0, TPF = 0.75)
+a <- 0.6744898; b <- 0
+plotCurve <- BMPoints(a, b)
+figA <- ggplot(mapping = aes(x = FPF, y = TPF)) + 
+  geom_line(data = plotCurve) + 
+  geom_point(data = plotOP)  + 
+  scale_x_continuous(expand = c(0, 0)) + 
+  scale_y_continuous(expand = c(0, 0)) +
+  ggtitle("A")
+print(figA)
+```
+
+<img src="06-binormal-model_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" />
+
+This is an extreme example of an ROC curve with a "hook". If the data is such that the only operating point provided by the observer is (0,0.75) then this curve will be an exact fit to the operating point.  
+
+### The exact fit is not unique
+
+Actually, given one operating point (0, 0.75) the preceding fit is not even unique. If the diseased distribution is shifted appropriately to the right of its previous position, and one can determine  the necessary value of a, then the ROC curve will shoot upwards through the operating point (0, 0.75) to (0, 0.9), as in plot B, before proceeding horizontally to (1, 0.9) and then completing the curve to (1, 1).  If the diseased distribution is shifted well to the right, i.e., a is very large, then the ROC curve will shoot upwards past the operating point, as in plot C, all the way to (0,1) before proceeding horizontally to (1, 1).
+
+
+```r
+a <- 1.281552; b <- 0
+plotCurve <- BMPoints(a, b)
+figB <- ggplot(mapping = aes(x = FPF, y = TPF)) + 
+  geom_line(data = plotCurve) + 
+  geom_point(data = plotOP)  + 
+  scale_x_continuous(expand = c(0, 0)) + 
+  scale_y_continuous(expand = c(0, 0)) +
+  ggtitle("B")
+
+a <- Inf; b <- 0
+plotCurve <- BMPoints(a, b)
+figC <- ggplot(mapping = aes(x = FPF, y = TPF)) + 
+  geom_line(data = plotCurve) + 
+  geom_point(data = plotOP)  + 
+  scale_x_continuous(expand = c(0, 0)) + 
+  scale_y_continuous(expand = c(0, 0)) +
+  ggtitle("C")
+print(figB);print(figC)
+```
+
+<img src="06-binormal-model_files/figure-html/unnamed-chunk-16-1.png" width="672" /><img src="06-binormal-model_files/figure-html/unnamed-chunk-16-2.png" width="672" />
+
+All of these represent exact fits to the observed operating point, with `b = 0` and different values of `a`. None of them is reasonable.
+
+### Comments on degeneracy
+
+Degeneracy occurs if the observer does not provide any interior operating points. So why worry about it? Perhaps one has a non-cooperating observer, who is not heeding the instructions to *spread the ratings, use all the bins*. A simple example shows that the observer could if fact be cooperating fully and is still unable to provide any interior data points. Consider 100 diseased cases consisting of 75 easy cases and 25 difficult ones and 100 easy non-diseased cases. The observer is expected to rate the 75 easy diseased cases as *fives*, the difficult ones as *ones* and the 100 non-diseased cases are rated *ones*. No amount of coaxing *please, please spread your ratings* is going to convince this observer to rate with twos, threes and fours any of the 75 easy diseased cases. If the cases are obviously diseased, and that is what is meant by *easy cases*, they are supposed to be rated fives: *definitely diseased*. Forcing them to rate some of them as *probably diseased* or *possibly diseased* would be irrational and guilty of bending the reading paradigm to fit the convenience of the researcher (early in his research career, the author used to believe in the existence of non-cooperating observers, so Metz's advice to *spread the ratings* did not seem unreasonable at that time).
+
+### A reasonable fit to the degenerate dataset
+
+If the dataset yields a single operating point (0, 0.75), what is a reasonable ROC plot? There is a theorem that given an observed operating point, the line connecting that point to (1, 1) represents a lower bound on achievable performance by the observer. The observer using a guessing mechanism to classify the remaining cases achieves the lower bound. Here is an explanation of this theorem. Having rated the 75 easy diseased cases as fives, the observer is left with 25 diseased cases and 100 non-diseased cases, all of which appear definitely non-diseased to the observer. Suppose the observer randomly rates 20% of the remaining cases as fours. This would pick up five of the actually diseased cases and 20 non-diseased ones. Therefore, the total number of diseased cases rated four or higher is 80, and the corresponding number of non-diseased cases is 20. The new operating point of the observer is (0.20, 0.80). Now, one has two operating points, the original one on the y-axis at (0, 0.75) and an interior point (0.20, 0.80). Next, instead of randomly rating 20% of the remaining cases as fours, the observer rates 40% of them as fours, then the interior point would have been (0.40, 0.85). The reader can appreciate that simply by increasing the fraction of remaining cases that are randomly rated fours, the observer can move the operating point along the straight line connecting (0, 0.75) and (1, 1), as in plot D. Since a guessing mechanism is being used, this must represent a lower bound on performance. The resulting ROC curve is proper and the net AUC = 0.875. 
+
+
+```r
+mu <- Inf; alpha <- 0.75
+plotCurve <- CBMPoints(mu, alpha)
+figD <- ggplot(mapping = aes(x = FPF, y = TPF)) + 
+  geom_line(data = plotCurve) + 
+  geom_point(data = plotOP)  + 
+  scale_x_continuous(expand = c(0, 0)) + 
+  scale_y_continuous(expand = c(0, 0)) +
+  ggtitle("D")
+print(figD)
+```
+
+<img src="06-binormal-model_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
+
+For this dataset this is in fact the fit yielded by the contaminated binormal model (CBM) and the radiological search model (RSM). Why should one select the lowest possible performance consistent with the data? Because it yields a *unique* value for performance: any higher performance would not be unique. 
+
+## Chapter References {#binormal-model-references} 

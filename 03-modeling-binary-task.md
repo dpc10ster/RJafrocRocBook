@@ -1042,5 +1042,5 @@ The properties of the unit normal distribution and the binomial distribution wer
 
 This chapter has been demonstrated the equal variance binormal model with R examples. These were used to illustrate important concepts of case-sampling variability and its dependence on the numbers of cases. Again, while relegated for organizational reasons to online appendices, these appendices are essential components of the book. Most of the techniques demonstrated there will be reused in the remaining chapters. The motivated reader can learn much from studying the online material and running the different main-level functions contained in the software-directory corresponding to this chapter.
 
-## References {#binary-task-model-references}
+## Chapter References {#binary-task-model-references}
 

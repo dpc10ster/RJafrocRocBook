@@ -545,7 +545,7 @@ The likelihood ratio is described in more detail in the TBA Chapter 20, which de
 
 The reader might be interested as to reason for the 0-ratings being more predictive of cancer than a 3+ rating, Table \@ref(tab:BIRADS-study). In the clinic the zero rating implies, in effect, "defer decision, incomplete information, additional imaging necessary". A zero rating could be due to technical problems with the images: e.g., improper positioning (e.g., missing breast tissue close to the chest wall) or incorrect imaging technique (improper selection of kilovoltage and/or tube charge), making it impossible to properly interpret the images. Since the images are part of the permanent patient record, there are both healthcare and legal reasons why the images need to be optimal. Incorrect technical factors are expected to occur randomly and therefore not predictive of cancer. However, if there is a suspicious finding and the image quality is sub-optimal, the radiologist may be unable to commit to a decision, they may seek additional imaging, perhaps better compression or a slightly different view angle to resolve the ambiguity. Such zero ratings are expected with suspicious findings, and therefore are expected to be predictive of cancer.
 
-As an aside, the second paper [@fenton2007influence] using the ordering shown in Table \@ref(tab:BIRADS-study) questioned the utility of CAD for breast cancer screening (this was ca. 2007). This paper was met with flurry of correspondence disputing the methodology (summarized above). The finding regarding utility of CAD has been validated by more recent studies, again with very large case and reader samples, showing that usage of CAD can actually be detrimental to patient outcome [@RN2321] and a call [@RN2404] for ending insurance reimbursement for CAD.
+As an aside, the second paper [@fenton2007influence] using the ordering shown in Table \@ref(tab:BIRADS-study) questioned the utility of CAD for breast cancer screening (this was ca. 2007). This paper was met with flurry of correspondence disputing the methodology (basically questioning usage of the BIRADS scale summarized above).  
 
 
 ## Discussion {#ratings-paradigm-discussion}
@@ -561,5 +561,5 @@ Two controversial but important issues were addressed: the reason for my recomme
 The next step is to describe a model for ratings data. Before doing that, it is necessary to introduce an empirical performance measure, namely the area under the empirical or trapezoidal ROC, which does not require any modeling.
 
 
-## References  {#ratings-paradigm-references} 
+## Chapter References  {#ratings-paradigm-references} 
 
