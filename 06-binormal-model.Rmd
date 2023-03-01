@@ -1228,4 +1228,5 @@ print(figD)
 ```             
 
 For this dataset this is in fact the fit yielded by the contaminated binormal model (CBM) and the radiological search model (RSM). Why should one select the lowest possible performance consistent with the data? Because it yields a *unique* value for performance: any higher performance would not be unique. 
-## References {#binormal-model-references} 
+
+## Chapter References {#binormal-model-references} 
