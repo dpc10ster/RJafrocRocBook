@@ -57,11 +57,7 @@ simplePrint <- function(x) {
 
 ## How much finished {#binormal-model-how-much-finished}
 
-95%
-
-Comments on limitation of ROCFIT
-
-Comments on partial AUC; add to RJafroc
+97%
 
 
 ## Introduction {#binormal-model-introduction}
@@ -677,6 +673,12 @@ A_z <- pnorm(a/sqrt(1+b^2))
 The d' index can be regarded as a perceptual signal-to-noise-ratio. 
 
 
+## Fitting the binormal model {#binormal-model-fitting}
+
+[@dorfman1969maximum] were the first to fit ratings data to the binormal model. The details of the procedure are in Appendix \@ref(binormal-model-curve-fitting-appendix). While historically very important in showing how statistically valid quantitative analysis is possible using ROC ratings data, the fitting procedure suffers from what are termed "degeneracy issues" and "fitting artifacts" discussed in Appendix \@ref(binormal-model-degeneracy-artifacts). Degeneracy is when the fitting procedure yields unreasonable parameter values. Fitting artifacts occur when the fitted curve predicts worse than chance level performance in some region of the fitted ROC curve. Because of these issues usage of this method is now discouraged as it has largely been supplanted by other software such as the CBM fitting method, the proper ROC fitting method implemented in PROPROC and the RSM (radiological search model) based fitting method. These are discussed in later chapters. 
+
+
+
 ## Partial AUC measures {#binormal-model-partial-auc}
 
 Two partial AUC measures have been defined. The idea is to have an AUC-like measure that emphasizes some region of the ROC curve, one that is argued to be clinically more significant, instead of $A_z$ which characterizes the whole curve. In the following two definitions are considered, one that emphasizes the high specificity region of the ROC curve and one which emphasizes the high sensitivity region of the curve.
@@ -876,19 +878,16 @@ Table \@ref(tab:summary-table-partial-normalized-areas) shows $A_c^{XN}$ and $A_
 
 There are several issues with the adoption of either partial AUC measure.
 
-Since a partial area measure corresponds to classification accuracy measured over a **truncated** dataset a fundamental correspondence between $A_z$ and classification accuracy measured over the **entire** dataset is lost. A basic statistical principle of an estimate valid for the entire population is being violated. 
+1. Since a partial area measure corresponds to classification accuracy measured over a **truncated** dataset a fundamental correspondence between $A_z$ and classification accuracy measured over the **entire** dataset is lost. A basic statistical principle of an estimate valid for the entire population is being violated. 
 
-The choice of the truncation cutoff is arbitrary and subject to bias on the part of the investigator. This is similar to the type of bias that is inherent in a single point (sensitivity-specificity) based approach to analysis: this was the very reason for adoption of a measure such as $A_z$ that averages over the whole curve, as argued so eloquently in [@metz1978rocmethodology]. 
+2. The choice of the truncation cutoff is arbitrary and subject to bias on the part of the investigator. This is similar to the type of bias that is inherent in a single point (sensitivity-specificity) based approach to analysis: this was the very reason for adoption of a measure such as $A_z$ that averages over the whole curve, as argued so eloquently in [@metz1978rocmethodology]. 
 
-Then there is the issue of possible loss of statistical power. If $A_z$ is estimated from the whole dataset and either Eqn. \@ref(eq:binormal-model-normalized-partial-auc-specificity) or Eqn. \@ref(eq:binormal-model-normalized-partial-auc-sensitivity) is used to estimate partial AUC, then one expects no loss in statistical power, as these equations represent noiseless mathematical transformations using the $(a,b)$ parameters estimated over the entire dataset. However, if an empirical partial AUC measure is used there will surely be loss of statistical power resulting from ignoring some of the data. Due to degeneracy issues usage of the empirical partial AUC is often unavoidable. This is because performing significance testing requires that the dataset be repeatedly re-sampled many times and the parametric fit must work every time. 
+3. Then there is the issue of possible loss of statistical power. If $A_z$ is estimated from the whole dataset and either Eqn. \@ref(eq:binormal-model-normalized-partial-auc-specificity) or Eqn. \@ref(eq:binormal-model-normalized-partial-auc-sensitivity) is used to estimate partial AUC, then one expects no loss in statistical power, as these equations represent noiseless mathematical transformations using the $(a,b)$ parameters estimated over the entire dataset. However, if an empirical partial AUC measure is used there will surely be loss of statistical power resulting from ignoring some of the data. Due to degeneracy issues usage of the empirical partial AUC is often unavoidable. This is because performing significance testing requires that the dataset be repeatedly re-sampled many times and the parametric fit must work every time. 
+
+The second point is illustrated by the study reported in [@jiang1996receiver]. The ROC curves of a developmental-stage CAD system and that of radiologists cross: at high specificity the radiologists were better but the reverse was true at high sensitivity. By choosing the latter region the authors demonstrated statistically significant superiority of CAD over radiologists. Analysis using $A_z$ failed to reach statistical significance. 
 
 
-## Fitting the binormal model {#binormal-model-fitting}
-
-The details of the fitting procedure are in Appendix \@ref(binormal-model-curve-fitting-appendix). This section is for making a few comments. While historically very important in showing how statistically valid quantitative analysis is possible for ROC ratings data, the fitting procedure suffers from what are termed "degeneracy issues" and fitting artifacts. These are discussed in Chapter \@ref(binormal-model-degeneracy-artifacts), but for now we summarize as follows:
-
-Degeneracy is when the fitting procedure fails to give reasonable parameter values. Fitting artifacts occur when the fitted curve predicts worse than chance level performance in some region of the fitted ROC curve.
-
+Two very large clinical studies [@fenton2007influence, @fenton2011effectiveness] using 222,135 and 684,956 women, respectively, showed that CAD can actually have a detrimental effect on patient outcome[@philpotts2009can]. A more recent study has confirmed the negative view of the efficacy of CAD[@lehman2015diagnostic] and there has even been a call for ending Medicare reimbursement for CAD interpretations[@fenton2015time]. I have not followed the field since ca. 2016 and it is likely that newer versions of CAD now being used in the clinic are actually better than what was evaluated in the cited studies. But the point is that even using a ca. 1996 developmental-stage CAD the authors were able to claim, using a partial AUC measure, that CAD outperformed radiologists, a result clearly not borne out by later large clinical studies while the $A_z$ measure did not allow this conclusion. 
 
 
 ## Discussion{#binormal-model-discussion}
