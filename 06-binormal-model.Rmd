@@ -679,9 +679,12 @@ The d' index can be regarded as a perceptual signal-to-noise-ratio.
 
 ## Partial AUC measures {#binormal-model-partial-auc}
 
-Shorthand: denote $A \equiv A_z$, $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$. Two partial AUC measures are defined, one as a partial integral along the x-axis and the other as a partial integral along the y-axis. These are denoted by X and Y superscripts.
+Two partial AUC measures have been defined. The idea is to have an AUC-like measure that emphasizes some region of the ROC curve, one that is argued to be clinically more significant, instead of $A_z$ which characterizes the whole curve. In the following two definitions are considered, one that emphasizes the high specificity region of the ROC curve and one which emphasizes the high sensitivity region of the curve.
 
-### Definition {#binormal-model-meaning-partial-auc-definitions}
+Shorthand: denote $A \equiv A_z$, $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$. The two partial AUC measures correspond to a partial integral along the x-axis starting from the origin (high specificity) and the other to a partial integral along the y-axis ending at (1,1) corresponding to high sensitivity. These are denoted by X and Y superscripts.
+
+
+### Measure emphasizing high specificity {#binormal-model-meaning-partial-auc-definitions}
 
 The partial area under the ROC, $A_c^{X}$, is defined as that extending from $x = 0$ to $x = c$, where $0 \le c \le 1$ (in our notation $c$ always means a cutoff on the x-axis of the ROC): 
 
@@ -722,8 +725,6 @@ On the right hand side the integrand $\phi\left ( z_1,z_2;\rho \right )$ is the 
 As demonstrated later the integrals occurring on the right hand side of Eqn. \@ref(eq:binormal-model-partial-area-final) can be evaluated numerically. 
 
 
-### Meaning of partial AUC {#binormal-model-meaning-partial-auc}
-
 As an area measure the partial AUC $A_c^{X}$ has a simple *geometric* meaning. A *physical* meaning is as follows: 
 
 > An ROC curve^[This curve is not binormal as the truncation destroys the normality of the two distributions] can be defined over the truncated dataset where all z-samples **smaller** than $-\Phi^{-1}(c)$ are ignored. The maximum area of this curve is that defined by the rectangle with corners at $(0,0)$ and $(c,\text{TPF}\left ( c \right ))$: $c$ is the abscissa at the upper limit of the integration interval along the x-axis and $\text{TPF}\left ( c \right )$ is the corresponding ordinate: see Eqn. \@ref(eq:binormal-model-roc-curve-tpf-fpf). Dividing $A_c^{X}$ by $\text{TPF}\left ( c \right ) \times c$ yields a normalized partial area measure, denoted $A_c^{XN}$, where $0 \le A_c^{XN} \le 1$. **This is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.** If $a \ge 0$ it is constrained to (0.5, 1).
@@ -731,11 +732,11 @@ As an area measure the partial AUC $A_c^{X}$ has a simple *geometric* meaning. A
 
 \begin{equation}
 A_c^{XN} = \frac{A_c^{X}}{\text{TPF}\left ( c \right ) \times c}
-(\#eq:binormal-model-normalized-partial-auc)
+(\#eq:binormal-model-normalized-partial-auc-specificity)
 \end{equation}
 
 
-### Alternative partial AUC measure {#binormal-model-metz-partial-auc}
+### Measure emphasizing high sensitivity {#binormal-model-metz-partial-auc}
 
 Since the integral in Eqn. \@ref(eq:binormal-model-partial-area-a1) is from $x = 0$ to $x = c$ this partial AUC measure emphasizes the *high specificity* region of the ROC curve (since $x = 0$ corresponds to unit, i.e. highest, specificity).
 
@@ -752,7 +753,7 @@ $A_c^{Y}$ is the (un-normalized) area below the ROC extending from $y = \text{TP
 
 \begin{equation}
 A_c^{YN} = \frac{A_c^{Y}}{\left (1 - \text{TPF}(c)  \right ) \times \left (1-c  \right )}
-(\#eq:binormal-model-normalized-partial-auc-upper2)
+(\#eq:binormal-model-normalized-partial-auc-sensitivity)
 \end{equation}
 
 A *physical* meaning is as follows: 
@@ -872,6 +873,14 @@ Table \@ref(tab:summary-table-partial-normalized-areas) shows $A_c^{XN}$ and $A_
 
 
 ## Comments on partial AUC measures {#binormal-model-partial-auc-comments}
+
+There are several issues with the adoption of either partial AUC measure.
+
+Since a partial area measure corresponds to classification accuracy measured over a **truncated** dataset the correspondence between $A_z$ and classification accuracy measured over the **entire** dataset is lost. The basic statistical principle of estimating over the entire population is being violated. 
+
+The choice of the truncation cutoff is arbitrary and subject to bias on the part of the investigator, similar to the type of bias that is inherent in a single point (sensitivity-specificity) based approach to analysis: after all this was the very reason for adoption of a measure such as $A_z$ that averages over the whole curve, as argued so eloquently in [@metz1978rocmethodology]. 
+
+Then there is the issue of possible loss of statistical power. If $A_z$ is estimated from the whole dataset and either Eqn. \@ref(eq:binormal-model-normalized-partial-auc-specificity) or Eqn. \@ref(eq:binormal-model-normalized-partial-auc-sensitivity) is used to estimate partial AUC, then one expects no loss in statistical power, as these equations represent noiseless mathematical transformations using the $(a,b)$ parameters estimated over the entire dataset. However, if an empirical partial AUC measure is used there will surely be loss of statistical power resulting from ignoring some of the data. Due to degeneracy issues usage of the empirical partial AUC is often unavoidable. This is because performing significance testing requires that the dataset be repeatedly re-sampled many times and the parametric fit must work every time. 
 
 
 ## Fitting the binormal model {#binormal-model-fitting}
