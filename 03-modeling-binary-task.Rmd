@@ -11,7 +11,7 @@ library(kableExtra)
 
 
 
-## TBA How much finished {#binary-task-model-how-much-finished}
+## How much finished {#binary-task-model-how-much-finished}
 
 85%
 
@@ -85,7 +85,7 @@ There are several concepts implicit in Eqn. \@ref(eq:binary-task-model-fpf) and 
 
 How an observer can be induced to change the reporting threshold is the subject of the following two examples.
 
-## Changing the reporting threshold: Example I {#binary-task-model-example-1}
+## Changing the reporting threshold: I {#binary-task-model-example-1}
 
 Suppose that in the first study a radiologist interprets a set of cases subject to the instructions that it is important to identify actually diseased cases and to worry less about misdiagnosing actually non-diseased cases. One way to do this would be to reward the radiologist with $10 for each TP decision but only $1 for each TN decision. For simplicity, assume there is no penalty imposed for incorrect decisions and that the case set contains equal numbers of non-diseased and diseased cases and the radiologist is informed of these experimental conditions. It is also assumed that the radiologist is allowed to reach a steady state and responds rationally to the payoff agreement. Under these circumstances, the radiologist is expected to set the reporting threshold at a small value so that even slight evidence of presence of disease is enough to result in a "case is diseased" decision. The low reporting threshold also implies that considerable evidence of lack of disease is needed before a "case is non-diseased" decision is rendered. The radiologist is expected to achieve relatively high sensitivity but specificity will be low. As a concrete example, if there are 100 non-diseased cases and 100 diseased cases, assume the radiologist makes 90 TP decisions; since the threshold for presence of presence of disease is small, this number is close to the maximum possible value, namely 100. Assume further that 10 TN decisions are made; since the implied threshold for evidence of absence of disease is large, this number is close to the minimum possible value, namely 0. Therefore, sensitivity is 90 percent and specificity is 10 percent. The radiologist earns 90 x $10 + 10 x $1 = $910 for participating in this study. 
 
@@ -93,7 +93,7 @@ Next, suppose the study is repeated with the same cases but this time the payoff
 
 The incentives in the first study caused the radiologist to accept low specificity in order to achieve high sensitivity. The incentives in the second study caused the radiologist to accept low sensitivity in order to achieve high specificity. 
 
-## Changing the reporting threshold: Example II  {#binary-task-model-example-2}
+## Changing the reporting threshold: II  {#binary-task-model-example-2}
 
 Suppose one asks the same radiologist to interpret a set of cases, but this time the reward for a correct decision is always $1 regardless of the truth state of the case and, as before, there are is no penalty for incorrect decisions. However, the radiologist is told that disease prevalence is only 0.005 and that this is the actual prevalence in the experimental study, i.e., the experimenter is not deceiving the radiologist. ^[Even if the experimenter attempts to deceive the radiologist, by claiming for example that there are roughly equal numbers of non-diseased and diseased cases, after interpreting a few tens of cases the radiologist will know that a deception is involved. Deception in such studies is not a good idea, as the observer’s performance is not being measured in a “steady state condition” – the observer’s performance will change as the observer “learns” the true disease prevalence.] In other words, only five out of every 1000 cases are actually diseased. This information will cause the radiologist to adopt a high threshold thereby becoming more reluctant to state: “case is diseased”. By simply diagnosing all cases as non-diseased, i.e., without using any image information, the radiologist will be correct on every disease absent case and earn $995, which is close to the maximum $1000 the radiologist can earn by using case information to the full and being correct on disease-present and disease-absent cases. 
 
@@ -272,62 +272,87 @@ print(shadedTails)
 Specificity corresponding to threshold $\zeta$ is the probability that a Z-sample from a non-diseased case is smaller than $\zeta$. By definition, this is the CDF corresponding to the threshold $\zeta$. In other words:
 
 \begin{equation} 
-Sp\left ( \zeta \right )=P\left ( Z_{k_11} < \zeta\mid Z_{k_11} \sim N\left ( 0,1 \right )\right ) = \Phi\left ( \zeta \right )
-(\#eq:binary-task-model-Specificity)
-\end{equation}
-
-The expression for sensitivity can be derived tediously by starting with the fact that $Z_{k_22}$ and then using calculus to obtain the probability that a z-sample for a disease-present case exceeds $\zeta$. A quicker way is to consider the random variable obtaining by shifting the origin to  $\mu$. A little thought should convince the reader that $Z_{k_22}-\mu$  must be distributed as $N(0,1)$. Therefore, the desired probability is (the last step follows from the identity in Eqn. (3.7), with z replaced by $\zeta-\mu$ :
-
-\begin{equation}
-\begin{aligned} 
-Se\left ( \zeta \right )\\
-=P\left ( Z_{k_22} \geq \zeta\right ) \\
-=P\left (\left ( Z_{k_22} -\mu  \right ) \geq\left ( \zeta -\mu  \right )\right ) \\
-=1-P\left (\left ( Z_{k_22} -\mu  \right ) < \left ( \zeta -\mu  \right )\right ) \\
-= 1-\Phi\left ( \zeta -\mu \right )
+\left.
+\begin{aligned}  
+Sp\left ( \zeta \right ) \equiv& P\left ( Z_{k_11} < \zeta\mid Z_{k_11} \sim N\left ( 0,1 \right )\right ) \\
+=& \Phi\left ( \zeta \right )
 \end{aligned}
-(\#eq:binary-task-model-Sensitivity1)
+\right \}
+(\#eq:binary-task-model-specificity)
 \end{equation}
 
-A little thought (based on the definition of the CDF function and the symmetry of the unit-normal pdf function) should convince the reader that:
+
+The expression for sensitivity can be derived. Consider that the random variable obtaining by shifting the origin to  $\mu$. A little thought should convince the reader that $Z_{k_22}-\mu$  is distributed as $N(0,1)$. Therefore, the desired probability is:
 
 \begin{equation} 
-1-\Phi(\zeta)=-\Phi(\zeta)\\
-1-\Phi(\zeta-\mu)=\Phi(\mu-\zeta)
-(\#eq:binary-task-model-Sensitivity2)
+\left.
+\begin{aligned}  
+Se\left ( \zeta \right ) \equiv& P\left ( Z_{k_22} \geq \zeta\right ) \\
+=&P\left (\left ( Z_{k_22} -\mu  \right ) \geq\left ( \zeta -\mu  \right )\right ) \\
+=&1-P\left (\left ( Z_{k_22} -\mu  \right ) < \left ( \zeta -\mu  \right )\right ) \\
+=& 1-\Phi\left ( \zeta -\mu \right )
+\end{aligned}
+\right \}
+(\#eq:binary-task-model-sensitivity)
 \end{equation}
 
-Instead of carrying the "1 minus " around, one can use the more compact notation. Summarizing, the analytical formulae for the specificity and sensitivity for the equal-variance binormal model are: 
+
+A little thought, based on the definition of the CDF function and the symmetry of the unit-normal pdf function, should convince the reader that:
+
+\begin{equation} 
+\left.
+\begin{aligned}  
+1-\Phi(\zeta)=& -\Phi(\zeta)\\
+1-\Phi(\zeta-\mu) =& \Phi(\mu-\zeta)
+\end{aligned}
+\right \}
+(\#eq:binary-task-model-compact)
+\end{equation}
+
+
+Instead of carrying the "1 minus" around one can use the more compact notation. Summarizing, the analytical formulae for the specificity and sensitivity for the equal-variance binormal model are: 
 
 \begin{equation} 
 Sp\left ( \zeta \right ) = \Phi(\zeta)\\
 Se\left ( \zeta \right ) = \Phi(\mu-\zeta)
-(\#eq:binary-task-model-Sensitivity-Specificity)
+(\#eq:binary-task-model-se-sp)
 \end{equation}
 
-In these equations, the threshold $\zeta$ appears with different signs because specificity is the area under a pdf to the **left** of a threshold, while sensitivity is the area to the **right**.
+> In Eqn. \@ref(eq:binary-task-model-se-sp) the threshold $\zeta$ appears with different signs because specificity is the area under a pdf to the left of the threshold while sensitivity is the area to the right.
 
-**As probabilities, both sensitivity and specificity are restricted to the range 0 to 1. The observer’s performance could be characterized by specifying sensitivity and specificity, i.e., a pair of numbers. If both sensitivity and specificity of an imaging system are greater than the corresponding values for another system, then the 1st system is unambiguously better than the 2nd. But what if sensitivity is greater for the 1st but specificity is greater for the 2nd? Now the comparison is ambiguous. It is difficult to unambiguously compare two pairs of performance indices. Clearly, a scalar measure is desirable that combines sensitivity and specificity into a single measure of diagnostic performance.**
+Sensitivity and specificity are restricted to the range 0 to 1. The observer’s performance could be characterized by specifying sensitivity *and* specificity, i.e., a pair of numbers. If both sensitivity and specificity of an imaging system are greater than the corresponding values for another system, then the first system is unambiguously better than the second. But if sensitivity is greater for the first but specificity is greater for the second the comparison is ambiguous. A scalar measure is desirable that combines sensitivity and specificity into a single measure of diagnostic performance.
 
-The parameter $\mu$  satisfies the requirements of a scalar figure of merit (FOM). Eqn. \@ref(eq:binary-task-model-Sensitivity-Specificity) can be solved for $\mu$  as follows. Inverting the equations yields: 
+The parameter $\mu$  satisfies the requirements of a scalar performancer measure, termed a figure of merit (FOM). Eqn. \@ref(eq:binary-task-model-se-sp) can be solved for $\mu$  as follows. Inverting the equations yields: 
 
 \begin{equation} 
-\zeta =\Phi^{-1} \left (Sp\left ( \zeta \right )  \right )\\
-\mu - \zeta = \Phi^{-1} \left (Se\left ( \zeta \right )  \right )
+\left.
+\begin{aligned}  
+\zeta =&\Phi^{-1} \left (\text{Sp}\left ( \zeta \right )  \right )\\
+\mu - \zeta =& \Phi^{-1} \left (\text{Se}\left ( \zeta \right )  \right )
+\end{aligned}
+\right \}
 (\#eq:binary-task-model-solve-mu-zeta)
 \end{equation}
+ 
 
 Eliminating $\zeta$ yields:
 
+
 \begin{equation} 
-\mu = \Phi^{-1} \left (Sp\left ( \zeta \right )  \right ) + \Phi^{-1} \left (Se\left ( \zeta \right )  \right )
+\left.
+\begin{aligned}  
+\mu =& \Phi^{-1} \left (\text{Sp}\left ( \zeta \right )  \right ) + \Phi^{-1} \left (\text{Se}\left ( \zeta \right )  \right )
+\end{aligned}
+\right \}
 (\#eq:binary-task-model-solve-mu)
 \end{equation}
 
-This is a useful relation, as it converts a *pair* of numbers that is hard to compare between two modalities, in the sense described above, into a *single* FOM. Now it is almost trivial to compare two modalities: the one with the higher $\mu$  wins. In reality, the comparison is not trivial since like sensitivity and specificity, $\mu$ has to be estimated from a finite dataset and is therefore subject to sampling variability.
 
-```{r binary-task-model-shaded-plots, fig.cap= "The equal-variance binormal model for mu = 3  and  zeta = 1; the blue curve, centered at zero, corresponds to the pdf of non-diseased cases and the red one, centered at mu = 3, corresponds to the pdf of diseased cases. The left edge of the blue shaded region represents the threshold zeta, currently set at unity. The red shaded area, including the common portion with the vertical red lines, is sensitivity. The blue shaded area including the common portion with the vertical red lines is 1-specificity.",  fig.show='hold', echo=FALSE}   
+This is a useful relation, as it converts a *pair* of numbers into a *scalar* performance measure. Now it is almost trivial to compare two modalities: the one with the higher $\mu$  is better. In reality, the comparison is not trivial since like sensitivity and specificity $\mu$ has to be estimated from a finite dataset and one must account for sampling variability.
+
+```{r binary-task-model-shaded-plots, fig.cap= "The equal-variance binormal model for $\\mu = 3$  and  $\\zeta = 1$; the blue curve, centered at zero, is the pdf of non-diseased cases and the red one, centered at $\\mu = 3$, is the pdf of diseased cases. The left edge of the blue shaded region represents the threshold $\\zeta = 1$. The red shaded area including the common portion with the vertical red lines is sensitivity. The blue shaded area including the common portion with the vertical red lines is 1-specificity.",  fig.show='hold', echo=FALSE}   
 options(digits=3)
+
 mu <- 3;sigma <- 1
 zeta <- 1
 step <- 0.1
@@ -386,142 +411,24 @@ shadedPlots <- shadedPlots + xlab(label = "z-sample")
 print(shadedPlots)
 ```
 
-Fig. \@ref(fig:binary-task-model-shaded-plots) shows the equal-variance binormal model for $\mu = 3$  and $\zeta = 1$. The blue-shaded area, including the "common" portion with the vertical red lines, is the probability that a z-sample from a non-diseased case exceeds $\zeta = 1$, which is the complement of specificity, i.e., it is false positive fraction, which is 1 - `pnorm(1)` = 0.159. The red shaded area, including the "common" portion with the vertical red lines, is the probability that a z-sample from a diseased case exceeds $\zeta = 1$, which is sensitivity or true positive fraction, which is `pnorm(3-1)`= 0.977.
+Fig. \@ref(fig:binary-task-model-shaded-plots) shows the equal-variance binormal model for $\mu = 3$  and $\zeta = 1$. The blue-shaded area, including the "common" portion with the vertical red lines, is the probability that a z-sample from a non-diseased case exceeds $\zeta = 1$, which is the complement of specificity, i.e., false positive fraction, which is 1 - `pnorm(1)` = `r 1-pnorm(1)`. The red shaded area, including the "common" portion with the vertical red lines, is the probability that a z-sample from a diseased case exceeds $\zeta = 1$, which is sensitivity or true positive fraction, which is `pnorm(3-1)`= `r pnorm(3-1)`.
 
-Demonstrated next are these concepts using R examples.
+See Appendix \@ref(binary-task-model-demo) for a demonstration of the concepts of sensitivity and specificity using `R`.
 
-## Demonstration of the concepts of sensitivity and specificity {#binary-task-model-sensitivity-specificity-demo}
-
-### Estimating mu from a finite sample
-
-The following code simulates 9 non-diseased and 11 diseased cases. The $\mu$ parameter is 1.5 and $\zeta$ is $\mu/2$. Shown are the calculations of sensitivity and specificity and the value of estimated $\mu$. 
-
-```{r echo=FALSE}   
-simulateDataset <- function(K1, K2, mu, zeta, seed) {
-  set.seed(seed)
-  z1 <- rnorm(K1)
-  z2 <- rnorm(K2) + mu
-  nTN <- length(z1[z1 < zeta])
-  nTP <- length(z2[z2 >= zeta])
-  Sp <- nTN/K1
-  Se <- nTP/K2
-  mu <- qnorm(Sp)+qnorm(Se)
-  return(
-    list(Sp = Sp,
-         Se = Se,
-         mu = mu))
-}
-```
-
-
-```{r}   
-mu <- 1.5
-zeta <- mu/2
-seed <- 100 # line 4
-K1 <- 9
-K2 <- 11
-ds <- simulateDataset(K1, K2, mu, zeta, seed)
-
-cat("seed = ", seed, 
-    "\nK1 = ", K1, 
-    "\nK2 = ", K2, 
-    "\nSpecificity = ", ds$Sp, 
-    "\nSensitivity = ", ds$Se, 
-    "\nEst. of mu = ", ds$mu, "\n")
-```
-
-Since this is a finite sample, the estimate of $\mu$ is not exactly equal to the true value. In fact, all of the estimates, sensitivity, specificity and $\mu$ are subject to sampling variability.
-
-### Changing the seed variable: case-sampling variability
-
-No matter how many times one runs the above code, one always sees the same output shown above. This is because at line 4 one sets the `seed` of the random number generator to a fixed value, namely 100. This is like having a perfectly reproducible reader repeatedly interpreting the same cases – one always gets the same results. Change the `seed` to 101. One should see:
-
-```{r}   
-seed <- 101 # change
-ds <- simulateDataset(K1, K2, mu, zeta, seed)
-
-cat("seed = ", seed, 
-    "\nK1 = ", K1, 
-    "\nK2 = ", K2, 
-    "\nSpecificity = ", ds$Sp, 
-    "\nSensitivity = ", ds$Se, 
-    "\nEst. of mu = ", ds$mu, "\n")
-```
-
-Changing `seed` is equivalent to sampling a completely new set of patients. This is an example of case sampling variability. The effect is quite large (`Se` fell from 0.909 to 0.545 and estimated `mu` fell from 2.56 to 0.879!) because the size of the relevant case set, $K_2=11$ for sensitivity, is rather small, leading to large variability. 
-
-### Increasing the numbers of cases
-
-Here we increase $K_1$ and $K_2$, by a factor of 10 each, and return the `seed` to 100. 
-
-```{r}   
-K1 <- 90 # change
-K2 <- 110 # change
-seed <- 100 # change
-ds <- simulateDataset(K1, K2, mu, zeta, seed)
-
-cat("seed = ", seed, 
-    "\nK1 = ", K1, 
-    "\nK2 = ", K2, 
-    "\nSpecificity = ", ds$Sp, 
-    "\nSensitivity = ", ds$Se, 
-    "\nEst. of mu = ", ds$mu, "\n")
-```
-
-Next we change `seed` to 101.
-
-```{r}   
-seed <- 101 # change
-ds <- simulateDataset(K1, K2, mu, zeta, seed)
-
-cat("seed = ", seed, 
-    "\nK1 = ", K1, 
-    "\nK2 = ", K2, 
-    "\nSpecificity = ", ds$Sp, 
-    "\nSensitivity = ", ds$Se, 
-    "\nEst. of mu = ", ds$mu, "\n")
-```
-
-Notice that now the values are less sensitive to seed. Table \@ref(tab:binary-task-modelSeSpMuvsCaseSizeSeed) illustrates this trend with ever increasing sample sizes (the reader should confirm the listed values).
-
-```{r}
-results <- array(dim = c(9,6))
-mu <- 1.5
-zeta <- mu/2
-results[9,] <- c(Inf, Inf, NA, pnorm(zeta), pnorm(mu-zeta), mu)
-K1_arr <- c(9, 9, 90, 90, 900, 900, 9000, 9000, NA)
-K2_arr <- c(11, 11, 110, 110, 1100, 1100, 11000, 11000, NA)
-seed_arr <- c(100,101,100,101,100,101,100,101,NA)
-for (i in 1:8) {
-  ds <- simulateDataset(K1_arr[i], K2_arr[i], mu, zeta, seed_arr[i])
-  results[i,] <- c(K1_arr[i], K2_arr[i], seed_arr[i], ds$Sp, ds$Se, ds$mu)
-}
-df <- as.data.frame(results)
-colnames(df) <- c("K1","K2","seed","Se","Sp","mu")
-```
-
-```{r binary-task-modelSeSpMuvsCaseSizeSeed, echo=FALSE}
-kable(df, caption = "Effect of sample size and seed on estimates of sensitivity, specificity and the mu-parameter.", escape = FALSE)
-```
-
-As the numbers of cases increase, the sensitivity and specificity converge to a common value, around 0.773 and the estimate of the separation parameter converges to the known value.
-
-```{r}
-pnorm(0.75) # example 1
-2*qnorm(pnorm(zeta)) # example 2
-```
-
-Because the threshold is halfway between the two distributions, as in this example, sensitivity and specificity are identical. In words, with two unit variance distributions separated by 1.5, the area under the diseased distribution (centered at 1.5) above 0.75, namely sensitivity, equals the area under the non-diseased distribution  (centered at zero) below 0.75, namely specificity, and the common value is $\Phi(0.75)= 0.773$, yielding the last row of Table \@ref(tab:binary-task-modelSeSpMuvsCaseSizeSeed), and example 1 in the above code snippet. Example 2 in the above code snippet illustrates Eqn. \@ref(eq:binary-task-model-solve-mu). The factor of two arises since in this example sensitivity and specificity are identical.
-
-From Table \@ref(tab:binary-task-modelSeSpMuvsCaseSizeSeed), for the same numbers of cases but different seeds, comparing pairs of sensitivity and specificity values is more difficult as two pairs of numbers (i.e., four numbers) are involved. Comparing a single pair of $\mu$ values is easier as only two numbers are involved. The tendency of the pairs to become independent of case sample is discernible with fewer cases with  $\mu$, around 90/110 cases, than with sensitivity and specificity pairs. The numbers in the table might appear disheartening in terms of the implied numbers of cases needed to detect a difference in specificity. Even with 200 cases, the difference in specificity for two seed values is 0.081, which is actually a large effect considering that the scale extends from 0 to 1.0. A similar comment applies to differences in sensitivity. The situation is not quite that bad. One uses an area measure that combines sensitivity and specificity yielding less variability in the combined measure. One uses the ratings paradigm, which is more efficient than the binary one used in this chapter. Finally, one takes advantage of correlations that exist between the interpretations in matched-case matched-reader interpretations in two modalities that tend to decrease variability in the AUC-difference even further (most applications of ROC methods involved detecting differences in AUCs not absolute values).
 
 ## Inverse variation of sensitivity and specificity and the need for a single FOM {#binary-task-model-sensitivity-specificity-inverse-variation}
 
-The variation of sensitivity and specificity is modeled in the binormal model by the threshold parameter $\zeta$. From Eqn. \@ref(eq:binary-task-model-Specificity), specificity at threshold $\zeta$ is $\Phi(\zeta)$ and the corresponding expression for sensitivity is $\Phi(\mu-\zeta)$. Since the threshold  $\zeta$ appears with a minus sign, the dependence of sensitivity on $\zeta$ will be the opposite of the corresponding dependence of specificity on $\zeta$. In Fig. \@ref(fig:binary-task-model-shaded-plots), the left edge of the blue shaded region represents the threshold $\zeta = 1$. As $\zeta = 1$ is moved towards the left, specificity decreases but sensitivity increases. Specificity decreases because less of the non-diseased distribution lies to the left of the new threshold, in other words fewer non-diseased cases are correctly diagnosed as non-diseased. Sensitivity increases because more of the diseased distribution lies to the right of the new threshold, in other words more diseased cases are correctly diagnosed as diseased. If an observer has higher sensitivity than another observer, but lower specificity, it is difficult to unambiguously compare them. It is not impossible [@RN2637]. The unambiguous comparison is difficult for the following reason. Assuming the second observer can be coaxed into adopting a lower threshold, thereby decreasing specificity to match that of the first observer, then it is possible that the second observer's sensitivity, formerly smaller, could now be greater than that of the first observer. A single figure of merit is desirable to the sensitivity - specificity analysis. It is possible to leverage the inverse variation of sensitivity and specificity by combing them into a single scalar measure, as was done with the $\mu$ parameter in the previous section, Eqn. \@ref(eq:binary-task-model-solve-mu). An equivalent way is by using the area under the ROC plot, discussed next.
+The variation of sensitivity and specificity is modeled in the binormal model by the threshold parameter $\zeta$. From Eqn. \@ref(eq:binary-task-model-specificity) specificity at threshold $\zeta$ is $\text{Sp} = \Phi(\zeta)$ and the corresponding expression for sensitivity is $\text{Se} = \Phi(\mu-\zeta)$. Since the threshold  $\zeta$ appears with different signs the dependence of sensitivity on $\zeta$ will be the opposite of the dependence of specificity. In Fig. \@ref(fig:binary-task-model-shaded-plots), the left edge of the blue shaded region represents the threshold $\zeta = 1$. As $\zeta = 1$ is moved towards the left, specificity decreases but sensitivity increases. Specificity decreases because less of the non-diseased distribution lies to the left of the lowered threshold, in other words fewer non-diseased cases are correctly diagnosed as non-diseased. Sensitivity increases because more of the diseased distribution lies to the right of the lowered threshold, in other words more diseased cases are correctly diagnosed as diseased. 
+
+If Observer 1 has higher sensitivity than Observer 2 but lower specificity it is difficult to unambiguously compare them; it is not impossible [@RN2637]. The unambiguous comparison is difficult for the following reason: assuming the Observer 2 can be coaxed into adopting a lower threshold, thereby decreasing specificity to match that of Observer 1 then it is possible that the Observer 2's sensitivity, formerly smaller, could (and here is the ambiguity because if might not happen) now be greater than that of Observer 1. 
+
+A single figure of merit is desirable to the sensitivity - specificity analysis. It is possible to leverage the inverse variation of sensitivity and specificity by combing them into a single scalar measure, as was done with the $\mu$ parameter in the previous section, Eqn. \@ref(eq:binary-task-model-solve-mu). 
+
+An equivalent way is by using the area under the ROC plot, discussed next.
 
 ## The ROC curve {#binary-task-model-roc-curve}
 
-The receiver operating characteristic (ROC) is defined as the plot of sensitivity (y-axis) vs. 1-specificity (x-axis). Equivalently, it is the plot of TPF (y-axis) vs. FPF (x-axis). From Eqn. \@ref(eq:binary-task-model-Sensitivity-Specificity) it follows that:
+The receiver operating characteristic (ROC) is defined as the plot of sensitivity (y-axis) vs. 1-specificity (x-axis). Equivalently, it is the plot of TPF (y-axis) vs. FPF (x-axis). From Eqn. \@ref(eq:binary-task-model-se-sp) it follows that:
 
 \begin{equation} 
 \begin{aligned} 
@@ -577,15 +484,18 @@ print(rocPlot)
 ```
 
 ### The chance diagonal  {#binary-task-model-chance-diagonal}
+
 In Fig. \@ref(fig:binary-task-model-RocCurvesEqVarModel) the ROC curve for $\mu=0$  is the positive diagonal of the ROC plot, termed the chance diagonal. Along this curve $TPF = FPF$ and the observer’s performance is at chance level. In the equal variance binormal model, for $\mu=0$, the pdf of the diseased distribution is identical to that of the non-diseased distribution: both are centered at the origin. Therefore, no matter the choice of threshold  $\zeta$, $TPF = FPF$. Setting $\mu=0$ in Eqn. \@ref(eq:binary-task-model-op-pt) yields:
 
 $$TPF\left ( \zeta \right )=FPF\left ( \zeta \right )=\Phi\left ( -\zeta \right )$$
 In this special case, the red and blue curves in Fig. \@ref(fig:binary-task-model-shaded-plots) coincide. The observer is unable to find any difference between the two distributions. This can happen if the cancers are of such low visibility so that diseased cases are indistinguishable from non-diseased ones, or the observer’s skill level is so poor that the observer is unable to make use of distinguishing characteristics between diseased and non-diseased cases that do exist, and which experts exploit. 
 
 ### The guessing observer {#binary-task-model-guessing-observer}
+
 If the cases are indeed impossibly difficult and/or the observer has zero skill at discriminating between them, the observer has no option but to guess. This rarely happens in the clinic, as too much is at stake and this paragraph is intended to make a pedagogical point that the observer can move the operating point along the change diagonal. If there is no special incentive, the observer tosses a coin and if the coin lands head up, the observer states: “case is diseased” and otherwise states: “case is non-diseased”. When this procedure is averaged over many non-diseased and diseased cases, it will result in the operating point (0.5, 0.5). [Many cases are assumed as otherwise, due to sampling variability, the operating point will not be on the theoretical ROC curve.] To move the operating point downward, e.g., to (0.1, 0.1) the observer randomly selects an integer number between 1 and 10, equivalent to a 10-sided "coin". Whenever a one "shows up", the observer states “case is diseased” and otherwise the observer states “case is non-diseased”. To move the operating point to (0.2, 0.2) whenever a one or two "shows up", the observer states “case is diseased” and otherwise the observer states “case is non-diseased”. One can appreciate that simply by changing the probability of stating “case is diseased” the observer can place the operating point anywhere on the chance diagonal, but wherever the operating point is placed, it will satisfy TPF = FPF. 
 
 ### Symmetry with respect to negative diagonal {#binary-task-model-symmetry-wrt-negative-diagonal}
+
 A characteristic of the ROC curves shown in Fig. \@ref(fig:binary-task-model-RocCurvesEqVarModel) is that they are symmetric with respect to the negative diagonal, defined as the straight line joining (0,1) and (1,0) which is shown as the dotted straight line in Fig. \@ref(fig:binary-task-model-RocCurvesEqVarModel). The symmetry property is due to the equal variance nature of the binormal model and is not true for models considered in later chapters. The intersection between the ROC curve and the negative diagonal corresponds to  $\zeta = \mu/2$, in which case the operating point is:
 
 \begin{equation} 
@@ -610,6 +520,7 @@ TPF\left ( \zeta \right ) = 1-FPF\left ( \zeta \right )
 This equation describes a straight line with unit intercept and slope equal to minus 1, which is the negative diagonal. Since TPF = sensitivity and FPF = 1- specificity, another way of stating this is that at the intersection with the negative diagonal, sensitivity equals specificity. 
 
 ### Area under the ROC curve {#binary-task-model-auc-roc-important}
+
 **The area AUC (abbreviation for area under curve) under the ROC curve suggests itself as a measure of performance that is independent of threshold and therefore circumvents the ambiguity issue of comparing sensitivity/specificity pairs, and has other advantages.** It is defined by the following integrals:
 
 \begin{equation} 
@@ -889,5 +800,142 @@ The properties of the unit normal distribution and the binomial distribution wer
 
 This chapter has been demonstrated the equal variance binormal model with R examples. These were used to illustrate important concepts of case-sampling variability and its dependence on the numbers of cases. Again, while relegated for organizational reasons to online appendices, these appendices are essential components of the book. Most of the techniques demonstrated there will be reused in the remaining chapters. The motivated reader can learn much from studying the online material and running the different main-level functions contained in the software-directory corresponding to this chapter.
 
-## Chapter References {#binary-task-model-references}
+## Appendix I {#binary-task-model-demo}
 
+### Estimates from a finite sample
+
+The following embedded code simulates 9 non-diseased and 11 diseased cases. The $\mu$ parameter is 1.5 and $\zeta$ is $\mu/2$. Shown are the estimates of sensitivity and specificity and $\mu$. 
+
+```{r echo=FALSE}   
+simulateDataset <- function(K1, K2, mu, zeta, seed) {
+  set.seed(seed)
+  z1 <- rnorm(K1)
+  z2 <- rnorm(K2) + mu
+  nTN <- length(z1[z1 < zeta])
+  nTP <- length(z2[z2 >= zeta])
+  Sp <- nTN/K1
+  Se <- nTP/K2
+  mu <- qnorm(Sp)+qnorm(Se)
+  return(
+    list(Sp = Sp,
+         Se = Se,
+         mu = mu))
+}
+```
+
+
+```{r, echo=FALSE}   
+mu <- 1.5
+zeta <- mu/2
+seed <- 100 # line 4
+K1 <- 9
+K2 <- 11
+ds <- simulateDataset(K1, K2, mu, zeta, seed)
+
+cat("seed = ", seed,
+    "\nmu true = ", mu,
+    "\nzeta true = ", zeta,
+    "\nK1 = ", K1, 
+    "\nK2 = ", K2, 
+    "\nSpecificity = ", ds$Sp, 
+    "\nSensitivity = ", ds$Se, 
+    "\nEst. of mu = ", ds$mu, "\n")
+```
+
+Since this is a finite sample the estimate of $\mu$ is not equal to the true value. In fact, all of the estimates, sensitivity, specificity and $\mu$ are subject to sampling variability.
+
+### Changing the seed variable
+
+No matter how many times one runs the above code, one always sees the same output shown above. This is because one sets the `seed` of the random number generator to a fixed value, namely 100. This is like having a perfectly reproducible reader repeatedly interpreting the same cases – one always gets the same results. Changing the `seed` to 101 yields:
+
+```{r, echo=FALSE}   
+seed <- 101 # change
+ds <- simulateDataset(K1, K2, mu, zeta, seed)
+
+cat("seed = ", seed,
+    "\nmu true = ", mu,
+    "\nzeta true = ", zeta,
+    "\nK1 = ", K1, 
+    "\nK2 = ", K2, 
+    "\nSpecificity = ", ds$Sp, 
+    "\nSensitivity = ", ds$Se, 
+    "\nEst. of mu = ", ds$mu, "\n")
+```
+
+Changing `seed` is equivalent to sampling a completely new set of cases. The effect is quite large (estimated sensitivity falls from 0.909 to 0.545 and estimated $\mu$ falls from 2.56 to 0.879) because the size of the relevant case set, $K_2=11$ for sensitivity, is small. 
+
+### Increasing the numbers of cases
+
+Here we increase $K_1$ and $K_2$, by a factor of 10 each, and reset the `seed` to 100. 
+
+```{r, echo=FALSE}   
+K1 <- 90 # change
+K2 <- 110 # change
+seed <- 100 # change
+ds <- simulateDataset(K1, K2, mu, zeta, seed)
+
+cat("seed = ", seed,
+    "\nmu true = ", mu,
+    "\nzeta true = ", zeta,
+    "\nK1 = ", K1, 
+    "\nK2 = ", K2, 
+    "\nSpecificity = ", ds$Sp, 
+    "\nSensitivity = ", ds$Se, 
+    "\nEst. of mu = ", ds$mu, "\n")
+```
+
+Next we change `seed` to 101.
+
+```{r, echo=FALSE}   
+seed <- 101 # change
+ds <- simulateDataset(K1, K2, mu, zeta, seed)
+
+cat("seed = ", seed,
+    "\nmu true = ", mu,
+    "\nzeta true = ", zeta,
+    "\nK1 = ", K1, 
+    "\nK2 = ", K2, 
+    "\nSpecificity = ", ds$Sp, 
+    "\nSensitivity = ", ds$Se, 
+    "\nEst. of mu = ", ds$mu, "\n")
+```
+
+Notice that now the values are less sensitive to seed. Table \@ref(tab:binary-task-model-table) illustrates this trend with increasing sample size.
+
+```{r, echo=FALSE}
+results <- array(dim = c(9,6))
+mu <- 1.5
+zeta <- mu/2
+results[9,] <- c(Inf, Inf, NA, pnorm(zeta), pnorm(mu-zeta), mu)
+K1_arr <- c(9, 9, 90, 90, 900, 900, 9000, 9000, NA)
+K2_arr <- c(11, 11, 110, 110, 1100, 1100, 11000, 11000, NA)
+seed_arr <- c(100,101,100,101,100,101,100,101,NA)
+for (i in 1:8) {
+  ds <- simulateDataset(K1_arr[i], K2_arr[i], mu, zeta, seed_arr[i])
+  results[i,] <- c(K1_arr[i], K2_arr[i], seed_arr[i], ds$Sp, ds$Se, ds$mu)
+}
+df <- as.data.frame(results)
+colnames(df) <- c("K1","K2","seed","Se","Sp","mu")
+```
+
+```{r binary-task-model-table, echo=FALSE}
+kable(df, caption = "Effect of sample size and seed on estimates of sensitivity, specificity and the mu-parameter.", escape = FALSE)
+```
+
+As the numbers of cases increase, the sensitivity and specificity converge to a common value, around 0.773 and the estimate of the separation parameter converges to the known value.
+
+```{r}
+pnorm(0.75) # example 1
+2*qnorm(pnorm(zeta)) # example 2
+```
+
+Because the threshold is halfway between the two distributions, as in this example, sensitivity and specificity are identical. In words, with two unit variance distributions separated by 1.5, the area under the diseased distribution (centered at 1.5) above 0.75, namely sensitivity, equals the area under the non-diseased distribution  (centered at zero) below 0.75, namely specificity, and the common value is $\Phi(0.75)= 0.773$, yielding the last row of Table \@ref(tab:binary-task-model-table), and example 1 in the above code snippet. Example 2 in the above code snippet illustrates Eqn. \@ref(eq:binary-task-model-solve-mu). The factor of two arises since in this example sensitivity and specificity are identical.
+
+From Table \@ref(tab:binary-task-model-table), for the same numbers of cases but different seeds, comparing pairs of sensitivity and specificity values is more difficult as two pairs of numbers (i.e., four numbers) are involved. Comparing a single pair of $\mu$ values is easier as only two numbers are involved. The tendency of the pairs to become independent of case sample is discernible with fewer cases with  $\mu$, around 90/110 cases, than with sensitivity and specificity pairs. 
+
+The numbers in the table might appear disheartening in terms of the implied numbers of cases needed to detect a difference in specificity. Even with 200 cases, the difference in specificity for two seed values is 0.081, which is large considering that the scale extends from 0 to 1.0. A similar comment applies to differences in sensitivity. The situation is not quite that bad: 
+
+> One uses an area measure that combines sensitivity and specificity and hence yields less variability. One uses the ratings paradigm which is more efficient than the binary paradigm used in this chapter. Finally, one takes advantage of correlations that exist between the interpretations using matched-case matched-reader interpretations in two modalities; this tends to decrease variability in the AUC-difference even further (most applications of ROC methods involved detecting differences in AUCs not absolute values).
+
+
+## Chapter References {#binary-task-model-references}
