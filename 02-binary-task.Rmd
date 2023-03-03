@@ -248,29 +248,36 @@ Explanation: the numerator is the total number of correct decisions and the deno
 
 The exclamation mark symbol is used to denote the “not” or negation operator. For example, $P(!D)$  means the probability that the patient is not diseased. Eqn. \@ref(eq:binary-task-ac-est2) applies equally to laboratory or population studies, *provided sensitivity and specificity are estimated consistently*. One cannot, for example, combine a population estimate of prevalence with a laboratory estimate of sensitivity. 
 
-Eqn. \@ref(eq:binary-task-ac-est2) can be understood from the following argument. $\widehat{Sp}$  is the fraction of correct (i.e., negative) decisions on non-diseased cases. Multiplying this by $\widehat{P(!D)}$ yields $\widehat{Sp} \widehat{P(!D)}$, the fraction of correct negative decisions on all cases. Similarly, $\widehat{Sp}$  is the fraction of correct positive decisions on all cases. Therefore, their sum is the fraction of (all, i.e., negative and positive) correct decisions on all cases. A formal mathematical derivation follows. The terms on the right hand side of Eqn. \@ref(eq:binary-task-estimates) can be “turned around” yielding:
+Eqn. \@ref(eq:binary-task-ac-est2) can be understood from the following argument. $\widehat{Sp}$  is the fraction of correct decisions on non-diseased cases. Multiplying this by $\widehat{P(!D)}$ yields the fraction of correct negative decisions on all cases.  Similarly $\widehat{Se}$ is the fraction of correct decisions on diseased cases. Multiplying this by $\widehat{P(D)}$ yields the fraction of correct positive decisions on all cases. Their sum is the fraction of correct decisions on all cases. 
+
+A formal mathematical derivation follows: Eqn. \@ref(eq:binary-task-se-sp) yields:
+
 
 \begin{equation} 
-\left.\begin{matrix}
+\left.
+\begin{aligned}  
 n(TP)=K_2 \widehat{Se}\\ 
-\\
 n(TN)=K_1 \widehat{Sp}
-\end{matrix}\right\}
-(\#eq:binary-tasknTpnTN)
+\end{aligned}
+\right \}
+(\#eq:binary-task-ntp-ntn)
 \end{equation} 
+
 
 Therefore,
 
+
 \begin{equation} 
-\begin{aligned}
+\left.
+\begin{aligned}  
 \widehat{Ac}&=\frac{n(TN)+n(TP)}{K}\\
-\\
 &=\frac{K_1 \widehat{Sp}+K_2 \widehat{Se}}{K}\\
-\\
 &=\widehat{Sp} \widehat{P(!D)}+\widehat{Se}\widehat{P(D)}
 \end{aligned}
-(\#eq:binary-taskAccuracyDeriv)
-\end{equation} 
+\right \}
+(\#eq:binary-task-ac-deriv)
+\end{equation}
+
 
 ## Negative and positive predictive values 
 
