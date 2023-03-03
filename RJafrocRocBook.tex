@@ -787,7 +787,7 @@ P(A|B)=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
 \label{eq:binary-task-bayes}
 \end{equation}
 
-An easy way to remember Eqn. \eqref{eq:binary-task-bayes} is to start with the numerator on the right hand side, which is the ``reversed'' form of the desired probability on the left hand side, multiplied by an appropriate probability. For example, if the desired probability is \(P(A|B)\), one starts with the ``reversed'' form, i.e., \(P(B|A)\) multiplied by \(P(A)\). This yields the numerator. The denominator is the sum of two probabilities: the probability of B given A, i.e., \(P(B|A)\), multiplied by \(P(A)\) plus the probability of B given \(!A\), i.e., \(P(B|!A)\), multiplied by \(P(!A)\).
+An easy way to remember Eqn. \eqref{eq:binary-task-bayes} is to start with the numerator on the right hand side which has the ``reversed'' form of the desired conditioning on the left hand side. If the desired probability is \(P(A|B)\) one starts with the ``reversed'' form of the conditioning, i.e., \(P(B|A)\), and multiplies by \(P(A)\). This yields the numerator. The denominator is the sum of two probabilities: the probability of \(B\) given \(A\), i.e., \(P(B|A)\), multiplied by \(P(A)\), plus the probability of \(B\) given \(!A\), i.e., \(P(B|!A)\), multiplied by \(P(!A)\).
 
 \hypertarget{binary-taskNpvPpvCode}{%
 \section{Examples: PPV, NPV and Accuracy}\label{binary-taskNpvPpvCode}}
@@ -797,6 +797,8 @@ An easy way to remember Eqn. \eqref{eq:binary-task-bayes} is to start with the n
   Typical disease prevalence in the US in screening mammography is 0.005.
 \item
   A typical operating point, for an expert mammographer, is FPF = 0.1, TPF = 0.8. What are \(\text{NPV}\) and \(\text{PPV}\)?
+\item
+  What is Accuracy?
 \end{itemize}
 
 \begin{Shaded}
@@ -835,13 +837,13 @@ An easy way to remember Eqn. \eqref{eq:binary-task-bayes} is to start with the n
   Line 13 calculates accuracy using Eqn. \eqref{eq:binary-task-ac-pop}
 \end{itemize}
 
-\hypertarget{binary-taskNpvPpvComments}{%
-\subsection{Comments}\label{binary-taskNpvPpvComments}}
+\hypertarget{binary-task-npv-ppv-comments}{%
+\subsection{Comments}\label{binary-task-npv-ppv-comments}}
 
-If a woman has a negative diagnosis, chances are very small that she has breast cancer: the probability that the radiologist is incorrect in the negative diagnosis is \(1 - \text{NPV}\) = 0.0011154. Even is she has a positive diagnosis, the probability that she actually has cancer is still only \(\text{PPV}\) = 0.0386473. That is why following a positive screening diagnosis the woman is recalled for further imaging, and if that reveals cause for reasonable suspicion, then additional imaging is performed, perhaps augmented with a needle-biopsy to confirm actual disease status. If the biopsy turns out positive, only then is the woman referred for cancer therapy. Overall, accuracy is \(\text{Ac}\) = 0.8995. The numbers in this illustration are for expert radiologists.
+If a woman has a negative diagnosis, chances are very small that she has breast cancer: the probability that the radiologist is incorrect in the negative diagnosis is \(1 - \text{NPV}\) = 0.0011154. Even is she has a positive diagnosis the probability that she actually has cancer is still only \(\text{PPV}\) = 0.0386473. That is why following a positive screening diagnosis the woman is recalled for further imaging and if that reveals cause for reasonable suspicion additional imaging is performed, perhaps augmented with a needle-biopsy, to confirm actual disease status. If the biopsy turns out positive only then is the woman referred for cancer therapy. Overall, accuracy is \(\text{Ac}\) = 0.8995. The numbers in this illustration are for expert radiologists.
 
-\hypertarget{binary-taskNpvPpvIrrel2LabTasks}{%
-\subsection{PPV and NPV are irrelevant to laboratory tasks}\label{binary-taskNpvPpvIrrel2LabTasks}}
+\hypertarget{binary-task-npv-ppv-irrel-lab}{%
+\subsection{PPV and NPV are irrelevant to laboratory tasks}\label{binary-task-npv-ppv-irrel-lab}}
 
 According to the hierarchy of assessment methods described in (book) Chapter 01, TBA Table 1.1, \(\text{PPV}\) and \(\text{NPV}\) are level- 3 measurements. These are calculated from ``live'' interpretations as opposed to retrospectively calculated quantities like sensitivity and specificity. The radiologist adjusts the reporting threshold to achieve a balance between sensitivity and specificity. The balance depends critically on the expected disease prevalence. Based on geographical location and type of practice, the radiologist over time develops a feel for disease prevalence or it can be found in various databases.
 

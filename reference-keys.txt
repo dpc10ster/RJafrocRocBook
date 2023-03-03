@@ -179,8 +179,8 @@ disease-prevalence
 accuracy
 negative-and-positive-predictive-values
 binary-taskNpvPpvCode
-binary-taskNpvPpvComments
-binary-taskNpvPpvIrrel2LabTasks
+binary-task-npv-ppv-comments
+binary-task-npv-ppv-irrel-lab
 binary-task-discussion
 binary-task-references
 binary-task-model
