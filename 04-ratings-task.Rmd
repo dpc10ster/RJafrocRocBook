@@ -158,7 +158,7 @@ TPF_r=& \frac {1} {K_2} \sum_{s=r}^{R+1}K_{2s}
 
 ### Labeling the points
 
-The labeling $O_n$ of the points follows the following convention: From Eqn. \@ref(eq:ratings-paradigm-FPF-TPF-from-counts), the point corresponding to $r=1$ would correspond to the upper right corner (1,1) of the ROC plot, a trivial operating point since it is common to all datasets, and is therefore not shown. The labeling starts with the next lower-left point, labeled $O_1$, which corresponds to $r=2$; the next lower-left point is labeled $O_2$, corresponding to $r=3$, etc., and the point labeled $O_4$ is the lowest non-trivial operating point corresponding to $r=R=5$ and finally $O_R$ corresponding to $r=R+1$ is the origin (0,0) of the ROC plot, which is also a trivial operating point, because it is common to all datasets, and is therefore not shown. **To summarize, the operating points are labeled starting with the upper right corner, labeled $O_1$, and working down the curve, each time increasing the number by one. The total number of points is $R-1$.**  The relation between $n$ in the label and $r$ in Eqn. \@ref(eq:ratings-paradigm-FPF-TPF-from-counts) is $n=r-1$. An example of the labeling is shown in the next chapter, Fig. \@ref(fig:empirical-auc-EmpiricalPlot).
+The labeling $O_n$ of the points follows the following convention: From Eqn. \@ref(eq:ratings-paradigm-FPF-TPF-from-counts), the point corresponding to $r=1$ would correspond to the upper right corner (1,1) of the ROC plot, a trivial operating point since it is common to all datasets, and is therefore not shown. The labeling starts with the next lower-left point, labeled $O_1$, which corresponds to $r=2$; the next lower-left point is labeled $O_2$, corresponding to $r=3$, etc., and the point labeled $O_4$ is the lowest non-trivial operating point corresponding to $r=R=5$ and finally $O_R$ corresponding to $r=R+1$ is the origin (0,0) of the ROC plot, which is also a trivial operating point, because it is common to all datasets, and is therefore not shown. **To summarize, the operating points are labeled starting with the upper right corner, labeled $O_1$, and working down the curve, each time increasing the number by one. The total number of points is $R-1$.**  The relation between $n$ in the label and $r$ in Eqn. \@ref(eq:ratings-paradigm-FPF-TPF-from-counts) is $n=r-1$. An example of the labeling is shown in the next chapter, Fig. \@ref(fig:empirical-auc-empirical-plot).
  
 ### Examples {#ratings-task-examples}
 
@@ -296,15 +296,15 @@ Table \@ref(tab:ratings-paradigm-example-table) and Table \@ref(tab:ratings-para
 >The R-rating task can be viewed as $R-1$ simultaneously conducted binary tasks each with its own fixed threshold $\zeta_r$, where r = 1, 2, ..., R-1. It is efficient compared to $R-1$ sequentially conducted binary tasks; however, the onus is on the observer to maintain fixed-multiple thresholds through the duration of the study.
 
 
-The rating method is a more efficient way of collecting the data compared to running the study repeatedly with appropriate instructions to cause the observer to adopt different fixed thresholds specific to each replication. In the clinical context such repeated studies would be impractical because it would introduce memory effects, wherein the diagnosis of a case would depend on how many times the case had been seen, along with other cases, in previous sessions. A second reason is that it is difficult for a radiologist to change the operating threshold in response to instructions. To my knowledge, repeated use of the binary paradigm has not been used in any clinical ROC study
+The rating method is a more efficient way of collecting the data compared to running the study repeatedly with appropriate instructions to cause the observer to adopt different fixed thresholds. In the clinical context such repeated studies would be impractical because it would introduce memory effects wherein the diagnosis of a case would depend on how many times the case had been seen in previous sessions.
 
 In order to model the binning, one defines dummy thresholds $\zeta_0 = - \infty$ and $\zeta_R = + \infty$, in which case the thresholds satisfy the ordering requirement $\zeta_{r-1} \le  \zeta_r$ , r = 1, 2, ..., R. The rating or binning rule is:	
 
 \begin{equation}
 \left.
 \begin{aligned}  
-if \left (\zeta_{r-1} \le z < \zeta_r  \right )\Rightarrow \text rating = r\\
-r = 1, 2, ..., R
+\text{if} \left (\zeta_{r-1} \le z < \zeta_r  \right )&\Rightarrow \text{rating} = r\\
+&r = 1, 2, ..., R
 \end{aligned}
 \right \}
 (\#eq:ratings-paradigm-binning-rule)
@@ -316,12 +316,12 @@ For Table \@ref(tab:ratings-paradigm-table-2), the **empirical** thresholds are 
 \left.
 \begin{aligned}
 \zeta_r &= r + 1 \\
-r & = 1, 2, ..., R-1\\
+r &= 0, 1, ..., R-1\\
 \zeta_0 &= -\infty\\
 \zeta_R &= \infty\\
 \end{aligned}
 \right \}
-(\#eq:ratings-paradigm-EmpZeta)
+(\#eq:ratings-paradigm-empirical-zeta)
 \end{equation}
 
 The empirical thresholds are integers, not floating point values predicted by Eqn. \@ref(eq:ratings-paradigm-Zeta). Either way one gets the same operating points. This is a subtle and important distinction explained further in the next section. 
