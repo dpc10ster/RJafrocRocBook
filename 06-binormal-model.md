@@ -56,11 +56,16 @@ Eqn. \@ref(eq:binormal-model-z-samples-1) states that the z-samples for non-dise
 
 ### Binned data
 
-In an R-rating ROC study the observed ratings $r$ take on integer values 1 through $R$ (it is understood that higher ratings correspond to greater confidence for presence of disease). Define $R-1$ cutoffs $\zeta_i$ where $i=1,2,...,R-1$ and two dummy cutoffs $\zeta_0 = -\infty$ and  $\zeta_R = +\infty$, the **binning rule** for a case with realized z-sample z is (Chapter \@ref(ratings-paradigm), Eqn. \@ref(eq:ratings-paradigm-binning-rule)):
+In an R-rating ROC study the observed ratings $r$ take on integer values 1 through $R$ it being understood that higher ratings correspond to greater confidence for presence of disease. Define $R-1$ ordered cutoffs $\zeta_i$ where $i=1,2,...,R-1$ and $\zeta_1 < \zeta_2,...< \zeta_{R-1}$. Also define two dummy cutoffs $\zeta_0 = -\infty$ and  $\zeta_R = +\infty$. The **binning rule** for a case with realized z-sample z is (Chapter \@ref(ratings-paradigm), Eqn. \@ref(eq:ratings-paradigm-binning-rule)):
 
-\begin{equation} 
-\text{if} \left (\zeta_{r-1} \le z \le \zeta_r  \right )\Rightarrow \text {rating} = r
-(\#eq:binormal-model-binning)
+\begin{equation}
+\left.
+\begin{aligned}  
+\text{if} \left (\zeta_{r-1} \le z < \zeta_r  \right )&\Rightarrow \text{rating} = r\\
+&r = 1, 2, ..., R
+\end{aligned}
+\right \}
+(\#eq:binormal-model-binning-rule)
 \end{equation}
 
 
@@ -75,7 +80,7 @@ In an R-rating ROC study the observed ratings $r$ take on integer values 1 throu
 
 
 
-The above figure, generated with  $\mu = 1.5$, $\sigma = 1.5$, $\zeta_1 = -2$, $\zeta_2 = -0.5$, $\zeta_3 = 1$ and $\zeta_4 = 2.5$, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule \@ref(eq:binormal-model-binning). For example, a case with  z-sample equal to -2.5 would be rated "1", and one with  z-sample equal to -1 would be rated "2", cases with z-samples greater than 2.5 would be rated "5".
+The above figure, generated with  $\mu = 1.5$, $\sigma = 1.5$, $\zeta_1 = -2$, $\zeta_2 = -0.5$, $\zeta_3 = 1$ and $\zeta_4 = 2.5$, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule \@ref(eq:binormal-model-binning-rule). For example, a case with  z-sample equal to -2.5 would be rated "1", and one with  z-sample equal to -1 would be rated "2", cases with z-samples greater than 2.5 would be rated "5".
 
 ### Sensitivity and specificity
 
@@ -798,7 +803,7 @@ Note the usage of the `RJafroc` package [@R-RJafroc]. Specifically, the function
 
 ### Validating the fit {#binormal-model-curve-fitting-validation}
 
-The above ROC curve is a good visual fit to the observed operating points. Quantification of the validity of the fitting model is accomplished by calculating the Pearson goodness-of-fit test [@RN2656], also known as the chi-square test, which uses the statistic defined by [@RN1492]:
+The above ROC curve is a good visual fit to the observed operating points. Quantification of the validity of the fitting model is accomplished by calculating the Pearson goodness-of-fit test [@RN2656], also known as the chi-square test, which uses the statistic defined by [@larsen2005introduction]:
 
 \begin{equation} 
 C^2=\sum_{t=1}^{2}\sum_{r=1}^{R}\frac{\left (K_{tr}-\left \langle K_{tr} \right \rangle  \right )^2}{\left \langle K_{tr} \right \rangle}\\
