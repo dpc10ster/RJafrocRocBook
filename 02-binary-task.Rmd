@@ -15,7 +15,7 @@
 
 ## TBA How much finished {#binary-task-how-much-finished}
 
-85%
+90%
 
 
 ## Introduction {#binary-taskIntro}
@@ -176,7 +176,7 @@ Estimates of sensitivity and specificity follow from counting the numbers of TP 
 \widehat{\text{Sp}}=\widehat{\text{P(TN)}}=\frac{\text{n(TN)}}{K_1}
 \end{aligned}
 \right \}
-(\#eq:binary-task-se-sp)
+(\#eq:binary-task-se-sp-est)
 \end{equation} 
 
 > The ratio of the number of TP decisions to the number of actually diseased cases is termed **true positive fraction** $\widehat{\text{TPF}}$, an estimate of sensitivity, or equivalently an estimate of $\widehat{\text{P(TP)}}$. Likewise, the ratio of the number of TN decisions to the number of actually non-diseased cases is termed **true negative fraction** $\widehat{\text{TNF}}$, an estimate of specificity, or equivalently an estimate of  $\widehat{\text{P(TN)}}$. The complements of $\widehat{\text{TPF}}$ and $\widehat{\text{TNF}}$ are termed **false negative fraction**  $\widehat{\text{FNF}}$ and **false positive fraction** $\widehat{\text{FPF}}$, respectively.
@@ -275,139 +275,161 @@ Therefore,
 &=\widehat{Sp} \widehat{P(!D)}+\widehat{Se}\widehat{P(D)}
 \end{aligned}
 \right \}
-(\#eq:binary-task-ac-deriv)
+(\#eq:binary-task-ac)
+\end{equation}
+
+
+For the population one can dispense with the carets:
+
+
+\begin{equation} 
+\left.
+\begin{aligned}  
+\text{Ac}&=\frac{n(TN)+n(TP)}{K}\\
+&=\frac{K_1 \text{Sp}+K_2 \text{Se}}{K}\\
+&=\text{Sp} \text{P(!D)}+\text{Se}\widehat{P(D)}
+\end{aligned}
+\right \}
+(\#eq:binary-task-ac-pop)
 \end{equation}
 
 
 ## Negative and positive predictive values 
 
-Sensitivity and specificity have desirable characteristics insofar as they reward the observer for correct decisions on actually diseased and actually non-diseased cases, respectively, so these quantities are expected to be independent of disease prevalence; one is dividing by the relevant denominator, so increased numbers of non-diseased cases are balanced by a corresponding increased number of correct decisions on non-diseased cases, and likewise for diseased cases. However, radiologists interpret cases in a “mixed” situation where cases could be positive or negative for disease and disease prevalence plays a crucial role in their decision-making – this point will be clarified shortly. Therefore, a measure of performance that is desirable from the researcher's point of view is not necessarily desirable from the radiologist's point of view. It should be obvious that if most cases are non-diseased, i.e., disease prevalence is close to zero, specificity, being correct on non-diseased cases, is more important to the radiologist than sensitivity. Otherwise, the radiologist would figuratively be crying "wolf" most of the time. The radiologist who makes too many FPs would discover it from subsequent clinical audits or daily case conferences, which are held in most large imaging departments. There is a cost to unnecessary false positives – the cost of additional imaging and / or needle-biopsy to rule out cancer, not to mention the pain and emotional trauma inflicted on the patient. Conversely, if disease prevalence is high, then sensitivity, being correct on diseased cases, is more important to the radiologist than specificity. With intermediate disease prevalence a weighted average of sensitivity and specificity, where the weighting involves disease prevalence, would appear to be desirable from the radiologist's point of view. 
+Sensitivity and specificity have desirable characteristics insofar as they reward the observer for correct decisions on diseased and non-diseased cases, respectively. They are expected to be independent of disease prevalence as one is dividing by the relevant denominator. However, radiologists interpret cases in a “mixed” situation where cases could be diseased or non-diseased. Therefore disease prevalence plays a crucial role in their decision-making – this point will be clarified shortly. Therefore a measure of performance that is desirable from the researcher's point of view is not necessarily desirable from the radiologist's point of view. As an example if most cases are non-diseased, i.e., disease prevalence is close to zero, specificity, being correct on non-diseased cases, is more important to the radiologist than sensitivity. Otherwise, the radiologist would be generating false positives most of the time. The radiologist who makes too many false positives would know this from subsequent clinical audits or daily case conferences which are held in most large imaging departments. There is a cost to unnecessary false positives – the cost of additional imaging and / or needle-biopsy to rule out cancer, and the pain and emotional trauma inflicted on the patient. Conversely, if disease prevalence is high, then sensitivity, being correct on diseased cases, is more important to the radiologist than specificity. With intermediate disease prevalence a weighted average of sensitivity and specificity, where the weighting involves disease prevalence, would appear to be desirable from the radiologist's point of view. 
 
-The radiologist is less interested in the normalized probability of a correct decision on non-diseased cases. Rather interest is in the probability that a patient diagnosed as non-diseased is actually non-diseased. The reader should notice how the two probability definitions are "turned around" - more on this below. Likewise, the radiologist is less interested in the normalized probability of correct decisions on diseased cases; rather interest is in the probability that a patient diagnosed as diseased is actually diseased. These are termed negative and positive predictive values, respectively, and denoted $NPV$ and $PPV$.
+> The radiologist is not interested in specificity, the normalized probability of a correct decision on non-diseased cases; rather the radiologist's interest is in the probability that a patient diagnosed as non-diseased is actually non-diseased. The reader may notice how the conditioning variable in two conditional probabilities are reversed -- more on this later. Likewise, the radiologist is not interested in sensitivity, the normalized probability of a correct decision on diseased cases; rather the radiologist's interest is in the probability that a patient diagnosed as diseased is actually diseased. These are termed negative and positive predictive values, respectively, and denoted $\text{NPV}$ and $\text{PPV}$.
 
-$NPV$ is defined as the probability, given a non-diseased diagnosis, that the patient is actually non-diseased:
 
-\begin{equation} 
-NPV = P(T=1|D=1)
-(\#eq:binary-taskNPV1)
-\end{equation}
-
-PPV is defined as the probability, given a diseased diagnosis, that the patient is actually diseased:
+$\text{NPV}$ is the probability, given a non-diseased diagnosis, that the patient is actually non-diseased:
 
 \begin{equation} 
-PPV = P(T=2|D=2)
-(\#eq:binary-taskPPV1)
+\text{NPV} = P(T=1|D=1)
+(\#eq:binary-task-npv)
 \end{equation}
 
-Note that both equations are "turned around" from the definition of specificity and sensitivity, Eqn. \@ref(eq:binary-task-se-sp), i.e., specificity = $P(D=1|T=1)$ and sensitivity = $P(D=2|T=2)$. 
 
-For now we focus on $NPV$. To estimate $NPV$ one divides the number of correct negative decisions $n(TN)$ by the total number of negative decisions $n(N)$. The latter is the sum of the number of correct negative decisions $n(TN)$ and the number of incorrect negative decisions $n(FN)$. Therefore,
+$\text{PPV}$ is the probability, given a diseased diagnosis, that the patient is actually diseased:
 
 \begin{equation} 
-\widehat{NPV}=\frac{n(TN)}{n(TN)+n(FN)}
-(\#eq:binary-taskNPV2)
+\text{PPV} = P(T=2|D=2)
+(\#eq:binary-task-ppv)
 \end{equation}
 
-Dividing the numerator and denominator by the total number of negative cases, one gets:
+Note that the conditioning in both equations are reversed from those in the definition of specificity and sensitivity, namely $\text{Sp}=P(D=1|T=1)$ and $\text{Se}=P(D=2|T=2)$.  
+
+To estimate $\text{NPV}$ one divides the number of correct negative decisions $n(TN)$ by the total number of negative decisions $n(N)$. The latter is the sum of the number of correct negative decisions $n(TN)$ and the number of incorrect negative decisions $n(FN)$. Therefore,
 
 \begin{equation} 
-\widehat{NPV}=\frac{\widehat{P(TN)}}{\widehat{P(TN)}+\widehat{P(FN)}}
-(\#eq:binary-taskNPV3)
+\widehat{\text{NPV}}=\frac{n(TN)}{n(TN)+n(FN)}
+(\#eq:binary-task-npv2)
 \end{equation}
 
-The estimate of the probability of a TN equals the estimate of true negative fraction $1-\widehat{FPF}$ multiplied by the estimate that the patient is non-diseased, i.e.,  $\widehat{P(!D)}$:
+Dividing the numerator and denominator by the number of negative cases, one gets:
+
+\begin{equation} 
+\widehat{\text{NPV}}=\frac{\widehat{P(TN)}}{\widehat{P(TN)}+\widehat{P(FN)}}
+(\#eq:binary-task-npv3)
+\end{equation}
+
+$\widehat{P(TN)}$ equals the estimate of true negative fraction $1-\widehat{FPF}$ multiplied by the estimate of the a-priori probability that the patient is non-diseased, i.e.,  $\widehat{P(!D)}$:
 
 \begin{equation} 
 \widehat{P(TN)}=\widehat{P(!D)}(1-\widehat{FPF})
-(\#eq:binary-taskPTNEst)
+(\#eq:binary-task-p-tn-est)
 \end{equation}
 
-Explanation: A similar logic to that used earlier applies:  $(1-\widehat{FPF})$ is the probability of being correct on non-diseased cases. Multiplying this by the estimate of probability of disease absence yields the estimate of $\widehat{P(TN)}$.
+Explanation: A similar logic to that used earlier applies: $(1-\widehat{FPF})$ is the probability of being correct on non-diseased cases. Multiplying this by the estimate of probability of disease absence yields the estimate of $\widehat{P(TN)}$.
 
-Likewise, the estimate of the probability of a FN equals the estimate of false negative fraction, which is $(1-\widehat{TPF})$, multiplied by the estimate of the probability that the patient is diseased, i.e., $(\widehat{P(D)}$ : 
+Likewise $\widehat{P(FN)}$ equals the estimate of false negative fraction, which is $(1-\widehat{TPF})$ multiplied by the estimate of the probability that the patient is diseased, i.e., $(\widehat{P(D)}$ : 
 
 \begin{equation} 
 \widehat{P(FN)}=\widehat{P(D)}(1-\widehat{TPF})
-(\#eq:binary-taskPFNEst)
+(\#eq:binary-task-p-fn-est)
 \end{equation}
 
 Putting this all together, one has:
 
 \begin{equation} 
-\widehat{NPV}=\frac{\widehat{P(!D)}(1-\widehat{FPF})}{(\widehat{P(!D)}(1-\widehat{FPF})+(\widehat{P(D)}(1-\widehat{TPF})}
-(\#eq:binary-taskNPVFormula)
+\widehat{\text{NPV}}=\frac{\widehat{P(!D)}(1-\widehat{FPF})}{(\widehat{P(!D)}(1-\widehat{FPF})+(\widehat{P(D)}(1-\widehat{TPF})}
+(\#eq:binary-task-npv-est)
 \end{equation}
 
-For the population, 
+For the population one can dispense with the carets: 
 
 \begin{equation} 
-NPV=\frac{P(!D)(1-FPF)}{(P(!D)(1-FPF)+(P(D)(1-TPF)}
-(\#eq:binary-taskNPVFormula-pop)
+\text{NPV}=\frac{P(!D)(1-FPF)}{(P(!D)(1-FPF)+(P(D)(1-TPF)}
+(\#eq:binary-task-npv-pop)
 \end{equation}
 
-Likewise, it can be shown that $PPV$ is given by:
+Likewise, it can be shown that $\text{PPV}$ is given by:
 
 \begin{equation} 
-PPV =\frac{P(D)(TPF)}{P(D)(TPF)+P(!D)FPF}
-(\#eq:binary-taskPPV)
+\text{PPV} =\frac{P(D)(TPF)}{P(D)(TPF)+P(!D)FPF}
+(\#eq:binary-task-ppv-pop)
 \end{equation}
 
-The equations defining NPV and PPV are actually special cases of Bayes’ theorem [@RN1492]. The general theorem is:
+The equations defining $\text{NPV}$ and $\text{PPV}$ are actually special cases of Bayes’ theorem [@larsen2005introduction]. The theorem is:
 
 \begin{equation} 
+\left.
 \begin{aligned}
-P(A|B)&=\frac{P(B|A)P(A)}{P(B)} \\
-\\
-&=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
+P(A|B)=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
 \end{aligned}
-(\#eq:binary-taskBayesTheorem)
+\right \}
+(\#eq:binary-task-bayes)
 \end{equation}
 
 
-An easy way to remember Eqn. \@ref(eq:binary-taskBayesTheorem) is to start with the numerator on the right hand side, which is the "reversed" form of the desired probability on the left hand side, multiplied by an appropriate probability. For example, if the desired probability is $P(A|B)$, one starts with the "reversed" form, i.e.,  $P(B|A)$, multiplied by $P(A)$. This yields the numerator. The denominator is the sum of two probabilities: the probability of B given A, i.e.,  $P(B|A)$, multiplied by $P(A)$  plus the probability of B given $!A$, i.e.,  $P(B|!A)$, multiplied by $P(!A)$.
+An easy way to remember Eqn. \@ref(eq:binary-task-bayes) is to start with the numerator on the right hand side, which is the "reversed" form of the desired probability on the left hand side, multiplied by an appropriate probability. For example, if the desired probability is $P(A|B)$, one starts with the "reversed" form, i.e., $P(B|A)$ multiplied by $P(A)$. This yields the numerator. The denominator is the sum of two probabilities: the probability of B given A, i.e.,  $P(B|A)$, multiplied by $P(A)$ plus the probability of B given $!A$, i.e.,  $P(B|!A)$, multiplied by $P(!A)$.
 
-### Example calculation of PPV, NPV and accuracy {#binary-taskNpvPpvCode}
+## Examples: PPV, NPV and Accuracy {#binary-taskNpvPpvCode}
 
 * Typical disease prevalence in the US in screening mammography is 0.005. 
-* A typical operating point, for an expert mammographer, is FPF = 0.1, TPF = 0.8. What are NPV and PPV?
+
+* A typical operating point, for an expert mammographer, is FPF = 0.1, TPF = 0.8. What are $\text{NPV}$ and $\text{PPV}$?
 
 
-```{r}
+```{r, attr.source = ".numberLines"}
 # disease prevalence in 
 # USA screening mammography 
-prevalence <- 0.005 # Line 3 
+prev <- 0.005 # Line 3 
 FPF <- 0.1 # typical operating point 
 TPF <- 0.8 #        do: 
-specificity <- 1-FPF 
-sensitivity <- TPF 
-NPV <- (1-prevalence)*(specificity)/((1-prevalence)*(specificity) + prevalence*(1-sensitivity)) 
-PPV <- prevalence*sensitivity/(prevalence*sensitivity + (1-prevalence)*(1-specificity)) 
+sp <- 1-FPF 
+se <- TPF 
+NPV <- (1-prev)*(sp)/((1-prev)*(sp)+prev*(1-se)) 
+PPV <- prev*se/(prev*se+(1-prev)*(1-sp)) 
 cat("NPV = ", NPV, "\nPPV = ", PPV, "\n")
-accuracy <-(1-prevalence)*(specificity)+(prevalence)*(sensitivity) 
-cat("accuracy = ", accuracy, "\n")
+ac <-(1-prev)*sp+prev*se 
+cat("accuracy = ", ac, "\n")
 ```
 
 
-* Line 3 initializes the variable `prevalence`, the disease prevalence, to 0.005. 
+* Line 3 initializes the variable `prev`, the disease prevalence, to 0.005. 
 * Line 4 assigns `0.1` to `FPF` and line 5 assigns `0.8` to `TPF`. 
-* Lines 6 and 7 initialize the variables specificity and sensitivity, respectively. 
-* Line 8 calculates `NPV` using Eqn. \@ref(eq:binary-taskNPVFormula-pop). 
-* Line 9 calculates `PPV` using Eqn. \@ref(eq:binary-taskPPV). 
+* Lines 6 and 7 initialize sp and se. 
+* Line 8 calculates `NPV` using Eqn. \@ref(eq:binary-task-npv-pop). 
+* Line 9 calculates `PPV` using Eqn. \@ref(eq:binary-task-ppv-pop). 
+* Line 13 calculates accuracy using Eqn. \@ref(eq:binary-task-ac-pop)
 
 ### Comments {#binary-taskNpvPpvComments}
 
-If a woman has a negative diagnosis, chances are very small that she has breast cancer: the probability that the radiologist is incorrect in the negative diagnosis is 1 - NPV = `r (1 - NPV)`. Even is she has a positive diagnosis, the probability that she actually has cancer is still only `r PPV`. That is why following a positive screening diagnosis the woman is recalled for further imaging, and if that reveals cause for reasonable suspicion, then additional imaging is performed, perhaps augmented with a needle-biopsy to confirm actual disease status. If the biopsy turns out positive, only then is the woman referred for cancer therapy. Overall, accuracy is `r accuracy`. The numbers in this illustration are for expert radiologists. In practice there is wide variability in radiologist performance.
+If a woman has a negative diagnosis, chances are very small that she has breast cancer: the probability that the radiologist is incorrect in the negative diagnosis is $1 - \text{NPV}$ = `r (1 - NPV)`. Even is she has a positive diagnosis, the probability that she actually has cancer is still only $\text{PPV}$ = `r PPV`. That is why following a positive screening diagnosis the woman is recalled for further imaging, and if that reveals cause for reasonable suspicion, then additional imaging is performed, perhaps augmented with a needle-biopsy to confirm actual disease status. If the biopsy turns out positive, only then is the woman referred for cancer therapy. Overall, accuracy is $\text{Ac}$ = `r ac`. The numbers in this illustration are for expert radiologists. 
 
 
 ### PPV and NPV are irrelevant to laboratory tasks {#binary-taskNpvPpvIrrel2LabTasks}
 
-According to the hierarchy of assessment methods described in (book) Chapter 01, Table 1.1, PPV and NPV are level- 3 measurements, which are calculated from "live" interpretations (recall that the higher the level the greater the clinical relevance). In the clinic, the radiologist adjusts the operating point to achieve a balance between sensitivity and specificity. The balance depends critically on the known disease prevalence. Based on geographical location and type of practice, the radiologist over time develops an idea of actual disease prevalence, or it can be found in various databases. For example, a breast-imaging clinic that specializes in imaging high-risk women will have higher disease prevalence than the general population and the radiologist is expected to err more on the side of reduced specificity because of the expected benefit of increased sensitivity. However, in the context of a laboratory study, where one uses enriched case sets, the concepts of NPV and PPV are meaningless. For example, it would be rather difficult to perform a laboratory study with 10,000 randomly sampled women, which would ensure about 50 actually diseased patients, which is large enough to get a reasonably precise estimate of sensitivity (estimating specificity is inherently more precise because most women are actually non-diseased). Rather, in a laboratory study one uses enriched data sets where the numbers of diseased-cases is much larger than in the general population, Eqn. \@ref(eq:binary-taskDisPrevLabVsPop). The radiologist cannot interpret these cases pretending that the actual prevalence is very low. Negative and positive predictive values, while they can be calculated from laboratory data, have very little, if any, clinical meanings, since they have no effect on radiologist thinking. As noted in (book) Chapter 01 the purpose of level-3 measurements is to determine the effect on radiologist thinking. There are no diagnostic decisions riding on laboratory ROC interpretations of retrospectively acquired patient images. However, PPV and NPV do have clinical meanings when calculated from very large population based "live" studies. For example, the [@fenton2007influence] study sampled 684,956 women and used the results of "live" interpretations of their images. In contrast, laboratory ROC studies are typically conducted with 50-100 non-diseased and 50-100 diseased cases. A study using about 300 cases total would be considered a "large" ROC study.
+According to the hierarchy of assessment methods described in (book) Chapter 01, TBA Table 1.1, $\text{PPV}$ and $\text{NPV}$ are level- 3 measurements. These are calculated from "live" interpretations as opposed to retrospectively calculated quantities like sensitivity and specificity. The radiologist adjusts the reporting threshold to achieve a balance between sensitivity and specificity. The balance depends critically on the expected disease prevalence. Based on geographical location and type of practice, the radiologist over time develops a feel for disease prevalence or it can be found in various databases. 
+
+For example, a breast-imaging clinic that specializes in imaging high-risk women will have higher disease prevalence than the general population and the radiologist is expected to err more on the side of reduced specificity because of the expected benefit from increased sensitivity. 
+
+In a laboratory study where one uses enriched case sets, the concepts of $\text{NPV}$ and $\text{PPV}$ are meaningless. For example, it would be impossible to perform a laboratory study with 10,000 randomly sampled women, which would ensure about 50 actually diseased patients, which is large enough to get a reasonably precise estimate of sensitivity (estimating specificity is inherently more precise because most women are actually non-diseased). Rather, in a laboratory study one uses enriched data sets where the numbers of diseased-cases is much larger than in the general population, Eqn. \@ref(eq:binary-task-dis-prev-lab-vs-pop). The radiologist cannot interpret enriched cases pretending that the actual prevalence is very low. Negative and positive predictive values while they can be calculated from laboratory data, have very little, if any, clinical meaning. No diagnostic decisions are riding on laboratory interpretations of retrospectively acquired patient images. In contrast $\text{PPV}$ and $\text{NPV}$ do have clinical meanings when calculated from large population based "live" studies. For example, the [@fenton2007influence] study sampled 684,956 women and used the results of "live" interpretations. Laboratory ROC studies are typically conducted with 50-100 non-diseased and 50-100 diseased cases. A study using about 300 cases total would be considered a "large" ROC study.
 
 
-## Summary{#binary-task-Summary}
+## Discussion{#binary-task-discussion}
 
-This chapter introduced the terms sensitivity (identical to TPF), specificity (the complement of FPF), disease prevalence, and positive and negative predictive values and accuracy. It is shown that, due to its strong dependence on disease prevalence, accuracy is a relatively poor measure of performance. Radiologists generally have a good, almost visceral, understanding of positive and negative predictive values, as these terms are relevant in the clinical context, being in effect, their "batting averages". A caveat on the use of PPV and NPV calculated from laboratory studies is noted; these quantities only make sense in the context of "live" clinical interpretations.
+This chapter introduced the terms sensitivity, specificity, disease prevalence, positive and negative predictive values and accuracy. Due to its strong dependence on disease prevalence, accuracy is a relatively poor measure of performance. Radiologists generally have a good understanding of positive and negative predictive values, as these terms are relevant in the clinical context, being in effect their "batting averages". They do not care as much for sensitivity and specificity. A caveat on the use of $\text{PPV}$ and $\text{NPV}$ calculated from laboratory studies is noted.
 
-## Discussion{#binary-task-Discussion}
 ## Chapter References {#binary-task-references}
 
