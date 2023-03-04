@@ -13,7 +13,7 @@ library(kableExtra)
 
 ## How much finished {#binary-task-model-how-much-finished}
 
-85%
+95%
 
 
 
@@ -416,7 +416,7 @@ Fig. \@ref(fig:binary-task-model-shaded-plots) shows the equal-variance binormal
 See Appendix \@ref(binary-task-model-demo) for a demonstration of the concepts of sensitivity and specificity using `R`.
 
 
-## Inverse variation of sensitivity and specificity and the need for a single FOM {#binary-task-model-sensitivity-specificity-inverse-variation}
+## Inverse variation of sensitivity and specificity {#binary-task-model-sensitivity-specificity-inverse-variation}
 
 The variation of sensitivity and specificity is modeled in the binormal model by the threshold parameter $\zeta$. From Eqn. \@ref(eq:binary-task-model-specificity) specificity at threshold $\zeta$ is $\text{Sp} = \Phi(\zeta)$ and sensitivity is $\text{Se} = \Phi(\mu-\zeta)$. Since the threshold  $\zeta$ appears with different signs the dependence of sensitivity on $\zeta$ will be the opposite of that of specificity. In Fig. \@ref(fig:binary-task-model-shaded-plots), the left edge of the blue shaded region represents the threshold $\zeta = 1$. As $\zeta = 1$ is moved towards the left, specificity decreases but sensitivity increases. Specificity decreases because less of the non-diseased distribution lies to the left of the lowered threshold, in other words fewer non-diseased cases are correctly diagnosed as non-diseased. Sensitivity increases because more of the diseased distribution lies to the right of the lowered threshold, in other words more diseased cases are correctly diagnosed as diseased. 
 
@@ -625,7 +625,7 @@ For electrical signals, SNR can be measured with instruments but, in the context
 > To this day I find it remarkable that an objective SNR-like quantity can be teased out of subjective observer decisions.
 
 
-## Assigning confidence intervals to an operating point {#binary-task-model-confidence-intervals}
+## Confidence intervals for an operating point {#binary-task-model-confidence-intervals}
 
 * A $(1-\alpha)$  confidence interval (CI) of a statistic is the range that is expected to contain the true value with probability $(1-\alpha)$.
 
@@ -782,9 +782,11 @@ cat("Exact 95 percent CI for Sensitivity = ",
 Note that the approximate confidence intervals can stray outside the allowed range but the exact confidence intervals do not. 
 
 
-## Variability in sensitivity and specificity: the Beam et al study {#binary-task-model-beam-study}
+## Variability: the Beam study {#binary-task-model-beam-study}
 
-In this study [@RN1087] fifty accredited mammography centers were randomly sampled in the United States. “Accredited” is a legal/regulatory term implying, among other things, that the radiologists interpreting the breast cases were “board certified” by the American Board of Radiology. One hundred eight (108) certified radiologists from these centers gave blinded interpretation to a common set of 79 randomly selected enriched screening cases containing 45 cases with cancer and the rest normal or with benign lesions. Ground truth for these women had been established either by biopsy or by 2-year follow-up (establishing truth is often the most time consuming part of conducting an ROC study). The observed range of sensitivity (TPF) was 53 percent and the range of FPF was 63 percent; the corresponding range for the AUC was 21 percent, Table \@ref(tab:binary-task-model-table-beam-study). Empirical AUC was estimated using a 5-point BIRADS ratings of the images (the zero category was not allowed). Explanation of empirical AUC is deferred to Chapter \@ref(empirical-auc).  
+In this study [@RN1087] fifty accredited mammography centers were randomly sampled in the United States. “Accredited” is a legal/regulatory term implying, among other things, that the radiologists interpreting the breast cases were “board certified” by the American Board of Radiology. One hundred eight (108) certified radiologists from these centers gave blinded interpretation to a common set of 79 randomly sampled (stratified sampling) enriched screening cases containing 45 cases with cancer and the rest with benign lesions. Ground truth for these women had been established either by biopsy or by 2-year follow-up. 
+
+The observed range of sensitivity (TPF) was 53 percent and the range of FPF was 63 percent; the corresponding range for the AUC was 21 percent, Table \@ref(tab:binary-task-model-table-beam-study). Empirical AUC was estimated using a 5-point BIRADS ratings of the images (the zero category was not allowed). Explanation of empirical AUC is deferred to Chapter \@ref(empirical-auc).  
 
 
 ```{r, echo=FALSE}
@@ -803,12 +805,14 @@ colnames(df) <- c("Min","Max","Range")
 kable(df, caption = "The variability of 108 radiologists on a common dataset of screening mammograms. Note the reduced variability when one uses AUC which accounts for variations in reporting thresholds (AUC variability range is 21 percent compared to 53 percent for sensitivity and 63 percent for specificity).", escape = FALSE)
 ```
 
-```{r beam-study-fig, echo=FALSE, out.width ="80%", fig.cap="Schematic patterned from the Beam et al study showing the ROC operating points of 108 mammographers. Wide variability in sensitivity and specificity are evident while AUC is relatively less variable. See text below.", fig.show='hold'}
+
+
+```{r beam-study-fig, echo=FALSE, out.width ="80%", fig.cap="Schematic patterned from the Beam et al study showing the ROC operating points of 108 mammographers. Wide variability in sensitivity and specificity are evident while AUC is less variable. See text below.", fig.show='hold'}
 knitr::include_graphics("images/BeamStudy.png")
 ``` 
 
 
-In Fig. \@ref(fig:beam-study-fig), a schematic of the data, if one looks at the points labeled (B) and (C) one can mentally construct a smooth ROC curve that starts at (0,0), passes roughly through these points and ends at (1,1). In this sense, the intrinsic performances (i.e., AUCs or equivalently the $\mu$ parameters) of radiologists B and C are similar. The only difference between them is that radiologist B is using lower threshold than radiologist C. Radiologist C is more concerned with minimizing FPs while radiologist B is more concerned with maximizing sensitivity. By appropriate feedback radiologist C can perhaps be induced to change the threshold to that of radiologist B. An example of feedback might be: “you are missing too many cancers and this could get us all into trouble; worry less about reduced specificity and more about increasing your sensitivity”. 
+In Fig. \@ref(fig:beam-study-fig) if one looks at the points labeled (B) and (C) one can mentally construct a smooth ROC curve that starts at (0,0), passes roughly through these points and ends at (1,1). In this sense, the intrinsic performances (i.e., AUCs or equivalently the $\mu$ parameters) of radiologists B and C are similar. The only difference between them is that radiologist B is using lower threshold than radiologist C. Radiologist C is more concerned with minimizing FPs while radiologist B is more concerned with maximizing sensitivity. By appropriate feedback radiologist C can perhaps be induced to change the threshold to that of radiologist B. An example of feedback might be: “you are missing too many cancers and this could get us all into trouble; worry less about reduced specificity and more about increasing your sensitivity”. 
 
 In contrast, radiologist A has intrinsically superior performance to B or C. No change in threshold is going to get the other two to a similar level of performance as radiologist A. Extensive training will be needed to bring the under-performing radiologists to the expert level of radiologist A. 
 
