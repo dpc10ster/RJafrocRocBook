@@ -68,7 +68,7 @@ O\left ( \zeta \right ) = \left ( FPF\left ( \zeta \right ), TPF\left ( \zeta \r
 (\#eq:empirical-OperatingPoint)
 \end{equation}
 
-The essential difference between Eqn. \@ref(eq:empirical-auc-op-pt) and Eqn. \@ref(eq:binary-task-model-op-pt) is that the former is non-parametric while the latter is parametric. In TBA Chapter 03 analytical (or parametric, i.e., model parameter dependent) operating points were obtained. In contrast, here one uses the observed ratings to calculate the empirical operating point. 
+The essential difference between Eqn. \@ref(eq:empirical-auc-op-pt) and Eqn. \@ref(eq:binary-task-model-fpf-tpf) is that the former is non-parametric while the latter is parametric. In TBA Chapter 03 analytical (or parametric, i.e., model parameter dependent) operating points were obtained. In contrast, here one uses the observed ratings to calculate the empirical operating point. 
 
 ## Empirical operating points from ratings data {#empirical-auc-operating-points}
 
