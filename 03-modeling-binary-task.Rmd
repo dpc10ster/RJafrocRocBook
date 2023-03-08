@@ -11,10 +11,7 @@ library(kableExtra)
 
 
 
-## How much finished {#binary-task-model-how-much-finished}
-
-95%
-
+## How much finished 95% {#binary-task-model-how-much-finished}
 
 
 ## Introduction {#binary-task-model-intro}
@@ -784,7 +781,7 @@ Note that the approximate confidence intervals can stray outside the allowed ran
 
 ## Variability: the Beam study {#binary-task-model-beam-study}
 
-In this study [@RN1087] fifty accredited mammography centers were randomly sampled in the United States. “Accredited” is a legal/regulatory term implying, among other things, that the radiologists interpreting the breast cases were “board certified” by the American Board of Radiology. One hundred eight (108) certified radiologists from these centers gave blinded interpretation to a common set of 79 randomly sampled (stratified sampling) enriched screening cases containing 45 cases with cancer and the rest with benign lesions. Ground truth for these women had been established either by biopsy or by 2-year follow-up. 
+In this study [@beam1996variability] fifty accredited mammography centers were randomly sampled in the United States. “Accredited” is a legal/regulatory term implying, among other things, that the radiologists interpreting the breast cases were “board certified” by the American Board of Radiology. One hundred eight (108) certified radiologists from these centers gave blinded interpretation to a common set of 79 randomly sampled (stratified sampling) enriched screening cases containing 45 cases with cancer and the rest with benign lesions. Ground truth for these women had been established either by biopsy or by 2-year follow-up. 
 
 The observed range of sensitivity (TPF) was 53 percent and the range of FPF was 63 percent; the corresponding range for the AUC was 21 percent, Table \@ref(tab:binary-task-model-table-beam-study). Empirical AUC was estimated using a 5-point BIRADS ratings of the images (the zero category was not allowed). Explanation of empirical AUC is deferred to Chapter \@ref(empirical-auc).  
 
