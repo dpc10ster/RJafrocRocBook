@@ -709,7 +709,7 @@ In Eqn. \@ref(eq:EstimateSigmaJackknife), the expression for the jackknife covar
 
 This factor multiplies the traditional expression for the covariance, shown in square brackets in Eqn. \@ref(eq:EstimateSigmaJackknife). It is only needed for the jackknife estimate. The bootstrap and the DeLong estimate, see next, do not require this factor.
 
-A third method of estimating the covariance [@RN112], only applicable to the empirical AUC, is not discussed here; however, it is implemented in the software.
+A third method of estimating the covariance [@delong1988comparing], only applicable to the empirical AUC, is not discussed here; however, it is implemented in the software.
 
 ### Meaning of the covariance matrix {#or-method-intro-elementary-stats-meaning-cov-matrix}
 

@@ -35,7 +35,7 @@ plotROC <- function (mu, sigma, FPF, TPF)
 
 
 
-## How much finished 80% {#ratings-paradigm-how-much-finished}
+## How much finished 90% {#ratings-paradigm-how-much-finished}
 
 
 ## Introduction {#ratings-paradigm-introduction}
@@ -201,7 +201,7 @@ p$layout$clip[p$layout$name=="panel"] <- "off"
 
 
 
-```{r ratings-paradigm-labeling-points-figure, fig.cap="Operating point labeling convention", fig.show='hold'}
+```{r ratings-paradigm-labeling-points-figure, fig.cap="Operating point labeling convention and the empirical ROC plot.", fig.show='hold', echo=FALSE}
 grid::grid.draw(p)
 ```
 
@@ -210,7 +210,7 @@ grid::grid.draw(p)
 The labeling $O_n$ of the points follows the following convention, Fig. \@ref(fig:ratings-paradigm-labeling-points-figure): from Eqn. \@ref(eq:ratings-paradigm-FPF-TPF-from-counts) the point $O_1$ corresponding to $r=1$ would be the upper right corner (1,1) of the ROC plot, a trivial operating point since it is common to all datasets and is therefore not shown. The labeling starts with the next lower-left point, labeled $O_2$, which corresponds to $r=2$; the next lower-left point is labeled $O_3$, corresponding to $r=3$, etc., and the point labeled $O_5$ is the lowest non-trivial operating point corresponding to $r=5$ and finally $O_{R+1}$ corresponding to $r=R+1=6$ is the origin (0,0) of the ROC plot which is also a trivial operating point because it is common to all datasets and is therefore not shown. 
 
 
->To summarize, the operating points are labeled starting with the upper right corner, labeled $O_2$, and working down the curve each time increasing the number by one. The total number of non-trivial points is $R-1=4$. 
+>To summarize, the operating points are labeled starting with the upper right corner, labeled $O_2$, and working down the curve each time increasing the subscript by one. The maximum number of non-trivial points is $R-1$. 
 
  
 ### Examples {#ratings-task-examples}
@@ -273,7 +273,7 @@ Since bin $r'$ is unpopulated, one can re-label the bins to exclude the unpopula
 Since one is cumulating counts, which cannot be negative, the highest non-trivial operating point resulting from cumulating the 2 through 5 ratings has to be to the upper-right of the next adjacent operating point resulting from cumulating the 3 through 5 ratings. This in turn has to be to the upper-right of the operating point resulting from cumulating the 4 through 5 ratings and finally this has to be to the upper right of the operating point resulting from the 5 ratings. In other words, as one cumulates ratings bins, the operating point must move monotonically up and to the right, or more accurately, the point cannot move down or to the left. If a particular bin has zero counts for non-diseased cases, and non-zero counts for diseased cases, the operating point moves vertically up when this bin is cumulated; if it has zero counts for diseased cases, and non-zero counts for non-diseased cases, the operating point moves horizontally to the right when this bin is cumulated.
 
 
-## Coding this {#ratings-task-code}
+## Implemention in code {#ratings-task-code}
 
 It is useful to replace the preceding detailed explanation with a simple algorithm, as in the following code (lines 1 - 5): 
 
@@ -294,7 +294,7 @@ cat("corresponding estimate of Az_ev = ", Az_ev, "\n")
 
 Notice that the values of the arrays `FPF` and `TPF` are identical to those listed in Table \@ref(tab:ratings-paradigm-table-2). Regarding lines 10 and 11 of code it was shown in Chapter \@ref(binary-task) that in the equal variance binormal model the operating point determines the parameters $\mu_{ev}$ = `r mu_ev`, Eqn. \@ref(eq:binary-task-model-solve-mu), or equivalently $A_{z;\sigma = 1}$ = `r Az_ev`, Eqn. \@ref(eq:binary-task-model-az-var). These lines illustrate the application of these formulae using the coordinates (0.5, 0.9) of the uppermost non-trivial operating point, i.e., one is fitting the equal variance model to the uppermost operating point.
 
-Shown next is the equal-variance model fit to the uppermost non-trivial operating point, left plot, and for comparison, the right plot is the unequal variance model fit to all operating points (the unequal variance model is described in the next chapter).
+Shown next is the equal-variance model fit to the uppermost non-trivial operating point, left panel, and for comparison, the right panel is the unequal variance model fit to all operating points (the unequal variance model is described in the next chapter).
 
 ```{r}
 # equal variance fit to uppermost operating point
@@ -310,12 +310,12 @@ p2 <- plotROC (mu, sigma, FPF, TPF)
 ```
 
 
-```{r ratings-paradigm-eq-var-fit-a, fig.cap="(A): The left figure is the predicted ROC curve for $\\mu=1.28$ superposed on the operating points. (B): The right figure is the same data fitted with a unequal variance model described in the next chapter.", fig.show='hold'}
+```{r ratings-paradigm-eq-var-fit, fig.cap="A: This panel is the predicted ROC curve for $\\mu=1.28$ superposed on the operating points. B: This panel is the same data fitted with a unequal variance model described in a following chapter.", fig.show='hold'}
 grid.arrange(p1,p2,ncol=2)
 ```
 
 
-It should come as no surprise that the uppermost operating point in plot A is *exactly* on the predicted curve: after all, this point was used to calculate $\mu_{ev}$ = `r mu_ev`. The corresponding value of $\zeta$ can be calculated from Eqn. \@ref(eq:binary-task-model-se-sp), namely:
+It should come as no surprise that the uppermost operating point in panel A is *exactly* on the predicted curve: after all, this point was used to calculate $\mu_{ev}$ = `r mu_ev`. The corresponding value of $\zeta$ can be calculated from Eqn. \@ref(eq:binary-task-model-se-sp), namely:
 
 \begin{equation*} 
 \zeta = \Phi^{-1}\left ( Sp \right )
@@ -341,9 +341,9 @@ Either way, one gets the same result: $\zeta$ = 0. This should make sense as FPF
 
 Exercise: calculate $\zeta$ for each of the remaining operating points. Notice that $\zeta$ increases as one moves down the curve.
 
-* In Fig. \@ref(fig:ratings-paradigm-eq-var-fit-a) (A), the ROC curve, as determined by the uppermost operating point, passes exactly through this point but misses the others. If a different operating point were used to estimate $\mu_{ev}$ and $A_{z;\sigma = 1}$ the values would have been different and the new curve would pass exactly through the new selected point. No single-point based choice of $\mu{ev}$ would yield a satisfactory visual fit to all the observed operating points. This is the reason one needs a modified model, namely the unequal variance binormal model, to fit radiologist data. 
+* In Fig. \@ref(fig:ratings-paradigm-eq-var-fit) panel A show that the ROC curve, as determined by the uppermost operating point, passes exactly through this point but misses the others. If a different operating point were used to estimate $\mu_{ev}$ and $A_{z;\sigma = 1}$ the values would have been different and the new curve would pass exactly through the new selected point. No single-point based choice of $\mu{ev}$ would yield a satisfactory visual fit to all the observed operating points. This is the reason one needs a modified model, namely the unequal variance binormal model, to fit radiologist data. 
 
-* Fig. \@ref(fig:ratings-paradigm-eq-var-fit-a) (B) shows the predicted ROC curve by the unequal variance binormal model, to be introduced in the next chapter. The corresponding parameter values are $\mu$ = `r mu` and $\sigma$ = `r sigma`. 
+* Fig. \@ref(fig:ratings-paradigm-eq-var-fit) panel B shows the predicted ROC curve by the unequal variance binormal model, to be introduced in a following chapter. The corresponding parameter values are $\mu$ = `r mu` and $\sigma$ = `r sigma`. 
 
 * Notice the improved visual quality of the fit, especially if one keeps in mind that each observed point is subject to sampling variability, see Eqn. \@ref(eq:binary-task-model-ci-fpf) and Eqn. \@ref(eq:binary-task-model-ci-tpf). ^[The estimates in the preceding chapter were for a single operating point. Since the multiple operating points discussed here are correlated –- some of the counts used to calculate them are common to two or more operating points –- the method described in the previous chapter overestimates the confidence intervals. A modeling approach accounts for these correlations and yields narrower confidence intervals.]
 
@@ -466,7 +466,7 @@ Fig. \@ref(fig:2AFC): Example of image presentation in a 2AFC study. The left im
 
 * DPC comment: In the medical imaging context, a trivial way to increase the number of ratings would be to color-code the images: e.g., red, green and blue; now one can assign a red image rated 3, a green image rated 2, etc., which would be meaningless unless the colors encode relevant diagnostic information. Another ability, quoted in the publication [@wagner2001continuous] advocating continuous ratings is the ability to recognize faces, again a multidimensional categorization task, addressed by Miller (see above). Also quoted as an argument for continuous ratings is the ability of computer aided detection schemes that calculate many features for each perceived lesion and combine them into a single probability of malignancy, which is on a highly precise floating point 0 to 1 scale. Radiologists are not computers. Other arguments for greater number of bins: it cannot hurt and one should acquire the rating data at greater precision than the noise, especially if the radiologist is able to maintain the finer distinctions. I worry that radiologists who are willing to go along with greater precision are over-anxious to co-operate with the study designer. Expert radiologists will not modify their reading style and one should be suspicious when they do accede to an investigators request to interpret images in a style that does not resemble the clinic. Radiologists, especially experts, do not like more than about four ratings. I once worked closely with a famous chest radiologist (the late Dr. Robert Fraser) who refused to use more than four ratings. ^[Dr. Fraser famously termed -- off the record -- our statistical analysis in [@Chakraborty1986DigitalVsConv] "gobbledygook".] 
 
-* Another reason given for using continuous ratings is it reduces instances of data degeneracy. Data is sometimes said to be degenerate if the curve-fitting algorithm cannot fit it (in simple terms, the program "crashes" or reports unphysical parameter values). This occurs if there are no interior points on the ROC plot. Modifying radiologist behavior to accommodate the limitations of analytical methods seems to be inherently dubious. One could simply randomly add or subtract half an integer from the observed ratings thereby making the rating scale more granular and thus reduce instances of degeneracy (this is actually done in some ROC software to overcome this problem). Another possibility is to use the empirical (trapezoidal) area under the ROC curve, which can always be calculated. Actually, fitting methods now exist that are robust to data degeneracy, such as discussed in Chapter \@ref(proper-roc-models) and in the RSM fitting chapter in TBA `RJafrocFrocBook`, so this reason for acquiring continuous data is no longer valid.
+* Another reason given for using continuous ratings is it reduces instances of data degeneracy. Data is sometimes said to be degenerate if the curve-fitting algorithm cannot fit it (in simple terms, the program "crashes" or reports unphysical parameter values). This occurs if there are no interior points on the ROC plot. Modifying radiologist behavior to accommodate the limitations of analytical methods seems to be inherently dubious. One could simply randomly add or subtract half an integer from the observed ratings thereby making the rating scale more granular and thus reduce instances of degeneracy (this is actually done in some ROC software to overcome this problem). Another possibility is to use the empirical (trapezoidal) area under the ROC curve, which can always be calculated. Actually, fitting methods now exist that are robust to data degeneracy, such as discussed in Chapter `TempComment \@ref(proper-roc-models)` and in the RSM fitting chapter in TBA `RJafrocFrocBook`, so this reason for acquiring continuous data is no longer valid.
 
 * The rating task involves a unidimensional scale and I see no way of getting around the basic channel-limitation noted by Miller and for this reason I recommend a 6 point scale, as in Fig. \@ref(fig:SixPointScale).
 
@@ -555,7 +555,7 @@ The problem with “where to put the 0s” arises only when one tries to analyze
 
 > Moreover, the last column of Table \@ref(tab:BIRADS-study) suggests that any other ordering would violate an important principle, namely, optimal ordering is achieved when each case is rated according to it's likelihood ratio (defined as the probability of the case being diseased divided by the probability of the case being non-diseased). The likelihood ratio is the "betting odds" of the case being diseased, which is expected to be monotonic with the empirical probability of the case being diseased, i.e., the last column of Table \@ref(tab:BIRADS-study). Therefore, the ordering adopted in Table \@ref(tab:BIRADS-study) is equivalent to adopting a likelihood ratio scale and any other ordering would not be monotonic with likelihood ratio.
 
-The likelihood ratio is described in more detail in Chapter \@ref(proper-roc-models), which describes ROC fitting methods that yield "proper" ROC curves, i.e., ones that have monotonically decreasing slope as the operating point moves up the curve from (0,0) to (1,1) and therefore do not inappropriately cross the chance diagonal. Key to these fitting methods is adoption of a likelihood ratio scale to rank-order cases. The fitting algorithm implemented in PROPROC software **reorders** confidence levels assumed by the binormal model, Chapter \@ref(proper-roc-models), paragraph following TBA Fig. 20.4. This is analogous to the reordering of the clinical ratings based on cancer rates assumed in Table \@ref(tab:BIRADS-study). It is illogical to allow reordering of ratings in software but question the same when done in a principled way by a researcher. As expected, the modeled ROC curves in the Barlow publication, their Fig. 4, show no evidence of improper behavior. This is in contrast to a clinical study (about fifty thousands patients spread over 33 hospitals with each mammogram interpreted by two radiologists) using a non-BIRADS 7-point rating scale which yielded markedly improper ROC curves [@pisano2005diagnostic] for the film modality when using ROC ratings (not BIRADS). This suggests that use of a non-clinical ratings scale for clinical studies, without independent confirmation of the ordering implied by the scale, is problematical.
+The likelihood ratio is described in more detail in Chapter `TempComment \@ref(proper-roc-models)`, which describes ROC fitting methods that yield "proper" ROC curves, i.e., ones that have monotonically decreasing slope as the operating point moves up the curve from (0,0) to (1,1) and therefore do not inappropriately cross the chance diagonal. Key to these fitting methods is adoption of a likelihood ratio scale to rank-order cases. The fitting algorithm implemented in PROPROC software **reorders** confidence levels assumed by the binormal model, Chapter `TempComment \@ref(proper-roc-models)`, paragraph following TBA Fig. 20.4. This is analogous to the reordering of the clinical ratings based on cancer rates assumed in Table \@ref(tab:BIRADS-study). It is illogical to allow reordering of ratings in software but question the same when done in a principled way by a researcher. As expected, the modeled ROC curves in the Barlow publication, their Fig. 4, show no evidence of improper behavior. This is in contrast to a clinical study (about fifty thousands patients spread over 33 hospitals with each mammogram interpreted by two radiologists) using a non-BIRADS 7-point rating scale which yielded markedly improper ROC curves [@pisano2005diagnostic] for the film modality when using ROC ratings (not BIRADS). This suggests that use of a non-clinical ratings scale for clinical studies, without independent confirmation of the ordering implied by the scale, is problematical.
 
 The reader might be interested as to reason for the 0-ratings being more predictive of cancer than a 3+ rating, Table \@ref(tab:BIRADS-study). In the clinic the zero rating implies, in effect, "defer decision, incomplete information, additional imaging necessary". A zero rating could be due to technical problems with the images: e.g., improper positioning (e.g., missing breast tissue close to the chest wall) or incorrect imaging technique (improper selection of kilovoltage and/or tube charge) making it impossible to properly interpret the images. Since the images are part of the permanent patient record, there are both healthcare and legal reasons why the images need to be optimal. Incorrect technical factors are expected to occur randomly and therefore not predictive of cancer. However, if there is a suspicious finding and the image quality is sub-optimal, the radiologist may be unable to commit to a decision, they may seek additional imaging, perhaps better compression or a slightly different view angle to resolve the ambiguity. Such zero ratings are expected with suspicious findings and are expected to be predictive of cancer.
 
