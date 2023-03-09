@@ -1,7 +1,7 @@
 --- 
 title: "The RJafroc Roc Book"
 author: "Dev P. Chakraborty, PhD"
-date: "2023-03-04"
+date: "2023-03-09"
 site: bookdown::bookdown_site
 output: bookdown::html_document
 documentclass: book
@@ -39,8 +39,18 @@ Dr. Xuetong Zhai
 
 Dr. Peter Phillips
 
-Online Latex Editor [at](https://latexeditor.lagrida.com/) 
+Online Latex Editor [at this site](https://latexeditor.lagrida.com/) 
 
 Dataset contributors
+
+
+
+## Temporary comments
+
+This is intended to allow successful builds when a needed file is not in the build. These are indicated by, for example:
+
+Chapter `TempComment \@ref(proper-roc-models)`
+
+Fix these on final release.
 
 

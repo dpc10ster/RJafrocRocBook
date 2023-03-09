@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Modeling the binary Task | The RJafroc Roc Book</title>
   <meta name="description" content="Artificial intelligence and observer performance book based on RJafroc." />
-  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Modeling the binary Task | The RJafroc Roc Book" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-03-04" />
+<meta name="date" content="2023-03-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -142,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#rationale-and-organization"><i class="fa fa-check"></i><b>0.1</b> Rationale and Organization</a></li>
 <li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#tba-acknowledgements"><i class="fa fa-check"></i><b>0.2</b> TBA Acknowledgements</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#temporary-comments"><i class="fa fa-check"></i><b>0.3</b> Temporary comments</a></li>
 </ul></li>
 <li class="part"><span><b>Overview</b></span></li>
 <li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> An overview of the field</a><ul>
@@ -190,7 +191,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.10" data-path="binary-task.html"><a href="binary-task.html#binary-task-references"><i class="fa fa-check"></i><b>2.10</b> Chapter References</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="binary-task-model.html"><a href="binary-task-model.html"><i class="fa fa-check"></i><b>3</b> Modeling the binary Task</a><ul>
-<li class="chapter" data-level="3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-how-much-finished"><i class="fa fa-check"></i><b>3.1</b> How much finished</a></li>
+<li class="chapter" data-level="3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-how-much-finished"><i class="fa fa-check"></i><b>3.1</b> How much finished 95%</a></li>
 <li class="chapter" data-level="3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-intro"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
 <li class="chapter" data-level="3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-z-sample-model"><i class="fa fa-check"></i><b>3.3</b> Decision variable and reporting threshold</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-decision-variable"><i class="fa fa-check"></i><b>3.3.1</b> Existence of a decision variable</a></li>
@@ -202,7 +203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-equal-variance-binormal-model"><i class="fa fa-check"></i><b>3.6</b> The equal-variance binormal model</a></li>
 <li class="chapter" data-level="3.7" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-normal-distribution"><i class="fa fa-check"></i><b>3.7</b> The normal distribution</a></li>
 <li class="chapter" data-level="3.8" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity"><i class="fa fa-check"></i><b>3.8</b> Analytic expressions for specificity and sensitivity</a></li>
-<li class="chapter" data-level="3.9" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity-inverse-variation"><i class="fa fa-check"></i><b>3.9</b> Inverse variation of sensitivity and specificity and the need for a single FOM</a></li>
+<li class="chapter" data-level="3.9" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity-inverse-variation"><i class="fa fa-check"></i><b>3.9</b> Inverse variation of sensitivity and specificity</a></li>
 <li class="chapter" data-level="3.10" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-roc-curve"><i class="fa fa-check"></i><b>3.10</b> The ROC curve</a><ul>
 <li class="chapter" data-level="3.10.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-chance-diagonal"><i class="fa fa-check"></i><b>3.10.1</b> The chance diagonal</a></li>
 <li class="chapter" data-level="3.10.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-guessing-observer"><i class="fa fa-check"></i><b>3.10.2</b> The guessing observer</a></li>
@@ -212,8 +213,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.10.6" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-comments"><i class="fa fa-check"></i><b>3.10.6</b> Comments</a></li>
 <li class="chapter" data-level="3.10.7" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-mu-parameter-intepretation"><i class="fa fa-check"></i><b>3.10.7</b> Physical interpretation of the mu-parameter</a></li>
 </ul></li>
-<li class="chapter" data-level="3.11" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-confidence-intervals"><i class="fa fa-check"></i><b>3.11</b> Assigning confidence intervals to an operating point</a></li>
-<li class="chapter" data-level="3.12" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-beam-study"><i class="fa fa-check"></i><b>3.12</b> Variability in sensitivity and specificity: the Beam et al study</a></li>
+<li class="chapter" data-level="3.11" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-confidence-intervals"><i class="fa fa-check"></i><b>3.11</b> Confidence intervals for an operating point</a></li>
+<li class="chapter" data-level="3.12" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-beam-study"><i class="fa fa-check"></i><b>3.12</b> Variability: the Beam study</a></li>
 <li class="chapter" data-level="3.13" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-discussion"><i class="fa fa-check"></i><b>3.13</b> Discussion</a></li>
 <li class="chapter" data-level="3.14" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-demo"><i class="fa fa-check"></i><b>3.14</b> Appendix I</a><ul>
 <li class="chapter" data-level="3.14.1" data-path="binary-task-model.html"><a href="binary-task-model.html#estimates-from-a-finite-sample"><i class="fa fa-check"></i><b>3.14.1</b> Estimates from a finite sample</a></li>
@@ -223,14 +224,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.15" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-references"><i class="fa fa-check"></i><b>3.15</b> Chapter References</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html"><i class="fa fa-check"></i><b>4</b> Ratings Paradigm</a><ul>
-<li class="chapter" data-level="4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-how-much-finished"><i class="fa fa-check"></i><b>4.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-how-much-finished"><i class="fa fa-check"></i><b>4.1</b> How much finished 90%</a></li>
 <li class="chapter" data-level="4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
 <li class="chapter" data-level="4.3" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-roc-counts-table"><i class="fa fa-check"></i><b>4.3</b> The ROC counts table</a></li>
 <li class="chapter" data-level="4.4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-operating-points-from-counts-table"><i class="fa fa-check"></i><b>4.4</b> Operating points from counts table</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#labeling-the-points"><i class="fa fa-check"></i><b>4.4.1</b> Labeling the points</a></li>
 <li class="chapter" data-level="4.4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-examples"><i class="fa fa-check"></i><b>4.4.2</b> Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-automating"><i class="fa fa-check"></i><b>4.5</b> Automating all this</a></li>
+<li class="chapter" data-level="4.5" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-code"><i class="fa fa-check"></i><b>4.5</b> Implemention in code</a></li>
 <li class="chapter" data-level="4.6" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-relation-binary-to-rating"><i class="fa fa-check"></i><b>4.6</b> Relation between ratings paradigm and the binary paradigm</a></li>
 <li class="chapter" data-level="4.7" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-ratings-not-numerical-values"><i class="fa fa-check"></i><b>4.7</b> Ratings are not numerical values</a></li>
 <li class="chapter" data-level="4.8" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-clinical-operating-point"><i class="fa fa-check"></i><b>4.8</b> A single “clinical” operating point from ratings data</a></li>
@@ -255,7 +256,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.7" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem"><i class="fa fa-check"></i><b>5.7</b> Bamber’s Equivalence theorem</a></li>
 <li class="chapter" data-level="5.8" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem-importance"><i class="fa fa-check"></i><b>5.8</b> Importance of Bamber’s theorem</a></li>
 <li class="chapter" data-level="5.9" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-discussion-summary"><i class="fa fa-check"></i><b>5.9</b> Discussion / Summary</a></li>
-<li class="chapter" data-level="5.10" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-appendix-details-bamber-theorem"><i class="fa fa-check"></i><b>5.10</b> Appendix 5.A: Details of Wilcoxon theorem</a><ul>
+<li class="chapter" data-level="5.10" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-details-bamber-theorem"><i class="fa fa-check"></i><b>5.10</b> Appendix: Details of Wilcoxon theorem</a><ul>
 <li class="chapter" data-level="5.10.1" data-path="empirical-auc.html"><a href="empirical-auc.html#upper-triangle"><i class="fa fa-check"></i><b>5.10.1</b> Upper triangle</a></li>
 <li class="chapter" data-level="5.10.2" data-path="empirical-auc.html"><a href="empirical-auc.html#lowest-trapezoid"><i class="fa fa-check"></i><b>5.10.2</b> Lowest trapezoid</a></li>
 </ul></li>
@@ -323,8 +324,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="binary-task-model" class="section level1 hasAnchor">
 <h1><span class="header-section-number">Chapter 3</span> Modeling the binary Task<a href="binary-task-model.html#binary-task-model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="binary-task-model-how-much-finished" class="section level2 hasAnchor">
-<h2><span class="header-section-number">3.1</span> How much finished<a href="binary-task-model.html#binary-task-model-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>85%</p>
+<h2><span class="header-section-number">3.1</span> How much finished 95%<a href="binary-task-model.html#binary-task-model-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
 <div id="binary-task-model-intro" class="section level2 hasAnchor">
 <h2><span class="header-section-number">3.2</span> Introduction<a href="binary-task-model.html#binary-task-model-intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -564,7 +564,7 @@ FIGURE 3.3: The equal-variance binormal model for <span class="math inline">\(\m
 <p>See Appendix <a href="binary-task-model.html#binary-task-model-demo">3.14</a> for a demonstration of the concepts of sensitivity and specificity using <code>R</code>.</p>
 </div>
 <div id="binary-task-model-sensitivity-specificity-inverse-variation" class="section level2 hasAnchor">
-<h2><span class="header-section-number">3.9</span> Inverse variation of sensitivity and specificity and the need for a single FOM<a href="binary-task-model.html#binary-task-model-sensitivity-specificity-inverse-variation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">3.9</span> Inverse variation of sensitivity and specificity<a href="binary-task-model.html#binary-task-model-sensitivity-specificity-inverse-variation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The variation of sensitivity and specificity is modeled in the binormal model by the threshold parameter <span class="math inline">\(\zeta\)</span>. From Eqn. <a href="binary-task-model.html#eq:binary-task-model-specificity">(3.12)</a> specificity at threshold <span class="math inline">\(\zeta\)</span> is <span class="math inline">\(\text{Sp} = \Phi(\zeta)\)</span> and sensitivity is <span class="math inline">\(\text{Se} = \Phi(\mu-\zeta)\)</span>. Since the threshold <span class="math inline">\(\zeta\)</span> appears with different signs the dependence of sensitivity on <span class="math inline">\(\zeta\)</span> will be the opposite of that of specificity. In Fig. <a href="binary-task-model.html#fig:binary-task-model-shaded-plots">3.3</a>, the left edge of the blue shaded region represents the threshold <span class="math inline">\(\zeta = 1\)</span>. As <span class="math inline">\(\zeta = 1\)</span> is moved towards the left, specificity decreases but sensitivity increases. Specificity decreases because less of the non-diseased distribution lies to the left of the lowered threshold, in other words fewer non-diseased cases are correctly diagnosed as non-diseased. Sensitivity increases because more of the diseased distribution lies to the right of the lowered threshold, in other words more diseased cases are correctly diagnosed as diseased.</p>
 <p>If Observer 1 has higher sensitivity than Observer 2 but lower specificity it is difficult to unambiguously compare them; it is not impossible <span class="citation">(Skaane et al. <a href="#ref-RN2637" role="doc-biblioref">2013</a>)</span>. The unambiguous comparison is difficult for the following reason: assuming the Observer 2 can be coaxed into adopting a lower threshold, thereby decreasing specificity to match that of Observer 1 then it is possible that the Observer 2’s sensitivity, formerly smaller, could (and here is the ambiguity because if might not happen) now be greater than that of Observer 1.</p>
 <p>A single figure of merit is desirable to the sensitivity - specificity analysis. It is possible to leverage the inverse variation of sensitivity and specificity by combing them into a single scalar measure, as was done with the <span class="math inline">\(\mu\)</span> parameter in the previous section, Eqn. <a href="binary-task-model.html#eq:binary-task-model-solve-mu">(3.17)</a>.</p>
@@ -705,7 +705,7 @@ FIGURE 3.5: ROC curve predicted by equal variance binormal model for <span class
 </div>
 </div>
 <div id="binary-task-model-confidence-intervals" class="section level2 hasAnchor">
-<h2><span class="header-section-number">3.11</span> Assigning confidence intervals to an operating point<a href="binary-task-model.html#binary-task-model-confidence-intervals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">3.11</span> Confidence intervals for an operating point<a href="binary-task-model.html#binary-task-model-confidence-intervals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>A <span class="math inline">\((1-\alpha)\)</span> confidence interval (CI) of a statistic is the range that is expected to contain the true value with probability <span class="math inline">\((1-\alpha)\)</span>.</p></li>
 <li><p>It should be clear that a 99 percent CI is wider than a 95 percent CI, and that a 90 percent CI is narrower; in general, the higher the confidence that the interval contains the true value, the wider the range of the CI.</p></li>
@@ -803,8 +803,9 @@ CI_{1-\alpha}^{\text{TPF}}=\left ( \widehat{\text{TPF}} - z_{\alpha/2} \sigma_{\
 <p>Note that the approximate confidence intervals can stray outside the allowed range but the exact confidence intervals do not.</p>
 </div>
 <div id="binary-task-model-beam-study" class="section level2 hasAnchor">
-<h2><span class="header-section-number">3.12</span> Variability in sensitivity and specificity: the Beam et al study<a href="binary-task-model.html#binary-task-model-beam-study" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this study <span class="citation">(Beam, Layde, and Sullivan <a href="#ref-RN1087" role="doc-biblioref">1996</a>)</span> fifty accredited mammography centers were randomly sampled in the United States. “Accredited” is a legal/regulatory term implying, among other things, that the radiologists interpreting the breast cases were “board certified” by the American Board of Radiology. One hundred eight (108) certified radiologists from these centers gave blinded interpretation to a common set of 79 randomly selected enriched screening cases containing 45 cases with cancer and the rest normal or with benign lesions. Ground truth for these women had been established either by biopsy or by 2-year follow-up (establishing truth is often the most time consuming part of conducting an ROC study). The observed range of sensitivity (TPF) was 53 percent and the range of FPF was 63 percent; the corresponding range for the AUC was 21 percent, Table <a href="binary-task-model.html#tab:binary-task-model-table-beam-study">3.1</a>. Empirical AUC was estimated using a 5-point BIRADS ratings of the images (the zero category was not allowed). Explanation of empirical AUC is deferred to Chapter <a href="empirical-auc.html#empirical-auc">5</a>.</p>
+<h2><span class="header-section-number">3.12</span> Variability: the Beam study<a href="binary-task-model.html#binary-task-model-beam-study" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this study <span class="citation">(Beam, Layde, and Sullivan <a href="#ref-beam1996variability" role="doc-biblioref">1996</a>)</span> fifty accredited mammography centers were randomly sampled in the United States. “Accredited” is a legal/regulatory term implying, among other things, that the radiologists interpreting the breast cases were “board certified” by the American Board of Radiology. One hundred eight (108) certified radiologists from these centers gave blinded interpretation to a common set of 79 randomly sampled (stratified sampling) enriched screening cases containing 45 cases with cancer and the rest with benign lesions. Ground truth for these women had been established either by biopsy or by 2-year follow-up.</p>
+<p>The observed range of sensitivity (TPF) was 53 percent and the range of FPF was 63 percent; the corresponding range for the AUC was 21 percent, Table <a href="binary-task-model.html#tab:binary-task-model-table-beam-study">3.1</a>. Empirical AUC was estimated using a 5-point BIRADS ratings of the images (the zero category was not allowed). Explanation of empirical AUC is deferred to Chapter <a href="empirical-auc.html#empirical-auc">5</a>.</p>
 <table>
 <caption>
 <span id="tab:binary-task-model-table-beam-study">TABLE 3.1: </span>The variability of 108 radiologists on a common dataset of screening mammograms. Note the reduced variability when one uses AUC which accounts for variations in reporting thresholds (AUC variability range is 21 percent compared to 53 percent for sensitivity and 63 percent for specificity).
@@ -870,12 +871,12 @@ AUC
 </tbody>
 </table>
 <div class="figure"><span style="display:block;" id="fig:beam-study-fig"></span>
-<img src="images/BeamStudy.png" alt="Schematic patterned from the Beam et al study showing the ROC operating points of 108 mammographers. Wide variability in sensitivity and specificity are evident while AUC is relatively less variable. See text below." width="80%" />
+<img src="images/BeamStudy.png" alt="Schematic patterned from the Beam et al study showing the ROC operating points of 108 mammographers. Wide variability in sensitivity and specificity are evident while AUC is less variable. See text below." width="80%" />
 <p class="caption">
-FIGURE 3.6: Schematic patterned from the Beam et al study showing the ROC operating points of 108 mammographers. Wide variability in sensitivity and specificity are evident while AUC is relatively less variable. See text below.
+FIGURE 3.6: Schematic patterned from the Beam et al study showing the ROC operating points of 108 mammographers. Wide variability in sensitivity and specificity are evident while AUC is less variable. See text below.
 </p>
 </div>
-<p>In Fig. <a href="binary-task-model.html#fig:beam-study-fig">3.6</a>, a schematic of the data, if one looks at the points labeled (B) and (C) one can mentally construct a smooth ROC curve that starts at (0,0), passes roughly through these points and ends at (1,1). In this sense, the intrinsic performances (i.e., AUCs or equivalently the <span class="math inline">\(\mu\)</span> parameters) of radiologists B and C are similar. The only difference between them is that radiologist B is using lower threshold than radiologist C. Radiologist C is more concerned with minimizing FPs while radiologist B is more concerned with maximizing sensitivity. By appropriate feedback radiologist C can perhaps be induced to change the threshold to that of radiologist B. An example of feedback might be: “you are missing too many cancers and this could get us all into trouble; worry less about reduced specificity and more about increasing your sensitivity”.</p>
+<p>In Fig. <a href="binary-task-model.html#fig:beam-study-fig">3.6</a> if one looks at the points labeled (B) and (C) one can mentally construct a smooth ROC curve that starts at (0,0), passes roughly through these points and ends at (1,1). In this sense, the intrinsic performances (i.e., AUCs or equivalently the <span class="math inline">\(\mu\)</span> parameters) of radiologists B and C are similar. The only difference between them is that radiologist B is using lower threshold than radiologist C. Radiologist C is more concerned with minimizing FPs while radiologist B is more concerned with maximizing sensitivity. By appropriate feedback radiologist C can perhaps be induced to change the threshold to that of radiologist B. An example of feedback might be: “you are missing too many cancers and this could get us all into trouble; worry less about reduced specificity and more about increasing your sensitivity”.</p>
 <p>In contrast, radiologist A has intrinsically superior performance to B or C. No change in threshold is going to get the other two to a similar level of performance as radiologist A. Extensive training will be needed to bring the under-performing radiologists to the expert level of radiologist A.</p>
 <p>Fig. <a href="binary-task-model.html#fig:beam-study-fig">3.6</a> and Table <a href="binary-task-model.html#tab:binary-task-model-table-beam-study">3.1</a> illustrate several important principles.</p>
 <ol style="list-style-type: decimal">
@@ -1171,8 +1172,8 @@ NA
 </div>
 <h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references">
-<div id="ref-RN1087">
-<p>Beam, C. A., Peter M. Layde, and Daniel C. Sullivan. 1996. “Variability in the Interpretation of Screening Mammograms by Us Radiologists. Findings from a National Sample.” Journal Article. <em>Archives of Internal Medicine</em> 156 (2): 209–13.</p>
+<div id="ref-beam1996variability">
+<p>Beam, Craig A, Peter M Layde, and Daniel C Sullivan. 1996. “Variability in the Interpretation of Screening Mammograms by Us Radiologists: Findings from a National Sample.” <em>Archives of Internal Medicine</em> 156 (2): 209–13.</p>
 </div>
 <div id="ref-egan1975book">
 <p>Egan, James P. 1975. <em>Signal Detection Theory and ROC Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.</p>

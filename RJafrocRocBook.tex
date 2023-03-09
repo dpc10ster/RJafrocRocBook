@@ -134,7 +134,7 @@
 
 \title{The RJafroc Roc Book}
 \author{Dev P. Chakraborty, PhD}
-\date{2023-03-04}
+\date{2023-03-09}
 
 \begin{document}
 \maketitle
@@ -183,9 +183,18 @@ Dr.~Xuetong Zhai
 
 Dr.~Peter Phillips
 
-Online Latex Editor \href{https://latexeditor.lagrida.com/}{at}
+Online Latex Editor \href{https://latexeditor.lagrida.com/}{at this site}
 
 Dataset contributors
+
+\hypertarget{temporary-comments}{%
+\section{Temporary comments}\label{temporary-comments}}
+
+This is intended to allow successful builds when a needed file is not in the build. These are indicated by, for example:
+
+Chapter \texttt{TempComment\ \textbackslash{}@ref(proper-roc-models)}
+
+Fix these on final release.
 
 \hypertarget{part-overview}{%
 \part*{Overview}\label{part-overview}}
@@ -863,9 +872,7 @@ This chapter introduced the terms sensitivity, specificity, disease prevalence, 
 \chapter{Modeling the binary Task}\label{binary-task-model}}
 
 \hypertarget{binary-task-model-how-much-finished}{%
-\section{How much finished}\label{binary-task-model-how-much-finished}}
-
-85\%
+\section{How much finished 95\%}\label{binary-task-model-how-much-finished}}
 
 \hypertarget{binary-task-model-intro}{%
 \section{Introduction}\label{binary-task-model-intro}}
@@ -1200,7 +1207,7 @@ Fig. \ref{fig:binary-task-model-shaded-plots} shows the equal-variance binormal 
 See Appendix \ref{binary-task-model-demo} for a demonstration of the concepts of sensitivity and specificity using \texttt{R}.
 
 \hypertarget{binary-task-model-sensitivity-specificity-inverse-variation}{%
-\section{Inverse variation of sensitivity and specificity and the need for a single FOM}\label{binary-task-model-sensitivity-specificity-inverse-variation}}
+\section{Inverse variation of sensitivity and specificity}\label{binary-task-model-sensitivity-specificity-inverse-variation}}
 
 The variation of sensitivity and specificity is modeled in the binormal model by the threshold parameter \(\zeta\). From Eqn. \eqref{eq:binary-task-model-specificity} specificity at threshold \(\zeta\) is \(\text{Sp} = \Phi(\zeta)\) and sensitivity is \(\text{Se} = \Phi(\mu-\zeta)\). Since the threshold \(\zeta\) appears with different signs the dependence of sensitivity on \(\zeta\) will be the opposite of that of specificity. In Fig. \ref{fig:binary-task-model-shaded-plots}, the left edge of the blue shaded region represents the threshold \(\zeta = 1\). As \(\zeta = 1\) is moved towards the left, specificity decreases but sensitivity increases. Specificity decreases because less of the non-diseased distribution lies to the left of the lowered threshold, in other words fewer non-diseased cases are correctly diagnosed as non-diseased. Sensitivity increases because more of the diseased distribution lies to the right of the lowered threshold, in other words more diseased cases are correctly diagnosed as diseased.
 
@@ -1393,7 +1400,7 @@ To this day I find it remarkable that an objective SNR-like quantity can be teas
 \end{quote}
 
 \hypertarget{binary-task-model-confidence-intervals}{%
-\section{Assigning confidence intervals to an operating point}\label{binary-task-model-confidence-intervals}}
+\section{Confidence intervals for an operating point}\label{binary-task-model-confidence-intervals}}
 
 \begin{itemize}
 \item
@@ -1528,9 +1535,11 @@ The confidence intervals are largest when the probabilities (FPF or TPF) are clo
 Note that the approximate confidence intervals can stray outside the allowed range but the exact confidence intervals do not.
 
 \hypertarget{binary-task-model-beam-study}{%
-\section{Variability in sensitivity and specificity: the Beam et al study}\label{binary-task-model-beam-study}}
+\section{Variability: the Beam study}\label{binary-task-model-beam-study}}
 
-In this study \citep{RN1087} fifty accredited mammography centers were randomly sampled in the United States. ``Accredited'' is a legal/regulatory term implying, among other things, that the radiologists interpreting the breast cases were ``board certified'' by the American Board of Radiology. One hundred eight (108) certified radiologists from these centers gave blinded interpretation to a common set of 79 randomly selected enriched screening cases containing 45 cases with cancer and the rest normal or with benign lesions. Ground truth for these women had been established either by biopsy or by 2-year follow-up (establishing truth is often the most time consuming part of conducting an ROC study). The observed range of sensitivity (TPF) was 53 percent and the range of FPF was 63 percent; the corresponding range for the AUC was 21 percent, Table \ref{tab:binary-task-model-table-beam-study}. Empirical AUC was estimated using a 5-point BIRADS ratings of the images (the zero category was not allowed). Explanation of empirical AUC is deferred to Chapter \ref{empirical-auc}.
+In this study \citep{beam1996variability} fifty accredited mammography centers were randomly sampled in the United States. ``Accredited'' is a legal/regulatory term implying, among other things, that the radiologists interpreting the breast cases were ``board certified'' by the American Board of Radiology. One hundred eight (108) certified radiologists from these centers gave blinded interpretation to a common set of 79 randomly sampled (stratified sampling) enriched screening cases containing 45 cases with cancer and the rest with benign lesions. Ground truth for these women had been established either by biopsy or by 2-year follow-up.
+
+The observed range of sensitivity (TPF) was 53 percent and the range of FPF was 63 percent; the corresponding range for the AUC was 21 percent, Table \ref{tab:binary-task-model-table-beam-study}. Empirical AUC was estimated using a 5-point BIRADS ratings of the images (the zero category was not allowed). Explanation of empirical AUC is deferred to Chapter \ref{empirical-auc}.
 
 \begin{table}
 
@@ -1550,10 +1559,10 @@ AUC & 0.74 & 0.95 & 0.21\\
 \end{table}
 
 \begin{figure}
-\includegraphics[width=0.8\linewidth]{images/BeamStudy} \caption{Schematic patterned from the Beam et al study showing the ROC operating points of 108 mammographers. Wide variability in sensitivity and specificity are evident while AUC is relatively less variable. See text below.}\label{fig:beam-study-fig}
+\includegraphics[width=0.8\linewidth]{images/BeamStudy} \caption{Schematic patterned from the Beam et al study showing the ROC operating points of 108 mammographers. Wide variability in sensitivity and specificity are evident while AUC is less variable. See text below.}\label{fig:beam-study-fig}
 \end{figure}
 
-In Fig. \ref{fig:beam-study-fig}, a schematic of the data, if one looks at the points labeled (B) and (C) one can mentally construct a smooth ROC curve that starts at (0,0), passes roughly through these points and ends at (1,1). In this sense, the intrinsic performances (i.e., AUCs or equivalently the \(\mu\) parameters) of radiologists B and C are similar. The only difference between them is that radiologist B is using lower threshold than radiologist C. Radiologist C is more concerned with minimizing FPs while radiologist B is more concerned with maximizing sensitivity. By appropriate feedback radiologist C can perhaps be induced to change the threshold to that of radiologist B. An example of feedback might be: ``you are missing too many cancers and this could get us all into trouble; worry less about reduced specificity and more about increasing your sensitivity''.
+In Fig. \ref{fig:beam-study-fig} if one looks at the points labeled (B) and (C) one can mentally construct a smooth ROC curve that starts at (0,0), passes roughly through these points and ends at (1,1). In this sense, the intrinsic performances (i.e., AUCs or equivalently the \(\mu\) parameters) of radiologists B and C are similar. The only difference between them is that radiologist B is using lower threshold than radiologist C. Radiologist C is more concerned with minimizing FPs while radiologist B is more concerned with maximizing sensitivity. By appropriate feedback radiologist C can perhaps be induced to change the threshold to that of radiologist B. An example of feedback might be: ``you are missing too many cancers and this could get us all into trouble; worry less about reduced specificity and more about increasing your sensitivity''.
 
 In contrast, radiologist A has intrinsically superior performance to B or C. No change in threshold is going to get the other two to a similar level of performance as radiologist A. Extensive training will be needed to bring the under-performing radiologists to the expert level of radiologist A.
 
@@ -1709,16 +1718,16 @@ One uses an area measure that combines sensitivity and specificity and hence yie
 \chapter{Ratings Paradigm}\label{ratings-paradigm}}
 
 \hypertarget{ratings-paradigm-how-much-finished}{%
-\section{TBA How much finished}\label{ratings-paradigm-how-much-finished}}
-
-80\%
+\section{How much finished 90\%}\label{ratings-paradigm-how-much-finished}}
 
 \hypertarget{ratings-paradigm-introduction}{%
 \section{Introduction}\label{ratings-paradigm-introduction}}
 
-In Chapter \ref{binary-task} the binary paradigm and associated concepts (e.g., sensitivity, specificity) were introduced. Chapter \ref{binary-task} introduced the concepts of a random scalar decision variable, or z-sample for each case, which is compared, by the observer to a fixed reporting threshold \(\zeta\), resulting in two types of decisions. It described a statistical model, characterized by two unit-variance normal distributions separated by \(\mu\), for the binary task. The concept of an underlying receiver operating characteristic (ROC) curve with the reporting threshold defining an operating point on the curve was introduced and the advisability of using the area under the curve as a measure of performance, which is independent of reporting threshold, was stressed.
+In Chapter \ref{binary-task} the binary paradigm and associated concepts, primarily sensitivity and specificity, were introduced. Chapter \ref{binary-task-model} introduced the concepts of a random scalar decision variable, or z-sample, for each case, which is compared by the observer to a fixed reporting threshold \(\zeta\), resulting in two types of decisions - true and false positives. It described a statistical model characterized by two unit-variance normal distributions separated by \(\mu\), for the binary task. The concept of an underlying receiver operating characteristic (ROC) curve with the reporting threshold defining an operating point on the curve was introduced and the advisability of using the area under the curve as a measure of performance which is independent of reporting threshold was stressed.
 
-In this chapter the more commonly used ratings method will be described, which yields greater definition to the underlying ROC curve than just one operating point obtained in the binary task, and moreover, is more efficient. In this method, the observer assigns a rating to each case. Described first is a typical ROC counts table and how operating points (i.e., pairs of FPF and TPF values) are calculated from the counts data. A labeling convention for the operating points is introduced. Notation is introduced for the observed integers in the counts table and the rules for calculating operating points are expressed as formulae and implemented in R. The ratings method is contrasted to the binary method, in terms of efficiency and practicality. A theme occurring repeatedly in this book, that the ratings are not numerical values but rather they are ordered labels is illustrated with an example. A method of collecting ROC data on a 6-point scale is described that has the advantage of yielding an unambiguous single operating point. The forced choice paradigm is described. Two controversies are described: one on the utility of discrete (e.g., 1 to 6) vs.~quasi-continuous (e.g., 0 to 100) ratings and the other on the applicability of a clinical screening mammography-reporting scale for ROC analyses. Both of these are important issues and it would be a disservice to the readers of the book if I did not express my position on them.
+In this chapter the more commonly used ratings method will be described which yields greater definition to the underlying ROC curve than just one operating point as obtained using the binary task, and moreover, it is more efficient.
+
+In this method the observer assigns a rating (i.e., an ordered label) to each case. Described first is a typical ROC counts table and how operating points (i.e., pairs of FPF and TPF values) are obtained from the counts data. A labeling convention for the operating points is introduced. Notation is introduced for the observed integers in the counts table and the formulae for calculating operating points are presented. The ratings method is contrasted to the binary method in terms of efficiency and practicality. A theme occurring repeatedly in this book, that the ratings are not numerical values but rather they are ordered labels is illustrated with an example. A method of collecting ROC data on a 6-point scale is described that has the advantage of also yielding an unambiguous single operating point. The forced choice paradigm is described. Two controversies are described: one on the utility of discrete (e.g., 1 to 6) vs.~quasi-continuous (e.g., 0 to 100) ratings and the other on the applicability of a clinical screening mammography-reporting scale for ROC analyses.
 
 \hypertarget{ratings-paradigm-roc-counts-table}{%
 \section{The ROC counts table}\label{ratings-paradigm-roc-counts-table}}
@@ -1739,9 +1748,9 @@ In a positive-directed rating scale with five discrete levels, the ratings could
   ``5'': definitely diseased.
 \end{itemize}
 
-At the conclusion of the ROC study an ROC counts table is constructed. This is the generalization to rating studies of the 2 x 2 decision vs.~truth table introduced in Chapter \ref{binary-task}, Table \ref{tab:binary-task-truth-table}. This type of data representation is sometimes called a frequency table, but frequency means a rate of number of events per some unit of time, so I prefer the clearer term ``counts''.
+At the conclusion of the ROC study an ROC \textbf{counts table} is constructed. This is the generalization to rating studies of the 2 x 2 table introduced in Table \ref{tab:binary-task-truth-table}. \footnote{This type of data representation is sometimes called a frequency table, but frequency means a rate of number of events per some unit of time, so I prefer the clearer term ``counts''.}
 
-Table \ref{tab:ratings-paradigm-example-table} is a representative counts table for a 5-rating study that summarizes the collected data. It is the starting point for analysis. It lists the number of counts in each ratings bin, listed separately for non-diseased and diseased cases, respectively. The data is from an actual clinical study \citep{RN4343}.
+Table \ref{tab:ratings-paradigm-example-table} is a representative counts table for a 5-rating study. It is the starting point for analysis. It lists the number of counts in each ratings bin, listed separately for non-diseased and diseased cases respectively. The data is from an actual clinical study \citep{barnes1989comparison}.
 
 \begin{table}
 
@@ -1758,26 +1767,16 @@ diseased & 22 & 12 & 5 & 6 & 5\\
 \end{tabular}
 \end{table}
 
-In this table:
-
-\begin{itemize}
-\tightlist
-\item
-  \(r = 5\) means ``rating equal to 5''
-\item
-  \(r = 4\) means ``rating equal to 4''
-\item
-  Etc.
-\end{itemize}
+In this table: \(r = 5\) means ``rating equal to 5'', \(r = 4\) means ``rating equal to 4'', etc.
 
 There are \(K_1 = 60\) non-diseased cases and \(K_2 = 50\) diseased cases. Of the 60 non-diseased cases:
 
 \begin{itemize}
 \tightlist
 \item
-  one received the ``5'' rating,
+  1 received the ``5'' rating,
 \item
-  two the ``4'' rating,
+  2 the ``4'' rating,
 \item
   eight the ``3'' rating,
 \item
@@ -1795,31 +1794,23 @@ The distribution of counts is tilted towards the ``1'' rating end. In contrast, 
 \item
   12 the ``4'' rating,
 \item
-  five the ``3'' rating,
+  5 the ``3'' rating,
 \item
-  six the ``2'' rating and
+  6 the ``2'' rating and
 \item
-  five the ``1'' rating.
+  5 the ``1'' rating.
 \end{itemize}
 
-A little thought should convince one that the observed tilting of the counts, towards the ``1'' end for actually non-diseased cases, and towards the ``5'' end for actually diseased cases, is reasonable.
+A little thought should convince the reader that the observed tilting of the counts is reasonable.
 
-The spread appears to be more pronounced for the diseased cases, e.g., five of the 50 cases appeared to be definitely non-diseased to the observer. However, one is forewarned not to jump to conclusions about the spread of the data being larger for diseased than for non-diseased cases based on observed rating alone. While it turns out to be true as will be shown later, the \textbf{ratings are merely ordered labels}, and modeling is required, see Chapter \ref{binormal-model}, that uses only the \emph{ordering information} implicit in the labels, not the \emph{actual values}, to reach quantitative conclusions.
+\begin{quote}
+The spread of the counts appears to be more pronounced for the diseased cases, e.g., five of the 50 cases appeared to be definitely non-diseased to the observer. However, one is forewarned not to jump to conclusions about the spread of the data being larger for diseased than for non-diseased cases based on observed rating alone. While it turns out to be true the ratings are ordered labels, and further modeling is required, see Chapter \ref{binormal-model}, that uses only the ordering information implicit in the labels, not the actual values, to reach quantitative conclusions about the spread of each distribution.
+\end{quote}
 
 \hypertarget{ratings-task-operating-points-from-counts-table}{%
 \section{Operating points from counts table}\label{ratings-task-operating-points-from-counts-table}}
 
-Table \ref{tab:ratings-paradigm-table-2} illustrates how ROC operating points are calculated from the cell counts. In this table:
-
-\begin{itemize}
-\tightlist
-\item
-  \(r\geq 5\) means ``counting ratings greater than or equal to 5''
-\item
-  \(r\geq 4\) means ``counting ratings greater than or equal to 4''
-\item
-  Etc.
-\end{itemize}
+Table \ref{tab:ratings-paradigm-table-2} illustrates how ROC operating points are calculated from the cell counts. In this table: \(r\geq 5\) means ``counting ratings greater than or equal to 5'', \(r\geq 4\) means ``counting ratings greater than or equal to 4'', etc.
 
 \begin{table}
 
@@ -1836,26 +1827,26 @@ TPF & 0.4400 & 0.68 & 0.7800 & 0.9 & 1\\
 \end{tabular}
 \end{table}
 
-One starts with non-diseased cases that were rated five or more (in this example, since 5 is the highest allowed rating, the ``or more'' clause is inconsequential) and divides by the total number of non-diseased cases, \(K_1 = 60\). This yields the abscissa of the lowest non-trivial operating point, namely \(FPF_{\ge5}\) = 1/60 = 0.017. The subscript on FPF is intended to make explicit which ratings are being cumulated. The corresponding ordinate is obtained by dividing the number of diseased cases rated ``5'' or more and dividing by the total number of diseased cases, \(K_2 = 50\), yielding \(TPF_{\ge5}\) = 22/50 = 0.440. Therefore, the coordinates of the lowest operating point are (0.017, 0.44). The abscissa of the next higher operating point is obtained by dividing the number of non-diseased cases that were rated ``4'' or more and dividing by the total number of non-diseased cases, i.e., \(TPF_{\ge4}\) = 3/60 = 0.05. Similarly the ordinate of this operating point is obtained by dividing the number of diseased cases that were rated ``4'' or more and dividing by the total number of diseased cases, i.e., \(FPF_{\ge4}\) = 34/50 = 0.680. The procedure, which at each stage cumulates the number of cases equal to or greater (in the sense of increased confidence level for disease presence) than a specified ordered label, is repeated to yield the rest of the operating points listed in Table \ref{tab:ratings-paradigm-table-2}. Since they are computed directly from the data, without any assumption, they are called empirical or observed operating points.
+One starts with non-diseased cases that were rated five or more (in this example, since 5 is the highest allowed rating, the ``or more'' clause is inconsequential) and divides by the total number of non-diseased cases, \(K_1 = 60\). This yields the abscissa of the lowest non-trivial operating point, namely \(\text{FPF}_{\ge5}\) = 1/60 = 0.017. The subscript on FPF is intended to make explicit which ratings are being cumulated. The corresponding ordinate is obtained by dividing the number of diseased cases rated ``5'' or more and dividing by the total number of diseased cases, \(K_2 = 50\), yielding \(\text{TPF}_{\ge5}\) = 22/50 = 0.440. Therefore, the coordinates of the lowest operating point are (0.017, 0.44). The abscissa of the next higher operating point is obtained by dividing the number of non-diseased cases that were rated ``4'' or more and dividing by the total number of non-diseased cases, i.e., \(\text{FPF}_{\ge4}\) = 3/60 = 0.05. Similarly the ordinate of this operating point is obtained by dividing the number of diseased cases that were rated ``4'' or more and dividing by the total number of diseased cases, i.e., \(\text{TPF}_{\ge4}\) = 34/50 = 0.680. The procedure, which at each stage cumulates the number of cases equal to or greater (in the sense of increased confidence level for disease presence) than a specified ordered label, is repeated to yield the rest of the operating points listed in Table \ref{tab:ratings-paradigm-table-2}. Since they are computed directly from the data without any assumptions they are called \textbf{empirical} operating points.
 
 After doing this once, it would be nice to have a formula implementing the process, one use of which would be to code the procedure. But first one needs appropriate notation for the bin counts.
 
-Let \(K_{1r}\) denote the number of non-diseased cases rated \(r\), and \(K_{2r}\) denote the number of diseased cases rated \(r\). For convenience, define dummy counts \(K_{1{(R+1)}}\) = \(K_{2{(R+1)}}\) = 0, where R is the number of ROC bins, \(R = 5\) in the current example. This construct allows inclusion of the origin (0,0) in the formulae. The range of \(r\) is \(r = 1,2,...,(R+1)\). Within each truth-state, the individual bin counts sum to the total number of non-diseased and diseased cases, respectively. The following equations summarize all this:
+Let \(K_{1;r}\) denote the number of non-diseased cases rated \(r\), and \(K_{2;r}\) the number of diseased cases rated \(r\). Define dummy counts \(K_{1;R+1}\) = \(K_{2;R+1}\) = 0, where R is the number of ROC bins (and \(R = 5\) in the current example). This allows inclusion of the origin (0,0) in the formulae. The new range of \(r\) is defined as \(r = 1,2,...,(R+1)\). Within each truth-state, non-diseased or diseased, the individual bin counts sum to the total number of non-diseased and diseased cases, respectively. The following equations summarize these statements:
 
 \begin{equation*} 
-K_1=\sum_{r=1}^{R+1}K_{1r}
+K_1=\sum_{r=1}^{R+1}K_{1;r}
 \end{equation*}
 
 \begin{equation*} 
-K_2=\sum_{r=1}^{R+1}K_{2r}
+K_2=\sum_{r=1}^{R+1}K_{2;r}
 \end{equation*}
 
 \begin{equation*} 
-K_{1{(R+1)}} = K_{2{(R+1)}} = 0
+K_{1;R+1} = K_{2;R+1} = 0
 \end{equation*}
 
 \begin{equation*} 
-r = 1,2,...,(R+1)
+r = 1,2,...,R+1
 \end{equation*}
 
 The operating points are defined by:
@@ -1863,8 +1854,8 @@ The operating points are defined by:
 \begin{equation}
 \left. 
 \begin{aligned}
-FPF_r=& \frac {1} {K_1} \sum_{s=r}^{R+1}K_{1s}\\
-TPF_r=& \frac {1} {K_2} \sum_{s=r}^{R+1}K_{2s}
+FPF_r=& \frac {1} {K_1} \sum_{s=r}^{R+1}K_{1;s}\\
+TPF_r=& \frac {1} {K_2} \sum_{s=r}^{R+1}K_{2;s}
 \end{aligned}
 \right \}
 \label{eq:ratings-paradigm-FPF-TPF-from-counts}
@@ -1873,7 +1864,17 @@ TPF_r=& \frac {1} {K_2} \sum_{s=r}^{R+1}K_{2s}
 \hypertarget{labeling-the-points}{%
 \subsection{Labeling the points}\label{labeling-the-points}}
 
-The labeling \(O_n\) of the points follows the following convention: From Eqn. \eqref{eq:ratings-paradigm-FPF-TPF-from-counts}, the point corresponding to \(r=1\) would correspond to the upper right corner (1,1) of the ROC plot, a trivial operating point since it is common to all datasets, and is therefore not shown. The labeling starts with the next lower-left point, labeled \(O_1\), which corresponds to \(r=2\); the next lower-left point is labeled \(O_2\), corresponding to \(r=3\), etc., and the point labeled \(O_4\) is the lowest non-trivial operating point corresponding to \(r=R=5\) and finally \(O_R\) corresponding to \(r=R+1\) is the origin (0,0) of the ROC plot, which is also a trivial operating point, because it is common to all datasets, and is therefore not shown. \textbf{To summarize, the operating points are labeled starting with the upper right corner, labeled \(O_1\), and working down the curve, each time increasing the number by one. The total number of points is \(R-1\).} The relation between \(n\) in the label and \(r\) in Eqn. \eqref{eq:ratings-paradigm-FPF-TPF-from-counts} is \(n=r-1\). An example of the labeling is shown in the next chapter, Fig. \ref{fig:empirical-auc-empirical-plot}.
+\begin{figure}
+\centering
+\includegraphics{04-ratings-task_files/figure-latex/ratings-paradigm-labeling-points-figure-1.pdf}
+\caption{\label{fig:ratings-paradigm-labeling-points-figure}Operating point labeling convention and the empirical ROC plot.}
+\end{figure}
+
+The labeling \(O_n\) of the points follows the following convention, Fig. \ref{fig:ratings-paradigm-labeling-points-figure}: from Eqn. \eqref{eq:ratings-paradigm-FPF-TPF-from-counts} the point \(O_1\) corresponding to \(r=1\) would be the upper right corner (1,1) of the ROC plot, a trivial operating point since it is common to all datasets and is therefore not shown. The labeling starts with the next lower-left point, labeled \(O_2\), which corresponds to \(r=2\); the next lower-left point is labeled \(O_3\), corresponding to \(r=3\), etc., and the point labeled \(O_5\) is the lowest non-trivial operating point corresponding to \(r=5\) and finally \(O_{R+1}\) corresponding to \(r=R+1=6\) is the origin (0,0) of the ROC plot which is also a trivial operating point because it is common to all datasets and is therefore not shown.
+
+\begin{quote}
+To summarize, the operating points are labeled starting with the upper right corner, labeled \(O_2\), and working down the curve each time increasing the subscript by one. The maximum number of non-trivial points is \(R-1\).
+\end{quote}
 
 \hypertarget{ratings-task-examples}{%
 \subsection{Examples}\label{ratings-task-examples}}
@@ -1932,15 +1933,15 @@ TPF_{r'}=\frac {1} {K_2} \sum_{s={r'}}^{R+1}K_{2s} = \frac {1} {K_2} \sum_{s={r'
 
 Since bin \(r'\) is unpopulated, one can re-label the bins to exclude the unpopulated bin, and now the total number of bins is effectively \(R-1\).
 
-Since one is cumulating counts, which cannot be negative, the highest non-trivial operating point resulting from cumulating the 2 through 5 ratings has to be to the upper-right of the next adjacent operating point resulting from cumulating the 3 through 5 ratings. This in turn has to be to the upper-right of the operating point resulting from cumulating the 4 through 5 ratings. This in turn has to be to the upper right of the operating point resulting from the 5 ratings. In other words, as one cumulates ratings bins, the operating point must move monotonically up and to the right, or more accurately, the point cannot move down or to the left. If a particular bin has zero counts for non-diseased cases, and non-zero counts for diseased cases, the operating point moves vertically up when this bin is cumulated; if it has zero counts for diseased cases, and non-zero counts for non-diseased cases, the operating point moves horizontally to the right when this bin is cumulated.
+Since one is cumulating counts, which cannot be negative, the highest non-trivial operating point resulting from cumulating the 2 through 5 ratings has to be to the upper-right of the next adjacent operating point resulting from cumulating the 3 through 5 ratings. This in turn has to be to the upper-right of the operating point resulting from cumulating the 4 through 5 ratings and finally this has to be to the upper right of the operating point resulting from the 5 ratings. In other words, as one cumulates ratings bins, the operating point must move monotonically up and to the right, or more accurately, the point cannot move down or to the left. If a particular bin has zero counts for non-diseased cases, and non-zero counts for diseased cases, the operating point moves vertically up when this bin is cumulated; if it has zero counts for diseased cases, and non-zero counts for non-diseased cases, the operating point moves horizontally to the right when this bin is cumulated.
 
-\hypertarget{ratings-task-automating}{%
-\section{Automating all this}\label{ratings-task-automating}}
+\hypertarget{ratings-task-code}{%
+\section{Implemention in code}\label{ratings-task-code}}
 
-It is useful to replace the preceding detailed explanation with a simple algorithm, as in the following code (see first seven lines):
+It is useful to replace the preceding detailed explanation with a simple algorithm, as in the following code (lines 1 - 5):
 
 \begin{Shaded}
-\begin{Highlighting}[]
+\begin{Highlighting}[numbers=left,,]
 \KeywordTok{options}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
 \NormalTok{FPF <-}\StringTok{ }\NormalTok{OpPts[}\DecValTok{1}\NormalTok{,]}
 \NormalTok{TPF <-}\StringTok{ }\NormalTok{OpPts[}\DecValTok{2}\NormalTok{,]}
@@ -1950,27 +1951,28 @@ It is useful to replace the preceding detailed explanation with a simple algorit
 \CommentTok{#>       [,1] [,2]  [,3] [,4] [,5]}
 \CommentTok{#> FPF 0.0167 0.05 0.183  0.5    1}
 \CommentTok{#> TPF 0.4400 0.68 0.780  0.9    1}
-\NormalTok{mu <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(.}\DecValTok{5}\NormalTok{)}\OperatorTok{+}\KeywordTok{qnorm}\NormalTok{(.}\DecValTok{9}\NormalTok{);sigma <-}\StringTok{ }\DecValTok{1}
-\NormalTok{Az <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(mu}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{))}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"uppermost point based estimate of mu = "}\NormalTok{, mu, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> uppermost point based estimate of mu =  1.28}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"corresponding estimate of Az = "}\NormalTok{, Az, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> corresponding estimate of Az =  0.818}
+\CommentTok{# ev = equal variance model}
+\NormalTok{mu_ev <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(.}\DecValTok{5}\NormalTok{)}\OperatorTok{+}\KeywordTok{qnorm}\NormalTok{(.}\DecValTok{9}\NormalTok{);sigma_ev <-}\StringTok{ }\DecValTok{1}
+\NormalTok{Az_ev <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(mu_ev}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{))}
+\KeywordTok{cat}\NormalTok{(}\StringTok{"uppermost point based estimate of mu_ev = "}\NormalTok{, mu_ev, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{#> uppermost point based estimate of mu_ev =  1.28}
+\KeywordTok{cat}\NormalTok{(}\StringTok{"corresponding estimate of Az_ev = "}\NormalTok{, Az_ev, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{#> corresponding estimate of Az_ev =  0.818}
 \end{Highlighting}
 \end{Shaded}
 
-Notice that the values of the arrays \texttt{FPF} and \texttt{TPF} are identical to those listed in Table \ref{tab:ratings-paradigm-table-2}. Regarding the last four lines of code, it was shown in Chapter \ref{binary-task} that in the equal variance binormal model the operating point determines the parameters \(\mu\) = 1.282, Eqn. \eqref{eq:binary-task-model-solve-mu}, or equivalently \(A_{z;\sigma = 1}\) = 0.818, Eqn. \eqref{eq:binary-task-model-az-var}. The last four lines illustrate the application of these formulae using the coordinates (0.5, 0.9) of the uppermost non-trivial operating point, i.e., one is fitting the equal variance model to the uppermost operating point.
+Notice that the values of the arrays \texttt{FPF} and \texttt{TPF} are identical to those listed in Table \ref{tab:ratings-paradigm-table-2}. Regarding lines 10 and 11 of code it was shown in Chapter \ref{binary-task} that in the equal variance binormal model the operating point determines the parameters \(\mu_{ev}\) = 1.282, Eqn. \eqref{eq:binary-task-model-solve-mu}, or equivalently \(A_{z;\sigma = 1}\) = 0.818, Eqn. \eqref{eq:binary-task-model-az-var}. These lines illustrate the application of these formulae using the coordinates (0.5, 0.9) of the uppermost non-trivial operating point, i.e., one is fitting the equal variance model to the uppermost operating point.
 
-Shown next is the equal-variance model fit to the uppermost non-trivial operating point, left plot, and for comparison, the right plot is the unequal variance model fit to all operating points. The unequal variance model is the subject of an upcoming chapter.
+Shown next is the equal-variance model fit to the uppermost non-trivial operating point, left panel, and for comparison, the right panel is the unequal variance model fit to all operating points (the unequal variance model is described in the next chapter).
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# equal variance fit to uppermost operating point}
-\NormalTok{p1 <-}\StringTok{ }\KeywordTok{plotROC}\NormalTok{ (mu, sigma, FPF, TPF)}
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{plotROC}\NormalTok{ (mu_ev, sigma_ev, FPF, TPF)}
 \CommentTok{# the following values are from unequal-variance model fitting}
-\CommentTok{# to be discussed later}
+\CommentTok{# to be discussed in the next chapter}
 \NormalTok{mu <-}\StringTok{ }\FloatTok{2.17}\NormalTok{;sigma <-}\StringTok{ }\FloatTok{1.65}
-\CommentTok{# this formula to be discussed later}
+\CommentTok{# following formula is discussed in the next chapter}
 \NormalTok{Az <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(mu}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{sigma}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
 \KeywordTok{cat}\NormalTok{(}\StringTok{"binormal unequal variance model estimate of Az = "}\NormalTok{, Az, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
 \CommentTok{#> binormal unequal variance model estimate of Az =  0.87}
@@ -1987,11 +1989,11 @@ Shown next is the equal-variance model fit to the uppermost non-trivial operatin
 
 \begin{figure}
 \centering
-\includegraphics{04-ratings-task_files/figure-latex/ratings-paradigm-eq-var-fit-a-1.pdf}
-\caption{\label{fig:ratings-paradigm-eq-var-fit-a}(A): The left figure is the predicted ROC curve for \(\mu=1.282\) superposed on the operating points. (B): The right figure is the same data fitted with a two-parameter model described later.}
+\includegraphics{04-ratings-task_files/figure-latex/ratings-paradigm-eq-var-fit-1.pdf}
+\caption{\label{fig:ratings-paradigm-eq-var-fit}A: This panel is the predicted ROC curve for \(\mu=1.28\) superposed on the operating points. B: This panel is the same data fitted with a unequal variance model described in a following chapter.}
 \end{figure}
 
-It should come as no surprise that the uppermost operating point is \emph{exactly} on the predicted curve: after all, this point was used to calculate \(\mu\) = 2.17. The corresponding value of \(\zeta\) can be calculated from Eqn. (3.17), namely:
+It should come as no surprise that the uppermost operating point in panel A is \emph{exactly} on the predicted curve: after all, this point was used to calculate \(\mu_{ev}\) = 1.282. The corresponding value of \(\zeta\) can be calculated from Eqn. \eqref{eq:binary-task-model-se-sp}, namely:
 
 \begin{equation*} 
 \zeta = \Phi^{-1}\left ( Sp \right )
@@ -2007,30 +2009,32 @@ These are coded below:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\FloatTok{-0.5}\NormalTok{)}
-\CommentTok{#> [1] 0}
-\NormalTok{mu}\OperatorTok{-}\KeywordTok{qnorm}\NormalTok{(}\FloatTok{0.9}\NormalTok{)}
-\CommentTok{#> [1] 0.888}
+\CommentTok{# Sp = 1 - FPF = 1 - 0.5}
+\CommentTok{# Se = 0.9}
+\KeywordTok{cat}\NormalTok{(}\StringTok{"zeta from Sp = "}\NormalTok{, }\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\FloatTok{-0.5}\NormalTok{),}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{#> zeta from Sp =  0}
+\KeywordTok{cat}\NormalTok{(}\StringTok{"zeta from Se = "}\NormalTok{, mu_ev}\OperatorTok{-}\KeywordTok{qnorm}\NormalTok{(}\FloatTok{0.9}\NormalTok{),}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{#> zeta from Se =  0}
 \end{Highlighting}
 \end{Shaded}
 
-Either way, one gets the same result: \(\zeta\) = 0. It should be clear that this makes sense: FPF = 0.5 is consistent with half of the (symmetrical) unit-normal non-diseased distribution being above \(\zeta\) = 0. The transformed value \(\zeta\) (zero in this example) is a genuine numerical value. \emph{To reiterate, ratings cannot be treated as genuine numerical values, but thresholds, estimated from an appropriate model, can be treated as genuine numerical values.}
+Either way, one gets the same result: \(\zeta\) = 0. This should make sense as FPF = 0.5 is consistent with half of the (symmetrical) unit-normal non-diseased distribution being above \(\zeta\) = 0.
 
-Exercise: calculate \(\zeta\) for each of the remaining operating points. \emph{Notice that \(\zeta\) increases as one moves down the curve.}
+Exercise: calculate \(\zeta\) for each of the remaining operating points. Notice that \(\zeta\) increases as one moves down the curve.
 
 \begin{itemize}
 \item
-  In Fig. \ref{fig:ratings-paradigm-eq-var-fit-a} (A), the ROC curve, as determined by the uppermost operating point, passes exactly through this point but misses the others. If a different operating point were used to estimate \(\mu\) and \(A_{z;\sigma = 1}\), the estimated values would have been different and the new curve would pass exactly through the \emph{new} selected point. No single-point based choice of \(\mu\) would yield a satisfactory visual fit to all the observed operating points. \textbf{This is the reason one needs a modified model, with an extra parameter, namely the unequal variance binormal model, to fit radiologist data} (the extra parameter is the ratio of the standard deviations of the two distributions).
+  In Fig. \ref{fig:ratings-paradigm-eq-var-fit} panel A show that the ROC curve, as determined by the uppermost operating point, passes exactly through this point but misses the others. If a different operating point were used to estimate \(\mu_{ev}\) and \(A_{z;\sigma = 1}\) the values would have been different and the new curve would pass exactly through the new selected point. No single-point based choice of \(\mu{ev}\) would yield a satisfactory visual fit to all the observed operating points. This is the reason one needs a modified model, namely the unequal variance binormal model, to fit radiologist data.
 \item
-  Fig. \ref{fig:ratings-paradigm-eq-var-fit-a} (B) shows the predicted ROC curve by the unequal variance binormal model, to be introduced in Chapter 06. The corresponding parameter values are \(\mu\) = 2.17and \(\sigma\) = 1.65.
+  Fig. \ref{fig:ratings-paradigm-eq-var-fit} panel B shows the predicted ROC curve by the unequal variance binormal model, to be introduced in a following chapter. The corresponding parameter values are \(\mu\) = 2.17 and \(\sigma\) = 1.65.
 \item
-  Notice the improved visual quality of the fit. Each observed point is ``not engraved in stone'', rather both FPF and TPF are subject to sampling variability. Estimation of confidence intervals for FPF and TPF was addressed, see \eqref{eq:binary-task-model-ci-fpf} and \eqref{eq:binary-task-model-ci-tpf}. {[}A detail: the estimated confidence interval in the preceding chapter was for a single operating point; since the multiple operating points are correlated -- some of the counts used to calculate them are common to two or more operating points -- the method tends to overestimate the confidence interval. A modeling approach to estimating confidence intervals accounts for these correlations and yields tighter confidence intervals.{]}
+  Notice the improved visual quality of the fit, especially if one keeps in mind that each observed point is subject to sampling variability, see Eqn. \eqref{eq:binary-task-model-ci-fpf} and Eqn. \eqref{eq:binary-task-model-ci-tpf}. \footnote{The estimates in the preceding chapter were for a single operating point. Since the multiple operating points discussed here are correlated --- some of the counts used to calculate them are common to two or more operating points --- the method described in the previous chapter overestimates the confidence intervals. A modeling approach accounts for these correlations and yields narrower confidence intervals.}
 \end{itemize}
 
 \hypertarget{ratings-task-relation-binary-to-rating}{%
 \section{Relation between ratings paradigm and the binary paradigm}\label{ratings-task-relation-binary-to-rating}}
 
-Table \ref{tab:ratings-paradigm-example-table} and Table \ref{tab:ratings-paradigm-table-2} correspond to \(R = 5\). In Chapter \ref{binary-task} it was shown that the binary task requires a single fixed threshold parameter \(\zeta\) and a decision or binning rule Eqn. \eqref{eq:ratings-paradigm-binning-rule}: assign the case a diseased rating of 2 if \(Z > \zeta\) and a rating of 1 otherwise.
+Table \ref{tab:ratings-paradigm-example-table} and Table \ref{tab:ratings-paradigm-table-2} correspond to \(R = 5\). In Chapter \ref{binary-task} it was shown that the binary task requires a single fixed threshold parameter \(\zeta\) and a binning rule Eqn. \eqref{eq:ratings-paradigm-binning-rule}: if \(z > \zeta\) assign a rating of 2 and otherwise assign a rating of 1.
 
 \begin{quote}
 The R-rating task can be viewed as \(R-1\) simultaneously conducted binary tasks each with its own fixed threshold \(\zeta_r\), where r = 1, 2, \ldots, R-1. It is efficient compared to \(R-1\) sequentially conducted binary tasks; however, the onus is on the observer to maintain fixed-multiple thresholds through the duration of the study.
@@ -2066,24 +2070,35 @@ r &= 0, 1, ..., R-1\\
 
 The empirical thresholds are integers, not floating point values predicted by Eqn. \eqref{eq:ratings-paradigm-Zeta}. Either way one gets the same operating points. This is a subtle and important distinction explained further in the next section.
 
-In Table \ref{tab:ratings-paradigm-example-table} the number of bins is \(R = 5\). The ``simultaneously conducted binary tasks'' nature of the rating task can be appreciated from the following examples. Suppose one selects the threshold for the first binary task to be \(\zeta_4 = 5\). By definition, \(\zeta_5 = \infty\); therefore a case rated 5 satisfies the binning rule \(\zeta_4 \leq 5 < \zeta_5\), i.e., Eqn. \eqref{eq:ratings-paradigm-binning-rule}. The operating point corresponding to \(\zeta_4 = 5\), obtained by cumulating all cases rated five, yields \((0.017, 0.440)\). In the second binary-task, one selects as threshold \(\zeta_3 = 4\). Therefore, a case rated four satisfies the binning rule \(\zeta_3 \leq 4 < \zeta_4\). The operating point corresponding to \(\zeta_3 = 4\), obtained by cumulating all cases rated four or five, yields \((0.05, 0.680)\). Similarly, for \(\zeta_2 = 3\), \(\zeta_1 = 2\) and \(\zeta_0 = -\infty\), which yield counts in bins 3, 2 and 1, respectively. The last is a trivial operating point. The non-trivial operating points are generated by thresholds \(\zeta_r\), where \(r\) = 1, 2, 3 and 4. A five-rating study has four associated thresholds and a corresponding number of equivalent binary studies. In general, an \(R\) rating study has \(R-1\) associated thresholds.
+In Table \ref{tab:ratings-paradigm-example-table} the number of bins is \(R = 5\). The ``simultaneously conducted binary tasks'' nature of the rating task can be appreciated from the following examples. Suppose one selects the threshold for the first binary task to be \(\zeta_4 = 5\). By definition, \(\zeta_5 = \infty\); therefore a case rated 5 satisfies the binning rule \(\zeta_4 \leq 5 < \zeta_5\), i.e., Eqn. \eqref{eq:ratings-paradigm-binning-rule}. The operating point corresponding to \(\zeta_4 = 5\), obtained by cumulating all cases rated five, yields \((0.017, 0.440)\). In the second binary-task, one selects as threshold \(\zeta_3 = 4\). Therefore, a case rated four satisfies the binning rule \(\zeta_3 \leq 4 < \zeta_4\). The operating point corresponding to \(\zeta_3 = 4\), obtained by cumulating all cases rated four or five, yields \((0.05, 0.680)\). Similarly, for \(\zeta_2 = 3\), \(\zeta_1 = 2\) and \(\zeta_0 = -\infty\), which cumulates counts in bins 3, 2 and 1, respectively. The 1-bin yields a trivial operating point (1,1). The non-trivial operating points are generated by thresholds \(\zeta_r\), where \(r\) = 1, 2, 3 and 4. A five-rating study has four associated thresholds and a corresponding number of equivalent binary studies.
 
 \hypertarget{binary-task-ratings-not-numerical-values}{%
 \section{Ratings are not numerical values}\label{binary-task-ratings-not-numerical-values}}
 
+\begin{quote}
 The ratings are to be thought of as ordered labels, not as numeric values. Arithmetic operations that are allowed on numeric values, such as averaging, are not allowed on ratings. One could have relabeled the ratings in Table 4.2 as A, B, C, D and E, where A \textless{} B etc. As long as the counts in the body of the table are unaltered, such relabeling would have no effect on the observed operating points and the fitted curve. Of course one cannot average the labels A, B, etc. of different cases. The issue with numeric labels is not fundamentally different. At the root is that the difference in thresholds corresponding to the different operating points are not in relation to the difference between their numeric values. There is a way to estimate the underlying thresholds, if one assumes a specific model, for example the unequal-variance binormal model to be described in Chapter 06. The thresholds so obtained are genuine numeric values and can be averaged. {[}Not to hold the reader in suspense, the four thresholds corresponding to the data in Table 4.1 are 0.007676989, 0.8962713, 1.515645 and 2.396711; see §6.4.1; these values would be unchanged if, for example, the labels were doubled, with allowed values 2, 4, 6, 8 and 10, or any of an infinite number of rearrangements that preserves their ordering.{]}
+\end{quote}
 
-The temptation to regard confidence levels / ratings as numeric values can be particularly strong when one uses a large number of bins to collect the data. One could use of quasi-continuous ratings scale, implemented for example, by having a slider-bar user interface for selecting the rating. The slider bar typically extends from 0 to 100, and the rating could be recorded as a floating-point number, e.g., 63.45. Here too one cannot assume that the difference between a zero-rated case and a 10 rated case is a tenth of the difference between a zero-rated case and a 100 rated case. So averaging the ratings is not allowed. Additionally, one cannot assume that different observers use the labels in the same way. One observer's 4-rating is not equivalent to another observers 4-rating. Working directly with the ratings is a bad idea: valid analytical methods use the rankings of the ratings, not their actual values. The reason for the emphasis is that there are serious misconceptions about ratings. I am aware of a publication stating, to the effect, that a modality resulted in an increase in average confidence level for diseased cases. Another publication used a specific numerical value of a rating to calculate the operating point for each observer -- this assumes all observers use the rating scale in the same way.
+The temptation to regard confidence levels / ratings as numeric values can be particularly strong when one uses a large number of bins to collect the data. One could use of quasi-continuous ratings scale, implemented for example, by having a slider-bar user interface for selecting the rating. The slider bar typically extends from 0 to 100, and the rating could be recorded as a floating-point number, e.g., 63.45. Here too one cannot assume that the difference between a zero-rated case and a 10 rated case is a tenth of the difference between a zero-rated case and a 100 rated case. So averaging the ratings is not allowed. Additionally, one cannot assume that different observers use the labels in the same way. One observer's 4-rating is not equivalent to another observers 4-rating.
+
+\begin{quote}
+Working directly with the ratings is a very bad idea: valid analytical methods use the rankings of the ratings, not their actual values. The reason for the emphasis is that there are serious misconceptions about ratings. I am aware of a publication stating, to the effect, that a modality resulted in an increased average confidence level for diseased cases. Another publication used a specific numerical value of a rating to calculate the operating point for each observer -- this assumes all observers use the rating scale in the same way, which they do not.
+\end{quote}
 
 \hypertarget{binary-task-clinical-operating-point}{%
 \section{A single ``clinical'' operating point from ratings data}\label{binary-task-clinical-operating-point}}
 
 The reason for the quotes in the title to this section is that a single operating point on a laboratory ROC plot, no matter how obtained, has little relevance to how radiologists operate in the clinic. However, some consider it useful to quote an operating point from an ROC study. For a 5-rating ROC study, Table \ref{tab:ratings-paradigm-example-table}, it is not possible to unambiguously calculate the operating point of the observer in the binary task of discriminating between non-diseased and diseased cases. One possibility would be to use the ``three and above'' ratings to define the operating point, but one might jus have well have chosen ``two and above''. A second possibility is to instruct the radiologist that a ``four and above'' rating, for example, implies the case would be reported ``clinically'' as diseased. However, the radiologist can only pretend so far that this study, which has no clinical consequences, is somehow a ``clinical'' study.
 
-If a single laboratory study based operating point is desired \citep{RN2660}, the best strategy, in my opinion, is to obtain the rating via two questions. This method is also illustrated in Table 3.1 of a book on detection theory \citep{macmillan2004detection}. The first question is ``is the case diseased?'' The binary (Yes/No) response to this question allows unambiguous calculation of the operating point, as in Chapter \ref{binary-task}. The second question is: ``what is your confidence in your previous decision?'' and allow three responses, namely Low, Medium and High. The dual-question approach is equivalent to a 6-point rating scale, Fig. \ref{fig:SixPointScale}. The answer to the first question, is the patient diseased, allows unambiguous construction of a single ``clinical'' operating point for disease presence. The answer to the second question, what is your confidence level in that decision, yields multiple operating points.
+If a single laboratory study based operating point is desired \citep{RN2660}, the best strategy, in my opinion, is to obtain the rating via two questions. This method is also illustrated in Table 3.1 of a book on detection theory \citep{macmillan2004detection}. The first question is ``is the case diseased?'' The binary (Yes/No) response to this question allows unambiguous calculation of the operating point. The second question is: ``what is your confidence in your previous decision?'' and allow three responses, namely Low, Medium and High. The dual-question approach is equivalent to a 6-point rating scale, Fig. \ref{fig:SixPointScale}. The answer to the first question, is the patient diseased, allows unambiguous construction of a single ``clinical'' operating point for disease presence. The answer to the second question yields multiple operating points.
 
 \begin{figure}
-\includegraphics[width=11.39in]{images/AcquiringData6PointScale} \caption{A method for acquiring ROC data on an effectively 6-point scale that also yields an unambiguous single operating point for declaring patients diseased. Note the reversal of the final ratings in the last "column" in the lower half of the figure.}\label{fig:SixPointScale}
+
+{\centering \includegraphics[width=11.39in]{images/AcquiringData6PointScale} 
+
+}
+
+\caption{A method for acquiring ROC data on an effectively 6-point scale that also yields an unambiguous single operating point for declaring patients diseased. Note the reversal of the ordering of the final ratings in the last "column" in the lower half of the figure.}\label{fig:SixPointScale}
 \end{figure}
 
 The ordering of the ratings can be understood as follows. The four, five and six ratings are as expected. If the radiologist states the patient is diseased and the confidence level is high that is clearly the highest end of the scale, i.e., six, and the lower confidence levels, five and four, follow, as shown. If, on the other hand, the radiologist states the patient is non-diseased, and the confidence level is high, then that must be the lowest end of the scale, i.e., ``1''. The lower confidence levels in a negative decision must be higher than ``1'', namely ``2'' and ``3'', as shown. As expected, the low confidence ratings, namely ``3'' (non-diseased, low confidence) and ``4'' (diseased, low confidence) are adjacent to each other. With this method of data-collection, there is no confusion as to what rating defines the single desired operating point as this is determined by the binary response to the first question. The 6-point rating scale is also sufficiently fine to not smooth out the ability of the radiologist to maintain distinct different levels. In my experience, using this scale one expects rating noise of about \(\pm\frac{1}{2}\) a rating bin, i.e., the same difficult case, shown on different occasions to the same radiologist (with sufficient time lapse or other intervening cases to minimize memory effects) is expected to elicit a ``3'' or ``4'', with roughly equal probability.
@@ -2091,30 +2106,33 @@ The ordering of the ratings can be understood as follows. The four, five and six
 \hypertarget{binary-task-2afc}{%
 \section{The forced choice paradigm}\label{binary-task-2afc}}
 
-In each of the four paradigms (ROC, FROC, LROC and ROI) described in TBA Chapter 01, patient images are displayed one patient at a time. A fifth paradigm involves presentation of multiple images to the observer, where one image (or set of images from one patient, i.e., a case) is from a diseased patient, and the rest are from non-diseased patients. The observer's task is to pick the image, or the case, that is most likely to be from the diseased patient. If the observer is correct, the event is scored as a ``one'' and otherwise it is scored as a ``zero''. The process is repeated with other sets of independent patient images, each time satisfying the condition that one patient is diseased and the rest are non-diseased. The sum of the scores divided by the total number of scores is the probability of a correct choice, denoted \(P(C)\). If the total number of cases presented at the same time is denoted \(n\), then the task is termed n-alternative forced choice or nAFC \citep{green1966signal}. If only two cases are presented, one diseased and the other non-diseased, then n = 2 and the task is 2AFC. In Fig. \ref{fig:2AFC}, in the left image a Gaussian nodule is superposed on a square region extracted from a non-diseased mammogram. The right image is a region extracted from a different non-diseased mammogram (one should not use the same background in the two images -- the analysis assumes that different, i.e., independent images, are shown). If the observer clicks on the left image, a correct choice is recorded. {[}In some 2AFC-studies, the backgrounds are simulated non-diseased images. They resemble mammograms; the resemblance depends on the expertise of the observer: expert radiologists can tell that they are not true mammograms. They are actually created by filtering the random white noise with a 1/f3 spatial filter \citep{burgess2011visual}.{]}
+In each of the four paradigms (ROC, FROC, LROC and ROI) described in Chapter \ref{preliminaries-intro}, patient images are displayed one patient at a time. A fifth paradigm involves presentation of multiple images simultaneously to the observer, where one image is from a diseased patient, and the rest are from non-diseased patients. The observer's task is to pick the image that is most likely to be from the diseased patient. If the observer is correct, the event is scored as a ``one'' and otherwise it is scored as a ``zero''. The process is repeated with other sets of independent patient images, each time satisfying the condition that one patient is diseased and the rest are non-diseased. The sum of the scores divided by the total number of scores is the probability of a correct choice, denoted \(P(C)\). If the total number of cases presented at the same time is denoted \(n\), then the task is termed n-alternative forced choice or nAFC \citep{green1966signal}. If only two cases are presented, one diseased and the other non-diseased, then n = 2 and the task is 2AFC. In Fig. \ref{fig:2AFC}, in the left image a Gaussian nodule is superposed on a square region extracted from a non-diseased mammogram. The right image is a region extracted from a different non-diseased mammogram (one should not use the same background in the two images -- the analysis assumes that different, i.e., independent images, are shown). If the observer clicks on the left image, a correct choice is recorded. {[}In some 2AFC-studies, the backgrounds are simulated non-diseased images. They resemble mammograms; the resemblance depends on the expertise of the observer: expert radiologists can tell that they are not true mammograms. They are actually created by filtering the random white noise with a \(1/f^3\) spatial filter \citep{burgess2011visual}.{]}
 
-The 2AFC paradigm is popular, because its analysis is straightforward, and there exists a theorem4 that \(P(C)\), the probability of a correct choice in the 2AFC task, equals, to within sampling variability, the \emph{true} area under the true (not fitted, not empirical) ROC curve. Another reason for its popularity is possibly the speed at which data can be collected, sometimes only limited by the speed at which disk stored images can be displayed on the monitor. While useful for studies into human visual perception on relatively simple images, and the model observer community has performed many studies using this paradigm \citep{RN1067}, I cannot recommend it for clinical studies because \emph{it does not resemble any clinical task}. In the clinic, radiologists never have to choose the diseased patient out of a pair consisting of one diseased and one non-diseased. Additionally, the forced-choice paradigm is wasteful of known-truth images, often a difficult/expensive resource to come by, because better statistics21 (tighter confidence intervals) are obtained by the ratings ROC method or by utilizing location specific extensions of the ROC paradigm. {[}I am not aware of the 2AFC method being actually used to assess imaging systems using radiologists to perform real clinical tasks on real images.{]}
+The 2AFC paradigm is popular because its analysis is straightforward and there is a theorem \citep{green1966signal} that \(P(C)\), the probability of a correct choice in the 2AFC task equals the area under the true (not fitted, not empirical) ROC curve. Another reason for its popularity is possibly the speed at which data can be collected, sometimes only limited by the speed at which disk stored images can be displayed on the monitor. While useful for studies into human visual perception on relatively simple images, and the model observer community has performed many studies using this paradigm, I cannot recommend it for clinical studies because it does not resemble any clinical task. Additionally, the forced-choice paradigm is wasteful of known-truth images, often a difficult/expensive resource to come by, because narrower confidence intervals are obtained using the ratings ROC method or by utilizing location specific extensions of the ROC paradigm.
 
 \begin{figure}
-\includegraphics[width=10in]{images/2AFC} \caption{Example of image presentation in a 2AFC study.}\label{fig:2AFC}
+
+{\centering \includegraphics[width=10in]{images/2AFC} 
+
+}
+
+\caption{Example of image presentation in a 2AFC study.}\label{fig:2AFC}
 \end{figure}
 
-Fig. \ref{fig:2AFC}: Example of image presentation in a 2AFC study. The left image contains, at its center, a positive contrast Gaussian shape disk superposed on a non-diseased mammogram. The right image does not contain a lesion at its center and the background is from a different non-diseased patient. If the observer clicks on the left image it is recorded as a correct choice, otherwise it is recorded as an incorrect choice. The number of correct choices divided by the number of paired presentations is an estimate of the probability of a correct choice, which can be shown to be identical, apart from sampling variability, to the true area under the ROC curve. This is an example of a signal known exactly location known exactly (SKE-LKE) task widely used by the model observer community.
+Fig. \ref{fig:2AFC}: Example of image presentation in a 2AFC study. The left image contains, at its center, a positive contrast Gaussian shape disk superposed on a non-diseased mammogram. The right image does not contain a lesion at its center and the background is from a different non-diseased patient. If the observer clicks on the left image it is recorded as a correct choice, otherwise it is recorded as an incorrect choice. The number of correct choices divided by the number of paired presentations is an estimate of the probability of a correct choice, which can be shown to be identical to the true area under the ROC curve.
 
 \hypertarget{binary-task-observer-studies-as-simulations}{%
 \section{Observer performance studies as laboratory simulations of clinical tasks}\label{binary-task-observer-studies-as-simulations}}
 
 \begin{itemize}
 \item
-  Observer performance paradigms (ROC, FROC, LROC and ROI) should be regarded as experiments conducted in a laboratory (i.e., controlled) setting that are intended to be representative of the actual clinical task. They should not to be confused with performance in a real ``live'' clinical setting: there is a known ``laboratory effect'' \citep{RN2026}. For example, in the just cited study radiologists performed better during live clinical interpretations than they did later, on the same cases, in a laboratory ROC study. This is to be expected because there is more at stake during live interpretations: e.g., the patient's health and the radiologist's reputation, than during laboratory ROC studies. The claimed ``laboratory effect'' has caused some minor controversy. A paper \citep{RN2373} titled ``Screening mammography: test set data can reasonably describe actual clinical reporting'' argues against the laboratory effect.
+  Observer performance paradigms (ROC, FROC, LROC and ROI) should be regarded as experiments conducted in a laboratory (i.e., controlled) setting that are intended to be representative of the actual clinical task. They should not to be confused with performance in a real ``live'' clinical setting: there is a known ``laboratory effect'' \citep{RN2026}. For example, in the just cited study radiologists performed better during live clinical interpretations than they did later, on the same cases, in a laboratory ROC study. This is to be expected because there is more at stake during live interpretations: e.g., the patient's health and the radiologist's reputation, than during laboratory ROC studies.
 \item
-  Real clinical interpretations happen every day in radiology departments all over the world. On the other hand, in the laboratory, the radiologist is asked to interpret the images ``as if in a clinical setting'' and render a ``diagnosis''. The laboratory decisions have no clinical consequences, e.g., the radiologist will not be sued for mistakes and their laboratory study decisions will have no impact on the clinical management of the patients. {[}Usually laboratory ROC studies are conducted on retrospectively acquired images. Patients, whose images were used in an ROC study, have already been imaged in the clinic and decisions have already been made on how to manage them.{]}
+  Real clinical interpretations happen every day in radiology departments all over the world. On the other hand, in the laboratory, the radiologist is asked to interpret the images ``as if in a clinical setting'' and render a ``diagnosis''. The laboratory decisions have no clinical consequences. Usually laboratory ROC studies are conducted on retrospectively acquired images. Patients, whose images are used in an ROC study, have already been imaged in the clinic and decisions have already been made on how to manage them.
 \item
-  There is no guarantee that results of the laboratory study are directly applicable to clinical practice. Indeed there is an assumption that the laboratory study correlates with clinical performance. Strict equality is not required, simply that the performance in the laboratory is related monotonically to actual clinical performance. Monotonicity assures preservation of performance orderings, e.g., a radiologist has greater performance than another does or one modality is superior to another, regardless of how they are measured, in the laboratory or in the clinic. The correlation is taken to be an axiomatic truth by researchers, when in fact it is an assumption. To the extent that the participating radiologist brings his/her full clinical expertise to bear on each laboratory image interpretation, i.e., takes the laboratory study seriously, this assumption is likely to be valid.
+  There is no guarantee that results of the laboratory study are directly applicable to clinical practice. Indeed there is an assumption that the laboratory study correlates with clinical performance. The correlation is taken to be an axiomatic truth by researchers when, in fact, it is an assumption.
 \item
-  TBA This title of this section provoked a strong response from a collaborator. To paraphrase him, "\ldots{} \emph{I think it is a pity in this book chapter you argue that these studies are simulations. I mean, the reason people perform these studies is because they believe in the results"}.
-\item
-  TBA I also believe in observer performance studies. Distrust of the word ``simulation'' seems to be peculiar to this field. Simulations are widely used in ``hard'' sciences, e.g., they are used in astrophysics to determine conditions dating to \(10^{-31}\) seconds after the big bang. Simulations are not to be taken lightly. Conducting clinical studies is very difficult as there are many factors not under the researcher's control. Observer performance studies of the type described in this book are the closest that one can come to the ``real thing'' as they include key elements of the actual clinical task: the entire imaging system, radiologists (assuming the radiologist take these studies seriously in the sense of bringing their full expertise to bear on each image interpretation) and real clinical images. As such are expected to correlate with real ``live'' interpretations.
+  This section should not be interpreted as expressing my lack of trust in laboratory studies. Simulations are widely used in ``hard'' sciences, e.g., they are used in astrophysics to determine conditions dating to \(10^{-31}\) seconds after the big bang. Conducting clinical studies is very difficult as there are many factors not under the researcher's control. Observer performance studies of the type described in this book are the closest that one can come to the ``real thing'' as they include key elements of the actual clinical task: the entire imaging system, radiologists (assuming the radiologists' brings their full expertise to bear on each image interpretation) and real clinical images.
 \end{itemize}
 
 \hypertarget{binary-task-discrete-vs-continuous-ratings}{%
@@ -2122,62 +2140,69 @@ Fig. \ref{fig:2AFC}: Example of image presentation in a 2AFC study. The left ima
 
 \begin{itemize}
 \item
-  There is controversy about the merits of discrete vs.~continuous ratings \citep{rockette1992use, RN2179}. Since the late Prof.~Charles E. Metz and the late Dr.~Robert F. Wagner have both backed the latter (i.e., continuous or quasi-continuous ratings) new ROC study designs sometimes tend to follow their advice. I recommend a 6-point rating scale as outlined in Fig. \ref{fig:SixPointScale}. This section provides the background for the recommendation.
+  There is controversy about the merits of discrete vs.~continuous ratings \citep{rockette1992use, wagner2001continuous}. The late Prof.~Charles E. Metz and the late Dr.~Robert F. Wagner have both backed the latter (i.e., continuous or quasi-continuous ratings) and new ROC study designs sometimes tend to follow their advice. I recommend a 6-point rating scale as outlined in Fig. \ref{fig:SixPointScale}. This section provides the background for the recommendation.
 \item
-  A widely cited (22,909 citations at the time of writing) 1954 paper by Miller \citep{RN930} titled ``The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information'' is relevant. It is a readable paper, freely downloadable in several languages (www.musanim.com/miller1956/). In my judgment, this paper has not received the attention it should have in the ROC community, and for this reason portions from it are reproduced below. {[}George Armitage Miller, February 3, 1920 -- July 22, 2012, was one of the founders of the field of cognitive psychology.{]}
+  A widely cited (39,704 citations at the time of writing, ca. March 2023) paper by Miller \citep{miller1956magical} titled ``The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information'' is relevant. It is a readable paper, freely downloadable in several languages (www.musanim.com/miller1956/). In my judgment, this paper has not received the attention it should have in the ROC community, and for this reason portions from it are reproduced below. {[}George Armitage Miller, February 3, 1920 -- July 22, 2012, was one of the founders of the field of cognitive psychology.{]}
 \item
-  Miller's first objective was to comment on absolute judgments of unidimensional stimuli. Since all (univariate, i.e., single decision per case) ROC models assume a unidimensional decision variable, Miller's work is highly relevant. He comments on two papers by Pollack \citep{RN2476, RN2474}. Pollack asked listeners to identify tones by assigning numerals to them, analogous to a rating task described above. The tones differed in frequency, covering the range 100 to 8000 Hz in equal logarithmic steps. A tone was sounded and the listener responded by giving a numeral (i.e., a rating, with higher values corresponding to higher frequencies). After the listener had made his response, he was told the correct identification of the tone. When only two or three tones were used, the listeners never confused them. With four different tones, confusions were quite rare, but with five or more tones, confusions were frequent. With fourteen different tones, the listeners made many mistakes. Since it is so succinct, the entire content of the first (1952) paper by Pollack is reproduced below:
+  Miller's first objective was to comment on absolute judgments of unidimensional stimuli. Since all (univariate, i.e., single decision per case) ROC models assume a unidimensional decision variable, Miller's work is highly relevant. He comments on two papers by Pollack \citep{pollack1952information, pollack1953information}. Pollack asked listeners to identify tones by assigning numerals to them, analogous to a rating task described above. The tones differed in frequency, covering the range 100 to 8000 Hz in equal logarithmic steps. A tone was sounded and the listener responded by giving a numeral (i.e., a rating, with higher values corresponding to higher frequencies). After the listener had made his response, he was told the correct identification of the tone. When only two or three tones were used, the listeners never confused them. With four different tones, confusions were quite rare, but with five or more tones, confusions were frequent. With fourteen different tones, the listeners made many mistakes. Since it is so succinct, the entire content of the first (1952) paper by Pollack is reproduced below:
+\end{itemize}
+
+\begin{quote}
+``In contrast to the extremely acute sensitivity of a human listener to discriminate small differences in the frequency or intensity between two sounds is his relative inability to identify (and name) sounds presented individually. When the frequency of a single tone is varied in equal‐logarithmic steps in the range between 100 cps and 8000 cps (and when the level of the tone is randomly adjusted to reduce loudness cues), the amount of information transferred is about 2.3 bits per stimulus presentation. This is equivalent to perfect identification among only 5 tones. The information transferred, under the conditions of measurement employed, is reasonably invariant under wide variations in stimulus conditions.''
+\end{quote}
+
+\begin{itemize}
 \item
-  ``In contrast to the extremely acute sensitivity of a human listener to discriminate small differences in the frequency or intensity between two sounds is his relative inability to identify (and name) sounds presented individually. When the frequency of a single tone is varied in equal‐logarithmic steps in the range between 100 cps and 8000 cps (and when the level of the tone is randomly adjusted to reduce loudness cues), the amount of information transferred is about 2.3 bits per stimulus presentation. This is equivalent to perfect identification among only 5 tones. The information transferred, under the conditions of measurement employed, is reasonably invariant under wide variations in stimulus conditions.''
-\item
-  By ``information'' is meant (essentially) the number of levels, measured in bits (binary digits), thereby making it independent of the unit of measurement: 1 bit corresponds to a binary rating scale, 2 bits to a four-point rating scale and 2.3 bits to \(2^{2.3}\) = 4.9, i.e., about 5 ratings bins. Based on Pollack's' original unpublished data, Miller put an upper limit of 2.5 bits (corresponding to about 6 ratings bins) on the amount of information that is transmitted by listeners who make absolute judgments of auditory pitch. The second paper \citep[@][]{RN2474} by Pollack was related to: (1) the frequency range of tones; (2) the utilization of objective reference tones presented with the unknown tone; and (3) the ``dimensionality''---the number of independently varying stimulus aspects. Little additional gain in information transmission was associated with the first factor; a moderate gain was associated with the second; and a relatively substantial gain was associated with the third (we return to the dimensionality issue below).
+  By ``information'' is meant the number of levels, measured in bits (binary digits), thereby making it independent of the unit of measurement: 1 bit corresponds to a binary rating scale, 2 bits to a four-point rating scale and 2.3 bits to \(2^{2.3}\) = 4.9, i.e., about 5 ratings bins. Based on Pollack's' original unpublished data, Miller put an upper limit of 2.5 bits (corresponding to about 6 ratings bins) on the amount of information that is transmitted by listeners who make absolute judgments of auditory pitch. The second paper \citep[@][]{pollack1953information} by Pollack was related to: (1) the frequency range of tones; (2) the utilization of objective reference tones presented with the unknown tone; and (3) the ``dimensionality''---the number of independently varying stimulus aspects. Little additional gain in information transmission was associated with the first factor; a moderate gain was associated with the second; and a relatively substantial gain was associated with the third (we return to the dimensionality issue below).
 \item
   As an interesting side-note, Miller states:
 \end{itemize}
 
 \begin{quote}
-``Most people are surprised that the number is as small as six. Of course, there is evidence that a musically sophisticated person with absolute pitch can identify accurately any one of 50 or 60 different pitches. Fortunately, I do not have time to discuss these remarkable exceptions. I say it is fortunate because I do not know how to explain their superior performance. So I shall stick to the more pedestrian fact that most of us can identify about one out of only five or six pitches before we begin to get confused.
+``Most people are surprised that the number is as small as six. Of course, there is evidence that a musically sophisticated person with absolute pitch can identify accurately any one of 50 or 60 different pitches. Fortunately, I do not have time to discuss these remarkable exceptions. I say it is fortunate because I do not know how to explain their superior performance. So I shall stick to the more pedestrian fact that most of us can identify about one out of only five or six pitches before we begin to get confused.''
 \end{quote}
 
-It is interesting to consider that psychologists have been using seven-point rating scales for a long time, on the intuitive basis that trying to rate into finer categories does not really add much to the usefulness of the ratings. Pollack's results indicate that, at least for pitches, this intuition is fairly sound.
+\begin{quote}
+``It is interesting to consider that psychologists have been using seven-point rating scales for a long time on the intuitive basis that trying to rate into finer categories does not really add much to the usefulness of the ratings. Pollack's results indicate that, at least for pitches, this intuition is fairly sound.''
+\end{quote}
 
 \begin{quote}
-Next you can ask how reproducible this result is. Does it depend on the spacing of the tones or the various conditions of judgment? Pollack varied these conditions in a number of ways. The range of frequencies can be changed by a factor of about 20 without changing the amount of information transmitted more than a small percentage. Different groupings of the pitches decreased the transmission, but the loss was small. For example, if you can discriminate five high-pitched tones in one series and five low-pitched tones in another series, it is reasonable to expect that you could combine all ten into a single series and still tell them all apart without error. When you try it, however, it does not work. The channel capacity for pitch seems to be about six and that is the best you can do.''
+``Next you can ask how reproducible this result is. Does it depend on the spacing of the tones or the various conditions of judgment? Pollack varied these conditions in a number of ways. The range of frequencies can be changed by a factor of about 20 without changing the amount of information transmitted more than a small percentage. Different groupings of the pitches decreased the transmission, but the loss was small. For example, if you can discriminate five high-pitched tones in one series and five low-pitched tones in another series, it is reasonable to expect that you could combine all ten into a single series and still tell them all apart without error. When you try it, however, it does not work. The channel capacity for pitch seems to be about six and that is the best you can do.''
 \end{quote}
 
 \begin{itemize}
 \item
-  In contrast to the careful experiments conducted in the psychophysical context to elucidate this issue, I was unable to find a single study, in the medical imaging field, of the number of discrete rating levels that an observer can support. Instead, a recommendation has been made to acquire data on a quasi-continuous scale \citep{RN2179}.
+  DPC comment: I was unable to find a single study in the medical imaging field of the number of discrete rating levels that an observer can support.
 \item
-  There is no question that for multidimensional data, as observed in the second study by Pollack \citep{RN2474}, the observer can support more than 7 ratings bins. To quote Miller:
+  There is no question that for multidimensional data, as observed in the second study by Pollack \citep{pollack1953information}, the observer can support more than 7 ratings bins. To quote Miller:
 \end{itemize}
 
 \begin{quote}
-``You may have noticed that I have been careful to say that this magical number seven applies to one- dimensional judgments. Everyday experience teaches us that we can identify accurately any one of several hundred faces, any one of several thousand words, any one of several thousand objects, etc. The story certainly would not be complete if we stopped at this point. We must have some understanding of why the one-dimensional variables we judge in the laboratory give results so far out of line with what we do constantly in our behavior outside the laboratory. A possible explanation lies in the number of independently variable attributes of the stimuli that are being judged. Objects, faces, words, and the like differ from one another in many ways, whereas the simple stimuli we have considered thus far differ from one another in only one respect.''
+``You may have noticed that I have been careful to say that this magical number seven applies to one-dimensional judgments. Everyday experience teaches us that we can identify accurately any one of several hundred faces, any one of several thousand words, any one of several thousand objects, etc. The story certainly would not be complete if we stopped at this point. We must have some understanding of why the one-dimensional variables we judge in the laboratory give results so far out of line with what we do constantly in our behavior outside the laboratory. A possible explanation lies in the number of independently variable attributes of the stimuli that are being judged. Objects, faces, words, and the like differ from one another in many ways, whereas the simple stimuli we have considered thus far differ from one another in only one respect.''
 \end{quote}
 
 \begin{itemize}
 \item
-  In the medical imaging context, a trivial way to increase the number of ratings would be to color-code the images: red, green and blue; now one can assign a red image rated 3, a green image rated 2, etc., which would be meaningless unless the color encoded relevant diagnostic information. Another ability, quoted in the publication \citep{RN2179} advocating continuous ratings is the ability to recognize faces, again a multidimensional categorization task, as noted by Miller. Also quoted as an argument for continuous ratings is the ability of computer aided detection schemes that calculate many features for each perceived lesion and combine them into a single probability of malignancy, which is on a highly precise floating point 0 to 1 scale, which can be countered by the fact that radiologists are not computers. Other arguments for greater number of bins: it cannot hurt and one should acquire the rating data at greater precision than the noise, especially if the radiologist is able to maintain the finer distinctions. I worry that radiologists who are willing to go along with greater precision are over-anxious to co-operate with the experimentalist. Expert radiologists will not modify their reading style and one should be suspicious when overzealous radiologists accede to an investigators request to interpret images in a style that does not resemble the clinic. Radiologists, especially experts, do not like more than about four ratings. I once worked closely with a famous chest radiologist (the late Dr.~Robert Fraser) who refused to use more than four ratings.
+  DPC comment: In the medical imaging context, a trivial way to increase the number of ratings would be to color-code the images: e.g., red, green and blue; now one can assign a red image rated 3, a green image rated 2, etc., which would be meaningless unless the colors encode relevant diagnostic information. Another ability, quoted in the publication \citep{wagner2001continuous} advocating continuous ratings is the ability to recognize faces, again a multidimensional categorization task, addressed by Miller (see above). Also quoted as an argument for continuous ratings is the ability of computer aided detection schemes that calculate many features for each perceived lesion and combine them into a single probability of malignancy, which is on a highly precise floating point 0 to 1 scale. Radiologists are not computers. Other arguments for greater number of bins: it cannot hurt and one should acquire the rating data at greater precision than the noise, especially if the radiologist is able to maintain the finer distinctions. I worry that radiologists who are willing to go along with greater precision are over-anxious to co-operate with the study designer. Expert radiologists will not modify their reading style and one should be suspicious when they do accede to an investigators request to interpret images in a style that does not resemble the clinic. Radiologists, especially experts, do not like more than about four ratings. I once worked closely with a famous chest radiologist (the late Dr.~Robert Fraser) who refused to use more than four ratings. \footnote{Dr.~Fraser famously termed -- off the record -- our statistical analysis in \citep{Chakraborty1986DigitalVsConv} ``gobbledygook''.}
 \item
-  Another reason given for using continuous ratings is it reduces instances of data degeneracy. Data is sometimes said to be degenerate if the curve-fitting algorithm, the binormal model and the proper binormal model, cannot fit it (in simple terms, the program crashes). This occurs, for example, if there are no interior points on the ROC plot. Modifying radiologist behavior to accommodate the limitations of analytical methods seems to be inherently dubious. One could simply randomly add or subtract half an integer from the observed ratings, thereby making the rating scale more granular and reduce instances of degeneracy (this is actually done in some ROC software to overcome degeneracy issues). Another possibility is to use the empirical (trapezoidal) area under the ROC curve, which can always be calculated; there are no degeneracy problems with it. Actually, fitting methods now exist that are robust to data degeneracy, such as discussed in TBA Chapter 18 and Chapter 20, so this reason for acquiring continuous data no longer applies.
+  Another reason given for using continuous ratings is it reduces instances of data degeneracy. Data is sometimes said to be degenerate if the curve-fitting algorithm cannot fit it (in simple terms, the program ``crashes'' or reports unphysical parameter values). This occurs if there are no interior points on the ROC plot. Modifying radiologist behavior to accommodate the limitations of analytical methods seems to be inherently dubious. One could simply randomly add or subtract half an integer from the observed ratings thereby making the rating scale more granular and thus reduce instances of degeneracy (this is actually done in some ROC software to overcome this problem). Another possibility is to use the empirical (trapezoidal) area under the ROC curve, which can always be calculated. Actually, fitting methods now exist that are robust to data degeneracy, such as discussed in Chapter \texttt{TempComment\ \textbackslash{}@ref(proper-roc-models)} and in the RSM fitting chapter in TBA \texttt{RJafrocFrocBook}, so this reason for acquiring continuous data is no longer valid.
 \item
   The rating task involves a unidimensional scale and I see no way of getting around the basic channel-limitation noted by Miller and for this reason I recommend a 6 point scale, as in Fig. \ref{fig:SixPointScale}.
 \item
-  On the other side of the controversy \citep{RN2145}, a position that I agree with, it has been argued that given a large number of allowed ratings levels the cooperating observer essentially bins the data into a much smaller number of bins (e.g., 0, 20, 40, 60, 80, 100) and then adds a zero-mean noise term to appear to be ``spreading out the ratings''. This ensures that the binormal model does not crash. However, if the intent is to get the observer to spread the ratings, so that the binormal model does not crash, a better approach is to use alternate models that do not crash and are, in fact, very robust with respect to degneracy of the data. More on this later (see Chapters TBA CBM and RSM).
+  On the other side of the controversy \citep{berbaum2002empirical}, a position that I agree with, it has been argued that given a large number of allowed ratings levels the cooperating observer essentially bins the data into a much smaller number of bins (e.g., 0, 20, 40, 60, 80, 100) and then adds a zero-mean noise term to appear to be ``spreading out the ratings''. This ensures that the binormal model does not ``crash''. However, if the intent is to get the observer to spread the ratings, so that the binormal model does not ``crash'', a better approach is to use alternate models that do not ``crash'' and are, in fact, very robust with respect to degeneracy of the data.
 \end{itemize}
 
 \hypertarget{binary-task-birads-rating-scale}{%
 \section{The BI-RADS ratings scale and ROC studies}\label{binary-task-birads-rating-scale}}
 
-It is desirable that the rating scale be relevant to the radiologists' daily practice. This assures greater consistency -- the fitting algorithms assume that the thresholds are held constant for the duration of the ROC study. Depending on the clinical task, a natural rating scale may already exist. For example, in 1992 the American College of Radiology developed the Breast Imaging Reporting and Data System (BI-RADS) to standardize mammography reporting36. There are six assessment categories: category 0 indicates need for additional imaging; category 1 is a negative (clearly non-diseased) interpretation; category 2 is a benign finding; category 3 is probably benign, with short-interval follow-up suggested; category 4 is a suspicious abnormality for which biopsy should be considered; category 5 is highly suggestive of malignancy and appropriate action should be taken. The 4th edition of the BI-RADS manual37 divides category 4 into three subcategories 4A, 4B and 4C and adds category 6 for a proven malignancy. The 3-category may be further subdivided into ``probably benign with a recommendation for normal or short-term follow-up'' and a 3+ category, ``probably benign with a recommendation for immediate follow-up''. Apart from categories 0 and 2, the categories form an ordered set with higher categories representing greater confidence in presence of cancer. How to handle the 0s and the 2s is the subject of some controversy, described next.
+It is desirable that the rating scale be relevant to the radiologists' daily practice. This assures greater consistency -- the fitting algorithms assume that the thresholds are held constant for the duration of the ROC study. Depending on the clinical task, a natural rating scale may already exist. For example, the American College of Radiology has developed the Breast Imaging Reporting and Data System (BI-RADS) to standardize mammography reporting \citep{liberman2002breast}. There are six assessment categories: category 0 indicates need for additional imaging; category 1 is a negative (clearly non-diseased); category 2 is a benign finding; category 3 is probably benign, with short-interval follow-up suggested; category 4 is a suspicious abnormality for which biopsy should be considered; category 5 is highly suggestive of malignancy and appropriate action should be taken. The 4th edition of the BI-RADS manual divides category 4 into three subcategories 4A, 4B and 4C and adds category 6 for a proven malignancy. The 3-category may be further subdivided into ``probably benign with a recommendation for normal or short-term follow-up'' and a 3+ category, ``probably benign with a recommendation for immediate follow-up''. Apart from categories 0 and 2, the categories form an ordered set with higher categories representing greater confidence in presence of cancer. How to handle the 0s and the 2s is the subject of some controversy, described next.
 
 \hypertarget{binary-task-birads-rating-scale-controversy}{%
 \section{The controversy}\label{binary-task-birads-rating-scale-controversy}}
 
-Two large clinical studies have been reported in which BI-RADS category data were acquired for \textgreater{} 400,00 screening mammograms interpreted by many (124 in the 1st study) radiologists \citep{barlow2004accuracy, fenton2007influence}. The purpose of the first study was to relate radiologist characteristics to actual performance (e.g., does performance depend on reading volume -- the number of cases interpreted per year), so it could be regarded as a more elaborate version of \citep{RN1087}, described in Chapter \ref{binary-task}. The purpose of the second study was to determine the effectiveness of computer-aided detection (CAD) in screening mammography.
+Two large clinical studies have been reported in which BI-RADS category data were acquired for \textgreater{} 400,00 screening mammograms interpreted by many (124 in the 1st study) radiologists \citep{barlow2004accuracy, fenton2007influence}. The purpose of the first study was to relate radiologist characteristics to actual performance (e.g., does performance depend on reading volume -- the number of cases interpreted per year), so it could be regarded as a more elaborate version of \citep{beam1996variability}, described in Chapter \ref{binary-task}. The purpose of the second study was to determine the effectiveness of computer-aided detection (CAD) in screening mammography.
 
-The reported ROC analyses used the BIRADS assessments labels ordered as follows: \(1 < 2 < 3 < 3+ < 0 < 4 < 5\). The last column of Table \ref{tab:BIRADS-study} shows that with this ordering the numbers of cancer per 1000 patients increases monotonically. The CAD study is discussed later, for now the focus is on the adopted BIRADS scale ordering that is common to both studies and which has raised controversy (the controversy appears to be limited to observer performance study analysts).
+The reported ROC analyses used the BIRADS assessments labels ordered as follows: \(1 < 2 < 3 < 3+ < 0 < 4 < 5\). The last column of Table \ref{tab:BIRADS-study} shows that with this ordering the numbers of cancer per 1000 patients increases monotonically. The CAD study is discussed later, for now the focus is on the adopted BIRADS scale ordering that is common to both studies and which has raised controversy.
 
 \begin{table}
 
@@ -2220,11 +2245,11 @@ The use of the BI-RADS ratings shown in Table \ref{tab:BIRADS-study} has been cr
 BI-RADS Data Should Not Be Used to Estimate ROC Curves
 \end{quote}
 
-Since BI-RADS is a clinical rating scheme widely used in mammography, the editorial, if correct, implies that ROC analysis of clinical mammography data is not possible. Since the BI-RADS scale was arrived at after considerable deliberation, inability to perform ROC analysis with it would strike at the root of clinical utility of the ROC method. The purpose of this section is to express the reasons why I have a different take on this controversy.
+Since BI-RADS is a clinical rating scheme widely used in mammography, the editorial, if correct, implies that ROC analysis of clinical mammography data is not possible. Since the BI-RADS scale was arrived at after considerable deliberation, the inability to perform ROC analysis with it would strike at the root of clinical utility of the ROC method. The purpose of this section is to express the reasons why I have a different take on this controversy.
 
 It is claimed in the editorial that the Barlow et al.~study confuses cancer yield with confidence level and that BI-RADS categories 1 and 2 should not be separate entries of the confidence scale, because both indicate no suspicion for cancer.
 
-I agree with the Barlow et al.~suggested ordering of the ``2s'' as more likely to have cancer than the ``1s''. A category-2 means the radiologist found something to report, and the location of the finding is part of the clinical report. Even if the radiologist believes the finding is definitely benign, there is a finite probability that a category-2 finding is cancer, as evident in the last column of Table \ref{tab:BIRADS-study} (\(1.43 > 0.83\)). In contrast, there are no findings associated with a category-1 report. A paper \citep{hartmann2005benign} titled:
+I agree with the Barlow et al.~suggested ordering of the ``2s'' as more likely to have cancer than the ``1s''. A category-2 means the radiologist found something to report, and the location of the finding is part of the clinical report. Even if the radiologist believes the finding is definitely benign, there is a non-zero probability that a category-2 finding is cancer, as evident in the last column of Table \ref{tab:BIRADS-study} (\(1.43 > 0.83\)). In contrast, there are no findings associated with a category-1 report. A paper \citep{hartmann2005benign} titled:
 
 \begin{quote}
 Benign breast disease and the risk of breast cancer
@@ -2232,26 +2257,26 @@ Benign breast disease and the risk of breast cancer
 
 should convince any doubters that benign lesions do have a finite chance of cancer.
 
-The problem with ``where to put the 0s'' arises only when one tries to analyze clinical BI-RADS data. In a laboratory study, the radiologist would not be given the category-0 option. In analyzing a clinical study it is incumbent on the study designer to justify the choice of the rating scale adopted. Showing that the proposed ordering agrees with the probability of cancer is justification -- and in my opinion, given the very large sample size this was accomplished convincingly in the Barlow et al.~study.
+The problem with ``where to put the 0s'' arises only when one tries to analyze clinical BI-RADS data. In a laboratory study the radiologist would not be given the category-0 option. In analyzing a clinical study it is incumbent on the study designer to justify the choice of the rating scale adopted. Showing that the proposed ordering agrees with the probability of cancer is justification -- and in my opinion, given the very large sample size this was accomplished convincingly in the Barlow et al.~study.
 
-\textbf{Moreover, the last column of Table \ref{tab:BIRADS-study} suggests that any other ordering would violate an important principle, namely, optimal ordering is achieved when each case is rated according to it's likelihood ratio (defined as the probability of the case being diseased divided by the probability of the case being non-diseased). The likelihood ratio is the ``betting odds'' of the case being diseased, which is expected to be monotonic with the empirical probability of the case being diseased, i.e., the last column of Table \ref{tab:BIRADS-study}. Therefore, the ordering adopted in Table \ref{tab:BIRADS-study} is equivalent to adopting a likelihood ratio scale and any other ordering would not be monotonic with likelihood ratio.}
+\begin{quote}
+Moreover, the last column of Table \ref{tab:BIRADS-study} suggests that any other ordering would violate an important principle, namely, optimal ordering is achieved when each case is rated according to it's likelihood ratio (defined as the probability of the case being diseased divided by the probability of the case being non-diseased). The likelihood ratio is the ``betting odds'' of the case being diseased, which is expected to be monotonic with the empirical probability of the case being diseased, i.e., the last column of Table \ref{tab:BIRADS-study}. Therefore, the ordering adopted in Table \ref{tab:BIRADS-study} is equivalent to adopting a likelihood ratio scale and any other ordering would not be monotonic with likelihood ratio.
+\end{quote}
 
-The likelihood ratio is described in more detail in the TBA Chapter 20, which describes ROC fitting methods that yield ``proper'' ROC curves, i.e., ones that have monotonically decreasing slope as the operating point moves up the curve from (0,0) to (1,1) and therefore do not (inappropriately) cross the chance diagonal. Key to these fitting methods is adoption of a likelihood ratio scale to rank-order cases, instead of the ratings assumed by the unequal variance binormal model. The proper ROC fitting algorithm implemented in PROPROC software reorders confidence levels assumed by the binormal model, TBA Chapter 20, paragraph following Fig. 20.4. This is analogous to the reordering of the clinical ratings based on cancer rates assumed in Table \ref{tab:BIRADS-study}. It is illogical to allow reordering of ratings in ``blind'' software but question the same when done in a principled way by a researcher. As expected, the modeled ROC curves in the Barlow publication, their Fig. 4, show no evidence of improper behavior. This is in contrast to a clinical study (about fifty thousands patients spread over 33 hospitals with each mammogram interpreted by two radiologists) using a non-BIRADS 7-point rating scale which yielded markedly improper ROC curves \citep{RN1784} for the film modality when using ROC ratings (not BIRADS). This suggests that use of a non-clinical ratings scale for clinical studies, without independent confirmation of the ordering implied by the scale, is problematical.
+The likelihood ratio is described in more detail in Chapter \texttt{TempComment\ \textbackslash{}@ref(proper-roc-models)}, which describes ROC fitting methods that yield ``proper'' ROC curves, i.e., ones that have monotonically decreasing slope as the operating point moves up the curve from (0,0) to (1,1) and therefore do not inappropriately cross the chance diagonal. Key to these fitting methods is adoption of a likelihood ratio scale to rank-order cases. The fitting algorithm implemented in PROPROC software \textbf{reorders} confidence levels assumed by the binormal model, Chapter \texttt{TempComment\ \textbackslash{}@ref(proper-roc-models)}, paragraph following TBA Fig. 20.4. This is analogous to the reordering of the clinical ratings based on cancer rates assumed in Table \ref{tab:BIRADS-study}. It is illogical to allow reordering of ratings in software but question the same when done in a principled way by a researcher. As expected, the modeled ROC curves in the Barlow publication, their Fig. 4, show no evidence of improper behavior. This is in contrast to a clinical study (about fifty thousands patients spread over 33 hospitals with each mammogram interpreted by two radiologists) using a non-BIRADS 7-point rating scale which yielded markedly improper ROC curves \citep{pisano2005diagnostic} for the film modality when using ROC ratings (not BIRADS). This suggests that use of a non-clinical ratings scale for clinical studies, without independent confirmation of the ordering implied by the scale, is problematical.
 
-The reader might be interested as to reason for the 0-ratings being more predictive of cancer than a 3+ rating, Table \ref{tab:BIRADS-study}. In the clinic the zero rating implies, in effect, ``defer decision, incomplete information, additional imaging necessary''. A zero rating could be due to technical problems with the images: e.g., improper positioning (e.g., missing breast tissue close to the chest wall) or incorrect imaging technique (improper selection of kilovoltage and/or tube charge), making it impossible to properly interpret the images. Since the images are part of the permanent patient record, there are both healthcare and legal reasons why the images need to be optimal. Incorrect technical factors are expected to occur randomly and therefore not predictive of cancer. However, if there is a suspicious finding and the image quality is sub-optimal, the radiologist may be unable to commit to a decision, they may seek additional imaging, perhaps better compression or a slightly different view angle to resolve the ambiguity. Such zero ratings are expected with suspicious findings, and therefore are expected to be predictive of cancer.
-
-As an aside, the second paper \citep{fenton2007influence} using the ordering shown in Table \ref{tab:BIRADS-study} questioned the utility of CAD for breast cancer screening (this was ca. 2007). This paper was met with flurry of correspondence disputing the methodology (basically questioning usage of the BIRADS scale summarized above).
+The reader might be interested as to reason for the 0-ratings being more predictive of cancer than a 3+ rating, Table \ref{tab:BIRADS-study}. In the clinic the zero rating implies, in effect, ``defer decision, incomplete information, additional imaging necessary''. A zero rating could be due to technical problems with the images: e.g., improper positioning (e.g., missing breast tissue close to the chest wall) or incorrect imaging technique (improper selection of kilovoltage and/or tube charge) making it impossible to properly interpret the images. Since the images are part of the permanent patient record, there are both healthcare and legal reasons why the images need to be optimal. Incorrect technical factors are expected to occur randomly and therefore not predictive of cancer. However, if there is a suspicious finding and the image quality is sub-optimal, the radiologist may be unable to commit to a decision, they may seek additional imaging, perhaps better compression or a slightly different view angle to resolve the ambiguity. Such zero ratings are expected with suspicious findings and are expected to be predictive of cancer.
 
 \hypertarget{ratings-paradigm-discussion}{%
 \section{Discussion}\label{ratings-paradigm-discussion}}
 
-In this chapter the widely used ratings paradigm was described and illustrated with a sample dataset. The calculation of ROC operating points from this table was detailed. A formal notation was introduced to describe the counts in this table and the construction of operating points and an R example was given. I do not wish to leave the impression that the ratings paradigm is used only in medical imaging. In fact the historical reference \citep{macmillan2004detection} to the two-question six-point scale in Fig. \ref{fig:SixPointScale}, namely Table 3.1 in the book by MacMillan and Creelman, was for a rating study on performance in recognizing odors. The early users of the ROC ratings paradigm were mostly experimental psychologists and psychophysicists interested in studying perception of signals, some in the auditory domain, and some in other sensory domains.
+In this chapter the widely used ratings paradigm was described and illustrated with a sample dataset. The calculation of ROC operating points from this table was explained. A formal notation was introduced to describe the counts in this table and the construction of operating points and an \texttt{R} example was given. I do not wish to leave the impression that the ratings paradigm is used only in medical imaging. In fact the historical reference \citep{macmillan2004detection} to the two-question six-point scale in Fig. \ref{fig:SixPointScale} was for a rating study on performance in recognizing odors.
 
-While it is possible to use the equal variance binormal model to obtain a measure of performance, the results depend upon the choice of operating point, and evidence was presented for the generally observed fact that most ROC ratings datasets are inconsistent with the equal variance binormal model. This indicates the need for an extended model, to be discussed in TBA Chapter 06.
+While it is possible to use the equal variance binormal model to obtain a measure of performance, the results depend upon the choice of operating point, and evidence was presented for the generally observed fact that most ROC ratings datasets are inconsistent with the equal variance binormal model. This indicates the need for an extended model, to be discussed in Chapter \ref{binormal-model}.
 
-The rating paradigm is a more efficient way of collecting the data compared to repeating the binary paradigm with instructions to cause the observer to adopt different fixed thresholds specific to each repetition. The rating paradigm is also more efficient than the 2AFC paradigm; more importantly, it is more clinically realistic.
+The rating paradigm is a more efficient way of collecting the data compared to repeating the binary paradigm with instructions to cause the observer to adopt different fixed thresholds specific to each repetition. The rating paradigm is also more efficient than the 2AFC paradigm -- and the rating paradigm is more clinically realistic.
 
-Two controversial but important issues were addressed: the reason for my recommendation for adopting a discrete 6-point rating scale, and correct usage of clinical BIRADS ratings in ROC studies. When a clinical scale exists, the empirical disease occurrence rate associated with each rating should be used to order the ratings. Ignoring an existing clinical scale would be a disservice to the radiology community.
+Two controversial but important issues were addressed: the reason for my recommendation for adopting a discrete 6-point rating scale and correct usage of clinical BIRADS ratings in ROC studies. When a clinical scale exists, the empirical disease occurrence rate associated with each rating should be used to order the ratings.
 
 The next step is to describe a model for ratings data. Before doing that, it is necessary to introduce an empirical performance measure, namely the area under the empirical or trapezoidal ROC, which does not require any modeling.
 
@@ -2269,21 +2294,23 @@ The next step is to describe a model for ratings data. Before doing that, it is 
 \hypertarget{empirical-auc-introduction}{%
 \section{Introduction}\label{empirical-auc-introduction}}
 
-The ROC plot, introduced in Chapter 03, is defined as the plot of sensitivity (y-axis) vs.~1-specificity (x-axis). Equivalently, it is the plot of TPF (y-axis) vs.~FPF (x-axis). An equal variance binormal model was introduced which allows an ROC plot to be fitted to a single observed operating point. In Chapter 04, the more commonly used ratings paradigm was introduced.
+The ROC plot, introduced in Chapter 03, is defined as the plot of sensitivity (y-axis) vs.~1-specificity (x-axis). Equivalently, it is the plot of \(\text{TPF}\) (y-axis) vs.~\(\text{FPF}\) (x-axis). An equal variance binormal model was introduced which allows an ROC plot to be fitted to a single observed operating point. In Chapter 04, the more commonly used ratings paradigm was introduced.
 
-One of the reasons for fitting observed counts data, such as in Table 4.1 in Chapter 04, to a parametric model, is to derive analytical expressions for the separation parameter \(\mu\) of the model or the area AUC under the curve. Other figures of merit, such as the TPF at a specified FPF, or the partial area to the left of a specified FPF, can also be calculated from this model. Each figure of merit can serve as the basis for comparing two readers to determine which one is better. They have the advantage of being single values, as opposed to a pair of sensitivity-specificity values, thereby making it easier to unambiguously compare performances. Additionally, they often yield physical insight into the task, e.g., the separation parameter is the perceptual signal to noise corresponding to the diagnostic task.
+One of the reasons for fitting to a parametric model is to derive analytical expressions for the separation parameter \(\mu\) of the model and the area AUC under the curve. It was shown, see Fig. \ref{fig:ratings-paradigm-eq-var-fit}, that the equal variance binormal model did not fit a clinical dataset and that an unequal variance binormal model yielded a better visual fit. This turns out to be an almost universal finding. Before getting into the complexity of the unequal variance binormal model curve fitting, it is appropriate to introduce a simpler empirical approach, which is very popular with researchers in this field.
 
-It was shown, TBA Fig. 4.1 (A - B), that the equal variance binormal model did not describe a clinical dataset and that an unequal variance binormal model yielded a better visual fit. This turns out to be an almost universal finding. Before getting into the complexity of the unequal variance binormal model curve fitting, it is appropriate to introduce a simpler empirical approach, which is very popular with some researchers. The New Oxford American Dictionary definition of ``empirical'' is: ``based on, concerned with, or verifiable by observation or experience rather than theory or pure logic''. The method is also termed ``non-parametric'' as it does not involve any parametric assumptions (specifically normality assumptions). Notation is introduced for labeling individual cases that is used in subsequent chapters. An important theorem relating the empirical area under the ROC to a formal statistic, known as the Wilcoxon, is described. The importance of the theorem derives from its applications to non-parametric analysis of ROC data.
+The New Oxford American Dictionary definition of ``empirical'' is: ``based on, concerned with, or verifiable by observation or experience rather than theory or pure logic''. The method is also termed ``non-parametric'' as it does not involve parametric assumptions (specifically normality assumptions). Notation is introduced for labeling individual cases that is used in subsequent chapters. An important theorem relating the empirical area under the ROC to a statistic known as the Wilcoxon is described.
 
 \hypertarget{empirical-roc-plot}{%
 \section{The empirical ROC plot}\label{empirical-roc-plot}}
 
-The empirical ROC plot is constructed by connecting adjacent observed operating points, including the trivial ones at (0,0) and (1,1), with straight lines. The trapezoidal area under this plot is a non-parametric figure of merit that is threshold independent. Since no parametric assumptions are involved, some prefer it to parametric methods, such as the one to be described in the next chapter. {[}In the context of AUC, the terms empirical, trapezoidal, or non-parametric all mean the same thing.{]}
+\begin{quote}
+The empirical ROC plot is constructed by connecting adjacent observed operating points, including the trivial ones at (0,0) and (1,1), with straight lines. The trapezoidal area under this plot is a non-parametric figure of merit that is threshold independent. Since no parametric assumptions are involved some prefer it to parametric methods such as the one to be described in the next chapter.\^{} {[}In the context of AUC, the terms empirical, trapezoidal, or non-parametric all mean the same thing.{]}
+\end{quote}
 
 \hypertarget{notation-for-cases}{%
 \subsection{Notation for cases}\label{notation-for-cases}}
 
-As in §3.5, cases are indexed by \(k_tt\) where \(t\) indicates the truth-status at the case (i.e., patient) level, with \(t=1\) for non diseased cases and \(t=2\) for diseased cases. Index \(k_1\) ranges from one to \(K_1\) for non-diseased cases and \(k_2\) ranges from one to \(K_2\) for diseased cases, where \(K_1\) and \(K_2\) are the total number of non-diseased and diseased cases, respectively. In Table 5.1, each case is represented as a shaded box, lighter shading for non-diseased cases and darker shading for diseased cases. There are 11 non-diseased cases, labeled N1 -- N11, in the upper row of boxes and there are seven diseased cases, labeled D1 -- D7, in the lower row of boxes.
+Cases are indexed by \(k_tt\) where \(t\) indicates the truth-status at the case (i.e., patient) level, with \(t=1\) for non diseased cases and \(t=2\) for diseased cases. Index \(k_1\) ranges from one to \(K_1\) for non-diseased cases and \(k_2\) ranges from one to \(K_2\) for diseased cases where \(K_1\) and \(K_2\) are the total number of non-diseased and diseased cases respectively. In Table \ref{tab:empirical-ROC-2index-notation} each case is represented as a shaded box using lighter shading for non-diseased cases and darker shading for diseased cases. There are 11 non-diseased cases, labeled N1 -- N11, in the upper row of boxes and there are seven diseased cases, labeled D1 -- D7, in the lower row.
 
 \begin{table}
 
@@ -2300,33 +2327,33 @@ D1 & D2 & D3 & D4 & D5 & D6 & D7 &  &  &  & \\
 \end{tabular}
 \end{table}
 
-TBA In \ref{tab:empirical-ROC-2index-notation} the upper row shows 11 non-diseased cases, labeled N1 -- N11, while the lower row shows seven diseased cases, labeled D1 -- D7. To address any case one needs two indices: the row number \(t\) and the column number \(k_tt\). Since in general the column number depends on the value of \(t\), one needs two indices to specify the column index. To address a case one needs two indices; the first index is the row number \(t\) and the second index is the column number \(k_tt\). Since the total number of columns depends on the row number, the column index has to be t-dependent, i.e., \(k_tt\), denoting the column index \(k_t\) of a case with truth index \(t\). Alternative notation in more commonly usage uses a single index \(k\) to label the cases. It reserves the first \(K_1\) positions for non-diseased cases and the rest for diseased cases: e.g., \(k = 3\) corresponds to the third non-diseased case, \(k = K_1+5\) corresponds to the fifth diseased case, etc. Because it extends more easily to more complex data structures, e.g., FROC, I prefer the two-index notation.
+To address any cell (i.e., case) in Table \ref{tab:empirical-ROC-2index-notation} one needs two indices: the row number \(t\) and the column number \(k_tt\). Since the column number depends on the value of \(t\) one needs two indices to specify it: specifically, \(k_tt\) denotes the column number \(k_t\) of a case with truth index \(t\). \footnote{Alternative notation commonly uses a single index \(k\) to label the cases. It reserves the first \(K_1\) positions for non-diseased cases and the rest for diseased cases: e.g., \(k = 3\) corresponds to the third non-diseased case, \(k = K_1+5\) corresponds to the fifth diseased case, etc. Because it extends easily to more complex data structures, e.g., FROC, I prefer the two-index notation.}
 
 \hypertarget{an-empirical-operating-point}{%
 \subsection{An empirical operating point}\label{an-empirical-operating-point}}
 
-Let \(z_{k_tt}\) represent the z-sample of case \(k_tt\). For a given reporting threshold \(\zeta\), and assuming a positive-directed rating scale (i.e., higher values correspond to greater confidence in presence of disease), empirical false positive fraction \(FPF(\zeta)\) and empirical true positive fraction \(TPF(\zeta)\) are defined by:
+Let \(z_{k_tt}\) represent the z-sample of case \(k_tt\). For a given reporting threshold \(\zeta\), and assuming a positive-directed rating scale (i.e., higher values correspond to greater confidence in presence of disease), empirical false positive fraction \(\text{FPF}(\zeta)\) and empirical true positive fraction \(\text{TPF}(\zeta)\) are defined by:
 
 \begin{equation}
 \left.
 \begin{aligned}
-FPF\left ( \zeta \right ) &= \frac{1}{K_1}\sum_{k_1=1}^{K_1}I\left ( z_{k_11} \geq \zeta \right ) \\
-TPF\left ( \zeta \right ) &= \frac{1}{K_2}\sum_{k_2=1}^{K_2}I\left ( z_{k_22} \geq \zeta \right )
+\text{FPF}\left ( \zeta \right ) &= \frac{1}{K_1}\sum_{k_1=1}^{K_1}I\left ( z_{k_11} \geq \zeta \right ) \\
+\text{TPF}\left ( \zeta \right ) &= \frac{1}{K_2}\sum_{k_2=1}^{K_2}I\left ( z_{k_22} \geq \zeta \right )
 \end{aligned}
 \right \}
 \label{eq:empirical-auc-op-pt}
 \end{equation}
 
-Here \(I(x)\) is the indicator function that equals one if \(x\) is true and is zero otherwise.
+Here \(I(x)\) is the indicator function which equals one if \(x\) is true and is zero otherwise.
 
-In Eqn. \eqref{eq:empirical-auc-op-pt} the indicator functions act as counters, effectively counting instances where the z-sample of a case equals or exceeds \(\zeta\), and division by the appropriate denominator yields the desired left hand sides of these equations. The operating point \(O(\zeta)\) corresponding to threshold \(\zeta\) is defined by:
+In Eqn. \eqref{eq:empirical-auc-op-pt} the indicator functions act as counters effectively counting instances where the z-sample of a case equals or exceeds \(\zeta\), and division by the appropriate denominator yields the desired left hand sides of these equations. The operating point \(O(\zeta)\) corresponding to threshold \(\zeta\) is defined by:
 
 \begin{equation}
-O\left ( \zeta \right ) = \left ( FPF\left ( \zeta \right ), TPF\left ( \zeta \right ) \right )
-\label{eq:empirical-OperatingPoint}
+O\left ( \zeta \right ) = \left ( \text{FPF}\left ( \zeta \right ), TPF\left ( \zeta \right ) \right )
+\label{eq:empirical-operating-point}
 \end{equation}
 
-The essential difference between Eqn. \eqref{eq:empirical-auc-op-pt} and Eqn. \eqref{eq:binary-task-model-fpf-tpf} is that the former is non-parametric while the latter is parametric. In TBA Chapter 03 analytical (or parametric, i.e., model parameter dependent) operating points were obtained. In contrast, here one uses the observed ratings to calculate the empirical operating point.
+The difference between Eqn. \eqref{eq:empirical-auc-op-pt} and Eqn. \eqref{eq:binary-task-model-fpf-tpf} is that the former is non-parametric while the latter is parametric.
 
 \hypertarget{empirical-auc-operating-points}{%
 \section{Empirical operating points from ratings data}\label{empirical-auc-operating-points}}
@@ -2336,7 +2363,7 @@ Consider a ratings ROC study with \(R\) bins. Describing an R-rating empirical R
 The operating point \(O(\zeta_r)\) is given by:
 
 \begin{equation}
-O\left ( \zeta_r \right ) = \left ( FPF\left ( \zeta_r \right ), TPF\left ( \zeta_r \right ) \right )
+O\left ( \zeta_r \right ) = \left ( \text{FPF}\left ( \zeta_r \right ), TPF\left ( \zeta_r \right ) \right )
 \label{eq:empirical-operating-point-zeta-r}
 \end{equation}
 
@@ -2345,12 +2372,11 @@ Its coordinates are defined by:
 \begin{equation} 
 \left.
 \begin{aligned}
-FPF_r \equiv FPF\left ( \zeta_r \right )=\frac {1} {K_1} \sum_{k_1=1}^{K_1}I \left ( z_{k_11} \geq  \zeta_r\right ) \\
-\\
-TPF_r \equiv TPF\left ( \zeta_r \right )=\frac {1} {K_2} \sum_{k_2=1}^{K_2} I\left ( z_{k_22} \geq  \zeta_r\right )
+\text{FPF}_r \equiv \text{FPF}\left ( \zeta_r \right )=&\frac {1} {K_1} \sum_{k_1=1}^{K_1}I \left ( z_{k_11} \geq  \zeta_r\right ) \\
+\text{TPF}_r \equiv \text{TPF}\left ( \zeta_r \right )=&\frac {1} {K_2} \sum_{k_2=1}^{K_2} I\left ( z_{k_22} \geq  \zeta_r\right )
 \end{aligned}
 \right \}
-\label{eq:empirical-operating-point-fpf-tpf-r}
+\label{eq:empirical-operating-point-fpf-tpf}
 \end{equation}
 
 For example,
@@ -2358,148 +2384,38 @@ For example,
 \begin{equation} 
 \left.
 \begin{aligned}
-FPF_4 \equiv FPF\left ( \zeta_4 \right )=\frac {1} {K_1} \sum_{k_1=1}^{K_1}I \left ( z_{k_11} \geq  \zeta_4\right ) \\
-\\
-TPF_4 \equiv TPF\left ( \zeta_4 \right )=\frac {1} {K_2} \sum_{k_2=1}^{K_2} I\left ( z_{k_22} \geq  \zeta_4\right )
-\\
-O_4 \equiv \left ( FPF_4, TPF_4 \right ) = \left ( 0.017, 0.44 \right )\\
-\\
+\text{FPF}_4 \equiv \text{FPF}\left ( \zeta_4 \right )=&\frac {1} {K_1} \sum_{k_1=1}^{K_1}I \left ( z_{k_11} \geq  \zeta_4\right ) \\
+\text{TPF}_4 \equiv \text{TPF}\left ( \zeta_4 \right )=&\frac {1} {K_2} \sum_{k_2=1}^{K_2} I\left ( z_{k_22} \geq  \zeta_4\right ) \\
+O_4 \equiv \left ( \text{FPF}_4, \text{TPF}_4 \right ) =& \left ( 0.017, 0.44 \right )\\
 \end{aligned}
 \right \}
 \label{eq:empirical-operating-point-fpf-tpf-4}
 \end{equation}
 
-In Table \ref{tab:ratings-paradigm-example-table} a sample clinical ratings data set was introduced. Shown below is a partial code listing of mainEmpRocPlot.R showing implementation of Eqn. (5.7). Except for the last statement, the plotting part of the code is suppressed.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{K1 <-}\StringTok{ }\DecValTok{60}
-\NormalTok{K2 <-}\StringTok{ }\DecValTok{50}
-\NormalTok{FPF <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\KeywordTok{cumsum}\NormalTok{(}\KeywordTok{rev}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{30}\NormalTok{, }\DecValTok{19}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{))) }\OperatorTok{/}\StringTok{ }\NormalTok{K1)}
-\NormalTok{TPF <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\KeywordTok{cumsum}\NormalTok{(}\KeywordTok{rev}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DecValTok{22}\NormalTok{))) }\OperatorTok{/}\StringTok{ }\NormalTok{K2)}
-
-\NormalTok{ROCOp <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =}\NormalTok{ FPF, }\DataTypeTok{TPF =}\NormalTok{ TPF)}
-\NormalTok{ROCPlot <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}
-  \DataTypeTok{data =}\NormalTok{ ROCOp, }
-  \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{linewidth =} \DecValTok{1}\NormalTok{) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{4}\NormalTok{) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{panel.grid.major =} \KeywordTok{element_blank}\NormalTok{(), }
-        \DataTypeTok{panel.grid.minor =} \KeywordTok{element_blank}\NormalTok{(), }
-        \DataTypeTok{panel.border =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{color =} \StringTok{"black"}\NormalTok{), }
-        \DataTypeTok{axis.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{15}\NormalTok{), }
-        \DataTypeTok{axis.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{20}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}
-    \DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }
-    \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}
-    \DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{coord_cartesian}\NormalTok{(}\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{annotation_custom}\NormalTok{(}
-    \DataTypeTok{grob =} \KeywordTok{textGrob}\NormalTok{(}\KeywordTok{bquote}\NormalTok{(}\KeywordTok{italic}\NormalTok{(}\StringTok{"O"}\NormalTok{)),}
-                    \DataTypeTok{gp =} \KeywordTok{gpar}\NormalTok{(}\DataTypeTok{fontsize =} \DecValTok{22}\NormalTok{)), }
-    \DataTypeTok{xmin =} \FloatTok{-0.03}\NormalTok{, }\DataTypeTok{xmax =} \FloatTok{-0.03}\NormalTok{, }
-    \DataTypeTok{ymin =} \FloatTok{-0.03}\NormalTok{, }\DataTypeTok{ymax =} \FloatTok{-0.03}\NormalTok{) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{annotation_custom}\NormalTok{(}
-    \DataTypeTok{grob =} \KeywordTok{textGrob}\NormalTok{(}\KeywordTok{bquote}\NormalTok{(}\KeywordTok{italic}\NormalTok{(O[}\DecValTok{4}\NormalTok{])),}
-                    \DataTypeTok{gp =} \KeywordTok{gpar}\NormalTok{(}\DataTypeTok{fontsize =} \DecValTok{22}\NormalTok{)), }
-    \DataTypeTok{xmin =} \FloatTok{0.06}\NormalTok{, }\DataTypeTok{xmax =} \FloatTok{0.06}\NormalTok{, }
-    \DataTypeTok{ymin =} \FloatTok{0.40}\NormalTok{, }\DataTypeTok{ymax =} \FloatTok{0.40}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{annotation_custom}\NormalTok{(}
-    \DataTypeTok{grob =} \KeywordTok{textGrob}\NormalTok{(}\KeywordTok{bquote}\NormalTok{(}\KeywordTok{italic}\NormalTok{(O[}\DecValTok{3}\NormalTok{])),}
-                    \DataTypeTok{gp =} \KeywordTok{gpar}\NormalTok{(}\DataTypeTok{fontsize =} \DecValTok{22}\NormalTok{)), }
-    \DataTypeTok{xmin =} \FloatTok{0.10}\NormalTok{, }\DataTypeTok{xmax =} \FloatTok{0.10}\NormalTok{, }
-    \DataTypeTok{ymin =} \FloatTok{0.64}\NormalTok{, }\DataTypeTok{ymax =} \FloatTok{0.64}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{annotation_custom}\NormalTok{(}
-    \DataTypeTok{grob =} \KeywordTok{textGrob}\NormalTok{(}\KeywordTok{bquote}\NormalTok{(}\KeywordTok{italic}\NormalTok{(O[}\DecValTok{2}\NormalTok{])),}
-                    \DataTypeTok{gp =} \KeywordTok{gpar}\NormalTok{(}\DataTypeTok{fontsize =} \DecValTok{22}\NormalTok{)), }
-    \DataTypeTok{xmin =} \FloatTok{0.16}\NormalTok{, }\DataTypeTok{xmax =} \FloatTok{0.16}\NormalTok{, }
-    \DataTypeTok{ymin =} \FloatTok{0.83}\NormalTok{, }\DataTypeTok{ymax =} \FloatTok{0.83}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{annotation_custom}\NormalTok{(}
-    \DataTypeTok{grob =} \KeywordTok{textGrob}\NormalTok{(}\KeywordTok{bquote}\NormalTok{(}\KeywordTok{italic}\NormalTok{(O[}\DecValTok{1}\NormalTok{])),}
-                    \DataTypeTok{gp =} \KeywordTok{gpar}\NormalTok{(}\DataTypeTok{fontsize =} \DecValTok{22}\NormalTok{)), }
-    \DataTypeTok{xmin =} \FloatTok{0.49}\NormalTok{, }\DataTypeTok{xmax =} \FloatTok{0.49}\NormalTok{, }
-    \DataTypeTok{ymin =} \FloatTok{0.94}\NormalTok{, }\DataTypeTok{ymax =} \FloatTok{0.94}\NormalTok{)  }
-
-\NormalTok{p <-}\StringTok{ }\KeywordTok{ggplotGrob}\NormalTok{(ROCPlot)}
-\NormalTok{p}\OperatorTok{$}\NormalTok{layout}\OperatorTok{$}\NormalTok{clip[p}\OperatorTok{$}\NormalTok{layout}\OperatorTok{$}\NormalTok{name}\OperatorTok{==}\StringTok{"panel"}\NormalTok{] <-}\StringTok{ "off"}
-\KeywordTok{grid.draw}\NormalTok{(p)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-\centering
-\includegraphics{05-empirical-auc_files/figure-latex/empirical-auc-empirical-plot-1.pdf}
-\caption{\label{fig:empirical-auc-empirical-plot}Empirical ROC plot for the data in Table 4.1. By convention the operating points are numbered starting with the uppermost non-trivial one and working down the plot and the trivial operating points (0,0) and (1,1) are not shown.}
-\end{figure}
-
-The function \texttt{cumsum()} is used to calculate the cumulative sum. The \texttt{rev()} function reverses the order of the array supplied as its argument. The reader should use the debugging techniques (basically copy and paste parts of the code to the Console window and hit enter) to understand how this code implements Eqn. \eqref{eq:empirical-operating-point-fpf-tpf-r}.
-
-Fig. \ref{fig:empirical-auc-empirical-plot} is the empirical ROC plot. It illustrates the convention used to label the operating points introduced in TBA §4.3 is, i.e., \(O_1\) is the uppermost non-trivial point, and the subscripts increment by unity as one moves down the plot. By convention, not shown are the trivial operating points \(O_0 \equiv (FPF_0, TPF_0) = (1,1)\) and \(O_R \equiv (FPF_R, TPF_R) = (0,0)\), where \(R = 5\).
+Fig. \ref{fig:ratings-paradigm-labeling-points-figure} is the empirical ROC plot. It illustrates the convention used to label the operating points introduced earlier is, i.e., \(O_2\) is the uppermost non-trivial point, and the subscripts increment by unity as one moves down the plot. By convention, not shown are the trivial operating points \(O_0 \equiv (\text{FPF}_0, \text{TPF}_0) = (1,1)\) and \(O_R \equiv (\text{FPF}_R, \text{TPF}_R) = (0,0)\), where \(R = 5\).
 
 \hypertarget{empirical-auc-area-under}{%
 \section{AUC under the empirical ROC plot}\label{empirical-auc-area-under}}
 
-Fig. \ref{fig:empirical-auc-EmpiricalAUC} shows the empirical plot for the data in Table 4.1. The area under the curve (AUC) is the shaded area. By dropping imaginary vertical lines from the non-trivial operating points onto the x-axis, the shaded area is seen to be the sum of one triangular shaped area and four trapezoids. One may be tempted to write equations to calculate the total area using elementary algebra, but that would be unproductive. There is a theorem (see below) that the empirical area is exactly equal to a particular statistic known as the Mann-Whitney-Wilcoxon statistic \citep{RN2191, RN2197}, which, in this book, is abbreviated to the Wilcoxon statistic. Calculating this statistic is much simpler than calculating and summing the areas of the triangle and trapezoids, or doing planimetry.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{RocDataTable =}\StringTok{ }\KeywordTok{array}\NormalTok{(}\DataTypeTok{dim =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{))}
-\NormalTok{RocDataTable[}\DecValTok{1}\NormalTok{,]  <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{30}\NormalTok{,}\DecValTok{19}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{3}\NormalTok{)}
-\NormalTok{RocDataTable[}\DecValTok{2}\NormalTok{,]  <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{11}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{22}\NormalTok{)}
-
-\NormalTok{ret  <-}\StringTok{ }\KeywordTok{RocOperatingPointsFromRatingsTable}\NormalTok{( }
-\NormalTok{  RocDataTable[}\DecValTok{1}\NormalTok{,], }
-\NormalTok{  RocDataTable[}\DecValTok{2}\NormalTok{,] )}
-\NormalTok{FPF <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{FPF}
-\NormalTok{TPF <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{TPF}
-
-\NormalTok{ROC_Points <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =}\NormalTok{ FPF, }\DataTypeTok{TPF =}\NormalTok{ TPF)}
-\CommentTok{# add the trivial points}
-\NormalTok{ROC_Points <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(}
-  \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }
-\NormalTok{  ROC_Points, }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
-
-\NormalTok{shade <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
-  \DataTypeTok{FPF =} \KeywordTok{c}\NormalTok{(ROC_Points}\OperatorTok{$}\NormalTok{FPF, }\DecValTok{1}\NormalTok{), }
-  \DataTypeTok{TPF =} \KeywordTok{c}\NormalTok{(ROC_Points}\OperatorTok{$}\NormalTok{TPF, }\DecValTok{0}\NormalTok{))}
-
-\NormalTok{p <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(ROC_Points, }
-            \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF) ) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_polygon}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ shade, }\DataTypeTok{fill =} \StringTok{'grey'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{linewidth =} \DecValTok{1}\NormalTok{) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{4}\NormalTok{) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}
-    \DataTypeTok{panel.grid.major =} \KeywordTok{element_blank}\NormalTok{(), }
-    \DataTypeTok{panel.grid.minor =} \KeywordTok{element_blank}\NormalTok{()) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{expression}\NormalTok{(FPF)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{y =} \KeywordTok{expression}\NormalTok{(TPF)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{coord_cartesian}\NormalTok{(}\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
-\KeywordTok{print}\NormalTok{(p)}
-\end{Highlighting}
-\end{Shaded}
+Fig. \ref{fig:empirical-auc-empirical-auc} shows the empirical plot for the data in Table 4.1. The area under the curve (AUC) is the shaded area. By dropping imaginary vertical lines from the non-trivial operating points onto the x-axis, the shaded area is seen to be the sum of one triangular shaped area and four trapezoids. One can write equations to calculate the total area but there is a theorem (see below) that the empirical area is equal to a statistic known as the Mann-Whitney-Wilcoxon statistic \citep{RN2191, RN2197}, which, in this book, is abbreviated to the \textbf{Wilcoxon statistic}. Calculating this statistic is much simpler than summing the areas of the triangle and trapezoids or performing planimetry.
 
 \begin{figure}
 \centering
-\includegraphics{05-empirical-auc_files/figure-latex/empirical-auc-EmpiricalAUC-1.pdf}
-\caption{\label{fig:empirical-auc-EmpiricalAUC}The empirical ROC plot corresponding to Table 4.1; the shaded area is the area AUC under this plot, a widely used figure of merit in non-parametric ROC analysis.}
+\includegraphics{05-empirical-auc_files/figure-latex/empirical-auc-empirical-auc-1.pdf}
+\caption{\label{fig:empirical-auc-empirical-auc}The empirical ROC plot corresponding to Table 4.1; the shaded area is the empirical AUC.}
 \end{figure}
 
 \hypertarget{empirical-auc-wilcoxon}{%
 \section{The Wilcoxon statistic}\label{empirical-auc-wilcoxon}}
 
-A statistic is any value calculated from observed data. The Wilcoxon statistic is defined in terms of the ratings, by:
+A statistic is any value calculated from observed data. The Wilcoxon statistic is defined by:
 
 \begin{equation}
-W=\frac{1}{K_1K_2} \sum_{k_1=1}^{K_1} \sum_{k_2=1}^{K_2} \psi\left ( z_{k_11} ,  z_{k_22} \right )
-\label{eq:empirical-auc-Wilcoxon}
+\text{W}=\frac{1}{K_1K_2} \sum_{k_1=1}^{K_1} \sum_{k_2=1}^{K_2} \psi\left ( z_{k_11} ,  z_{k_22} \right )
+\label{eq:empirical-auc-wilcoxon}
 \end{equation}
 
-The function \(\psi\left ( x, y \right )\) is defined by:
+The kernel function \(\psi\left ( x, y \right )\) is defined by:
 
 \begin{equation}
 \left.
@@ -2512,29 +2428,19 @@ The function \(\psi\left ( x, y \right )\) is defined by:
 \label{eq:empirical-auc-psi}
 \end{equation}
 
-The function \(\psi\left ( x, y \right )\) is sometimes called the kernel function. It is unity if the diseased case is rated higher, 0.5 if the two are rated the same and zero otherwise. Each evaluation of the kernel function results from a comparison of a case from the non-diseased set with one from the diseased set. In Eqn. \eqref{eq:empirical-auc-Wilcoxon} the two summations and division by the total number of comparisons yields the observed, i.e., empirical, probability that diseased cases are rated higher than non-diseased ones. Since it is a probability, it can range from zero to one. However, if the observer has any discrimination ability at all, one expects diseased cases to be rated equal or greater than non-diseased ones, so in practice one expects \(0.5 \leq W \leq 1\). The limit 0.5 corresponds to a guessing observer, whose operating point lies on the chance diagonal of the ROC plot.
+The function \(\psi\left ( x, y \right )\) is unity if the diseased case is rated higher, 0.5 if the two are rated the same and zero otherwise. Each evaluation of the kernel function results from a comparison of a case from the non-diseased set with one from the diseased set. In Eqn. \eqref{eq:empirical-auc-wilcoxon} the two summations and division by the total number of comparisons yields the observed, i.e., empirical, probability that diseased cases are rated higher than non-diseased ones. Since it is a probability, it can range from zero to one. However, if the observer has any discrimination ability at all, one expects diseased cases to be rated equal or greater than non-diseased ones, so in practice one expects \(0.5 \leq \text{W} \leq 1\). The limit 0.5 corresponds to a guessing observer whose operating point lies on the chance diagonal of the ROC plot.
 
 \hypertarget{empirical-auc-wilcoxon-bamber-theorem}{%
 \section{Bamber's Equivalence theorem}\label{empirical-auc-wilcoxon-bamber-theorem}}
 
-The Wilcoxon statistic \(W\) equals the area \(AUC\) under the empirical ROC plot:
+The Wilcoxon statistic \(\text{W}\) equals the area \(\text{AUC}\) under the empirical ROC plot:
 
 \begin{equation}
-W = AUC
-\label{eq:empirical-auc-BambersTheorem}
+\text{W} = \text{AUC}
+\label{eq:empirical-auc-bamber-theorem}
 \end{equation}
 
-Numerical illustration: While hardly a proof, as an illustration of the theorem it is helpful to calculate the sum on the right hand side of Eqn. \eqref{eq:empirical-auc-Wilcoxon} and compare it to direct integration of the area under the empirical ROC curve (i.e., adding the area of a triangle and several trapezoids). The function is called \texttt{trapz(x,y)}, see below. It takes two array arguments, \(x\) and \(y\), where in the current case \(x\) is \(FPF\) and \(y\) is \(TPF\). One has to be careful to include the end-points as otherwise the area will be underestimated. The Wilcoxon \(W\) and the numerical estimate of the empirical area AUC are implemented in the following code.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{trapz =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, y)}
-\NormalTok{\{ }\CommentTok{### computes the integral of y with respect to x using trapezoidal integration.}
-\NormalTok{  idx =}\StringTok{ }\DecValTok{2}\OperatorTok{:}\KeywordTok{length}\NormalTok{(x)}
-  \KeywordTok{return}\NormalTok{ (}\KeywordTok{as.double}\NormalTok{( (x[idx] }\OperatorTok{-}\StringTok{ }\NormalTok{x[idx}\DecValTok{-1}\NormalTok{]) }\OperatorTok{%*%}\StringTok{ }\NormalTok{(y[idx] }\OperatorTok{+}\StringTok{ }\NormalTok{y[idx}\DecValTok{-1}\NormalTok{])) }\OperatorTok{/}\StringTok{ }\DecValTok{2}\NormalTok{)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
+Numerical illustration: While hardly a proof, as an illustration of the theorem it is helpful to calculate the sum on the right hand side of Eqn. \eqref{eq:empirical-auc-wilcoxon} and compare it to direct integration of the area under the empirical ROC curve (i.e., adding the area of a triangle and several trapezoids). The function is called \texttt{trapz(x,y)}, see below. It takes two array arguments, \(x\) and \(y\), where in the current case \(x \equiv \text{FPF}\) and \(y \equiv \text{TPF}\). One has to be careful to include the end-points as otherwise the area will be underestimated.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2550,6 +2456,7 @@ Numerical illustration: While hardly a proof, as an illustration of the theorem 
 \NormalTok{  W <-}\StringTok{ }\NormalTok{W}\OperatorTok{/}\NormalTok{K1}\OperatorTok{/}\NormalTok{K2}
   \KeywordTok{return}\NormalTok{ (W)}
 \NormalTok{\}}
+
 
 \NormalTok{RocOperatingPoints <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{( K1, K2 ) \{}
   
@@ -2582,8 +2489,8 @@ Numerical illustration: While hardly a proof, as an illustration of the theorem 
 \NormalTok{zk2  <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(RocCountsTable[}\DecValTok{2}\NormalTok{,]),RocCountsTable[}\DecValTok{2}\NormalTok{,])}\CommentTok{#do:}
 
 \NormalTok{w  <-}\StringTok{ }\KeywordTok{Wilcoxon}\NormalTok{ (zk1, zk2)}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"The wilcoxon statistic is = "}\NormalTok{, w, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> The wilcoxon statistic is =  0.8606667}
+\KeywordTok{cat}\NormalTok{(}\StringTok{"The Wilcoxon statistic is = "}\NormalTok{, w, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{#> The Wilcoxon statistic is =  0.8606667}
 \NormalTok{ret <-}\StringTok{ }\KeywordTok{RocOperatingPoints}\NormalTok{(RocCountsTable[}\DecValTok{1}\NormalTok{,], RocCountsTable[}\DecValTok{2}\NormalTok{,])}
 \NormalTok{FPF <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{FPF;FPF <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,FPF,}\DecValTok{1}\NormalTok{)}
 \NormalTok{TPF <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{TPF;TPF <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,TPF,}\DecValTok{1}\NormalTok{)}
@@ -2595,43 +2502,43 @@ Numerical illustration: While hardly a proof, as an illustration of the theorem 
 
 Note the equality of the two estimates.
 
-The following proof is adapted from \citep{RN2174} and while it may appear to be restricted to discrete ratings, the result is in fact quite general, i.e., it is applicable even if the ratings are acquired on a continuous scale. The reason is that in an R-rating ROC study the observed z-samples or ratings take on integer values, 1 through R. If R is large enough, ordering information present in the continuous data is not lost upon binning. In the following it is helpful to keep in mind that one is dealing with discrete distributions of the ratings, described by probability mass functions as opposed to probability density functions, e.g., \(P(Z_2 = \zeta_i)\) is not zero, as would be the case for continuous ratings. The proof is illustrated with Fig. \ref{fig:empirical-auc-BambersTheorem}.
+The following proof is adapted from \citep{bamber1975area} and while it may appear to be restricted to discrete ratings, the result is in fact quite general, i.e., it is applicable even if the ratings are acquired on a continuous scale. The reason is that in an R-rating ROC study the observed z-samples or ratings take on integer values, 1 through R. If R is large enough, ordering information present in the continuous data is not lost upon binning. In the following it is helpful to keep in mind that one is dealing with discrete distributions of the ratings, described by probability mass functions as opposed to probability density functions, e.g., \(P(Z_2 = \zeta_i)\) is not zero, as would be the case for continuous ratings. The proof is illustrated with Fig. \ref{fig:empirical-auc-bamber-theorem}.
 
 \begin{figure}
 \centering
-\includegraphics{05-empirical-auc_files/figure-latex/empirical-auc-BambersTheorem-1.pdf}
-\caption{\label{fig:empirical-auc-BambersTheorem}:Illustration of the derivation of Bamber's equivalence theorem. Shows an empirical ROC plot for R = 5; the shaded area is due to points labeled i and i + 1.}
+\includegraphics{05-empirical-auc_files/figure-latex/empirical-auc-bamber-theorem-1.pdf}
+\caption{\label{fig:empirical-auc-bamber-theorem}:Illustration of the derivation of Bamber's equivalence theorem. Shows an empirical ROC plot for R = 5; the shaded area is due to points labeled i and i + 1.}
 \end{figure}
 
-The abscissa of the operating point \(i\) is \(P(Z_1 \geq \zeta_i)\) and the corresponding ordinate is \(P(Z_2 \geq \zeta_i)\). Here \(Z_1\) is a random sample from a non-diseased case and \(Z_2\) is a random sample from a diseased case. The shaded trapezoid defined by drawing horizontal lines from operating points \(i\) (upper) and \(i+1\) (lower) to the right edge of the ROC plot, Fig. \ref{fig:empirical-auc-BambersTheorem}, has height:
+The abscissa of the operating point \(i\) is \(P(Z_1 \geq \zeta_i)\) and the corresponding ordinate is \(P(Z_2 \geq \zeta_i)\). Here \(Z_1\) is a random sample from a non-diseased case and \(Z_2\) is a random sample from a diseased case. The shaded trapezoid defined by drawing horizontal lines from operating points \(i\) (upper) and \(i+1\) (lower) to the right edge of the ROC plot, Fig. \ref{fig:empirical-auc-bamber-theorem}, has height:
 
 \begin{equation}
 P\left ( Z_2 \geq \zeta_i \right ) - P\left ( Z_2 \geq \zeta_{i+1} \right ) = P\left ( Z_2 = \zeta_i \right )
-\label{eq:empirical-auc-BambersTheoremProof1}
+\label{eq:empirical-auc-bamber-theorem-proof1}
 \end{equation}
 
 The validity of this equation can perhaps be more easily seen when the first term is written in the form:
 
 \begin{equation}
 P\left ( Z_2 \geq \zeta_i \right ) = P\left ( Z_2 = \zeta_i \right )  + P\left ( Z_2 \geq \zeta_{i+1} \right )
-\label{eq:empirical-auc-BambersTheoremProof2}
+\label{eq:empirical-auc-bamber-theorem-proof2}
 \end{equation}
 
 The lengths of the top and bottom edges of the trapezoid are, respectively:
 
 \begin{equation}
 1-P\left ( Z_1 \geq \zeta_i \right )=P\left ( Z_1 < \zeta_i \right )
-\label{eq:empirical-auc-BambersTheoremProof3}
+\label{eq:empirical-auc-bamber-theorem-proof3}
 \end{equation}
 
 and
 
 \begin{equation}
 1-P\left ( Z_1 \geq \zeta_{i+1} \right )=P\left ( Z_1 < \zeta_{i+1} \right )
-\label{eq:empirical-auc-BambersTheoremProof4}
+\label{eq:empirical-auc-bamber-theorem-proof4}
 \end{equation}
 
-The area \(A_i\) of the shaded trapezoid in Fig. \ref{fig:empirical-auc-BambersTheorem} is (the steps are shown explicitly):
+The area \(A_i\) of the shaded trapezoid in Fig. \ref{fig:empirical-auc-bamber-theorem} is (the steps are shown explicitly):
 
 \begin{equation}
 \left.
@@ -2641,7 +2548,7 @@ A_i &=P\left ( Z_2 = \zeta_i \right )\left [ \frac{1}{2}P\left ( Z_1 < \zeta_i \
 A_i &=P\left ( Z_2 = \zeta_i \right )\left [ \frac{1}{2} P\left ( Z_1 = \zeta_i \right ) +  P\left ( Z_1 < \zeta_i \right ) \right ] \\
 \end{aligned}
 \right \}
-\label{eq:empirical-auc-BambersTheoremProof5}
+\label{eq:empirical-auc-bamber-theorem-proof5}
 \end{equation}
 
 Summing over all values of \(i\), one gets for the total area under the empirical ROC plot:
@@ -2653,39 +2560,39 @@ AUC & = \sum_{i=0}^{R-1}A_i\\
  & = \frac{1}{2}\sum_{i=0}^{R-1}P\left ( Z_2=\zeta_i \right )P\left ( Z_1=\zeta_i \right )+\sum_{i=0}^{R-1}P\left ( Z_2=\zeta_i \right )P\left ( Z_1<\zeta_i \right )
 \end{aligned}
 \right \}
-\label{eq:empirical-auc-BambersTheoremProof6}
+\label{eq:empirical-auc-bamber-theorem-proof6}
 \end{equation}
 
-It is shown in the Appendix that the term \(A_0\) corresponds to the triangle at the upper right corner of Fig. \ref{fig:empirical-auc-BambersTheorem}, and the term \(A_4\) corresponds to the horizontal trapezoid defined by the lowest non-trivial operating point.
+It is shown in the Appendix that the term \(A_0\) corresponds to the triangle at the upper right corner of Fig. \ref{fig:empirical-auc-bamber-theorem}, and the term \(A_4\) corresponds to the horizontal trapezoid defined by the lowest non-trivial operating point.
 
-Eqn. \eqref{eq:empirical-auc-BambersTheoremProof6} can be restated as:
+Eqn. \eqref{eq:empirical-auc-bamber-theorem-proof6} can be restated as:
 
 \begin{equation}
 AUC=\frac{1}{2}P\left ( Z_1 = Z_2 \right ) + P\left ( Z_1 < Z_2 \right )
-\label{eq:empirical-auc-BambersTheoremProof7}
+\label{eq:empirical-auc-bamber-theorem-proof7}
 \end{equation}
 
-The Wilcoxon statistic was defined in Eqn. \eqref{eq:empirical-auc-Wilcoxon}. It can be seen that the comparisons implied by the summations and the weighting implied by the kernel function are estimating the two probabilities in the expression for in Eqn. \eqref{eq:empirical-auc-BambersTheoremProof7}. Therefore, \(AUC = W\).
+The Wilcoxon statistic was defined in Eqn. \eqref{eq:empirical-auc-wilcoxon}. It can be seen that the comparisons implied by the summations and the weighting implied by the kernel function are estimating the two probabilities in the expression for in Eqn. \eqref{eq:empirical-auc-bamber-theorem-proof7}. Therefore, \(AUC = W\).
 
 \hypertarget{empirical-auc-wilcoxon-bamber-theorem-importance}{%
 \section{Importance of Bamber's theorem}\label{empirical-auc-wilcoxon-bamber-theorem-importance}}
 
-The equivalence theorem is the starting point for all non-parametric methods of analyzing ROC plots, e.g., \citep{RN2268, RN112}. Prior to Bamber's work one knew how to plot an empirical operating characteristic and how to calculate the Wilcoxon statistic, but their equality had not been analytically proven. This was Bamber's essential contribution. In the absence of this theorem, the Wilcoxon statistic would be ``just another statistic'' in the context of ROC analysis. The theorem is so important that a major paper appeared in Radiology \citep{RN1970} devoted to the equivalence. The title of this paper was ``The meaning and use of the area under a receiver operating characteristic (ROC) curve''. The equivalence theorem literally gives meaning to the empirical area under the ROC.
+The equivalence theorem is the starting point for all non-parametric methods of analyzing ROC plots, e.g., \citep{hanley1997sampling, delong1988comparing}. Prior to Bamber's work one knew how to plot an empirical operating characteristic and how to calculate the Wilcoxon statistic, but their equality had not been shown. This was Bamber's essential contribution. In the absence of this theorem, the Wilcoxon statistic would be ``just another statistic'', at least in the context of ROC analysis. The theorem is so important that a paper appeared in Radiology \citep{hanley1982meaning} devoted to the equivalence. The title of this paper was ``The meaning and use of the area under a receiver operating characteristic (ROC) curve''. The equivalence theorem literally gives meaning to the empirical area under the ROC.
 
 \hypertarget{empirical-auc-discussion-summary}{%
 \section{Discussion / Summary}\label{empirical-auc-discussion-summary}}
 
 In this chapter, a simple method for estimating the area under the ROC plot has been described. The empirical AUC is a non-parametric measure of performance. Its simplicity and clear physical interpretation as the AUC under the empirical ROC (not fitted, not true) has spurred much theoretical development. These include the De Long et al method for estimating the variance of AUC of a single ROC empirical curve, and comparing pairs of ROC empirical curves5. Bamber's theorem, namely the equivalence between the empirical AUC and the Wilcoxon statistic has been derived and demonstrated.
 
-Since the empirical AUC always yields a number, the researcher could be unaware about unusual behavior of the empirical ROC curve, so it is always a good idea to plot the data and look for evidence of large extrapolations. An example would be data points clustered at low FPF values, which imply a large AUC contribution, unsupported by intermediate operating points, from the line connecting the uppermost non-trivial operating point to (1,1).
+Since the empirical AUC always yields a number, the researcher could be unaware about unusual behavior of the empirical ROC curve, so it is always a good idea to plot the data and look for evidence of large extrapolations. An example would be data points clustered at low \(\text{FPF}\) values, which imply a large AUC contribution, unsupported by intermediate operating points, from the line connecting the uppermost non-trivial operating point to (1,1).
 
-\hypertarget{empirical-auc-appendix-details-bamber-theorem}{%
-\section{Appendix 5.A: Details of Wilcoxon theorem}\label{empirical-auc-appendix-details-bamber-theorem}}
+\hypertarget{empirical-auc-details-bamber-theorem}{%
+\section{Appendix: Details of Wilcoxon theorem}\label{empirical-auc-details-bamber-theorem}}
 
 \hypertarget{upper-triangle}{%
 \subsection{Upper triangle}\label{upper-triangle}}
 
-For \(i = 0\), Eqn. \eqref{eq:empirical-auc-BambersTheoremProof5} implies (since the lowest empirical threshold is unity, the lowest allowed rating, and there are no cases rated less than one):
+For \(i = 0\), Eqn. \eqref{eq:empirical-auc-bamber-theorem-proof5} implies (since the lowest empirical threshold is unity, the lowest allowed rating, and there are no cases rated less than one):
 
 \begin{equation}
 \left. 
@@ -2713,7 +2620,7 @@ Q.E.D.
 \hypertarget{lowest-trapezoid}{%
 \subsection{Lowest trapezoid}\label{lowest-trapezoid}}
 
-For \(i = 4\), Eqn. \eqref{eq:empirical-auc-BambersTheoremProof5} implies:
+For \(i = 4\), Eqn. \eqref{eq:empirical-auc-bamber-theorem-proof5} implies:
 
 \begin{equation}
 \left.
@@ -3544,7 +3451,7 @@ It has been stated that the \texttt{b}-parameter of the binormal model is genera
 
 The fact that the \texttt{b}-parameter is less than unity implies that the predicted ROC curve is improper, meaning its slope is not monotone decreasing as the operating point moves up the curve. The result is that a portion of the curve, near (1,1) that crosses the chance-diagonal and hooks upward approaching (1,1) with infinite slope. Ways of fitting proper ROC curves are described in Chapter \texttt{TempComment\ \textbackslash{}@ref(proper-roc-models)}. Usually the hook is not readily visible, which has been used as an excuse to ignore the problem. For example, in Fig. 6.4, one would have to ``zoom-in'' on the upper right corner to see it, but the reader should make no mistake about it, the hook is there as .
 
-A recent example is Fig. 1 in the publication resulting from the Digital Mammographic Imaging Screening Trial (DMIST) clinical trial \citep{RN1784} involving 49,528 asymptomatic women from 33 clinical sites and involving 153 radiologists, where each of the film modality ROC plots crosses the chance diagonal and hooks upwards to (1,1), which as is known, results anytime \(b <1\).
+A recent example is Fig. 1 in the publication resulting from the Digital Mammographic Imaging Screening Trial (DMIST) clinical trial \citep{pisano2005diagnostic} involving 49,528 asymptomatic women from 33 clinical sites and involving 153 radiologists, where each of the film modality ROC plots crosses the chance diagonal and hooks upwards to (1,1), which as is known.
 
 The unphysical nature of the hook (predicting worse than chance-level performance for supposedly expert readers) is not the only reason for seeking alternate ROC models. The binormal model is susceptible to degeneracy problems. If the dataset does not provide any interior operating points (i.e., all observed points lie on the axes defined by FPF = 0 or TPF = 1) then the model fits these points with b = 0. The resulting straight-line segment fits do not make physical sense. These problems are addressed by the contaminated binormal model16 to be discussed in Chapter ``Other proper ROC models''. The first paper in the series has particularly readable accounts of data degeneracy.
 
