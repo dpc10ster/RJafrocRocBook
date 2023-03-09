@@ -12,18 +12,18 @@ library(grid)
 
 
 
-## TBA How much finished {#empirical-auc-how-much-finished}
-80%
+## How much finished 80% {#empirical-auc-how-much-finished}
+
 
 
 
 ## Introduction {#empirical-auc-introduction}
 
-The ROC plot, introduced in Chapter 03, is defined as the plot of sensitivity (y-axis) vs. 1-specificity (x-axis). Equivalently, it is the plot of $\text{TPF}$ (y-axis) vs. $\text{FPF}$ (x-axis). An equal variance binormal model was introduced which allows an ROC plot to be fitted to a single observed operating point. In Chapter 04, the more commonly used ratings paradigm was introduced. 
+The ROC plot is defined as the plot of sensitivity (y-axis) vs. 1-specificity (x-axis). Equivalently, it is the plot of $\text{TPF}$ vs. $\text{FPF}$. An equal variance binormal model was introduced which allows an ROC plot to be fitted to a single observed operating point. The more commonly used ratings paradigm was introduced in the previous chapter. 
 
-One of the reasons for fitting to a parametric model is to derive analytical expressions for the separation parameter $\mu$ of the model and the area AUC under the curve. It was shown, see Fig. \@ref(fig:ratings-paradigm-eq-var-fit), that the equal variance binormal model did not fit a clinical dataset and that an unequal variance binormal model yielded a better visual fit. This turns out to be an almost universal finding. Before getting into the complexity of the unequal variance binormal model curve fitting, it is appropriate to introduce a simpler empirical approach, which is very popular with researchers in this field. 
+One of the reasons for fitting to a parametric model is to derive analytical expressions for the separation parameter $\mu$ of the model and the area AUC under the curve. It was shown, Fig. \@ref(fig:ratings-paradigm-eq-var-fit), that the equal variance binormal model did not fit a clinical dataset and that an unequal variance binormal model yielded a better visual fit. This turns out to be an almost universal finding. Before getting into the complexity of the unequal variance binormal model curve fitting, it is appropriate to introduce a simpler **empirical** approach, which is very popular with researchers in this field. 
 
-The New Oxford American Dictionary definition of "empirical" is: "based on, concerned with, or verifiable by observation or experience rather than theory or pure logic". The method is also termed "non-parametric" as it does not involve parametric assumptions (specifically normality assumptions). Notation is introduced for labeling individual cases that is used in subsequent chapters. An important theorem relating the empirical area under the ROC to a statistic known as the Wilcoxon is described. 
+The New Oxford American Dictionary definition of "empirical" is: "based on, concerned with, or verifiable by observation or experience rather than theory or pure logic". The method is also termed "non-parametric" as it does not involve parametric assumptions (specifically normality assumptions). Notation is introduced for labeling individual cases that is used in subsequent chapters. The empirical area under the ROC (AUC) under the empirical plot is defined. An important theorem relating AUC to the Wilcoxon statistic is described. 
 
 
 ## The empirical ROC plot {#empirical-roc-plot}
@@ -476,9 +476,7 @@ The equivalence theorem is the starting point for all non-parametric methods of 
 
 ## Discussion / Summary {#empirical-auc-discussion-summary}
 
-In this chapter, a simple method for estimating the area under the ROC plot has been described. The empirical AUC is a non-parametric measure of performance. Its simplicity and clear physical interpretation as the AUC under the empirical ROC (not fitted, not true) has spurred much theoretical development. These include the De Long et al method for estimating the variance of AUC of a single ROC empirical curve, and comparing pairs of ROC empirical curves5. Bamber's theorem, namely the equivalence between the empirical AUC and the Wilcoxon statistic has been derived and demonstrated. 
-
-Since the empirical AUC always yields a number, the researcher could be unaware about unusual behavior of the empirical ROC curve, so it is always a good idea to plot the data and look for evidence of large extrapolations. An example would be data points clustered at low $\text{FPF}$ values, which imply a large AUC contribution, unsupported by intermediate operating points, from the line connecting the uppermost non-trivial operating point to (1,1).
+In this chapter, a simple method for estimating the empirical area under the ROC plot has been described. Its simplicity and clear physical interpretation as the AUC under the empirical ROC (not fitted, not true) has spurred much theoretical development. Since the empirical AUC always yields a number the researcher could be unaware about unusual behavior of the empirical ROC curve, so it is a good idea to plot the data and look for any signs of large extrapolations. An example would be data points clustered at low $\text{FPF}$ values, which imply a large AUC contribution, unsupported by intermediate operating points, from the line connecting the uppermost non-trivial operating point to (1,1).
 
 ## Appendix: Details of Wilcoxon theorem {#empirical-auc-details-bamber-theorem}
 
