@@ -6,9 +6,8 @@
 
 
 
-## TBA How much finished {#binary-task-how-much-finished}
+## How much finished 90% {#binary-task-how-much-finished}
 
-90%
 
 
 ## Introduction {#binary-taskIntro}

@@ -244,7 +244,8 @@ empirical-auc-wilcoxon
 empirical-auc-wilcoxon-bamber-theorem
 empirical-auc-wilcoxon-bamber-theorem-importance
 empirical-auc-discussion-summary
-empirical-auc-details-bamber-theorem
+empirical-auc-bamber-theorem-proof
+empirical-auc-bamber-theorem-a0-term
 upper-triangle
 lowest-trapezoid
 empirical-auc-references

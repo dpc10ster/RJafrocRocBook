@@ -9,9 +9,9 @@
 
 
 
-## How much finished {#binormal-model-how-much-finished}
+## How much finished 97% {#binormal-model-how-much-finished}
 
-97%
+
 
 
 ## Introduction {#binormal-model-introduction}

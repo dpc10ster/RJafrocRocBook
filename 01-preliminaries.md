@@ -5,9 +5,7 @@
 
 
 
-## How much finished {#overview-how-much-finished}
-
-75%
+## How much finished 55% {#overview-how-much-finished}
 
 
 ## Introduction {#preliminaries-intro}

@@ -4,18 +4,22 @@
 
 
 
-## TBA How much finished {#empirical-auc-how-much-finished}
-80%
+## How much finished 90% {#empirical-auc-how-much-finished}
+
 
 
 
 ## Introduction {#empirical-auc-introduction}
 
-The ROC plot, introduced in Chapter 03, is defined as the plot of sensitivity (y-axis) vs. 1-specificity (x-axis). Equivalently, it is the plot of $\text{TPF}$ (y-axis) vs. $\text{FPF}$ (x-axis). An equal variance binormal model was introduced which allows an ROC plot to be fitted to a single observed operating point. In Chapter 04, the more commonly used ratings paradigm was introduced. 
+The ROC plot is defined as the plot of sensitivity (y-axis) vs. 1-specificity (x-axis). Equivalently, it is the plot of $\text{TPF}$ vs. $\text{FPF}$. An equal variance binormal model was introduced in an earlier chapter which allows an ROC plot to be fitted to a single observed operating point. The more commonly used ratings paradigm was introduced in the previous chapter. 
 
-One of the reasons for fitting to a parametric model is to derive analytical expressions for the separation parameter $\mu$ of the model and the area AUC under the curve. It was shown, see Fig. \@ref(fig:ratings-paradigm-eq-var-fit), that the equal variance binormal model did not fit a clinical dataset and that an unequal variance binormal model yielded a better visual fit. This turns out to be an almost universal finding. Before getting into the complexity of the unequal variance binormal model curve fitting, it is appropriate to introduce a simpler empirical approach, which is very popular with researchers in this field. 
+It was shown, Fig. \@ref(fig:ratings-paradigm-eq-var-fit), that the equal variance binormal model did not fit a clinical dataset and that an unequal variance binormal model yielded a better visual fit. This turns out to be a general finding. Before getting into the complexity of the unequal variance binormal model curve fitting, see next chapter, it is appropriate to introduce a simpler **empirical** approach which is very popular with some researchers. 
 
-The New Oxford American Dictionary definition of "empirical" is: "based on, concerned with, or verifiable by observation or experience rather than theory or pure logic". The method is also termed "non-parametric" as it does not involve parametric assumptions (specifically normality assumptions). Notation is introduced for labeling individual cases that is used in subsequent chapters. An important theorem relating the empirical area under the ROC to a statistic known as the Wilcoxon is described. 
+The New Oxford American Dictionary definition of "empirical" is: 
+
+> "based on, concerned with, or verifiable by observation or experience rather than theory or pure logic". 
+
+The empirical method is also termed "non-parametric" as it does not involve parametric assumptions (specifically normality assumptions are not needed). Notation is introduced for labeling individual cases. The empirical area under the ROC (AUC) under the empirical plot is defined. An important theorem relating AUC to the Wilcoxon statistic is stated. 
 
 
 ## The empirical ROC plot {#empirical-roc-plot}
@@ -76,7 +80,7 @@ Cases are indexed by $k_tt$  where $t$ indicates the truth-status at the case (i
 
 
 
-To address any cell (i.e., case) in Table \@ref(tab:empirical-ROC-2index-notation) one needs two indices: the row number $t$ and the column number $k_tt$. Since the column number depends on the value of $t$ one needs two indices to specify it: specifically, $k_tt$ denotes the column number $k_t$ of a case with truth index $t$. ^[Alternative notation commonly uses a single index $k$ to label the cases. It reserves the first $K_1$ positions for non-diseased cases and the rest for diseased cases: e.g., $k = 3$ corresponds to the third non-diseased case, $k = K_1+5$ corresponds to the fifth diseased case, etc. Because it extends easily to more complex data structures, e.g., FROC, I prefer the two-index notation.]
+To address any cell (i.e., case) in Table \@ref(tab:empirical-ROC-2index-notation) one needs two indices: the row number $t$ and the column number $k_tt$. Since the column number depends on the value of $t$ one needs two indices to specify it: specifically, $k_tt$ denotes the column number $k_t$ of a case with truth index $t$. My notation may appear to be unnecessarily liberal in its usage of the $t$ subscript. Alternative notation commonly uses a single index $k$ to label the cases. It reserves the first $K_1$ positions for non-diseased cases and the rest for diseased cases: e.g., $k = 3$ corresponds to the third non-diseased case, $k = K_1+5$ corresponds to the fifth diseased case, etc. Because it extends easily to more complex data structures, e.g., FROC, I prefer the two-index notation.
 
 
 
@@ -186,20 +190,26 @@ The function $\psi\left ( x,  y \right )$ is unity if the diseased case is rated
 
 ## Bamber’s Equivalence theorem {#empirical-auc-wilcoxon-bamber-theorem}
 
-The Wilcoxon statistic $\text{W}$ equals the area $\text{AUC}$ under the empirical ROC plot: 
+It is shown in the Appendix \@ref(empirical-auc-bamber-theorem-proof) that the Wilcoxon statistic $\text{W}$ equals the area $\text{AUC}$ under the empirical ROC plot: 
 
 \begin{equation}
 \text{W} = \text{AUC}
 (\#eq:empirical-auc-bamber-theorem)
 \end{equation}
 
-Numerical illustration: While hardly a proof, as an illustration of the theorem it is helpful to calculate the sum on the right hand side of Eqn. \@ref(eq:empirical-auc-wilcoxon) and compare it to direct integration of the area under the empirical ROC curve (i.e., adding the area of a triangle and several trapezoids). The function is called `trapz(x,y)`, see below. It takes two array arguments, $x$ and $y$, where in the current case $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$. One has to be careful to include the end-points as otherwise the area will be underestimated.
-
+Numerical illustration: as an illustration of the theorem it is helpful to calculate the sum on the right hand side of Eqn. \@ref(eq:empirical-auc-wilcoxon) and compare it to direct integration of the area under the empirical ROC curve (i.e., adding the area of a triangle and several trapezoids). The function is called `trapz(x,y)`, see below. It takes two array arguments, $x$ and $y$, where $x \equiv \text{FPF}$ and $y \equiv \text{TPF}$. 
 
 
 
 
 ```r
+trapz = function(x, y)
+{ ### computes the integral of y with respect to x using trapezoidal integration.
+  idx = 2:length(x)
+  return (as.double( (x[idx] - x[idx-1]) %*% (y[idx] + y[idx-1])) / 2)
+}
+
+
 Wilcoxon <- function (zk1, zk2)
 {
   K1 = length(zk1)
@@ -215,7 +225,6 @@ Wilcoxon <- function (zk1, zk2)
 
 
 RocOperatingPoints <- function( K1, K2 ) {
-  
   nOpPts <- length(K1) - 1 # number of op points
   FPF <- array(0,dim = nOpPts)
   TPF <- array(0,dim = nOpPts)
@@ -233,6 +242,9 @@ RocOperatingPoints <- function( K1, K2 ) {
   ) )
 }
 ```
+
+
+The following code reintroduces the dataset used earlier in Table \@ref(tab:ratings-paradigm-example-table).
 
 
 
@@ -257,7 +269,19 @@ cat("direct integration yields AUC = ", AUC, "\n")
 
 Note the equality of the two estimates.
 
+## Importance of Bamber’s theorem {#empirical-auc-wilcoxon-bamber-theorem-importance}
+
+The equivalence theorem is the starting point for all non-parametric methods of analyzing ROC plots, e.g., [@hanley1997sampling; @delong1988comparing]. Prior to Bamber’s work one knew how to plot an empirical operating characteristic and how to calculate the Wilcoxon statistic, but their equality had not been shown. This was Bamber’s essential contribution. In the absence of this theorem, the Wilcoxon statistic would be “just another statistic”, at least in the context of ROC analysis. The theorem is so important that a paper appeared in Radiology [@hanley1982meaning] devoted to the equivalence. The title of this paper was "The meaning and use of the area under a receiver operating characteristic (ROC) curve”. The equivalence theorem literally gives meaning to the empirical area under the ROC.
+
+
+## Discussion / Summary {#empirical-auc-discussion-summary}
+
+In this chapter, a simple method for estimating the empirical area under the ROC plot has been described. Its simplicity and clear physical interpretation as the AUC under the empirical ROC (not fitted, not true) has spurred much theoretical development. Since the empirical AUC always yields a number the researcher could be unaware about unusual behavior of the empirical ROC curve, so it is a good idea to plot the data and look for any signs of large extrapolations. An example would be data points clustered at low $\text{FPF}$ values, which imply a large AUC contribution, unsupported by intermediate operating points, from the line connecting the uppermost non-trivial operating point to (1,1).
+
+## Appendix: Bamber theorem proof {#empirical-auc-bamber-theorem-proof}
+
 The following proof is adapted from [@bamber1975area] and while it may appear to be restricted to discrete ratings, the result is in fact quite general, i.e., it is applicable even if the ratings are acquired on a continuous scale. The reason is that in an R-rating ROC study the observed z-samples or ratings take on integer values, 1 through R. If R is large enough, ordering information present in the continuous data is not lost upon binning. In the following it is helpful to keep in mind that one is dealing with discrete distributions of the ratings, described by probability mass functions as opposed to probability density functions, e.g., $P(Z_2 = \zeta_i)$ is not zero, as would be the case for continuous ratings. The proof is illustrated with Fig. \@ref(fig:empirical-auc-bamber-theorem).
+
 
 <div class="figure">
 <img src="05-empirical-auc_files/figure-html/empirical-auc-bamber-theorem-1.png" alt=":Illustration of the derivation of Bamber's equivalence theorem. Shows an empirical ROC plot for R = 5; the shaded area is due to points labeled i and i + 1." width="672" />
@@ -317,7 +341,7 @@ AUC & = \sum_{i=0}^{R-1}A_i\\
 (\#eq:empirical-auc-bamber-theorem-proof6)
 \end{equation}
 
-It is shown in the Appendix that the term $A_0$ corresponds to the triangle at the upper right corner of Fig. \@ref(fig:empirical-auc-bamber-theorem), and the term $A_4$ corresponds to the horizontal trapezoid defined by the lowest non-trivial operating point.  
+It is shown in \@ref(empirical-auc-bamber-theorem-a0-term) that the term $A_0$ corresponds to the triangle at the upper right corner of Fig. \@ref(fig:empirical-auc-bamber-theorem), and the term $A_4$ corresponds to the horizontal trapezoid defined by the lowest non-trivial operating point.  
 
 Eqn. \@ref(eq:empirical-auc-bamber-theorem-proof6) can be restated as:
 
@@ -328,18 +352,7 @@ AUC=\frac{1}{2}P\left ( Z_1 = Z_2 \right ) + P\left ( Z_1 < Z_2 \right )
 
 The Wilcoxon statistic was defined in Eqn. \@ref(eq:empirical-auc-wilcoxon). It can be seen that the comparisons implied by the summations and the weighting implied by the kernel function are estimating the two probabilities in the expression for in Eqn. \@ref(eq:empirical-auc-bamber-theorem-proof7). Therefore, $AUC = W$.
 
-## Importance of Bamber’s theorem {#empirical-auc-wilcoxon-bamber-theorem-importance}
-
-The equivalence theorem is the starting point for all non-parametric methods of analyzing ROC plots, e.g., [@hanley1997sampling; @delong1988comparing]. Prior to Bamber’s work one knew how to plot an empirical operating characteristic and how to calculate the Wilcoxon statistic, but their equality had not been shown. This was Bamber’s essential contribution. In the absence of this theorem, the Wilcoxon statistic would be “just another statistic”, at least in the context of ROC analysis. The theorem is so important that a paper appeared in Radiology [@hanley1982meaning] devoted to the equivalence. The title of this paper was "The meaning and use of the area under a receiver operating characteristic (ROC) curve”. The equivalence theorem literally gives meaning to the empirical area under the ROC.
-
-
-## Discussion / Summary {#empirical-auc-discussion-summary}
-
-In this chapter, a simple method for estimating the area under the ROC plot has been described. The empirical AUC is a non-parametric measure of performance. Its simplicity and clear physical interpretation as the AUC under the empirical ROC (not fitted, not true) has spurred much theoretical development. These include the De Long et al method for estimating the variance of AUC of a single ROC empirical curve, and comparing pairs of ROC empirical curves5. Bamber's theorem, namely the equivalence between the empirical AUC and the Wilcoxon statistic has been derived and demonstrated. 
-
-Since the empirical AUC always yields a number, the researcher could be unaware about unusual behavior of the empirical ROC curve, so it is always a good idea to plot the data and look for evidence of large extrapolations. An example would be data points clustered at low $\text{FPF}$ values, which imply a large AUC contribution, unsupported by intermediate operating points, from the line connecting the uppermost non-trivial operating point to (1,1).
-
-## Appendix: Details of Wilcoxon theorem {#empirical-auc-details-bamber-theorem}
+## Appendix: The $A_0$ term {#empirical-auc-bamber-theorem-a0-term}
 
 ### Upper triangle
 
