@@ -23,14 +23,14 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-03-09" />
+<meta name="date" content="2023-03-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="binormal-model.html"/>
+<link rel="prev" href="bivariate-binormal-model.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -284,7 +284,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.10" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc-comments"><i class="fa fa-check"></i><b>6.10</b> Comments on partial AUC measures</a></li>
 <li class="chapter" data-level="6.11" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-discussion"><i class="fa fa-check"></i><b>6.11</b> Discussion</a></li>
-<li class="chapter" data-level="6.12" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting-appendix"><i class="fa fa-check"></i><b>6.12</b> Appendix: Fitting an ROC curve</a><ul>
+<li class="chapter" data-level="6.12" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting"><i class="fa fa-check"></i><b>6.12</b> Appendix: Fitting an ROC curve</a><ul>
 <li class="chapter" data-level="6.12.1" data-path="binormal-model.html"><a href="binormal-model.html#java-fitted-roc-curve"><i class="fa fa-check"></i><b>6.12.1</b> JAVA fitted ROC curve</a></li>
 <li class="chapter" data-level="6.12.2" data-path="binormal-model.html"><a href="binormal-model.html#simplistic-straight-line-fit-to-the-roc-curve"><i class="fa fa-check"></i><b>6.12.2</b> Simplistic straight line fit to the ROC curve</a></li>
 <li class="chapter" data-level="6.12.3" data-path="binormal-model.html"><a href="binormal-model.html#maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>6.12.3</b> Maximum likelihood estimation (MLE)</a></li>
@@ -293,14 +293,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.12.6" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-covariance-matrix"><i class="fa fa-check"></i><b>6.12.6</b> Estimating the covariance matrix</a></li>
 <li class="chapter" data-level="6.12.7" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-variance-of-az"><i class="fa fa-check"></i><b>6.12.7</b> Estimating the variance of Az</a></li>
 </ul></li>
-<li class="chapter" data-level="6.13" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degeneracy-artifacts"><i class="fa fa-check"></i><b>6.13</b> Appendix: Binormal model degeneracy and artifacts</a><ul>
-<li class="chapter" data-level="6.13.1" data-path="binormal-model.html"><a href="binormal-model.html#degenerate-datasets"><i class="fa fa-check"></i><b>6.13.1</b> Degenerate datasets</a></li>
-<li class="chapter" data-level="6.13.2" data-path="binormal-model.html"><a href="binormal-model.html#understanding-degenerate-datasets"><i class="fa fa-check"></i><b>6.13.2</b> Understanding degenerate datasets</a></li>
-<li class="chapter" data-level="6.13.3" data-path="binormal-model.html"><a href="binormal-model.html#the-exact-fit-is-not-unique"><i class="fa fa-check"></i><b>6.13.3</b> The exact fit is not unique</a></li>
-<li class="chapter" data-level="6.13.4" data-path="binormal-model.html"><a href="binormal-model.html#comments-on-degeneracy"><i class="fa fa-check"></i><b>6.13.4</b> Comments on degeneracy</a></li>
-<li class="chapter" data-level="6.13.5" data-path="binormal-model.html"><a href="binormal-model.html#a-reasonable-fit-to-the-degenerate-dataset"><i class="fa fa-check"></i><b>6.13.5</b> A reasonable fit to the degenerate dataset</a></li>
+<li class="chapter" data-level="6.13" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-improper-curves"><i class="fa fa-check"></i><b>6.13</b> Appendix: Improper ROCs</a><ul>
+<li class="chapter" data-level="6.13.1" data-path="binormal-model.html"><a href="binormal-model.html#reason-for-improper-rocs"><i class="fa fa-check"></i><b>6.13.1</b> Reason for improper ROCs</a></li>
 </ul></li>
-<li class="chapter" data-level="6.14" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-references"><i class="fa fa-check"></i><b>6.14</b> Chapter References</a></li>
+<li class="chapter" data-level="6.14" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degeneracy-artifacts"><i class="fa fa-check"></i><b>6.14</b> Appendix: Binormal model degeneracy and artifacts</a><ul>
+<li class="chapter" data-level="6.14.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degenerate-datasets"><i class="fa fa-check"></i><b>6.14.1</b> Degenerate datasets</a></li>
+<li class="chapter" data-level="6.14.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-understanding-degenerate-datasets"><i class="fa fa-check"></i><b>6.14.2</b> Understanding degenerate datasets</a></li>
+<li class="chapter" data-level="6.14.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-exact-fit-not-unique"><i class="fa fa-check"></i><b>6.14.3</b> The exact fit is not unique</a></li>
+<li class="chapter" data-level="6.14.4" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-comments"><i class="fa fa-check"></i><b>6.14.4</b> Comments on degeneracy</a></li>
+<li class="chapter" data-level="6.14.5" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-reasonable-fit"><i class="fa fa-check"></i><b>6.14.5</b> A reasonable fit to the degenerate dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="6.15" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-references"><i class="fa fa-check"></i><b>6.15</b> Chapter References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="improper-rocs.html"><a href="improper-rocs.html"><i class="fa fa-check"></i><b>7</b> Improper ROC curves</a><ul>
+<li class="chapter" data-level="7.1" data-path="improper-rocs.html"><a href="improper-rocs.html#improper-rocs-how-much-finished"><i class="fa fa-check"></i><b>7.1</b> How much finished 10%</a></li>
+<li class="chapter" data-level="7.2" data-path="improper-rocs.html"><a href="improper-rocs.html#the-binormal-model"><i class="fa fa-check"></i><b>7.2</b> The binormal model</a></li>
+<li class="chapter" data-level="7.3" data-path="improper-rocs.html"><a href="improper-rocs.html#improper-rocs-1"><i class="fa fa-check"></i><b>7.3</b> Improper ROCs</a></li>
+<li class="chapter" data-level="7.4" data-path="improper-rocs.html"><a href="improper-rocs.html#reason-for-improper-rocs-1"><i class="fa fa-check"></i><b>7.4</b> Reason for improper ROCs</a></li>
+</ul></li>
+<li class="part"><span><b>Advanced topics</b></span></li>
+<li class="chapter" data-level="8" data-path="proper-roc-models.html"><a href="proper-roc-models.html"><i class="fa fa-check"></i><b>8</b> Proper ROC models</a><ul>
+<li class="chapter" data-level="8.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-how-much-finished"><i class="fa fa-check"></i><b>8.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="8.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-introduction"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
+<li class="chapter" data-level="8.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem1"><i class="fa fa-check"></i><b>8.3</b> Theorem: ROC slope equals likelihood ratio</a></li>
+<li class="chapter" data-level="8.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem2"><i class="fa fa-check"></i><b>8.4</b> Theorem: likelihood ratio observer maximizes AUC</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#explanation"><i class="fa fa-check"></i><b>8.4.1</b> Explanation</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proper-vs-improper"><i class="fa fa-check"></i><b>8.5</b> Proper vs. improper ROC curves</a></li>
+<li class="chapter" data-level="8.6" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-degenerate-datasets"><i class="fa fa-check"></i><b>8.6</b> Degenerate datasets</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#comments-on-degeneracy"><i class="fa fa-check"></i><b>8.6.1</b> Comments on degeneracy</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-observer"><i class="fa fa-check"></i><b>8.7</b> The likelihood ratio observer</a></li>
+<li class="chapter" data-level="8.8" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc"><i class="fa fa-check"></i><b>8.8</b> PROPROC</a><ul>
+<li class="chapter" data-level="8.8.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-formulae"><i class="fa fa-check"></i><b>8.8.1</b> PROPROC formulae</a></li>
+<li class="chapter" data-level="8.8.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-code"><i class="fa fa-check"></i><b>8.8.2</b> PROPROC code implementation</a></li>
+<li class="chapter" data-level="8.8.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-rocs"><i class="fa fa-check"></i><b>8.8.3</b> PROPROC ROC and slope plots</a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm"><i class="fa fa-check"></i><b>8.9</b> The contaminated binormal model (CBM)</a><ul>
+<li class="chapter" data-level="8.9.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-formulae"><i class="fa fa-check"></i><b>8.9.1</b> CBM formulae</a></li>
+<li class="chapter" data-level="8.9.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-code"><i class="fa fa-check"></i><b>8.9.2</b> CBM code implementation</a></li>
+<li class="chapter" data-level="8.9.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-rocs"><i class="fa fa-check"></i><b>8.9.3</b> CBM ROC plots</a></li>
+<li class="chapter" data-level="8.9.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-pdfs"><i class="fa fa-check"></i><b>8.9.4</b> CBM pdf plots</a></li>
+<li class="chapter" data-level="8.9.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-slopes"><i class="fa fa-check"></i><b>8.9.5</b> CBM likelihood ratio plots</a></li>
+</ul></li>
+<li class="chapter" data-level="8.10" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma"><i class="fa fa-check"></i><b>8.10</b> The bigamma model (BGM)</a><ul>
+<li class="chapter" data-level="8.10.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-formulae"><i class="fa fa-check"></i><b>8.10.1</b> BGM formulae</a></li>
+<li class="chapter" data-level="8.10.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-code"><i class="fa fa-check"></i><b>8.10.2</b> BGM code implementation</a></li>
+<li class="chapter" data-level="8.10.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-rocs"><i class="fa fa-check"></i><b>8.10.3</b> BGM ROC plots</a></li>
+<li class="chapter" data-level="8.10.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-pdfs"><i class="fa fa-check"></i><b>8.10.4</b> BGM pdf plots</a></li>
+<li class="chapter" data-level="8.10.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-slopes"><i class="fa fa-check"></i><b>8.10.5</b> BGM likelihood ratio plots</a></li>
+</ul></li>
+<li class="chapter" data-level="8.11" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-discussion"><i class="fa fa-check"></i><b>8.11</b> Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="proproc-rocs.html"><a href="proproc-rocs.html"><i class="fa fa-check"></i><b>9</b> PROPROC ROC curves</a><ul>
+<li class="chapter" data-level="9.1" data-path="proproc-rocs.html"><a href="proproc-rocs.html#helper-functions"><i class="fa fa-check"></i><b>9.1</b> Helper functions</a></li>
+<li class="chapter" data-level="9.2" data-path="proproc-rocs.html"><a href="proproc-rocs.html#definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters"><i class="fa fa-check"></i><b>9.2</b> Definitions of PROPROC parameters in terms of binormal model parameters</a></li>
+<li class="chapter" data-level="9.3" data-path="proproc-rocs.html"><a href="proproc-rocs.html#main-code-and-output"><i class="fa fa-check"></i><b>9.3</b> Main code and output</a></li>
+<li class="chapter" data-level="9.4" data-path="proproc-rocs.html"><a href="proproc-rocs.html#discussion"><i class="fa fa-check"></i><b>9.4</b> Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html"><i class="fa fa-check"></i><b>10</b> Metz Eqn 36 numerical check</a><ul>
+<li class="chapter" data-level="10.1" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#helper-functions-1"><i class="fa fa-check"></i><b>10.1</b> Helper functions</a></li>
+<li class="chapter" data-level="10.2" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#main-code-and-output-1"><i class="fa fa-check"></i><b>10.2</b> Main code and output</a></li>
+<li class="chapter" data-level="10.3" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#discussion-1"><i class="fa fa-check"></i><b>10.3</b> Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html"><i class="fa fa-check"></i><b>11</b> Bivariate binormal model</a><ul>
+<li class="chapter" data-level="11.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-how-much-finished"><i class="fa fa-check"></i><b>11.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="11.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-introduction"><i class="fa fa-check"></i><b>11.2</b> Introduction</a></li>
+<li class="chapter" data-level="11.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-bivariate-density"><i class="fa fa-check"></i><b>11.3</b> Bivariate density function</a></li>
+<li class="chapter" data-level="11.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-formulae"><i class="fa fa-check"></i><b>11.4</b> The bivariate binormal model</a></li>
+<li class="chapter" data-level="11.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-visualization"><i class="fa fa-check"></i><b>11.5</b> Visualizing the bivariate density function</a></li>
+<li class="chapter" data-level="11.6" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation"><i class="fa fa-check"></i><b>11.6</b> Estimating bivariate binormal model parameters</a></li>
+<li class="chapter" data-level="11.7" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-examples"><i class="fa fa-check"></i><b>11.7</b> Examples of bivariate normal probability integrals</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation-code"><i class="fa fa-check"></i><b>11.7.1</b> Code listing</a></li>
+<li class="chapter" data-level="11.7.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-examples-integrals"><i class="fa fa-check"></i><b>11.7.2</b> Examples of bivariate normal probability integrals</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-likelihood"><i class="fa fa-check"></i><b>11.8</b> Likelihood function</a></li>
+<li class="chapter" data-level="11.9" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2"><i class="fa fa-check"></i><b>11.9</b> CORROC2 software</a><ul>
+<li class="chapter" data-level="11.9.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-details"><i class="fa fa-check"></i><b>11.9.1</b> Details of CORROC2 software</a></li>
+<li class="chapter" data-level="11.9.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-data-input"><i class="fa fa-check"></i><b>11.9.2</b> CORROC2 data input</a></li>
+<li class="chapter" data-level="11.9.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output"><i class="fa fa-check"></i><b>11.9.3</b> CORROC2 output</a></li>
+<li class="chapter" data-level="11.9.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-covariance-matrix"><i class="fa fa-check"></i><b>11.9.4</b> Covariance matrix</a></li>
+<li class="chapter" data-level="11.9.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output-restof"><i class="fa fa-check"></i><b>11.9.5</b> Rest of CORROC2 output</a></li>
+</ul></li>
+<li class="chapter" data-level="11.10" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application"><i class="fa fa-check"></i><b>11.10</b> Application to a real dataset</a><ul>
+<li class="chapter" data-level="11.10.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-code-output"><i class="fa fa-check"></i><b>11.10.1</b> Code Output</a></li>
+<li class="chapter" data-level="11.10.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-debug-window"><i class="fa fa-check"></i><b>11.10.2</b> Contents of the Debug window, as viewed from the Mac side</a></li>
+<li class="chapter" data-level="11.10.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-corrocii-input"><i class="fa fa-check"></i><b>11.10.3</b> Contents of CorrocIIinput.txt</a></li>
+</ul></li>
+<li class="chapter" data-level="11.11" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-discussion"><i class="fa fa-check"></i><b>11.11</b> Discussion / Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>REFERENCES</a></li>
 <li class="divider"></li>
@@ -328,6 +408,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="refs" class="references">
 <div>
+<p>Abramowitz, Milton, and Irene A Stegun. 1964. <em>Handbook of Mathematical Functions with Formulas, Graphs, and Mathematical Tables</em>. Vol. 55. US Government printing office.</p>
+</div>
+<div>
+<p>Andersson, Ingvar, Debra M Ikeda, Sophia Zackrisson, Mark Ruschin, Tony Svahn, Pontus Timberg, and Anders Tingberg. 2008. “Breast Tomosynthesis and Digital Mammography: A Comparison of Breast Cancer Visibility and Birads Classification in a Population of Cancers with Subtle Mammographic Findings.” <em>European Radiology</em> 18 (12): 2817–25.</p>
+</div>
+<div>
 <p>Bamber, Donald. 1975. “The Area Above the Ordinal Dominance Graph and the Area Below the Receiver Operating Characteristic Graph.” <em>Journal of Mathematical Psychology</em> 12 (4): 387–415.</p>
 </div>
 <div>
@@ -335,6 +421,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div>
 <p>Barnes, GT, EA Sabbagh, DP Chakraborty, PH Nath, RF Luna, C Sanders, and RG Fraser. 1989. “A Comparison of Dual-Energy Digital Radiography and Screen-Film Imaging in the Detection of Subtle Interstitial Pulmonary Disease.” <em>Investigative Radiology</em> 24 (8): 585–91.</p>
+</div>
+<div>
+<p>Barrett, Harrison H, and Kyle J Myers. 2013. <em>Foundations of Image Science</em>. John Wiley &amp; Sons.</p>
 </div>
 <div>
 <p>Beam, Craig A, Peter M Layde, and Daniel C Sullivan. 1996. “Variability in the Interpretation of Screening Mammograms by Us Radiologists: Findings from a National Sample.” <em>Archives of Internal Medicine</em> 156 (2): 209–13.</p>
@@ -355,16 +444,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Chakraborty, D. P., E. S. Breatnach, M. V. Yester, B. Soto, G. T. Barnes, and R. G. Fraser. 1986. “Digital and Conventional Chest Imaging: A Modified ROC Study of Observer Performance Using Simulated Nodules.” Journal Article. <em>Radiology</em> 158: 35–39. <a href="https://doi.org/10.1148/radiology.158.1.3940394">https://doi.org/10.1148/radiology.158.1.3940394</a>.</p>
 </div>
 <div>
+<p>Chakraborty, DP, and Tony Svahn. 2011. “Estimating the Parameters of a Model of Visual Search from Roc Data: An Alternate Method for Fitting Proper Roc Curves.” In <em>Medical Imaging 2011: Image Perception, Observer Performance, and Technology Assessment</em>, 7966:189–97. SPIE.</p>
+</div>
+<div>
+<p>Chakraborty, DP, Hong-Jun Yoon, and Claudia Mello-Thoms. 2012. “Inverse Dependence of Search and Classification Performances in Lesion Localization Tasks.” In <em>Medical Imaging 2012: Image Perception, Observer Performance, and Technology Assessment</em>, 8318:129–40. SPIE.</p>
+</div>
+<div>
 <p>DeLong, Elizabeth R, David M DeLong, and Daniel L Clarke-Pearson. 1988. “Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.” <em>Biometrics</em>, 837–45.</p>
 </div>
 <div>
 <p>Dorfman, Donald D, and Edward Alf Jr. 1969. “Maximum-Likelihood Estimation of Parameters of Signal-Detection Theory and Determination of Confidence Intervals—Rating-Method Data.” <em>Journal of Mathematical Psychology</em> 6 (3): 487–96.</p>
 </div>
 <div>
+<p>Dorfman, Donald D, and Kevin S Berbaum. 2000a. “A Contaminated Binormal Model for Roc Data: Part Ii. A Formal Model.” <em>Academic Radiology</em> 7 (6): 427–37.</p>
+</div>
+<div>
+<p>———. 2000b. “A Contaminated Binormal Model for Roc Data: Part Iii. Initial Evaluation with Detection Roc Data.” <em>Academic Radiology</em> 7 (6): 438–47.</p>
+</div>
+<div>
+<p>Dorfman, Donald D, Kevin S Berbaum, and Eric A Brandser. 2000. “A Contaminated Binormal Model for Roc Data: Part I. Some Interesting Examples of Binormal Degeneracy.” <em>Academic Radiology</em> 7 (6): 420–26.</p>
+</div>
+<div>
 <p>Dorfman, Donald D, Kevin S Berbaum, Charles E Metz, Russell V Lenth, James A Hanley, and Hatem Abu Dagga. 1997. “Proper Receiver Operating Characteristic Analysis: The Bigamma Model.” <em>Academic Radiology</em> 4 (2): 138–49.</p>
 </div>
 <div>
-<p>Egan, James P. 1975. <em>Signal Detection Theory and ROC Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.</p>
+<p>Egan, James P. 1975a. <em>Signal Detection Theory and ROC Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.</p>
+</div>
+<div>
+<p>———. 1975b. <em>Signal Detection Theory and ROC Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.</p>
 </div>
 <div>
 <p>Fenton, Joshua J. 2015. “Is It Time to Stop Paying for Computer-Aided Mammography?” <em>JAMA Internal Medicine</em> 175 (11): 1837–8.</p>
@@ -442,10 +549,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Metz, Charles E. 1986. “ROC Methodology in Radiologic Imaging.” Journal Article. <em>Investigative Radiology</em> 21 (9): 720–33. <a href="http://journals.lww.com/investigativeradiology/Fulltext/1986/09000/ROC_Methodology_in_Radiologic_Imaging.9.aspx">http://journals.lww.com/investigativeradiology/Fulltext/1986/09000/ROC_Methodology_in_Radiologic_Imaging.9.aspx</a>.</p>
 </div>
 <div>
+<p>Metz, Charles E, and Xiaochuan Pan. 1999. “‘Proper’ Binormal Roc Curves: Theory and Maximum-Likelihood Estimation.” <em>Journal of Mathematical Psychology</em> 43 (1): 1–33.</p>
+</div>
+<div>
 <p>Miller, George A. 1956. “The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information.” <em>Psychological Review</em> 63 (2): 81.</p>
 </div>
 <div>
+<p>Neyman, Jerzy, and Egon Sharpe Pearson. 1933. “IX. On the Problem of the Most Efficient Tests of Statistical Hypotheses.” <em>Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character</em> 231 (694-706): 289–337.</p>
+</div>
+<div>
 <p>Nishikawa, Robert. 2012. “Estimating Sensitivity and Specificity in an ROC Experiment.” Journal Article. <em>Breast Imaging</em>, 690–96.</p>
+</div>
+<div>
+<p>Pan, Xiaochuan, and Charles E Metz. 1997. “The ‘Proper’ Binormal Model: Parametric Receiver Operating Characteristic Curve Estimation with Degenerate Data.” <em>Academic Radiology</em> 4 (5): 380–89.</p>
 </div>
 <div>
 <p>Pearson, Karl. 1900. “X. On the Criterion That a Given System of Deviations from the Probable in the Case of a Correlated System of Variables Is Such That It Can Be Reasonably Supposed to Have Arisen from Random Sampling.” Journal Article. <em>The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science</em> 50 (302): 157–75. <a href="https://doi.org/10.1080/14786440009463897">https://doi.org/10.1080/14786440009463897</a>.</p>
@@ -470,6 +586,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div>
 <p>Skaane, Per, Andriy I Bandos, Randi Gullien, Ellen B Eben, Ulrika Ekseth, Unni Haakenaasen, Mina Izadi, Ingvild N Jebsen, Gunnar Jahr, and Mona Krager. 2013. “Comparison of Digital Mammography Alone and Digital Mammography Plus Tomosynthesis in a Population-Based Screening Program.” Journal Article. <em>Radiology</em> 267 (1): 47–56.</p>
+</div>
+<div>
+<p>Swensson, Richard G. 1996. “Unified Measurement of Observer Performance in Detecting and Localizing Target Objects on Images.” <em>Medical Physics</em> 23 (10): 1709–25.</p>
 </div>
 <div>
 <p>Thompson, Mary Lou, and Walter Zucchini. 1989. “On the Statistical Analysis of Roc Curves.” <em>Statistics in Medicine</em> 8 (10): 1277–90.</p>
@@ -500,12 +619,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="binormal-model.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bivariate-binormal-model.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

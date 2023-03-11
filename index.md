@@ -1,5 +1,5 @@
 --- 
-title: "The RJafroc Significance Testing Book"
+title: "The RJafroc Roc Book"
 author: "Dev P. Chakraborty, PhD"
 date: "2023-03-11"
 site: bookdown::bookdown_site
@@ -8,7 +8,7 @@ documentclass: book
 bibliography: [packages.bib, myRefs.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: dpc10ster/RJafrocSigTestBook
+github-repo: dpc10ster/RJafrocRocBook
 description: "Artificial intelligence and observer performance book based on RJafroc."
 ---
 
@@ -29,8 +29,7 @@ TBA
 * This gives me the opportunity to update the print book.
 * The online book has been divided into 3 books.
     + The [RJafrocQuickStartBook](https://dpc10ster.github.io/RJafrocQuickStart/) book.
-    + The [RJafrocRocBook](https://dpc10ster.github.io/RJafrocRocBook/) book.
-    + **This book:** [RJafrocSigTestBook](https://dpc10ster.github.io/RJafrocSigTestBook/). 
+    + **This book:** [RJafrocRocBook](https://dpc10ster.github.io/RJafrocRocBook/).
     + The [RJafrocFrocBook](https://dpc10ster.github.io/RJafrocFrocBook/) book.
 
 
