@@ -742,7 +742,7 @@ In Eqn. \@ref(eq:EstimateSigmaJackknife), the expression for the jackknife covar
 
 This factor multiplies the traditional expression for the covariance, shown in square brackets in Eqn. \@ref(eq:EstimateSigmaJackknife). It is only needed for the jackknife estimate. The bootstrap and the DeLong estimate, see next, do not require this factor.
 
-A third method of estimating the covariance [@RN112], only applicable to the empirical AUC, is not discussed here; however, it is implemented in the software.
+A third method of estimating the covariance [@delong1988comparing], only applicable to the empirical AUC, is not discussed here; however, it is implemented in the software.
 
 ### Meaning of the covariance matrix {#or-method-intro-elementary-stats-meaning-cov-matrix}
 
@@ -967,7 +967,7 @@ data.frame("ORBoot:Chisq" = ret4$FRRC$FTests["Treatment", "Chisq"],
 
 ```
 ##   ORBoot.Chisq ORBoot.ddf ORBoot.P.val
-## 1    1.2852823          1   0.25691919
+## 1    1.3217376          1   0.25028044
 ```
 
 The DBM and OR-jackknife methods yield identical F-statistics, but the denominator degrees of freedom are different, $(I-1)(K-1)$ = 113 for DBM and $\infty$ for OR. The F-statistics for OR-bootstrap and OR-DeLong are different.
@@ -1079,4 +1079,4 @@ If RRRC analysis were conducted, the values are [one needs to analyze a dataset 
 
 For `RRFC` analysis, one replaces `RRRC` with `RRFC`, etc. I should note that the auto-prompt feature of `RStudio` makes it unnecessary to enter the complex string names shown above - `RStudio` will suggest them.
 
-## References {#or-method-intro-references}
+## Chapter References {#or-method-intro-references}

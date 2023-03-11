@@ -318,7 +318,7 @@ F_{DBM} = \frac{MST}{MSTR + MSTC - MSTRC}
 (\#eq:DefFStatRRRC)
 \end{equation}
 
-$F_{DBM}$ is a realization of a random variable. A non-zero treatment effect, i.e.,  $\sigma_{\tau}^{2} > 0$, will cause the ratio to be larger than one, because $E\left ( MST \right)$  will be larger, see row labeled $T$ in Table \@ref(tab:ExpValMs). Therefore values of $F_{DBM} > 1$  will tend to reject the NH. Drawing on a theorem from statistics [@RN1492], under the NH the ratio of two independent mean squares is distributed as a (central) F-statistic with degrees of freedom corresponding to those of the mean squares forming the numerator and denominator of the ratio (Theorem 12.2.5 in “An Introduction to Mathematical Statistics and Its Applications”). To perform  hypothesis testing one needs the distribution,  under the NH, of the statistic defined by Eqn. \@ref(eq:DefFStatRRRC). This is completely analogous to Chapter 08 where knowledge of the distribution of AUC under the NH enabled testing the null hypothesis that the observed value of AUC equals a pre-specified value. 
+$F_{DBM}$ is a realization of a random variable. A non-zero treatment effect, i.e.,  $\sigma_{\tau}^{2} > 0$, will cause the ratio to be larger than one, because $E\left ( MST \right)$  will be larger, see row labeled $T$ in Table \@ref(tab:ExpValMs). Therefore values of $F_{DBM} > 1$  will tend to reject the NH. Drawing on a theorem from statistics [@larsen2005introduction], under the NH the ratio of two independent mean squares is distributed as a (central) F-statistic with degrees of freedom corresponding to those of the mean squares forming the numerator and denominator of the ratio (Theorem 12.2.5 in “An Introduction to Mathematical Statistics and Its Applications”). To perform  hypothesis testing one needs the distribution,  under the NH, of the statistic defined by Eqn. \@ref(eq:DefFStatRRRC). This is completely analogous to Chapter 08 where knowledge of the distribution of AUC under the NH enabled testing the null hypothesis that the observed value of AUC equals a pre-specified value. 
 
 Under the NH, $F_{DBM|NH}$ is distributed according to the F-distribution characterized by two numbers: 
 
@@ -726,5 +726,5 @@ $\epsilon$      0                $\sigma_{\epsilon}^{2}$
 
 Table: Table 9.3 As in Hillis "marginal-means ANOVA paper" [@RN2508]
 
-## References {#dbm-analysis-significance-testing-references}
+## Chapter References {#dbm-analysis-significance-testing-references}
 

@@ -261,5 +261,5 @@ Here $\text{MS(R)}_i$ is the reader mean-square for modality $i$.
 TBA
 ## Summary{#or-analysis-st-summary}
 ## Discussion{#or-analysis-st-discussion}
-## References {#or-analysis-st-references}
+## Chapter References {#or-analysis-st-references}
 

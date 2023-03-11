@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 17 Sample size estimation: OR method | The RJafroc Roc Book</title>
+  <title>Chapter 11 Sample size estimation: OR method | The RJafroc Significance Testing Book</title>
   <meta name="description" content="Artificial intelligence and observer performance book based on RJafroc." />
-  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 17 Sample size estimation: OR method | The RJafroc Roc Book" />
+  <meta property="og:title" content="Chapter 11 Sample size estimation: OR method | The RJafroc Significance Testing Book" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Artificial intelligence and observer performance book based on RJafroc." />
-  <meta name="github-repo" content="dpc10ster/RJafrocRocBook" />
+  <meta name="github-repo" content="dpc10ster/RJafrocSigTestBook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 17 Sample size estimation: OR method | The RJafroc Roc Book" />
+  <meta name="twitter:title" content="Chapter 11 Sample size estimation: OR method | The RJafroc Significance Testing Book" />
   
   <meta name="twitter:description" content="Artificial intelligence and observer performance book based on RJafroc." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-02-10" />
+<meta name="date" content="2023-03-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="background-f-distribution.html"/>
-<link rel="next" href="improper-rocs.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -142,482 +142,240 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#rationale-and-organization"><i class="fa fa-check"></i><b>0.1</b> Rationale and Organization</a></li>
 <li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#tba-acknowledgements"><i class="fa fa-check"></i><b>0.2</b> TBA Acknowledgements</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#temporary-comments"><i class="fa fa-check"></i><b>0.3</b> Temporary comments</a></li>
 </ul></li>
-<li class="part"><span><b>ROC paradigm</b></span></li>
-<li class="chapter" data-level="1" data-path="preliminaries.html"><a href="preliminaries.html"><i class="fa fa-check"></i><b>1</b> Preliminaries</a><ul>
-<li class="chapter" data-level="1.1" data-path="preliminaries.html"><a href="preliminaries.html#preliminaries-how-much-finished"><i class="fa fa-check"></i><b>1.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="1.2" data-path="preliminaries.html"><a href="preliminaries.html#preliminariesIntro"><i class="fa fa-check"></i><b>1.2</b> Introduction</a></li>
-<li class="chapter" data-level="1.3" data-path="preliminaries.html"><a href="preliminaries.html#clinical-tasks"><i class="fa fa-check"></i><b>1.3</b> Clinical tasks</a><ul>
-<li class="chapter" data-level="1.3.1" data-path="preliminaries.html"><a href="preliminaries.html#workflow-in-an-imaging-study"><i class="fa fa-check"></i><b>1.3.1</b> Workflow in an imaging study</a></li>
-<li class="chapter" data-level="1.3.2" data-path="preliminaries.html"><a href="preliminaries.html#the-screening-and-diagnostic-workup-tasks"><i class="fa fa-check"></i><b>1.3.2</b> The screening and diagnostic workup tasks</a></li>
+<li class="chapter" data-level="1" data-path="sources-of-variability.html"><a href="sources-of-variability.html"><i class="fa fa-check"></i><b>1</b> Sources of AUC variability</a><ul>
+<li class="chapter" data-level="1.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability-how-much-finished"><i class="fa fa-check"></i><b>1.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="1.2" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityIntro"><i class="fa fa-check"></i><b>1.2</b> Introduction</a></li>
+<li class="chapter" data-level="1.3" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability3sources"><i class="fa fa-check"></i><b>1.3</b> Three sources of variability</a></li>
+<li class="chapter" data-level="1.4" data-path="sources-of-variability.html"><a href="sources-of-variability.html#dependence-of-auc-on-the-case-sample"><i class="fa fa-check"></i><b>1.4</b> Dependence of AUC on the case sample</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#case-sampling-variability-of-auc"><i class="fa fa-check"></i><b>1.4.1</b> Case sampling variability of AUC</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="preliminaries.html"><a href="preliminaries.html#imaging-device-development-and-its-clinical-deployment"><i class="fa fa-check"></i><b>1.4</b> Imaging device development and its clinical deployment</a><ul>
-<li class="chapter" data-level="1.4.1" data-path="preliminaries.html"><a href="preliminaries.html#physical-measurements"><i class="fa fa-check"></i><b>1.4.1</b> Physical measurements</a></li>
-<li class="chapter" data-level="1.4.2" data-path="preliminaries.html"><a href="preliminaries.html#quality-control-and-image-quality-optimization"><i class="fa fa-check"></i><b>1.4.2</b> Quality Control and Image quality optimization</a></li>
+<li class="chapter" data-level="1.5" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityDeLong"><i class="fa fa-check"></i><b>1.5</b> DeLong method</a></li>
+<li class="chapter" data-level="1.6" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityBootstrap"><i class="fa fa-check"></i><b>1.6</b> Bootstrap method</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#demonstration-of-the-bootstrap-method"><i class="fa fa-check"></i><b>1.6.1</b> Demonstration of the bootstrap method</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="preliminaries.html"><a href="preliminaries.html#image-quality-vs.-task-performance"><i class="fa fa-check"></i><b>1.5</b> Image quality vs. task performance</a></li>
-<li class="chapter" data-level="1.6" data-path="preliminaries.html"><a href="preliminaries.html#why-physical-measures-of-image-quality-are-not-enough"><i class="fa fa-check"></i><b>1.6</b> Why physical measures of image quality are not enough</a></li>
-<li class="chapter" data-level="1.7" data-path="preliminaries.html"><a href="preliminaries.html#model-observers"><i class="fa fa-check"></i><b>1.7</b> Model observers</a></li>
-<li class="chapter" data-level="1.8" data-path="preliminaries.html"><a href="preliminaries.html#measuring-observer-performance-four-paradigms"><i class="fa fa-check"></i><b>1.8</b> Measuring observer performance: four paradigms</a><ul>
-<li class="chapter" data-level="1.8.1" data-path="preliminaries.html"><a href="preliminaries.html#basic-approach-to-the-analysis"><i class="fa fa-check"></i><b>1.8.1</b> Basic approach to the analysis</a></li>
-<li class="chapter" data-level="1.8.2" data-path="preliminaries.html"><a href="preliminaries.html#historical-notes"><i class="fa fa-check"></i><b>1.8.2</b> Historical notes</a></li>
+<li class="chapter" data-level="1.7" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityJackknife"><i class="fa fa-check"></i><b>1.7</b> Jackknife method</a></li>
+<li class="chapter" data-level="1.8" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityCalSimulator"><i class="fa fa-check"></i><b>1.8</b> Calibrated simulator</a><ul>
+<li class="chapter" data-level="1.8.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#the-need-for-a-calibrated-simulator"><i class="fa fa-check"></i><b>1.8.1</b> The need for a calibrated simulator</a></li>
+<li class="chapter" data-level="1.8.2" data-path="sources-of-variability.html"><a href="sources-of-variability.html#implementation-of-a-simple-calibrated-simulator"><i class="fa fa-check"></i><b>1.8.2</b> Implementation of a simple calibrated simulator</a></li>
 </ul></li>
-<li class="chapter" data-level="1.9" data-path="preliminaries.html"><a href="preliminaries.html#hierarchy-of-assessment-methods"><i class="fa fa-check"></i><b>1.9</b> Hierarchy of assessment methods</a></li>
-<li class="chapter" data-level="1.10" data-path="preliminaries.html"><a href="preliminaries.html#overview-of-the-book-and-how-to-use-it"><i class="fa fa-check"></i><b>1.10</b> Overview of the book and how to use it</a><ul>
-<li class="chapter" data-level="1.10.1" data-path="preliminaries.html"><a href="preliminaries.html#overview-of-the-book"><i class="fa fa-check"></i><b>1.10.1</b> Overview of the book</a></li>
-<li class="chapter" data-level="1.10.2" data-path="preliminaries.html"><a href="preliminaries.html#how-to-use-the-book"><i class="fa fa-check"></i><b>1.10.2</b> How to use the book</a></li>
-</ul></li>
-<li class="chapter" data-level="1.11" data-path="preliminaries.html"><a href="preliminaries.html#preliminaries-Summary"><i class="fa fa-check"></i><b>1.11</b> Summary</a></li>
-<li class="chapter" data-level="1.12" data-path="preliminaries.html"><a href="preliminaries.html#preliminaries-Discussion"><i class="fa fa-check"></i><b>1.12</b> Discussion</a></li>
-<li class="chapter" data-level="1.13" data-path="preliminaries.html"><a href="preliminaries.html#preliminaries-references"><i class="fa fa-check"></i><b>1.13</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="binary-task.html"><a href="binary-task.html"><i class="fa fa-check"></i><b>2</b> The Binary Task</a><ul>
-<li class="chapter" data-level="2.1" data-path="binary-task.html"><a href="binary-task.html#binary-task-how-much-finished"><i class="fa fa-check"></i><b>2.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="2.2" data-path="binary-task.html"><a href="binary-task.html#binary-taskIntro"><i class="fa fa-check"></i><b>2.2</b> Introduction</a></li>
-<li class="chapter" data-level="2.3" data-path="binary-task.html"><a href="binary-task.html#binary-taskTruth"><i class="fa fa-check"></i><b>2.3</b> The fundamental 2x2 table</a></li>
-<li class="chapter" data-level="2.4" data-path="binary-task.html"><a href="binary-task.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4</b> Sensitivity and specificity</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="binary-task.html"><a href="binary-task.html#reasons-for-the-names-sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4.1</b> Reasons for the names sensitivity and specificity</a></li>
-<li class="chapter" data-level="2.4.2" data-path="binary-task.html"><a href="binary-task.html#estimating-sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4.2</b> Estimating sensitivity and specificity</a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="binary-task.html"><a href="binary-task.html#disease-prevalence"><i class="fa fa-check"></i><b>2.5</b> Disease prevalence</a></li>
-<li class="chapter" data-level="2.6" data-path="binary-task.html"><a href="binary-task.html#accuracy"><i class="fa fa-check"></i><b>2.6</b> Accuracy</a></li>
-<li class="chapter" data-level="2.7" data-path="binary-task.html"><a href="binary-task.html#negative-and-positive-predictive-values"><i class="fa fa-check"></i><b>2.7</b> Negative and positive predictive values</a><ul>
-<li class="chapter" data-level="2.7.1" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvCode"><i class="fa fa-check"></i><b>2.7.1</b> Example calculation of PPV, NPV and accuracy</a></li>
-<li class="chapter" data-level="2.7.2" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvComments"><i class="fa fa-check"></i><b>2.7.2</b> Comments</a></li>
-<li class="chapter" data-level="2.7.3" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvIrrel2LabTasks"><i class="fa fa-check"></i><b>2.7.3</b> PPV and NPV are irrelevant to laboratory tasks</a></li>
-</ul></li>
-<li class="chapter" data-level="2.8" data-path="binary-task.html"><a href="binary-task.html#binary-task-Summary"><i class="fa fa-check"></i><b>2.8</b> Summary</a></li>
-<li class="chapter" data-level="2.9" data-path="binary-task.html"><a href="binary-task.html#binary-task-Discussion"><i class="fa fa-check"></i><b>2.9</b> Discussion</a></li>
-<li class="chapter" data-level="2.10" data-path="binary-task.html"><a href="binary-task.html#binary-task-references"><i class="fa fa-check"></i><b>2.10</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="binary-task-model.html"><a href="binary-task-model.html"><i class="fa fa-check"></i><b>3</b> Modeling the Binary Task</a><ul>
-<li class="chapter" data-level="3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-how-much-finished"><i class="fa fa-check"></i><b>3.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-intro"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
-<li class="chapter" data-level="3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-z-sample-model"><i class="fa fa-check"></i><b>3.3</b> Decision variable and decision threshold</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-decision-variable"><i class="fa fa-check"></i><b>3.3.1</b> Existence of a decision variable</a></li>
-<li class="chapter" data-level="3.3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-decision-threshold"><i class="fa fa-check"></i><b>3.3.2</b> Existence of a decision threshold</a></li>
-<li class="chapter" data-level="3.3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#adequacy-of-the-training-session"><i class="fa fa-check"></i><b>3.3.3</b> Adequacy of the training session</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-example-1"><i class="fa fa-check"></i><b>3.4</b> Changing the decision threshold: Example I</a></li>
-<li class="chapter" data-level="3.5" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-example-2"><i class="fa fa-check"></i><b>3.5</b> Changing the decision threshold: Example II</a></li>
-<li class="chapter" data-level="3.6" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-equal-variance-binormal-model"><i class="fa fa-check"></i><b>3.6</b> The equal-variance binormal model</a></li>
-<li class="chapter" data-level="3.7" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-normal-distribution"><i class="fa fa-check"></i><b>3.7</b> The normal distribution</a></li>
-<li class="chapter" data-level="3.8" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity"><i class="fa fa-check"></i><b>3.8</b> Analytic expressions for specificity and sensitivity</a></li>
-<li class="chapter" data-level="3.9" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity-demo"><i class="fa fa-check"></i><b>3.9</b> Demonstration of the concepts of sensitivity and specificity</a><ul>
-<li class="chapter" data-level="3.9.1" data-path="binary-task-model.html"><a href="binary-task-model.html#estimating-mu-from-a-finite-sample"><i class="fa fa-check"></i><b>3.9.1</b> Estimating mu from a finite sample</a></li>
-<li class="chapter" data-level="3.9.2" data-path="binary-task-model.html"><a href="binary-task-model.html#changing-the-seed-variable-case-sampling-variability"><i class="fa fa-check"></i><b>3.9.2</b> Changing the seed variable: case-sampling variability</a></li>
-<li class="chapter" data-level="3.9.3" data-path="binary-task-model.html"><a href="binary-task-model.html#increasing-the-numbers-of-cases"><i class="fa fa-check"></i><b>3.9.3</b> Increasing the numbers of cases</a></li>
-</ul></li>
-<li class="chapter" data-level="3.10" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity-inverse-variation"><i class="fa fa-check"></i><b>3.10</b> Inverse variation of sensitivity and specificity and the need for a single FOM</a></li>
-<li class="chapter" data-level="3.11" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-roc-curve"><i class="fa fa-check"></i><b>3.11</b> The ROC curve</a><ul>
-<li class="chapter" data-level="3.11.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-chance-diagonal"><i class="fa fa-check"></i><b>3.11.1</b> The chance diagonal</a></li>
-<li class="chapter" data-level="3.11.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-guessing-observer"><i class="fa fa-check"></i><b>3.11.2</b> The guessing observer</a></li>
-<li class="chapter" data-level="3.11.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-symmetry-wrt-negative-diagonal"><i class="fa fa-check"></i><b>3.11.3</b> Symmetry with respect to negative diagonal</a></li>
-<li class="chapter" data-level="3.11.4" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-auc-roc-important"><i class="fa fa-check"></i><b>3.11.4</b> Area under the ROC curve</a></li>
-<li class="chapter" data-level="3.11.5" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-properties-roc"><i class="fa fa-check"></i><b>3.11.5</b> Properties of the equal-variance binormal model ROC curve</a></li>
-<li class="chapter" data-level="3.11.6" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-comments"><i class="fa fa-check"></i><b>3.11.6</b> Comments</a></li>
-<li class="chapter" data-level="3.11.7" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-mu-parameter-intepretation"><i class="fa fa-check"></i><b>3.11.7</b> Physical interpretation of the mu-parameter</a></li>
-</ul></li>
-<li class="chapter" data-level="3.12" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-confidence-intervals"><i class="fa fa-check"></i><b>3.12</b> Assigning confidence intervals to an operating point</a></li>
-<li class="chapter" data-level="3.13" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-beam-study"><i class="fa fa-check"></i><b>3.13</b> Variability in sensitivity and specificity: the Beam et al study</a></li>
-<li class="chapter" data-level="3.14" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-summary"><i class="fa fa-check"></i><b>3.14</b> Summary</a></li>
-<li class="chapter" data-level="3.15" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-references"><i class="fa fa-check"></i><b>3.15</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html"><i class="fa fa-check"></i><b>4</b> Ratings Paradigm</a><ul>
-<li class="chapter" data-level="4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-how-much-finished"><i class="fa fa-check"></i><b>4.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
-<li class="chapter" data-level="4.3" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-roc-counts-table"><i class="fa fa-check"></i><b>4.3</b> The ROC counts table</a></li>
-<li class="chapter" data-level="4.4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-operating-points-from-counts-table"><i class="fa fa-check"></i><b>4.4</b> Operating points from counts table</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#labeling-the-points"><i class="fa fa-check"></i><b>4.4.1</b> Labeling the points</a></li>
-<li class="chapter" data-level="4.4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-examples"><i class="fa fa-check"></i><b>4.4.2</b> Examples</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-automating"><i class="fa fa-check"></i><b>4.5</b> Automating all this</a></li>
-<li class="chapter" data-level="4.6" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-relation-to-rating"><i class="fa fa-check"></i><b>4.6</b> Relation between ratings paradigm and the binary paradigm</a></li>
-<li class="chapter" data-level="4.7" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-ratings-not-numerical-values"><i class="fa fa-check"></i><b>4.7</b> Ratings are not numerical values</a></li>
-<li class="chapter" data-level="4.8" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-clinical-operating-point"><i class="fa fa-check"></i><b>4.8</b> A single “clinical” operating point from ratings data</a></li>
-<li class="chapter" data-level="4.9" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-2afc"><i class="fa fa-check"></i><b>4.9</b> The forced choice paradigm</a></li>
-<li class="chapter" data-level="4.10" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-observer-studies-as-simulations"><i class="fa fa-check"></i><b>4.10</b> Observer performance studies as laboratory simulations of clinical tasks</a></li>
-<li class="chapter" data-level="4.11" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-discrete-vs-continuous-ratings"><i class="fa fa-check"></i><b>4.11</b> Discrete vs. continuous ratings: the Miller study</a></li>
-<li class="chapter" data-level="4.12" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale"><i class="fa fa-check"></i><b>4.12</b> The BI-RADS ratings scale and ROC studies</a></li>
-<li class="chapter" data-level="4.13" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale-controversy"><i class="fa fa-check"></i><b>4.13</b> The controversy</a></li>
-<li class="chapter" data-level="4.14" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-discussion"><i class="fa fa-check"></i><b>4.14</b> Discussion</a></li>
-<li class="chapter" data-level="4.15" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-references"><i class="fa fa-check"></i><b>4.15</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="empirical-auc.html"><a href="empirical-auc.html"><i class="fa fa-check"></i><b>5</b> Empirical AUC</a><ul>
-<li class="chapter" data-level="5.1" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-how-much-finished"><i class="fa fa-check"></i><b>5.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="5.2" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-introduction"><i class="fa fa-check"></i><b>5.2</b> Introduction</a></li>
-<li class="chapter" data-level="5.3" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-roc-plot"><i class="fa fa-check"></i><b>5.3</b> The empirical ROC plot</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="empirical-auc.html"><a href="empirical-auc.html#notation-for-cases"><i class="fa fa-check"></i><b>5.3.1</b> Notation for cases</a></li>
-<li class="chapter" data-level="5.3.2" data-path="empirical-auc.html"><a href="empirical-auc.html#an-empirical-operating-point"><i class="fa fa-check"></i><b>5.3.2</b> An empirical operating point</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-operating-points"><i class="fa fa-check"></i><b>5.4</b> Empirical operating points from ratings data</a></li>
-<li class="chapter" data-level="5.5" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-area-under"><i class="fa fa-check"></i><b>5.5</b> AUC under the empirical ROC plot</a></li>
-<li class="chapter" data-level="5.6" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon"><i class="fa fa-check"></i><b>5.6</b> The Wilcoxon statistic</a></li>
-<li class="chapter" data-level="5.7" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem"><i class="fa fa-check"></i><b>5.7</b> Bamber’s Equivalence theorem</a></li>
-<li class="chapter" data-level="5.8" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem-importance"><i class="fa fa-check"></i><b>5.8</b> Importance of Bamber’s theorem</a></li>
-<li class="chapter" data-level="5.9" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-discussion-summary"><i class="fa fa-check"></i><b>5.9</b> Discussion / Summary</a></li>
-<li class="chapter" data-level="5.10" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-appendix-details-bamber-theorem"><i class="fa fa-check"></i><b>5.10</b> Appendix 5.A: Details of Wilcoxon theorem</a><ul>
-<li class="chapter" data-level="5.10.1" data-path="empirical-auc.html"><a href="empirical-auc.html#upper-triangle"><i class="fa fa-check"></i><b>5.10.1</b> Upper triangle</a></li>
-<li class="chapter" data-level="5.10.2" data-path="empirical-auc.html"><a href="empirical-auc.html#lowest-trapezoid"><i class="fa fa-check"></i><b>5.10.2</b> Lowest trapezoid</a></li>
-</ul></li>
-<li class="chapter" data-level="5.11" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-references"><i class="fa fa-check"></i><b>5.11</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="binormal-model.html"><a href="binormal-model.html"><i class="fa fa-check"></i><b>6</b> Binormal model</a><ul>
-<li class="chapter" data-level="6.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-how-much-finished"><i class="fa fa-check"></i><b>6.1</b> How much finished</a></li>
-<li class="chapter" data-level="6.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-introduction"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
-<li class="chapter" data-level="6.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-definition"><i class="fa fa-check"></i><b>6.3</b> Binormal model</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="binormal-model.html"><a href="binormal-model.html#additional-parameters-for-binned-data"><i class="fa fa-check"></i><b>6.3.1</b> Additional parameters for binned data</a></li>
-<li class="chapter" data-level="6.3.2" data-path="binormal-model.html"><a href="binormal-model.html#sensitivity-and-specificity-1"><i class="fa fa-check"></i><b>6.3.2</b> Sensitivity and specificity</a></li>
-<li class="chapter" data-level="6.3.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-in-conventional-notation"><i class="fa fa-check"></i><b>6.3.3</b> Binormal model in conventional notation</a></li>
-</ul></li>
-<li class="chapter" data-level="6.4" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-roc-curve"><i class="fa fa-check"></i><b>6.4</b> Binormal ROC curve</a></li>
-<li class="chapter" data-level="6.5" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-scalar-measure"><i class="fa fa-check"></i><b>6.5</b> Threshold-independent performance measure</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc"><i class="fa fa-check"></i><b>6.5.1</b> Partial AUC</a></li>
-<li class="chapter" data-level="6.5.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-meaning-partial-auc"><i class="fa fa-check"></i><b>6.5.2</b> Meaning of partial AUC</a></li>
-<li class="chapter" data-level="6.5.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc-recommendation"><i class="fa fa-check"></i><b>6.5.3</b> Full AUC</a></li>
-<li class="chapter" data-level="6.5.4" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-full-auc"><i class="fa fa-check"></i><b>6.5.4</b> Full AUC</a></li>
-<li class="chapter" data-level="6.5.5" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-d-prime"><i class="fa fa-check"></i><b>6.5.5</b> The d’ measure</a></li>
-</ul></li>
-<li class="chapter" data-level="6.6" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-true"><i class="fa fa-check"></i><b>6.6</b> Partial AUC vs. true performance</a></li>
-<li class="chapter" data-level="6.7" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-illustrative-plots"><i class="fa fa-check"></i><b>6.7</b> Illustrative plots</a></li>
-<li class="chapter" data-level="6.8" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-geometrical-argument"><i class="fa fa-check"></i><b>6.8</b> Geometrical argument</a></li>
-<li class="chapter" data-level="6.9" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-optimal-op-pt"><i class="fa fa-check"></i><b>6.9</b> Optimal operating point on ROC</a></li>
-<li class="chapter" data-level="6.10" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-discussion"><i class="fa fa-check"></i><b>6.10</b> Discussion</a></li>
-<li class="chapter" data-level="6.11" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-pdf-curves-appendix-1"><i class="fa fa-check"></i><b>6.11</b> Appendix I: Density functions</a></li>
-<li class="chapter" data-level="6.12" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-appendix-2"><i class="fa fa-check"></i><b>6.12</b> Appendix II: Area under binormal ROC</a><ul>
-<li class="chapter" data-level="6.12.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc-derivation"><i class="fa fa-check"></i><b>6.12.1</b> General case (partial-area)</a></li>
-<li class="chapter" data-level="6.12.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-total-auc"><i class="fa fa-check"></i><b>6.12.2</b> Special case (total area)</a></li>
-</ul></li>
-<li class="chapter" data-level="6.13" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-invariance-property"><i class="fa fa-check"></i><b>6.13</b> Appendix III: Invariance property of pdfs</a></li>
-<li class="chapter" data-level="6.14" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting-appendix-4"><i class="fa fa-check"></i><b>6.14</b> Appendix IV: Fitting an ROC curve</a><ul>
-<li class="chapter" data-level="6.14.1" data-path="binormal-model.html"><a href="binormal-model.html#java-fitted-roc-curve"><i class="fa fa-check"></i><b>6.14.1</b> JAVA fitted ROC curve</a></li>
-<li class="chapter" data-level="6.14.2" data-path="binormal-model.html"><a href="binormal-model.html#simplistic-straight-line-fit-to-the-roc-curve"><i class="fa fa-check"></i><b>6.14.2</b> Simplistic straight line fit to the ROC curve</a></li>
-<li class="chapter" data-level="6.14.3" data-path="binormal-model.html"><a href="binormal-model.html#maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>6.14.3</b> Maximum likelihood estimation (MLE)</a></li>
-<li class="chapter" data-level="6.14.4" data-path="binormal-model.html"><a href="binormal-model.html#code-implementing-mle"><i class="fa fa-check"></i><b>6.14.4</b> Code implementing MLE</a></li>
-</ul></li>
-<li class="chapter" data-level="6.15" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting-validation-appendix-5"><i class="fa fa-check"></i><b>6.15</b> Appendix V: Validating fitting model</a><ul>
-<li class="chapter" data-level="6.15.1" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-covariance-matrix"><i class="fa fa-check"></i><b>6.15.1</b> Estimating the covariance matrix</a></li>
-<li class="chapter" data-level="6.15.2" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-variance-of-az"><i class="fa fa-check"></i><b>6.15.2</b> Estimating the variance of Az</a></li>
-</ul></li>
-<li class="chapter" data-level="6.16" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-references"><i class="fa fa-check"></i><b>6.16</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="sources-of-variability.html"><a href="sources-of-variability.html"><i class="fa fa-check"></i><b>7</b> Sources of AUC variability</a><ul>
-<li class="chapter" data-level="7.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability-how-much-finished"><i class="fa fa-check"></i><b>7.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="7.2" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityIntro"><i class="fa fa-check"></i><b>7.2</b> Introduction</a></li>
-<li class="chapter" data-level="7.3" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability3sources"><i class="fa fa-check"></i><b>7.3</b> Three sources of variability</a></li>
-<li class="chapter" data-level="7.4" data-path="sources-of-variability.html"><a href="sources-of-variability.html#dependence-of-auc-on-the-case-sample"><i class="fa fa-check"></i><b>7.4</b> Dependence of AUC on the case sample</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#case-sampling-variability-of-auc"><i class="fa fa-check"></i><b>7.4.1</b> Case sampling variability of AUC</a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityDeLong"><i class="fa fa-check"></i><b>7.5</b> DeLong method</a></li>
-<li class="chapter" data-level="7.6" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityBootstrap"><i class="fa fa-check"></i><b>7.6</b> Bootstrap method</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#demonstration-of-the-bootstrap-method"><i class="fa fa-check"></i><b>7.6.1</b> Demonstration of the bootstrap method</a></li>
-</ul></li>
-<li class="chapter" data-level="7.7" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityJackknife"><i class="fa fa-check"></i><b>7.7</b> Jackknife method</a></li>
-<li class="chapter" data-level="7.8" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variabilityCalSimulator"><i class="fa fa-check"></i><b>7.8</b> Calibrated simulator</a><ul>
-<li class="chapter" data-level="7.8.1" data-path="sources-of-variability.html"><a href="sources-of-variability.html#the-need-for-a-calibrated-simulator"><i class="fa fa-check"></i><b>7.8.1</b> The need for a calibrated simulator</a></li>
-<li class="chapter" data-level="7.8.2" data-path="sources-of-variability.html"><a href="sources-of-variability.html#implementation-of-a-simple-calibrated-simulator"><i class="fa fa-check"></i><b>7.8.2</b> Implementation of a simple calibrated simulator</a></li>
-</ul></li>
-<li class="chapter" data-level="7.9" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability-Discussion"><i class="fa fa-check"></i><b>7.9</b> Discussion</a></li>
-<li class="chapter" data-level="7.10" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability-references"><i class="fa fa-check"></i><b>7.10</b> References</a></li>
+<li class="chapter" data-level="1.9" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability-Discussion"><i class="fa fa-check"></i><b>1.9</b> Discussion</a></li>
+<li class="chapter" data-level="1.10" data-path="sources-of-variability.html"><a href="sources-of-variability.html#sources-of-variability-references"><i class="fa fa-check"></i><b>1.10</b> Chapter References</a></li>
 </ul></li>
 <li class="part"><span><b>Significance Testing</b></span></li>
-<li class="chapter" data-level="8" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>8</b> Hypothesis Testing</a><ul>
-<li class="chapter" data-level="8.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testing-how-much-finished"><i class="fa fa-check"></i><b>8.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="8.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testing-introduction"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
-<li class="chapter" data-level="8.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#single-modality-single-reader-roc-study"><i class="fa fa-check"></i><b>8.3</b> Single-modality single-reader ROC study</a></li>
-<li class="chapter" data-level="8.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-i-errors"><i class="fa fa-check"></i><b>8.4</b> Type-I errors</a></li>
-<li class="chapter" data-level="8.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#one-vs.-two-sided-tests"><i class="fa fa-check"></i><b>8.5</b> One vs. two sided tests</a></li>
-<li class="chapter" data-level="8.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#statistical-power"><i class="fa fa-check"></i><b>8.6</b> Statistical power</a><ul>
-<li class="chapter" data-level="8.6.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#factors-affecting-statistical-power"><i class="fa fa-check"></i><b>8.6.1</b> Factors affecting statistical power</a></li>
+<li class="chapter" data-level="2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>2</b> Hypothesis Testing</a><ul>
+<li class="chapter" data-level="2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testing-how-much-finished"><i class="fa fa-check"></i><b>2.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testing-introduction"><i class="fa fa-check"></i><b>2.2</b> Introduction</a></li>
+<li class="chapter" data-level="2.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#single-modality-single-reader-roc-study"><i class="fa fa-check"></i><b>2.3</b> Single-modality single-reader ROC study</a></li>
+<li class="chapter" data-level="2.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-i-errors"><i class="fa fa-check"></i><b>2.4</b> Type-I errors</a></li>
+<li class="chapter" data-level="2.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#one-vs.-two-sided-tests"><i class="fa fa-check"></i><b>2.5</b> One vs. two sided tests</a></li>
+<li class="chapter" data-level="2.6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#statistical-power"><i class="fa fa-check"></i><b>2.6</b> Statistical power</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#factors-affecting-statistical-power"><i class="fa fa-check"></i><b>2.6.1</b> Factors affecting statistical power</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testingComments"><i class="fa fa-check"></i><b>8.7</b> Comments</a></li>
-<li class="chapter" data-level="8.8" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#why-alpha-is-chosen-as-5"><i class="fa fa-check"></i><b>8.8</b> Why alpha is chosen as 5%</a></li>
-<li class="chapter" data-level="8.9" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testingDiscussion"><i class="fa fa-check"></i><b>8.9</b> Discussion</a></li>
-<li class="chapter" data-level="8.10" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testing-references"><i class="fa fa-check"></i><b>8.10</b> References</a></li>
+<li class="chapter" data-level="2.7" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testingComments"><i class="fa fa-check"></i><b>2.7</b> Comments</a></li>
+<li class="chapter" data-level="2.8" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#why-alpha-is-chosen-as-5"><i class="fa fa-check"></i><b>2.8</b> Why alpha is chosen as 5%</a></li>
+<li class="chapter" data-level="2.9" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testingDiscussion"><i class="fa fa-check"></i><b>2.9</b> Discussion</a></li>
+<li class="chapter" data-level="2.10" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-testing-references"><i class="fa fa-check"></i><b>2.10</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html"><i class="fa fa-check"></i><b>9</b> DBM method background</a><ul>
-<li class="chapter" data-level="9.1" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-how-much-finished"><i class="fa fa-check"></i><b>9.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="9.2" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-introduction"><i class="fa fa-check"></i><b>9.2</b> Introduction</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#historical-background"><i class="fa fa-check"></i><b>9.2.1</b> Historical background</a></li>
-<li class="chapter" data-level="9.2.2" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#the-wagner-analogy"><i class="fa fa-check"></i><b>9.2.2</b> The Wagner analogy</a></li>
-<li class="chapter" data-level="9.2.3" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#the-shortage-of-numbers-to-analyze-and-a-pivotal-breakthrough"><i class="fa fa-check"></i><b>9.2.3</b> The shortage of numbers to analyze and a pivotal breakthrough</a></li>
-<li class="chapter" data-level="9.2.4" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#organization-of-chapter"><i class="fa fa-check"></i><b>9.2.4</b> Organization of chapter</a></li>
+<li class="chapter" data-level="3" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html"><i class="fa fa-check"></i><b>3</b> DBM method background</a><ul>
+<li class="chapter" data-level="3.1" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-how-much-finished"><i class="fa fa-check"></i><b>3.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="3.2" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-introduction"><i class="fa fa-check"></i><b>3.2</b> Introduction</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#historical-background"><i class="fa fa-check"></i><b>3.2.1</b> Historical background</a></li>
+<li class="chapter" data-level="3.2.2" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#the-wagner-analogy"><i class="fa fa-check"></i><b>3.2.2</b> The Wagner analogy</a></li>
+<li class="chapter" data-level="3.2.3" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#the-shortage-of-numbers-to-analyze-and-a-pivotal-breakthrough"><i class="fa fa-check"></i><b>3.2.3</b> The shortage of numbers to analyze and a pivotal breakthrough</a></li>
+<li class="chapter" data-level="3.2.4" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#organization-of-chapter"><i class="fa fa-check"></i><b>3.2.4</b> Organization of chapter</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-random-fixed-factors"><i class="fa fa-check"></i><b>9.3</b> Random and fixed factors</a></li>
-<li class="chapter" data-level="9.4" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-reader-case-populations"><i class="fa fa-check"></i><b>9.4</b> Reader and case populations</a></li>
-<li class="chapter" data-level="9.5" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-threeAnalyses"><i class="fa fa-check"></i><b>9.5</b> Three types of analyses</a></li>
-<li class="chapter" data-level="9.6" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-approach"><i class="fa fa-check"></i><b>9.6</b> General approach</a></li>
-<li class="chapter" data-level="9.7" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-summary"><i class="fa fa-check"></i><b>9.7</b> Summary TBA</a></li>
-<li class="chapter" data-level="9.8" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-references"><i class="fa fa-check"></i><b>9.8</b> References</a></li>
+<li class="chapter" data-level="3.3" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-random-fixed-factors"><i class="fa fa-check"></i><b>3.3</b> Random and fixed factors</a></li>
+<li class="chapter" data-level="3.4" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-reader-case-populations"><i class="fa fa-check"></i><b>3.4</b> Reader and case populations</a></li>
+<li class="chapter" data-level="3.5" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-threeAnalyses"><i class="fa fa-check"></i><b>3.5</b> Three types of analyses</a></li>
+<li class="chapter" data-level="3.6" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-approach"><i class="fa fa-check"></i><b>3.6</b> General approach</a></li>
+<li class="chapter" data-level="3.7" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-summary"><i class="fa fa-check"></i><b>3.7</b> Summary TBA</a></li>
+<li class="chapter" data-level="3.8" data-path="dbm-analysis-background.html"><a href="dbm-analysis-background.html#dbm-analysis-background-references"><i class="fa fa-check"></i><b>3.8</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html"><i class="fa fa-check"></i><b>10</b> Significance Testing using the DBM Method</a><ul>
-<li class="chapter" data-level="10.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-how-much-finished"><i class="fa fa-check"></i><b>10.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="10.2" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#the-dbm-sampling-model"><i class="fa fa-check"></i><b>10.2</b> The DBM sampling model</a><ul>
-<li class="chapter" data-level="10.2.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#explanation-of-terms-in-the-model"><i class="fa fa-check"></i><b>10.2.1</b> Explanation of terms in the model</a></li>
-<li class="chapter" data-level="10.2.2" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#meanings-of-variance-components-in-the-dbm-model-tba-this-section-can-be-improved"><i class="fa fa-check"></i><b>10.2.2</b> Meanings of variance components in the DBM model (<strong>TBA this section can be improved</strong>)</a></li>
-<li class="chapter" data-level="10.2.3" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#definitions-of-mean-squares"><i class="fa fa-check"></i><b>10.2.3</b> Definitions of mean-squares</a></li>
+<li class="chapter" data-level="4" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html"><i class="fa fa-check"></i><b>4</b> Significance Testing using the DBM Method</a><ul>
+<li class="chapter" data-level="4.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-how-much-finished"><i class="fa fa-check"></i><b>4.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="4.2" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#the-dbm-sampling-model"><i class="fa fa-check"></i><b>4.2</b> The DBM sampling model</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#explanation-of-terms-in-the-model"><i class="fa fa-check"></i><b>4.2.1</b> Explanation of terms in the model</a></li>
+<li class="chapter" data-level="4.2.2" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#meanings-of-variance-components-in-the-dbm-model-tba-this-section-can-be-improved"><i class="fa fa-check"></i><b>4.2.2</b> Meanings of variance components in the DBM model (<strong>TBA this section can be improved</strong>)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#definitions-of-mean-squares"><i class="fa fa-check"></i><b>4.2.3</b> Definitions of mean-squares</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#expected-values-of-mean-squares"><i class="fa fa-check"></i><b>10.3</b> Expected values of mean squares</a></li>
-<li class="chapter" data-level="10.4" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-RRRC-analysis"><i class="fa fa-check"></i><b>10.4</b> Random-reader random-case (RRRC) analysis</a><ul>
-<li class="chapter" data-level="10.4.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#calculation-of-mean-squares-an-example"><i class="fa fa-check"></i><b>10.4.1</b> Calculation of mean squares: an example</a></li>
-<li class="chapter" data-level="10.4.2" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-sig-testing"><i class="fa fa-check"></i><b>10.4.2</b> Significance testing</a></li>
-<li class="chapter" data-level="10.4.3" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#the-satterthwaite-approximation"><i class="fa fa-check"></i><b>10.4.3</b> The Satterthwaite approximation</a></li>
-<li class="chapter" data-level="10.4.4" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#decision-rules-p-value-and-confidence-intervals"><i class="fa fa-check"></i><b>10.4.4</b> Decision rules, p-value and confidence intervals</a></li>
+<li class="chapter" data-level="4.3" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#expected-values-of-mean-squares"><i class="fa fa-check"></i><b>4.3</b> Expected values of mean squares</a></li>
+<li class="chapter" data-level="4.4" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-RRRC-analysis"><i class="fa fa-check"></i><b>4.4</b> Random-reader random-case (RRRC) analysis</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#calculation-of-mean-squares-an-example"><i class="fa fa-check"></i><b>4.4.1</b> Calculation of mean squares: an example</a></li>
+<li class="chapter" data-level="4.4.2" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-sig-testing"><i class="fa fa-check"></i><b>4.4.2</b> Significance testing</a></li>
+<li class="chapter" data-level="4.4.3" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#the-satterthwaite-approximation"><i class="fa fa-check"></i><b>4.4.3</b> The Satterthwaite approximation</a></li>
+<li class="chapter" data-level="4.4.4" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#decision-rules-p-value-and-confidence-intervals"><i class="fa fa-check"></i><b>4.4.4</b> Decision rules, p-value and confidence intervals</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#sample-size-estimation-for-random-reader-random-case-generalization"><i class="fa fa-check"></i><b>10.5</b> Sample size estimation for random-reader random-case generalization</a><ul>
-<li class="chapter" data-level="10.5.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#the-non-centrality-parameter"><i class="fa fa-check"></i><b>10.5.1</b> The non-centrality parameter</a></li>
-<li class="chapter" data-level="10.5.2" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#the-denominator-degrees-of-freedom"><i class="fa fa-check"></i><b>10.5.2</b> The denominator degrees of freedom</a></li>
-<li class="chapter" data-level="10.5.3" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#example-of-sample-size-estimation-rrrc-generalization"><i class="fa fa-check"></i><b>10.5.3</b> Example of sample size estimation, RRRC generalization</a></li>
+<li class="chapter" data-level="4.5" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#sample-size-estimation-for-random-reader-random-case-generalization"><i class="fa fa-check"></i><b>4.5</b> Sample size estimation for random-reader random-case generalization</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#the-non-centrality-parameter"><i class="fa fa-check"></i><b>4.5.1</b> The non-centrality parameter</a></li>
+<li class="chapter" data-level="4.5.2" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#the-denominator-degrees-of-freedom"><i class="fa fa-check"></i><b>4.5.2</b> The denominator degrees of freedom</a></li>
+<li class="chapter" data-level="4.5.3" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#example-of-sample-size-estimation-rrrc-generalization"><i class="fa fa-check"></i><b>4.5.3</b> Example of sample size estimation, RRRC generalization</a></li>
 </ul></li>
-<li class="chapter" data-level="10.6" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#significance-testing-and-sample-size-estimation-for-fixed-reader-random-case-generalization"><i class="fa fa-check"></i><b>10.6</b> Significance testing and sample size estimation for fixed-reader random-case generalization</a></li>
-<li class="chapter" data-level="10.7" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#significance-testing-and-sample-size-estimation-for-random-reader-fixed-case-generalization"><i class="fa fa-check"></i><b>10.7</b> Significance testing and sample size estimation for random-reader fixed-case generalization</a></li>
-<li class="chapter" data-level="10.8" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-summary"><i class="fa fa-check"></i><b>10.8</b> Summary TBA</a></li>
-<li class="chapter" data-level="10.9" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#things-for-me-to-think-about"><i class="fa fa-check"></i><b>10.9</b> Things for me to think about</a><ul>
-<li class="chapter" data-level="10.9.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#expected-values-of-mean-squares-1"><i class="fa fa-check"></i><b>10.9.1</b> Expected values of mean squares</a></li>
+<li class="chapter" data-level="4.6" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#significance-testing-and-sample-size-estimation-for-fixed-reader-random-case-generalization"><i class="fa fa-check"></i><b>4.6</b> Significance testing and sample size estimation for fixed-reader random-case generalization</a></li>
+<li class="chapter" data-level="4.7" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#significance-testing-and-sample-size-estimation-for-random-reader-fixed-case-generalization"><i class="fa fa-check"></i><b>4.7</b> Significance testing and sample size estimation for random-reader fixed-case generalization</a></li>
+<li class="chapter" data-level="4.8" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-summary"><i class="fa fa-check"></i><b>4.8</b> Summary TBA</a></li>
+<li class="chapter" data-level="4.9" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#things-for-me-to-think-about"><i class="fa fa-check"></i><b>4.9</b> Things for me to think about</a><ul>
+<li class="chapter" data-level="4.9.1" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#expected-values-of-mean-squares-1"><i class="fa fa-check"></i><b>4.9.1</b> Expected values of mean squares</a></li>
 </ul></li>
-<li class="chapter" data-level="10.10" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-references"><i class="fa fa-check"></i><b>10.10</b> References</a></li>
+<li class="chapter" data-level="4.10" data-path="dbm-analysis-significance-testing.html"><a href="dbm-analysis-significance-testing.html#dbm-analysis-significance-testing-references"><i class="fa fa-check"></i><b>4.10</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html"><i class="fa fa-check"></i><b>11</b> DBM method special cases</a><ul>
-<li class="chapter" data-level="11.1" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#dbm-analysis-special-cases-fits-how-much-finished"><i class="fa fa-check"></i><b>11.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="11.2" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#FRRCDBMAnalysis"><i class="fa fa-check"></i><b>11.2</b> Fixed-reader random-case (FRRC) analysis</a><ul>
-<li class="chapter" data-level="11.2.1" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#FRRCSingleReaderDBMAnalysis"><i class="fa fa-check"></i><b>11.2.1</b> Single-reader multiple-treatment analysis</a></li>
+<li class="chapter" data-level="5" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html"><i class="fa fa-check"></i><b>5</b> DBM method special cases</a><ul>
+<li class="chapter" data-level="5.1" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#dbm-analysis-special-cases-fits-how-much-finished"><i class="fa fa-check"></i><b>5.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="5.2" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#FRRCDBMAnalysis"><i class="fa fa-check"></i><b>5.2</b> Fixed-reader random-case (FRRC) analysis</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#FRRCSingleReaderDBMAnalysis"><i class="fa fa-check"></i><b>5.2.1</b> Single-reader multiple-treatment analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#dbm-analysis-special-cases-RRFCAnalysis"><i class="fa fa-check"></i><b>11.3</b> Random-reader fixed-case (RRFC) analysis</a></li>
-<li class="chapter" data-level="11.4" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#dbm-analysis-special-cases-references"><i class="fa fa-check"></i><b>11.4</b> References</a></li>
+<li class="chapter" data-level="5.3" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#dbm-analysis-special-cases-RRFCAnalysis"><i class="fa fa-check"></i><b>5.3</b> Random-reader fixed-case (RRFC) analysis</a></li>
+<li class="chapter" data-level="5.4" data-path="dbm-analysis-special-cases.html"><a href="dbm-analysis-special-cases.html#dbm-analysis-special-cases-references"><i class="fa fa-check"></i><b>5.4</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="or-method-intro.html"><a href="or-method-intro.html"><i class="fa fa-check"></i><b>12</b> Introduction to the Obuchowski-Rockette method</a><ul>
-<li class="chapter" data-level="12.1" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-how-much-finished"><i class="fa fa-check"></i><b>12.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="12.2" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-helper-functions"><i class="fa fa-check"></i><b>12.2</b> Locations of helper functions</a></li>
-<li class="chapter" data-level="12.3" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-intro"><i class="fa fa-check"></i><b>12.3</b> Introduction</a></li>
-<li class="chapter" data-level="12.4" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader"><i class="fa fa-check"></i><b>12.4</b> Single-reader multiple-treatment</a><ul>
-<li class="chapter" data-level="12.4.1" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader-overview"><i class="fa fa-check"></i><b>12.4.1</b> Overview</a></li>
-<li class="chapter" data-level="12.4.2" data-path="or-method-intro.html"><a href="or-method-intro.html#st-or-multiple-treatment"><i class="fa fa-check"></i><b>12.4.2</b> Significance testing</a></li>
-<li class="chapter" data-level="12.4.3" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-pvalue-ci"><i class="fa fa-check"></i><b>12.4.3</b> p-value and confidence interval</a></li>
-<li class="chapter" data-level="12.4.4" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader-nh-validation"><i class="fa fa-check"></i><b>12.4.4</b> Null hypothesis validation</a></li>
-<li class="chapter" data-level="12.4.5" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader-application-roc"><i class="fa fa-check"></i><b>12.4.5</b> Application 1</a></li>
-<li class="chapter" data-level="12.4.6" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader-application-froc"><i class="fa fa-check"></i><b>12.4.6</b> Application 2</a></li>
+<li class="chapter" data-level="6" data-path="or-method-intro.html"><a href="or-method-intro.html"><i class="fa fa-check"></i><b>6</b> Introduction to the Obuchowski-Rockette method</a><ul>
+<li class="chapter" data-level="6.1" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-how-much-finished"><i class="fa fa-check"></i><b>6.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="6.2" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-helper-functions"><i class="fa fa-check"></i><b>6.2</b> Locations of helper functions</a></li>
+<li class="chapter" data-level="6.3" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-intro"><i class="fa fa-check"></i><b>6.3</b> Introduction</a></li>
+<li class="chapter" data-level="6.4" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader"><i class="fa fa-check"></i><b>6.4</b> Single-reader multiple-treatment</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader-overview"><i class="fa fa-check"></i><b>6.4.1</b> Overview</a></li>
+<li class="chapter" data-level="6.4.2" data-path="or-method-intro.html"><a href="or-method-intro.html#st-or-multiple-treatment"><i class="fa fa-check"></i><b>6.4.2</b> Significance testing</a></li>
+<li class="chapter" data-level="6.4.3" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-pvalue-ci"><i class="fa fa-check"></i><b>6.4.3</b> p-value and confidence interval</a></li>
+<li class="chapter" data-level="6.4.4" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader-nh-validation"><i class="fa fa-check"></i><b>6.4.4</b> Null hypothesis validation</a></li>
+<li class="chapter" data-level="6.4.5" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader-application-roc"><i class="fa fa-check"></i><b>6.4.5</b> Application 1</a></li>
+<li class="chapter" data-level="6.4.6" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-reader-application-froc"><i class="fa fa-check"></i><b>6.4.6</b> Application 2</a></li>
 </ul></li>
-<li class="chapter" data-level="12.5" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-treatment"><i class="fa fa-check"></i><b>12.5</b> Single-treatment multiple-reader</a><ul>
-<li class="chapter" data-level="12.5.1" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-treatment-overview"><i class="fa fa-check"></i><b>12.5.1</b> Overview</a></li>
-<li class="chapter" data-level="12.5.2" data-path="or-method-intro.html"><a href="or-method-intro.html#st-or-multiple-reader"><i class="fa fa-check"></i><b>12.5.2</b> Significance testing</a></li>
-<li class="chapter" data-level="12.5.3" data-path="or-method-intro.html"><a href="or-method-intro.html#st-or-multiple-reader-example-three"><i class="fa fa-check"></i><b>12.5.3</b> Special case</a></li>
+<li class="chapter" data-level="6.5" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-treatment"><i class="fa fa-check"></i><b>6.5</b> Single-treatment multiple-reader</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-single-treatment-overview"><i class="fa fa-check"></i><b>6.5.1</b> Overview</a></li>
+<li class="chapter" data-level="6.5.2" data-path="or-method-intro.html"><a href="or-method-intro.html#st-or-multiple-reader"><i class="fa fa-check"></i><b>6.5.2</b> Significance testing</a></li>
+<li class="chapter" data-level="6.5.3" data-path="or-method-intro.html"><a href="or-method-intro.html#st-or-multiple-reader-example-three"><i class="fa fa-check"></i><b>6.5.3</b> Special case</a></li>
 </ul></li>
-<li class="chapter" data-level="12.6" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-multiple-reader-multiple-treatment"><i class="fa fa-check"></i><b>12.6</b> Multiple-reader multiple-treatment</a><ul>
-<li class="chapter" data-level="12.6.1" data-path="or-method-intro.html"><a href="or-method-intro.html#StrCovMatrix"><i class="fa fa-check"></i><b>12.6.1</b> Structure of the covariance matrix</a></li>
-<li class="chapter" data-level="12.6.2" data-path="or-method-intro.html"><a href="or-method-intro.html#PhysicalMeaningsOfCovMatrix"><i class="fa fa-check"></i><b>12.6.2</b> Physical meanings of the covariance terms</a></li>
+<li class="chapter" data-level="6.6" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-multiple-reader-multiple-treatment"><i class="fa fa-check"></i><b>6.6</b> Multiple-reader multiple-treatment</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="or-method-intro.html"><a href="or-method-intro.html#StrCovMatrix"><i class="fa fa-check"></i><b>6.6.1</b> Structure of the covariance matrix</a></li>
+<li class="chapter" data-level="6.6.2" data-path="or-method-intro.html"><a href="or-method-intro.html#PhysicalMeaningsOfCovMatrix"><i class="fa fa-check"></i><b>6.6.2</b> Physical meanings of the covariance terms</a></li>
 </ul></li>
-<li class="chapter" data-level="12.7" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-summary"><i class="fa fa-check"></i><b>12.7</b> Summary</a></li>
-<li class="chapter" data-level="12.8" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-discussion"><i class="fa fa-check"></i><b>12.8</b> Discussion</a></li>
-<li class="chapter" data-level="12.9" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats"><i class="fa fa-check"></i><b>12.9</b> Appendix: Covariance and correlation</a><ul>
-<li class="chapter" data-level="12.9.1" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-f-stat-chisq-stat"><i class="fa fa-check"></i><b>12.9.1</b> Relation: chisquare and F with infinite ddf</a></li>
-<li class="chapter" data-level="12.9.2" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-def-cov-matrix"><i class="fa fa-check"></i><b>12.9.2</b> Definitions of covariance and correlation</a></li>
-<li class="chapter" data-level="12.9.3" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-equal-variance"><i class="fa fa-check"></i><b>12.9.3</b> Special case when variables have equal variances</a></li>
-<li class="chapter" data-level="12.9.4" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-est-cov-matrix"><i class="fa fa-check"></i><b>12.9.4</b> Estimating the variance-covariance matrix</a></li>
-<li class="chapter" data-level="12.9.5" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-jack-var-inflation-factor"><i class="fa fa-check"></i><b>12.9.5</b> The variance inflation factor</a></li>
-<li class="chapter" data-level="12.9.6" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-meaning-cov-matrix"><i class="fa fa-check"></i><b>12.9.6</b> Meaning of the covariance matrix</a></li>
-<li class="chapter" data-level="12.9.7" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-code-cov-matrix"><i class="fa fa-check"></i><b>12.9.7</b> Code illustrating the covariance matrix</a></li>
-<li class="chapter" data-level="12.9.8" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-compare-dbm-or"><i class="fa fa-check"></i><b>12.9.8</b> Comparing DBM to Obuchowski and Rockette for single-reader multiple-treatments</a></li>
+<li class="chapter" data-level="6.7" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-summary"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+<li class="chapter" data-level="6.8" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-discussion"><i class="fa fa-check"></i><b>6.8</b> Discussion</a></li>
+<li class="chapter" data-level="6.9" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats"><i class="fa fa-check"></i><b>6.9</b> Appendix: Covariance and correlation</a><ul>
+<li class="chapter" data-level="6.9.1" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-f-stat-chisq-stat"><i class="fa fa-check"></i><b>6.9.1</b> Relation: chisquare and F with infinite ddf</a></li>
+<li class="chapter" data-level="6.9.2" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-def-cov-matrix"><i class="fa fa-check"></i><b>6.9.2</b> Definitions of covariance and correlation</a></li>
+<li class="chapter" data-level="6.9.3" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-equal-variance"><i class="fa fa-check"></i><b>6.9.3</b> Special case when variables have equal variances</a></li>
+<li class="chapter" data-level="6.9.4" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-est-cov-matrix"><i class="fa fa-check"></i><b>6.9.4</b> Estimating the variance-covariance matrix</a></li>
+<li class="chapter" data-level="6.9.5" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-jack-var-inflation-factor"><i class="fa fa-check"></i><b>6.9.5</b> The variance inflation factor</a></li>
+<li class="chapter" data-level="6.9.6" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-meaning-cov-matrix"><i class="fa fa-check"></i><b>6.9.6</b> Meaning of the covariance matrix</a></li>
+<li class="chapter" data-level="6.9.7" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-elementary-stats-code-cov-matrix"><i class="fa fa-check"></i><b>6.9.7</b> Code illustrating the covariance matrix</a></li>
+<li class="chapter" data-level="6.9.8" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-compare-dbm-or"><i class="fa fa-check"></i><b>6.9.8</b> Comparing DBM to Obuchowski and Rockette for single-reader multiple-treatments</a></li>
 </ul></li>
-<li class="chapter" data-level="12.10" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-references"><i class="fa fa-check"></i><b>12.10</b> References</a></li>
+<li class="chapter" data-level="6.10" data-path="or-method-intro.html"><a href="or-method-intro.html#or-method-intro-references"><i class="fa fa-check"></i><b>6.10</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="or-analysis-st.html"><a href="or-analysis-st.html"><i class="fa fa-check"></i><b>13</b> Obuchowski Rockette (OR) Analysis</a><ul>
-<li class="chapter" data-level="13.1" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-how-much-finished"><i class="fa fa-check"></i><b>13.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="13.2" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-introduction"><i class="fa fa-check"></i><b>13.2</b> Introduction</a></li>
-<li class="chapter" data-level="13.3" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-rrrc"><i class="fa fa-check"></i><b>13.3</b> Random-reader random-case</a><ul>
-<li class="chapter" data-level="13.3.1" data-path="or-analysis-st.html"><a href="or-analysis-st.html#TwoAnecdotes"><i class="fa fa-check"></i><b>13.3.1</b> Two anecdotes</a></li>
-<li class="chapter" data-level="13.3.2" data-path="or-analysis-st.html"><a href="or-analysis-st.html#Hills-ddf"><i class="fa fa-check"></i><b>13.3.2</b> Hillis ddf</a></li>
-<li class="chapter" data-level="13.3.3" data-path="or-analysis-st.html"><a href="or-analysis-st.html#decision-rule-p-value-and-confidence-interval"><i class="fa fa-check"></i><b>13.3.3</b> Decision rule, p-value and confidence interval</a></li>
+<li class="chapter" data-level="7" data-path="or-analysis-st.html"><a href="or-analysis-st.html"><i class="fa fa-check"></i><b>7</b> Obuchowski Rockette (OR) Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-how-much-finished"><i class="fa fa-check"></i><b>7.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="7.2" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-introduction"><i class="fa fa-check"></i><b>7.2</b> Introduction</a></li>
+<li class="chapter" data-level="7.3" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-rrrc"><i class="fa fa-check"></i><b>7.3</b> Random-reader random-case</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="or-analysis-st.html"><a href="or-analysis-st.html#TwoAnecdotes"><i class="fa fa-check"></i><b>7.3.1</b> Two anecdotes</a></li>
+<li class="chapter" data-level="7.3.2" data-path="or-analysis-st.html"><a href="or-analysis-st.html#Hills-ddf"><i class="fa fa-check"></i><b>7.3.2</b> Hillis ddf</a></li>
+<li class="chapter" data-level="7.3.3" data-path="or-analysis-st.html"><a href="or-analysis-st.html#decision-rule-p-value-and-confidence-interval"><i class="fa fa-check"></i><b>7.3.3</b> Decision rule, p-value and confidence interval</a></li>
 </ul></li>
-<li class="chapter" data-level="13.4" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-frrc"><i class="fa fa-check"></i><b>13.4</b> Fixed-reader random-case</a></li>
-<li class="chapter" data-level="13.5" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-rrfc"><i class="fa fa-check"></i><b>13.5</b> Random-reader fixed-case</a></li>
-<li class="chapter" data-level="13.6" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-single-treatment"><i class="fa fa-check"></i><b>13.6</b> Single treatment analysis</a></li>
+<li class="chapter" data-level="7.4" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-frrc"><i class="fa fa-check"></i><b>7.4</b> Fixed-reader random-case</a></li>
+<li class="chapter" data-level="7.5" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-rrfc"><i class="fa fa-check"></i><b>7.5</b> Random-reader fixed-case</a></li>
+<li class="chapter" data-level="7.6" data-path="or-analysis-st.html"><a href="or-analysis-st.html#or-analysis-st-single-treatment"><i class="fa fa-check"></i><b>7.6</b> Single treatment analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="or-applications.html"><a href="or-applications.html"><i class="fa fa-check"></i><b>14</b> Obuchowski Rockette Applications</a><ul>
-<li class="chapter" data-level="14.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-how-much-finished"><i class="fa fa-check"></i><b>14.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="14.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-introduction"><i class="fa fa-check"></i><b>14.2</b> Introduction</a></li>
-<li class="chapter" data-level="14.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset02-hand"><i class="fa fa-check"></i><b>14.3</b> Hand calculation</a><ul>
-<li class="chapter" data-level="14.3.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset02-hand"><i class="fa fa-check"></i><b>14.3.1</b> Random-Reader Random-Case (RRRC) analysis</a></li>
-<li class="chapter" data-level="14.3.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset02-hand"><i class="fa fa-check"></i><b>14.3.2</b> Fixed-Reader Random-Case (FRRC) analysis</a></li>
-<li class="chapter" data-level="14.3.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset02-hand"><i class="fa fa-check"></i><b>14.3.3</b> Random-Reader Fixed-Case (RRFC) analysis</a></li>
+<li class="chapter" data-level="8" data-path="or-applications.html"><a href="or-applications.html"><i class="fa fa-check"></i><b>8</b> Obuchowski Rockette Applications</a><ul>
+<li class="chapter" data-level="8.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-how-much-finished"><i class="fa fa-check"></i><b>8.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="8.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-introduction"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
+<li class="chapter" data-level="8.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset02-hand"><i class="fa fa-check"></i><b>8.3</b> Hand calculation</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset02-hand"><i class="fa fa-check"></i><b>8.3.1</b> Random-Reader Random-Case (RRRC) analysis</a></li>
+<li class="chapter" data-level="8.3.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset02-hand"><i class="fa fa-check"></i><b>8.3.2</b> Fixed-Reader Random-Case (FRRC) analysis</a></li>
+<li class="chapter" data-level="8.3.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset02-hand"><i class="fa fa-check"></i><b>8.3.3</b> Random-Reader Fixed-Case (RRFC) analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="14.4" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset02-RJafroc"><i class="fa fa-check"></i><b>14.4</b> RJafroc: dataset02</a><ul>
-<li class="chapter" data-level="14.4.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset02-RJafroc"><i class="fa fa-check"></i><b>14.4.1</b> Random-Reader Random-Case (RRRC) analysis</a></li>
-<li class="chapter" data-level="14.4.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset02-RJafroc"><i class="fa fa-check"></i><b>14.4.2</b> Fixed-Reader Random-Case (FRRC) analysis</a></li>
-<li class="chapter" data-level="14.4.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset02-RJafroc"><i class="fa fa-check"></i><b>14.4.3</b> Random-Reader Fixed-Case (RRFC) analysis</a></li>
+<li class="chapter" data-level="8.4" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset02-RJafroc"><i class="fa fa-check"></i><b>8.4</b> RJafroc: dataset02</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset02-RJafroc"><i class="fa fa-check"></i><b>8.4.1</b> Random-Reader Random-Case (RRRC) analysis</a></li>
+<li class="chapter" data-level="8.4.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset02-RJafroc"><i class="fa fa-check"></i><b>8.4.2</b> Fixed-Reader Random-Case (FRRC) analysis</a></li>
+<li class="chapter" data-level="8.4.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset02-RJafroc"><i class="fa fa-check"></i><b>8.4.3</b> Random-Reader Fixed-Case (RRFC) analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset04-RJafroc"><i class="fa fa-check"></i><b>14.5</b> RJafroc: dataset04</a><ul>
-<li class="chapter" data-level="14.5.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset04"><i class="fa fa-check"></i><b>14.5.1</b> Random-Reader Random-Case (RRRC) analysis</a></li>
-<li class="chapter" data-level="14.5.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset04"><i class="fa fa-check"></i><b>14.5.2</b> Fixed-Reader Random-Case (FRRC) analysis</a></li>
-<li class="chapter" data-level="14.5.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset04"><i class="fa fa-check"></i><b>14.5.3</b> Random-Reader Fixed-Case (RRFC) analysis</a></li>
+<li class="chapter" data-level="8.5" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset04-RJafroc"><i class="fa fa-check"></i><b>8.5</b> RJafroc: dataset04</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset04"><i class="fa fa-check"></i><b>8.5.1</b> Random-Reader Random-Case (RRRC) analysis</a></li>
+<li class="chapter" data-level="8.5.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset04"><i class="fa fa-check"></i><b>8.5.2</b> Fixed-Reader Random-Case (FRRC) analysis</a></li>
+<li class="chapter" data-level="8.5.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset04"><i class="fa fa-check"></i><b>8.5.3</b> Random-Reader Fixed-Case (RRFC) analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="14.6" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset04-FROC-RJafroc"><i class="fa fa-check"></i><b>14.6</b> RJafroc: dataset04, FROC</a><ul>
-<li class="chapter" data-level="14.6.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset04-FROC"><i class="fa fa-check"></i><b>14.6.1</b> Random-Reader Random-Case (RRRC) analysis</a></li>
-<li class="chapter" data-level="14.6.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset04-FROC"><i class="fa fa-check"></i><b>14.6.2</b> Fixed-Reader Random-Case (FRRC) analysis</a></li>
-<li class="chapter" data-level="14.6.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset04-FROC"><i class="fa fa-check"></i><b>14.6.3</b> Random-Reader Fixed-Case (RRFC) analysis</a></li>
+<li class="chapter" data-level="8.6" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset04-FROC-RJafroc"><i class="fa fa-check"></i><b>8.6</b> RJafroc: dataset04, FROC</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset04-FROC"><i class="fa fa-check"></i><b>8.6.1</b> Random-Reader Random-Case (RRRC) analysis</a></li>
+<li class="chapter" data-level="8.6.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset04-FROC"><i class="fa fa-check"></i><b>8.6.2</b> Fixed-Reader Random-Case (FRRC) analysis</a></li>
+<li class="chapter" data-level="8.6.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset04-FROC"><i class="fa fa-check"></i><b>8.6.3</b> Random-Reader Fixed-Case (RRFC) analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="14.7" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset04-FROC-DBM-RJafroc"><i class="fa fa-check"></i><b>14.7</b> RJafroc: dataset04, FROC/DBM</a><ul>
-<li class="chapter" data-level="14.7.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset04-FROC-DBM"><i class="fa fa-check"></i><b>14.7.1</b> Random-Reader Random-Case (RRRC) analysis</a></li>
-<li class="chapter" data-level="14.7.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset04-FROC-DBM"><i class="fa fa-check"></i><b>14.7.2</b> Fixed-Reader Random-Case (FRRC) analysis</a></li>
-<li class="chapter" data-level="14.7.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset04-FROC-DBM"><i class="fa fa-check"></i><b>14.7.3</b> Random-Reader Fixed-Case (RRFC) analysis</a></li>
+<li class="chapter" data-level="8.7" data-path="or-applications.html"><a href="or-applications.html#or-applications-dataset04-FROC-DBM-RJafroc"><i class="fa fa-check"></i><b>8.7</b> RJafroc: dataset04, FROC/DBM</a><ul>
+<li class="chapter" data-level="8.7.1" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRRC-dataset04-FROC-DBM"><i class="fa fa-check"></i><b>8.7.1</b> Random-Reader Random-Case (RRRC) analysis</a></li>
+<li class="chapter" data-level="8.7.2" data-path="or-applications.html"><a href="or-applications.html#or-applications-FRRC-dataset04-FROC-DBM"><i class="fa fa-check"></i><b>8.7.2</b> Fixed-Reader Random-Case (FRRC) analysis</a></li>
+<li class="chapter" data-level="8.7.3" data-path="or-applications.html"><a href="or-applications.html#or-applications-RRFC-dataset04-FROC-DBM"><i class="fa fa-check"></i><b>8.7.3</b> Random-Reader Fixed-Case (RRFC) analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="14.8" data-path="or-applications.html"><a href="or-applications.html#or-applications-Summary"><i class="fa fa-check"></i><b>14.8</b> Summary</a></li>
-<li class="chapter" data-level="14.9" data-path="or-applications.html"><a href="or-applications.html#or-applications-Discussion"><i class="fa fa-check"></i><b>14.9</b> Discussion</a></li>
-<li class="chapter" data-level="14.10" data-path="or-applications.html"><a href="or-applications.html#ToMullOver1-tentative"><i class="fa fa-check"></i><b>14.10</b> Tentative</a></li>
-<li class="chapter" data-level="14.11" data-path="or-applications.html"><a href="or-applications.html#or-applications-references"><i class="fa fa-check"></i><b>14.11</b> References</a></li>
+<li class="chapter" data-level="8.8" data-path="or-applications.html"><a href="or-applications.html#or-applications-Summary"><i class="fa fa-check"></i><b>8.8</b> Summary</a></li>
+<li class="chapter" data-level="8.9" data-path="or-applications.html"><a href="or-applications.html#or-applications-Discussion"><i class="fa fa-check"></i><b>8.9</b> Discussion</a></li>
+<li class="chapter" data-level="8.10" data-path="or-applications.html"><a href="or-applications.html#ToMullOver1-tentative"><i class="fa fa-check"></i><b>8.10</b> Tentative</a></li>
+<li class="chapter" data-level="8.11" data-path="or-applications.html"><a href="or-applications.html#or-applications-references"><i class="fa fa-check"></i><b>8.11</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html"><i class="fa fa-check"></i><b>15</b> Sample size estimation: DBM method</a><ul>
-<li class="chapter" data-level="15.1" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-how-much-finished"><i class="fa fa-check"></i><b>15.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="15.2" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-introduction"><i class="fa fa-check"></i><b>15.2</b> Introduction</a></li>
-<li class="chapter" data-level="15.3" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#StatPower1"><i class="fa fa-check"></i><b>15.3</b> Statistical Power</a><ul>
-<li class="chapter" data-level="15.3.1" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#observed-vs.-anticipated-effect-size"><i class="fa fa-check"></i><b>15.3.1</b> Observed vs. anticipated effect-size</a></li>
-<li class="chapter" data-level="15.3.2" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-dependence-of-stats-power"><i class="fa fa-check"></i><b>15.3.2</b> Dependence of statistical power on estimates of model parameters</a></li>
-<li class="chapter" data-level="15.3.3" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-RRRC-sample-size-estimation"><i class="fa fa-check"></i><b>15.3.3</b> Formulae for random-reader random-case (RRRC) sample size estimation</a></li>
-<li class="chapter" data-level="15.3.4" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-sig-testing"><i class="fa fa-check"></i><b>15.3.4</b> Significance testing</a></li>
-<li class="chapter" data-level="15.3.5" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-pvalue-ci"><i class="fa fa-check"></i><b>15.3.5</b> p-value and confidence interval</a></li>
-<li class="chapter" data-level="15.3.6" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-CompareDBM2OR"><i class="fa fa-check"></i><b>15.3.6</b> Comparing DBM to Obuchowski and Rockette for single-reader multiple-treatments</a></li>
+<li class="chapter" data-level="9" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html"><i class="fa fa-check"></i><b>9</b> Sample size estimation: DBM method</a><ul>
+<li class="chapter" data-level="9.1" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-how-much-finished"><i class="fa fa-check"></i><b>9.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="9.2" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-introduction"><i class="fa fa-check"></i><b>9.2</b> Introduction</a></li>
+<li class="chapter" data-level="9.3" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#StatPower1"><i class="fa fa-check"></i><b>9.3</b> Statistical Power</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#observed-vs.-anticipated-effect-size"><i class="fa fa-check"></i><b>9.3.1</b> Observed vs. anticipated effect-size</a></li>
+<li class="chapter" data-level="9.3.2" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-dependence-of-stats-power"><i class="fa fa-check"></i><b>9.3.2</b> Dependence of statistical power on estimates of model parameters</a></li>
+<li class="chapter" data-level="9.3.3" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-RRRC-sample-size-estimation"><i class="fa fa-check"></i><b>9.3.3</b> Formulae for random-reader random-case (RRRC) sample size estimation</a></li>
+<li class="chapter" data-level="9.3.4" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-sig-testing"><i class="fa fa-check"></i><b>9.3.4</b> Significance testing</a></li>
+<li class="chapter" data-level="9.3.5" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-pvalue-ci"><i class="fa fa-check"></i><b>9.3.5</b> p-value and confidence interval</a></li>
+<li class="chapter" data-level="9.3.6" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-CompareDBM2OR"><i class="fa fa-check"></i><b>9.3.6</b> Comparing DBM to Obuchowski and Rockette for single-reader multiple-treatments</a></li>
 </ul></li>
-<li class="chapter" data-level="15.4" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-FRRC-sample-size-estimation"><i class="fa fa-check"></i><b>15.4</b> Formulae for fixed-reader random-case (FRRC) sample size estimation</a><ul>
-<li class="chapter" data-level="15.4.1" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-RRFC-sample-size-estimation"><i class="fa fa-check"></i><b>15.4.1</b> Formulae for random-reader fixed-case (RRFC) sample size estimation</a></li>
-<li class="chapter" data-level="15.4.2" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-FRRCAnalysis"><i class="fa fa-check"></i><b>15.4.2</b> Fixed-reader random-case (FRRC) analysis TBA</a></li>
-<li class="chapter" data-level="15.4.3" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-RRFCAnalysis"><i class="fa fa-check"></i><b>15.4.3</b> Random-reader fixed-case (RRFC) analysis</a></li>
-<li class="chapter" data-level="15.4.4" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-STMRAnalysis"><i class="fa fa-check"></i><b>15.4.4</b> Single-treatment multiple-reader analysis</a></li>
+<li class="chapter" data-level="9.4" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-FRRC-sample-size-estimation"><i class="fa fa-check"></i><b>9.4</b> Formulae for fixed-reader random-case (FRRC) sample size estimation</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-RRFC-sample-size-estimation"><i class="fa fa-check"></i><b>9.4.1</b> Formulae for random-reader fixed-case (RRFC) sample size estimation</a></li>
+<li class="chapter" data-level="9.4.2" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-FRRCAnalysis"><i class="fa fa-check"></i><b>9.4.2</b> Fixed-reader random-case (FRRC) analysis TBA</a></li>
+<li class="chapter" data-level="9.4.3" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-RRFCAnalysis"><i class="fa fa-check"></i><b>9.4.3</b> Random-reader fixed-case (RRFC) analysis</a></li>
+<li class="chapter" data-level="9.4.4" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-STMRAnalysis"><i class="fa fa-check"></i><b>9.4.4</b> Single-treatment multiple-reader analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="15.5" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#discussionsummary2"><i class="fa fa-check"></i><b>15.5</b> Discussion/Summary/2</a></li>
-<li class="chapter" data-level="15.6" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-references"><i class="fa fa-check"></i><b>15.6</b> References</a></li>
+<li class="chapter" data-level="9.5" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#discussionsummary2"><i class="fa fa-check"></i><b>9.5</b> Discussion/Summary/2</a></li>
+<li class="chapter" data-level="9.6" data-path="roc-sample-size-dbm.html"><a href="roc-sample-size-dbm.html#roc-sample-size-dbm-references"><i class="fa fa-check"></i><b>9.6</b> Chapter References</a></li>
 </ul></li>
 <li class="part"><span><b>RJafroc Vignettes</b></span></li>
-<li class="chapter" data-level="16" data-path="background-f-distribution.html"><a href="background-f-distribution.html"><i class="fa fa-check"></i><b>16</b> F-distribution</a><ul>
-<li class="chapter" data-level="16.1" data-path="background-f-distribution.html"><a href="background-f-distribution.html#background-f-distribution-how-much-finished"><i class="fa fa-check"></i><b>16.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="16.2" data-path="background-f-distribution.html"><a href="background-f-distribution.html#introduction"><i class="fa fa-check"></i><b>16.2</b> Introduction</a></li>
-<li class="chapter" data-level="16.3" data-path="background-f-distribution.html"><a href="background-f-distribution.html#effect-of-ncp-for-ndf-2-and-ddf-10"><i class="fa fa-check"></i><b>16.3</b> Effect of <code>ncp</code> for <code>ndf</code> = 2 and <code>ddf</code> = 10</a></li>
-<li class="chapter" data-level="16.4" data-path="background-f-distribution.html"><a href="background-f-distribution.html#comments"><i class="fa fa-check"></i><b>16.4</b> Comments</a><ul>
-<li class="chapter" data-level="16.4.1" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-a"><i class="fa fa-check"></i><b>16.4.1</b> Fig. A</a></li>
-<li class="chapter" data-level="16.4.2" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-b"><i class="fa fa-check"></i><b>16.4.2</b> Fig. B</a></li>
-<li class="chapter" data-level="16.4.3" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-c"><i class="fa fa-check"></i><b>16.4.3</b> Fig. C</a></li>
-<li class="chapter" data-level="16.4.4" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-d"><i class="fa fa-check"></i><b>16.4.4</b> Fig. D</a></li>
-<li class="chapter" data-level="16.4.5" data-path="background-f-distribution.html"><a href="background-f-distribution.html#summary"><i class="fa fa-check"></i><b>16.4.5</b> Summary</a></li>
+<li class="chapter" data-level="10" data-path="background-f-distribution.html"><a href="background-f-distribution.html"><i class="fa fa-check"></i><b>10</b> F-distribution</a><ul>
+<li class="chapter" data-level="10.1" data-path="background-f-distribution.html"><a href="background-f-distribution.html#background-f-distribution-how-much-finished"><i class="fa fa-check"></i><b>10.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="10.2" data-path="background-f-distribution.html"><a href="background-f-distribution.html#introduction"><i class="fa fa-check"></i><b>10.2</b> Introduction</a></li>
+<li class="chapter" data-level="10.3" data-path="background-f-distribution.html"><a href="background-f-distribution.html#effect-of-ncp-for-ndf-2-and-ddf-10"><i class="fa fa-check"></i><b>10.3</b> Effect of <code>ncp</code> for <code>ndf</code> = 2 and <code>ddf</code> = 10</a></li>
+<li class="chapter" data-level="10.4" data-path="background-f-distribution.html"><a href="background-f-distribution.html#comments"><i class="fa fa-check"></i><b>10.4</b> Comments</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-a"><i class="fa fa-check"></i><b>10.4.1</b> Fig. A</a></li>
+<li class="chapter" data-level="10.4.2" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-b"><i class="fa fa-check"></i><b>10.4.2</b> Fig. B</a></li>
+<li class="chapter" data-level="10.4.3" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-c"><i class="fa fa-check"></i><b>10.4.3</b> Fig. C</a></li>
+<li class="chapter" data-level="10.4.4" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-d"><i class="fa fa-check"></i><b>10.4.4</b> Fig. D</a></li>
+<li class="chapter" data-level="10.4.5" data-path="background-f-distribution.html"><a href="background-f-distribution.html#summary"><i class="fa fa-check"></i><b>10.4.5</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="16.5" data-path="background-f-distribution.html"><a href="background-f-distribution.html#effect-of-ncp-for-ndf-2-and-ddf-100"><i class="fa fa-check"></i><b>16.5</b> Effect of <code>ncp</code> for <code>ndf</code> = 2 and <code>ddf</code> = 100</a></li>
-<li class="chapter" data-level="16.6" data-path="background-f-distribution.html"><a href="background-f-distribution.html#comments-1"><i class="fa fa-check"></i><b>16.6</b> Comments</a><ul>
-<li class="chapter" data-level="16.6.1" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-e"><i class="fa fa-check"></i><b>16.6.1</b> Fig. E</a></li>
-<li class="chapter" data-level="16.6.2" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-f"><i class="fa fa-check"></i><b>16.6.2</b> Fig. F</a></li>
-<li class="chapter" data-level="16.6.3" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-g"><i class="fa fa-check"></i><b>16.6.3</b> Fig. G</a></li>
-<li class="chapter" data-level="16.6.4" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-h"><i class="fa fa-check"></i><b>16.6.4</b> Fig. H</a></li>
+<li class="chapter" data-level="10.5" data-path="background-f-distribution.html"><a href="background-f-distribution.html#effect-of-ncp-for-ndf-2-and-ddf-100"><i class="fa fa-check"></i><b>10.5</b> Effect of <code>ncp</code> for <code>ndf</code> = 2 and <code>ddf</code> = 100</a></li>
+<li class="chapter" data-level="10.6" data-path="background-f-distribution.html"><a href="background-f-distribution.html#comments-1"><i class="fa fa-check"></i><b>10.6</b> Comments</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-e"><i class="fa fa-check"></i><b>10.6.1</b> Fig. E</a></li>
+<li class="chapter" data-level="10.6.2" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-f"><i class="fa fa-check"></i><b>10.6.2</b> Fig. F</a></li>
+<li class="chapter" data-level="10.6.3" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-g"><i class="fa fa-check"></i><b>10.6.3</b> Fig. G</a></li>
+<li class="chapter" data-level="10.6.4" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-h"><i class="fa fa-check"></i><b>10.6.4</b> Fig. H</a></li>
 </ul></li>
-<li class="chapter" data-level="16.7" data-path="background-f-distribution.html"><a href="background-f-distribution.html#effect-of-ncp-for-ndf-1-ddf-100"><i class="fa fa-check"></i><b>16.7</b> Effect of <code>ncp</code> for <code>ndf</code> = 1, <code>ddf</code> = 100</a></li>
-<li class="chapter" data-level="16.8" data-path="background-f-distribution.html"><a href="background-f-distribution.html#comments-2"><i class="fa fa-check"></i><b>16.8</b> Comments</a><ul>
-<li class="chapter" data-level="16.8.1" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-i"><i class="fa fa-check"></i><b>16.8.1</b> Fig. I</a></li>
-<li class="chapter" data-level="16.8.2" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-j"><i class="fa fa-check"></i><b>16.8.2</b> Fig. J</a></li>
-<li class="chapter" data-level="16.8.3" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-k"><i class="fa fa-check"></i><b>16.8.3</b> Fig. K</a></li>
-<li class="chapter" data-level="16.8.4" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-l"><i class="fa fa-check"></i><b>16.8.4</b> Fig. L</a></li>
+<li class="chapter" data-level="10.7" data-path="background-f-distribution.html"><a href="background-f-distribution.html#effect-of-ncp-for-ndf-1-ddf-100"><i class="fa fa-check"></i><b>10.7</b> Effect of <code>ncp</code> for <code>ndf</code> = 1, <code>ddf</code> = 100</a></li>
+<li class="chapter" data-level="10.8" data-path="background-f-distribution.html"><a href="background-f-distribution.html#comments-2"><i class="fa fa-check"></i><b>10.8</b> Comments</a><ul>
+<li class="chapter" data-level="10.8.1" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-i"><i class="fa fa-check"></i><b>10.8.1</b> Fig. I</a></li>
+<li class="chapter" data-level="10.8.2" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-j"><i class="fa fa-check"></i><b>10.8.2</b> Fig. J</a></li>
+<li class="chapter" data-level="10.8.3" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-k"><i class="fa fa-check"></i><b>10.8.3</b> Fig. K</a></li>
+<li class="chapter" data-level="10.8.4" data-path="background-f-distribution.html"><a href="background-f-distribution.html#fig.-l"><i class="fa fa-check"></i><b>10.8.4</b> Fig. L</a></li>
 </ul></li>
-<li class="chapter" data-level="16.9" data-path="background-f-distribution.html"><a href="background-f-distribution.html#summary-1"><i class="fa fa-check"></i><b>16.9</b> Summary</a></li>
+<li class="chapter" data-level="10.9" data-path="background-f-distribution.html"><a href="background-f-distribution.html#summary-1"><i class="fa fa-check"></i><b>10.9</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html"><i class="fa fa-check"></i><b>17</b> Sample size estimation: OR method</a><ul>
-<li class="chapter" data-level="17.1" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-how-much-finished"><i class="fa fa-check"></i><b>17.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="17.2" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-introduction"><i class="fa fa-check"></i><b>17.2</b> Introduction</a></li>
-<li class="chapter" data-level="17.3" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#StatPower2"><i class="fa fa-check"></i><b>17.3</b> Statistical Power</a><ul>
-<li class="chapter" data-level="17.3.1" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#sample-size-estimation-for-random-reader-random-cases"><i class="fa fa-check"></i><b>17.3.1</b> Sample size estimation for random-reader random-cases</a></li>
-<li class="chapter" data-level="17.3.2" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-dependence-of-stats-power"><i class="fa fa-check"></i><b>17.3.2</b> Dependence of statistical power on estimates of model parameters</a></li>
-<li class="chapter" data-level="17.3.3" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-RRRC-sample-size-estimation"><i class="fa fa-check"></i><b>17.3.3</b> Formulae for random-reader random-case (RRRC) sample size estimation</a></li>
-<li class="chapter" data-level="17.3.4" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-sig-testing"><i class="fa fa-check"></i><b>17.3.4</b> Significance testing</a></li>
-<li class="chapter" data-level="17.3.5" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-pvalue-ci"><i class="fa fa-check"></i><b>17.3.5</b> p-value and confidence interval</a></li>
-<li class="chapter" data-level="17.3.6" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-CompareDBM2OR"><i class="fa fa-check"></i><b>17.3.6</b> Comparing DBM to Obuchowski and Rockette for single-reader multiple-treatments</a></li>
+<li class="chapter" data-level="11" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html"><i class="fa fa-check"></i><b>11</b> Sample size estimation: OR method</a><ul>
+<li class="chapter" data-level="11.1" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-how-much-finished"><i class="fa fa-check"></i><b>11.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="11.2" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-introduction"><i class="fa fa-check"></i><b>11.2</b> Introduction</a></li>
+<li class="chapter" data-level="11.3" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#StatPower2"><i class="fa fa-check"></i><b>11.3</b> Statistical Power</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#sample-size-estimation-for-random-reader-random-cases"><i class="fa fa-check"></i><b>11.3.1</b> Sample size estimation for random-reader random-cases</a></li>
+<li class="chapter" data-level="11.3.2" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-dependence-of-stats-power"><i class="fa fa-check"></i><b>11.3.2</b> Dependence of statistical power on estimates of model parameters</a></li>
+<li class="chapter" data-level="11.3.3" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-RRRC-sample-size-estimation"><i class="fa fa-check"></i><b>11.3.3</b> Formulae for random-reader random-case (RRRC) sample size estimation</a></li>
+<li class="chapter" data-level="11.3.4" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-sig-testing"><i class="fa fa-check"></i><b>11.3.4</b> Significance testing</a></li>
+<li class="chapter" data-level="11.3.5" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-pvalue-ci"><i class="fa fa-check"></i><b>11.3.5</b> p-value and confidence interval</a></li>
+<li class="chapter" data-level="11.3.6" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-CompareDBM2OR"><i class="fa fa-check"></i><b>11.3.6</b> Comparing DBM to Obuchowski and Rockette for single-reader multiple-treatments</a></li>
 </ul></li>
-<li class="chapter" data-level="17.4" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-FRRC-sample-size-estimation"><i class="fa fa-check"></i><b>17.4</b> Formulae for fixed-reader random-case (FRRC) sample size estimation</a><ul>
-<li class="chapter" data-level="17.4.1" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-RRFC-sample-size-estimation"><i class="fa fa-check"></i><b>17.4.1</b> Formulae for random-reader fixed-case (RRFC) sample size estimation</a></li>
-<li class="chapter" data-level="17.4.2" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#example-1"><i class="fa fa-check"></i><b>17.4.2</b> Example 1</a></li>
-<li class="chapter" data-level="17.4.3" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-FRRCAnalysis"><i class="fa fa-check"></i><b>17.4.3</b> Fixed-reader random-case (FRRC) analysis</a></li>
-<li class="chapter" data-level="17.4.4" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-RRFCAnalysis"><i class="fa fa-check"></i><b>17.4.4</b> Random-reader fixed-case (RRFC) analysis</a></li>
-<li class="chapter" data-level="17.4.5" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-STMRAnalysis"><i class="fa fa-check"></i><b>17.4.5</b> Single-treatment multiple-reader analysis</a></li>
+<li class="chapter" data-level="11.4" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-FRRC-sample-size-estimation"><i class="fa fa-check"></i><b>11.4</b> Formulae for fixed-reader random-case (FRRC) sample size estimation</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-RRFC-sample-size-estimation"><i class="fa fa-check"></i><b>11.4.1</b> Formulae for random-reader fixed-case (RRFC) sample size estimation</a></li>
+<li class="chapter" data-level="11.4.2" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#example-1"><i class="fa fa-check"></i><b>11.4.2</b> Example 1</a></li>
+<li class="chapter" data-level="11.4.3" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-FRRCAnalysis"><i class="fa fa-check"></i><b>11.4.3</b> Fixed-reader random-case (FRRC) analysis</a></li>
+<li class="chapter" data-level="11.4.4" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-RRFCAnalysis"><i class="fa fa-check"></i><b>11.4.4</b> Random-reader fixed-case (RRFC) analysis</a></li>
+<li class="chapter" data-level="11.4.5" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-STMRAnalysis"><i class="fa fa-check"></i><b>11.4.5</b> Single-treatment multiple-reader analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="17.5" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#discussionsummary3"><i class="fa fa-check"></i><b>17.5</b> Discussion/Summary/3</a></li>
-<li class="chapter" data-level="17.6" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-references"><i class="fa fa-check"></i><b>17.6</b> References</a></li>
-</ul></li>
-<li class="chapter" data-level="18" data-path="improper-rocs.html"><a href="improper-rocs.html"><i class="fa fa-check"></i><b>18</b> Improper ROC curves</a><ul>
-<li class="chapter" data-level="18.1" data-path="improper-rocs.html"><a href="improper-rocs.html#improper-rocs-how-much-finished"><i class="fa fa-check"></i><b>18.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="18.2" data-path="improper-rocs.html"><a href="improper-rocs.html#the-binormal-model"><i class="fa fa-check"></i><b>18.2</b> The binormal model</a></li>
-<li class="chapter" data-level="18.3" data-path="improper-rocs.html"><a href="improper-rocs.html#improper-rocs-1"><i class="fa fa-check"></i><b>18.3</b> Improper ROCs</a></li>
-<li class="chapter" data-level="18.4" data-path="improper-rocs.html"><a href="improper-rocs.html#reason-for-improper-rocs"><i class="fa fa-check"></i><b>18.4</b> Reason for improper ROCs</a></li>
-</ul></li>
-<li class="chapter" data-level="19" data-path="degenerate-rocs.html"><a href="degenerate-rocs.html"><i class="fa fa-check"></i><b>19</b> Degenerate ROC curves</a><ul>
-<li class="chapter" data-level="19.1" data-path="degenerate-rocs.html"><a href="degenerate-rocs.html#two-helper-functions"><i class="fa fa-check"></i><b>19.1</b> Two helper functions</a></li>
-<li class="chapter" data-level="19.2" data-path="degenerate-rocs.html"><a href="degenerate-rocs.html#degenerate-datasets"><i class="fa fa-check"></i><b>19.2</b> Degenerate datasets</a></li>
-<li class="chapter" data-level="19.3" data-path="degenerate-rocs.html"><a href="degenerate-rocs.html#understanding-degenerate-datasets"><i class="fa fa-check"></i><b>19.3</b> Understanding degenerate datasets</a></li>
-<li class="chapter" data-level="19.4" data-path="degenerate-rocs.html"><a href="degenerate-rocs.html#the-exact-fit-is-not-unique"><i class="fa fa-check"></i><b>19.4</b> The exact fit is not unique</a></li>
-<li class="chapter" data-level="19.5" data-path="degenerate-rocs.html"><a href="degenerate-rocs.html#comments-on-degeneracy"><i class="fa fa-check"></i><b>19.5</b> Comments on degeneracy</a></li>
-<li class="chapter" data-level="19.6" data-path="degenerate-rocs.html"><a href="degenerate-rocs.html#a-reasonable-fit-to-the-degenerate-dataset"><i class="fa fa-check"></i><b>19.6</b> A reasonable fit to the degenerate dataset</a></li>
-</ul></li>
-<li class="part"><span><b>Advanced topics</b></span></li>
-<li class="chapter" data-level="20" data-path="proper-roc-models.html"><a href="proper-roc-models.html"><i class="fa fa-check"></i><b>20</b> Proper ROC models</a><ul>
-<li class="chapter" data-level="20.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-how-much-finished"><i class="fa fa-check"></i><b>20.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="20.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-introduction"><i class="fa fa-check"></i><b>20.2</b> Introduction</a></li>
-<li class="chapter" data-level="20.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem1"><i class="fa fa-check"></i><b>20.3</b> Theorem: ROC slope equals likelihood ratio</a></li>
-<li class="chapter" data-level="20.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem2"><i class="fa fa-check"></i><b>20.4</b> Theorem: likelihood ratio observer maximizes AUC</a><ul>
-<li class="chapter" data-level="20.4.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#explanation"><i class="fa fa-check"></i><b>20.4.1</b> Explanation</a></li>
-</ul></li>
-<li class="chapter" data-level="20.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proper-vs-improper"><i class="fa fa-check"></i><b>20.5</b> Proper vs. improper ROC curves</a></li>
-<li class="chapter" data-level="20.6" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-degenerate-datasets"><i class="fa fa-check"></i><b>20.6</b> Degenerate datasets</a><ul>
-<li class="chapter" data-level="20.6.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#comments-on-degeneracy-1"><i class="fa fa-check"></i><b>20.6.1</b> Comments on degeneracy</a></li>
-</ul></li>
-<li class="chapter" data-level="20.7" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-observer"><i class="fa fa-check"></i><b>20.7</b> The likelihood ratio observer</a></li>
-<li class="chapter" data-level="20.8" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc"><i class="fa fa-check"></i><b>20.8</b> PROPROC</a><ul>
-<li class="chapter" data-level="20.8.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-formulae"><i class="fa fa-check"></i><b>20.8.1</b> PROPROC formulae</a></li>
-<li class="chapter" data-level="20.8.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-code"><i class="fa fa-check"></i><b>20.8.2</b> PROPROC code implementation</a></li>
-<li class="chapter" data-level="20.8.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-rocs"><i class="fa fa-check"></i><b>20.8.3</b> PROPROC ROC and slope plots</a></li>
-</ul></li>
-<li class="chapter" data-level="20.9" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm"><i class="fa fa-check"></i><b>20.9</b> The contaminated binormal model (CBM)</a><ul>
-<li class="chapter" data-level="20.9.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-formulae"><i class="fa fa-check"></i><b>20.9.1</b> CBM formulae</a></li>
-<li class="chapter" data-level="20.9.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-code"><i class="fa fa-check"></i><b>20.9.2</b> CBM code implementation</a></li>
-<li class="chapter" data-level="20.9.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-rocs"><i class="fa fa-check"></i><b>20.9.3</b> CBM ROC plots</a></li>
-<li class="chapter" data-level="20.9.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-pdfs"><i class="fa fa-check"></i><b>20.9.4</b> CBM pdf plots</a></li>
-<li class="chapter" data-level="20.9.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-slopes"><i class="fa fa-check"></i><b>20.9.5</b> CBM likelihood ratio plots</a></li>
-</ul></li>
-<li class="chapter" data-level="20.10" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma"><i class="fa fa-check"></i><b>20.10</b> The bigamma model (BGM)</a><ul>
-<li class="chapter" data-level="20.10.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-formulae"><i class="fa fa-check"></i><b>20.10.1</b> BGM formulae</a></li>
-<li class="chapter" data-level="20.10.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-code"><i class="fa fa-check"></i><b>20.10.2</b> BGM code implementation</a></li>
-<li class="chapter" data-level="20.10.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-rocs"><i class="fa fa-check"></i><b>20.10.3</b> BGM ROC plots</a></li>
-<li class="chapter" data-level="20.10.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-pdfs"><i class="fa fa-check"></i><b>20.10.4</b> BGM pdf plots</a></li>
-<li class="chapter" data-level="20.10.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-slopes"><i class="fa fa-check"></i><b>20.10.5</b> BGM likelihood ratio plots</a></li>
-</ul></li>
-<li class="chapter" data-level="20.11" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-discussion"><i class="fa fa-check"></i><b>20.11</b> Discussion</a></li>
-</ul></li>
-<li class="chapter" data-level="21" data-path="proproc-rocs.html"><a href="proproc-rocs.html"><i class="fa fa-check"></i><b>21</b> PROPROC ROC curves</a><ul>
-<li class="chapter" data-level="21.1" data-path="proproc-rocs.html"><a href="proproc-rocs.html#helper-functions"><i class="fa fa-check"></i><b>21.1</b> Helper functions</a></li>
-<li class="chapter" data-level="21.2" data-path="proproc-rocs.html"><a href="proproc-rocs.html#definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters"><i class="fa fa-check"></i><b>21.2</b> Definitions of PROPROC parameters in terms of binormal model parameters</a></li>
-<li class="chapter" data-level="21.3" data-path="proproc-rocs.html"><a href="proproc-rocs.html#main-code-and-output"><i class="fa fa-check"></i><b>21.3</b> Main code and output</a></li>
-<li class="chapter" data-level="21.4" data-path="proproc-rocs.html"><a href="proproc-rocs.html#discussion"><i class="fa fa-check"></i><b>21.4</b> Discussion</a></li>
-</ul></li>
-<li class="chapter" data-level="22" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html"><i class="fa fa-check"></i><b>22</b> Metz Eqn 36 numerical check</a><ul>
-<li class="chapter" data-level="22.1" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#helper-functions-1"><i class="fa fa-check"></i><b>22.1</b> Helper functions</a></li>
-<li class="chapter" data-level="22.2" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#main-code-and-output-1"><i class="fa fa-check"></i><b>22.2</b> Main code and output</a></li>
-<li class="chapter" data-level="22.3" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#discussion-1"><i class="fa fa-check"></i><b>22.3</b> Discussion</a></li>
-</ul></li>
-<li class="chapter" data-level="23" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html"><i class="fa fa-check"></i><b>23</b> Bivariate binormal model</a><ul>
-<li class="chapter" data-level="23.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-how-much-finished"><i class="fa fa-check"></i><b>23.1</b> TBA How much finished</a></li>
-<li class="chapter" data-level="23.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-introduction"><i class="fa fa-check"></i><b>23.2</b> Introduction</a></li>
-<li class="chapter" data-level="23.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-bivariate-density"><i class="fa fa-check"></i><b>23.3</b> Bivariate density function</a></li>
-<li class="chapter" data-level="23.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-formulae"><i class="fa fa-check"></i><b>23.4</b> The bivariate binormal model</a></li>
-<li class="chapter" data-level="23.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-visualization"><i class="fa fa-check"></i><b>23.5</b> Visualizing the bivariate density function</a></li>
-<li class="chapter" data-level="23.6" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation"><i class="fa fa-check"></i><b>23.6</b> Estimating bivariate binormal model parameters</a></li>
-<li class="chapter" data-level="23.7" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-examples"><i class="fa fa-check"></i><b>23.7</b> Examples of bivariate normal probability integrals</a><ul>
-<li class="chapter" data-level="23.7.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation-code"><i class="fa fa-check"></i><b>23.7.1</b> Code listing</a></li>
-<li class="chapter" data-level="23.7.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-examples-integrals"><i class="fa fa-check"></i><b>23.7.2</b> Examples of bivariate normal probability integrals</a></li>
-</ul></li>
-<li class="chapter" data-level="23.8" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-likelihood"><i class="fa fa-check"></i><b>23.8</b> Likelihood function</a></li>
-<li class="chapter" data-level="23.9" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2"><i class="fa fa-check"></i><b>23.9</b> CORROC2 software</a><ul>
-<li class="chapter" data-level="23.9.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-details"><i class="fa fa-check"></i><b>23.9.1</b> Details of CORROC2 software</a></li>
-<li class="chapter" data-level="23.9.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-data-input"><i class="fa fa-check"></i><b>23.9.2</b> CORROC2 data input</a></li>
-<li class="chapter" data-level="23.9.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output"><i class="fa fa-check"></i><b>23.9.3</b> CORROC2 output</a></li>
-<li class="chapter" data-level="23.9.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-covariance-matrix"><i class="fa fa-check"></i><b>23.9.4</b> Covariance matrix</a></li>
-<li class="chapter" data-level="23.9.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output-restof"><i class="fa fa-check"></i><b>23.9.5</b> Rest of CORROC2 output</a></li>
-</ul></li>
-<li class="chapter" data-level="23.10" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application"><i class="fa fa-check"></i><b>23.10</b> Application to a real dataset</a><ul>
-<li class="chapter" data-level="23.10.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-code-output"><i class="fa fa-check"></i><b>23.10.1</b> Code Output</a></li>
-<li class="chapter" data-level="23.10.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-debug-window"><i class="fa fa-check"></i><b>23.10.2</b> Contents of the Debug window, as viewed from the Mac side</a></li>
-<li class="chapter" data-level="23.10.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-corrocii-input"><i class="fa fa-check"></i><b>23.10.3</b> Contents of CorrocIIinput.txt</a></li>
-</ul></li>
-<li class="chapter" data-level="23.11" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-discussion"><i class="fa fa-check"></i><b>23.11</b> Discussion / Summary</a></li>
+<li class="chapter" data-level="11.5" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#discussionsummary3"><i class="fa fa-check"></i><b>11.5</b> Discussion/Summary/3</a></li>
+<li class="chapter" data-level="11.6" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-references"><i class="fa fa-check"></i><b>11.6</b> Chapter References</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -631,7 +389,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The RJafroc Roc Book</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The RJafroc Significance Testing Book</a>
           </h1>
         </div>
 
@@ -640,62 +398,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="roc-sample-size-or" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Chapter 17</span> Sample size estimation: OR method<a href="roc-sample-size-or.html#roc-sample-size-or" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Chapter 11</span> Sample size estimation: OR method<a href="roc-sample-size-or.html#roc-sample-size-or" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="roc-sample-size-or-how-much-finished" class="section level2 hasAnchor">
-<h2><span class="header-section-number">17.1</span> TBA How much finished<a href="roc-sample-size-or.html#roc-sample-size-or-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">11.1</span> TBA How much finished<a href="roc-sample-size-or.html#roc-sample-size-or-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>30%</p>
 </div>
 <div id="roc-sample-size-or-introduction" class="section level2 hasAnchor">
-<h2><span class="header-section-number">17.2</span> Introduction<a href="roc-sample-size-or.html#roc-sample-size-or-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">11.2</span> Introduction<a href="roc-sample-size-or.html#roc-sample-size-or-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
 <div id="StatPower2" class="section level2 hasAnchor">
-<h2><span class="header-section-number">17.3</span> Statistical Power<a href="roc-sample-size-or.html#StatPower2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">11.3</span> Statistical Power<a href="roc-sample-size-or.html#StatPower2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><span class="math display" id="eq:DefinitionStatPower1">\[\begin{equation}
 Power = 1 - \beta
-\tag{17.1}
+\tag{11.1}
 \end{equation}\]</span></p>
 <div id="sample-size-estimation-for-random-reader-random-cases" class="section level3 hasAnchor">
-<h3><span class="header-section-number">17.3.1</span> Sample size estimation for random-reader random-cases<a href="roc-sample-size-or.html#sample-size-estimation-for-random-reader-random-cases" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">11.3.1</span> Sample size estimation for random-reader random-cases<a href="roc-sample-size-or.html#sample-size-estimation-for-random-reader-random-cases" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For convenience the OR model is repeated below with the case-set index suppressed:</p>
 <p><span class="math display" id="eq:ORModelSsOR">\[\begin{equation}
 Y_{n(ijk)}=\mu+\tau_i+R_j+C_k+(\tau R)_{ij}+(\tau C)_{ik}+(RC)_{jk}+(\tau RC)_{ijk}+\epsilon_ {n(ijk)}
-\tag{17.2}
+\tag{11.2}
 \end{equation}\]</span></p>
 <p>As usual, the treatment effects <span class="math inline">\(\tau_i\)</span> are subject to the constraint that they sum to zero. The observed effect size (a random variable) is defined by:</p>
 <p><span class="math display" id="eq:EffectSize1">\[\begin{equation}
 d=\theta_{1\bullet}-\theta_{2\bullet}
-\tag{17.3}
+\tag{11.3}
 \end{equation}\]</span></p>
 <p>It is a realization of a random variable, so one has some leeway in the choice of anticipated effect size. In the significance-testing procedure described in TBA Chapter 09 interest was in the distribution of the F-statistic when the NH is true. For sample size estimation, one needs to know the distribution of the statistic when the NH is false. It was shown that then the observed F-statistic TBA Eqn. (9.35) is distributed as a non-central F-distribution <span class="math inline">\(F_{ndf,ddf,\Delta}\)</span> with non-centrality parameter <span class="math inline">\(\Delta\)</span>:</p>
 <p><span class="math display" id="eq:FDBMSampling1">\[\begin{equation}
 F_{DBM|AH} \sim F_{ndf,ddf,\Delta}
-\tag{17.4}
+\tag{11.4}
 \end{equation}\]</span></p>
 <p>The non-centrality parameter was defined, Eqn. TBA (9.34), by:</p>
 <p><span class="math display" id="eq:DefDelta1">\[\begin{equation}
 \Delta=\frac{JK\sigma_{Y;\tau}^2}{\left ( \sigma_{Y;\epsilon}^2 + \sigma_{Y;\tau RC}^2 \right )+K\sigma_{Y;\tau R}^2+J\sigma_{Y;\tau C}^2}
-\tag{17.5}
+\tag{11.5}
 \end{equation}\]</span></p>
 <p>To minimize confusion, this equation has been rewritten here using the subscript <span class="math inline">\(Y\)</span> to explicitly denote pseudo-value derived quantities (in TBA Chapter 09 this subscript was suppressed.</p>
 <p>The estimate of <span class="math inline">\(\sigma_{Y;\tau C}^2\)</span> can turn out to bee negative. To avoid a negative denominator, Hillis suggests the following modification:</p>
 <p><span class="math display" id="eq:DefDeltaHillis1">\[\begin{equation}
 \Delta=\frac{JK\sigma_{Y;\tau}^2}{\left ( \sigma_{Y;\epsilon}^2 + \sigma_{Y;\tau RC}^2 \right )+K\sigma_{Y;\tau R}^2+\max \left (J\sigma_{Y;\tau C}^2 ,0 \right )}
-\tag{17.6}
+\tag{11.6}
 \end{equation}\]</span></p>
 <p>This expression depends on three variance components, <span class="math inline">\((\sigma_{Y;\epsilon}^2 + \sigma_{Y;\tau RC}^2)\)</span> - the two terms are inseparable - <span class="math inline">\(\sigma_{Y;\tau R}^2\)</span> and <span class="math inline">\(\sigma_{Y;\tau C}^2\)</span>. The <span class="math inline">\(ddf\)</span> term appearing in TBA Eqn. (11.4) was defined by TBA Eqn. (9.24) - this quantity does not change between NH and AH:</p>
 <p><span class="math display" id="eq:ddfH1">\[\begin{equation}
 ddf_H=\frac{\left [MSTR+\max(MSTR-MSTRC,0)  \right ]^2}{\frac{[MSTR]^2}{(I-1)(J-1)}}
-\tag{17.7}
+\tag{11.7}
 \end{equation}\]</span></p>
 <p>The mean squares in this expression can be expressed in terms of the three variance-components appearing in TBA Eqn. (11.6). Hillis and Berbaum <span class="citation">(Hillis and Berbaum <a href="#ref-RN1476" role="doc-biblioref">2004</a>)</span> have derived these expression and they will not be repeated here (Eqn. 4 in the cited reference). RJafroc implements a function to calculate the mean squares, <code>UtilMeanSquares()</code>, which allows ddf to be calculated using Eqn. TBA (11.7). The sample size functions in this package need only the three variance-components (the formula for <span class="math inline">\(ddf_H\)</span> is implemented internally).</p>
 <p>For two treatments, since the individual treatment effects must be the negatives of each other (because they sum to zero), it is easily shown that:</p>
 <p><span class="math display" id="eq:sigma2Tau1">\[\begin{equation}
 \sigma_{Y;\tau}^2=\frac{d^2}{2}
-\tag{17.8}
+\tag{11.8}
 \end{equation}\]</span></p>
 </div>
 <div id="roc-sample-size-or-dependence-of-stats-power" class="section level3 hasAnchor">
-<h3><span class="header-section-number">17.3.2</span> Dependence of statistical power on estimates of model parameters<a href="roc-sample-size-or.html#roc-sample-size-or-dependence-of-stats-power" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">11.3.2</span> Dependence of statistical power on estimates of model parameters<a href="roc-sample-size-or.html#roc-sample-size-or-dependence-of-stats-power" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Examination of the expression for , Eqn. (11.5), shows that statistical power increases if:</p>
 <ul>
 <li>The numerator is large. This occurs if: (a) the anticipated effect-size <span class="math inline">\(d\)</span> is large. Since effect-size enters as the <em>square</em>, TBA Eqn. (11.8), it is has a particularly strong effect; (b) If <span class="math inline">\(J \times K\)</span> is large. Both of these results should be obvious, as a large effect size and a large sample size should result in increased probability of rejecting the NH.</li>
@@ -707,16 +465,16 @@ ddf_H=\frac{\left [MSTR+\max(MSTR-MSTRC,0)  \right ]^2}{\frac{[MSTR]^2}{(I-1)(J-
 </ul>
 </div>
 <div id="roc-sample-size-or-RRRC-sample-size-estimation" class="section level3 hasAnchor">
-<h3><span class="header-section-number">17.3.3</span> Formulae for random-reader random-case (RRRC) sample size estimation<a href="roc-sample-size-or.html#roc-sample-size-or-RRRC-sample-size-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">11.3.3</span> Formulae for random-reader random-case (RRRC) sample size estimation<a href="roc-sample-size-or.html#roc-sample-size-or-RRRC-sample-size-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 <div id="roc-sample-size-or-sig-testing" class="section level3 hasAnchor">
-<h3><span class="header-section-number">17.3.4</span> Significance testing<a href="roc-sample-size-or.html#roc-sample-size-or-sig-testing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">11.3.4</span> Significance testing<a href="roc-sample-size-or.html#roc-sample-size-or-sig-testing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 <div id="roc-sample-size-or-pvalue-ci" class="section level3 hasAnchor">
-<h3><span class="header-section-number">17.3.5</span> p-value and confidence interval<a href="roc-sample-size-or.html#roc-sample-size-or-pvalue-ci" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">11.3.5</span> p-value and confidence interval<a href="roc-sample-size-or.html#roc-sample-size-or-pvalue-ci" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 <div id="roc-sample-size-or-CompareDBM2OR" class="section level3 hasAnchor">
-<h3><span class="header-section-number">17.3.6</span> Comparing DBM to Obuchowski and Rockette for single-reader multiple-treatments<a href="roc-sample-size-or.html#roc-sample-size-or-CompareDBM2OR" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">11.3.6</span> Comparing DBM to Obuchowski and Rockette for single-reader multiple-treatments<a href="roc-sample-size-or.html#roc-sample-size-or-CompareDBM2OR" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Having performed a pilot study and planning to perform a pivotal study, sample size estimation follows the following procedure, which assumes that both reader and case are treated as random factors. Different formulae, described later, apply when either reader or case is treated as a fixed factor.</p>
 <ul>
 <li>Perform OR analysis on the pilot data. This yields the observed effect size as well as estimates of all relevant variance components and mean squares appearing in TBA Eqn. (11.5) and Eqn. (11.7).</li>
@@ -729,95 +487,226 @@ ddf_H=\frac{\left [MSTR+\max(MSTR-MSTRC,0)  \right ]^2}{\frac{[MSTR]^2}{(I-1)(J-
 </div>
 </div>
 <div id="roc-sample-size-or-FRRC-sample-size-estimation" class="section level2 hasAnchor">
-<h2><span class="header-section-number">17.4</span> Formulae for fixed-reader random-case (FRRC) sample size estimation<a href="roc-sample-size-or.html#roc-sample-size-or-FRRC-sample-size-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">11.4</span> Formulae for fixed-reader random-case (FRRC) sample size estimation<a href="roc-sample-size-or.html#roc-sample-size-or-FRRC-sample-size-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>It was shown in TBA §9.8.2 that for fixed-reader analysis the non-centrality parameter is defined by:</p>
 <p><span class="math display" id="eq:DeltaFRRC1">\[\begin{equation}
 \Delta=\frac{JK\sigma_{Y;\tau}^2}{\sigma_{Y;\epsilon}^2+\sigma_{Y;\tau RC}^2+J\sigma_{Y;\tau C}^2}
-\tag{17.9}
+\tag{11.9}
 \end{equation}\]</span></p>
 <p>The sampling distribution of the F-statistic under the AH is:</p>
 <p><span class="math display" id="eq:SamplingFFRRC1">\[\begin{equation}
 F_{AH|R}\equiv \frac{MST}{MSTC}\sim F_{I-1,(I-1)(K-1),\Delta}
-\tag{17.10}
+\tag{11.10}
 \end{equation}\]</span></p>
 <div id="roc-sample-size-or-RRFC-sample-size-estimation" class="section level3 hasAnchor">
-<h3><span class="header-section-number">17.4.1</span> Formulae for random-reader fixed-case (RRFC) sample size estimation<a href="roc-sample-size-or.html#roc-sample-size-or-RRFC-sample-size-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">11.4.1</span> Formulae for random-reader fixed-case (RRFC) sample size estimation<a href="roc-sample-size-or.html#roc-sample-size-or-RRFC-sample-size-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>It is shown in TBA §9.9 that for fixed-case analysis the non-centrality parameter is defined by:</p>
 <p><span class="math display" id="eq:DeltaFRRFC1">\[\begin{equation}
 \Delta=\frac{JK\sigma_{Y;\tau}^2}{\sigma_{Y;\epsilon}^2+\sigma_{Y;\tau RC}^2+K\sigma_{Y;\tau R}^2}
-\tag{17.11}
+\tag{11.11}
 \end{equation}\]</span></p>
 <p>Under the AH, the test statistic is distributed as a non-central F-distribution as follows:</p>
 <p><span class="math display" id="eq:SamplingFRRFC1">\[\begin{equation}
 F_{AH|C}\equiv \frac{MST}{MSTR}\sim F_{I-1,(I-1)(J-1),\Delta}
-\tag{17.12}
+\tag{11.12}
 \end{equation}\]</span></p>
 </div>
 <div id="example-1" class="section level3 hasAnchor">
-<h3><span class="header-section-number">17.4.2</span> Example 1<a href="roc-sample-size-or.html#example-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">11.4.2</span> Example 1<a href="roc-sample-size-or.html#example-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In the first example the Van Dyke dataset is regarded as a pilot study. Two implementations are shown, a direct application of the relevant formulae, including usage of the mean squares, which in principle can be calculated from the three variance-components. This is then compared to the <code>RJafroc</code> implementation.</p>
 <p>Shown first is the “open” implementation.</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="roc-sample-size-or.html#cb153-1"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span>;<span class="kw">cat</span>(<span class="st">&quot;alpha = &quot;</span>, alpha, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb153-2"><a href="roc-sample-size-or.html#cb153-2"></a><span class="co">#&gt; alpha =  0.05</span></span>
-<span id="cb153-3"><a href="roc-sample-size-or.html#cb153-3"></a>rocData &lt;-<span class="st"> </span>dataset02 <span class="co"># select Van Dyke dataset</span></span>
-<span id="cb153-4"><a href="roc-sample-size-or.html#cb153-4"></a>retDbm &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(<span class="dt">dataset =</span> rocData, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;DBM&quot;</span>) </span>
-<span id="cb153-5"><a href="roc-sample-size-or.html#cb153-5"></a>varYTR &lt;-<span class="st"> </span>retDbm<span class="op">$</span>ANOVA<span class="op">$</span>VarCom[<span class="st">&quot;VarTR&quot;</span>,<span class="st">&quot;Estimates&quot;</span>]</span>
-<span id="cb153-6"><a href="roc-sample-size-or.html#cb153-6"></a>varYTC &lt;-<span class="st"> </span>retDbm<span class="op">$</span>ANOVA<span class="op">$</span>VarCom[<span class="st">&quot;VarTC&quot;</span>,<span class="st">&quot;Estimates&quot;</span>]</span>
-<span id="cb153-7"><a href="roc-sample-size-or.html#cb153-7"></a>varYEps &lt;-<span class="st"> </span>retDbm<span class="op">$</span>ANOVA<span class="op">$</span>VarCom[<span class="st">&quot;VarErr&quot;</span>,<span class="st">&quot;Estimates&quot;</span>]</span>
-<span id="cb153-8"><a href="roc-sample-size-or.html#cb153-8"></a>effectSize &lt;-<span class="st"> </span>retDbm<span class="op">$</span>FOMs<span class="op">$</span>trtMeanDiffs[<span class="st">&quot;trt0-trt1&quot;</span>,<span class="st">&quot;Estimate&quot;</span>]</span>
-<span id="cb153-9"><a href="roc-sample-size-or.html#cb153-9"></a><span class="kw">cat</span>(<span class="st">&quot;effect size = &quot;</span>, effectSize, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb153-10"><a href="roc-sample-size-or.html#cb153-10"></a><span class="co">#&gt; effect size =  -0.043800322</span></span>
-<span id="cb153-11"><a href="roc-sample-size-or.html#cb153-11"></a></span>
-<span id="cb153-12"><a href="roc-sample-size-or.html#cb153-12"></a><span class="co">#RRRC</span></span>
-<span id="cb153-13"><a href="roc-sample-size-or.html#cb153-13"></a>J &lt;-<span class="st"> </span><span class="dv">10</span>; K &lt;-<span class="st"> </span><span class="dv">163</span></span>
-<span id="cb153-14"><a href="roc-sample-size-or.html#cb153-14"></a>ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(K<span class="op">*</span>varYTR<span class="op">+</span><span class="kw">max</span>(J<span class="op">*</span>varYTC,<span class="dv">0</span>)<span class="op">+</span>varYEps)</span>
-<span id="cb153-15"><a href="roc-sample-size-or.html#cb153-15"></a>MS &lt;-<span class="st"> </span><span class="kw">UtilMeanSquares</span>(rocData, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;DBM&quot;</span>)</span>
-<span id="cb153-16"><a href="roc-sample-size-or.html#cb153-16"></a>ddf &lt;-<span class="st"> </span>(MS<span class="op">$</span>msTR<span class="op">+</span><span class="kw">max</span>(MS<span class="op">$</span>msTC<span class="op">-</span>MS<span class="op">$</span>msTRC,<span class="dv">0</span>))<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(MS<span class="op">$</span>msTR<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span>(J<span class="dv">-1</span>)</span>
-<span id="cb153-17"><a href="roc-sample-size-or.html#cb153-17"></a>FCrit &lt;-<span class="st"> </span><span class="kw">qf</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha, <span class="dv">1</span>, ddf)</span>
-<span id="cb153-18"><a href="roc-sample-size-or.html#cb153-18"></a>Power &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(FCrit, <span class="dv">1</span>, ddf, <span class="dt">ncp =</span> ncp)</span>
-<span id="cb153-19"><a href="roc-sample-size-or.html#cb153-19"></a><span class="kw">data.frame</span>(<span class="st">&quot;J&quot;</span>=<span class="st"> </span>J,  <span class="st">&quot;K&quot;</span> =<span class="st"> </span>K, <span class="st">&quot;FCrit&quot;</span> =<span class="st"> </span>FCrit, <span class="st">&quot;ddf&quot;</span> =<span class="st"> </span>ddf, <span class="st">&quot;ncp&quot;</span> =<span class="st"> </span>ncp, <span class="st">&quot;RRRCPower&quot;</span> =<span class="st"> </span>Power)</span>
-<span id="cb153-20"><a href="roc-sample-size-or.html#cb153-20"></a><span class="co">#&gt;    J   K     FCrit       ddf       ncp  RRRCPower</span></span>
-<span id="cb153-21"><a href="roc-sample-size-or.html#cb153-21"></a><span class="co">#&gt; 1 10 163 4.1270572 34.334268 8.1269825 0.79111255</span></span>
-<span id="cb153-22"><a href="roc-sample-size-or.html#cb153-22"></a></span>
-<span id="cb153-23"><a href="roc-sample-size-or.html#cb153-23"></a><span class="co">#FRRC</span></span>
-<span id="cb153-24"><a href="roc-sample-size-or.html#cb153-24"></a>J &lt;-<span class="st"> </span><span class="dv">10</span>; K &lt;-<span class="st"> </span><span class="dv">133</span></span>
-<span id="cb153-25"><a href="roc-sample-size-or.html#cb153-25"></a>ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="kw">max</span>(J<span class="op">*</span>varYTC,<span class="dv">0</span>)<span class="op">+</span>varYEps)</span>
-<span id="cb153-26"><a href="roc-sample-size-or.html#cb153-26"></a>ddf &lt;-<span class="st"> </span>(K<span class="dv">-1</span>)</span>
-<span id="cb153-27"><a href="roc-sample-size-or.html#cb153-27"></a>FCrit &lt;-<span class="st"> </span><span class="kw">qf</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha, <span class="dv">1</span>, ddf)</span>
-<span id="cb153-28"><a href="roc-sample-size-or.html#cb153-28"></a>Power &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(FCrit, <span class="dv">1</span>, ddf, <span class="dt">ncp =</span> ncp)</span>
-<span id="cb153-29"><a href="roc-sample-size-or.html#cb153-29"></a><span class="kw">data.frame</span>(<span class="st">&quot;J&quot;</span>=<span class="st"> </span>J,  <span class="st">&quot;K&quot;</span> =<span class="st"> </span>K, <span class="st">&quot;FCrit&quot;</span> =<span class="st"> </span>FCrit, <span class="st">&quot;ddf&quot;</span> =<span class="st"> </span>ddf, <span class="st">&quot;ncp&quot;</span> =<span class="st"> </span>ncp, <span class="st">&quot;RRRCPower&quot;</span> =<span class="st"> </span>Power)</span>
-<span id="cb153-30"><a href="roc-sample-size-or.html#cb153-30"></a><span class="co">#&gt;    J   K    FCrit ddf       ncp  RRRCPower</span></span>
-<span id="cb153-31"><a href="roc-sample-size-or.html#cb153-31"></a><span class="co">#&gt; 1 10 133 3.912875 132 7.9873835 0.80111671</span></span>
-<span id="cb153-32"><a href="roc-sample-size-or.html#cb153-32"></a></span>
-<span id="cb153-33"><a href="roc-sample-size-or.html#cb153-33"></a><span class="co">#RRFC</span></span>
-<span id="cb153-34"><a href="roc-sample-size-or.html#cb153-34"></a>J &lt;-<span class="st"> </span><span class="dv">10</span>; K &lt;-<span class="st"> </span><span class="dv">53</span></span>
-<span id="cb153-35"><a href="roc-sample-size-or.html#cb153-35"></a>ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(K<span class="op">*</span>varYTR<span class="op">+</span>varYEps)</span>
-<span id="cb153-36"><a href="roc-sample-size-or.html#cb153-36"></a>ddf &lt;-<span class="st"> </span>(J<span class="dv">-1</span>)</span>
-<span id="cb153-37"><a href="roc-sample-size-or.html#cb153-37"></a>FCrit &lt;-<span class="st"> </span><span class="kw">qf</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha, <span class="dv">1</span>, ddf)</span>
-<span id="cb153-38"><a href="roc-sample-size-or.html#cb153-38"></a>Power &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(FCrit, <span class="dv">1</span>, ddf, <span class="dt">ncp =</span> ncp)</span>
-<span id="cb153-39"><a href="roc-sample-size-or.html#cb153-39"></a><span class="kw">data.frame</span>(<span class="st">&quot;J&quot;</span>=<span class="st"> </span>J,  <span class="st">&quot;K&quot;</span> =<span class="st"> </span>K, <span class="st">&quot;FCrit&quot;</span> =<span class="st"> </span>FCrit, <span class="st">&quot;ddf&quot;</span> =<span class="st"> </span>ddf, <span class="st">&quot;ncp&quot;</span> =<span class="st"> </span>ncp, <span class="st">&quot;RRRCPower&quot;</span> =<span class="st"> </span>Power)</span>
-<span id="cb153-40"><a href="roc-sample-size-or.html#cb153-40"></a><span class="co">#&gt;    J  K    FCrit ddf       ncp  RRRCPower</span></span>
-<span id="cb153-41"><a href="roc-sample-size-or.html#cb153-41"></a><span class="co">#&gt; 1 10 53 5.117355   9 10.048716 0.80496663</span></span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="roc-sample-size-or.html#cb116-1"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span>;<span class="kw">cat</span>(<span class="st">&quot;alpha = &quot;</span>, alpha, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb116-2"><a href="roc-sample-size-or.html#cb116-2"></a><span class="co">#&gt; alpha =  0.05</span></span>
+<span id="cb116-3"><a href="roc-sample-size-or.html#cb116-3"></a>rocData &lt;-<span class="st"> </span>dataset02 <span class="co"># select Van Dyke dataset</span></span>
+<span id="cb116-4"><a href="roc-sample-size-or.html#cb116-4"></a>retDbm &lt;-<span class="st"> </span><span class="kw">StSignificanceTesting</span>(<span class="dt">dataset =</span> rocData, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;DBM&quot;</span>) </span>
+<span id="cb116-5"><a href="roc-sample-size-or.html#cb116-5"></a>varYTR &lt;-<span class="st"> </span>retDbm<span class="op">$</span>ANOVA<span class="op">$</span>VarCom[<span class="st">&quot;VarTR&quot;</span>,<span class="st">&quot;Estimates&quot;</span>]</span>
+<span id="cb116-6"><a href="roc-sample-size-or.html#cb116-6"></a>varYTC &lt;-<span class="st"> </span>retDbm<span class="op">$</span>ANOVA<span class="op">$</span>VarCom[<span class="st">&quot;VarTC&quot;</span>,<span class="st">&quot;Estimates&quot;</span>]</span>
+<span id="cb116-7"><a href="roc-sample-size-or.html#cb116-7"></a>varYEps &lt;-<span class="st"> </span>retDbm<span class="op">$</span>ANOVA<span class="op">$</span>VarCom[<span class="st">&quot;VarErr&quot;</span>,<span class="st">&quot;Estimates&quot;</span>]</span>
+<span id="cb116-8"><a href="roc-sample-size-or.html#cb116-8"></a>effectSize &lt;-<span class="st"> </span>retDbm<span class="op">$</span>FOMs<span class="op">$</span>trtMeanDiffs[<span class="st">&quot;trt0-trt1&quot;</span>,<span class="st">&quot;Estimate&quot;</span>]</span>
+<span id="cb116-9"><a href="roc-sample-size-or.html#cb116-9"></a><span class="kw">cat</span>(<span class="st">&quot;effect size = &quot;</span>, effectSize, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb116-10"><a href="roc-sample-size-or.html#cb116-10"></a><span class="co">#&gt; effect size =  -0.043800322</span></span>
+<span id="cb116-11"><a href="roc-sample-size-or.html#cb116-11"></a></span>
+<span id="cb116-12"><a href="roc-sample-size-or.html#cb116-12"></a><span class="co">#RRRC</span></span>
+<span id="cb116-13"><a href="roc-sample-size-or.html#cb116-13"></a>J &lt;-<span class="st"> </span><span class="dv">10</span>; K &lt;-<span class="st"> </span><span class="dv">163</span></span>
+<span id="cb116-14"><a href="roc-sample-size-or.html#cb116-14"></a>ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(K<span class="op">*</span>varYTR<span class="op">+</span><span class="kw">max</span>(J<span class="op">*</span>varYTC,<span class="dv">0</span>)<span class="op">+</span>varYEps)</span>
+<span id="cb116-15"><a href="roc-sample-size-or.html#cb116-15"></a>MS &lt;-<span class="st"> </span><span class="kw">UtilMeanSquares</span>(rocData, <span class="dt">FOM =</span> <span class="st">&quot;Wilcoxon&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;DBM&quot;</span>)</span>
+<span id="cb116-16"><a href="roc-sample-size-or.html#cb116-16"></a>ddf &lt;-<span class="st"> </span>(MS<span class="op">$</span>msTR<span class="op">+</span><span class="kw">max</span>(MS<span class="op">$</span>msTC<span class="op">-</span>MS<span class="op">$</span>msTRC,<span class="dv">0</span>))<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(MS<span class="op">$</span>msTR<span class="op">^</span><span class="dv">2</span>)<span class="op">*</span>(J<span class="dv">-1</span>)</span>
+<span id="cb116-17"><a href="roc-sample-size-or.html#cb116-17"></a>FCrit &lt;-<span class="st"> </span><span class="kw">qf</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha, <span class="dv">1</span>, ddf)</span>
+<span id="cb116-18"><a href="roc-sample-size-or.html#cb116-18"></a>Power &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(FCrit, <span class="dv">1</span>, ddf, <span class="dt">ncp =</span> ncp)</span>
+<span id="cb116-19"><a href="roc-sample-size-or.html#cb116-19"></a><span class="kw">data.frame</span>(<span class="st">&quot;J&quot;</span>=<span class="st"> </span>J,  <span class="st">&quot;K&quot;</span> =<span class="st"> </span>K, <span class="st">&quot;FCrit&quot;</span> =<span class="st"> </span>FCrit, <span class="st">&quot;ddf&quot;</span> =<span class="st"> </span>ddf, <span class="st">&quot;ncp&quot;</span> =<span class="st"> </span>ncp, <span class="st">&quot;RRRCPower&quot;</span> =<span class="st"> </span>Power)</span>
+<span id="cb116-20"><a href="roc-sample-size-or.html#cb116-20"></a><span class="co">#&gt;    J   K     FCrit       ddf       ncp  RRRCPower</span></span>
+<span id="cb116-21"><a href="roc-sample-size-or.html#cb116-21"></a><span class="co">#&gt; 1 10 163 4.1270572 34.334268 8.1269825 0.79111255</span></span>
+<span id="cb116-22"><a href="roc-sample-size-or.html#cb116-22"></a></span>
+<span id="cb116-23"><a href="roc-sample-size-or.html#cb116-23"></a><span class="co">#FRRC</span></span>
+<span id="cb116-24"><a href="roc-sample-size-or.html#cb116-24"></a>J &lt;-<span class="st"> </span><span class="dv">10</span>; K &lt;-<span class="st"> </span><span class="dv">133</span></span>
+<span id="cb116-25"><a href="roc-sample-size-or.html#cb116-25"></a>ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="kw">max</span>(J<span class="op">*</span>varYTC,<span class="dv">0</span>)<span class="op">+</span>varYEps)</span>
+<span id="cb116-26"><a href="roc-sample-size-or.html#cb116-26"></a>ddf &lt;-<span class="st"> </span>(K<span class="dv">-1</span>)</span>
+<span id="cb116-27"><a href="roc-sample-size-or.html#cb116-27"></a>FCrit &lt;-<span class="st"> </span><span class="kw">qf</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha, <span class="dv">1</span>, ddf)</span>
+<span id="cb116-28"><a href="roc-sample-size-or.html#cb116-28"></a>Power &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(FCrit, <span class="dv">1</span>, ddf, <span class="dt">ncp =</span> ncp)</span>
+<span id="cb116-29"><a href="roc-sample-size-or.html#cb116-29"></a><span class="kw">data.frame</span>(<span class="st">&quot;J&quot;</span>=<span class="st"> </span>J,  <span class="st">&quot;K&quot;</span> =<span class="st"> </span>K, <span class="st">&quot;FCrit&quot;</span> =<span class="st"> </span>FCrit, <span class="st">&quot;ddf&quot;</span> =<span class="st"> </span>ddf, <span class="st">&quot;ncp&quot;</span> =<span class="st"> </span>ncp, <span class="st">&quot;RRRCPower&quot;</span> =<span class="st"> </span>Power)</span>
+<span id="cb116-30"><a href="roc-sample-size-or.html#cb116-30"></a><span class="co">#&gt;    J   K    FCrit ddf       ncp  RRRCPower</span></span>
+<span id="cb116-31"><a href="roc-sample-size-or.html#cb116-31"></a><span class="co">#&gt; 1 10 133 3.912875 132 7.9873835 0.80111671</span></span>
+<span id="cb116-32"><a href="roc-sample-size-or.html#cb116-32"></a></span>
+<span id="cb116-33"><a href="roc-sample-size-or.html#cb116-33"></a><span class="co">#RRFC</span></span>
+<span id="cb116-34"><a href="roc-sample-size-or.html#cb116-34"></a>J &lt;-<span class="st"> </span><span class="dv">10</span>; K &lt;-<span class="st"> </span><span class="dv">53</span></span>
+<span id="cb116-35"><a href="roc-sample-size-or.html#cb116-35"></a>ncp &lt;-<span class="st"> </span>(<span class="fl">0.5</span><span class="op">*</span>J<span class="op">*</span>K<span class="op">*</span>(effectSize)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(K<span class="op">*</span>varYTR<span class="op">+</span>varYEps)</span>
+<span id="cb116-36"><a href="roc-sample-size-or.html#cb116-36"></a>ddf &lt;-<span class="st"> </span>(J<span class="dv">-1</span>)</span>
+<span id="cb116-37"><a href="roc-sample-size-or.html#cb116-37"></a>FCrit &lt;-<span class="st"> </span><span class="kw">qf</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha, <span class="dv">1</span>, ddf)</span>
+<span id="cb116-38"><a href="roc-sample-size-or.html#cb116-38"></a>Power &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pf</span>(FCrit, <span class="dv">1</span>, ddf, <span class="dt">ncp =</span> ncp)</span>
+<span id="cb116-39"><a href="roc-sample-size-or.html#cb116-39"></a><span class="kw">data.frame</span>(<span class="st">&quot;J&quot;</span>=<span class="st"> </span>J,  <span class="st">&quot;K&quot;</span> =<span class="st"> </span>K, <span class="st">&quot;FCrit&quot;</span> =<span class="st"> </span>FCrit, <span class="st">&quot;ddf&quot;</span> =<span class="st"> </span>ddf, <span class="st">&quot;ncp&quot;</span> =<span class="st"> </span>ncp, <span class="st">&quot;RRRCPower&quot;</span> =<span class="st"> </span>Power)</span>
+<span id="cb116-40"><a href="roc-sample-size-or.html#cb116-40"></a><span class="co">#&gt;    J  K    FCrit ddf       ncp  RRRCPower</span></span>
+<span id="cb116-41"><a href="roc-sample-size-or.html#cb116-41"></a><span class="co">#&gt; 1 10 53 5.117355   9 10.048716 0.80496663</span></span></code></pre></div>
 <p>For 10 readers, the numbers of cases needed for 80% power is largest (163) for RRRC and least for RRFC (53). For all three analyses, the expectation of 80% power is met - the numbers of cases and readers were chosen to achieve close to 80% statistical power. Intermediate quantities such as the critical value of the F-statistic, <code>ddf</code> and <code>ncp</code> are shown. The reader should confirm that the code does in fact implement the relevant formulae. Shown next is the <code>RJafroc</code> implementation. The relevant file is mainSsDbm.R, a listing of which follows:</p>
 </div>
 <div id="roc-sample-size-or-FRRCAnalysis" class="section level3 hasAnchor">
-<h3><span class="header-section-number">17.4.3</span> Fixed-reader random-case (FRRC) analysis<a href="roc-sample-size-or.html#roc-sample-size-or-FRRCAnalysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">11.4.3</span> Fixed-reader random-case (FRRC) analysis<a href="roc-sample-size-or.html#roc-sample-size-or-FRRCAnalysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 <div id="roc-sample-size-or-RRFCAnalysis" class="section level3 hasAnchor">
-<h3><span class="header-section-number">17.4.4</span> Random-reader fixed-case (RRFC) analysis<a href="roc-sample-size-or.html#roc-sample-size-or-RRFCAnalysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">11.4.4</span> Random-reader fixed-case (RRFC) analysis<a href="roc-sample-size-or.html#roc-sample-size-or-RRFCAnalysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 <div id="roc-sample-size-or-STMRAnalysis" class="section level3 hasAnchor">
-<h3><span class="header-section-number">17.4.5</span> Single-treatment multiple-reader analysis<a href="roc-sample-size-or.html#roc-sample-size-or-STMRAnalysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">11.4.5</span> Single-treatment multiple-reader analysis<a href="roc-sample-size-or.html#roc-sample-size-or-STMRAnalysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 </div>
 <div id="discussionsummary3" class="section level2 hasAnchor">
-<h2><span class="header-section-number">17.5</span> Discussion/Summary/3<a href="roc-sample-size-or.html#discussionsummary3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">11.5</span> Discussion/Summary/3<a href="roc-sample-size-or.html#discussionsummary3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
 <div id="roc-sample-size-or-references" class="section level2 hasAnchor">
-<h2><span class="header-section-number">17.6</span> References<a href="roc-sample-size-or.html#roc-sample-size-or-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">11.6</span> Chapter References<a href="roc-sample-size-or.html#roc-sample-size-or-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
+<div id="refs" class="references">
+<div>
+<p>Bamber, Donald. 1975. “The Area Above the Ordinal Dominance Graph and the Area Below the Receiver Operating Characteristic Graph.” <em>Journal of Mathematical Psychology</em> 12 (4): 387–415.</p>
+</div>
+<div>
+<p>Bunch, Philip C, John F Hamilton, Gary K Sanderson, and Arthur H Simmons. 1977. “A Free Response Approach to the Measurement and Characterization of Radiographic Observer Performance.” In <em>Application of Optical Instrumentation in Medicine Vi</em>, 127:124–35. International Society for Optics; Photonics.</p>
+</div>
+<div>
+<p>Chakraborty, Dev P. 2017. <em>Observer Performance Methods for Diagnostic Imaging: Foundations, Modeling, and Applications with R-Based Examples</em>. Boca Raton, FL: CRC Press.</p>
+</div>
+<div>
+<p>Chakraborty, Dev P. 2002. “Statistical Power in Observer Performance Studies: A Comparison of the ROC and Free-Response Methods in Tasks Involving Localization.” Journal Article. <em>Acad. Radiol.</em> 9 (2): 147–56. <a href="https://doi.org/10.1016/s1076-6332(03)80164-2">https://doi.org/10.1016/s1076-6332(03)80164-2</a>.</p>
+</div>
+<div>
+<p>Chakraborty, Dev Prasad. 2010. “Prediction Accuracy of a Sample-Size Estimation Method for ROC Studies.” Journal Article. <em>Academic Radiology</em> 17: 628–38. <a href="https://doi.org/10.1016/j.acra.2010.01.007">https://doi.org/10.1016/j.acra.2010.01.007</a>.</p>
+</div>
+<div>
+<p>Chakraborty, Dev, and Xuetong Zhai. 2022. <em>RJafroc: Artificial Intelligence Systems and Observer Performance</em>. <a href="https://dpc10ster.github.io/RJafroc/">https://dpc10ster.github.io/RJafroc/</a>.</p>
+</div>
+<div>
+<p>Chakraborty, D. P., E. S. Breatnach, M. V. Yester, B. Soto, G. T. Barnes, and R. G. Fraser. 1986. “Digital and Conventional Chest Imaging: A Modified ROC Study of Observer Performance Using Simulated Nodules.” Journal Article. <em>Radiology</em> 158: 35–39. <a href="https://doi.org/10.1148/radiology.158.1.3940394">https://doi.org/10.1148/radiology.158.1.3940394</a>.</p>
+</div>
+<div>
+<p>Clarkson, Eric, Matthew A. Kupinski, and Harrison H. Barrett. 2006. “A Probabilistic Model for the MRMC Method, Part 1: Theoretical Development.” Journal Article. <em>Academic Radiology</em> 13 (11): 1410–21. <a href="https://doi.org/10.1016/j.acra.2006.07.016">https://doi.org/10.1016/j.acra.2006.07.016</a>.</p>
+</div>
+<div>
+<p>Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. 2nd ed. Lawrence Erlbaum Associates.</p>
+</div>
+<div>
+<p>DeLong, Elizabeth R, David M DeLong, and Daniel L Clarke-Pearson. 1988. “Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.” <em>Biometrics</em>, 837–45.</p>
+</div>
+<div>
+<p>Dorfman, D. D., K. S. Berbaum, and C. E. Metz. 1992. “ROC Characteristic Rating Analysis: Generalization to the Population of Readers and Patients with the Jackknife Method.” Journal Article. <em>Invest. Radiol.</em> 27 (9): 723–31. <a href="https://pubmed.ncbi.nlm.nih.gov/1399456">https://pubmed.ncbi.nlm.nih.gov/1399456</a>.</p>
+</div>
+<div>
+<p>Dorfman, Donald D., Kevin S. Berbaum, and Russell V. Lenth. 1995. “Multireader, Multicase Receiver Operating Characteristic Methodology: A Bootstrap Analysis.” Journal Article. <em>Academic Radiology</em> 2 (7): 626–33. <a href="https://doi.org/10.1016/S1076-6332(05)80129-1">https://doi.org/10.1016/S1076-6332(05)80129-1</a>.</p>
+</div>
+<div>
+<p>Efron, Bradley, and Robert J. Tibshirani. 1993. <em>An Introduction to the Bootstrap</em>. Book. Vol. 57. Monographs on Statistics and Applied Probability. Boca Raton: Chapman; Hall/CRC.</p>
+</div>
+<div>
+<p>Gallas, Brandon D. 2006. “One-Shot Estimate of MRMC Variance: AUC.” Journal Article. <em>Academic Radiology</em> 13 (3): 353–62. <a href="https://doi.org/10.1016/j.acra.2005.11.030">https://doi.org/10.1016/j.acra.2005.11.030</a>.</p>
+</div>
+<div>
+<p>Gallas, Brandon D., Gene a Pennello, and Kyle J. Myers. 2007. “Multireader Multicase Variance Analysis for Binary Data.” Journal Article. <em>Journal of the Optical Society of America. A, Optics, Image Science, and Vision</em> 24 (12): 70–80. <a href="https://doi.org/10.1364/josaa.24.000b70">https://doi.org/10.1364/josaa.24.000b70</a>.</p>
+</div>
+<div>
+<p>Hajian-Tilaki, K. O., James A. Hanley, L. Joseph, and J. P. Collet. 1997. “Extension of Receiver Operating Characteristic Analysis to Data Concerning Multiple Signal Detection Tasks.” Journal Article. <em>Acad Radiol</em> 4: 222–29. <a href="https://doi.org/10.1016/S1076-6332(05)80295-8">https://doi.org/10.1016/S1076-6332(05)80295-8</a>.</p>
+</div>
+<div>
+<p>Hillis, S. L., N. A. Obuchowski, K. M. Schartz, and K. S. Berbaum. 2005. “A Comparison of the Dorfman-Berbaum-Metz and Obuchowski-Rockette Methods for Receiver Operating Characteristic (ROC) Data.” Journal Article. <em>Statistics in Medicine</em> 24 (10): 1579–1607. <a href="https://doi.org/10.1002/sim.2024">https://doi.org/10.1002/sim.2024</a>.</p>
+</div>
+<div>
+<p>Hillis, Stephen L. 2007. “A Comparison of Denominator Degrees of Freedom Methods for Multiple Observer (ROC) Studies.” Journal Article. <em>Statistics in Medicine</em> 26: 596–619. <a href="https://doi.org/10.1002/sim.2532">https://doi.org/10.1002/sim.2532</a>.</p>
+</div>
+<div>
+<p>Hillis, Stephen L. 2014. “A Marginal‐mean ANOVA Approach for Analyzing Multireader Multicase Radiological Imaging Data.” Journal Article. <em>Statistics in Medicine</em> 33 (2): 330–60. <a href="https://doi.org/10.1002/sim.5926">https://doi.org/10.1002/sim.5926</a>.</p>
+</div>
+<div>
+<p>Hillis, Stephen L., and K. S. Berbaum. 2004. “Power Estimation for the Dorfman-Berbaum-Metz Method.” Journal Article. <em>Acad. Radiol.</em> 11 (11): 1260–73. <a href="https://doi.org/10.1016/j.acra.2004.08.009">https://doi.org/10.1016/j.acra.2004.08.009</a>.</p>
+</div>
+<div>
+<p>Hillis, Stephen L., K. S. Berbaum, and C. E. Metz. 2008. “Recent Developments in the Dorfman-Berbaum-Metz Procedure for Multireader (ROC) Study Analysis.” Journal Article. <em>Acad Radiol</em> 15 (5): 647–61. <a href="https://doi.org/10.1016/j.acra.2007.12.015">https://doi.org/10.1016/j.acra.2007.12.015</a>.</p>
+</div>
+<div>
+<p>Hillis, Stephen L., Nancy A. Obuchowski, and Kevin S. Berbaum. 2011. “Power Estimation for Multireader ROC Methods: An Updated and Unified Approach.” Journal Article. <em>Academic Radiology</em> 18 (2): 129–42. <a href="https://doi.org/10.1016/j.acra.2010.09.007">https://doi.org/10.1016/j.acra.2010.09.007</a>.</p>
+</div>
+<div>
+<p>ICRU. 1996. “Medical Imaging: The Assessment of Image Quality.” Journal Article. <em>JOURNAL OF THE ICRU</em> 54 (1): 37–40.</p>
+</div>
+<div>
+<p>Ishwaran, Hemant, and Constantine A. Gatsonis. 2000. “A General Class of Hierarchical Ordinal Regression Models with Applications to Correlated ROC Analysis.” Journal Article. <em>The Canadian Journal of Statistics</em> 28 (4): 731–50. <a href="https://doi.org/10.2307/3315913">https://doi.org/10.2307/3315913</a>.</p>
+</div>
+<div>
+<p>Kupinski, Matthew A., Eric Clarkson, and Harrison H. Barrett. 2006. “A Probabilistic Model for the MRMC Method, Part 2: Validation and Applications.” Journal Article. <em>Academic Radiology</em> 13 (11): 1422–30. <a href="https://doi.org/10.1016/j.acra.2006.07.015">https://doi.org/10.1016/j.acra.2006.07.015</a>.</p>
+</div>
+<div>
+<p>Larsen, Richard J, and Morris L Marx. 2005. <em>An Introduction to Mathematical Statistics</em>. Prentice Hall Hoboken, NJ.</p>
+</div>
+<div>
+<p>Niklason, L. T., N. M. Hickey, Dev P. Chakraborty, E. A. Sabbagh, M. V. Yester, R. G. Fraser, and G. T. Barnes. 1986. “Simulated Pulmonary Nodules: Detection with Dual-Energy Digital Versus Conventional Radiography.” Journal Article. <em>Radiology</em> 160: 589–93. <a href="https://doi.org/10.1148/radiology.160.3.3526398">https://doi.org/10.1148/radiology.160.3.3526398</a>.</p>
+</div>
+<div>
+<p>Noether, Gottfried E. 1967. “Elements of Nonparametric Statistics.” Report. Wiley; Sons.</p>
+</div>
+<div>
+<p>Obuchowski, Nancy A. 1998. “Sample Size Calculations in Studies of Test Accuracy.” Journal Article. <em>Statistical Methods in Medical Research</em> 7 (4): 371–92. <a href="https://doi.org/10.1177/096228029800700405">https://doi.org/10.1177/096228029800700405</a>.</p>
+</div>
+<div>
+<p>———. 2000. “Sample Size Tables for Receiver Operating Characteristic Studies.” Journal Article. <em>Am. J. Roentgenol.</em> 175 (3): 603–8. <a href="http://www.ajronline.org/cgi/content/abstract/175/3/603">http://www.ajronline.org/cgi/content/abstract/175/3/603</a>.</p>
+</div>
+<div>
+<p>Obuchowski, N. A., and H. E. Rockette. 1995. “Hypothesis Testing of the Diagnostic Accuracy for Multiple Diagnostic Tests: An ANOVA Approach with Dependent Observations.” Journal Article. <em>Communications in Statistics: Simulation and Computation</em> 24: 285–308. <a href="https://doi.org/10.1080/03610919508813243">https://doi.org/10.1080/03610919508813243</a>.</p>
+</div>
+<div>
+<p>Roe, C. A., and C. E. Metz. 1997a. “Dorfman-Berbaum-Metz Method for Statistical Analysis of Multireader, Multimodality Receiver Operating Characteristic Data: Validation with Computer Simulation.” Journal Article. <em>Acad Radiol</em> 4: 298–303. <a href="https://doi.org/10.1016/S1076-6332(97)80032-3">https://doi.org/10.1016/S1076-6332(97)80032-3</a>.</p>
+</div>
+<div>
+<p>———. 1997b. “Variance-Component Modeling in the Analysis of Receiver Operating Characteristic Index Estimates.” Journal Article. <em>Acad. Radiol.</em> 4 (8): 587–600. <a href="https://doi.org/10.1016/S1076-6332(97)80210-3">https://doi.org/10.1016/S1076-6332(97)80210-3</a>.</p>
+</div>
+<div>
+<p>Satterthwaite, F. E. 1941. “Synthesis of Variance.” Journal Article. <em>Psychometrika</em> 6 (5): 309–16.</p>
+</div>
+<div>
+<p>———. 1946. “An Approximate Distribution of Estimates of Variance Components.” Journal Article. <em>Biometrics Bulletin</em> 2 (6): 110–14.</p>
+</div>
+<div>
+<p>Swets, John A., and Ronald M. Pickett. 1982. <em>Evaluation of Diagnostic Systems: Methods from Signal Detection Theory</em>. Book. First. Series in Cognition and Perception. New York: Academic Press.</p>
+</div>
+<div>
+<p>Toledano, A. Y. 2003. “Three Methods for Analyzing Correlated ROC Curves: A Comparison in Real Data Sets.” Journal Article. <em>Statistics in Medicine</em> 22 (18): 2919–33. <a href="https://doi.org/10.1002/sim.1518">https://doi.org/10.1002/sim.1518</a>.</p>
+</div>
+<div>
+<p>Toledano, A. Y., and C. Gatsonis. 1996. “Ordinal Regression Methodology for ROC Curves Derived from Correlated Data.” Journal Article. <em>Stat Med</em> 15 (16): 1807–26. <a href="https://doi.org/10.1002/(SICI)1097-0258(19960830)15:16%3C1807::AID-SIM333%3E3.0.CO;2-U">https://doi.org/10.1002/(SICI)1097-0258(19960830)15:16&lt;1807::AID-SIM333&gt;3.0.CO;2-U</a>.</p>
+</div>
+<div>
+<p>Van Dyke, C. W., R. D. White, N. A. Obuchowski, M. A. Geisinger, R. J. Lorig, and M. A. Meziane. 1993. “Cine MRI in the Diagnosis of Thoracic Aortic Dissection.” Journal Article. <em>79th RSNA Meetings</em>.</p>
+</div>
+<div>
+<p>Zanca, Federica, Jurgen Jacobs, Chantal Van Ongeval, Filip Claus, Valerie Celis, Catherine Geniets, Veerle Provost, Herman Pauwels, Guy Marchal, and Hilde Bosmans. 2009. “Evaluation of Clinical Image Processing Algorithms Used in Digital Mammography.” Journal Article. <em>Medical Physics</em> 36 (3): 765–75. <a href="https://doi.org/10.1118/1.3077121">https://doi.org/10.1118/1.3077121</a>.</p>
+</div>
+<div>
+<p>Zhou, Xiao-Hua, Donna K McClish, and Nancy A Obuchowski. 2009. <em>Statistical Methods in Diagnostic Medicine</em>. Vol. 569. John Wiley &amp; Sons. <a href="https://doi.org/110.1002/9780470906514">https://doi.org/110.1002/9780470906514</a>.</p>
 </div>
 </div>
+</div>
+</div>
+
+
+
+
+
+
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-RN2027">
@@ -832,8 +721,8 @@ F_{AH|C}\equiv \frac{MST}{MSTR}\sim F_{I-1,(I-1)(J-1),\Delta}
           </div>
         </div>
       </div>
-<a href="background-f-distribution.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="improper-rocs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="background-f-distribution.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -875,7 +764,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["RJafrocRocBook.pdf", "RJafrocRocBook.epub"],
+"download": ["RJafrocSigTestBook.pdf", "RJafrocSigTestBook.epub"],
 "search": {
 "engine": "fuse",
 "options": null
