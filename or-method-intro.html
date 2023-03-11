@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Introduction to the Obuchowski-Rockette method | The RJafroc Significance Testing Book</title>
+  <title>Chapter 6 Introduction to the Obuchowski-Rockette method | The RJafroc Roc Book</title>
   <meta name="description" content="Artificial intelligence and observer performance book based on RJafroc." />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Introduction to the Obuchowski-Rockette method | The RJafroc Significance Testing Book" />
+  <meta property="og:title" content="Chapter 6 Introduction to the Obuchowski-Rockette method | The RJafroc Roc Book" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Artificial intelligence and observer performance book based on RJafroc." />
-  <meta name="github-repo" content="dpc10ster/RJafrocSigTestBook" />
+  <meta name="github-repo" content="dpc10ster/RJafrocRocBook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Introduction to the Obuchowski-Rockette method | The RJafroc Significance Testing Book" />
+  <meta name="twitter:title" content="Chapter 6 Introduction to the Obuchowski-Rockette method | The RJafroc Roc Book" />
   
   <meta name="twitter:description" content="Artificial intelligence and observer performance book based on RJafroc." />
   
@@ -377,6 +377,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.5" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#discussionsummary3"><i class="fa fa-check"></i><b>11.5</b> Discussion/Summary/3</a></li>
 <li class="chapter" data-level="11.6" data-path="roc-sample-size-or.html"><a href="roc-sample-size-or.html#roc-sample-size-or-references"><i class="fa fa-check"></i><b>11.6</b> Chapter References</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>REFERENCES</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -389,7 +390,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The RJafroc Significance Testing Book</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The RJafroc Roc Book</a>
           </h1>
         </div>
 
@@ -1037,7 +1038,7 @@ Cov(X,Y) =\frac{\sum_{i=1}^{N}(x_{i}-x_{\bullet})(y_{i}-y_{\bullet})}{N-1}=E(XY)
 <span id="cb77-5"><a href="or-method-intro.html#cb77-5"></a>           <span class="st">&quot;ORBoot:ddf&quot;</span> =<span class="st"> </span>ret4<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;DF&quot;</span>], </span>
 <span id="cb77-6"><a href="or-method-intro.html#cb77-6"></a>           <span class="st">&quot;ORBoot:P-val&quot;</span> =<span class="st"> </span>ret4<span class="op">$</span>FRRC<span class="op">$</span>FTests[<span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;p&quot;</span>])</span></code></pre></div>
 <pre><code>##   ORBoot.Chisq ORBoot.ddf ORBoot.P.val
-## 1    1.3217376          1   0.25028044</code></pre>
+## 1    1.2306317          1   0.26728423</code></pre>
 <p>The DBM and OR-jackknife methods yield identical F-statistics, but the denominator degrees of freedom are different, <span class="math inline">\((I-1)(K-1)\)</span> = 113 for DBM and <span class="math inline">\(\infty\)</span> for OR. The F-statistics for OR-bootstrap and OR-DeLong are different.</p>
 <p>Shown below is a first-principles implementation of OR significance testing for the one-reader case.</p>
 <div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="or-method-intro.html#cb79-1"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
@@ -1137,7 +1138,7 @@ Cov(X,Y) =\frac{\sum_{i=1}^{N}(x_{i}-x_{\bullet})(y_{i}-y_{\bullet})}{N-1}=E(XY)
 
 </div>
 </div>
-<h3>References</h3>
+<h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references">
 <div id="ref-delong1988comparing">
 <p>DeLong, Elizabeth R, David M DeLong, and Daniel L Clarke-Pearson. 1988. “Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.” <em>Biometrics</em>, 837–45.</p>
