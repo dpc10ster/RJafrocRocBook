@@ -3553,6 +3553,1581 @@ For this dataset this is in fact the fit yielded by the contaminated binormal mo
 \hypertarget{binormal-model-references}{%
 \section{Chapter References}\label{binormal-model-references}}
 
+\hypertarget{improper-rocs}{%
+\chapter{Improper ROC curves}\label{improper-rocs}}
+
+\hypertarget{improper-rocs-how-much-finished}{%
+\section{How much finished 10\%}\label{improper-rocs-how-much-finished}}
+
+\hypertarget{the-binormal-model}{%
+\section{The binormal model}\label{the-binormal-model}}
+
+The binormal model has two parameters, \(a\) and \(b\). The \(a\) parameter is the separation of the two distributions. The diseased case distribution has unit standard deviation. The non-diseased case distribution has standard deviation \(b\).
+
+\hypertarget{improper-rocs-1}{%
+\section{Improper ROCs}\label{improper-rocs-1}}
+
+Binormal model fits invariably lead to ROC curves that inappropriately cross the chance diagonal, leading to a prediction of a region of the ROC curve where performance is worse than chance (even for expert observers). Such curves are termed \emph{improper}. This type of curve occurs whenever \(b < 1\).
+
+The following code illustrates improper curves predicted by the binormal model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{  aArray <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.7}\NormalTok{, }\FloatTok{0.7}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{  bArray <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{  chance_diag <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{y =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\NormalTok{  p <-}\StringTok{ }\KeywordTok{PlotBinormalFit}\NormalTok{(aArray, bArray) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.85}\NormalTok{, }\FloatTok{0.2}\NormalTok{))}
+\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ chance_diag, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y), }\DataTypeTok{linetype=}\StringTok{"dotted"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The red plot is the clearest example of an improper ROC. The chance line crossing near the upper right corner, around (0.919,0.919) and the fact that the ROC curve must eventually reach (1, 1) implies that the curve must turn upwards as one approaches (1, 1), thereby displaying a ``hook''. Whenever \(b \ne 1\) the hook is there regardless of whether it is easily visible or not. If \(b < 1\) the hook is near the upper right corner. If \(b > 1\) the hook is near the origin (see green line, corresponding to \(a = 0.7, b = 1.5\)). With increasing \(a\) the hook is less prominent (see blue line corresponding to \(a = 1.5, b = 0.5\) and purple line corresponding to \(a = 2, b = 0.5\). But it is there.
+
+\hypertarget{reason-for-improper-rocs-1}{%
+\section{Reason for improper ROCs}\label{reason-for-improper-rocs-1}}
+
+The reason for the ``hook'' becomes apparent upon examination of the pdfs.
+
+\includegraphics{19c-improper-rocs_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\begin{figure}
+\centering
+\includegraphics{19c-improper-rocs_files/figure-latex/improper-roc-reason-1.pdf}
+\caption{\label{fig:improper-roc-reason}Reason for improper ROC}
+\end{figure}
+
+In Figure \ref{fig:improper-roc-reason} \(a = 0.7\) and \(b = 0.5\). Since \(b < 1\) the diseased \emph{pdf} is broader and has a lower peak (since the integral under each distribution is unity) than the non-diseased pdf. Starting from the extreme right and then sliding an imaginary threshold to the left one sees that initially, just below \(z = 7\), the diseased distribution starts contributing while the non-diseased distribution is not contributing, causing the ROC to start with infinite slope near the origin (because TPF is increasing while FPF is not). Around \(z = 2.5\) the non-diseased distribution starts contributing, causing the ROC slope to decrease. Around \(z = -3\) almost all of the non-diseased distribution has contributed which means FPF is near unity, but since not all of the broader diseased distribution has contributed TPF is less than unity. Here is a region where \(TPF < FPF\), meaning that the operating point is below the chance diagonal. As the threshold is lowered further, TPF continues to increase, as the rest of the diseased distribution contributes while FPF stays almost constant at unity. In this region, the ROC curve is approaching the upper right corner with almost infinite slope (because TPF is increasing but FPF is not).
+
+\hypertarget{part-advanced-topics}{%
+\part*{Advanced topics}\label{part-advanced-topics}}
+\addcontentsline{toc}{part}{Advanced topics}
+
+\hypertarget{proper-roc-models}{%
+\chapter{Proper ROC models}\label{proper-roc-models}}
+
+\hypertarget{proper-roc-models-how-much-finished}{%
+\section{TBA How much finished}\label{proper-roc-models-how-much-finished}}
+
+50\%
+
+\hypertarget{proper-roc-models-introduction}{%
+\section{Introduction}\label{proper-roc-models-introduction}}
+
+So far, two methods have been described for fitting curves to ROC operating points, namely the (unequal variance) binormal model, book Chapter 06 and the radiological search model (RSM), book Chapter 16. The binormal model has been widely used to fit ROC operating points in many studies, dating to the early 1960s, and in a wide range of applications that are not just limited to medical imaging. It is a two-parameter model, i.e., \(a\), \(b\), excluding threshold parameters. However, binormal model fits almost invariably lead to ROC curves that inappropriately cross the chance diagonal, leading to a prediction of a region of the ROC curve where performance is worse than chance, even for expert observers. By convention, such curves are termed ``improper''. A chance line crossing near the upper right corner, which occurs when \(b < 1\), and the fact that the ROC curve must eventually reach (1, 1) implies the curve must turn upwards as one approaches (1, 1), thereby displaying a ``hook''. The hook occurs near the origin if \(b > 1\). Since \(b\) is a continuous-variable parameter, there is zero probability that an estimate of \(b\) will be exactly equal to one, the only condition under which there is no ``hook''. \emph{Therefore, every fitted binormal model ROC curve is improper.}
+
+The improper behavior is often not readily visible. One may need to ``zoom-in'' on the upper-right corner to see it. This has been used as an argument for minimizing its importance / relevance \citep{metz1978rocmethodology}. In my judgment, any fit that predicts worse than chance level performance anywhere on the ROC plot, visible or not, is scientifically indefensible. Quite appropriately much effort has gone into developing models that always predict proper ROC curves, i.e., those that do not drop below the chance diagonal. These are called ``proper'' ROC curves (some of literature uses the quotes and some does not). There are at least four methods for fitting proper ROC curves, and these are listed in reverse chronological order.
+
+\begin{itemize}
+\item
+  The most recent (2016) one \citep{chakraborty2011estimating, chakraborty2012inverse} is based on the radiological search model (RSM), which is implemented in the \texttt{RJafroc} package, as described in book Chapter 18.
+\item
+  Next, (2000) is a method \citep{dorfman2000contaminated1, dorfman2000contaminated2, dorfman2000contaminated3} based on the contaminated binormal model (CBM), available as part of DBM-MRMC software from a University of Iowa website and which is implemented in the \texttt{RJafroc} package.
+\item
+  Next, (1999) is the binormal model-based proper ROC fitting algorithm \citep{metz1999proper, pan1997proper} developed by Metz and Pan, implemented in PROPROC software available as part of DBM-MRMC software.
+\item
+  Next, (1997) is the bigamma model \citep{dorfman1997proper} fitting algorithm for which no software currently exists as far as I am aware.
+\item
+  Next, (1996) is LROCFIT, based on the location ROC (LROC) paradigm \citep{swensson1996unified}, which also predicts proper ROC curves, but the data has to be acquired according to the LROC paradigm, while all of the other methods described in this chapter, and in book Chapter 18, work with ROC data.
+\end{itemize}
+
+A related issue is data degeneracy that occurs when a reader fails to provide an interior ROC point, i.e., a point that lies inside the ROC unit-square, as distinct from points on the axes. The binormal model is unable to yield reasonable fits to such data (which tend to be generated by experts; for example the perfect radiologist will detect lesions without generating any false positives, leading to a point on the y-axis). Inability to fit a dataset means the researcher has no option but to discard them or use empirical methods. The CBM and RSM methods are able to fit degenerate datasets. It has been claimed incorrectly, as shown below, that PROPROC can fit degenerate datasets -- it cannot.
+
+There is a theorem relating the slope of a general ROC curve, independent of model assumptions, to a quantity called the \emph{likelihood ratio}. This will lead to the distinction between ``proper'' and ``improper'' ROC curves. Needed first is an understanding of the likelihood ratio and demonstration (not a proof) of an important theorem, namely \emph{the slope of the ROC curve always equals the likelihood ratio, independent of parametric assumptions}.
+
+\hypertarget{proper-roc-models-likelihood-ratio-theorem1}{%
+\section{Theorem: ROC slope equals likelihood ratio}\label{proper-roc-models-likelihood-ratio-theorem1}}
+
+\begin{equation} 
+\left.\begin{aligned}
+\text{FPF}&=\Phi\left( -z \right)\\
+\text{TPF}&=\Phi\left( a-bz \right)
+\end{aligned}\right\}
+\label{eq:proper-roc-models-binormal-model}
+\end{equation}
+
+The slope \(m\) of the ROC curve is:
+
+\begin{equation} 
+\left.\begin{aligned}
+m\left( z|a,b \right)&=\frac{\frac{\partial \left( TPF \right)}{\partial z}}{\frac{\partial \left( FPF \right)}{\partial z}}\\ 
+&=\frac{b\phi\left( a-bz \right)}{\phi\left( -z \right)}\\ 
+&=b\exp\left( -\frac{1}{2} \left[ \left( bz-a \right)^2 \right]-z^2\right)
+\end{aligned}\right\}
+\label{eq:proper-roc-models-slope}
+\end{equation}
+
+The probability density functions (pdfs) for the binormal model were defined in TBA Eqn. (6.23) and TBA Eqn. (6.24) and for convenience are reproduced here (N = non-diseased, D = diseased):
+
+\begin{equation} 
+\left.\begin{aligned}
+\text{pdf}_N\left( z \right) &= \frac{1}{\sqrt{2\pi}}\exp\left( -\frac{z^2}{2} \right) \\
+\text{pdf}_D\left( z \right) &= \frac{b}{\sqrt{2\pi}}\exp\left( -\frac{\left( bz-a \right)^2}{2} \right) \\
+\end{aligned}\right\}
+\label{eq:proper-roc-models-pdfs}
+\end{equation}
+
+The likelihood ratio is defined by (the subscript ``BIN'' is for ``binormal model''):
+
+\begin{equation} 
+\left.\begin{aligned}
+l_{BIN}\left( z | a,b\right) &= \frac{\text{pdf}_D\left( z \right)}{\text{pdf}_N\left( z \right)} \\
+&= b\exp\left( -\frac{\left( bz-a \right)^2 -z^2}{2} \right) \\
+\end{aligned}\right\}
+\label{eq:proper-roc-models-likelihood-ratio}
+\end{equation}
+
+It is seen from Eqn. \eqref{eq:proper-roc-models-slope} and Eqn. \eqref{eq:proper-roc-models-likelihood-ratio} that the likelihood ratio equals the slope of the ROC curve:
+
+\begin{equation} 
+l_{BIN}\left( z | a,b\right) = m\left( z | a,b\right)
+\label{eq:proper-roc-models-likelihood-ratio-theorem}
+\end{equation}
+
+While illustrated for the binormal model, this theorem is actually independent of any distributional assumptions \citep{Egan1975}. The reason for the name ``likelihood ratio'' is that early researchers in the field, mostly psychophysicists, used the term ``likelihood function'' for what statisticians term ``probability density function''. Hence the ratio of two likelihood functions was termed a ``likelihood ratio'', when in fact it is a ratio of two pdfs. The likelihood ratio should never be confused with the likelihood function defined in Book Chapter 06, which is the probability of an observed dataset, given a set of parameter values, and which is the starting point of maximum likelihood estimation methods.
+
+\hypertarget{proper-roc-models-likelihood-ratio-theorem2}{%
+\section{Theorem: likelihood ratio observer maximizes AUC}\label{proper-roc-models-likelihood-ratio-theorem2}}
+
+An observer who maximizes TPF for a given FPF, for all values of FPF in the range (0,1), is called a Neyman-Pearson observer \citep{neyman1933ix}. It can be shown that the Neyman-Pearson observer uses the likelihood ratio as the decision variable \citep{green1966signal}. The proof is a little involved and will not be repeated here. A mathematical description is found in the book \citep{barrett2013foundations} by Barrett and Myers, Section 13.2.6. \emph{A consequence of the theorem is that AUC for a likelihood ratio observer represents an upper limit on performance, and such an observer is called an ``ideal observer'' and an observer using the likelihood ratio as the decision variable always yields proper ROC curves.}
+
+\hypertarget{explanation}{%
+\subsection{Explanation}\label{explanation}}
+
+So far the decision rule has been, book Chapter 03, that if the z-sample for a case is equal to or greater than threshold \(\zeta\) the case is diagnosed as diseased, and otherwise it is diagnosed as non-diseased. The likelihood ratio involves a deeper concept. It is assumed that the observer is aware of the distribution of the z-samples for diseased and non-diseased cases, i.e., the observer knows the pdfs as a function of z. Then, for an observed value of z for a particular case, the observer computes the pdf for the diseased distribution at that value of z, namely \(\text{pdf}_D(z)\) and does the same for the non-diseased distribution \(\text{pdf}_N(z)\). Assuming equal numbers of diseased and non-diseased cased, if \(\text{pdf}_D\left( z \right) \ge \text{pdf}_N\left( z \right)\), which is equivalent to \(l(z) \ge 1\), it is more probable that the case is diseased, and if the reverse is true if \(l(z) < 1\). In other words, the likelihood ratio observer does not merely use the z-sample to make decisions. Instead, the observer uses the observed z-sample and knowledge of the value of the two pdfs at the observed value of z to compute the ratio \(l(z)\) and only if the ratio is equal or greater than some preset value \(\lambda\), the case is diagnosed as diseased and otherwise the case is diagnosed as non-diseased.
+
+A word on notation: I am attempting to be consistent: when the decision variable was \(z\), I used the corresponding Greek character to denote a threshold on that axis. Since likelihood ratio is denoted \(l\), the corresponding Greek character is \(]\lambda\). \footnote{This is not to be confused with the RSM parameter with the same symbol.}
+
+So in effect, the observer has transformed the decision variable \(z\) to a new variable \(l\) defined by \(l \equiv \frac{\text{pdf}_D\left( z \right)}{\text{pdf}_N\left( z \right)}\) , and the new variable is used for making decisions. Varying \(\lambda\) allows the observer to move along the resulting \emph{likelihood ratio ROC curve}, which has the ``proper'' property. The value of \(\lambda\) used by the observer is determined by the disease prevalence and the costs and benefits of incorrect (FN and FP) and correct decisions (TP and TN). Assuming equal costs, benefits, and disease prevalence of 0.5, the observer will select \(\lambda = 1\) as the operating point. If on the other hand disease-prevalence is 0.1, the observer will adopt a higher value of \(\lambda\), corresponding to moving down the ROC curve, to decrease FPF.
+
+If decision variable z results in improper ROC curves, as does the z-sample in the binormal model, the transformation will not be monotonic \footnote{For a positive-directed decision variable, as in this book, the term ``monotonic'' is always meant to be ``monotonic increasing''. It is possible for a transformation to be monotonic decreasing, as in \(l = 1/z\).}. If the transformation were monotonic, that would imply that z was already equivalent to the likelihood ratio, since a monotonic transformation exists that relates the two. As was learned from earlier chapters, the ROC curve is invariant to monotonic transformations of the decision variable. If the z-sample from a different model, e.g., the highest rating sample of the RSM, always yields proper ROC curves, book Chapter 17, then it must already be equivalent to the likelihood ratio.
+
+To summarize these concepts in equations, the likelihood ratio observer transforms z to l:
+
+\begin{equation} 
+l\left( z \right) \equiv  \frac{\text{pdf}_D\left( z \right)}{\text{pdf}_N\left( z \right)}
+\label{eq:proper-roc-models-likelihood-ratio-definition}
+\end{equation}
+
+Then the decision variable \(M\left( l\left( z \right) \right)\) will yield a proper ROC curve. Here \(M\left( \right)\) is an arbitrary monotone increasing function of its argument, i.e.~if \(x_2 > x_1\):
+
+\begin{equation} 
+M\left( x_2 \right) \ge M\left( x_1 \right) 
+\label{eq:proper-roc-models-definition-monotonic}
+\end{equation}
+
+More accurately, ``increasing'' should be replaced by ``non-decreasing''; i.e., the transformation allows flat portions.
+
+\hypertarget{proper-roc-models-proper-vs-improper}{%
+\section{Proper vs.~improper ROC curves}\label{proper-roc-models-proper-vs-improper}}
+
+If \(b=1\),
+
+\begin{equation} 
+m\left( z|a,b=1 \right)=\exp\left( -\frac{1}{2} \left[ \left( a^2-2az \right)^2 \right]\right)
+\label{eq:proper-roc-models-b-equal-1}
+\end{equation}
+
+At \(z=-\infty\) the slope is zero and at \(z=+\infty\) the slope is infinite. This is reasonable behavior: the ROC curve starts out at the origin with infinite slope and gradually bends down and eventually approaches (1, 1) with zero slope. This is an example of a ``proper'' ROC. However, if \(0 < b < 1\), which is true for most datasets (clinical or not \citep{green1966signal}), the slope is infinite at the origin, which is fine, \emph{and} at (1, 1), which spells trouble. For the ROC curve to have started out at the origin with infinite slope and then approach (1, 1), again with infinite slope, means that at some intermediate point it must have crossed the chance diagonal. This behavior, termed ``the hook'', generally occurs just below the upper right corner, Plot A in Fig. \ref{fig:proper-roc-models-plots-1}. If \(b > 1\) the binormal model predicts that the slope is zero near the origin, which means the ROC curve starts out below the chance diagonal, in other words the ``hook'' is still there, but it occurs just above the origin, Plot B in Fig. \ref{fig:proper-roc-models-plots-1}. Usually, Plots C and D in Fig. \ref{fig:proper-roc-models-plots-1}, the hook is not readily visible unless one ``zooms in'' on the part near the top-right corner.
+
+\begin{figure}
+\centering
+\includegraphics{20a-proper-roc-models_files/figure-latex/proper-roc-models-plots-1-1.pdf}
+\caption{\label{fig:proper-roc-models-plots-1}Predicted improper ROC curves: top-left is for a = 0.7, b = 0.5, top-right is for a = 0.7, b = 1.5, bottom-left is for a = 1.5, b = 0.5 and bottom-right is for a = 2, b = 0.5.}
+\end{figure}
+
+\hypertarget{proper-roc-models-degenerate-datasets}{%
+\section{Degenerate datasets}\label{proper-roc-models-degenerate-datasets}}
+
+Metz2 defined binormal degenerate data sets as those that result in exact-fit binormal ROC curves of inappropriate shape consisting of a series of horizontal and/or vertical line segments in which the ROC ``curve'' crosses the chance line. The crossing of the chance line occurs because the degenerate data sets can be fitted exactly by infinite or zero values for the model slope parameter b, and infinite values for the reporting thresholds, or both. To understand this, consider that the non-diseased distribution is a Dirac delta function centered at zero (by definition such a function integrates to unity), and the unit variance diseased distribution is centered at 0.6744898. In other words this binormal model is characterized by a = 0.6744898 and b = zero and the two distributions consist of a delta function at z = zero and a unit normal centered at z = a. What is the expected ROC curve? As the threshold is moved from the far right, gradually to the left, TPF will increase but FPF will be stuck at zero until the threshold reaches zero. Just before reaching this point, the coordinates of the ROC operating point are (0, 0.75). The 0.75 is due to the fact that z = zero is -0.6744898 units relative to the center of the diseased distribution, so the area under the diseased distribution below z = zero is . Since pnorm is giving the probability below the threshold, TPF must be its complement, namely 0.75. This explains the operating point (0,0.75), which lies on the y-axis. As the threshold crosses the zero-width delta function, FPF shoots up from 0 to 1, but TPF stays constant. Therefore, the operating point has jumped from (0, 0.75) to (1, 0.75). When the threshold is reduced further, the operating point moves up vertically, along the right side of the ROC plot, until the threshold is so small that virtually all of diseased distribution exceeds it and the operating point reaches (1, 1). The ROC curve is illustrated in Fig. 20.3 (A). This is an extreme example of an ROC curve with a ``hook''. If the data is such that the only operating point provided by the observer is (0,0.75) then this curve will be an exact fit to the data point. An example of such a dataset is in Table 20.1.
+
+Actually, given one operating point (0, 0.75) the preceding fit is not even unique. If the diseased distribution is shifted appropriately to the right of its previous position, and one can determine the necessary value of a, then the ROC curve will shoot upwards through the operating point (0, 0.75) to (0, 0.9), as in Fig. 20.3 (B), before proceeding horizontally to (1, 0.9) and then completing the curve to (1, 1). If the diseased distribution is shifted well to the right, i.e., a is very large, then the ROC curve will shoot upwards past the operating point, as in Fig. 20.3 (C), all the way to (0,1) before proceeding horizontally to (1, 1). All of these represent maximum likelihood fits, albeit with b = zero, and different values of a. Not one of them is reasonable.
+
+Restricting to the more common situation, the reason for the hook can be appreciated from Fig. 20.2 (B) showing the pdf functions for non-diseased and diseased cases as functions of z. The plot corresponds to the same parameter value that generated Fig. 20.1(A). Since , the diseased pdf is broader and has a lower peak (since the integrals under each distribution are unity) than the non-diseased pdf. Sliding an imaginary threshold to the left, starting from the extreme right, one sees that initially, just below z = 7, the diseased distribution starts being ``picked up'' while the non-diseased distribution is not ``picked up'', causing the ROC, Fig. 20.2 (A), to start with infinite slope near the origin (because TPF increases while FPF does not). Around z = 2.5 the non-diseased distribution starts being ``picked up'', causing the ROC slope to decrease. Around z = -3, almost all of the non-diseased distribution has been ``picked up'' which mean FPF is near unity, but since not all of the broader diseased distribution has been ``picked up'', TPF is less than unity. Here is a region where TPF \textless{} FPF, meaning the operating point is below the chance diagonal. As the threshold is lowered further, TPF continues to increase, as the rest of the diseased distribution is ``picked up'' while FPF stays almost constant at unity. In this region, the ROC curve is approaching the upper right corner with almost infinite slope (because TPF is increasing but FPF is not).
+
+\hypertarget{comments-on-degeneracy}{%
+\subsection{Comments on degeneracy}\label{comments-on-degeneracy}}
+
+ratings" is going to convince this observer to rate with twos, threes and fours any of the 75 easy diseased cases. If the cases are obviously diseased, and that is what the author means by ``easy cases'', they are supposed to be rated fives: ``definitely diseased''. Forcing them to rate some of them as ``probably diseased'' or ``possibly diseased'' would be irrational and guilty of bending the reading paradigm to fit the convenience of the researcher.
+
+Faced with a degenerate data set the binormal model is unable to yield a reasonable and unique ROC curve Fig. 20.3 (A-C). Essentially the analyst has to discard the reader's dataset (or abandon the binormal model in favor of empirical AUCs -- which come with their own issues) -- always a bad idea. Discarding a dataset just because the model is unable to fit it is a failing of the model, and an expensive failing at that, because radiologist generated operating points do not come cheap. Furthermore, degenerate datasets are more likely with expert observers. This follows from the fact that what is an obvious diseased case to an expert may not be obvious to a less experienced observer. The latter observer is likely to apply the two, three and four ratings to some of the 75 cases that were obviously diseased to the expert. Therefore, the less experienced observer is more likely to provide a number of interior data points, and the binormal model would fit their data without encountering degeneracy problems. The result is to ``screen-out'' expert radiologists in favor of those with less expertise.
+
+One could argue that the choice of dataset, with a mixture of very easy and very difficult, was incorrect. One should have chosen a more mixed dataset. The counter argument is what if the population consists of these types of bimodal cases. Any sample from such a population would be expected to yield degenerate datasets. A ``bullet-proof'' model should be able to deal with the data as it comes, and not be restricted to datasets that are convenient to the model. As a general scientific principle, the model should accommodate the data, not vise-versa.
+
+If the dataset yields a single operating point (0, 0.75), what is a reasonable ROC plot? There is a theorem that given an observed operating point, the line connecting that point to (1, 1) represents a lower bound on achievable performance by the observer. The lower bound is achieved by the observer using a guessing mechanism to classify the remaining cases. Here is an elaboration on this theorem. Having rated the 75 easy diseased cases as fives, the observer is left with 25 diseased cases and 100 non-diseased cases, all 125 of which look non-diseased to the observer. Suppose the observer randomly rates 20\% of the remaining cases as fours. This would pick up five of the actually diseased cases and 20 non-diseased ones. Therefore, the total number of diseased cases rated four or higher is 80, and the corresponding number of non-diseased cases is 20. The new operating point of the observer is (0.20, 0.80). Now, one has two operating points, the original one on the y-axis at (0, 0.75) and an interior point (0.20, 0.80). Next, instead of randomly rating 20\% of the remaining cases as fours, the observer rates 40\% of them as fours, then the interior point would have been (0.40, 0.85). The reader can appreciate that simply by increasing the fraction of remaining cases that are randomly rated fours, the observer can move along the straight line connecting (0, 0.75) and (1, 1), as in Fig. 20.3 (D). Since a guessing mechanism is being used, this must represent a lower bound on performance. The resulting ROC curve is proper and the net AUC = 0.875. This is in fact the fit yielded by the CBM and RSM models for this dataset. The empirical AUC also yields this result.
+
+Why should one select the lowest possible performance consistent with the data? Because it yields a unique value for performance and higher performance is both not unique, Fig. 20.3 (A-D), and is guilty of extrapolating outside the data.
+
+\hypertarget{proper-roc-models-likelihood-ratio-observer}{%
+\section{The likelihood ratio observer}\label{proper-roc-models-likelihood-ratio-observer}}
+
+\textbf{An observer using the likelihood ratio, or any monotonic transformation of it, as the decision variable, is termed a likelihood ratio observer.} This is worthy of some illustrations, Fig. \ref{fig:proper-roc-models-plots-2} Plots A-F, all of which apply to \(a = 0.7\) and \(b = 0.5\). The ordinate is labeled \(\text{lr}\), for \emph{likelihood ratio}, identical to \(l\) in the equations, i.e., the slope of the ROC.
+
+\begin{figure}
+\centering
+\includegraphics{20a-proper-roc-models_files/figure-latex/proper-roc-models-plots-2-1.pdf}
+\caption{\label{fig:proper-roc-models-plots-2}These plots of slopes \(\text{lr}\) of the ROC curves as functions of z all apply to \(a = 0.7, b = 0.5\). They correspond to different ranges along the z-axis, starting with a `birds-eye' view (A, top left) and gradually focusing in on the region near the minimum (F, bottom right).}
+\end{figure}
+
+For now focus on Plot A in Fig. \ref{fig:proper-roc-models-plots-2} in which range of z is: -5 to 8. Imagine a sliding threshold \(\lambda\) moving down along the \emph{ordinate}, starting from very high values, \(\approx 1.5 \times 10^{11}\). The decision rule is to diagnose the case as ``diseased'' if \(l > \lambda\), and otherwise the case is diagnosed as ``non-diseased''. In Plot A the likelihood ratio \(\text{lr}\) seems, for all practical purposes, to be monotonically related to z, so on the surface is makes no difference which decision rule is used, that based on \(l > \lambda\) or the one based on \(z > \zeta\). The same conclusion is reached for Plot B, which shows the range z: (-3,5). Plot C reveals the first hint of trouble. It shows the range z: (-3,3); now, the ordinate \(l\) is not monotonically related to \(z\), rather the function \(l(z|a,b)\) has a minimum, so for values of \(l\) below approximately 1 (the value depends on the choice of the \(a\) and \(b\) parameters) there are two values of \(\zeta\) corresponding to a single value of \(\lambda\). This behavior is amplified in the remaining plots, as one ``homes'' in on the minimum. Taking the clearest example, Plot F, for \(\lambda = 0.37\) the two values are (-0.7277494065, 0.2055839269). \footnote{I achieved this extraordinary precision by solving the quadratic equation in Maple™.} The two values are denoted by \(\zeta_L=-0.728\) and \(\zeta_U=0.206\). The likelihood ratio observer, using threshold \(\lambda=0.37\), declares all cases with \(l > 0.37\) as ``diseased'' and ``non-diseased'' otherwise. Therefore, the corresponding z-sample binormal model observer must declare cases with \(z > \zeta_U\) and cases with \(z \le \zeta_L\) as diseased and ``non-diseased'' otherwise. The z-sample based decision rule is non-intuitive and bifurcated: why should cases with very low z-samples be declared diseased? The reason is that the z-sample based model assumed by the observer (as noted earlier, the analysis assumes that the observer ``knows'' or ``learns'' the two distributions and makes rational decisions based on this knowledge) is itself unphysical. According to the z-sample based model, i.e., binormal model, both very high and very low values of z are consistent with the case being diseased. If the observer is rational, then he will abandon making decisions based on \(z\) and instead use the transformation \(l=l(z|a,b)\) to make decisions based on \(l\). The l-based decision rule is much simpler (i.e., not bifurcated): if \(l > \lambda\) one diagnoses the case as ``diseased'', otherwise one diagnoses it as ``non-diseased''.
+
+Since likelihood ratio decreases monotonically as \(\lambda\) is reduced (i.e., one is moving down the y-axis in Fig. \ref{fig:proper-roc-models-plots-2}, starting from a very high value), the slope of the resulting ROC curve decreases monotonically \footnote{One needs to think carefully about this sentence to eventually ``get it''.}. In other words, the likelihood ratio observer generates a proper ROC curve. Another theorem14,16,18, is that the likelihood ratio observer achieves highest AUC as compared to an observer using any other decision rule, e.g., one based on the binormal model z-sample exceeding threshold \(\zeta\). Since likelihood ratio is the ratio of two probabilities, it is always positive. More accurately, it is non-negative. The slope of the proper ROC at the upper-right corner is non-negative. Unlike traditional ROC curves, the slope of proper ROC fits do not generally decrease monotonically to zero as one moves up the curve. Rather it approaches a positive constant. In special cases the limiting slope can be zero, as in the \(b = 1\) binormal model example shown earlier, see following Eqn. \eqref{eq:proper-roc-models-b-equal-1}, so it is more accurate to say that the limiting slope is non-negative.
+
+For the binormal model based likelihood ratio observer, the slope will not decrease to zero, rather it will decrease to the limiting value, 0.3606620722, suggested by \ref{fig:proper-roc-models-plots-2} Plot F (for values of \(\lambda\) below the minimum, there are no solutions for z).
+
+The observer can use a decision rule that is based on any monotonic increasing transformation of the likelihood ratio and the resulting ROC curve will be identical to that based on the likelihood ratio; the slope of the resulting curve always equals the likelihood ratio (before the monotonic transformation). For example, the monotonic transformation could yield a variable ranging from -infinity to plus infinity, but the slope of the resulting ROC curve will still be that for the likelihood ratio observer prior to the transformation. The limiting value of the slope is model dependent; specifically, if the binormal model is used, the limiting slope depends on the values of \(a,b\).
+
+A final theorem not explicitly stated in the literature: since AUC of the likelihood ratio observer is optimal with respect to other observers using different decision rules, or different underlying models of the decision variable, the AUC achieved by the likelihood ratio observer is unique, regardless of the model used to fit the proper ROC curve. In other words, the shapes of the predicted proper ROC curves are model dependent and could differ from each other, but the AUCs will be the same. This was empirically demonstrated in book Chapter 18, in connection with RSM, PROPROC and CBM fitted AUCs.
+
+\hypertarget{proper-roc-models-proproc}{%
+\section{PROPROC}\label{proper-roc-models-proproc}}
+
+An algorithm \citep{metz1999proper}, based on the observer using the binormal model likelihood ratio, has been implemented. The software is called PROPROC, for proper ROC. \footnote{The 1999 publication is a difficult read but well worth it for deeper understanding.}
+
+\hypertarget{proper-roc-models-proproc-formulae}{%
+\subsection{PROPROC formulae}\label{proper-roc-models-proproc-formulae}}
+
+The method uses two parameters \(c,d_a\) defined as follows:
+
+\begin{equation} 
+\left.\begin{aligned}
+c &= \frac{b-1}{b+1} \\
+d_a &= \frac{\sqrt{2}a}{1+b^2} \\
+\end{aligned}\right\}
+\label{eq:proper-roc-models-proproc-parameters}
+\end{equation}
+
+Allowed values of the parameters are as follows:
+
+\begin{equation} 
+\left.\begin{aligned}
+& -1 < c < 1 \\
+& 0 < d_a < \infty \\
+\end{aligned}\right\}
+\label{eq:proper-roc-models-proproc-parameter-ranges}
+\end{equation}
+
+Eqn. \eqref{eq:proper-roc-models-proproc-parameters} can be solved for the \(a,b\) parameters as functions of the \(c.d_a\) parameters:
+
+\begin{equation} 
+\left.\begin{aligned}
+a &= \frac{d_a}{\sqrt{2}}\sqrt{1+{{\left( \frac{c+1}{c-1} \right)^2}}} \\
+b &= -\frac{c+1}{c-1} \\
+\end{aligned}\right\}
+\label{eq:proper-roc-models-proproc-parameters-transform}
+\end{equation}
+
+Since \(b < 1\) with most clinical datasets, one expects to find \(c < 0\). The proper ROC curve is defined by \citep{metz1999proper}:
+
+\begin{equation} 
+\left.\begin{aligned}
+FPF\left( v \right) &= \Phi\left( -\left( 1-c \right)v -\frac{d_a}{2}\sqrt{1+c^2}  \right) \\ 
+&+\Phi\left( -\left( 1-c \right)v +\frac{d_a}{2c}\sqrt{1+c^2} \right)  -H(c) \\
+TPF\left( v \right) &= \Phi\left( -\left( 1+c \right)v +\frac{d_a}{2}\sqrt{1+c^2}  \right)  \\ &+\Phi\left( -\left( 1+c \right)v +\frac{d_a}{2c}\sqrt{1+c^2} \right)  -H(c) \\
+\end{aligned}\right\}
+\label{eq:proper-roc-models-fpf-tpf}
+\end{equation}
+
+The (Heaviside) step function \(H(x)\) is defined by:
+
+\begin{equation} 
+\left.\begin{aligned}
+H\left( x < 0 \right) &= 0 \\
+H\left( x > 0 \right) &= 1 \\
+\end{aligned}\right\}
+\label{eq:proper-roc-models-heaviside}
+\end{equation}
+
+The function is discontinuous, but its value at \(x = 0\) is irrelevant because \(c = 0\) implies \(b = 1\), in which case the equal variance binormal model applies, which predicts proper ROCs. Depending on the value of \(c\) the threshold variable \(v\) in Eqn. \eqref{eq:proper-roc-models-fpf-tpf} has different ranges:
+
+\begin{equation} 
+\left.\begin{aligned}
+\begin{matrix}
+\frac{d_a}{4c}\sqrt{1+c^2} \le v \le \infty & \text{if} & c<0 
+\end{matrix}\\
+\begin{matrix}
+-\infty \le v \le \infty & \text{if} & c=0 
+\end{matrix}\\
+\begin{matrix}
+-\infty \le v \le\frac{d_a}{4c}\sqrt{1+c^2} \le v & \text{if} & c<0 
+\end{matrix}\\
+\\
+\end{aligned}\right\}
+\label{eq:proper-roc-models-limits-v}
+\end{equation}
+
+PROPROC software implements a maximum likelihood method to estimate the \(c, d_a\) parameters from ratings data. The 1999 publication \citep{metz1999proper} states, without proof, that the area under the proper ROC is give by:
+
+\begin{equation} 
+A_{prop}=\Phi\left( \frac{d_a}{\sqrt{2}} \right) + 2F\left\{-\frac{d_a}{\sqrt{2}},0;-\frac{1-c^2}{1+c^2}  \right\}
+\label{eq:proper-roc-models-metz-36}
+\end{equation}
+
+Here \(F(X,Y;\rho)\) is the bivariate standard-normal (i.e., zero means and unit variances) cumulative distribution function (CDF) with correlation coefficient \(\rho\). In the notation of book Chapter 21:
+
+\begin{equation} 
+F\left( X,Y;\rho \right)=\int_{x=-\infty}^{X}
+\int_{y=-\infty}^{Y}
+dx dy f\left( 
+\left( \begin{matrix}
+x \\
+y
+\end{matrix}
+ \right) \bigg\rvert
+\left( \begin{matrix}
+0 \\
+0
+\end{matrix}  \right),
+\left( \begin{matrix}
+1 & \rho \\
+\rho & 1
+\end{matrix} \right)
+\right)
+\label{eq:proper-roc-models-def-bivariate-cdf}
+\end{equation}
+
+Here \(f\) is the pdf of a standard-normal bivariate distribution with correlation \(\rho\), i.e., the mean is the zero column vector of length 2 and the 2 x 2 covariance matrix has ones along the diagonal and \(\rho\) along the off-diagonal.
+
+The first term in Eqn. \eqref{eq:proper-roc-models-metz-36} is equal to the area under the binormal model ROC curve, TBA book Chapter 06, Eqn. (6.48):
+
+\begin{equation} 
+A_z=\Phi\left( \frac{a}{1+b^2} \right)
+\label{eq:proper-roc-models-az-binormal}
+\end{equation}
+
+Therefore,
+
+\begin{equation} 
+A_{prop}=A_z+2F\left( -\frac{d_a}{\sqrt{2}},0;-\frac{1-c^2}{1+c^2} \right)
+\label{eq:proper-roc-models-area-proproc2}
+\end{equation}
+
+Since F (a CDF, which is a probability) is non-negative,
+
+\begin{equation} 
+A_{prop}\ge A_z
+\label{eq:proper-roc-models-area-proproc-az-inequality}
+\end{equation}
+
+This reinforces the earlier stated more general result (more general, as it is not restricted to any distributional assumptions) that performance of a likelihood ratio, or ideal, observer is greater than or equal to that of any other observer using a different decision rule.
+
+\hypertarget{proper-roc-models-proproc-code}{%
+\subsection{PROPROC code implementation}\label{proper-roc-models-proproc-code}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Transform2ab <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (d_a, c)\{}
+\NormalTok{  b <-}\StringTok{ }\OperatorTok{-}\NormalTok{(c}\OperatorTok{+}\DecValTok{1}\NormalTok{)}\OperatorTok{/}\NormalTok{(c}\DecValTok{-1}\NormalTok{)}
+\NormalTok{  a <-}\StringTok{ }\NormalTok{(d_a}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{))}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{b}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+  \KeywordTok{return}\NormalTok{( }\KeywordTok{list}\NormalTok{(}
+    \DataTypeTok{a =}\NormalTok{ a,}
+    \DataTypeTok{b =}\NormalTok{ b}
+\NormalTok{  ) )}
+\NormalTok{\}}
+
+\NormalTok{GetLimits <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (d_a, c)}
+\NormalTok{\{}
+  \ControlFlowTok{if}\NormalTok{ (c }\OperatorTok{<}\StringTok{ }\FloatTok{0.0}\NormalTok{) \{}
+\NormalTok{    LL <-}\StringTok{  }\NormalTok{d_a}\OperatorTok{/}\DecValTok{4}\OperatorTok{/}\NormalTok{c}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\NormalTok{    UL <-}\StringTok{  }\FloatTok{10.0}
+\NormalTok{  \}}
+  
+  \ControlFlowTok{if}\NormalTok{ (c }\OperatorTok{==}\StringTok{ }\FloatTok{0.0}\NormalTok{) }
+\NormalTok{  \{}
+\NormalTok{    LL  <-}\StringTok{  }\FloatTok{-10.0}
+\NormalTok{    UL <-}\StringTok{  }\FloatTok{10.0}
+\NormalTok{  \}}
+  
+  \ControlFlowTok{if}\NormalTok{ (c }\OperatorTok{>}\StringTok{ }\FloatTok{0.0}\NormalTok{) }
+\NormalTok{  \{}
+\NormalTok{    LL <-}\StringTok{  }\FloatTok{-10.0}
+\NormalTok{    UL <-}\StringTok{  }\NormalTok{d_a}\OperatorTok{/}\DecValTok{4}\OperatorTok{/}\NormalTok{c}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\NormalTok{  \}}
+  \KeywordTok{return}\NormalTok{( }\KeywordTok{list}\NormalTok{(}
+    \DataTypeTok{LL =}\NormalTok{ LL,}
+    \DataTypeTok{UL =}\NormalTok{ UL}
+\NormalTok{  ) )}
+  
+\NormalTok{\}}
+
+
+
+\NormalTok{Heaviside <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (c)}
+\NormalTok{\{}
+  \ControlFlowTok{if}\NormalTok{ (c }\OperatorTok{<}\StringTok{ }\FloatTok{0.0}\NormalTok{) rval <-}\StringTok{  }\FloatTok{0.0} \ControlFlowTok{else}\NormalTok{ rval  <-}\StringTok{  }\FloatTok{1.0}
+  \KeywordTok{return}\NormalTok{ (rval)}
+\NormalTok{\}}
+
+\NormalTok{FalsePositiveFraction <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (vc, d_a, c)}
+\NormalTok{\{}
+  
+\NormalTok{  arg1 <-}\StringTok{  }\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{c)}\OperatorTok{*}\NormalTok{vc}\OperatorTok{-}\NormalTok{d_a}\OperatorTok{/}\DecValTok{2}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\NormalTok{  arg2 <-}\StringTok{  }\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{c)}\OperatorTok{*}\NormalTok{vc}\OperatorTok{+}\NormalTok{d_a}\OperatorTok{/}\DecValTok{2}\OperatorTok{/}\NormalTok{c}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+  
+\NormalTok{  rval =}\StringTok{ }\KeywordTok{pnorm}\NormalTok{ (arg1) }\OperatorTok{+}\StringTok{ }\KeywordTok{pnorm}\NormalTok{ (arg2) }\OperatorTok{-}\StringTok{ }\KeywordTok{Heaviside}\NormalTok{ (c)}
+  
+  \KeywordTok{return}\NormalTok{ (rval)}
+\NormalTok{\}}
+
+
+
+\NormalTok{TruePositiveFraction <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (vc, d_a, c)}
+\NormalTok{\{}
+\NormalTok{  arg1 =}\StringTok{ }\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c)}\OperatorTok{*}\NormalTok{vc}\OperatorTok{+}\NormalTok{d_a}\OperatorTok{/}\DecValTok{2}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\NormalTok{  arg2 =}\StringTok{ }\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c)}\OperatorTok{*}\NormalTok{vc}\OperatorTok{+}\NormalTok{d_a}\OperatorTok{/}\DecValTok{2}\OperatorTok{/}\NormalTok{c}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+  
+\NormalTok{  rval =}\StringTok{ }\KeywordTok{pnorm}\NormalTok{ (arg1) }\OperatorTok{+}\StringTok{ }\KeywordTok{pnorm}\NormalTok{ (arg2) }\OperatorTok{-}\StringTok{ }\KeywordTok{Heaviside}\NormalTok{ (c)}
+  
+  \KeywordTok{return}\NormalTok{ (rval)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c1Arr <-}\StringTok{   }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\FloatTok{0.1322804}\NormalTok{, }\FloatTok{0.2225588}\NormalTok{)}
+\NormalTok{daArr  <-}\StringTok{  }\KeywordTok{c}\NormalTok{(}\FloatTok{1.197239}\NormalTok{,}\FloatTok{1.740157}\NormalTok{)}
+\NormalTok{plotRoc <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\NormalTok{plotSlope <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{)}
+\NormalTok{\{}
+\NormalTok{  c1 <-}\StringTok{ }\NormalTok{c1Arr[i]}
+\NormalTok{  da <-}\StringTok{ }\NormalTok{daArr[i]}
+\NormalTok{  ret <-}\StringTok{ }\KeywordTok{Transform2ab}\NormalTok{(da, c1)}
+\NormalTok{  a <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{a;b <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{b}
+  \CommentTok{# may need to adjust limits to view detail of slope plot}
+  \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) z <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+  \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{) z <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+  
+\NormalTok{  FPF <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
+\NormalTok{  TPF <-}\StringTok{ }\KeywordTok{rocY}\NormalTok{(FPF, a, b)}
+  
+\NormalTok{  rocPlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =}\NormalTok{ FPF, }\DataTypeTok{TPF =}\NormalTok{ TPF)}
+\NormalTok{  plotRoc[[i]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}
+\NormalTok{    rocPlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
+\NormalTok{                   LETTERS[i], }
+                   \StringTok{":"}\NormalTok{, }
+                   \KeywordTok{sprintf}\NormalTok{(}\StringTok{" c = %5.3f, da = %5.3f"}\NormalTok{, }
+\NormalTok{                           c1, da)))}
+
+  \CommentTok{# Implement Eqn. 36 from Metz-Pan paper }
+\NormalTok{  rho <-}\StringTok{ }\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{c1}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c1}\OperatorTok{^}\DecValTok{2}\NormalTok{);sigma <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, rho), }\KeywordTok{c}\NormalTok{(rho, }\DecValTok{1}\NormalTok{))}
+\NormalTok{  lower <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OperatorTok{-}\OtherTok{Inf}\NormalTok{,}\DecValTok{2}\NormalTok{);upper <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{da}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{),}\DecValTok{0}\NormalTok{)}
+\NormalTok{  A_prop <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(da}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\DecValTok{2} \OperatorTok{*}\StringTok{ }\KeywordTok{pmvnorm}\NormalTok{(lower, upper, }\DataTypeTok{sigma =}\NormalTok{ sigma)}
+\NormalTok{  A_prop <-}\StringTok{  }\KeywordTok{as.numeric}\NormalTok{(A_prop)}
+  
+\NormalTok{  slope <-b}\OperatorTok{*}\KeywordTok{dnorm}\NormalTok{(a}\OperatorTok{-}\NormalTok{b}\OperatorTok{*}\NormalTok{z)}\OperatorTok{/}\KeywordTok{dnorm}\NormalTok{(}\OperatorTok{-}\NormalTok{z)}
+  
+\NormalTok{  slopePlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{z =}\NormalTok{ z, }\DataTypeTok{slope =}\NormalTok{ slope)}
+\NormalTok{  plotSlope[[i]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}
+\NormalTok{    slopePlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ z, }\DataTypeTok{y =}\NormalTok{ slope)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
+\NormalTok{                   LETTERS[i}\OperatorTok{+}\DecValTok{2}\NormalTok{], }
+                   \StringTok{":"}\NormalTok{, }
+                   \KeywordTok{sprintf}\NormalTok{(}\StringTok{" c = %5.3f, da = %5.3f"}\NormalTok{, }
+\NormalTok{                           c1, da)))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The analytic expressions for PROPROC ROC curves are implemented in the preceding code which plots PROPROC ROC curves predicted by the specified values of the model parameters \((c,d_a)\) and plots of the slopes as a function of binormal model decision variable \(z\), Fig. \ref{fig:proper-roc-models-plots-3}. Plot A is the ROC for \(c = -0.132, d_a = 1.197\) while plot B is the ROC for \(c = 0.226, d_a = 1.74\). Plots C and D are the corresponding slope plots. The parameters correspond to radiologists from a dataset \citep{andersson2008breast} involving a FROC study of breast tomosynthesis. Highest rating ROC data were inferred from the original FROC data. These were analyzed by PROPROC and the resulting parameter values were used above. The radiologists were chosen as they demonstrate significant differences in the shapes of their respective proper ROC curves. Plot A is for a negative value of \(c\) which implies \(b < 1\). In this situation the slope of the proper ROC is infinite near the origin (corresponding to the very large values of slope in Plot C approached at large likelihood threshold \(\lambda\)) and approaches a constant slope near the upper right corner of the ROC (corresponding to the positive minimum slope in Plot C approached as one lowers the likelihood threshold \(\lambda\)). Plot B is for a positive value of \(c\) which implies \(b > 1\). This time the slope of the ROC near the origin is large but finite (corresponding to the peak in Plot D at intermediate likelihood threshold \(\lambda\)) and approaches zero near the upper right corner (corresponding to the zero minimum slope in Plot D approached as one lowers the likelihood threshold \(\lambda\) to zero).
+
+\hypertarget{proper-roc-models-proproc-rocs}{%
+\subsection{PROPROC ROC and slope plots}\label{proper-roc-models-proproc-rocs}}
+
+\begin{figure}
+\centering
+\includegraphics{20a-proper-roc-models_files/figure-latex/proper-roc-models-plots-3-1.pdf}
+\caption{\label{fig:proper-roc-models-plots-3}The plots are labeled by the values of \(c\) and \(d_a\). Plots A and B are proper ROC plots while Plots C and D are the corresponding slope plots. In Plot A the slope is infinite near the origin and the curve approaches the upper-right corner with finite slope. The situation is reversed in Plot B where the slope is finite near the origin and the curve approaches the upper-right corner with zero slope.}
+\end{figure}
+
+To better understand the relation between the ROC plots and the slope plots, one moves up along the proper ROC curve by ``cutting'' the slope axis in Plots C and D horizontally with a sliding threshold \(\lambda\), starting with very high values and then lowering it downwards. In Plot B the slope of the ROC curve starts at the origin with a large but finite value corresponding to the peak in Plot D. Above the peak, there are no solutions for \(z\). The slope decreases monotonically to zero, corresponding to the flattening out of the slope at zero for \(z \approx 2\). Alternatively, one can think of horizontally shrinking each of Plots C and D to zero width, and all that remains is the slope axis with a thick vertical line superimposed on it, corresponding to the horizontally collapsed curves. In Plot C this vertical line extends from positive infinity down to about 0.1, and represents the range of decision variable samples encountered by the observer on the likelihood ratio scale. In Plot D this vertical line extends from a finite value (\textasciitilde9.4) to zero. Values outside of these ranges are not possible. \footnote{The two values of z corresponding to each cut implies, of course, that the binormal model based proper algorithm has to do a lot of bookkeeping, since, in general, each horizontal cut splits the decision axis into 3 regions.}
+
+\hypertarget{proper-roc-models-cbm}{%
+\section{The contaminated binormal model (CBM)}\label{proper-roc-models-cbm}}
+
+The contaminated binormal model \citep{dorfman2000contaminated1, dorfman2000contaminated2, dorfman2000contaminated3}, or CBM, is an alternate model for decision variable sampling in an ROC study. Like the binormal model, it is a two-parameter model, excluding cutoffs. The first parameter is \(\mu_\text{CBM}\), the separation of two unit-variance normal distributions. The sampling for non-diseased cases is from the \(N(0,1)\) distribution, while sampling for diseased cases is from the \(N(\mu_\text{CBM},1)\) distribution, provided the disease is visible, otherwise it is from the \(N(0,1)\) distribution. In other words, for diseased cases the sampling is from a mixture distribution of two unit variance normal distributions, one centered at \(\mu\) and the other centered at 0, with mixing fraction \(\alpha\), the fraction of diseased cases where the abnormality is actually visible. The binning is accomplished, as usual, by the cutoff vector \(\overrightarrow{\zeta}=\left( \zeta_1,...,\zeta_{\text{ROC}-1} \right)\), where \(R_\text{ROC}\) is the number of ROC bins. Defining dummy cutoffs \(\zeta_0=-\infty\) and \(\zeta_{\text{ROC}}=\infty\), the binning rule is as before:
+
+\begin{equation} 
+\begin{matrix}
+\text{if} & \zeta_{r-1} \le z < \zeta_r & \text{rating} = r 
+\end{matrix}
+\end{equation}
+
+Therefore, CBM is characterized by the parameters \(\mu, \alpha, \zeta_r\) where \(r=1,2,...,R_{\text{ROC}-1}\). The parameters \(\mu, \alpha\) can be used to predict the ROC curve and the area under the curve.
+
+\hypertarget{proper-roc-models-cbm-formulae}{%
+\subsection{CBM formulae}\label{proper-roc-models-cbm-formulae}}
+
+For non-diseased cases, the \(\text{pdf}\) is the same as for the binormal model:
+
+\begin{equation}
+\text{pdf}_N=\phi(z) 
+\label{eq:proper-roc-models-cbm-pdfn}
+\end{equation}
+
+For diseased cases the \(\text{pdf}\) is a mixture of two unit variance distributions, one centered at zero and the other at \(\mu_\text{CBM}\), with mixing fractions \((1-\alpha)\) and \(\alpha\), respectively:
+
+\begin{equation}
+\text{pdf}_D=\left( 1-\alpha \right)\phi(z) + \alpha \phi(z-\mu_\text{CBM})
+\label{eq:proper-roc-models-cbm-pdfd}
+\end{equation}
+
+The likelihood ratio for the CBM model is given by the ratio of the two pdfs:
+
+\begin{equation}
+\left.\begin{aligned}
+l_\text{CBM}\left( z|a,b \right)&=\frac{\left( 1-\alpha \right)\phi(z) + \alpha \phi(z-\mu_\text{CBM})}{\phi(z)}\\
+&=\left( 1-\alpha \right)+\alpha \, \exp\left(-\frac{\mu_\text{CBM}^2}{2}+z\,\mu_\text{CBM}  \right)
+\end{aligned}\right\}
+\label{eq:proper-roc-models-cbm-likelihood}
+\end{equation}
+
+The function increases monotonically as \(z\) increases proving that the predicted ROC curve is proper, i.e., its slope decreases monotonically as the operating point moves up the curve (causing both \(z\) and the likelihood ratio to decrease). The slope at the origin (infinite \(z\)) is infinite and the slope at the upper-right corner is \((1-\alpha)\). The predicted ROC coordinates are:
+
+\begin{equation}
+\left.\begin{aligned}
+\text{FPF}\left( \zeta \right) &= \Phi\left( -\zeta \right)\\
+\text{TPF}\left( \zeta \right) &= \left( 1-\alpha \right)\Phi\left( -\zeta \right)+\alpha \,\Phi\left( \mu_\text{CBM}-\zeta \right)
+\end{aligned}\right\}
+\label{eq:proper-roc-models-cbm-fpf-tpf}
+\end{equation}
+
+Since on non-diseased cases the sampling behaviors are identical, the expression for \(\text{FPF}\left( \zeta \right)\) is identical to that for the binormal model: the probability that the z-sample for a non-diseased case exceeds \(\zeta\) is \(\Phi\left( -\zeta \right)\). The second Eqn. \eqref{eq:proper-roc-models-cbm-fpf-tpf} can be understood as follows. \(\text{TPF}\left( \zeta \right)\) is the probability that a diseased case z-sample exceeds \(\zeta\). There are two possibilities: the z-sample arose from the zero-centered distribution, which occurs with probability \(\left( 1-\alpha \right)\), or it arose from the \(\mu_\text{CBM}\)-centered distribution, which occurs with probability \(\alpha\). In the former case, the probability that the z-sample exceeds \(\zeta\) is \(\Phi\left( -\zeta \right)\). In the latter case, the probability is \(\Phi\left( \mu_\text{CBM}-\zeta \right)\). The net probability is the weighted sum of these component probabilities in proportion to their relative frequencies \(\left( 1-\alpha \right):\alpha\). A similar logic can be used to derive the AUC under the CBM fitted ROC curve:
+
+\begin{equation}
+\text{AUC}_\text{CBM}=0.5\left( 1-\alpha \right)+\alpha \,\Phi\left( \frac {\mu_\text{CBM}}{\sqrt{2}} \right)
+\label{eq:proper-roc-models-cbm-auc}
+\end{equation}
+
+In the limit \(\mu_\text{CBM} \rightarrow \infty\), \(\text{AUC}_\text{CBM} \rightarrow 0.5\left( 1+\alpha \right)\) and in the limit \(\mu_\text{CBM} \rightarrow 0\), \(\text{AUC}_\text{CBM} \rightarrow 0.5\).
+
+\hypertarget{proper-roc-models-cbm-code}{%
+\subsection{CBM code implementation}\label{proper-roc-models-cbm-code}}
+
+The following computes the y-coordinate of the ROC predicted by the CBM:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CbmRocY <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (x, mu, alpha) \{}
+\NormalTok{  y <-}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha)}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{pnorm}\NormalTok{(}\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{x))) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\NormalTok{alpha}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{pnorm}\NormalTok{(}\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{x)}\OperatorTok{-}\NormalTok{mu))}
+  \KeywordTok{return}\NormalTok{(y)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The plotting code follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{FPF <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
+\NormalTok{alphaArr <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\FloatTok{0.8}\NormalTok{)}
+\NormalTok{muArr <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{plotRoc <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\NormalTok{myLabelIndx <-}\StringTok{ }\DecValTok{1}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{)}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{) }
+\NormalTok{  \{}
+\NormalTok{    \{}
+\NormalTok{      alpha <-}\StringTok{ }\NormalTok{alphaArr[i]}
+\NormalTok{      mu <-}\StringTok{ }\NormalTok{muArr[j]}
+\NormalTok{      TPF <-}\StringTok{ }\KeywordTok{CbmRocY}\NormalTok{(FPF, mu, alpha)}
+\NormalTok{      rocPlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =}\NormalTok{ FPF, }\DataTypeTok{TPF =}\NormalTok{ TPF)}
+\NormalTok{      plotRoc[[myLabelIndx]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}
+\NormalTok{        rocPlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF)) }\OperatorTok{+}\StringTok{ }
+\StringTok{        }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ rocPlot) }\OperatorTok{+}\StringTok{ }
+\StringTok{        }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{        }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
+\StringTok{        }\KeywordTok{ggtitle}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
+\NormalTok{                   LETTERS[myLabelIndx], }
+                   \StringTok{":"}\NormalTok{, }
+                   \KeywordTok{sprintf}\NormalTok{(}\StringTok{" alpha = %4.2f, mu = %4.2f"}\NormalTok{, }
+\NormalTok{                           alpha, mu)))}
+\NormalTok{      myLabelIndx <-}\StringTok{ }\NormalTok{myLabelIndx }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{FPF <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
+\NormalTok{cbmPdfs <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\NormalTok{myLabelIndx <-}\StringTok{ }\DecValTok{1}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{)}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{) }
+\NormalTok{  \{}
+\NormalTok{    \{}
+\NormalTok{      alpha <-}\StringTok{ }\NormalTok{alphaArr[i]}
+\NormalTok{      mu <-}\StringTok{ }\NormalTok{muArr[j]}
+      \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) \{}
+\NormalTok{        z1 <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+\NormalTok{        z2 <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, mu }\OperatorTok{+}\StringTok{ }\DecValTok{3}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+\NormalTok{      \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{        z1 <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+\NormalTok{        z2 <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, mu }\OperatorTok{+}\StringTok{ }\DecValTok{3}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+\NormalTok{      \}}
+\NormalTok{      Pdf1 <-}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(z1)}
+\NormalTok{      Pdf2 <-}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{alpha) }\OperatorTok{*}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(z2) }\OperatorTok{+}\StringTok{ }\NormalTok{alpha }\OperatorTok{*}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(z2, mu)}
+\NormalTok{      df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
+        \DataTypeTok{z =} \KeywordTok{c}\NormalTok{(z1, z2), }\DataTypeTok{pdf =} \KeywordTok{c}\NormalTok{(Pdf1, Pdf2), }
+        \DataTypeTok{truth =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{'non'}\NormalTok{, }\KeywordTok{length}\NormalTok{(Pdf1)), }
+                  \KeywordTok{rep}\NormalTok{(}\StringTok{'dis'}\NormalTok{, }\KeywordTok{length}\NormalTok{(Pdf2)))}
+\NormalTok{      )}
+      
+\NormalTok{      cbmPdfs[[myLabelIndx]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}
+\NormalTok{        df, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ z, }\DataTypeTok{y =}\NormalTok{ pdf, }\DataTypeTok{color =}\NormalTok{ truth)) }\OperatorTok{+}
+\StringTok{        }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ df) }\OperatorTok{+}
+\StringTok{        }\KeywordTok{scale_colour_manual}\NormalTok{(}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{,}\StringTok{"darkgrey"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{        }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
+\StringTok{        }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
+\StringTok{        }\CommentTok{#theme(legend.position = c(0.5, 0.2)) +}
+\StringTok{        }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\OperatorTok{+}
+\StringTok{        }\KeywordTok{ggtitle}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
+\NormalTok{                   LETTERS[myLabelIndx], }
+                   \StringTok{":"}\NormalTok{, }
+                   \KeywordTok{sprintf}\NormalTok{(}\StringTok{" alpha = %5.3f, mu = %5.3f"}\NormalTok{, }
+\NormalTok{                           alpha, mu)))}
+\NormalTok{      myLabelIndx <-}\StringTok{ }\NormalTok{myLabelIndx }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{proper-roc-models-cbm-rocs}{%
+\subsection{CBM ROC plots}\label{proper-roc-models-cbm-rocs}}
+
+The following figures should further clarify these equations. Fig. \ref{fig:proper-roc-models-cbm-plots-1} shows ROC curves predicted by the CBM model; the values of the \(\alpha\) and \(\mu\) parameters are indicated in the legend. For small \(\alpha\) and/or small \(\mu\) the curve approaches the chance diagonal consistent with the notion that if the lesion is not visible performance can be no better than chance level.
+
+\begin{figure}
+\centering
+\includegraphics{20a-proper-roc-models_files/figure-latex/proper-roc-models-cbm-plots-1-1.pdf}
+\caption{\label{fig:proper-roc-models-cbm-plots-1}ROC curves predicted by the CBM model. The corresponding values of the parameters are indicated above the plots. For small \(\alpha\) or small \(\mu\) the curve approaches the chance diagonal, consistent with the notion that if the lesion is not visible, performance can be no better than chance level.}
+\end{figure}
+
+As one might expect as \(\mu\) and/or \(\alpha\) increases performance gets better and the curve more closely approaches the top-left corner. Try as one might, by varying the parameters, one can never get the predicted curve to cross the chance diagonal, confirming viscerally that one is dealing with a proper ROC model. A proof of this property is in Eqn. \eqref{eq:proper-roc-models-cbm-likelihood} and the paragraph following it.
+
+The pdf plots are shown next, Fig. \ref{fig:proper-roc-models-cbm-plots-2}.
+
+\hypertarget{proper-roc-models-cbm-pdfs}{%
+\subsection{CBM pdf plots}\label{proper-roc-models-cbm-pdfs}}
+
+\begin{figure}
+\centering
+\includegraphics{20a-proper-roc-models_files/figure-latex/proper-roc-models-cbm-plots-2-1.pdf}
+\caption{\label{fig:proper-roc-models-cbm-plots-2}Density functions predicted by CBM. The dark line is the diseased distribution. The grey line is the non-diseased distribution. The bimodal diseased distribution is clearly evident in plots B and D.}
+\end{figure}
+
+The slope or likelihood ration plots are shown next, Fig. \ref{fig:proper-roc-models-cbm-plots-3}.
+
+\hypertarget{proper-roc-models-cbm-slopes}{%
+\subsection{CBM likelihood ratio plots}\label{proper-roc-models-cbm-slopes}}
+
+\begin{figure}
+\centering
+\includegraphics{20a-proper-roc-models_files/figure-latex/proper-roc-models-cbm-plots-3-1.pdf}
+\caption{\label{fig:proper-roc-models-cbm-plots-3}The slope plots are labeled by the values of \(\alpha\) and \(\mu\). Close examination of the region near the flat part shows it does not plateau at zero; rather the minimum is at \((1 - \alpha)\).}
+\end{figure}
+
+Fig. \ref{fig:proper-roc-models-cbm-plots-3} are the corresponding slope (or likelihood ratio) plots for the same parameter values as in the other figures in this section. All plots are monotonic with \(z\): as \(z\) increases, the slope increases; this makes the reader using \(z\), under the CBM model, a likelihood ratio observer. In addition, according to Eqn. (20.26), the slope approaches \(1-\alpha\) as \(z\) approaches \(–\infty\), i.e., once again we encounter a proper ROC curve which approaches the upper-right corner with non-zero slope (except for the special case \(\alpha = 1\)).
+
+\hypertarget{proper-roc-models-bigamma}{%
+\section{The bigamma model (BGM)}\label{proper-roc-models-bigamma}}
+
+\hypertarget{proper-roc-models-bigamma-formulae}{%
+\subsection{BGM formulae}\label{proper-roc-models-bigamma-formulae}}
+
+The gamma function is defined by \citep{abramowitz1964handbook}:
+
+\begin{equation}
+\Gamma\left( x \right) = \int_{0}^{\infty}t^{x-1}e^{-t} dt
+\label{eq:proper-roc-models-gamma}
+\end{equation}
+
+A random variable \(X\) has a gamma distribution if its \(\text{pdf}\) is \citep{larsen2005introduction}:
+
+\begin{equation}
+\begin{matrix}
+f\left( x |r,\lambda\right) = \frac{\lambda^r}{\Gamma\left( r \right)}x^{r-1}e^{-\lambda x}; & 
+x\ge 0, r>0, \lambda >0
+\end{matrix}
+\label{eq:proper-roc-models-gamma-pdf}
+\end{equation}
+
+It has the following interpretation: for integer \(r\), assuming events are Poisson distributed with rate parameter \(\lambda\), the \(\text{pdf}\) of event \(r\) follows Eqn. \eqref{eq:proper-roc-models-gamma-pdf}. However, in this equation, \(r\) is not restricted to integers. Alternatively, \(l/r\) is called the scale parameter and \(r\) is called the shape parameter of the gamma distribution.
+
+The mean and variance of this distribution are given by:
+
+\begin{equation}
+\left.\begin{aligned}
+E\left( X \right) &= \frac{r}{\lambda} \\
+Var\left( X \right) &= \frac{r}{\lambda^2} \\
+\end{aligned}\right\}
+\label{eq:proper-roc-models-gamma-mean-var}
+\end{equation}
+
+The constant-shape bigamma model is defined \citep{dorfman1997proper} by the following pdfs (note \(\lambda = 1\) for the non-diseased density and for either density \(x \ge 0\)):
+
+\begin{equation}
+\left.\begin{aligned}
+\text{pdf}_N\left( x \right) &= f\left( x;r,1 \right)\\
+&= \frac{1}{\Gamma\left( r \right)}x^{r-1}e^{-x}\\
+\text{pdf}_D\left( x \right) &= f\left( x;r,\lambda \right)\\
+&= \frac{\lambda^r}{\Gamma\left( r \right)}x^{r-1}e^{-\lambda x} 
+\end{aligned}\right\}
+\label{eq:proper-roc-models-gamma-pdfs}
+\end{equation}
+
+The reason for the name ``bigamma'' is because it involves two gamma distributions (just as ``binormal'' refers to two normal distributions). If the variance of the diseased distribution is to be larger than that of the non-diseased one the following constraint must hold:
+
+\begin{equation}
+0 < \lambda \le 1
+\label{eq:proper-roc-models-bigamma-lambda-inequality}
+\end{equation}
+
+The limitation \(x \ge 0\) suggests that \(x\) is equivalent to a likelihood ratio (the ratio of two pdfs must be non-negative), which will be shown shortly to be true. The model assumes the same shape parameter \(r\) for non-diseased and diseased cases, which is the basic reason why it predicts proper ROC curves. The likelihood ratio function \(l(x)\) is given by:
+
+\begin{equation}
+\left.\begin{aligned}
+l_\text{BG}\left( x;r,\lambda \right) &= \frac{\text{pdf}_D\left( x \right)}{\text{pdf}_N\left( x \right)} \\
+&=\lambda^r e^{-\left( \lambda - 1 \right) x}
+\end{aligned}\right\}
+\label{eq:proper-roc-models-bigamma-likelihood}
+\end{equation}
+
+The subscript ``BG'' is for bigamma model. Since the exponential is a monotonic function of its argument, the likelihood ratio is a monotonic function of \(x\), which implies that an observer using knowledge of this distribution and basing decisions on observed values of \(x\) exceeding a threshold, is a likelihood ratio observer. Notice the usage of \(x\) rather than \(z\); the latter denotes samples from normal distributions. The bigamma model observer bases decisions on the x-sample, not the z-sample. In addition, for notational consistency one uses the symbol \(\xi\) to denote a threshold on the x-axis. If \(x > \xi\) the case is diagnosed as diseased and otherwise it is diagnosed non-diseased.
+
+Since \(0 < \lambda \le 1\) the slope at the upper right corner (corresponding to \(x = 0\)) is \(\lambda ^ r\) and the slope is infinite at the origin (corresponding to \(x = \infty\)). As with PROPROC and CBM, once again one encounters a proper ROC curve approaching the upper-right corner with finite slope. If \(\lambda > 1\) the slope is zero at the origin, which would cause the ROC curve to start out below the chance diagonal. Therefore, constraint \(0 < \lambda \le 1\) is needed not just to yield a wider distribution for diseased cases but to also assure the ROC curve is proper. If \(\lambda = 1\) then regardless of the value of \(r\), the ROC curve is the chance diagonal because the two pdfs become identical.
+
+The cumulative distribution function (CDF) of the gamma distribution is given by:
+
+\begin{equation}
+F\left( x;r,\lambda \right) = \int_{0}^{x}f\left( u;r,\lambda \right) du
+= \frac{\gamma\left( r, \lambda x \right)}{\Gamma\left( r \right)}
+\label{eq:proper-roc-models-gamma-cdf}
+\end{equation}
+
+Here the lower incomplete gamma function \citep{abramowitz1964handbook} \(\gamma\left( s,x \right)\) is defined by:
+
+\begin{equation}
+\gamma\left( s,x \right) = \int_{0}^{x} t^{s-1} e^{-t} dt
+\label{eq:proper-roc-models-gamma-incomplete}
+\end{equation}
+
+{[}Since \texttt{R} implements the CDF of the gamma distribution directly, as \texttt{pgamma()} one actually has no use for Eqn. \eqref{eq:proper-roc-models-gamma-incomplete} which is included for pedagogic completeness.{]} The coordinates of the predicted ROC at threshold \(\xi\) are (the complementary probability is needed as FPF and TPF are the probabilities of exceeding a threshold):
+
+\begin{equation}
+\left.\begin{aligned}
+\text{FPF}\left( \xi|r \right) &= 1 - \frac{\gamma\left( r,\xi \right)}{\Gamma\left( r \right)} \\
+&=\int_{\xi}^{\infty} f\left( u;r,1 \right) \\
+\text{TPF}\left( \xi|r, \lambda \right) &= 1 - \frac{\gamma\left( r,\lambda \xi \right)}{\Gamma\left( r \right)} \\
+&=\int_{\xi}^{\infty} f\left( u;r,\lambda \right) \\
+\end{aligned}\right\}
+\label{eq:proper-roc-models-gamma-fpf-tpf}
+\end{equation}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aucIntegrand <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (FPF, r, lambda) }
+\NormalTok{\{}
+\NormalTok{  y <-}\StringTok{ }\DecValTok{1} \OperatorTok{-}\StringTok{ }\KeywordTok{pgamma}\NormalTok{(}\KeywordTok{qgamma}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{FPF, r), r, }\DataTypeTok{scale =} \DecValTok{1}\OperatorTok{/}\NormalTok{lambda)}
+  \KeywordTok{return}\NormalTok{(y)  }
+\NormalTok{\}}
+
+
+\NormalTok{biGammaRocY <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (x, r, lambda) \{}
+\NormalTok{  y <-}\StringTok{ }\DecValTok{1} \OperatorTok{-}\StringTok{ }\KeywordTok{pgamma}\NormalTok{(x, r, }\DataTypeTok{scale =} \DecValTok{1}\OperatorTok{/}\NormalTok{lambda)}
+  \KeywordTok{return}\NormalTok{(y)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{proper-roc-models-bigamma-code}{%
+\subsection{BGM code implementation}\label{proper-roc-models-bigamma-code}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rArray <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FloatTok{4.391}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{);lambdaArray <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FloatTok{0.439}\NormalTok{,}\FloatTok{0.3}\NormalTok{,}\FloatTok{0.1}\NormalTok{)}
+\CommentTok{#r <-  4.391; lambda <-  0.439 # from Dorfman paper}
+\NormalTok{plotRoc <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\NormalTok{plotSlope <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\NormalTok{pdfs <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(rArray))}
+\NormalTok{\{}
+\NormalTok{  r <-}\StringTok{ }\NormalTok{rArray[i];lambda <-}\StringTok{ }\NormalTok{lambdaArray[i]}
+\NormalTok{  AUC <-}\StringTok{ }\KeywordTok{integrate}\NormalTok{(aucIntegrand,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{, }\DataTypeTok{r =}\NormalTok{ r, }\DataTypeTok{lambda =}\NormalTok{ lambda)}
+  \CommentTok{# cat("r = ", r, ", lambda = ", lambda, ", AUC = ", AUC$value, "\textbackslash{}n")}
+  \CommentTok{# left limit below gets the upper end of the ROC curve }
+  \CommentTok{# the right limit gets the lower corner}
+\NormalTok{  x <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, r}\OperatorTok{/}\NormalTok{lambda }\OperatorTok{+}\StringTok{ }\DecValTok{10}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(r}\OperatorTok{/}\NormalTok{lambda}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+\NormalTok{  FPF <-}\StringTok{ }\KeywordTok{biGammaRocY}\NormalTok{(x, r, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  TPF <-}\StringTok{ }\KeywordTok{biGammaRocY}\NormalTok{(x, r, lambda)}
+  
+\NormalTok{  rocPlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =}\NormalTok{ FPF, }\DataTypeTok{TPF =}\NormalTok{ TPF)}
+\NormalTok{  plotRoc[[i]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}
+\NormalTok{    rocPlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
+\NormalTok{           LETTERS[i], }
+           \StringTok{":"}\NormalTok{, }
+           \KeywordTok{sprintf}\NormalTok{(}\StringTok{" r = %3.2f, lambda = %3.2f"}\NormalTok{, }
+\NormalTok{                   r, lambda)))}
+
+
+  \CommentTok{# taking mean + 3 times the standard deviation}
+\NormalTok{  x <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{, r}\OperatorTok{/}\NormalTok{lambda }\OperatorTok{+}\StringTok{ }\DecValTok{3}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(r}\OperatorTok{/}\NormalTok{lambda}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+  
+\NormalTok{  Pdf1 <-}\StringTok{ }\KeywordTok{dgamma}\NormalTok{(x, r)}
+\NormalTok{  Pdf2 <-}\StringTok{ }\KeywordTok{dgamma}\NormalTok{(x, r, }\DataTypeTok{scale =} \DecValTok{1}\OperatorTok{/}\NormalTok{lambda)}
+  
+\NormalTok{  df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(x, x), }\DataTypeTok{pdf =} \KeywordTok{c}\NormalTok{(Pdf1, Pdf2), }
+                   \DataTypeTok{truth =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{'non-diseased'}\NormalTok{, }\KeywordTok{length}\NormalTok{(Pdf1)), }
+                             \KeywordTok{rep}\NormalTok{(}\StringTok{'diseased'}\NormalTok{, }\KeywordTok{length}\NormalTok{(Pdf2))))}
+  
+\NormalTok{  pdfs[[i]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}
+\NormalTok{    df, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ pdf, }\DataTypeTok{color =}\NormalTok{ truth)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{scale_colour_manual}\NormalTok{(}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{,}\StringTok{"green"}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_blank}\NormalTok{(), }
+          \DataTypeTok{legend.position =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.9}\NormalTok{, }\FloatTok{0.9}\NormalTok{))}
+  
+  \CommentTok{# may need to adjust limits to view detail of slope plot}
+\NormalTok{  x <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+
+\NormalTok{  slope <-}\StringTok{ }\NormalTok{(}\KeywordTok{dgamma}\NormalTok{(x, r, }\DataTypeTok{scale =} \DecValTok{1}\OperatorTok{/}\NormalTok{lambda))}\OperatorTok{/}\KeywordTok{pgamma}\NormalTok{(x, r)}
+
+\NormalTok{  slopePlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{slope =}\NormalTok{ slope)}
+\NormalTok{  plotSlope[[i]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(slopePlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ slope)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{()}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The bigamma-model formulae, coded above, generates ROC plots, Fig. \ref{fig:proper-roc-models-bigamma-plots-1}, pdfs plots for non-diseased and diseased cases, Fig. \ref{fig:proper-roc-models-bigamma-plots-2} and likelihood ratio (slope) plots Fig. \ref{fig:proper-roc-models-bigamma-plots-3} for four pairs of values of the \((r, \lambda)\) bigamma model parameters. Plot A is for \((r = 1, \lambda = 1)\) when the ROC becomes the chance diagonal regardless of the value of \(r\). Plot B is for \((r = 4.39, \lambda = 0.439)\) identical to those used for simulations in \footnote{dorfman1997proper}. Plot C is for \$(r = 5, \lambda = 0.3) and Plot D is for \$(r = 10, \lambda = 0.1).
+
+\hypertarget{proper-roc-models-bigamma-rocs}{%
+\subsection{BGM ROC plots}\label{proper-roc-models-bigamma-rocs}}
+
+\begin{figure}
+\centering
+\includegraphics{20a-proper-roc-models_files/figure-latex/proper-roc-models-bigamma-plots-1-1.pdf}
+\caption{\label{fig:proper-roc-models-bigamma-plots-1}ROC curves predicted by the bigamma model. The corresponding AUCs are 0.5, 0.879, 0.965 and 0.9999}
+\end{figure}
+
+The slopes in Fig. \ref{fig:proper-roc-models-bigamma-plots-3} are consistent with the pdfs shown in Fig. \ref{fig:proper-roc-models-bigamma-plots-2}. For example, for plot D, the mean of the diseased distribution is 100 relative to 10 for the non-diseased distribution and performance is close to perfect.
+
+The author is unaware of an analytic expression for AUC of the bigamma model. However the ROC curve can be numerically integrated using the \texttt{R} function \texttt{pgamma()}. Using this yields the following values of AUC of the ROCs shown in Fig. \ref{fig:proper-roc-models-bigamma-plots-1}: Plot A: AUC = 0.5, Plot B: AUC = 0.8790038, Plot C: AUC = 0.9645528 and Plot D: AUC = 0.9999984. \footnote{One can confirm that values of \(\lambda > 1\) yield ROC curves below the chance diagonal and AUC less than 0.5. These ROC curves are actually ``reflected'' versions of proper ROC curves; for each such curve the slope starts at a finite positive value near the origin and increases to infinity near the top right corner.}
+
+\hypertarget{proper-roc-models-bigamma-pdfs}{%
+\subsection{BGM pdf plots}\label{proper-roc-models-bigamma-pdfs}}
+
+\begin{figure}
+\centering
+\includegraphics{20a-proper-roc-models_files/figure-latex/proper-roc-models-bigamma-plots-2-1.pdf}
+\caption{\label{fig:proper-roc-models-bigamma-plots-2}Density functions predicted by bigamma model.}
+\end{figure}
+
+\hypertarget{proper-roc-models-bigamma-slopes}{%
+\subsection{BGM likelihood ratio plots}\label{proper-roc-models-bigamma-slopes}}
+
+\begin{figure}
+\centering
+\includegraphics{20a-proper-roc-models_files/figure-latex/proper-roc-models-bigamma-plots-3-1.pdf}
+\caption{\label{fig:proper-roc-models-bigamma-plots-3}Likelihood ratio (or ROC slope) plots predicted by the bigamma model.}
+\end{figure}
+
+There used to be software called BIGAMMA, formerly MAXGAM \citep{dorfman1997proper}, implementing the bigamma model, but the University of Iowa ROC website now states ``BIGAMMA is not available for download at this time. Users who desire a proper ROC model should use PROPROC or CBM'' (\url{http://perception.radiology.uiowa.edu}, accessed Apr.~29, 2017). I understand the de-emphasis of this method, as the proposed bigamma distribution is inconsistent with expectations based on the central limit theorem, namely, when many random processes contribute to a measurement, the net distribution tends to normality, independent of the distributions of the individual processes.
+
+\hypertarget{proper-roc-models-discussion}{%
+\section{Discussion}\label{proper-roc-models-discussion}}
+
+With the readily availability of CBM and RSM (both implemented in \texttt{RJafroc}) there is no excuse for not using them. These programs are ``bullet-proof'': they can fit any dataset that one cares to throw at them. The author's preference is to use RSM as it yields additional information about search and lesion-localization performance not available using CBM.
+
+PROPOROC has some problems fitting degenerate datasets. These can be readily fixed but to my knowledge no one is actively maintaining this important contribution by Prof.~Metz.
+
+\hypertarget{proproc-rocs}{%
+\chapter{PROPROC ROC curves}\label{proproc-rocs}}
+
+\hypertarget{helper-functions}{%
+\section{Helper functions}\label{helper-functions}}
+
+\hypertarget{definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters}{%
+\section{Definitions of PROPROC parameters in terms of binormal model parameters}\label{definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters}}
+
+\[c=\frac{b-1}{b+1};{{d}_{a}}=\frac{\sqrt{2}a}{\sqrt{1+{{b}^{2}}}}\]
+
+\hypertarget{main-code-and-output}{%
+\section{Main code and output}\label{main-code-and-output}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c1Arr <-}\StringTok{   }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\FloatTok{0.1322804}\NormalTok{, }\FloatTok{0.2225588}\NormalTok{); daArr  <-}\StringTok{  }\KeywordTok{c}\NormalTok{(}\FloatTok{1.197239}\NormalTok{, }\FloatTok{1.740157}\NormalTok{)}
+\NormalTok{myLabel <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"D"}\NormalTok{)}
+\NormalTok{myLabelIndx <-}\StringTok{ }\DecValTok{1}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{)}
+\NormalTok{\{}
+\NormalTok{  c1 <-}\StringTok{ }\NormalTok{c1Arr[i]}
+\NormalTok{  da <-}\StringTok{ }\NormalTok{daArr[i]}
+\NormalTok{  ret <-}\StringTok{ }\KeywordTok{Transform2ab}\NormalTok{(da, c1)}
+\NormalTok{  a <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{a;b <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{b}
+  \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) z <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{) }\CommentTok{# may need to adjust limits to view detail of slope plot}
+  \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{) z <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{) }\CommentTok{# may need to adjust limits to view detail of slope plot}
+  
+\NormalTok{  FPF <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
+\NormalTok{  TPF <-}\StringTok{ }\KeywordTok{rocY}\NormalTok{(FPF, a, b)}
+  
+\NormalTok{  rocPlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =}\NormalTok{ FPF, }\DataTypeTok{TPF =}\NormalTok{ TPF)}
+\NormalTok{  plotRoc <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(rocPlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{()  }\OperatorTok{+}\StringTok{ }
+\StringTok{   }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))   }\OperatorTok{+}
+\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(myLabel[myLabelIndx]);myLabelIndx <-}\StringTok{ }\NormalTok{myLabelIndx }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+
+\NormalTok{  slope <-b}\OperatorTok{*}\KeywordTok{dnorm}\NormalTok{(a}\OperatorTok{-}\NormalTok{b}\OperatorTok{*}\NormalTok{z)}\OperatorTok{/}\KeywordTok{dnorm}\NormalTok{(}\OperatorTok{-}\NormalTok{z) }\CommentTok{# same as likelihood ratio}
+  
+\NormalTok{  slopePlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{z =}\NormalTok{ z, }\DataTypeTok{slope =}\NormalTok{ slope)}
+\NormalTok{  p <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(slopePlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ z, }\DataTypeTok{y =}\NormalTok{ slope)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{()  }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))  }\OperatorTok{+}
+\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(myLabel[myLabelIndx]);myLabelIndx <-}\StringTok{ }\NormalTok{myLabelIndx }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+  \KeywordTok{print}\NormalTok{(plotRoc);}\KeywordTok{print}\NormalTok{(p)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{20b-proproc-roc-curves_files/figure-latex/unnamed-chunk-2-1.pdf} \includegraphics{20b-proproc-roc-curves_files/figure-latex/unnamed-chunk-2-2.pdf} \includegraphics{20b-proproc-roc-curves_files/figure-latex/unnamed-chunk-2-3.pdf} \includegraphics{20b-proproc-roc-curves_files/figure-latex/unnamed-chunk-2-4.pdf}
+
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
+
+Plot A is for \texttt{c1} = -0.1322804, \texttt{da} = 1.197239 while plot C is for \texttt{c1} = 0.2225588, \texttt{da} = 1.740157. Plots B and D are the corresponding slope plots as functions of the binormal model z-sample. In plot A, the slope is infinite near the origin and the curve approaches the upper-right corner with finite slope. The situation is reversed in plot C where the slope is finite near the origin and the curve approaches the upper-right corner with zero slope.
+
+These two readers are from a clinical dataset, \texttt{dataset01}. Highest rating inferred ROC data from original FROC data, were analyzed by PROPROC and the resulting parameter values are coded here. They were chosen as they demonstrate key differences in the shapes of proper ROC plots. Plot A corresponds to a negative value of \texttt{c1}, which implies \texttt{b\ \textless{}\ 1}. The slope of the proper ROC is infinite near the origin and approaches a positive constant near the upper right corner of the ROC. Plot C is for a positive value of \texttt{c1}, i.e., for \texttt{b\ \textgreater{}\ 1}. Now the slope of the proper ROC is finite near the origin and approaches zero near the upper right corner.
+
+Considering plot D, as one ``cuts'' the slope axis horizontally with a sliding threshold, starting with very high values and moving downwards, the slope of the ROC curve starts at the origin with a large but finite value. This corresponds to the peak in plot D. Above the peak, there are no solutions for \texttt{z}. The slope decreases monotonically to zero, corresponding to the flattening out of the slope at zero for \texttt{z\ \textasciitilde{}\ \ -2}.
+
+The two values of \texttt{z} corresponding to each cut implies, of course, that the binormal model based proper algorithm has to do a lot of bookkeeping, since each horizontal cut splits the decision axis into 3 regions. One can think of shrinking each of plots B \& D horizontally to zero width, and all that remains is the slope axis with a thick vertical line superimposed on it, corresponding to the horizontally collapsed curves. In plot B the vertical line extends from positive infinity down to about 0.1, and represents the range of decision variable samples encountered by the observer on the likelihood ratio scale. In plot D the vertical line extends from a finite value (\textasciitilde9.4) to zero. For the stated binormal model parameters values outside of these ranges are not possible.
+
+\hypertarget{metz-eqn-36}{%
+\chapter{Metz Eqn 36 numerical check}\label{metz-eqn-36}}
+
+\hypertarget{helper-functions-1}{%
+\section{Helper functions}\label{helper-functions-1}}
+
+\hypertarget{main-code-and-output-1}{%
+\section{Main code and output}\label{main-code-and-output-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{npts <-}\StringTok{  }\DecValTok{10000}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{) \{}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{) \{}
+\NormalTok{    C  <-}\StringTok{  }\NormalTok{c1[i,j]}
+\NormalTok{    da  <-}\StringTok{  }\NormalTok{d_a1[i,j]}
+\NormalTok{    ret <-}\StringTok{ }\KeywordTok{GetLimits}\NormalTok{(da,C)}
+\NormalTok{    LL <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{LL;UL <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{UL}
+\NormalTok{    vc  <-}\StringTok{  }\KeywordTok{seq}\NormalTok{ (LL, UL, }\DataTypeTok{length.out =}\NormalTok{ npts)}
+\NormalTok{    TPF  <-}\StringTok{  }\KeywordTok{TruePositiveFraction}\NormalTok{ (vc, da, C)}
+\NormalTok{    FPF <-}\StringTok{ }\KeywordTok{FalsePositiveFraction}\NormalTok{ (vc, da, C)}
+\NormalTok{    FPF <-}\StringTok{ }\KeywordTok{rev}\NormalTok{(FPF);TPF <-}\StringTok{ }\KeywordTok{rev}\NormalTok{(TPF)}
+\NormalTok{    df2 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =}\NormalTok{ FPF, }\DataTypeTok{TPF =}\NormalTok{ TPF)}
+    \CommentTok{# do integral numerically}
+\NormalTok{    numAuc <-}\StringTok{ }\KeywordTok{trapz}\NormalTok{(FPF, TPF)}
+    \CommentTok{# Implement Eqn. 36 from Metz-Pan paper }
+\NormalTok{    rho <-}\StringTok{ }\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{C}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{C}\OperatorTok{^}\DecValTok{2}\NormalTok{);sigma <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, rho), }\KeywordTok{c}\NormalTok{(rho, }\DecValTok{1}\NormalTok{))}
+\NormalTok{    lower <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OperatorTok{-}\OtherTok{Inf}\NormalTok{,}\DecValTok{2}\NormalTok{);upper <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{da}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{),}\DecValTok{0}\NormalTok{)}
+\NormalTok{    aucProproc <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(da}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\DecValTok{2} \OperatorTok{*}\StringTok{ }\KeywordTok{pmvnorm}\NormalTok{(lower, upper, }\DataTypeTok{sigma =}\NormalTok{ sigma)}
+\NormalTok{    aucProproc <-}\StringTok{  }\KeywordTok{as.numeric}\NormalTok{(aucProproc)}
+    \KeywordTok{cat}\NormalTok{(}\StringTok{"i = "}\NormalTok{, i,}\StringTok{"j = "}\NormalTok{, j,}\StringTok{"C = "}\NormalTok{, C, }\StringTok{", da = "}\NormalTok{, da, }\StringTok{"aucProproc ="}\NormalTok{, aucProproc, }\StringTok{"Norm. Diff. = "}\NormalTok{, (aucProproc}\OperatorTok{-}\NormalTok{numAuc)}\OperatorTok{/}\NormalTok{aucProproc,}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{\}}
+\CommentTok{#> i =  1 j =  1 C =  -0.1322804 , da =  1.197239 aucProproc = 0.8014164 Norm. Diff. =  3.520017e-08 }
+\CommentTok{#> i =  1 j =  2 C =  -0.08696513 , da =  1.771176 aucProproc = 0.8947898 Norm. Diff. =  4.741875e-08 }
+\CommentTok{#> i =  1 j =  3 C =  -0.1444419 , da =  1.481935 aucProproc = 0.8526605 Norm. Diff. =  3.515431e-08 }
+\CommentTok{#> i =  1 j =  4 C =  0.08046016 , da =  1.513757 aucProproc = 0.8577776 Norm. Diff. =  4.971428e-08 }
+\CommentTok{#> i =  1 j =  5 C =  0.2225588 , da =  1.740157 aucProproc = 0.8909392 Norm. Diff. =  2.699855e-08 }
+\CommentTok{#> i =  2 j =  1 C =  -0.08174248 , da =  0.6281251 aucProproc = 0.6716574 Norm. Diff. =  2.801793e-08 }
+\CommentTok{#> i =  2 j =  2 C =  0.04976448 , da =  0.9738786 aucProproc = 0.7544739 Norm. Diff. =  5.275242e-08 }
+\CommentTok{#> i =  2 j =  3 C =  -0.1326126 , da =  1.155871 aucProproc = 0.7931787 Norm. Diff. =  3.472577e-08 }
+\CommentTok{#> i =  2 j =  4 C =  0.1182226 , da =  1.620176 aucProproc = 0.8740274 Norm. Diff. =  3.922161e-08 }
+\CommentTok{#> i =  2 j =  5 C =  0.0781033 , da =  0.8928816 aucProproc = 0.7360989 Norm. Diff. =  3.798459e-08}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{discussion-1}{%
+\section{Discussion}\label{discussion-1}}
+
+Note the close correspondence between the formula, Eqn. 36 in the Metz-Pan paper and the numerical estimate. As a historical note, Eqn. 31 and Eqn. 36 (they differ only in parameterizations) in the referenced publication are provided without proof -- it was probably obvious to Prof Metz or he wanted to leave it to us ``mere mortals'' to figure it out, as a final parting gesture of his legacy. The author once put a significant effort into proving it and even had a bright graduate student from the biostatistics department work on it to no avail. The author has observed that these equations always yield very close to the numerical estimates, to within numerical precisions, so the theorem is correct empirically, but he has been unable to prove it analytically. It is left as an exercise for a gifted reader to prove/disprove these equations.
+
+\hypertarget{bivariate-binormal-model}{%
+\chapter{Bivariate binormal model}\label{bivariate-binormal-model}}
+
+\hypertarget{bivariate-binormal-model-how-much-finished}{%
+\section{TBA How much finished}\label{bivariate-binormal-model-how-much-finished}}
+
+20\%
+
+\hypertarget{bivariate-binormal-model-introduction}{%
+\section{Introduction}\label{bivariate-binormal-model-introduction}}
+
+Until now, the focus for the ROC paradigm has been on the single rating per case scenario where a single reader interprets a set of cases in a single modality. Of greater clinical interest is a study where a group of readers interprets a common set of cases in multiple modalities. This is because such a study, properly analyzed, yields results that are expected to generalize to the populations of readers and cases from which the study readers and cases were sampled. However, before one can understand several readers interpreting a common case set in multiple modalities, a good place to start is two readers interpreting a common set of cases. Historically, the field progressed from this starting point (the DBMH and ORH analyses methods came after the method to be described here). One might wonder why even bother describing the older approach, since methods for analyzing MRMC datasets have already been described. The analyses methods do not address how to fit the data to models (instead, they assume a figure of merit can be calculated and describe how to perform significance testing using the figure of merit). Data fitting is crucial to understanding factors limiting performance. Before bringing in a three-parameter model like the RSM, addressed in book Chapter 18, it is important to understand the two--parameter model applicable to paired ROC data. The analyst is dealing with two ratings per case, one per reader. An analogous situation applies when one has a single reader interpreting cases in two modalities. The analyst is again faced with two ratings per case, one per modality.
+
+In book Chapter 06 the univariate binormal model was described, which is appropriate for modeling the single rating per case situation (the ``binormal'' comes from the two truth states, not the two modalities). From the previous discussion, it is evident that this needs to be extended to a bivariate model, which would describe studies where each case yields two ratings. Because of the dual interpretations the two ratings per case are correlated. Assuming a 5-rating positive-directed ROC study, on especially easy non-diseased cases the two ratings will both tend to be low (e.g., 1's) and on especially easy diseased cases the two ratings will both tend to be high (e.g., 5's) and on difficult cases, both ratings are likely to be in the ambiguous range (e.g., 3's).
+
+Here is the plan for this chapter. First, the bivariate extension of the univariate binormal model is described. Since most of the readers of this book are expected to not experts in statistics, bivariate sampling will be described at a relatively simple level. Visualization of the resulting probability density functions (pdfs) is demonstrated, which allows the reader to interactively view them, which should allow a better understand of this relatively more complex distribution. Estimation of parameters of the bivariate model from ratings data is addressed. The usage of free software implementing this procedure, i.e., CORROC2, is described. The data format used by CORROC2 is described in some detail as well as how to interpret the program output. \footnote{Since this software runs on Windows, material is provided to allow the user to run it on a MAC (most of this necessary digression, since the author is using OS X, is in TBA Online Appendix 21.D). This digression is not needed in one is using a Windows platform.} Finally, the application of the software to clinical datasets is described. A recent advance that solves degeneracy problems associated with CORROC2 is described, namely CORCBM, for correlated CBM. We conclude with a discussion of the applications of CORROC2.
+
+\hypertarget{bivariate-binormal-model-bivariate-density}{%
+\section{Bivariate density function}\label{bivariate-binormal-model-bivariate-density}}
+
+Sampling from the multivariate normal distribution \(N_p\) is as follows:
+
+\begin{equation}
+\overrightarrow{x} \sim  N_p\left( \mu, \Sigma \right)
+\label{eq:multivariate-sampling-model}
+\end{equation}
+
+Here \(\overrightarrow{x}\) is a length \(p\) vector of observed samples, \(\overrightarrow{\mu}\) is a length \(p\) vector containing the means of the multivariate distribution and \(\Sigma\) is the covariance matrix describing the variances, and correlations between the observed samples.
+
+The multivariate normal probability density function \(f_p\left( \overrightarrow{x} ~~ \bigg \rvert ~~\overrightarrow{\mu}, ~~ \overrightarrow{\Sigma} \right)\) is defined by:
+
+\begin{equation} 
+f_p\left( \overrightarrow{x} ~~ \bigg \rvert ~~\overrightarrow{\mu}, ~~ \overrightarrow{\Sigma} \right)
+= \frac{1}{\left( 2 \pi \right)^{p/2}|\Sigma|^{1/2}}\exp\left( -\frac{\left( \overrightarrow{x}-\overrightarrow{\mu} \right)^T \Sigma^{-1} \left( \overrightarrow{x}-\overrightarrow{\mu} \right)}{2} \right)
+\label{eq:bivariate-binormal-model-density-function-multivariate}
+\end{equation}
+
+Here \(|\Sigma|\) is the determinant of the matrix and \(T\) is the transpose operator.
+
+For the special case of a bivariate normal distribution, \(p = 2\), this is equivalent to (the subscript 2 is suppressed) \footnote{In the univariate case, \(p = 1\), \(\Sigma\) is replaced by \(\sigma^2\), and the above expression reduces to the pdf of the normal distribution \(N(\mu, \sigma^2)\).}:
+
+\begin{equation} 
+f\left( x_1,x_2 ~~ \bigg \rvert ~~ \mu_1, \mu_2,  \sigma_1, \sigma_2, \rho \right)
+= \frac{1}{2 \pi \sigma_1 \sigma_2 \sqrt{1-\rho^2}}\exp\left( -\frac{t}{2\left( 1-\rho^2 \right)} \right)
+\label{eq:bivariate-binormal-model-density-function}
+\end{equation}
+
+where
+
+\begin{equation} 
+t=\frac{\left( x_1-\mu_1 \right)^2}{\sigma_1^2}-\frac{2\rho\left( x_1-\mu_1 \right)\left( x_2-\mu_2 \right)}{\sigma_1 \sigma_2}
++\frac{\left( x_2-\mu_2 \right)^2}{\sigma_2^2}
+\label{eq:bivariate-binormal-model-density-function2}
+\end{equation}
+
+For a bivariate distribution the covariance matrix is:
+
+\begin{equation} 
+\Sigma=
+\left( \begin{matrix}
+\sigma_1^2 & \rho \sigma_1 \sigma_2 \\
+\rho \sigma_1 \sigma_2 & 
+\sigma_2^2
+\end{matrix}
+ \right)\label{eq:bivariate-binormal-model-covariance-matrix}
+\end{equation}
+
+The \texttt{R} function to evaluate Eqn. \eqref{eq:bivariate-binormal-model-density-function-multivariate} is \texttt{dmvnorm()}, for ``density of multivariate normal distribution'', available via \texttt{R} package \texttt{mvtnorm}. Its usage is illustrated next for the following parameter values:
+
+\begin{equation} 
+\left.\begin{aligned}
+\overrightarrow{
+\mu}&=
+\left( \begin{matrix}
+\mu_1 \\
+\mu_2
+\end{matrix}
+\right)
+=\left( \begin{matrix}
+1.5 \\
+2.0
+\end{matrix}
+\right) \\
+\sigma_1 &= 1.1 \\
+\sigma_2 &= 1.5 \\
+\rho &= 0.6 \\
+\Sigma&=
+\left( 
+\begin{matrix}
+\sigma_1^2 & \rho \sigma_1 \sigma_2 \\
+\rho \sigma_1 \sigma_2  & \sigma_2^2
+\end{matrix}\right)
+=
+\left( 
+\begin{matrix}
+1.1^2 & 0.6 \times 1.1 \times 1.5 \\
+0.6 \times 1.1 \times 1.5  & 1.5^2
+\end{matrix}\right)\end{aligned}\right\}
+\label{eq:bivariate-binormal-model-parameters}
+\end{equation}
+
+In the following code the call to get the pdf occurs at line: \texttt{pdf\ \textless{}-\ dmvnorm(x,\ mean\ =\ c(mu1,mu2),\ sigma\ =\ Sigma)}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}\FloatTok{0.2}\NormalTok{) }\CommentTok{# the x-vector at which to evaluate pdf}
+\NormalTok{mu1 <-}\StringTok{ }\FloatTok{1.5} \CommentTok{# mean modality 1}
+\NormalTok{mu2 <-}\StringTok{ }\FloatTok{2.0} \CommentTok{# mean modality 2}
+\NormalTok{var1 <-}\StringTok{ }\FloatTok{1.1}\OperatorTok{^}\DecValTok{2}  \CommentTok{# variance modality 1}
+\NormalTok{var2 <-}\StringTok{ }\FloatTok{1.5}\OperatorTok{^}\DecValTok{2} \CommentTok{# variance modality 2}
+\NormalTok{rho <-}\StringTok{ }\FloatTok{0.6} \CommentTok{# correlation between modalities 1 and 2}
+\CommentTok{#}
+\CommentTok{# construct covariance matrix Sigma}
+\CommentTok{# }
+\NormalTok{Sigma <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(var1, rho}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(var1}\OperatorTok{*}\NormalTok{var2), }
+\NormalTok{                  rho}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(var1}\OperatorTok{*}\NormalTok{var2), var2),}\DecValTok{2}\NormalTok{)}
+\CommentTok{#}
+\CommentTok{# pdf }
+\CommentTok{# }
+\NormalTok{pdf  <-}\StringTok{ }\KeywordTok{dmvnorm}\NormalTok{(x, }\DataTypeTok{mean =} \KeywordTok{c}\NormalTok{(mu1,mu2), }\DataTypeTok{sigma =}\NormalTok{ Sigma)}
+\CommentTok{#}
+\CommentTok{# print results}
+\CommentTok{# }
+\KeywordTok{cat}\NormalTok{(}\StringTok{"density at x1 = 0.1 and x2 = 0.2 = "}\NormalTok{, pdf, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{#> density at x1 = 0.1 and x2 = 0.2 =  0.04622722}
+\end{Highlighting}
+\end{Shaded}
+
+The parameters describing the bivariate normal distribution are \(\overrightarrow{\mu}\) and \(\Sigma\). The total number of parameters is five: two means, two variances and a correlation coefficient.
+
+\hypertarget{bivariate-binormal-model-formulae}{%
+\section{The bivariate binormal model}\label{bivariate-binormal-model-formulae}}
+
+The bivariate binormal model is an extension of the bivariate model just described, to \emph{two truth-states}, non-diseased and diseased, each modeled separately as a bivariate normal distribution. This could potentially result in a doubling of the number of parameters from 5 to 10, but by appropriate shifting and scaling transformations one can ensure that the two means of the bivariate distribution for non-diseased cases are zeroes and the two variances are each unity. This reduces the total number of parameters to 6: \(\mu_1\), \(\mu_2\), \(\sigma_1\), \(\sigma_2\), \(\rho_1\), \(\rho_2\). The bivariate binormal parameters are:
+
+\begin{equation} 
+\left.\begin{aligned}
+\overrightarrow{
+\mu_1}&=
+\left( \begin{matrix}
+0 \\
+0
+\end{matrix}
+\right)\\
+\overrightarrow{
+\mu_2}&=
+\left( \begin{matrix}
+\mu_1 \\
+\mu_2
+\end{matrix}
+\right)\\
+\overrightarrow{
+\Sigma_1}&=
+\left( 
+\begin{matrix}
+1 & \rho_1 \\
+\rho_1  & 1
+\end{matrix}
+\right) \\
+\overrightarrow{
+\Sigma_2} &= \left( 
+\begin{matrix}
+\sigma_1^2 & \rho_2 \sigma_1 \sigma_2 \\
+\rho_2 \sigma_1 \sigma_2  & \sigma_2^2
+\end{matrix}
+\right)
+\end{aligned}\right\}
+\label{eq:bivariate-binormal-model-all-parameters}
+\end{equation}
+
+The decision variable is \(z_{ik_tt}\), where the \(i\) subscript corresponds to the two modalities and the \(t\) subscript corresponds to the two truth states. The correlated ratings pairs \(\left( z_{1k_11},z_{2k_11} \right)\) and \(\left( z_{1k_22},z_{2k_22} \right)\), corresponding to z-samples from non-diseased \(t = 1\) and diseased cases \(t = 2\), respectively, are abbreviated, using vector notation, to \(\overrightarrow{z_{1k_tt}}\) (the vectorized values always ``condense'' the two modalities):
+
+\begin{equation} 
+\overrightarrow{z_{k_tt}}=
+\left( \begin{matrix}
+z_{1k_tt}  \\
+z_{2k_tt}
+\end{matrix} \right)
+\label{eq:bivariate-binormal-model-notation}
+\end{equation}
+
+The sampling for each modality, considered in isolation by itself, is as follows (the parameters \(\mu\) and \(\sigma\) are of course modality dependent):
+
+\begin{equation}
+\left.\begin{aligned}
+z_{k_11} &\sim  N\left( 0, 1 \right) \\
+z_{k_22} &\sim  N\left( \mu, \sigma^2 \right)
+\end{aligned}\right\}
+\label{eq:univariate-binormal-model-sampling}
+\end{equation}
+
+Collectively \(\overrightarrow{z_{k_tt}}\) is sampled from \(N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)\), the bivariate normal distribution with mean \(\overrightarrow{\mu_t}\) and covariance matrix \(\Sigma_t\):
+
+\begin{equation}
+\overrightarrow{z_{k_tt}} \sim  N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)
+\label{eq:bivariate-binormal-model-sampling}
+\end{equation}
+
+The parameters are truth-state dependent, Eqn. \eqref{eq:bivariate-binormal-model-all-parameters}. In addition one needs to include threshold parameters in the modeling.
+
+For an R-rating single modality ROC task with allowed ratings \(r = 1, 2, ..., \text{R}\), one needs \(\text{R}-1\) thresholds \(\zeta_1,\zeta_2,...,\zeta_{\text{R}-1}\). Defining \(\zeta_0 = -\infty\) and \(\zeta_{\text{R}} = +\infty\) the decision rule is to label a case with rating \(r\) if the realized z-sample satisfies \(\zeta_{r-1} < z \le \zeta_r\).
+
+In the two-modality task the decision variable and the thresholds are modality dependent: i.e., \(z_{ik_tt}\) and \(z_{i'k_tt}\), where \(i \ne i'\) and two sets of thresholds \(\zeta_{i1},\zeta_{i2},...,\zeta_{i (\text{R}-1)}\) and \(\zeta_{i'1},\zeta_{i'2},...,\zeta_{i' (\text{R}-1)}\). As before \(\zeta_{i0} = -\infty\) and \(\zeta_{i'0} = -\infty\) and \(\zeta_{i\text{R}} = +\infty\) and \(\zeta_{i'\text{R}} = +\infty\). The decision rule is to rate a case in modality \(i\) with rating \(r_i\) if \(\zeta_{i(r-1)} < z_i \le \zeta_{ir}\), and the same case in modality \(i'\) is rated \(r_{i'}\) if \(\zeta_{i'(r-1)} < z_{i'} \le \zeta_{i'r}\).
+
+In Eqn. \eqref{eq:bivariate-binormal-model-sampling}, the symbol \(\sim N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)\) denotes a vector sample of length two from the bivariate normal distribution with mean \(\overrightarrow{\mu_t}\) and covariance matrix \(\Sigma_t\). Each case yields two samples corresponding to the two modalities. The subscript 2 on \(N\) distinguishes the bivariate distribution from the corresponding univariate distribution \(N\) (which has an implicit 1 subscript). For non-diseased cases the Pearson correlation coefficient of the pairs of z-samples is \(\rho_1\) and the corresponding value for diseased cases is \(\rho_2\). The ones along the diagonal of \(\Sigma_1\) confirm that the variances of the two samples for non-diseased cases are individually equal to unity. The corresponding variances for diseased cases are \(\sigma_1^2\) and \(\sigma_2^2\).
+
+The sampling model Eqn. \eqref{eq:bivariate-binormal-model-sampling} is a natural extension to two modalities of the single modality univariate binormal model described in book Chapter 06. The univariate model yields one z-sample per case: samples for non-diseased cases have mean zero and unit variance; samples for diseased cases have mean \(\mu\) and variance \(\sigma^2\). \emph{In contrast the bivariate model yields two z-samples per case. For non-diseased cases the samples have zero mean and unit variance and correlation \(\rho_1\). For diseased cases, the samples for the first modality have mean \(\mu_1\) and variance \(\sigma_1^2\), for the second modality they have mean \(\mu_2\) and variance \(\sigma_2^2\) and their correlation is \(\rho_2\).}
+
+\hypertarget{bivariate-binormal-model-multivariate-density-visualization}{%
+\section{Visualizing the bivariate density function}\label{bivariate-binormal-model-multivariate-density-visualization}}
+
+In understanding the bivariate distribution it is helpful to visualize the pdfs. Since one is dealing with a vector \(\overrightarrow{x}\) of length 2, one needs two axes to depict \(x_1\) and \(x_2\) and a third axis to depict the pdf. A sophisticated visualization technique is available for \texttt{R}. The package is called \texttt{plotly}. It is interactive in the sense that by dragging the cursor over the plot one can visualize it from different viewpoints. The following images were captured using this package. Shown in Fig. \ref{fig:bivariate-binormal-model-pdf-plots} are four views of the bivariate distribution density function for \(\mu_{12} = 1.5\), \(\mu_{22} = 2.0\), \(\sigma_1 = 1.0\), \(\sigma_2 = 1.5\), \(\rho_1 = 0.3\) and \(\rho_2 = 0.6\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}\FloatTok{0.2}\NormalTok{) }\CommentTok{# the x-vector at which to evaluate pdf}
+\NormalTok{mu1 <-}\StringTok{ }\FloatTok{1.5} \CommentTok{# diseased mean modality 1}
+\NormalTok{mu2 <-}\StringTok{ }\FloatTok{2.0} \CommentTok{# diseased mean modality 2}
+\NormalTok{var1 <-}\StringTok{ }\DecValTok{1}  \CommentTok{# diseased variance modality 1}
+\NormalTok{var2 <-}\StringTok{ }\NormalTok{(}\FloatTok{1.5}\NormalTok{)}\OperatorTok{^}\DecValTok{2} \CommentTok{# diseased variance modality 2}
+\NormalTok{rho1 <-}\StringTok{ }\FloatTok{0.3} \CommentTok{# non-diseased correlation}
+\NormalTok{rho2 <-}\StringTok{ }\FloatTok{0.6} \CommentTok{# diseased correlation}
+
+\CommentTok{#}
+\CommentTok{# construction the covariance matrix Sigma1 for non-diseased}
+\CommentTok{# }
+\NormalTok{Sigma1 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, rho1, rho1, var2),}\DecValTok{2}\NormalTok{)}
+
+\CommentTok{#}
+\CommentTok{# pdf for non-diseased}
+\CommentTok{# }
+\CommentTok{# following defaults to zero mean for each modality}
+\NormalTok{pdf1  <-}\StringTok{ }\KeywordTok{dmvnorm}\NormalTok{(x, }\DataTypeTok{sigma =}\NormalTok{ Sigma1) }
+
+\CommentTok{#}
+\CommentTok{# construction the covariance matrix Sigma2 for diseased}
+\CommentTok{# }
+\NormalTok{Sigma2 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(var1, rho2}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(var1}\OperatorTok{*}\NormalTok{var2), rho2}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(var1}\OperatorTok{*}\NormalTok{var2), var2),}\DecValTok{2}\NormalTok{)}
+
+\CommentTok{#}
+\CommentTok{# pdf for diseased}
+\CommentTok{# }
+\NormalTok{pdf2  <-}\StringTok{ }\KeywordTok{dmvnorm}\NormalTok{(x, }\DataTypeTok{mean =} \KeywordTok{c}\NormalTok{(mu1,mu2), }\DataTypeTok{sigma =}\NormalTok{ Sigma2)}
+
+\CommentTok{#}
+\CommentTok{# print results}
+\CommentTok{# }
+\KeywordTok{cat}\NormalTok{(}\StringTok{"mu1 ="}\NormalTok{, mu1, }\StringTok{", mu2 ="}\NormalTok{, mu2, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{#> mu1 = 1.5 , mu2 = 2}
+\KeywordTok{cat}\NormalTok{(}\StringTok{"var1 ="}\NormalTok{, var1, }\StringTok{", var2 ="}\NormalTok{, var2, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{#> var1 = 1 , var2 = 2.25}
+\KeywordTok{cat}\NormalTok{(}\StringTok{"rho1 ="}\NormalTok{, rho1, }\StringTok{", rho2 ="}\NormalTok{, rho2, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{#> rho1 = 0.3 , rho2 = 0.6}
+\KeywordTok{cat}\NormalTok{(}\StringTok{"non-diseased density at x1 = 0.1 and x2 = 0.2 = "}\NormalTok{, pdf1, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{#> non-diseased density at x1 = 0.1 and x2 = 0.2 =  0.1070327}
+\KeywordTok{cat}\NormalTok{(}\StringTok{"diseased density at x1 = 0.1 and x2 = 0.2 = "}\NormalTok{, pdf2, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{#> diseased density at x1 = 0.1 and x2 = 0.2 =  0.04498399}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{21-bivariate-binormal-model_files/figure-latex/bivariate-binormal-model-pdf-plots-1.pdf}
+\caption{\label{fig:bivariate-binormal-model-pdf-plots}Bivariate pdf plots: Top-left is the default view. Top-right is the `birds eye' view, with the pdf-axis `literally coming at the reader' at right angles to the paper or screen. Bottom-left is the view looking along the y-axis at x = 0. Bottom-right is the view looking along the x-axis at y = 0. The \texttt{R} package \texttt{plotly} was used to capture these screen-shots.}
+\end{figure}
+
+\hypertarget{bivariate-binormal-model-multivariate-density-estimation}{%
+\section{Estimating bivariate binormal model parameters}\label{bivariate-binormal-model-multivariate-density-estimation}}
+
+In Chapter 06, a method for estimating the parameters of the univariate binormal model for a single-reader single-modality dataset was described. The method involved maximizing the likelihood function, i.e., the probability of the observed data as a function of the model parameters. Specifically, for a 5-rating study, there were four thresholds. The likelihood was a function of six variables: two basic parameters, namely the separation of the two normal distributions and the standard deviation of the diseased distribution relative to the non-diseased distribution. In addition, there are the four thresholds. The threshold parameters are sometimes referred to, in the literature, as nuisance parameters, but nuisance or not, they have to be estimated in order to get to the basic parameters. To estimate the parameters the likelihood function was maximized with respect to these parameters. The values of the parameters yielding the maximum are the maximum-likelihood estimates (MLEs).
+
+With a bivariate model, one is dealing with six basic parameters and threshold parameters corresponding to each modality. The estimation procedure is not fundamentally different, but the presence of the second dimension does complicate the notation. Again, the starting point is the likelihood function, i.e., the probability of the observed data as a function of the parameter values. Since there is a possibility of confusion between the truth index t and the modality index i, each of which ranges from 1 to 2, the non-diseased counts in bin r of the 1st modality and bin s of the 2nd modality is denoted by (i.e., the modality indices occur before the truth index). The corresponding diseased counts are denoted . One needs two indices because each case yields two integer ratings, r and s. Each rating is in the range 1, 2,\ldots, R, where R is the number of ROC bins. It is assumed equal for both modalities. This is not an essential limitation; the method is readily extended, and has been, for unequal numbers of bins in the two modalities. To construct the matrix one starts with a zero-initialized R x R matrix, increment the cell at row \(r\) and column \(s\) of this matrix by unity for each non-diseased case that received a r rating in the 1st modality and an s rating in the 2nd modality. When all non-diseased cases are exhausted, the count in row r and column s of this matrix is ; the procedure is repeated for the diseased cases yielding .
+
+For non-diseased cases, the probability of a z-sample in bin r of the 1st modality and bin s of the 2nd modality is determined by the ``volume'' under the bivariate distribution between modality-1 thresholds and , and between modality-2 thresholds and . Complicated as this may seem, and prior to Alan Genz's work3 showing how to evaluate such multidimensional integrals, this was near impossible, but now it is quite easy, especially in R. The required probability is given by the pmvnorm() function -- this is the generalization to the multivariate case of the pnorm() function, which gives the area under the normal distribution from negative infinity to a specified value. Specifically, pmvnorm()gives the probability under the multivariate distribution between specified thresholds, as illustrated next.
+
+\hypertarget{bivariate-binormal-model-multivariate-density-examples}{%
+\section{Examples of bivariate normal probability integrals}\label{bivariate-binormal-model-multivariate-density-examples}}
+
+Needed is the bivariate extension of the univariate cumulative distribution function defined in Eqn. (3.7). Specifically, one needs a way of calculating the integral:
+
+\begin{verbatim}
+.   (21.13)
+\end{verbatim}
+
+Online Appendix 21.C shows how to do this in R. The code file mainBivariateIntegrals.R implements the ``equation'':
+
+\begin{verbatim}
+.   (21.14)
+\end{verbatim}
+
+Here \texttt{pmvnorm()} is the integral of the bivariate normal distribution with specified mean and covariance matrix sigma between limits and . The limits are specified by two length-two arrays that are supplied as the first two arguments to this function. The first argument to the function is the concatenated lower thresholds in the two modalities. The second argument is the concatenated upper thresholds in the two modalities. These are followed by the separation parameter vector and the covariance matrix. The function is not limited to two dimensional covariance matrices. With a p x p covariance matrix, the lower and upper limits would each be length p vectors. Here is a bivariate example (p = 2) in mainBivariateIntegrals.R:
+
+\hypertarget{bivariate-binormal-model-multivariate-density-estimation-code}{%
+\subsection{Code listing}\label{bivariate-binormal-model-multivariate-density-estimation-code}}
+
+In the last two lines, and . Sourcing the code yields:
+
+\hypertarget{bivariate-binormal-model-examples-integrals}{%
+\subsection{Examples of bivariate normal probability integrals}\label{bivariate-binormal-model-examples-integrals}}
+
+The facts that the integral over the entire space yields unity and and that over each half space yields 0.5, and , should make intuitive sense.
+
+\hypertarget{bivariate-binormal-model-likelihood}{%
+\section{Likelihood function}\label{bivariate-binormal-model-likelihood}}
+
+The probability of observing and non-diseased and diseased counts, respectively, in bin r in the first modality and bin s in the second modality is:
+
+\begin{verbatim}
+.   (21.15)
+\end{verbatim}
+
+Including all bins and taking the logarithm, the logarithm of the likelihood function is given by (neglecting a combinatorial factor that does not depend on the parameters):
+
+\begin{verbatim}
+.   (21.16)
+\end{verbatim}
+
+The maximum likelihood estimates of the parameters are obtained by maximizing the function. This was solved 4,5 by Metz and colleagues more than three decades ago and implemented in software CORROC2. The Metz software is particularly useful as it measures correlations at the underlying z-sample level, which property can be used in designing a data simulator that is matched to a clinical dataset. Much as the author has emphasized that ratings are not numerical quantities, and that the observed ratings are not ``hard'' numbers, the measured correlations are valid, because CORROC2 models the ratings as continuous variables and estimates the correlation based on the bivariate model.
+
+\hypertarget{bivariate-binormal-model-corroc2}{%
+\section{CORROC2 software}\label{bivariate-binormal-model-corroc2}}
+
+Around 1980 Prof.~Charles E. Metz and Helen B. Kronman developed software implementing maximum likelihood estimation of the parameters of the bivariate normal model outlined above from data corresponding to two correlated ROC ratings per case. The software is called CORROC2, for ``correlated ROC''. Subsequent revisions to the program were made by Pu-Lan Wang and Jong-Her Shen and more recently by Ben Herman4-7. CORROC2 is used to analyze paired ratings that result when a common set of cases is interpreted under two conditions. The pairing can be simple, as when a single reader interprets a common set of cases in two modalities, or more general as when two different readers interpret a common set of cases in one modality, or when two different readers interpret a common set of cases in two different modalities. The generality makes the method quite useful in a way that, in the judgment of the author, has not been fully exploited to date .
+
+CORROC2 software allows selection of three methods of testing for differences between two conditions.
+1. Testing for simultaneous differences between the (a, b) parameters corresponding to two ROC curves.
+2. Testing the difference between the binormal-fitted AUCs under two correlated ROCs.
+3. Testing the difference between TPFs on two ROC curves at a specified FPF.
+
+To understand the difference between (1) and (2) consider that is that it is possible to have two ROC curves with different shapes but the same fitted AUCs. If the difference in shapes is large enough, method (1) would declare the two conditions different, but method (2) would not. In the examples below, we use method (2).
+
+\hypertarget{bivariate-binormal-model-corroc2-details}{%
+\subsection{Details of CORROC2 software}\label{bivariate-binormal-model-corroc2-details}}
+
+This section is one of the few in this book that uses Windows code. If using OS X, one needs to download ``virtual machine'' software as described in Online Appendix 21.D. If using a Windows machine, one does not need to do anything extra. Therefore, in following this chapter it is important that one has either a Windows computer or a Mac computer with a virtual machine installed.
+
+The Windows executable code is named CORROC2.exe. The author downloaded the software, including the Fortran source code, many years ago, ca. 1997, from the University of Chicago website, but it is currently unavailable and unsupported on that site. The author is fortunate that he held onto the downloaded code. The reason is that the FORTRAN source code, with appropriate modifications, can be interfaced to the R code. The currently distributed equivalent code named ROC-kit cannot be run in command-line mode (i.e., without having to use the mouse to select the input file, specify the output file, etc.) The author has confirmed with Mr.~Ben Herman, who is familiar with the code, that by design it cannot be used in command-line mode. The ability to run in command-line mode is needed if one is to call a program from R.
+
+For simplicity, it is assumed that the number of allowed ROC ratings bins, R, is the same in each modality (the software can handle different numbers of ratings in the two modalities). For two modalities, the total number of parameters to be estimated is 6+2(R-1). The six comes from the two means and two variances of the diseased distributions, plus the two correlations (one per truth state) and 2(R-1) from the two sets of thresholds, each with R-1 values. In addition to providing estimates of all parameters of the model, the algorithm provides estimates of the covariance matrix of the parameters. This, not to be confused with , is needed for the same reason it was needed in the univariate case, see Chapter 06: i.e., to estimate variances of the 6-estimates and variances of functions of estimates, e.g., AUC.
+
+\hypertarget{bivariate-binormal-model-corroc2-data-input}{%
+\subsection{CORROC2 data input}\label{bivariate-binormal-model-corroc2-data-input}}
+
+Here is a partial example of how the paired ratings data is input to the program (the read-only data file is DataFileInp.txt in the software distribution under software/corrocii/Debug).
+
+TYPICAL EXAMPLE OF 5-CATEGORY DATA --X
+5
+5
+TYPICAL EXAMPLE OF 5-CATEGORY DATA --Y
+5
+5
+4 4
+3 5
+5 3
+1 1
+1 1
+1 3
+1 5
+
+The first line, whose content is immaterial to the analysis, is a description of the data in the 1st modality. The second line (5), is the total number of ratings bins in the 1st modality. The third line (5) is the rating with the highest evidence of disease in the 1st modality (5 in the current example). The fourth line is a description of data in the 2nd modality, again its content is immaterial. The next two fives are the number of bins in the second modality, and the bin number denoting highest evidence of disease in the second modality.
+
+The actual ratings data starts on line 7, which states that the first non-diseased case was rated ROC: 4 in the first modality and ROC: 4 in the second modality. The two ratings for each case, separated by spaces, are input on the same line. Line eight states that the second non-diseased case was rated ROC: 3 in the first modality and ROC: 5 in the second modality, and so on. An asterisk after the last non-diseased case signals the end of the non-diseased cases. The next line has the two ratings corresponding to the first diseased case. Here is a partial example:
+
+4 4
+*
+4 5
+5 5
+
+This says that the first diseased case was rated ROC: 4 in the 1st modality and ROC: 5 in the 2nd modality, the 2nd diseased case was rated ROC: 5 in both modalities, and so on. The last diseased case is followed by another asterisk, and the last line is the word ``area'':
+
+5 5
+2 5
+*
+area
+
+Other choices are available for the last line, but the author will stick to area, which means one wishes to use the area under the binormal-fitted ROC curve as the figure of merit.
+
+\hypertarget{bivariate-binormal-model-corroc2-output}{%
+\subsection{CORROC2 output}\label{bivariate-binormal-model-corroc2-output}}
+
+The CORROC2 output associated with this software for the above dataset, 347 lines in all, is in the read-only file DataFileOut.txt, Fig. 21.2 (use RStudio to go down the directory structure and click on the appropriate file; it is displayed, see below, with line numbers):
+
+Fig. 21.2: Lines of CORROC2 output in DataFileOut.txt that are associated with the dataset in DataFileInp.txt.
+
+Condition X and Condition Y denote modalities 1 and 2, respectively . Line 10 of the output summarizes the statistical test to be employed ``AREA (A SUB Z) TEST''. This is because we concluded, line 101, the reader data file DataFileInp.txt with area. Line 13-22 summarizes the dataset, how many ratings, which rating represents greatest evidence of disease, etc. Lines 26 -- 37 summarize the observed ratings matrix for non-diseased cases (labeled ACTUALLY NEGATIVE), i.e., the matrix . For example, there were three cases that were rated s = 3 in CONDITION X and r = 5 in CONDITION Y (the matrix is labeled by its row index, followed by its column index and last with the truth index. The output lists the 5 rating bin as the first row, the 4 rating bin as the second row, etc.). Likewise, lines 40-51 summarize the ratings matrix for diseased cases. Lines 53 -- 59 list the observed operating points in the two modalities, followed by the initial and final estimates of the parameters. The program lists the parameters using the (a,b) notation, not the notation, but one knows how to transform between them: Chapter 06, Eqn. (6.16), and see exercise on conversion below. Here is the output showing the final parameter values (14 values in all):
+
+\begin{verbatim}
+            FINAL ESTIMATES OF THE PARAMETERS:
+  AX= 1.3006     BX= 0.4919     AY= 1.6049     BY= 0.8704
+  R(NEGATIVE CASES)= 0.2599     R(POSITIVE CASES)= 0.4544
+  T(I)-0.281  0.221  0.687  1.941
+  U(J)-0.791 -0.417  0.175  0.990
+\end{verbatim}
+
+Here X refers to condition X and Y to condition Y. AX is the parameter in condition X (what the author calls ). BX is the b parameter in condition X (our ). AY is the parameter in condition Y (i.e., ). BY is the b parameter in condition Y (i.e., ). R(NEGATIVE CASES) is the correlation coefficient for the non-diseased cases (i.e., ). R(POSITIVE CASES) is the correlation coefficient for the diseased cases (i.e., ). Finally, T(I) and U(J) are the thresholds in the two condition, corresponding to and in our notation. Since there are five ratings bins, there are four thresholds in each modality.
+
+Converting the above parameter values to \(\mu, \sigma\) notation
+
+Using the transformations Eqn. (6.16), = 1.3006/0.4919 = 2.644, = 1.844, = 1/.4919 = 2.033, = 1.149, = 0.2599 and = 0.4544 (the correlations are unaffected by linear transformations). Regarding the thresholds, for modality 1, = -0.281/.4919 = -0.571, = 0.221/.4919 = 0.449, etc. Similarly, the thresholds for modality 2 are = -0.791/.8704 = -0.909, = -0.417/.8704 = -0.479, etc. Question for the reader: why were the thresholds divided by the corresponding b-values?
+
+\hypertarget{bivariate-binormal-model-corroc2-covariance-matrix}{%
+\subsection{Covariance matrix}\label{bivariate-binormal-model-corroc2-covariance-matrix}}
+
+For convenience of the yet-to-be-described R-program that does all this automatically, the FORTRAN source code was modified to print the elements of the covariance matrix sequentially, i.e., one-per-line. The output corresponding to lines 83 - 280 in file DataFileOut.txt is (shown is a partial listing):
+
+VARIANCE-COVARIANCE MATRIX
+14
+0.621003E-01
+0.205564E-01
+0.171881E-01
+0.294564E-02
+0.104652E-03
+-0.684784E-02
+0.144067E-01
+0.135140E-01
+0.127711E-01
+0.393710E-02
+0.285687E-02
+0.285592E-02
+0.285248E-02
+0.284967E-02
+0.205564E-01
+
+The ``14'' is the dimension of each ``edge'' of the 2D covariance matrix, i.e., there are 142 (196) elements in all. The ``14'' comes from the six basic parameters plus the four thresholds in the two conditions. The elements are listed in row-major order, i.e., all the elements of the 1st row, followed by all elements of the 2nd row, etc. One can anticipate some difficulty displaying it, so only the upper-left 6 x 6 corner of the full matrix is shown below, Table 21.1, i.e.~any covariance involving a threshold is not shown. For convenience, the numbers have been rounded to fit and since the matrix is symmetric, there is no need to show numbers below the diagonal:
+
+Table 21.1: This table displays the covariance matrix of the parameters for the dataset in datafileinp.txt. Since the matrix is symmetric, values below the diagonal are not shown. Also not shown are covariance-elements associated with threshold parameters.
+
+.062 .021 .017 .003 .000 -.007
+
+\begin{verbatim}
+.022    .002    .002    .001    -.004
+
+    .089    .045    .000    -.010
+
+        .078    .003    -.008
+
+            .026    .000
+
+                .035
+\end{verbatim}
+
+The diagonal elements, which represent variances, are all positive.
+
+\hypertarget{bivariate-binormal-model-corroc2-output-restof}{%
+\subsection{Rest of CORROC2 output}\label{bivariate-binormal-model-corroc2-output-restof}}
+
+Line 286-320 allows one to plot the ROC curves for the two modalities, but one does not need them, as one knows by now how to generate binormal model predicted curves. Lines 325-327 lists the areas under the respective fitted ROC curves, and their correlation (the is the AUC level correlation, which could be estimated by methods described in Chapter 06):
+
+\begin{verbatim}
+        AREA(X)=  0.8784     AREA(Y)=  0.8870
+        STD DEV OF AREA(X)=  0.0392     STD DEV OF AREA(Y)=  0.0376
+        CORRELATION OF AREA(X) AND AREA(Y) = 0.2569
+\end{verbatim}
+
+The remaining lines, 333-341 lists the p-value.
+
+\begin{verbatim}
+         STATISTICAL SIGNIFICANCE OF THE DIFFERENCE
+  BETWEEN THE TWO CORRELATED ROC CURVES ACCORDING TO THE SELECTED TEST:
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{verbatim}
+THE COMPUTED CORRELATED 'AREA TEST' STATISTIC VALUE IS   -0.1829
+WITH A CORRESPONDING TWO-TAILED P-LEVEL OF 0.8549
+AND ONE-TAILED P-LEVEL OF 0.4274.
+\end{verbatim}
+
+The famed p-value is 0.8549 (it is customary to quote the two-tailed value, see Chapter 08 for details on this). This means that the difference in areas (0.8784 -- 0.8870 = -0.0086) is not statistically significant at Type-I error probability = 0.05. The calculation of the test statistic is described in code mainDiffAzTestStatistic.R. It uses methods described in Chapter 06 to calculate the standard deviation of the difference of two AUCs:
+
+\begin{verbatim}
+.   (21.17)
+\end{verbatim}
+
+The test -- statistic for determining the significance of the AUC difference is:
+
+\begin{verbatim}
+.   (21.18)
+\end{verbatim}
+
+\hypertarget{bivariate-binormal-model-corroc2-application}{%
+\section{Application to a real dataset}\label{bivariate-binormal-model-corroc2-application}}
+
+Assuming one has set up the connection between the Mac side and the Windows side properly, as described in Online Appendix 21.D, one can apply CORROC2 to real ROC datasets. Open the R file ``mainCorroc2.R'' in the software folder corresponding to this chapter, described in detail in Online Appendix 21.E. Source the file, yielding:
+
+\hypertarget{bivariate-binormal-model-corroc2-application-code-output}{%
+\subsection{Code Output}\label{bivariate-binormal-model-corroc2-application-code-output}}
+
+\begin{quote}
+source(`\textasciitilde/book2/A ROC analysis/A8 Bivariate binormal model/software/mainCorroc2.R')
+\ldots{}
+\end{quote}
+
+The 6 parameters are 1.72 0.55 1.87 0.527 0.332 0.798
+The 2 sided pValue is 0.482
+The covariance matrix is:
+{[},1{]} {[},2{]} {[},3{]} {[},4{]} {[},5{]} {[},6{]}
+{[}1,{]} 0.120075 0.05096 0.050939 0.01054 6.58e-04 -1.05e-02
+{[}2,{]} 0.050956 0.03667 0.013392 0.00550 2.01e-03 -4.87e-03
+{[}3,{]} 0.050939 0.01339 0.111921 0.04078 2.28e-04 -1.16e-02
+{[}4,{]} 0.010545 0.00550 0.040777 0.02908 1.51e-03 -4.56e-03
+{[}5,{]} 0.000658 0.00201 0.000228 0.00151 2.09e-02 3.11e-06
+{[}6,{]} -0.010453 -0.00487 -0.011566 -0.00456 3.11e-06 8.67e-03
+
+What the R code does is detailed in Online Appendix 21.D. It reads the file containing the data, the Van Dyke data in the above example, extract the ratings for reader 1 in both modalities, writes the data in the appropriate format for CORROC2, runs the latter program in a Windows environment, reads the resulting output and prints out model parameters and the covariance matrix.
+
+Like most ROC software, the output uses the (a,b) convention, Chapter 06. Recall that in this convention the diseased distribution has unit standard deviation, the non-diseased distribution has standard deviation b, and the separation of the two means is a. Since there are two modalities, there are two a parameters and two b parameters. In the CORROC2 output, the two modalities are referred to as X (1 in our notation) and Y (2 in our notation), respectively, and the ordering of the six parameters is . The ordering also determines the ordering of the covariance matrix. We start with the meanings of the header row and first column of the matrix shown above. The notation {[},1{]} means the first column of the matrix, likewise {[},2{]} is the second column and so on. Likewise, {[}1,{]} means the first row of the matrix, {[}2,{]} means the second row of the matrix, and so on. For example, the above table tells us that the second row and third column of the covariance matrix is 0.013392. This is the covariance between . The diagonal elements of the matrix are the variances. For example, the variance of is 2.09e-02, whose square root is the standard deviation, equal to 0.145.
+
+In the Files panel find the folder named corrocii and open it (you need to click on the name, not the picture of the folder; watch how the folder name is underlined when the cursor is above it, which is RStudio's way of telling you ``yes, it is OK to click here, something will happen''). You should see a number of files with the .FOR extension (these are FORTRAN source code files) and a folder named Debug; click on Debug. Fig. 21.4 is a screen-shot showing the contents of the Debug window. Table 21.2 summarizes the meanings of the files listed in this figure.
+
+\hypertarget{bivariate-binormal-model-corroc2-application-debug-window}{%
+\subsection{Contents of the Debug window, as viewed from the Mac side}\label{bivariate-binormal-model-corroc2-application-debug-window}}
+
+Table 21.2: This table summarizes the meanings of the files listed in this Fig. 21.4.
+File name Meaning Comment
+DataFileInp.txt Input Ratings data in CORROC2 format Read-only file used to illustrate data input format
+DataFileOut.txt Output file corresponding to DataFileInp.txt Read-only file used to illustrate the output
+1R2MData.txt Ratings data in CORROC2 format Created by RunCorrocOnPairedData.R, line 25
+CORROC2.bat Batch file that runs CORROC2.exe See below
+CORROC2.exe The actual CORROC2 program\\
+CorrocIIinput.txt Input file to the batch file\\
+CorrocIIoutput.txt Output file created by batch file
+
+The Windows software is located in software/CORROC2/Debug, Fig. 21.4. CORROC2.bat is a batch file, whose listing follows:
+21.7.2: Contents of CORROC2.bat
+cd CORROCII
+cd Debug
+del CorrocIIoutput.txt
+CORROC2.exe \textless{} CorrocIIinput.txt \textgreater{} CorrocIIoutput.txt
+cd ..
+cd ..
+
+The batch file runs on the Windows side. The first two lines change the current directory to corrocii/Debug. The next line deletes the output file, CorrocIIoutput.txt, if it exists. The next line ``pipes'' the contents of CorrocIIinput.txt to the executable file CORROC2.exe and ``pipes'' the output to CorrocIIoutput.txt. The last two lines restore the starting directory. The contents of CorrocIIinput.txt are:
+
+\hypertarget{bivariate-binormal-model-corroc2-application-corrocii-input}{%
+\subsection{Contents of CorrocIIinput.txt}\label{bivariate-binormal-model-corroc2-application-corrocii-input}}
+
+y
+1R2MData.txt
+N
+Q
+
+These answer the four questions asked by CORROC2. Try running CORROC2 from the Windows side, Fig. 21.5.
+
+Fig. 21.5: Result of running CORROC2 at the windows 8 command prompt.
+
+The first line of this file is the answer (yes) to the first question asked by CORROC2.exe (you can check these out by clicking on CORROC2.exe in your physical Windows machine or virtual Windows machine): ``Do you want to use data from a previously created input file for the next run?'' The second line is the name of the input file, the third line is the answer (no) to the next question: ``Do you want to save an output file for plotting the ROC curve?'' The reason for the ``no'' is that we are more interested in the screen output, which contains all the estimates, including the covariance matrix, rather than plotting ROC curves. The last line is the answer (``Q'') to the next question asked by CORROC2.exe: ``Do you want to use data from a previously created input file for the next run?(Y/N, or Q for quit)''. Now, in a Windows environment, click on the batch file CORROC2.bat. The latest version of the file CorrocIIoutput.txt should appear in your Explorer window, with the correct date and time stamps. Open this file. The data file is named 1R2MData.txt and if you open it, you will recognize that it is similar to the file used in the section illustrating the data input format for CORROC2. It was created by the R-code.
+
+\hypertarget{bivariate-binormal-model-corroc2-discussion}{%
+\section{Discussion / Summary}\label{bivariate-binormal-model-corroc2-discussion}}
+
+CORROC2 is one of the relatively under-utilized tools developed by Prof.~Charles E. Metz. There are only four publications describing it4-6,8 and two of them are difficult to find5,8, nor has the software been maintained on a level comparable to ROCFIT. For example, a method for assessing the goodness of the fit is currently not implemented. With R2 cells, it is almost impossible to maintain greater than five counts per cell, so an alternate method of combining bins has to be implemented.
+
+One reason for the relative underutilization of CORROC2 could be that it is not designed to analyze multiple readers interpreting a common set of cases in two or more modalities i.e., MRMC datasets. For example, in a study in which CORROC2 was used9, four readers interpreted cases in four modalities. With four modalities, there are six possible combinations (4x3/2), so a conservative Bonferroni type correction for the p-value would be to divide 0.05 by 6. For each reader CORROC2 yields a p-value for the difference between the chosen pairs of modalities. If all readers agree, then there is an unambiguous answer, but the method does not allow for correlations between different readers, which undoubtedly leads to loss of power. More fundamentally, it does not address the question of interest: when averaged over all four readers, are the figures of merit in the four modalities different.
+
+It is possible to analyze multiple reader multiple modality MRMC-ROC datasets without actually using CORROC2. In chapters Chapter 09 and Chapter 10, it was shown how one analyzes such datasets using the empirical AUCs. Alternatively, one could estimate AUC using the univariate binormal model software (e.g., ROCFIT, or more modern software). The correlations in the resulting AUC values -- i.e., FOM correlations as distinct from ratings correlations - are explicitly accounted for in the DBMH / ORH analyses, i.e., it is not concerned with ratings correlations. One possible use of CORROC2 would be if one had to compare two CAD algorithms applied to a common dataset, but even here, it is of limited utility since, as a ROC study, location is ignored.
+
+CORROC2 was developed ca. 1980 by Metz, Wang and Kronman 5,10. Subsequent revisions to the program were made by Jong-Her Shen and more recently by Benjamin Herman6,7. Its impact cannot be overstated. There are well in excess of 116 citations to this software. One reason is that, at that time, it was the only software allowing analysis of paired datasets. However, no advances have been made in the intervening 3 decades, which would allow fitting, for example, proper ROC curves to paired - and possibly degenerate - datasets. Part of the reason for this neglect is the shift in emphasis to empirical AUC based analysis, which does not require parametric modeling or curve fitting -- one simply calculates the trapezoidal AUC. However, empirical AUC based analysis has its own limitations, and pursuing an improvement over the parametric approach that removes the current limitations of CORROC2 would, in the author's judgment, quite apart from the specific interest in developing realistic simulators, be of scientific interest.
+
+As a final note, at the time of writing, 4/30/17, an extension of CORROC2 has been published11. It is called CORCBM, for correlated CBM. Details are in a document CORCBM.pdf in the online supplementary material directory corresponding to this chapter. The title of the publication is: ``A bivariate contaminated binormal model for robust fitting of proper ROC curves to a pair of correlated, possibly degenerate, ROC datasets''. It replaces the bivariate binormal model with the bivariate contaminated binormal model; hence its name CORCBM, for correlated CBM. Since CBM was designed to fit practically any single dataset, including degenerate ones, CORCBM is likewise able to fit practically any paired dataset. An application of CORCBM to calibrating a simulator to a data set containing single-modality multiple-reader ratings is described in Chapter 23.
+
   \bibliography{packages.bib,myRefs.bib}
 
 \end{document}
