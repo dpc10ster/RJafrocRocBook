@@ -1,4 +1,4 @@
-# RJafrocRocBook
+# RJafrocSigTestBook
 
 # Summary
 
@@ -7,13 +7,12 @@ See [this link](https://dpc10ster.github.io/ai-froc-research/) for a summary of 
 
 # What is this repository for?
 
-* This book reviews ROC methodology.
-* The first four chapters should be read by newcomers to the field.
+* This book reviews significance testing methodology.
 
 # How much finished {-}
 
-* HMF approximately 70%
-* This book is currently (as of December 2021) in preparation.
+* HMF approximately 15%
+* This book is currently (as of March 2023) in preparation.
 * Parts labeled TBA and TODOLAST need to be updated on final revision.
 
 
