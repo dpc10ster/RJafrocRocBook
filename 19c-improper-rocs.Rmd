@@ -23,7 +23,7 @@ The binormal model has two parameters, $a$ and $b$. The $a$ parameter is the sep
   
 ## Improper ROCs
 
-Binormal model fits invariably lead to ROC curves that inappropriately cross the chance diagonal, leading to a prediction of a region of the ROC curve where performance is worse than chance (even for expert observers). Such curves are termed *improper*. This type of curve occurs whenever $b \lt 1$. 
+Binormal model fits invariably lead to ROC curves that inappropriately cross the chance diagonal, leading to a prediction of a region of the ROC curve where performance is worse than chance (even for expert observers). Such curves are termed *improper*. This type of curve occurs whenever $b < 1$. 
 
 
 The following code illustrates improper curves predicted by the binormal model.
@@ -42,12 +42,12 @@ p <- p + geom_line(data = chance_diag, aes(x = x, y = y), linetype="dotted")
 
 
 
-The red plot is the clearest example of an improper ROC. The chance line crossing near the upper right corner, around (0.919,0.919) and the fact that the ROC curve must eventually reach (1, 1) implies that the curve must turn upwards as one approaches (1, 1), thereby displaying a "hook". Whenever $b \ne 1$ the hook is there regardless of whether it is easily visible or not. If $b \lt 1$ the hook is near the upper right corner. If $b \gt 1$ the hook is near the origin (see green line, corresponding to $a = 0.7, b = 1.5$). With increasing $a$ the hook is less prominent (see blue line corresponding to $a = 1.5, b = 0.5$ and purple line corresponding to $a = 2, b = 0.5$. But it is there. 
+The red plot is the clearest example of an improper ROC. The chance line crossing near the upper right corner, around (0.919,0.919) and the fact that the ROC curve must eventually reach (1, 1) implies that the curve must turn upwards as one approaches (1, 1), thereby displaying a "hook". Whenever $b \ne 1$ the hook is there regardless of whether it is easily visible or not. If $b < 1$ the hook is near the upper right corner. If $b > 1$ the hook is near the origin (see green line, corresponding to $a = 0.7, b = 1.5$). With increasing $a$ the hook is less prominent (see blue line corresponding to $a = 1.5, b = 0.5$ and purple line corresponding to $a = 2, b = 0.5$. But it is there. 
 
 
 ## Reason for improper ROCs 
 
-The reason for the "hook"" becomes apparent upon examination of the pdfs. 
+The reason for the "hook" becomes apparent upon examination of the pdfs. 
 
 
 ```{r echo=FALSE}
