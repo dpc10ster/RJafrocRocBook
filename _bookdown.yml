@@ -16,6 +16,7 @@ rmd_files: [
   "15a-roc-sample-size-dbm.Rmd",
   "15b-fdistribution.Rmd",
   "16-roc-sample-size-or.Rmd",
+  "99-references.Rmd",
 ]
 
 
