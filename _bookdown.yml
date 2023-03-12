@@ -11,10 +11,16 @@ rmd_files: [
   "04-ratings-task.Rmd", 
   "05-empirical-auc.Rmd", 
   "06-binormal-model.Rmd",
-  "07-sources-variability-auc.Rmd",
-  "08-hypothesis-testing.Rmd",
+  "19c-improper-rocs.Rmd",
+  "20a-proper-roc-models.Rmd",
+  "20b-proproc-roc-curves.Rmd",
+  "20c-metz-eqn-36.Rmd",
+  "21-bivariate-binormal-model.Rmd",
+  "99-references.Rmd",
 ]
-clean: [packages.bib, myRefs.bbl]
+
+
+clean: [packages.bib]
 new_session: yes
 language:
   label:
