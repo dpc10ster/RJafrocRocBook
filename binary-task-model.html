@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -58,18 +57,18 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -89,13 +88,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -108,7 +107,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -122,6 +121,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -139,32 +160,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">RJafroc documentation</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#rationale-and-organization"><i class="fa fa-check"></i><b>0.1</b> Rationale and Organization</a></li>
 <li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#tba-acknowledgements"><i class="fa fa-check"></i><b>0.2</b> TBA Acknowledgements</a></li>
 <li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#temporary-comments"><i class="fa fa-check"></i><b>0.3</b> Temporary comments</a></li>
 </ul></li>
 <li class="part"><span><b>Overview</b></span></li>
-<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> An overview of the field</a><ul>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> An overview of the field</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html#overview-how-much-finished"><i class="fa fa-check"></i><b>1.1</b> How much finished 55%</a></li>
 <li class="chapter" data-level="1.2" data-path="overview.html"><a href="overview.html#preliminaries-intro"><i class="fa fa-check"></i><b>1.2</b> Introduction</a></li>
-<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#clinical-tasks"><i class="fa fa-check"></i><b>1.3</b> Clinical tasks</a><ul>
+<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#clinical-tasks"><i class="fa fa-check"></i><b>1.3</b> Clinical tasks</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="overview.html"><a href="overview.html#workflow-in-an-imaging-study"><i class="fa fa-check"></i><b>1.3.1</b> Workflow in an imaging study</a></li>
 <li class="chapter" data-level="1.3.2" data-path="overview.html"><a href="overview.html#the-screening-and-diagnostic-workup-tasks"><i class="fa fa-check"></i><b>1.3.2</b> The screening and diagnostic workup tasks</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="overview.html"><a href="overview.html#imaging-device-development-and-its-clinical-deployment"><i class="fa fa-check"></i><b>1.4</b> Imaging device development and its clinical deployment</a><ul>
+<li class="chapter" data-level="1.4" data-path="overview.html"><a href="overview.html#imaging-device-development-and-its-clinical-deployment"><i class="fa fa-check"></i><b>1.4</b> Imaging device development and its clinical deployment</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="overview.html"><a href="overview.html#physical-measurements"><i class="fa fa-check"></i><b>1.4.1</b> Physical measurements</a></li>
 <li class="chapter" data-level="1.4.2" data-path="overview.html"><a href="overview.html#quality-control-and-image-quality-optimization"><i class="fa fa-check"></i><b>1.4.2</b> Quality Control and Image quality optimization</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="overview.html"><a href="overview.html#image-quality-vs.-task-performance"><i class="fa fa-check"></i><b>1.5</b> Image quality vs. task performance</a></li>
 <li class="chapter" data-level="1.6" data-path="overview.html"><a href="overview.html#why-physical-measures-are-not-enough"><i class="fa fa-check"></i><b>1.6</b> Why physical measures are not enough</a></li>
 <li class="chapter" data-level="1.7" data-path="overview.html"><a href="overview.html#model-observers"><i class="fa fa-check"></i><b>1.7</b> Model observers</a></li>
-<li class="chapter" data-level="1.8" data-path="overview.html"><a href="overview.html#measuring-observer-performance-four-paradigms"><i class="fa fa-check"></i><b>1.8</b> Measuring observer performance: four paradigms</a><ul>
+<li class="chapter" data-level="1.8" data-path="overview.html"><a href="overview.html#measuring-observer-performance-four-paradigms"><i class="fa fa-check"></i><b>1.8</b> Measuring observer performance: four paradigms</a>
+<ul>
 <li class="chapter" data-level="1.8.1" data-path="overview.html"><a href="overview.html#basic-approach-to-the-analysis"><i class="fa fa-check"></i><b>1.8.1</b> Basic approach to the analysis</a></li>
 <li class="chapter" data-level="1.8.2" data-path="overview.html"><a href="overview.html#historical-notes"><i class="fa fa-check"></i><b>1.8.2</b> Historical notes</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="overview.html"><a href="overview.html#hierarchy-of-assessment-methods"><i class="fa fa-check"></i><b>1.9</b> Hierarchy of assessment methods</a></li>
-<li class="chapter" data-level="1.10" data-path="overview.html"><a href="overview.html#overview-of-the-book-and-how-to-use-it"><i class="fa fa-check"></i><b>1.10</b> Overview of the book and how to use it</a><ul>
+<li class="chapter" data-level="1.10" data-path="overview.html"><a href="overview.html#overview-of-the-book-and-how-to-use-it"><i class="fa fa-check"></i><b>1.10</b> Overview of the book and how to use it</a>
+<ul>
 <li class="chapter" data-level="1.10.1" data-path="overview.html"><a href="overview.html#overview-of-the-book"><i class="fa fa-check"></i><b>1.10.1</b> Overview of the book</a></li>
 <li class="chapter" data-level="1.10.2" data-path="overview.html"><a href="overview.html#how-to-use-the-book"><i class="fa fa-check"></i><b>1.10.2</b> How to use the book</a></li>
 </ul></li>
@@ -173,27 +200,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.13" data-path="overview.html"><a href="overview.html#overview-references"><i class="fa fa-check"></i><b>1.13</b> Chapter References</a></li>
 </ul></li>
 <li class="part"><span><b>ROC paradigm</b></span></li>
-<li class="chapter" data-level="2" data-path="binary-task.html"><a href="binary-task.html"><i class="fa fa-check"></i><b>2</b> The Binary Task</a><ul>
+<li class="chapter" data-level="2" data-path="binary-task.html"><a href="binary-task.html"><i class="fa fa-check"></i><b>2</b> The Binary Task</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="binary-task.html"><a href="binary-task.html#binary-task-how-much-finished"><i class="fa fa-check"></i><b>2.1</b> How much finished 90%</a></li>
 <li class="chapter" data-level="2.2" data-path="binary-task.html"><a href="binary-task.html#binary-taskIntro"><i class="fa fa-check"></i><b>2.2</b> Introduction</a></li>
 <li class="chapter" data-level="2.3" data-path="binary-task.html"><a href="binary-task.html#binary-task-2-2-table"><i class="fa fa-check"></i><b>2.3</b> The 2x2 table</a></li>
-<li class="chapter" data-level="2.4" data-path="binary-task.html"><a href="binary-task.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4</b> Sensitivity and specificity</a><ul>
+<li class="chapter" data-level="2.4" data-path="binary-task.html"><a href="binary-task.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4</b> Sensitivity and specificity</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="binary-task.html"><a href="binary-task.html#estimating-sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4.1</b> Estimating sensitivity and specificity</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="binary-task.html"><a href="binary-task.html#disease-prevalence"><i class="fa fa-check"></i><b>2.5</b> Disease prevalence</a></li>
 <li class="chapter" data-level="2.6" data-path="binary-task.html"><a href="binary-task.html#accuracy"><i class="fa fa-check"></i><b>2.6</b> Accuracy</a></li>
 <li class="chapter" data-level="2.7" data-path="binary-task.html"><a href="binary-task.html#negative-and-positive-predictive-values"><i class="fa fa-check"></i><b>2.7</b> Negative and positive predictive values</a></li>
-<li class="chapter" data-level="2.8" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvCode"><i class="fa fa-check"></i><b>2.8</b> Examples: PPV, NPV and Accuracy</a><ul>
+<li class="chapter" data-level="2.8" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvCode"><i class="fa fa-check"></i><b>2.8</b> Examples: PPV, NPV and Accuracy</a>
+<ul>
 <li class="chapter" data-level="2.8.1" data-path="binary-task.html"><a href="binary-task.html#binary-task-npv-ppv-comments"><i class="fa fa-check"></i><b>2.8.1</b> Comments</a></li>
 <li class="chapter" data-level="2.8.2" data-path="binary-task.html"><a href="binary-task.html#binary-task-npv-ppv-irrel-lab"><i class="fa fa-check"></i><b>2.8.2</b> PPV and NPV are irrelevant to laboratory tasks</a></li>
 </ul></li>
 <li class="chapter" data-level="2.9" data-path="binary-task.html"><a href="binary-task.html#binary-task-discussion"><i class="fa fa-check"></i><b>2.9</b> Discussion</a></li>
 <li class="chapter" data-level="2.10" data-path="binary-task.html"><a href="binary-task.html#binary-task-references"><i class="fa fa-check"></i><b>2.10</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="binary-task-model.html"><a href="binary-task-model.html"><i class="fa fa-check"></i><b>3</b> Modeling the binary Task</a><ul>
+<li class="chapter" data-level="3" data-path="binary-task-model.html"><a href="binary-task-model.html"><i class="fa fa-check"></i><b>3</b> Modeling the binary Task</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-how-much-finished"><i class="fa fa-check"></i><b>3.1</b> How much finished 95%</a></li>
 <li class="chapter" data-level="3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-intro"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
-<li class="chapter" data-level="3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-z-sample-model"><i class="fa fa-check"></i><b>3.3</b> Decision variable and reporting threshold</a><ul>
+<li class="chapter" data-level="3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-z-sample-model"><i class="fa fa-check"></i><b>3.3</b> Decision variable and reporting threshold</a>
+<ul>
 <li class="chapter" data-level="3.3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-decision-variable"><i class="fa fa-check"></i><b>3.3.1</b> Existence of a decision variable</a></li>
 <li class="chapter" data-level="3.3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-reporting-threshold"><i class="fa fa-check"></i><b>3.3.2</b> Existence of a reporting threshold</a></li>
 <li class="chapter" data-level="3.3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#adequacy-of-the-training-session"><i class="fa fa-check"></i><b>3.3.3</b> Adequacy of the training session</a></li>
@@ -204,7 +236,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-normal-distribution"><i class="fa fa-check"></i><b>3.7</b> The normal distribution</a></li>
 <li class="chapter" data-level="3.8" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity"><i class="fa fa-check"></i><b>3.8</b> Analytic expressions for specificity and sensitivity</a></li>
 <li class="chapter" data-level="3.9" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity-inverse-variation"><i class="fa fa-check"></i><b>3.9</b> Inverse variation of sensitivity and specificity</a></li>
-<li class="chapter" data-level="3.10" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-roc-curve"><i class="fa fa-check"></i><b>3.10</b> The ROC curve</a><ul>
+<li class="chapter" data-level="3.10" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-roc-curve"><i class="fa fa-check"></i><b>3.10</b> The ROC curve</a>
+<ul>
 <li class="chapter" data-level="3.10.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-chance-diagonal"><i class="fa fa-check"></i><b>3.10.1</b> The chance diagonal</a></li>
 <li class="chapter" data-level="3.10.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-guessing-observer"><i class="fa fa-check"></i><b>3.10.2</b> The guessing observer</a></li>
 <li class="chapter" data-level="3.10.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-symmetry-wrt-negative-diagonal"><i class="fa fa-check"></i><b>3.10.3</b> Symmetry with respect to negative diagonal</a></li>
@@ -216,18 +249,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.11" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-confidence-intervals"><i class="fa fa-check"></i><b>3.11</b> Confidence intervals for an operating point</a></li>
 <li class="chapter" data-level="3.12" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-beam-study"><i class="fa fa-check"></i><b>3.12</b> Variability: the Beam study</a></li>
 <li class="chapter" data-level="3.13" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-discussion"><i class="fa fa-check"></i><b>3.13</b> Discussion</a></li>
-<li class="chapter" data-level="3.14" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-demo"><i class="fa fa-check"></i><b>3.14</b> Appendix I</a><ul>
+<li class="chapter" data-level="3.14" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-demo"><i class="fa fa-check"></i><b>3.14</b> Appendix I</a>
+<ul>
 <li class="chapter" data-level="3.14.1" data-path="binary-task-model.html"><a href="binary-task-model.html#estimates-from-a-finite-sample"><i class="fa fa-check"></i><b>3.14.1</b> Estimates from a finite sample</a></li>
 <li class="chapter" data-level="3.14.2" data-path="binary-task-model.html"><a href="binary-task-model.html#changing-the-seed-variable"><i class="fa fa-check"></i><b>3.14.2</b> Changing the seed variable</a></li>
 <li class="chapter" data-level="3.14.3" data-path="binary-task-model.html"><a href="binary-task-model.html#increasing-the-numbers-of-cases"><i class="fa fa-check"></i><b>3.14.3</b> Increasing the numbers of cases</a></li>
 </ul></li>
 <li class="chapter" data-level="3.15" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-references"><i class="fa fa-check"></i><b>3.15</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html"><i class="fa fa-check"></i><b>4</b> Ratings Paradigm</a><ul>
+<li class="chapter" data-level="4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html"><i class="fa fa-check"></i><b>4</b> Ratings Paradigm</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-how-much-finished"><i class="fa fa-check"></i><b>4.1</b> How much finished 90%</a></li>
 <li class="chapter" data-level="4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
 <li class="chapter" data-level="4.3" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-roc-counts-table"><i class="fa fa-check"></i><b>4.3</b> The ROC counts table</a></li>
-<li class="chapter" data-level="4.4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-operating-points-from-counts-table"><i class="fa fa-check"></i><b>4.4</b> Operating points from counts table</a><ul>
+<li class="chapter" data-level="4.4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-operating-points-from-counts-table"><i class="fa fa-check"></i><b>4.4</b> Operating points from counts table</a>
+<ul>
 <li class="chapter" data-level="4.4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#labeling-the-points"><i class="fa fa-check"></i><b>4.4.1</b> Labeling the points</a></li>
 <li class="chapter" data-level="4.4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-examples"><i class="fa fa-check"></i><b>4.4.2</b> Examples</a></li>
 </ul></li>
@@ -238,16 +274,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.9" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-2afc"><i class="fa fa-check"></i><b>4.9</b> The forced choice paradigm</a></li>
 <li class="chapter" data-level="4.10" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-observer-studies-as-simulations"><i class="fa fa-check"></i><b>4.10</b> Observer performance studies as laboratory simulations of clinical tasks</a></li>
 <li class="chapter" data-level="4.11" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-discrete-vs-continuous-ratings"><i class="fa fa-check"></i><b>4.11</b> Discrete vs. continuous ratings: the Miller study</a></li>
-<li class="chapter" data-level="4.12" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale"><i class="fa fa-check"></i><b>4.12</b> The BI-RADS ratings scale and ROC studies</a><ul>
+<li class="chapter" data-level="4.12" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale"><i class="fa fa-check"></i><b>4.12</b> The BI-RADS ratings scale and ROC studies</a>
+<ul>
 <li class="chapter" data-level="4.12.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale-controversy"><i class="fa fa-check"></i><b>4.12.1</b> The controversy</a></li>
 </ul></li>
 <li class="chapter" data-level="4.13" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-discussion"><i class="fa fa-check"></i><b>4.13</b> Discussion</a></li>
 <li class="chapter" data-level="4.14" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-references"><i class="fa fa-check"></i><b>4.14</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="empirical-auc.html"><a href="empirical-auc.html"><i class="fa fa-check"></i><b>5</b> Empirical AUC</a><ul>
+<li class="chapter" data-level="5" data-path="empirical-auc.html"><a href="empirical-auc.html"><i class="fa fa-check"></i><b>5</b> Empirical AUC</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-how-much-finished"><i class="fa fa-check"></i><b>5.1</b> How much finished 90%</a></li>
 <li class="chapter" data-level="5.2" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-introduction"><i class="fa fa-check"></i><b>5.2</b> Introduction</a></li>
-<li class="chapter" data-level="5.3" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-roc-plot"><i class="fa fa-check"></i><b>5.3</b> The empirical ROC plot</a><ul>
+<li class="chapter" data-level="5.3" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-roc-plot"><i class="fa fa-check"></i><b>5.3</b> The empirical ROC plot</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="empirical-auc.html"><a href="empirical-auc.html#notation-for-cases"><i class="fa fa-check"></i><b>5.3.1</b> Notation for cases</a></li>
 <li class="chapter" data-level="5.3.2" data-path="empirical-auc.html"><a href="empirical-auc.html#an-empirical-operating-point"><i class="fa fa-check"></i><b>5.3.2</b> An empirical operating point</a></li>
 </ul></li>
@@ -258,16 +297,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.8" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem-importance"><i class="fa fa-check"></i><b>5.8</b> Importance of Bamber’s theorem</a></li>
 <li class="chapter" data-level="5.9" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-discussion-summary"><i class="fa fa-check"></i><b>5.9</b> Discussion / Summary</a></li>
 <li class="chapter" data-level="5.10" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-bamber-theorem-proof"><i class="fa fa-check"></i><b>5.10</b> Appendix: Bamber theorem proof</a></li>
-<li class="chapter" data-level="5.11" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-bamber-theorem-a0-term"><i class="fa fa-check"></i><b>5.11</b> Appendix: The <span class="math inline">\(A_0\)</span> term</a><ul>
+<li class="chapter" data-level="5.11" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-bamber-theorem-a0-term"><i class="fa fa-check"></i><b>5.11</b> Appendix: The <span class="math inline">\(A_0\)</span> term</a>
+<ul>
 <li class="chapter" data-level="5.11.1" data-path="empirical-auc.html"><a href="empirical-auc.html#upper-triangle"><i class="fa fa-check"></i><b>5.11.1</b> Upper triangle</a></li>
 <li class="chapter" data-level="5.11.2" data-path="empirical-auc.html"><a href="empirical-auc.html#lowest-trapezoid"><i class="fa fa-check"></i><b>5.11.2</b> Lowest trapezoid</a></li>
 </ul></li>
 <li class="chapter" data-level="5.12" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-references"><i class="fa fa-check"></i><b>5.12</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="binormal-model.html"><a href="binormal-model.html"><i class="fa fa-check"></i><b>6</b> Binormal model</a><ul>
+<li class="chapter" data-level="6" data-path="binormal-model.html"><a href="binormal-model.html"><i class="fa fa-check"></i><b>6</b> Binormal model</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-how-much-finished"><i class="fa fa-check"></i><b>6.1</b> How much finished 97%</a></li>
 <li class="chapter" data-level="6.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-introduction"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
-<li class="chapter" data-level="6.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-definition"><i class="fa fa-check"></i><b>6.3</b> Binormal model</a><ul>
+<li class="chapter" data-level="6.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-definition"><i class="fa fa-check"></i><b>6.3</b> Binormal model</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="binormal-model.html"><a href="binormal-model.html#binned-data"><i class="fa fa-check"></i><b>6.3.1</b> Binned data</a></li>
 <li class="chapter" data-level="6.3.2" data-path="binormal-model.html"><a href="binormal-model.html#sensitivity-and-specificity-1"><i class="fa fa-check"></i><b>6.3.2</b> Sensitivity and specificity</a></li>
 <li class="chapter" data-level="6.3.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-in-conventional-notation"><i class="fa fa-check"></i><b>6.3.3</b> Binormal model in conventional notation</a></li>
@@ -277,14 +319,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.6" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-invariance-property"><i class="fa fa-check"></i><b>6.6</b> Invariance property of pdfs</a></li>
 <li class="chapter" data-level="6.7" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-full-auc"><i class="fa fa-check"></i><b>6.7</b> Az and d-prime measures</a></li>
 <li class="chapter" data-level="6.8" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-fitting"><i class="fa fa-check"></i><b>6.8</b> Fitting the binormal model</a></li>
-<li class="chapter" data-level="6.9" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc"><i class="fa fa-check"></i><b>6.9</b> Partial AUC measures</a><ul>
+<li class="chapter" data-level="6.9" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc"><i class="fa fa-check"></i><b>6.9</b> Partial AUC measures</a>
+<ul>
 <li class="chapter" data-level="6.9.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-meaning-partial-auc-definitions"><i class="fa fa-check"></i><b>6.9.1</b> Measure emphasizing high specificity</a></li>
 <li class="chapter" data-level="6.9.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-metz-partial-auc"><i class="fa fa-check"></i><b>6.9.2</b> Measure emphasizing high sensitivity</a></li>
 <li class="chapter" data-level="6.9.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-metz-partial-auc-example"><i class="fa fa-check"></i><b>6.9.3</b> Numerical examples</a></li>
 </ul></li>
 <li class="chapter" data-level="6.10" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc-comments"><i class="fa fa-check"></i><b>6.10</b> Comments on partial AUC measures</a></li>
 <li class="chapter" data-level="6.11" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-discussion"><i class="fa fa-check"></i><b>6.11</b> Discussion</a></li>
-<li class="chapter" data-level="6.12" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting"><i class="fa fa-check"></i><b>6.12</b> Appendix: Fitting an ROC curve</a><ul>
+<li class="chapter" data-level="6.12" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting"><i class="fa fa-check"></i><b>6.12</b> Appendix: Fitting an ROC curve</a>
+<ul>
 <li class="chapter" data-level="6.12.1" data-path="binormal-model.html"><a href="binormal-model.html#java-fitted-roc-curve"><i class="fa fa-check"></i><b>6.12.1</b> JAVA fitted ROC curve</a></li>
 <li class="chapter" data-level="6.12.2" data-path="binormal-model.html"><a href="binormal-model.html#simplistic-straight-line-fit-to-the-roc-curve"><i class="fa fa-check"></i><b>6.12.2</b> Simplistic straight line fit to the ROC curve</a></li>
 <li class="chapter" data-level="6.12.3" data-path="binormal-model.html"><a href="binormal-model.html#maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>6.12.3</b> Maximum likelihood estimation (MLE)</a></li>
@@ -293,10 +337,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.12.6" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-covariance-matrix"><i class="fa fa-check"></i><b>6.12.6</b> Estimating the covariance matrix</a></li>
 <li class="chapter" data-level="6.12.7" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-variance-of-az"><i class="fa fa-check"></i><b>6.12.7</b> Estimating the variance of Az</a></li>
 </ul></li>
-<li class="chapter" data-level="6.13" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-improper-curves"><i class="fa fa-check"></i><b>6.13</b> Appendix: Improper ROCs</a><ul>
+<li class="chapter" data-level="6.13" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-improper-curves"><i class="fa fa-check"></i><b>6.13</b> Appendix: Improper ROCs</a>
+<ul>
 <li class="chapter" data-level="6.13.1" data-path="binormal-model.html"><a href="binormal-model.html#reason-for-improper-rocs"><i class="fa fa-check"></i><b>6.13.1</b> Reason for improper ROCs</a></li>
 </ul></li>
-<li class="chapter" data-level="6.14" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degeneracy-artifacts"><i class="fa fa-check"></i><b>6.14</b> Appendix: Binormal model degeneracy and artifacts</a><ul>
+<li class="chapter" data-level="6.14" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degeneracy-artifacts"><i class="fa fa-check"></i><b>6.14</b> Appendix: Binormal model degeneracy and artifacts</a>
+<ul>
 <li class="chapter" data-level="6.14.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degenerate-datasets"><i class="fa fa-check"></i><b>6.14.1</b> Degenerate datasets</a></li>
 <li class="chapter" data-level="6.14.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-understanding-degenerate-datasets"><i class="fa fa-check"></i><b>6.14.2</b> Understanding degenerate datasets</a></li>
 <li class="chapter" data-level="6.14.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-exact-fit-not-unique"><i class="fa fa-check"></i><b>6.14.3</b> The exact fit is not unique</a></li>
@@ -305,38 +351,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.15" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-references"><i class="fa fa-check"></i><b>6.15</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="improper-rocs.html"><a href="improper-rocs.html"><i class="fa fa-check"></i><b>7</b> Improper ROC curves</a><ul>
+<li class="chapter" data-level="7" data-path="improper-rocs.html"><a href="improper-rocs.html"><i class="fa fa-check"></i><b>7</b> Improper ROC curves</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="improper-rocs.html"><a href="improper-rocs.html#improper-rocs-how-much-finished"><i class="fa fa-check"></i><b>7.1</b> How much finished 10%</a></li>
 <li class="chapter" data-level="7.2" data-path="improper-rocs.html"><a href="improper-rocs.html#the-binormal-model"><i class="fa fa-check"></i><b>7.2</b> The binormal model</a></li>
 <li class="chapter" data-level="7.3" data-path="improper-rocs.html"><a href="improper-rocs.html#improper-rocs-1"><i class="fa fa-check"></i><b>7.3</b> Improper ROCs</a></li>
 <li class="chapter" data-level="7.4" data-path="improper-rocs.html"><a href="improper-rocs.html#reason-for-improper-rocs-1"><i class="fa fa-check"></i><b>7.4</b> Reason for improper ROCs</a></li>
 </ul></li>
 <li class="part"><span><b>Advanced topics</b></span></li>
-<li class="chapter" data-level="8" data-path="proper-roc-models.html"><a href="proper-roc-models.html"><i class="fa fa-check"></i><b>8</b> Proper ROC models</a><ul>
+<li class="chapter" data-level="8" data-path="proper-roc-models.html"><a href="proper-roc-models.html"><i class="fa fa-check"></i><b>8</b> Proper ROC models</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-how-much-finished"><i class="fa fa-check"></i><b>8.1</b> TBA How much finished</a></li>
 <li class="chapter" data-level="8.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-introduction"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
 <li class="chapter" data-level="8.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem1"><i class="fa fa-check"></i><b>8.3</b> Theorem: ROC slope equals likelihood ratio</a></li>
-<li class="chapter" data-level="8.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem2"><i class="fa fa-check"></i><b>8.4</b> Theorem: likelihood ratio observer maximizes AUC</a><ul>
+<li class="chapter" data-level="8.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem2"><i class="fa fa-check"></i><b>8.4</b> Theorem: likelihood ratio observer maximizes AUC</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#explanation"><i class="fa fa-check"></i><b>8.4.1</b> Explanation</a></li>
 </ul></li>
 <li class="chapter" data-level="8.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proper-vs-improper"><i class="fa fa-check"></i><b>8.5</b> Proper vs. improper ROC curves</a></li>
-<li class="chapter" data-level="8.6" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-degenerate-datasets"><i class="fa fa-check"></i><b>8.6</b> Degenerate datasets</a><ul>
+<li class="chapter" data-level="8.6" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-degenerate-datasets"><i class="fa fa-check"></i><b>8.6</b> Degenerate datasets</a>
+<ul>
 <li class="chapter" data-level="8.6.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#comments-on-degeneracy"><i class="fa fa-check"></i><b>8.6.1</b> Comments on degeneracy</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-observer"><i class="fa fa-check"></i><b>8.7</b> The likelihood ratio observer</a></li>
-<li class="chapter" data-level="8.8" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc"><i class="fa fa-check"></i><b>8.8</b> PROPROC</a><ul>
+<li class="chapter" data-level="8.8" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc"><i class="fa fa-check"></i><b>8.8</b> PROPROC</a>
+<ul>
 <li class="chapter" data-level="8.8.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-formulae"><i class="fa fa-check"></i><b>8.8.1</b> PROPROC formulae</a></li>
 <li class="chapter" data-level="8.8.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-code"><i class="fa fa-check"></i><b>8.8.2</b> PROPROC code implementation</a></li>
 <li class="chapter" data-level="8.8.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-rocs"><i class="fa fa-check"></i><b>8.8.3</b> PROPROC ROC and slope plots</a></li>
 </ul></li>
-<li class="chapter" data-level="8.9" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm"><i class="fa fa-check"></i><b>8.9</b> The contaminated binormal model (CBM)</a><ul>
+<li class="chapter" data-level="8.9" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm"><i class="fa fa-check"></i><b>8.9</b> The contaminated binormal model (CBM)</a>
+<ul>
 <li class="chapter" data-level="8.9.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-formulae"><i class="fa fa-check"></i><b>8.9.1</b> CBM formulae</a></li>
 <li class="chapter" data-level="8.9.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-code"><i class="fa fa-check"></i><b>8.9.2</b> CBM code implementation</a></li>
 <li class="chapter" data-level="8.9.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-rocs"><i class="fa fa-check"></i><b>8.9.3</b> CBM ROC plots</a></li>
 <li class="chapter" data-level="8.9.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-pdfs"><i class="fa fa-check"></i><b>8.9.4</b> CBM pdf plots</a></li>
 <li class="chapter" data-level="8.9.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-slopes"><i class="fa fa-check"></i><b>8.9.5</b> CBM likelihood ratio plots</a></li>
 </ul></li>
-<li class="chapter" data-level="8.10" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma"><i class="fa fa-check"></i><b>8.10</b> The bigamma model (BGM)</a><ul>
+<li class="chapter" data-level="8.10" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma"><i class="fa fa-check"></i><b>8.10</b> The bigamma model (BGM)</a>
+<ul>
 <li class="chapter" data-level="8.10.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-formulae"><i class="fa fa-check"></i><b>8.10.1</b> BGM formulae</a></li>
 <li class="chapter" data-level="8.10.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-code"><i class="fa fa-check"></i><b>8.10.2</b> BGM code implementation</a></li>
 <li class="chapter" data-level="8.10.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-rocs"><i class="fa fa-check"></i><b>8.10.3</b> BGM ROC plots</a></li>
@@ -345,37 +398,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.11" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-discussion"><i class="fa fa-check"></i><b>8.11</b> Discussion</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="proproc-rocs.html"><a href="proproc-rocs.html"><i class="fa fa-check"></i><b>9</b> PROPROC ROC curves</a><ul>
+<li class="chapter" data-level="9" data-path="proproc-rocs.html"><a href="proproc-rocs.html"><i class="fa fa-check"></i><b>9</b> PROPROC ROC curves</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="proproc-rocs.html"><a href="proproc-rocs.html#helper-functions"><i class="fa fa-check"></i><b>9.1</b> Helper functions</a></li>
 <li class="chapter" data-level="9.2" data-path="proproc-rocs.html"><a href="proproc-rocs.html#definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters"><i class="fa fa-check"></i><b>9.2</b> Definitions of PROPROC parameters in terms of binormal model parameters</a></li>
 <li class="chapter" data-level="9.3" data-path="proproc-rocs.html"><a href="proproc-rocs.html#main-code-and-output"><i class="fa fa-check"></i><b>9.3</b> Main code and output</a></li>
 <li class="chapter" data-level="9.4" data-path="proproc-rocs.html"><a href="proproc-rocs.html#discussion"><i class="fa fa-check"></i><b>9.4</b> Discussion</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html"><i class="fa fa-check"></i><b>10</b> Metz Eqn 36 numerical check</a><ul>
+<li class="chapter" data-level="10" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html"><i class="fa fa-check"></i><b>10</b> Metz Eqn 36 numerical check</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#helper-functions-1"><i class="fa fa-check"></i><b>10.1</b> Helper functions</a></li>
 <li class="chapter" data-level="10.2" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#main-code-and-output-1"><i class="fa fa-check"></i><b>10.2</b> Main code and output</a></li>
 <li class="chapter" data-level="10.3" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#discussion-1"><i class="fa fa-check"></i><b>10.3</b> Discussion</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html"><i class="fa fa-check"></i><b>11</b> Bivariate binormal model</a><ul>
+<li class="chapter" data-level="11" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html"><i class="fa fa-check"></i><b>11</b> Bivariate binormal model</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-how-much-finished"><i class="fa fa-check"></i><b>11.1</b> TBA How much finished</a></li>
 <li class="chapter" data-level="11.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-introduction"><i class="fa fa-check"></i><b>11.2</b> Introduction</a></li>
 <li class="chapter" data-level="11.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-bivariate-density"><i class="fa fa-check"></i><b>11.3</b> Bivariate density function</a></li>
 <li class="chapter" data-level="11.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-formulae"><i class="fa fa-check"></i><b>11.4</b> The bivariate binormal model</a></li>
 <li class="chapter" data-level="11.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-visualization"><i class="fa fa-check"></i><b>11.5</b> Visualizing the bivariate density function</a></li>
 <li class="chapter" data-level="11.6" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation"><i class="fa fa-check"></i><b>11.6</b> Estimating bivariate binormal model parameters</a></li>
-<li class="chapter" data-level="11.7" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-examples"><i class="fa fa-check"></i><b>11.7</b> Examples of bivariate normal probability integrals</a><ul>
+<li class="chapter" data-level="11.7" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-examples"><i class="fa fa-check"></i><b>11.7</b> Examples of bivariate normal probability integrals</a>
+<ul>
 <li class="chapter" data-level="11.7.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation-code"><i class="fa fa-check"></i><b>11.7.1</b> Code listing</a></li>
 <li class="chapter" data-level="11.7.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-examples-integrals"><i class="fa fa-check"></i><b>11.7.2</b> Examples of bivariate normal probability integrals</a></li>
 </ul></li>
 <li class="chapter" data-level="11.8" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-likelihood"><i class="fa fa-check"></i><b>11.8</b> Likelihood function</a></li>
-<li class="chapter" data-level="11.9" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2"><i class="fa fa-check"></i><b>11.9</b> CORROC2 software</a><ul>
+<li class="chapter" data-level="11.9" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2"><i class="fa fa-check"></i><b>11.9</b> CORROC2 software</a>
+<ul>
 <li class="chapter" data-level="11.9.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-details"><i class="fa fa-check"></i><b>11.9.1</b> Details of CORROC2 software</a></li>
 <li class="chapter" data-level="11.9.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-data-input"><i class="fa fa-check"></i><b>11.9.2</b> CORROC2 data input</a></li>
 <li class="chapter" data-level="11.9.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output"><i class="fa fa-check"></i><b>11.9.3</b> CORROC2 output</a></li>
 <li class="chapter" data-level="11.9.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-covariance-matrix"><i class="fa fa-check"></i><b>11.9.4</b> Covariance matrix</a></li>
 <li class="chapter" data-level="11.9.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output-restof"><i class="fa fa-check"></i><b>11.9.5</b> Rest of CORROC2 output</a></li>
 </ul></li>
-<li class="chapter" data-level="11.10" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application"><i class="fa fa-check"></i><b>11.10</b> Application to a real dataset</a><ul>
+<li class="chapter" data-level="11.10" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application"><i class="fa fa-check"></i><b>11.10</b> Application to a real dataset</a>
+<ul>
 <li class="chapter" data-level="11.10.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-code-output"><i class="fa fa-check"></i><b>11.10.1</b> Code Output</a></li>
 <li class="chapter" data-level="11.10.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-debug-window"><i class="fa fa-check"></i><b>11.10.2</b> Contents of the Debug window, as viewed from the Mac side</a></li>
 <li class="chapter" data-level="11.10.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-corrocii-input"><i class="fa fa-check"></i><b>11.10.3</b> Contents of CorrocIIinput.txt</a></li>
@@ -403,17 +462,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="binary-task-model" class="section level1 hasAnchor">
+<div id="binary-task-model" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Modeling the binary Task<a href="binary-task-model.html#binary-task-model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="binary-task-model-how-much-finished" class="section level2 hasAnchor">
+<div id="binary-task-model-how-much-finished" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> How much finished 95%<a href="binary-task-model.html#binary-task-model-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div id="binary-task-model-intro" class="section level2 hasAnchor">
+<div id="binary-task-model-intro" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Introduction<a href="binary-task-model.html#binary-task-model-intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Chapter <a href="binary-task-model.html#binary-task-model">3</a> introduced measures of performance associated with the binary task. Described in this chapter is a 2-parameter statistical model for the binary task. It shows how one can predict quantities like sensitivity and specificity based on the values of the parameters of a statistical model of the binary task. Introduced are the fundamental concepts of a <strong>decision variable</strong> and a <strong>reporting threshold</strong> or simple <strong>threshold</strong> that occur frequently in this book. It is shown that the reporting threshold can be altered by varying the experimental conditions. The receiver-operating characteristic (ROC) plot is introduced. It is shown how the dependence of sensitivity and specificity on the reporting threshold can be exploited by a measure of performance that is independent of reporting threshold.</p>
 <p>The dependence of variability of the operating point on the numbers of cases is examined. The concept of random sampling is introduced and it is shown that the results become more stable with larger numbers of cases, i.e., larger sample sizes. These are perhaps intuitively obvious concepts but it is important to see them demonstrated, Online Appendix 3.A. Formulae for confidence intervals for estimates of sensitivity and specificity are derived and the calculations are shown explicitly using <code>R</code> code.</p>
 </div>
-<div id="binary-task-model-z-sample-model" class="section level2 hasAnchor">
+<div id="binary-task-model-z-sample-model" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Decision variable and reporting threshold<a href="binary-task-model.html#binary-task-model-z-sample-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The model for the binary task involves three assumptions:</p>
 <ol style="list-style-type: decimal">
@@ -422,15 +481,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>An adequate number of training session(s) are used to get the observer to a steady state.</p></li>
 <li><p>The observer is “blinded” to the truth of each case while the researcher is not.</p></li>
 </ol>
-<div id="existence-of-a-decision-variable" class="section level3 hasAnchor">
+<div id="existence-of-a-decision-variable" class="section level3 hasAnchor" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Existence of a decision variable<a href="binary-task-model.html#existence-of-a-decision-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Assumption 1:</strong> Each case presentation is associated with the occurrence (or realization) of a value of a random scalar <em>sensory variable</em> which is a unidirectional measure of evidence of disease.</p>
 <ul>
 <li><p>The sensory variable is sensed internally by the observer and as such cannot be directly measured. Alternative terminology includes “psychophysical variable”, “perceived variable”, “perceptual variable” or “confidence level”. The last term is the most common. It is a subjective variable since it depends on the observer: the same case shown to different observers could evoke different values of the sensory variable. Since one cannot measure it anyway, it would be a very strong assumption to assume that the sensations are identical. In this book the term “latent decision variable” or simply “decision variable” is used, which hopefully gets away from the semantics and focuses instead on what the variable is used for, namely making decisions. The symbol <span class="math inline">\(Z\)</span> is used and specific realized values are termed z-samples. It is a random variable in the sense that it varies randomly from case to case.</p></li>
-<li><p>The decision variable rank-orders cases with respect to evidence for presence of disease. Unlike a traditional rank-ordering scheme, where “1” is the highest rank, the scale is inverted with larger values corresponding to greater evidence of disease. Without loss of generality, one assumes that the decision variable ranges from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span> with large positive values indicative of strong evidence for presence of disease and large negative values indicative of strong evidence for absence of disease. The zero value indicates no evidence for presence or absence of disease.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> In this book such a decision scale, with increasing values corresponding to increasing evidence of disease, is termed <strong>positive-directed</strong>.</p></li>
+<li><p>The decision variable rank-orders cases with respect to evidence for presence of disease. Unlike a traditional rank-ordering scheme, where “1” is the highest rank, the scale is inverted with larger values corresponding to greater evidence of disease. Without loss of generality, one assumes that the decision variable ranges from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span> with large positive values indicative of strong evidence for presence of disease and large negative values indicative of strong evidence for absence of disease. The zero value indicates no evidence for presence or absence of disease. <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> In this book such a decision scale, with increasing values corresponding to increasing evidence of disease, is termed <strong>positive-directed</strong>.</p></li>
 </ul>
 </div>
-<div id="existence-of-a-reporting-threshold" class="section level3 hasAnchor">
+<div id="existence-of-a-reporting-threshold" class="section level3 hasAnchor" number="3.3.2">
 <h3><span class="header-section-number">3.3.2</span> Existence of a reporting threshold<a href="binary-task-model.html#existence-of-a-reporting-threshold" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Assumption 2:</strong> The radiologist adopts a single case-independent reporting threshold <span class="math inline">\(\zeta\)</span> and states: “case is diseased” if <span class="math inline">\(z \ge \zeta\)</span> or “case is non-diseased” if <span class="math inline">\(z &lt; \zeta\)</span>.</p>
 <ul>
@@ -440,11 +499,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>If a second study is conducted under different conditions, the observer is assumed to determine after a new training session the optimal threshold for the new conditions and henceforth holds it constant for the duration of the second study.</p></li>
 </ul>
 <p>From Assumption 2, it follows that:</p>
-<p><span class="math display" id="eq:binary-task-model-fpf">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-fpf">\[\begin{equation}
 \text{1-Sp} \equiv \text{FPF}=P(Z\ge \zeta|T=1)
 \tag{3.1}
 \end{equation}\]</span></p>
-<p><span class="math display" id="eq:binary-task-model-tpf">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-tpf">\[\begin{equation}
 \text{Se} \equiv \text{TPF}=P(Z\ge \zeta|T=2)
 \tag{3.2}
 \end{equation}\]</span></p>
@@ -456,26 +515,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>The equations imply that via choice of the reporting threshold <span class="math inline">\(\zeta\)</span>, both <span class="math inline">\(\text{Se}\)</span> and <span class="math inline">\(\text{Sp}\)</span> are under the control of the observer. The lower the reporting threshold the higher the sensitivity and the lower the specificity and the converse is also true. Ideally both sensitivity and specificity should be large, i.e., unity. The tradeoff between sensitivity and specificity says that there is no “free lunch”: the price paid for increased sensitivity is decreased specificity and vice-versa.</p></li>
 </ul>
 </div>
-<div id="adequacy-of-the-training-session" class="section level3 hasAnchor">
+<div id="adequacy-of-the-training-session" class="section level3 hasAnchor" number="3.3.3">
 <h3><span class="header-section-number">3.3.3</span> Adequacy of the training session<a href="binary-task-model.html#adequacy-of-the-training-session" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Assumption 3:</strong> The observer has complete knowledge of the distributions of actually non-diseased and actually diseased cases and makes rational decision based on this knowledge. Knowledge of the distributions is entirely consistent with not knowing which distribution a specific z-sample is coming from.</p>
 <p>How an observer can be induced to change the reporting threshold is the subject of the following two examples.</p>
 </div>
 </div>
-<div id="binary-task-model-example-1" class="section level2 hasAnchor">
+<div id="binary-task-model-example-1" class="section level2 hasAnchor" number="3.4">
 <h2><span class="header-section-number">3.4</span> Changing the reporting threshold: I<a href="binary-task-model.html#binary-task-model-example-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Suppose that in the first study a radiologist interprets a set of cases subject to the instructions that it is important to identify actually diseased cases and to worry less about misdiagnosing actually non-diseased cases. One way to do this would be to reward the radiologist with $10 for each TP decision but only $1 for each TN decision. For simplicity, assume there is no penalty imposed for incorrect decisions and that the case set contains equal numbers of non-diseased and diseased cases and the radiologist is informed of these experimental conditions. It is also assumed that the radiologist is allowed to reach a steady state and responds rationally to the payoff agreement. Under these circumstances, the radiologist is expected to set the reporting threshold at a small value so that even slight evidence of presence of disease is enough to result in a “case is diseased” decision. The low reporting threshold also implies that considerable evidence of lack of disease is needed before a “case is non-diseased” decision is rendered. The radiologist is expected to achieve relatively high sensitivity but specificity will be low. As a concrete example, if there are 100 non-diseased cases and 100 diseased cases, assume the radiologist makes 90 TP decisions; since the threshold for presence of presence of disease is small, this number is close to the maximum possible value, namely 100. Assume further that 10 TN decisions are made; since the implied threshold for evidence of absence of disease is large, this number is close to the minimum possible value, namely 0. Therefore, sensitivity is 90 percent and specificity is 10 percent. The radiologist earns 90 x $10 + 10 x $1 = $910 for participating in this study.</p>
 <p>Next, suppose the study is repeated with the same cases but this time the payoff is $1 for each TP decision and $10 for each TN decision. Suppose, further, that sufficient time has elapsed from the previous study so that memory effects can be neglected. Now the roles of sensitivity and specificity are reversed. The radiologist’s incentive is to be correct on actually non-diseased cases without worrying too much about missing actually diseased cases. The radiologist is expected to set the reporting threshold at a large value so that considerable evidence of disease-presence is required to result in a “case is diseased” decision but even slight evidence of absence of disease is enough to result in a “case is non-diseased” decision. This radiologist is expected to achieve relatively low sensitivity but specificity will be higher. Assume the radiologist makes 90 TN decisions and 10 TP decisions, earning $910 for the second study. The corresponding sensitivity is 10 percent and specificity is 90 percent.</p>
 <p>The incentives in the first study caused the radiologist to accept low specificity in order to achieve high sensitivity. The incentives in the second study caused the radiologist to accept low sensitivity in order to achieve high specificity.</p>
 </div>
-<div id="binary-task-model-example-2" class="section level2 hasAnchor">
+<div id="binary-task-model-example-2" class="section level2 hasAnchor" number="3.5">
 <h2><span class="header-section-number">3.5</span> Changing the reporting threshold: II<a href="binary-task-model.html#binary-task-model-example-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Suppose one asks the same radiologist to interpret a set of cases, but this time the reward for a correct decision is always $1 regardless of the truth state of the case and, as before, there are is no penalty for incorrect decisions. However, the radiologist is told that disease prevalence is only 0.005 and that this is the actual prevalence in the experimental study, i.e., the experimenter is not deceiving the radiologist.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> In other words, only five out of every 1000 cases are actually diseased. This information will cause the radiologist to adopt a high threshold thereby becoming more reluctant to state: “case is diseased”. By simply diagnosing all cases as non-diseased, i.e., without using any image information, the radiologist will be correct on every disease absent case and earn $995, which is close to the maximum $1000 the radiologist can earn by using case information to the full and being correct on disease-present and disease-absent cases.</p>
+<p>Suppose one asks the same radiologist to interpret a set of cases, but this time the reward for a correct decision is always $1 regardless of the truth state of the case and, as before, there are is no penalty for incorrect decisions. However, the radiologist is told that disease prevalence is only 0.005 and that this is the actual prevalence in the experimental study, i.e., the experimenter is not deceiving the radiologist. <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> In other words, only five out of every 1000 cases are actually diseased. This information will cause the radiologist to adopt a high threshold thereby becoming more reluctant to state: “case is diseased”. By simply diagnosing all cases as non-diseased, i.e., without using any image information, the radiologist will be correct on every disease absent case and earn $995, which is close to the maximum $1000 the radiologist can earn by using case information to the full and being correct on disease-present and disease-absent cases.</p>
 <p>The example is not as contrived as might appear at first sight. However, in screening mammography, the cost of missing a breast cancer, both in terms of loss of life and a possible malpractice suite, is usually perceived to be higher than the cost of a false positive. This can result in a shift towards higher sensitivity at the expense of lower specificity.</p>
 <p>If a new study were conducted with a highly enriched set of cases, where the disease prevalence is 0.995 (i.e., only 5 out of every 1000 cases are actually non-diseased), then the radiologist would adopt a low threshold. By simply calling every case “non-diseased”, the radiologist earns $995.</p>
 <p>These examples show that by manipulating the relative costs of correct vs. incorrect decisions and / or by varying disease prevalence one can influence the radiologist’s reporting threshold. These examples apply to laboratory studies. Clinical interpretations are subject to different cost-benefit considerations that are generally not under the researcher’s control: actual disease prevalence, the reputation of the radiologist, malpractice, etc.</p>
 </div>
-<div id="binary-task-model-equal-variance-binormal-model" class="section level2 hasAnchor">
+<div id="binary-task-model-equal-variance-binormal-model" class="section level2 hasAnchor" number="3.6">
 <h2><span class="header-section-number">3.6</span> The equal-variance binormal model<a href="binary-task-model.html#binary-task-model-equal-variance-binormal-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Notation <span class="math inline">\(N(\mu,\sigma^2)\)</span> is the normal (or “Gaussian”) distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. Here is the model for the Z-samples:</p>
 <ol style="list-style-type: decimal">
@@ -484,12 +543,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>A case is diagnosed as diseased if <span class="math inline">\(z \ge \zeta\)</span> and non-diseased otherwise.</p></li>
 </ol>
 <p>The constraint <span class="math inline">\(\mu \ge 0\)</span> is needed so that the observer’s performance is at least as good as chance. A large negative value for this parameter would imply an observer so predictably bad that the observer is good; one simply reverses the observer’s decision (“diseased” to “non-diseased” and vice versa) to get near-perfect performance.</p>
-<p>The model described above is termed the equal-variance binormal model.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> A more general model termed the unequal-variance binormal model is generally used for modeling human observer data, discussed later, but for the moment, one does not need that complication. The equal-variance binormal model is defined by:</p>
-<p><span class="math display" id="eq:binary-task-model-equal-variance">\[\begin{equation} 
+<p>The model described above is termed the equal-variance binormal model. <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> A more general model termed the unequal-variance binormal model is generally used for modeling human observer data, discussed later, but for the moment, one does not need that complication. The equal-variance binormal model is defined by:</p>
+<p><span class="math display" id="eq:binary-task-model-equal-variance">\[\begin{equation}
 \left.
 \begin{aligned}  
-Z_{k_tt} \sim&amp; N(\mu_t,1) \\ 
-\mu_1=&amp; 0\\ 
+Z_{k_tt} \sim&amp; N(\mu_t,1) \\
+\mu_1=&amp; 0\\
 \mu_2=&amp; \mu
 \end{aligned}
 \right \}
@@ -500,21 +559,21 @@ Z_{k_tt} \sim&amp; N(\mu_t,1) \\
 <p>The first line in Eqn. <a href="binary-task-model.html#eq:binary-task-model-equal-variance">(3.3)</a> states that <span class="math inline">\(Z_{k_tt}\)</span> is a random sample from the <span class="math inline">\(N(\mu_t,1)\)</span> distribution, which has unit variance regardless of the value of <span class="math inline">\(t\)</span> (this is the reason for calling it the equal-variance binormal model). The remaining lines in Eqn. <a href="binary-task-model.html#eq:binary-task-model-equal-variance">(3.3)</a> defines <span class="math inline">\(\mu_1\)</span> as zero and <span class="math inline">\(\mu_2\)</span> as <span class="math inline">\(\mu\)</span>. Taken together, these equations state that non-diseased case Z-samples are distributed <span class="math inline">\(N(0,1)\)</span> and diseased case Z-samples are distributed <span class="math inline">\(N(\mu,1)\)</span>. The name binormal arises from the two normal distributions underlying this model.</p>
 <p>A few facts concerning the normal distribution are summarized next.</p>
 </div>
-<div id="binary-task-model-normal-distribution" class="section level2 hasAnchor">
+<div id="binary-task-model-normal-distribution" class="section level2 hasAnchor" number="3.7">
 <h2><span class="header-section-number">3.7</span> The normal distribution<a href="binary-task-model.html#binary-task-model-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A probability density function (pdf) or density of a continuous random variable is a function giving the relative chance that the random variable takes on a given value. For a continuous distribution, the probability of the random variable being exactly equal to a given value is zero. The probability of the random variable falling in a range of values is given by the integral of this variable’s pdf function over that range. For the normal distribution <span class="math inline">\(N(\mu,\sigma^2)\)</span> the pdf is denoted <span class="math inline">\(\phi(z|\mu,\sigma)\)</span>. The special case <span class="math inline">\(N(0,1)\)</span> is referred to as the <strong>unit normal distribution</strong>; it has zero mean and unit variance and the corresponding pdf is denoted <span class="math inline">\(\phi(z)\)</span>.</p>
 <p>By definition,</p>
-<p><span class="math display" id="eq:binary-task-model-phi-def">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-phi-def">\[\begin{equation}
 \phi\left ( z|\mu,\sigma \right )=P(z&lt;Z&lt;(z+dz)|Z \sim N(\mu,\sigma^2))
 \tag{3.4}
 \end{equation}\]</span></p>
 <p>The right hand side of Eqn. <a href="binary-task-model.html#eq:binary-task-model-phi-def">(3.4)</a> is the probability that the random variable <span class="math inline">\(Z\)</span> sampled from <span class="math inline">\(N(\mu,\sigma^2)\)</span> falls between the fixed limits z and z + dz. For this reason <span class="math inline">\(\phi(z|\mu,\sigma)\)</span> is termed the probability density function. The defining equation for the pdf of this distribution is:</p>
-<p><span class="math display" id="eq:binary-task-model-phi">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-phi">\[\begin{equation}
 \phi\left ( z \right )=\frac{1}{\sqrt{2\pi}}\exp\left ( -\frac{z^2}{2} \right )
 \tag{3.5}
 \end{equation}\]</span></p>
 <p>The integral of <span class="math inline">\(\phi(t)\)</span> from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(z\)</span>, as in Eqn. <a href="binary-task-model.html#eq:binary-task-model-Phi">(3.6)</a>, is the probability that a sample from the unit normal distribution is less than <span class="math inline">\(z\)</span>. Regarded as a function of <span class="math inline">\(z\)</span>, this is termed the cumulative distribution function (CDF) and is denoted by <span class="math inline">\(\Phi\)</span> (sometimes the term probability distribution function is used for what we are terming the CDF). The function <span class="math inline">\(\Phi(z)\)</span> is defined by:</p>
-<p><span class="math display" id="eq:binary-task-model-Phi">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-Phi">\[\begin{equation}
 \Phi\left ( z \right )=\int_{-\infty }^{z}\phi(t)dt
 \tag{3.6}
 \end{equation}\]</span></p>
@@ -526,37 +585,37 @@ FIGURE 3.1: pdf-CDF plots for the unit normal distribution. The red curve is the
 </div>
 <p>Fig. <a href="binary-task-model.html#fig:binary-task-model-plots1">3.1</a> shows plots, as functions of z, of the CDF and the pdf for the unit normal distribution. Since z-samples outside ±3 are unlikely, the plotted range, from -3 to +3 includes most of the distribution. The pdf is the familiar bell-shaped curve, centered at zero; the corresponding <code>R</code> function is <code>dnorm()</code> the density of the unit normal distribution. The CDF <span class="math inline">\(\Phi(z)\)</span> increases monotonically from 0 to unity as z increases from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span>. It is the sigmoid (S-shaped) shaped curve in Fig. <a href="binary-task-model.html#fig:binary-task-model-plots1">3.1</a>; the corresponding <code>R</code> function is <code>pnorm()</code>. The dashed line corresponds to the reporting threshold <span class="math inline">\(\zeta = 1\)</span>. The area under the pdf to the left of <span class="math inline">\(\zeta\)</span> equals the value of CDF at the selected <span class="math inline">\(\zeta\)</span> (<code>pnorm(1)</code> = 0.841).</p>
 <p>A related function is the inverse of Eqn. <a href="binary-task-model.html#eq:binary-task-model-Phi">(3.6)</a>. Suppose the left hand side of Eqn. <a href="binary-task-model.html#eq:binary-task-model-Phi">(3.6)</a> is denoted <span class="math inline">\(p\)</span>, which is a probability in the range 0 to 1.</p>
-<p><span class="math display" id="eq:binary-task-model-Phi2">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-Phi2">\[\begin{equation}
 p \equiv \Phi\left ( z \right )=\int_{-\infty }^{z}\phi(t)dt
 \tag{3.7}
 \end{equation}\]</span></p>
 <p>The inverse of <span class="math inline">\(\Phi(z)\)</span> is that function which when applied to <span class="math inline">\(p\)</span> yields the upper limit <span class="math inline">\(z\)</span> in Eqn. <a href="binary-task-model.html#eq:binary-task-model-Phi2">(3.7)</a>, i.e.,</p>
-<p><span class="math display" id="eq:binary-task-model-PhiInvDef">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-PhiInvDef">\[\begin{equation}
 \Phi^{-1}(p) = z
 \tag{3.8}
 \end{equation}\]</span></p>
 <p>Since <span class="math inline">\(p \equiv \Phi(z)\)</span> it follows that</p>
-<p><span class="math display" id="eq:binary-task-model-PhiInvDef2">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-PhiInvDef2">\[\begin{equation}
 \Phi(\Phi^{-1}(z))=z
 \tag{3.9}
 \end{equation}\]</span></p>
 <p>This nicely satisfies the property of an inverse function. The inverse is known in statistical terminology as the quantile function, implemented in <code>R</code> as the <code>qnorm()</code>. Think of <code>pnorm()</code> as a probability and <code>qnorm()</code> as value on the z-axis.</p>
 <p>To summarize the convention used in <code>R</code>, <code>norm</code> implies the unit normal distribution, <code>p</code> denotes a probability distribution function or CDF, <code>q</code> denotes a quantile function and <code>d</code> denotes a density function.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb2-1"><a href="binary-task-model.html#cb2-1"></a><span class="kw">qnorm</span>(<span class="fl">0.025</span>)</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb2-1"><a href="binary-task-model.html#cb2-1"></a><span class="fu">qnorm</span>(<span class="fl">0.025</span>)</span>
 <span id="cb2-2"><a href="binary-task-model.html#cb2-2"></a><span class="co">#&gt; [1] -1.959964</span></span>
-<span id="cb2-3"><a href="binary-task-model.html#cb2-3"></a><span class="kw">qnorm</span>(<span class="dv">1</span><span class="fl">-0.025</span>)</span>
+<span id="cb2-3"><a href="binary-task-model.html#cb2-3"></a><span class="fu">qnorm</span>(<span class="dv">1</span><span class="fl">-0.025</span>)</span>
 <span id="cb2-4"><a href="binary-task-model.html#cb2-4"></a><span class="co">#&gt; [1] 1.959964</span></span>
-<span id="cb2-5"><a href="binary-task-model.html#cb2-5"></a><span class="kw">pnorm</span>(<span class="kw">qnorm</span>(<span class="fl">0.025</span>))</span>
+<span id="cb2-5"><a href="binary-task-model.html#cb2-5"></a><span class="fu">pnorm</span>(<span class="fu">qnorm</span>(<span class="fl">0.025</span>))</span>
 <span id="cb2-6"><a href="binary-task-model.html#cb2-6"></a><span class="co">#&gt; [1] 0.025</span></span>
-<span id="cb2-7"><a href="binary-task-model.html#cb2-7"></a><span class="kw">qnorm</span>(<span class="kw">pnorm</span>(<span class="op">-</span><span class="fl">1.96</span>))</span>
+<span id="cb2-7"><a href="binary-task-model.html#cb2-7"></a><span class="fu">qnorm</span>(<span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">1.96</span>))</span>
 <span id="cb2-8"><a href="binary-task-model.html#cb2-8"></a><span class="co">#&gt; [1] -1.96</span></span></code></pre></div>
 <p>Line 1 demonstrates the identity:</p>
-<p><span class="math display" id="eq:binary-task-model-Phi-Inv-alpha-by2">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-Phi-Inv-alpha-by2">\[\begin{equation}
 \Phi^{-1}(0.025)=-1.959964
 \tag{3.10}
 \end{equation}\]</span></p>
 <p>Line 3 demonstrates the identity:</p>
-<p><span class="math display" id="eq:binary-task-model-phi-inv-alpha">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-phi-inv-alpha">\[\begin{equation}
 \Phi^{-1}(1-0.025)=+1.959964
 \tag{3.11}
 \end{equation}\]</span></p>
@@ -572,10 +631,10 @@ FIGURE 3.2: Illustrating that 95 percent of the total area under the unit normal
 <p>If one knows that a variable is distributed as a unit-normal random variable, then the observed value minus 1.96 defines the lower limit of its 95 percent confidence interval, and the observed value plus 1.96 defines the upper limit of its 95 percent confidence interval.</p>
 </blockquote>
 </div>
-<div id="binary-task-model-sensitivity-specificity" class="section level2 hasAnchor">
+<div id="binary-task-model-sensitivity-specificity" class="section level2 hasAnchor" number="3.8">
 <h2><span class="header-section-number">3.8</span> Analytic expressions for specificity and sensitivity<a href="binary-task-model.html#binary-task-model-sensitivity-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Specificity corresponding to threshold <span class="math inline">\(\zeta\)</span> is the probability that a Z-sample from a non-diseased case is smaller than <span class="math inline">\(\zeta\)</span>. By definition, this is the CDF corresponding to the threshold <span class="math inline">\(\zeta\)</span>. In other words:</p>
-<p><span class="math display" id="eq:binary-task-model-specificity">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-specificity">\[\begin{equation}
 \left.
 \begin{aligned}  
 Sp\left ( \zeta \right ) \equiv&amp; P\left ( Z_{k_11} &lt; \zeta\mid Z_{k_11} \sim N\left ( 0,1 \right )\right ) \\
@@ -585,7 +644,7 @@ Sp\left ( \zeta \right ) \equiv&amp; P\left ( Z_{k_11} &lt; \zeta\mid Z_{k_11} \
 \tag{3.12}
 \end{equation}\]</span></p>
 <p>The expression for sensitivity can be derived. Consider that the random variable obtaining by shifting the origin to <span class="math inline">\(\mu\)</span>. A little thought should convince the reader that <span class="math inline">\(Z_{k_22}-\mu\)</span> is distributed as <span class="math inline">\(N(0,1)\)</span>. Therefore, the desired probability is:</p>
-<p><span class="math display" id="eq:binary-task-model-sensitivity">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-sensitivity">\[\begin{equation}
 \left.
 \begin{aligned}  
 Se\left ( \zeta \right ) \equiv&amp; P\left ( Z_{k_22} \geq \zeta\right ) \\
@@ -597,7 +656,7 @@ Se\left ( \zeta \right ) \equiv&amp; P\left ( Z_{k_22} \geq \zeta\right ) \\
 \tag{3.13}
 \end{equation}\]</span></p>
 <p>A little thought, based on the definition of the CDF function and the symmetry of the unit-normal pdf function, should convince the reader that:</p>
-<p><span class="math display" id="eq:binary-task-model-compact">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-compact">\[\begin{equation}
 \left.
 \begin{aligned}  
 1-\Phi(\zeta)=&amp; -\Phi(\zeta)\\
@@ -607,7 +666,7 @@ Se\left ( \zeta \right ) \equiv&amp; P\left ( Z_{k_22} \geq \zeta\right ) \\
 \tag{3.14}
 \end{equation}\]</span></p>
 <p>Instead of carrying the “1 minus” around one can use the more compact notation. Summarizing, the analytical formulae for the specificity and sensitivity for the equal-variance binormal model are:</p>
-<p><span class="math display" id="eq:binary-task-model-se-sp">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-se-sp">\[\begin{equation}
 Sp\left ( \zeta \right ) = \Phi(\zeta)\\
 Se\left ( \zeta \right ) = \Phi(\mu-\zeta)
 \tag{3.15}
@@ -617,7 +676,7 @@ Se\left ( \zeta \right ) = \Phi(\mu-\zeta)
 </blockquote>
 <p>Sensitivity and specificity are restricted to the range 0 to 1. The observer’s performance could be characterized by specifying sensitivity <em>and</em> specificity, i.e., a pair of numbers. If both sensitivity and specificity of an imaging system are greater than the corresponding values for another system, then the first system is unambiguously better than the second. But if sensitivity is greater for the first but specificity is greater for the second the comparison is ambiguous. A scalar measure is desirable that combines sensitivity and specificity into a single measure of diagnostic performance.</p>
 <p>The parameter <span class="math inline">\(\mu\)</span> satisfies the requirements of a scalar performancer measure, termed a figure of merit (FOM). Eqn. <a href="binary-task-model.html#eq:binary-task-model-se-sp">(3.15)</a> can be solved for <span class="math inline">\(\mu\)</span> as follows. Inverting the equations yields:</p>
-<p><span class="math display" id="eq:binary-task-model-solve-mu-zeta">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-solve-mu-zeta">\[\begin{equation}
 \left.
 \begin{aligned}  
 \zeta =&amp;\Phi^{-1} \left (\text{Sp}\left ( \zeta \right )  \right )\\
@@ -627,7 +686,7 @@ Se\left ( \zeta \right ) = \Phi(\mu-\zeta)
 \tag{3.16}
 \end{equation}\]</span></p>
 <p>Eliminating <span class="math inline">\(\zeta\)</span> yields:</p>
-<p><span class="math display" id="eq:binary-task-model-solve-mu">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-solve-mu">\[\begin{equation}
 \left.
 \begin{aligned}  
 \mu =&amp; \Phi^{-1} \left (\text{Sp}\left ( \zeta \right )  \right ) + \Phi^{-1} \left (\text{Se}\left ( \zeta \right )  \right )
@@ -645,29 +704,29 @@ FIGURE 3.3: The equal-variance binormal model for <span class="math inline">\(\m
 <p>Fig. <a href="binary-task-model.html#fig:binary-task-model-shaded-plots">3.3</a> shows the equal-variance binormal model for <span class="math inline">\(\mu = 3\)</span> and <span class="math inline">\(\zeta = 1\)</span>. The blue-shaded area, including the “common” portion with the vertical red lines, is the probability that a z-sample from a non-diseased case exceeds <span class="math inline">\(\zeta = 1\)</span>, which is the complement of specificity, i.e., false positive fraction, which is 1 - <code>pnorm(1)</code> = 0.159. The red shaded area, including the “common” portion with the vertical red lines, is the probability that a z-sample from a diseased case exceeds <span class="math inline">\(\zeta = 1\)</span>, which is sensitivity or true positive fraction, which is <code>pnorm(3-1)</code>= 0.977.</p>
 <p>See Appendix <a href="binary-task-model.html#binary-task-model-demo">3.14</a> for a demonstration of the concepts of sensitivity and specificity using <code>R</code>.</p>
 </div>
-<div id="binary-task-model-sensitivity-specificity-inverse-variation" class="section level2 hasAnchor">
+<div id="binary-task-model-sensitivity-specificity-inverse-variation" class="section level2 hasAnchor" number="3.9">
 <h2><span class="header-section-number">3.9</span> Inverse variation of sensitivity and specificity<a href="binary-task-model.html#binary-task-model-sensitivity-specificity-inverse-variation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The variation of sensitivity and specificity is modeled in the binormal model by the threshold parameter <span class="math inline">\(\zeta\)</span>. From Eqn. <a href="binary-task-model.html#eq:binary-task-model-specificity">(3.12)</a> specificity at threshold <span class="math inline">\(\zeta\)</span> is <span class="math inline">\(\text{Sp} = \Phi(\zeta)\)</span> and sensitivity is <span class="math inline">\(\text{Se} = \Phi(\mu-\zeta)\)</span>. Since the threshold <span class="math inline">\(\zeta\)</span> appears with different signs the dependence of sensitivity on <span class="math inline">\(\zeta\)</span> will be the opposite of that of specificity. In Fig. <a href="binary-task-model.html#fig:binary-task-model-shaded-plots">3.3</a>, the left edge of the blue shaded region represents the threshold <span class="math inline">\(\zeta = 1\)</span>. As <span class="math inline">\(\zeta = 1\)</span> is moved towards the left, specificity decreases but sensitivity increases. Specificity decreases because less of the non-diseased distribution lies to the left of the lowered threshold, in other words fewer non-diseased cases are correctly diagnosed as non-diseased. Sensitivity increases because more of the diseased distribution lies to the right of the lowered threshold, in other words more diseased cases are correctly diagnosed as diseased.</p>
-<p>If Observer 1 has higher sensitivity than Observer 2 but lower specificity it is difficult to unambiguously compare them; it is not impossible <span class="citation">(Skaane et al. <a href="#ref-RN2637" role="doc-biblioref">2013</a>)</span>. The unambiguous comparison is difficult for the following reason: assuming the Observer 2 can be coaxed into adopting a lower threshold, thereby decreasing specificity to match that of Observer 1 then it is possible that the Observer 2’s sensitivity, formerly smaller, could (and here is the ambiguity because if might not happen) now be greater than that of Observer 1.</p>
+<p>If Observer 1 has higher sensitivity than Observer 2 but lower specificity it is difficult to unambiguously compare them; it is not impossible <span class="citation">(<a href="#ref-RN2637" role="doc-biblioref">Skaane et al. 2013</a>)</span>. The unambiguous comparison is difficult for the following reason: assuming the Observer 2 can be coaxed into adopting a lower threshold, thereby decreasing specificity to match that of Observer 1 then it is possible that the Observer 2’s sensitivity, formerly smaller, could (and here is the ambiguity because if might not happen) now be greater than that of Observer 1.</p>
 <p>A single figure of merit is desirable to the sensitivity - specificity analysis. It is possible to leverage the inverse variation of sensitivity and specificity by combing them into a single scalar measure, as was done with the <span class="math inline">\(\mu\)</span> parameter in the previous section, Eqn. <a href="binary-task-model.html#eq:binary-task-model-solve-mu">(3.17)</a>.</p>
 <p>An equivalent way is by using the area under the ROC plot, discussed next.</p>
 </div>
-<div id="binary-task-model-roc-curve" class="section level2 hasAnchor">
+<div id="binary-task-model-roc-curve" class="section level2 hasAnchor" number="3.10">
 <h2><span class="header-section-number">3.10</span> The ROC curve<a href="binary-task-model.html#binary-task-model-roc-curve" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The receiver operating characteristic (ROC) is defined as the plot of sensitivity (y-axis) vs. 1-specificity (x-axis). Equivalently, it is the plot of TPF (y-axis) vs. FPF (x-axis). From Eqn. <a href="binary-task-model.html#eq:binary-task-model-se-sp">(3.15)</a> it follows that:</p>
-<p><span class="math display" id="eq:binary-task-model-fpf-tpf">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-fpf-tpf">\[\begin{equation}
 \left.
 \begin{aligned}  
 \text{FPF}\left ( \zeta \right ) &amp;\equiv 1 - \text{Sp}\left ( \zeta \right ) \\
 &amp;=\Phi\left ( -\zeta \right )\\
 \text{TPF}\left ( \zeta \right ) &amp;\equiv \text{Se}\left ( \zeta \right ) \\
-&amp;=\Phi\left (\mu -\zeta \right )\\ 
+&amp;=\Phi\left (\mu -\zeta \right )\\
 \end{aligned}
 \right \}
 \tag{3.18}
 \end{equation}\]</span></p>
 <p>Specifying <span class="math inline">\(\zeta\)</span> selects a particular operating point on this curve and varying <span class="math inline">\(\zeta\)</span> from <span class="math inline">\(+\infty\)</span> to <span class="math inline">\(-\infty\)</span> causes the operating point to trace out the ROC curve from the origin (0,0) to (1,1). Note that as <span class="math inline">\(\zeta\)</span> increases the operating point moves down the curve. The operating point <span class="math inline">\(O(\zeta|\mu)\)</span> for the equal variance binormal model is:</p>
-<p><span class="math display" id="eq:binary-task-model-op-pt">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-op-pt">\[\begin{equation}
 O\left ( \zeta \mid \mu \right ) = \left ( \Phi(-\zeta), \Phi(\mu-\zeta) \right ) \\
 \tag{3.19}
 \end{equation}\]</span></p>
@@ -681,24 +740,24 @@ O\left ( \zeta \mid \mu \right ) = \left ( \Phi(-\zeta), \Phi(\mu-\zeta) \right 
 FIGURE 3.4: ROC plots predicted by the equal variance binormal model for different values of <span class="math inline">\(\mu\)</span>. As <span class="math inline">\(\mu\)</span> increases the intersection of the curve with the negative diagonal moves closer to the ideal operating point, (0,1) at which sensitivity and specificity are both equal to unity.
 </p>
 </div>
-<div id="binary-task-model-chance-diagonal" class="section level3 hasAnchor">
+<div id="binary-task-model-chance-diagonal" class="section level3 hasAnchor" number="3.10.1">
 <h3><span class="header-section-number">3.10.1</span> The chance diagonal<a href="binary-task-model.html#binary-task-model-chance-diagonal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In Fig. <a href="binary-task-model.html#fig:binary-task-model-rocs">3.4</a> the ROC curve for <span class="math inline">\(\mu=0\)</span> is the positive diagonal of the ROC plot, termed the <strong>chance diagonal</strong>. Along this curve <span class="math inline">\(\text{TPF = FPF}\)</span> and the observer’s performance is at chance level. For <span class="math inline">\(\mu=0\)</span> the pdf of the diseased distribution is identical to that of the non-diseased distribution: both are centered at the origin. Therefore, no matter the choice of threshold <span class="math inline">\(\zeta\)</span>, <span class="math inline">\(\text{TPF = FPF}\)</span>. Setting <span class="math inline">\(\mu=0\)</span> in Eqn. <a href="binary-task-model.html#eq:binary-task-model-fpf-tpf">(3.18)</a> yields:</p>
 <p><span class="math display">\[\text{TPF}\left ( \zeta \right )=\text{FPF}\left ( \zeta \right )=\Phi\left ( -\zeta \right )\]</span>
 In this case the red and blue curves in Fig. <a href="binary-task-model.html#fig:binary-task-model-shaded-plots">3.3</a> coincide. The observer is unable to find any difference between the two distributions. This can happen if the cancers are of such low visibility that diseased cases are indistinguishable from non-diseased ones, or the observer’s skill level is so poor that the observer is unable to make use of distinguishing characteristics between diseased and non-diseased cases that do exist and which experts exploit.</p>
 </div>
-<div id="binary-task-model-guessing-observer" class="section level3 hasAnchor">
+<div id="binary-task-model-guessing-observer" class="section level3 hasAnchor" number="3.10.2">
 <h3><span class="header-section-number">3.10.2</span> The guessing observer<a href="binary-task-model.html#binary-task-model-guessing-observer" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If the cases are indeed impossibly difficult and/or the observer has zero skill at discriminating between them, the observer has no option but to guess. This rarely happens in the clinic, as too much is at stake and this paragraph is intended to make a pedagogical point: the observer can move the operating point along the change diagonal. If there is no special incentive, the observer tosses a coin and if the coin lands head up, the observer states: “case is diseased” and otherwise states: “case is non-diseased”. When this procedure is averaged over many non-diseased and diseased cases, it will result in the operating point (0.5, 0.5).<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> To move the operating point downward, e.g., to (0.1, 0.1) the observer randomly selects an integer number between 1 and 10, equivalent to a 10-sided “coin”. Whenever a one “shows up”, the observer states “case is diseased” and otherwise the observer states “case is non-diseased”. To move the operating point to (0.2, 0.2) whenever a one or two “shows up”, the observer states “case is diseased” and otherwise the observer states “case is non-diseased”. One can appreciate that simply by changing the probability of stating “case is diseased” the observer can place the operating point anywhere on the chance diagonal but wherever the operating point is placed, it will satisfy TPF = FPF.</p>
+<p>If the cases are indeed impossibly difficult and/or the observer has zero skill at discriminating between them, the observer has no option but to guess. This rarely happens in the clinic, as too much is at stake and this paragraph is intended to make a pedagogical point: the observer can move the operating point along the change diagonal. If there is no special incentive, the observer tosses a coin and if the coin lands head up, the observer states: “case is diseased” and otherwise states: “case is non-diseased”. When this procedure is averaged over many non-diseased and diseased cases, it will result in the operating point (0.5, 0.5). <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> To move the operating point downward, e.g., to (0.1, 0.1) the observer randomly selects an integer number between 1 and 10, equivalent to a 10-sided “coin”. Whenever a one “shows up”, the observer states “case is diseased” and otherwise the observer states “case is non-diseased”. To move the operating point to (0.2, 0.2) whenever a one or two “shows up”, the observer states “case is diseased” and otherwise the observer states “case is non-diseased”. One can appreciate that simply by changing the probability of stating “case is diseased” the observer can place the operating point anywhere on the chance diagonal but wherever the operating point is placed, it will satisfy TPF = FPF.</p>
 </div>
-<div id="binary-task-model-symmetry-wrt-negative-diagonal" class="section level3 hasAnchor">
+<div id="binary-task-model-symmetry-wrt-negative-diagonal" class="section level3 hasAnchor" number="3.10.3">
 <h3><span class="header-section-number">3.10.3</span> Symmetry with respect to negative diagonal<a href="binary-task-model.html#binary-task-model-symmetry-wrt-negative-diagonal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A characteristic of the ROC curves shown in Fig. <a href="binary-task-model.html#fig:binary-task-model-rocs">3.4</a> is that they are symmetric with respect to the negative diagonal, i.e., the line joining (0,1) and (1,0) which is shown as the dotted straight line in Fig. <a href="binary-task-model.html#fig:binary-task-model-rocs">3.4</a>. The symmetry property is due to the equal variance nature of the binormal model and is not true for models considered in later chapters. The intersection between the ROC curve and the negative diagonal corresponds to <span class="math inline">\(\zeta = \mu/2\)</span>, in which case the operating point is:</p>
-<p><span class="math display" id="eq:binary-task-model-neg-diag">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-neg-diag">\[\begin{equation}
 \left.
 \begin{aligned}  
 \text{FPF}\left ( \zeta \right ) &amp;=\Phi\left ( -\mu/2 \right )\\
-\text{TPF}\left ( \zeta \right ) &amp;=\Phi\left (\mu/2 \right )\\ 
+\text{TPF}\left ( \zeta \right ) &amp;=\Phi\left (\mu/2 \right )\\
 \end{aligned}
 \right \}
 \tag{3.20}
@@ -706,19 +765,19 @@ In this case the red and blue curves in Fig. <a href="binary-task-model.html#fig
 <p>The first equation implies:</p>
 <p><span class="math display">\[1-\text{FPF}\left ( \zeta \right ) =1-\Phi\left ( -\mu/2 \right )= \Phi\left ( \mu/2 \right )\]</span></p>
 <p>Therefore,</p>
-<p><span class="math display" id="eq:binary-task-model-neg-diag2">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-neg-diag2">\[\begin{equation}
 \text{TPF}\left ( \zeta \right ) = 1-\text{FPF}\left ( \zeta \right )
 \tag{3.21}
 \end{equation}\]</span></p>
 <p>This equation describes a straight line with unit intercept and slope equal to minus 1, which is the negative diagonal. Since <span class="math inline">\(\text{TPF = Se}\)</span> and <span class="math inline">\(\text{FPF = 1-Sp}\)</span> another way of stating this is that at the intersection with the negative diagonal sensitivity equals specificity.</p>
 </div>
-<div id="binary-task-model-auc-roc-important" class="section level3 hasAnchor">
+<div id="binary-task-model-auc-roc-important" class="section level3 hasAnchor" number="3.10.4">
 <h3><span class="header-section-number">3.10.4</span> Area under the ROC curve<a href="binary-task-model.html#binary-task-model-auc-roc-important" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <blockquote>
 <p>The area AUC (abbreviation for area under curve) under the ROC curve suggests itself as a measure of performance that is independent of threshold and therefore circumvents the ambiguity issue of comparing sensitivity/specificity pairs, and has other advantages.</p>
 </blockquote>
 <p>It is defined by the following integrals:</p>
-<p><span class="math display" id="eq:binary-task-model-az-eq-var">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-az-eq-var">\[\begin{equation}
 \begin{aligned}
 A_{z;\sigma = 1} &amp;= \int_{0}^{1}TPF(\zeta)d(FPF(\zeta))\\
 &amp;=\int_{0}^{1}FPF(\zeta)d(TPF(\zeta))\\
@@ -732,7 +791,7 @@ A_{z;\sigma = 1} &amp;= \int_{0}^{1}TPF(\zeta)d(FPF(\zeta))\\
 </ul>
 <p>By convention, the symbol <span class="math inline">\(A_z\)</span> is used for the area under the unequal-variance binormal model predicted ROC curve. The more expressive term area under curve or AUC is used to include this and other methods of estimating the area under the ROC curve.</p>
 <p>In Eqn. <a href="binary-task-model.html#eq:binary-task-model-az-eq-var">(3.22)</a>, the extra subscript <span class="math inline">\(\sigma = 1\)</span> is necessary to distinguish it from another that corresponding to the unequal variance binormal model to be derived later. It can be shown that:</p>
-<p><span class="math display" id="eq:binary-task-model-az-var">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-az-var">\[\begin{equation}
 A_{z;\sigma = 1} = \Phi\left ( \frac{\mu} {\sqrt{2}} \right )
 \tag{3.23}
 \end{equation}\]</span></p>
@@ -741,7 +800,7 @@ A_{z;\sigma = 1} = \Phi\left ( \frac{\mu} {\sqrt{2}} \right )
 <p>Since it is a scalar quantity, <span class="math inline">\(A_z\)</span> can be used to unambiguously quantify performance than is possible using sensitivity - specificity pairs.</p>
 </blockquote>
 </div>
-<div id="binary-task-model-properties-roc" class="section level3 hasAnchor">
+<div id="binary-task-model-properties-roc" class="section level3 hasAnchor" number="3.10.5">
 <h3><span class="header-section-number">3.10.5</span> Properties of the equal-variance binormal model ROC curve<a href="binary-task-model.html#binary-task-model-properties-roc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li><p>The ROC curve is completely contained within the unit square. This follows from the fact that both axes of the plot are probabilities.</p></li>
@@ -750,11 +809,11 @@ A_{z;\sigma = 1} = \Phi\left ( \frac{\mu} {\sqrt{2}} \right )
 <li><p><span class="math inline">\(A_z\)</span> is a monotone increasing function of <span class="math inline">\(\mu\)</span>. It varies from 0.5 to 1 as <span class="math inline">\(\mu\)</span> varies from zero to infinity.</p></li>
 </ol>
 </div>
-<div id="binary-task-model-comments" class="section level3 hasAnchor">
+<div id="binary-task-model-comments" class="section level3 hasAnchor" number="3.10.6">
 <h3><span class="header-section-number">3.10.6</span> Comments<a href="binary-task-model.html#binary-task-model-comments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Property 2: since the operating point can both be expressed in terms of <span class="math inline">\(\Phi\)</span> functions, which are monotone in their arguments, and in each case the argument <span class="math inline">\(\zeta\)</span> appears with a negative sign it follows that as <span class="math inline">\(\zeta\)</span> is lowered both TPF and FPF increase. The operating point corresponding to <span class="math inline">\(\zeta - d\zeta\)</span> is to the upper right of that corresponding <span class="math inline">\(\zeta\)</span> to (assuming <span class="math inline">\(d\zeta &gt; 0\)</span>).</p>
 <p>Property 3: The slope of the ROC curve can be derived by differentiation (<span class="math inline">\(\mu\)</span> is constant):</p>
-<p><span class="math display" id="eq:binary-task-model-slope1">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-slope1">\[\begin{equation}
 \left.
 \begin{aligned}
 \frac{d(TPF)}{d(FPF)}&amp;=\frac{d(\Phi(\mu-\zeta))}{d(\Phi(-\zeta))}\\
@@ -775,9 +834,9 @@ FIGURE 3.5: ROC curve predicted by equal variance binormal model for <span class
 </p>
 </div>
 </div>
-<div id="binary-task-model-mu-parameter-intepretation" class="section level3 hasAnchor">
+<div id="binary-task-model-mu-parameter-intepretation" class="section level3 hasAnchor" number="3.10.7">
 <h3><span class="header-section-number">3.10.7</span> Physical interpretation of the mu-parameter<a href="binary-task-model.html#binary-task-model-mu-parameter-intepretation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <span class="math inline">\(\mu\)</span> parameter is equivalent <span class="citation">(Macmillan and Creelman <a href="#ref-macmillan2004detection" role="doc-biblioref">2004</a>)</span> to a signal detection theory variable denoted <span class="math inline">\(d&#39;\)</span> in the literature (pronounced “dee-prime”). It can be thought of as the <em>perceptual signal to noise ratio</em> (pSNR) of diseased cases relative to non-diseased ones. It is a measure of reader expertise and / or ease of detectability of the disease. SNR is a term widely used in engineering, specifically in signal detection theory <span class="citation">(Green, Swets, and others <a href="#ref-green1966signal" role="doc-biblioref">1966</a>; Egan <a href="#ref-egan1975book" role="doc-biblioref">1975</a><a href="#ref-egan1975book" role="doc-biblioref">a</a>)</span>. It dates to the early 1940s when one had the problem <span class="citation">(Marcum <a href="#ref-marcum1947statistical" role="doc-biblioref">1947</a>, @marcum1960statistical)</span> of detecting faint radar reflections from a plane against a background of noise. The radar radio “receiver” is the origin of the term in Receiver Operating Characteristic.</p>
+<p>The <span class="math inline">\(\mu\)</span> parameter is equivalent <span class="citation">(<a href="#ref-macmillan2004detection" role="doc-biblioref">Macmillan and Creelman 2004</a>)</span> to a signal detection theory variable denoted <span class="math inline">\(d&#39;\)</span> in the literature (pronounced “dee-prime”). It can be thought of as the <em>perceptual signal to noise ratio</em> (pSNR) of diseased cases relative to non-diseased ones. It is a measure of reader expertise and / or ease of detectability of the disease. SNR is a term widely used in engineering, specifically in signal detection theory <span class="citation">(<a href="#ref-green1966signal" role="doc-biblioref">Green, Swets, et al. 1966</a>; <a href="#ref-egan1975book" role="doc-biblioref">Egan 1975a</a>)</span>. It dates to the early 1940s when one had the problem <span class="citation">Jess Marcum (<a href="#ref-marcum1960statistical" role="doc-biblioref">1960</a>)</span> of detecting faint radar reflections from a plane against a background of noise. The radar radio “receiver” is the origin of the term in Receiver Operating Characteristic.</p>
 <p>The reader may be aware of the “rule-of-thumb” that if SNR exceeds three the target is likely to be detected. It will be shown later that the area under the ROC curve is the probability that a diseased case Z-sample is greater than that of a non-diseased one. The following code snippet shows that for <span class="math inline">\(\mu = 3\)</span>, the probability of detection is 98.3 percent.</p>
 <pre><code>#&gt; pnorm(3/sqrt(2)) =  0.983</code></pre>
 <p>For electrical signals, SNR can be measured with instruments but, in the context of decisions made by humans, what is measured is the <em>perceptual</em> SNR. Physical characteristics that differentiate non-diseased from diseased cases, and how well they are displayed will affect it; in addition the eye-sight of the observer is an obvious factor; not so obvious is how information is processed by the cognitive system, and the role of the observer’s expertise.</p>
@@ -786,7 +845,7 @@ FIGURE 3.5: ROC curve predicted by equal variance binormal model for <span class
 </blockquote>
 </div>
 </div>
-<div id="binary-task-model-confidence-intervals" class="section level2 hasAnchor">
+<div id="binary-task-model-confidence-intervals" class="section level2 hasAnchor" number="3.11">
 <h2><span class="header-section-number">3.11</span> Confidence intervals for an operating point<a href="binary-task-model.html#binary-task-model-confidence-intervals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>A <span class="math inline">\((1-\alpha)\)</span> confidence interval (CI) of a statistic is the range that is expected to contain the true value with probability <span class="math inline">\((1-\alpha)\)</span>.</p></li>
@@ -797,12 +856,12 @@ FIGURE 3.5: ROC curve predicted by equal variance binormal model for <span class
 <li><p>A Bernoulli trial is like a coin-toss, a special coin whose probability of landing “diseased” face up is <span class="math inline">\(p\)</span> which is not necessarily 0.5 as with a real coin.</p></li>
 <li><p>It is a theorem in statistics that the total number of Bernoulli outcomes of one type, e.g., <span class="math inline">\(n(FP)\)</span>, is a binomial-distributed random variable, with success probability <span class="math inline">\(\widehat{FPF}\)</span> and trial size <span class="math inline">\(K_1\)</span>.</p></li>
 </ul>
-<p><span class="math display" id="eq:binary-task-model-BinDistrFPF">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-BinDistrFPF">\[\begin{equation}
 n(FP) \sim B\left ( K_1, \widehat{FPF} \right )
 \tag{3.25}
 \end{equation}\]</span></p>
 <p><span class="math inline">\(B(n,p)\)</span> denotes the binomial distribution with success probability <span class="math inline">\(p\)</span> and trial size <span class="math inline">\(n\)</span>:</p>
-<p><span class="math display" id="eq:binary-task-model-bin-distr">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-bin-distr">\[\begin{equation}
 \left.
 \begin{aligned}  
 k \sim&amp; B\left ( n, p \right )\\
@@ -812,28 +871,28 @@ k=&amp; 0,1,2,...,n\\
 \tag{3.26}
 \end{equation}\]</span></p>
 <p>Eqn. <a href="binary-task-model.html#eq:binary-task-model-bin-distr">(3.26)</a> states that <span class="math inline">\(k\)</span> is a random sample from the binomial distribution <span class="math inline">\(B(n,p)\)</span>. For reference, the probability mass function <span class="math inline">\(\text{pmf}\)</span> of <span class="math inline">\(B(n,p)\)</span> is defined by (the subscript <span class="math inline">\(Bin\)</span> denotes a binomial distribution):</p>
-<p><span class="math display" id="eq:binary-task-model-bin-distr2">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-bin-distr2">\[\begin{equation}
 \text{pmf}_{Bin}\left ( k;n,p \right )=\binom{n}{k}p^k(1-p)^{n-k}
 \tag{3.27}
 \end{equation}\]</span></p>
 <p>For a discrete distribution, one has probability <em>mass</em> function in contrast to a continuous distribution where one has a probability <em>density</em> function.</p>
 <p>The binomial coefficient <span class="math inline">\(\binom{n}{k}\)</span> appearing in Eqn. <a href="binary-task-model.html#eq:binary-task-model-bin-distr2">(3.27)</a>, to be read as “<span class="math inline">\(n\)</span> pick <span class="math inline">\(k\)</span>”, is defined by:</p>
-<p><span class="math display" id="eq:binary-task-model-bin-coeff">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-bin-coeff">\[\begin{equation}
 \binom{n}{k}=\frac{n!}{k!(n-k)!}
 \tag{3.28}
 \end{equation}\]</span></p>
 <p>From the properties of the binomial distribution the variance of n(FP) is given by:</p>
-<p><span class="math display" id="eq:binary-task-model-var-n-FP">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-var-n-FP">\[\begin{equation}
 \sigma_{n(FP)}^2=K_1\widehat{\text{FPF}}\left ( 1 - \widehat{\text{FPF}} \right )
 \tag{3.29}
 \end{equation}\]</span></p>
 <p>It follows that <span class="math inline">\(\text{FPF}\)</span> has mean <span class="math inline">\(\widehat{\text{FPF}}\)</span> and variance <span class="math inline">\(\sigma_{\text{FPF}}^2\)</span> given by (since <span class="math inline">\(Var(aX) = a^2 Var(X)\)</span> where <span class="math inline">\(a\)</span> is a constant):</p>
-<p><span class="math display" id="eq:binary-task-model-var-fpf">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-var-fpf">\[\begin{equation}
 \sigma_{\text{FPF}}^2 = \frac{\widehat{\text{FPF}}\left ( 1 - \widehat{\text{FPF}} \right )}{K_1}
 \tag{3.30}
 \end{equation}\]</span></p>
 <p>For large <span class="math inline">\(K_1\)</span> the distribution of <span class="math inline">\(\text{FPF}\)</span> approaches a normal distribution:</p>
-<p><span class="math display" id="eq:binary-task-model-distr-fpf">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-distr-fpf">\[\begin{equation}
 \left.
 \begin{aligned}  
 FPF \sim N\left ( \widehat{\text{FPF}}, \sigma_{\text{FPF}}^2 \right )\end{aligned}
@@ -841,32 +900,32 @@ FPF \sim N\left ( \widehat{\text{FPF}}, \sigma_{\text{FPF}}^2 \right )\end{align
 \tag{3.31}
 \end{equation}\]</span></p>
 <p>Eqn. <a href="binary-task-model.html#eq:binary-task-model-distr-fpf">(3.31)</a> allows us to write down the approximate symmetric confidence interval for <span class="math inline">\(\widehat{\text{FPF}}\)</span>, i.e., <span class="math inline">\(\pm z_{\alpha/2} \times \sigma_{\text{FPF}}\)</span> around <span class="math inline">\(\widehat{\text{FPF}}\)</span>.</p>
-<p><span class="math display" id="eq:binary-task-model-ci-fpf">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-ci-fpf">\[\begin{equation}
 CI_{1-\alpha}^{\text{FPF}}=\left ( \widehat{\text{FPF}} - z_{\alpha/2} \sigma_{\text{FPF}}, \widehat{\text{FPF}} + z_{\alpha/2} \sigma_{\text{FPF}} \right )
 \tag{3.32}
 \end{equation}\]</span></p>
 <p>In Eqn. <a href="binary-task-model.html#eq:binary-task-model-ci-fpf">(3.32)</a> <span class="math inline">\(z_{\alpha/2}\)</span> is the upper <span class="math inline">\(\alpha/2\)</span> quantile of the unit normal distribution: it is defined such that the area to the <em>right</em> under the unit normal distribution pdf from <span class="math inline">\(z_{\alpha/2}\)</span> to <span class="math inline">\(+\infty\)</span> equals <span class="math inline">\(\alpha/2\)</span>. For example <span class="math inline">\(z_{0.025} = 1.96\)</span>, see Fig. <a href="binary-task-model.html#fig:binary-task-model-shaded-tails">3.2</a>. In general <span class="math inline">\(z_{\alpha/2} = -\Phi^{-1}(\alpha/2)\)</span>. For example <code>-qnorm(0.025)</code> = 1.96.</p>
 <p>These relations involving <span class="math inline">\(z_{\alpha/2}\)</span> follow:</p>
-<p><span class="math display" id="eq:binary-task-model-def-z-alpha2">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-def-z-alpha2">\[\begin{equation}
 \left.
-\begin{aligned} 
+\begin{aligned}
 z_{\alpha/2} &amp;=\Phi^{-1}\left ( 1-\alpha/2 \right )\\
 &amp;= - \Phi^{-1}\left (\alpha/2 \right )\\
-\alpha/2&amp;=\int_{z_{\alpha/2}}^{\infty}\phi(z)dz\\ 
+\alpha/2&amp;=\int_{z_{\alpha/2}}^{\infty}\phi(z)dz\\
 &amp;= 1-\Phi(z_{\alpha/2})\\
 &amp;= \Phi(-z_{\alpha/2})\\
 \end{aligned}
-\right \} 
+\right \}
 \tag{3.33}
 \end{equation}\]</span></p>
 <p>The normal approximation is adequate if both of the following two conditions are both met: <span class="math inline">\(K_1\widehat{FPF} &gt; 10\)</span> and <span class="math inline">\(K_1(1-\widehat{\text{FPF}}) &gt; 10\)</span>. This means, approximately, that <span class="math inline">\(\widehat{\text{FPF}}\)</span> cannot be too close to zero or 1.</p>
 <p>Similarly, an approximate symmetric <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\text{TPF}\)</span> is:</p>
-<p><span class="math display" id="eq:binary-task-model-ci-tpf">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-ci-tpf">\[\begin{equation}
 CI_{1-\alpha}^{\text{TPF}}=\left ( \widehat{\text{TPF}} - z_{\alpha/2} \sigma_{\text{TPF}}, \widehat{\text{TPF}} + z_{\alpha/2} \sigma_{\text{TPF}} \right )
 \tag{3.34}
 \end{equation}\]</span></p>
 <p>In Eqn. <a href="binary-task-model.html#eq:binary-task-model-ci-tpf">(3.34)</a>,</p>
-<p><span class="math display" id="eq:binary-task-model-var-tpf">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-model-var-tpf">\[\begin{equation}
 \sigma_{\text{TPF}}^2 = \frac{\widehat{\text{TPF}}\left ( 1 - \widehat{\text{TPF}} \right )}{K_2}
 \tag{3.35}
 \end{equation}\]</span></p>
@@ -884,9 +943,9 @@ CI_{1-\alpha}^{\text{TPF}}=\left ( \widehat{\text{TPF}} - z_{\alpha/2} \sigma_{\
 #&gt; Exact 95 percent CI for Sensitivity =  0.951 1</code></pre>
 <p>Note that the approximate confidence intervals can stray outside the allowed range but the exact confidence intervals do not.</p>
 </div>
-<div id="binary-task-model-beam-study" class="section level2 hasAnchor">
+<div id="binary-task-model-beam-study" class="section level2 hasAnchor" number="3.12">
 <h2><span class="header-section-number">3.12</span> Variability: the Beam study<a href="binary-task-model.html#binary-task-model-beam-study" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this study <span class="citation">(Beam, Layde, and Sullivan <a href="#ref-beam1996variability" role="doc-biblioref">1996</a>)</span> fifty accredited mammography centers were randomly sampled in the United States. “Accredited” is a legal/regulatory term implying, among other things, that the radiologists interpreting the breast cases were “board certified” by the American Board of Radiology. One hundred eight (108) certified radiologists from these centers gave blinded interpretation to a common set of 79 randomly sampled (stratified sampling) enriched screening cases containing 45 cases with cancer and the rest with benign lesions. Ground truth for these women had been established either by biopsy or by 2-year follow-up.</p>
+<p>In this study <span class="citation">(<a href="#ref-beam1996variability" role="doc-biblioref">Beam, Layde, and Sullivan 1996</a>)</span> fifty accredited mammography centers were randomly sampled in the United States. “Accredited” is a legal/regulatory term implying, among other things, that the radiologists interpreting the breast cases were “board certified” by the American Board of Radiology. One hundred eight (108) certified radiologists from these centers gave blinded interpretation to a common set of 79 randomly sampled (stratified sampling) enriched screening cases containing 45 cases with cancer and the rest with benign lesions. Ground truth for these women had been established either by biopsy or by 2-year follow-up.</p>
 <p>The observed range of sensitivity (TPF) was 53 percent and the range of FPF was 63 percent; the corresponding range for the AUC was 21 percent, Table <a href="binary-task-model.html#tab:binary-task-model-table-beam-study">3.1</a>. Empirical AUC was estimated using a 5-point BIRADS ratings of the images (the zero category was not allowed). Explanation of empirical AUC is deferred to Chapter <a href="empirical-auc.html#empirical-auc">5</a>.</p>
 <table>
 <caption>
@@ -967,7 +1026,7 @@ FIGURE 3.6: Schematic patterned from the Beam et al study showing the ROC operat
 <li><p>Combining sensitivity and the complement of specificity into a single AUC measure yields the additional benefit of lower variability. In Fig. <a href="binary-task-model.html#fig:beam-study-fig">3.6</a>, the range for sensitivity is 53 percent while that for specificity is 63 percent. In contrast, the range for AUC is only 21 percent. This means that much of the observed variations in sensitivity and specificity are due to variations in thresholds, and using AUC eliminates this source of variability. Decreased variability of a measure is a highly desirable characteristic as it implies the measurement is more precise making it easier to detect differences between readers.</p></li>
 </ol>
 </div>
-<div id="binary-task-model-discussion" class="section level2 hasAnchor">
+<div id="binary-task-model-discussion" class="section level2 hasAnchor" number="3.13">
 <h2><span class="header-section-number">3.13</span> Discussion<a href="binary-task-model.html#binary-task-model-discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Sensitivity and specificity are widely used in the medical imaging literature. It is important to realize that they do not provide a complete picture of diagnostic performance, since they represent performance at a particular observer-dependent threshold. As demonstrated in Fig. <a href="binary-task-model.html#fig:beam-study-fig">3.6</a> expert observers can and do operate at different thresholds. If using sensitivity and specificity the dependence on reporting threshold often makes it difficult to unambiguously compare observers. An additional source of variability is introduced by the varying thresholds.</p>
 <p>The ROC curve and AUC are completely defined by the <span class="math inline">\(\mu\)</span> parameter of the equal variance binormal model. Since both are independent of reporting threshold they overcome the ambiguity inherent in comparing sensitivity/specificity pairs. AUC is widely used in assessing imaging systems.</p>
@@ -976,9 +1035,9 @@ FIGURE 3.6: Schematic patterned from the Beam et al study showing the ROC operat
 </blockquote>
 <p>The properties of the unit normal distribution and the binomial distribution were used to derive parametric confidence intervals for sensitivity and specificity. These were compared to exact confidence intervals. An important study was reviewed showing wide variability in sensitivity and specificity for radiologists interpreting a common set of cases in screening mammography, but smaller variability in AUCs. This is because much of the variability in sensitivity and specificity is due to variation of the reporting threshold, which does not affect the area under the ROC curve. This is an important reason for preferring comparisons based on area under the ROC curve to those based on comparing sensitivity/specificity pairs.</p>
 </div>
-<div id="binary-task-model-demo" class="section level2 hasAnchor">
+<div id="binary-task-model-demo" class="section level2 hasAnchor" number="3.14">
 <h2><span class="header-section-number">3.14</span> Appendix I<a href="binary-task-model.html#binary-task-model-demo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="estimates-from-a-finite-sample" class="section level3 hasAnchor">
+<div id="estimates-from-a-finite-sample" class="section level3 hasAnchor" number="3.14.1">
 <h3><span class="header-section-number">3.14.1</span> Estimates from a finite sample<a href="binary-task-model.html#estimates-from-a-finite-sample" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following embedded code simulates 9 non-diseased and 11 diseased cases. The <span class="math inline">\(\mu\)</span> parameter is 1.5 and <span class="math inline">\(\zeta\)</span> is <span class="math inline">\(\mu/2\)</span>. Shown are the estimates of sensitivity and specificity and <span class="math inline">\(\mu\)</span>.</p>
 <pre><code>#&gt; seed =  100 
@@ -991,7 +1050,7 @@ FIGURE 3.6: Schematic patterned from the Beam et al study showing the ROC operat
 #&gt; Est. of mu =  2.56</code></pre>
 <p>Since this is a finite sample the estimate of <span class="math inline">\(\mu\)</span> is not equal to the true value. In fact, all of the estimates, sensitivity, specificity and <span class="math inline">\(\mu\)</span> are subject to sampling variability.</p>
 </div>
-<div id="changing-the-seed-variable" class="section level3 hasAnchor">
+<div id="changing-the-seed-variable" class="section level3 hasAnchor" number="3.14.2">
 <h3><span class="header-section-number">3.14.2</span> Changing the seed variable<a href="binary-task-model.html#changing-the-seed-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>No matter how many times one runs the above code, one always sees the same output shown above. This is because one sets the <code>seed</code> of the random number generator to a fixed value, namely 100. This is like having a perfectly reproducible reader repeatedly interpreting the same cases – one always gets the same results. Changing the <code>seed</code> to 101 yields:</p>
 <pre><code>#&gt; seed =  101 
@@ -1004,7 +1063,7 @@ FIGURE 3.6: Schematic patterned from the Beam et al study showing the ROC operat
 #&gt; Est. of mu =  0.879</code></pre>
 <p>Changing <code>seed</code> is equivalent to sampling a completely new set of cases. The effect is quite large (estimated sensitivity falls from 0.909 to 0.545 and estimated <span class="math inline">\(\mu\)</span> falls from 2.56 to 0.879) because the size of the relevant case set, <span class="math inline">\(K_2=11\)</span> for sensitivity, is small.</p>
 </div>
-<div id="increasing-the-numbers-of-cases" class="section level3 hasAnchor">
+<div id="increasing-the-numbers-of-cases" class="section level3 hasAnchor" number="3.14.3">
 <h3><span class="header-section-number">3.14.3</span> Increasing the numbers of cases<a href="binary-task-model.html#increasing-the-numbers-of-cases" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here we increase <span class="math inline">\(K_1\)</span> and <span class="math inline">\(K_2\)</span>, by a factor of 10 each, and reset the <code>seed</code> to 100.</p>
 <pre><code>#&gt; seed =  100 
@@ -1235,10 +1294,10 @@ NA
 </tbody>
 </table>
 <p>As the numbers of cases increase, the sensitivity and specificity converge to a common value, around 0.773 and the estimate of the separation parameter converges to the known value.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="binary-task-model.html#cb9-1"></a><span class="kw">pnorm</span>(<span class="fl">0.75</span>) <span class="co"># example 1</span></span>
-<span id="cb9-2"><a href="binary-task-model.html#cb9-2"></a><span class="co">#&gt; [1] 0.773</span></span>
-<span id="cb9-3"><a href="binary-task-model.html#cb9-3"></a><span class="dv">2</span><span class="op">*</span><span class="kw">qnorm</span>(<span class="kw">pnorm</span>(zeta)) <span class="co"># example 2</span></span>
-<span id="cb9-4"><a href="binary-task-model.html#cb9-4"></a><span class="co">#&gt; [1] 1.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="binary-task-model.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">0.75</span>) <span class="co"># example 1</span></span>
+<span id="cb9-2"><a href="binary-task-model.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.773</span></span>
+<span id="cb9-3"><a href="binary-task-model.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="fu">qnorm</span>(<span class="fu">pnorm</span>(zeta)) <span class="co"># example 2</span></span>
+<span id="cb9-4"><a href="binary-task-model.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1.5</span></span></code></pre></div>
 <p>Because the threshold is halfway between the two distributions, as in this example, sensitivity and specificity are identical. In words, with two unit variance distributions separated by 1.5, the area under the diseased distribution (centered at 1.5) above 0.75, namely sensitivity, equals the area under the non-diseased distribution (centered at zero) below 0.75, namely specificity, and the common value is <span class="math inline">\(\Phi(0.75)= 0.773\)</span>, yielding the last row of Table <a href="binary-task-model.html#tab:binary-task-model-table">3.2</a>, and example 1 in the above code snippet. Example 2 in the above code snippet illustrates Eqn. <a href="binary-task-model.html#eq:binary-task-model-solve-mu">(3.17)</a>. The factor of two arises since in this example sensitivity and specificity are identical.</p>
 <p>From Table <a href="binary-task-model.html#tab:binary-task-model-table">3.2</a>, for the same numbers of cases but different seeds, comparing pairs of sensitivity and specificity values is more difficult as two pairs of numbers (i.e., four numbers) are involved. Comparing a single pair of <span class="math inline">\(\mu\)</span> values is easier as only two numbers are involved. The tendency of the pairs to become independent of case sample is discernible with fewer cases with <span class="math inline">\(\mu\)</span>, around 90/110 cases, than with sensitivity and specificity pairs.</p>
 <p>The numbers in the table might appear disheartening in terms of the implied numbers of cases needed to detect a difference in specificity. Even with 200 cases, the difference in specificity for two seed values is 0.081, which is large considering that the scale extends from 0 to 1.0. A similar comment applies to differences in sensitivity. The situation is not quite that bad:</p>
@@ -1247,30 +1306,30 @@ NA
 </blockquote>
 </div>
 </div>
-<div id="binary-task-model-references" class="section level2 hasAnchor">
+<div id="binary-task-model-references" class="section level2 hasAnchor" number="3.15">
 <h2><span class="header-section-number">3.15</span> Chapter References<a href="binary-task-model.html#binary-task-model-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
 <h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references">
-<div id="ref-beam1996variability">
-<p>Beam, Craig A, Peter M Layde, and Daniel C Sullivan. 1996. “Variability in the Interpretation of Screening Mammograms by Us Radiologists: Findings from a National Sample.” <em>Archives of Internal Medicine</em> 156 (2): 209–13.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-beam1996variability" class="csl-entry">
+Beam, Craig A, Peter M Layde, and Daniel C Sullivan. 1996. <span>“Variability in the Interpretation of Screening Mammograms by US Radiologists: Findings from a National Sample.”</span> <em>Archives of Internal Medicine</em> 156 (2): 209–13.
 </div>
-<div id="ref-egan1975book">
-<p>Egan, James P. 1975a. <em>Signal Detection Theory and ROC Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.</p>
+<div id="ref-egan1975book" class="csl-entry">
+———. 1975a. <em>Signal Detection Theory and <span>ROC</span> Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.
 </div>
-<div id="ref-green1966signal">
-<p>Green, David Marvin, John A Swets, and others. 1966. <em>Signal Detection Theory and Psychophysics</em>. Vol. 1. Wiley New York.</p>
+<div id="ref-green1966signal" class="csl-entry">
+Green, David Marvin, John A Swets, et al. 1966. <em>Signal Detection Theory and Psychophysics</em>. Vol. 1. Wiley New York.
 </div>
-<div id="ref-macmillan2004detection">
-<p>Macmillan, Neil A, and C Douglas Creelman. 2004. <em>Detection Theory: A User’s Guide</em>. Psychology press.</p>
+<div id="ref-macmillan2004detection" class="csl-entry">
+Macmillan, Neil A, and C Douglas Creelman. 2004. <em>Detection Theory: A User’s Guide</em>. Psychology press.
 </div>
-<div id="ref-marcum1947statistical">
-<p>Marcum, JI. 1947. “A Statistical Theory of Target Detection by Pulsed Radar.” RAND CORP SANTA MONICA CA.</p>
+<div id="ref-marcum1960statistical" class="csl-entry">
+Marcum, Jess. 1960. <span>“A Statistical Theory of Target Detection by Pulsed Radar.”</span> <em>IRE Transactions on Information Theory</em> 6 (2): 59–267.
 </div>
-<div id="ref-RN2637">
-<p>Skaane, Per, Andriy I Bandos, Randi Gullien, Ellen B Eben, Ulrika Ekseth, Unni Haakenaasen, Mina Izadi, Ingvild N Jebsen, Gunnar Jahr, and Mona Krager. 2013. “Comparison of Digital Mammography Alone and Digital Mammography Plus Tomosynthesis in a Population-Based Screening Program.” Journal Article. <em>Radiology</em> 267 (1): 47–56.</p>
+<div id="ref-RN2637" class="csl-entry">
+Skaane, Per, Andriy I Bandos, Randi Gullien, Ellen B Eben, Ulrika Ekseth, Unni Haakenaasen, Mina Izadi, Ingvild N Jebsen, Gunnar Jahr, and Mona Krager. 2013. <span>“Comparison of Digital Mammography Alone and Digital Mammography Plus Tomosynthesis in a Population-Based Screening Program.”</span> Journal Article. <em>Radiology</em> 267 (1): 47–56.
 </div>
 </div>
 <div class="footnotes">

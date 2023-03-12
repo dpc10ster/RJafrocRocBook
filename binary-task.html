@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -58,18 +57,18 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -89,13 +88,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -108,7 +107,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -122,6 +121,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -139,32 +160,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">RJafroc documentation</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#rationale-and-organization"><i class="fa fa-check"></i><b>0.1</b> Rationale and Organization</a></li>
 <li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#tba-acknowledgements"><i class="fa fa-check"></i><b>0.2</b> TBA Acknowledgements</a></li>
 <li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#temporary-comments"><i class="fa fa-check"></i><b>0.3</b> Temporary comments</a></li>
 </ul></li>
 <li class="part"><span><b>Overview</b></span></li>
-<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> An overview of the field</a><ul>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> An overview of the field</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html#overview-how-much-finished"><i class="fa fa-check"></i><b>1.1</b> How much finished 55%</a></li>
 <li class="chapter" data-level="1.2" data-path="overview.html"><a href="overview.html#preliminaries-intro"><i class="fa fa-check"></i><b>1.2</b> Introduction</a></li>
-<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#clinical-tasks"><i class="fa fa-check"></i><b>1.3</b> Clinical tasks</a><ul>
+<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#clinical-tasks"><i class="fa fa-check"></i><b>1.3</b> Clinical tasks</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="overview.html"><a href="overview.html#workflow-in-an-imaging-study"><i class="fa fa-check"></i><b>1.3.1</b> Workflow in an imaging study</a></li>
 <li class="chapter" data-level="1.3.2" data-path="overview.html"><a href="overview.html#the-screening-and-diagnostic-workup-tasks"><i class="fa fa-check"></i><b>1.3.2</b> The screening and diagnostic workup tasks</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="overview.html"><a href="overview.html#imaging-device-development-and-its-clinical-deployment"><i class="fa fa-check"></i><b>1.4</b> Imaging device development and its clinical deployment</a><ul>
+<li class="chapter" data-level="1.4" data-path="overview.html"><a href="overview.html#imaging-device-development-and-its-clinical-deployment"><i class="fa fa-check"></i><b>1.4</b> Imaging device development and its clinical deployment</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="overview.html"><a href="overview.html#physical-measurements"><i class="fa fa-check"></i><b>1.4.1</b> Physical measurements</a></li>
 <li class="chapter" data-level="1.4.2" data-path="overview.html"><a href="overview.html#quality-control-and-image-quality-optimization"><i class="fa fa-check"></i><b>1.4.2</b> Quality Control and Image quality optimization</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="overview.html"><a href="overview.html#image-quality-vs.-task-performance"><i class="fa fa-check"></i><b>1.5</b> Image quality vs. task performance</a></li>
 <li class="chapter" data-level="1.6" data-path="overview.html"><a href="overview.html#why-physical-measures-are-not-enough"><i class="fa fa-check"></i><b>1.6</b> Why physical measures are not enough</a></li>
 <li class="chapter" data-level="1.7" data-path="overview.html"><a href="overview.html#model-observers"><i class="fa fa-check"></i><b>1.7</b> Model observers</a></li>
-<li class="chapter" data-level="1.8" data-path="overview.html"><a href="overview.html#measuring-observer-performance-four-paradigms"><i class="fa fa-check"></i><b>1.8</b> Measuring observer performance: four paradigms</a><ul>
+<li class="chapter" data-level="1.8" data-path="overview.html"><a href="overview.html#measuring-observer-performance-four-paradigms"><i class="fa fa-check"></i><b>1.8</b> Measuring observer performance: four paradigms</a>
+<ul>
 <li class="chapter" data-level="1.8.1" data-path="overview.html"><a href="overview.html#basic-approach-to-the-analysis"><i class="fa fa-check"></i><b>1.8.1</b> Basic approach to the analysis</a></li>
 <li class="chapter" data-level="1.8.2" data-path="overview.html"><a href="overview.html#historical-notes"><i class="fa fa-check"></i><b>1.8.2</b> Historical notes</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="overview.html"><a href="overview.html#hierarchy-of-assessment-methods"><i class="fa fa-check"></i><b>1.9</b> Hierarchy of assessment methods</a></li>
-<li class="chapter" data-level="1.10" data-path="overview.html"><a href="overview.html#overview-of-the-book-and-how-to-use-it"><i class="fa fa-check"></i><b>1.10</b> Overview of the book and how to use it</a><ul>
+<li class="chapter" data-level="1.10" data-path="overview.html"><a href="overview.html#overview-of-the-book-and-how-to-use-it"><i class="fa fa-check"></i><b>1.10</b> Overview of the book and how to use it</a>
+<ul>
 <li class="chapter" data-level="1.10.1" data-path="overview.html"><a href="overview.html#overview-of-the-book"><i class="fa fa-check"></i><b>1.10.1</b> Overview of the book</a></li>
 <li class="chapter" data-level="1.10.2" data-path="overview.html"><a href="overview.html#how-to-use-the-book"><i class="fa fa-check"></i><b>1.10.2</b> How to use the book</a></li>
 </ul></li>
@@ -173,27 +200,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.13" data-path="overview.html"><a href="overview.html#overview-references"><i class="fa fa-check"></i><b>1.13</b> Chapter References</a></li>
 </ul></li>
 <li class="part"><span><b>ROC paradigm</b></span></li>
-<li class="chapter" data-level="2" data-path="binary-task.html"><a href="binary-task.html"><i class="fa fa-check"></i><b>2</b> The Binary Task</a><ul>
+<li class="chapter" data-level="2" data-path="binary-task.html"><a href="binary-task.html"><i class="fa fa-check"></i><b>2</b> The Binary Task</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="binary-task.html"><a href="binary-task.html#binary-task-how-much-finished"><i class="fa fa-check"></i><b>2.1</b> How much finished 90%</a></li>
 <li class="chapter" data-level="2.2" data-path="binary-task.html"><a href="binary-task.html#binary-taskIntro"><i class="fa fa-check"></i><b>2.2</b> Introduction</a></li>
 <li class="chapter" data-level="2.3" data-path="binary-task.html"><a href="binary-task.html#binary-task-2-2-table"><i class="fa fa-check"></i><b>2.3</b> The 2x2 table</a></li>
-<li class="chapter" data-level="2.4" data-path="binary-task.html"><a href="binary-task.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4</b> Sensitivity and specificity</a><ul>
+<li class="chapter" data-level="2.4" data-path="binary-task.html"><a href="binary-task.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4</b> Sensitivity and specificity</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="binary-task.html"><a href="binary-task.html#estimating-sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4.1</b> Estimating sensitivity and specificity</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="binary-task.html"><a href="binary-task.html#disease-prevalence"><i class="fa fa-check"></i><b>2.5</b> Disease prevalence</a></li>
 <li class="chapter" data-level="2.6" data-path="binary-task.html"><a href="binary-task.html#accuracy"><i class="fa fa-check"></i><b>2.6</b> Accuracy</a></li>
 <li class="chapter" data-level="2.7" data-path="binary-task.html"><a href="binary-task.html#negative-and-positive-predictive-values"><i class="fa fa-check"></i><b>2.7</b> Negative and positive predictive values</a></li>
-<li class="chapter" data-level="2.8" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvCode"><i class="fa fa-check"></i><b>2.8</b> Examples: PPV, NPV and Accuracy</a><ul>
+<li class="chapter" data-level="2.8" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvCode"><i class="fa fa-check"></i><b>2.8</b> Examples: PPV, NPV and Accuracy</a>
+<ul>
 <li class="chapter" data-level="2.8.1" data-path="binary-task.html"><a href="binary-task.html#binary-task-npv-ppv-comments"><i class="fa fa-check"></i><b>2.8.1</b> Comments</a></li>
 <li class="chapter" data-level="2.8.2" data-path="binary-task.html"><a href="binary-task.html#binary-task-npv-ppv-irrel-lab"><i class="fa fa-check"></i><b>2.8.2</b> PPV and NPV are irrelevant to laboratory tasks</a></li>
 </ul></li>
 <li class="chapter" data-level="2.9" data-path="binary-task.html"><a href="binary-task.html#binary-task-discussion"><i class="fa fa-check"></i><b>2.9</b> Discussion</a></li>
 <li class="chapter" data-level="2.10" data-path="binary-task.html"><a href="binary-task.html#binary-task-references"><i class="fa fa-check"></i><b>2.10</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="binary-task-model.html"><a href="binary-task-model.html"><i class="fa fa-check"></i><b>3</b> Modeling the binary Task</a><ul>
+<li class="chapter" data-level="3" data-path="binary-task-model.html"><a href="binary-task-model.html"><i class="fa fa-check"></i><b>3</b> Modeling the binary Task</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-how-much-finished"><i class="fa fa-check"></i><b>3.1</b> How much finished 95%</a></li>
 <li class="chapter" data-level="3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-intro"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
-<li class="chapter" data-level="3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-z-sample-model"><i class="fa fa-check"></i><b>3.3</b> Decision variable and reporting threshold</a><ul>
+<li class="chapter" data-level="3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-z-sample-model"><i class="fa fa-check"></i><b>3.3</b> Decision variable and reporting threshold</a>
+<ul>
 <li class="chapter" data-level="3.3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-decision-variable"><i class="fa fa-check"></i><b>3.3.1</b> Existence of a decision variable</a></li>
 <li class="chapter" data-level="3.3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-reporting-threshold"><i class="fa fa-check"></i><b>3.3.2</b> Existence of a reporting threshold</a></li>
 <li class="chapter" data-level="3.3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#adequacy-of-the-training-session"><i class="fa fa-check"></i><b>3.3.3</b> Adequacy of the training session</a></li>
@@ -204,7 +236,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-normal-distribution"><i class="fa fa-check"></i><b>3.7</b> The normal distribution</a></li>
 <li class="chapter" data-level="3.8" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity"><i class="fa fa-check"></i><b>3.8</b> Analytic expressions for specificity and sensitivity</a></li>
 <li class="chapter" data-level="3.9" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity-inverse-variation"><i class="fa fa-check"></i><b>3.9</b> Inverse variation of sensitivity and specificity</a></li>
-<li class="chapter" data-level="3.10" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-roc-curve"><i class="fa fa-check"></i><b>3.10</b> The ROC curve</a><ul>
+<li class="chapter" data-level="3.10" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-roc-curve"><i class="fa fa-check"></i><b>3.10</b> The ROC curve</a>
+<ul>
 <li class="chapter" data-level="3.10.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-chance-diagonal"><i class="fa fa-check"></i><b>3.10.1</b> The chance diagonal</a></li>
 <li class="chapter" data-level="3.10.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-guessing-observer"><i class="fa fa-check"></i><b>3.10.2</b> The guessing observer</a></li>
 <li class="chapter" data-level="3.10.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-symmetry-wrt-negative-diagonal"><i class="fa fa-check"></i><b>3.10.3</b> Symmetry with respect to negative diagonal</a></li>
@@ -216,18 +249,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.11" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-confidence-intervals"><i class="fa fa-check"></i><b>3.11</b> Confidence intervals for an operating point</a></li>
 <li class="chapter" data-level="3.12" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-beam-study"><i class="fa fa-check"></i><b>3.12</b> Variability: the Beam study</a></li>
 <li class="chapter" data-level="3.13" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-discussion"><i class="fa fa-check"></i><b>3.13</b> Discussion</a></li>
-<li class="chapter" data-level="3.14" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-demo"><i class="fa fa-check"></i><b>3.14</b> Appendix I</a><ul>
+<li class="chapter" data-level="3.14" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-demo"><i class="fa fa-check"></i><b>3.14</b> Appendix I</a>
+<ul>
 <li class="chapter" data-level="3.14.1" data-path="binary-task-model.html"><a href="binary-task-model.html#estimates-from-a-finite-sample"><i class="fa fa-check"></i><b>3.14.1</b> Estimates from a finite sample</a></li>
 <li class="chapter" data-level="3.14.2" data-path="binary-task-model.html"><a href="binary-task-model.html#changing-the-seed-variable"><i class="fa fa-check"></i><b>3.14.2</b> Changing the seed variable</a></li>
 <li class="chapter" data-level="3.14.3" data-path="binary-task-model.html"><a href="binary-task-model.html#increasing-the-numbers-of-cases"><i class="fa fa-check"></i><b>3.14.3</b> Increasing the numbers of cases</a></li>
 </ul></li>
 <li class="chapter" data-level="3.15" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-references"><i class="fa fa-check"></i><b>3.15</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html"><i class="fa fa-check"></i><b>4</b> Ratings Paradigm</a><ul>
+<li class="chapter" data-level="4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html"><i class="fa fa-check"></i><b>4</b> Ratings Paradigm</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-how-much-finished"><i class="fa fa-check"></i><b>4.1</b> How much finished 90%</a></li>
 <li class="chapter" data-level="4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
 <li class="chapter" data-level="4.3" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-roc-counts-table"><i class="fa fa-check"></i><b>4.3</b> The ROC counts table</a></li>
-<li class="chapter" data-level="4.4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-operating-points-from-counts-table"><i class="fa fa-check"></i><b>4.4</b> Operating points from counts table</a><ul>
+<li class="chapter" data-level="4.4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-operating-points-from-counts-table"><i class="fa fa-check"></i><b>4.4</b> Operating points from counts table</a>
+<ul>
 <li class="chapter" data-level="4.4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#labeling-the-points"><i class="fa fa-check"></i><b>4.4.1</b> Labeling the points</a></li>
 <li class="chapter" data-level="4.4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-examples"><i class="fa fa-check"></i><b>4.4.2</b> Examples</a></li>
 </ul></li>
@@ -238,16 +274,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.9" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-2afc"><i class="fa fa-check"></i><b>4.9</b> The forced choice paradigm</a></li>
 <li class="chapter" data-level="4.10" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-observer-studies-as-simulations"><i class="fa fa-check"></i><b>4.10</b> Observer performance studies as laboratory simulations of clinical tasks</a></li>
 <li class="chapter" data-level="4.11" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-discrete-vs-continuous-ratings"><i class="fa fa-check"></i><b>4.11</b> Discrete vs. continuous ratings: the Miller study</a></li>
-<li class="chapter" data-level="4.12" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale"><i class="fa fa-check"></i><b>4.12</b> The BI-RADS ratings scale and ROC studies</a><ul>
+<li class="chapter" data-level="4.12" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale"><i class="fa fa-check"></i><b>4.12</b> The BI-RADS ratings scale and ROC studies</a>
+<ul>
 <li class="chapter" data-level="4.12.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale-controversy"><i class="fa fa-check"></i><b>4.12.1</b> The controversy</a></li>
 </ul></li>
 <li class="chapter" data-level="4.13" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-discussion"><i class="fa fa-check"></i><b>4.13</b> Discussion</a></li>
 <li class="chapter" data-level="4.14" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-references"><i class="fa fa-check"></i><b>4.14</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="empirical-auc.html"><a href="empirical-auc.html"><i class="fa fa-check"></i><b>5</b> Empirical AUC</a><ul>
+<li class="chapter" data-level="5" data-path="empirical-auc.html"><a href="empirical-auc.html"><i class="fa fa-check"></i><b>5</b> Empirical AUC</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-how-much-finished"><i class="fa fa-check"></i><b>5.1</b> How much finished 90%</a></li>
 <li class="chapter" data-level="5.2" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-introduction"><i class="fa fa-check"></i><b>5.2</b> Introduction</a></li>
-<li class="chapter" data-level="5.3" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-roc-plot"><i class="fa fa-check"></i><b>5.3</b> The empirical ROC plot</a><ul>
+<li class="chapter" data-level="5.3" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-roc-plot"><i class="fa fa-check"></i><b>5.3</b> The empirical ROC plot</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="empirical-auc.html"><a href="empirical-auc.html#notation-for-cases"><i class="fa fa-check"></i><b>5.3.1</b> Notation for cases</a></li>
 <li class="chapter" data-level="5.3.2" data-path="empirical-auc.html"><a href="empirical-auc.html#an-empirical-operating-point"><i class="fa fa-check"></i><b>5.3.2</b> An empirical operating point</a></li>
 </ul></li>
@@ -258,16 +297,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.8" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem-importance"><i class="fa fa-check"></i><b>5.8</b> Importance of Bamber’s theorem</a></li>
 <li class="chapter" data-level="5.9" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-discussion-summary"><i class="fa fa-check"></i><b>5.9</b> Discussion / Summary</a></li>
 <li class="chapter" data-level="5.10" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-bamber-theorem-proof"><i class="fa fa-check"></i><b>5.10</b> Appendix: Bamber theorem proof</a></li>
-<li class="chapter" data-level="5.11" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-bamber-theorem-a0-term"><i class="fa fa-check"></i><b>5.11</b> Appendix: The <span class="math inline">\(A_0\)</span> term</a><ul>
+<li class="chapter" data-level="5.11" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-bamber-theorem-a0-term"><i class="fa fa-check"></i><b>5.11</b> Appendix: The <span class="math inline">\(A_0\)</span> term</a>
+<ul>
 <li class="chapter" data-level="5.11.1" data-path="empirical-auc.html"><a href="empirical-auc.html#upper-triangle"><i class="fa fa-check"></i><b>5.11.1</b> Upper triangle</a></li>
 <li class="chapter" data-level="5.11.2" data-path="empirical-auc.html"><a href="empirical-auc.html#lowest-trapezoid"><i class="fa fa-check"></i><b>5.11.2</b> Lowest trapezoid</a></li>
 </ul></li>
 <li class="chapter" data-level="5.12" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-references"><i class="fa fa-check"></i><b>5.12</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="binormal-model.html"><a href="binormal-model.html"><i class="fa fa-check"></i><b>6</b> Binormal model</a><ul>
+<li class="chapter" data-level="6" data-path="binormal-model.html"><a href="binormal-model.html"><i class="fa fa-check"></i><b>6</b> Binormal model</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-how-much-finished"><i class="fa fa-check"></i><b>6.1</b> How much finished 97%</a></li>
 <li class="chapter" data-level="6.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-introduction"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
-<li class="chapter" data-level="6.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-definition"><i class="fa fa-check"></i><b>6.3</b> Binormal model</a><ul>
+<li class="chapter" data-level="6.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-definition"><i class="fa fa-check"></i><b>6.3</b> Binormal model</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="binormal-model.html"><a href="binormal-model.html#binned-data"><i class="fa fa-check"></i><b>6.3.1</b> Binned data</a></li>
 <li class="chapter" data-level="6.3.2" data-path="binormal-model.html"><a href="binormal-model.html#sensitivity-and-specificity-1"><i class="fa fa-check"></i><b>6.3.2</b> Sensitivity and specificity</a></li>
 <li class="chapter" data-level="6.3.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-in-conventional-notation"><i class="fa fa-check"></i><b>6.3.3</b> Binormal model in conventional notation</a></li>
@@ -277,14 +319,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.6" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-invariance-property"><i class="fa fa-check"></i><b>6.6</b> Invariance property of pdfs</a></li>
 <li class="chapter" data-level="6.7" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-full-auc"><i class="fa fa-check"></i><b>6.7</b> Az and d-prime measures</a></li>
 <li class="chapter" data-level="6.8" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-fitting"><i class="fa fa-check"></i><b>6.8</b> Fitting the binormal model</a></li>
-<li class="chapter" data-level="6.9" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc"><i class="fa fa-check"></i><b>6.9</b> Partial AUC measures</a><ul>
+<li class="chapter" data-level="6.9" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc"><i class="fa fa-check"></i><b>6.9</b> Partial AUC measures</a>
+<ul>
 <li class="chapter" data-level="6.9.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-meaning-partial-auc-definitions"><i class="fa fa-check"></i><b>6.9.1</b> Measure emphasizing high specificity</a></li>
 <li class="chapter" data-level="6.9.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-metz-partial-auc"><i class="fa fa-check"></i><b>6.9.2</b> Measure emphasizing high sensitivity</a></li>
 <li class="chapter" data-level="6.9.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-metz-partial-auc-example"><i class="fa fa-check"></i><b>6.9.3</b> Numerical examples</a></li>
 </ul></li>
 <li class="chapter" data-level="6.10" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc-comments"><i class="fa fa-check"></i><b>6.10</b> Comments on partial AUC measures</a></li>
 <li class="chapter" data-level="6.11" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-discussion"><i class="fa fa-check"></i><b>6.11</b> Discussion</a></li>
-<li class="chapter" data-level="6.12" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting"><i class="fa fa-check"></i><b>6.12</b> Appendix: Fitting an ROC curve</a><ul>
+<li class="chapter" data-level="6.12" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting"><i class="fa fa-check"></i><b>6.12</b> Appendix: Fitting an ROC curve</a>
+<ul>
 <li class="chapter" data-level="6.12.1" data-path="binormal-model.html"><a href="binormal-model.html#java-fitted-roc-curve"><i class="fa fa-check"></i><b>6.12.1</b> JAVA fitted ROC curve</a></li>
 <li class="chapter" data-level="6.12.2" data-path="binormal-model.html"><a href="binormal-model.html#simplistic-straight-line-fit-to-the-roc-curve"><i class="fa fa-check"></i><b>6.12.2</b> Simplistic straight line fit to the ROC curve</a></li>
 <li class="chapter" data-level="6.12.3" data-path="binormal-model.html"><a href="binormal-model.html#maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>6.12.3</b> Maximum likelihood estimation (MLE)</a></li>
@@ -293,10 +337,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.12.6" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-covariance-matrix"><i class="fa fa-check"></i><b>6.12.6</b> Estimating the covariance matrix</a></li>
 <li class="chapter" data-level="6.12.7" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-variance-of-az"><i class="fa fa-check"></i><b>6.12.7</b> Estimating the variance of Az</a></li>
 </ul></li>
-<li class="chapter" data-level="6.13" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-improper-curves"><i class="fa fa-check"></i><b>6.13</b> Appendix: Improper ROCs</a><ul>
+<li class="chapter" data-level="6.13" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-improper-curves"><i class="fa fa-check"></i><b>6.13</b> Appendix: Improper ROCs</a>
+<ul>
 <li class="chapter" data-level="6.13.1" data-path="binormal-model.html"><a href="binormal-model.html#reason-for-improper-rocs"><i class="fa fa-check"></i><b>6.13.1</b> Reason for improper ROCs</a></li>
 </ul></li>
-<li class="chapter" data-level="6.14" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degeneracy-artifacts"><i class="fa fa-check"></i><b>6.14</b> Appendix: Binormal model degeneracy and artifacts</a><ul>
+<li class="chapter" data-level="6.14" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degeneracy-artifacts"><i class="fa fa-check"></i><b>6.14</b> Appendix: Binormal model degeneracy and artifacts</a>
+<ul>
 <li class="chapter" data-level="6.14.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degenerate-datasets"><i class="fa fa-check"></i><b>6.14.1</b> Degenerate datasets</a></li>
 <li class="chapter" data-level="6.14.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-understanding-degenerate-datasets"><i class="fa fa-check"></i><b>6.14.2</b> Understanding degenerate datasets</a></li>
 <li class="chapter" data-level="6.14.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-exact-fit-not-unique"><i class="fa fa-check"></i><b>6.14.3</b> The exact fit is not unique</a></li>
@@ -305,38 +351,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.15" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-references"><i class="fa fa-check"></i><b>6.15</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="improper-rocs.html"><a href="improper-rocs.html"><i class="fa fa-check"></i><b>7</b> Improper ROC curves</a><ul>
+<li class="chapter" data-level="7" data-path="improper-rocs.html"><a href="improper-rocs.html"><i class="fa fa-check"></i><b>7</b> Improper ROC curves</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="improper-rocs.html"><a href="improper-rocs.html#improper-rocs-how-much-finished"><i class="fa fa-check"></i><b>7.1</b> How much finished 10%</a></li>
 <li class="chapter" data-level="7.2" data-path="improper-rocs.html"><a href="improper-rocs.html#the-binormal-model"><i class="fa fa-check"></i><b>7.2</b> The binormal model</a></li>
 <li class="chapter" data-level="7.3" data-path="improper-rocs.html"><a href="improper-rocs.html#improper-rocs-1"><i class="fa fa-check"></i><b>7.3</b> Improper ROCs</a></li>
 <li class="chapter" data-level="7.4" data-path="improper-rocs.html"><a href="improper-rocs.html#reason-for-improper-rocs-1"><i class="fa fa-check"></i><b>7.4</b> Reason for improper ROCs</a></li>
 </ul></li>
 <li class="part"><span><b>Advanced topics</b></span></li>
-<li class="chapter" data-level="8" data-path="proper-roc-models.html"><a href="proper-roc-models.html"><i class="fa fa-check"></i><b>8</b> Proper ROC models</a><ul>
+<li class="chapter" data-level="8" data-path="proper-roc-models.html"><a href="proper-roc-models.html"><i class="fa fa-check"></i><b>8</b> Proper ROC models</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-how-much-finished"><i class="fa fa-check"></i><b>8.1</b> TBA How much finished</a></li>
 <li class="chapter" data-level="8.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-introduction"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
 <li class="chapter" data-level="8.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem1"><i class="fa fa-check"></i><b>8.3</b> Theorem: ROC slope equals likelihood ratio</a></li>
-<li class="chapter" data-level="8.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem2"><i class="fa fa-check"></i><b>8.4</b> Theorem: likelihood ratio observer maximizes AUC</a><ul>
+<li class="chapter" data-level="8.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem2"><i class="fa fa-check"></i><b>8.4</b> Theorem: likelihood ratio observer maximizes AUC</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#explanation"><i class="fa fa-check"></i><b>8.4.1</b> Explanation</a></li>
 </ul></li>
 <li class="chapter" data-level="8.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proper-vs-improper"><i class="fa fa-check"></i><b>8.5</b> Proper vs. improper ROC curves</a></li>
-<li class="chapter" data-level="8.6" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-degenerate-datasets"><i class="fa fa-check"></i><b>8.6</b> Degenerate datasets</a><ul>
+<li class="chapter" data-level="8.6" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-degenerate-datasets"><i class="fa fa-check"></i><b>8.6</b> Degenerate datasets</a>
+<ul>
 <li class="chapter" data-level="8.6.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#comments-on-degeneracy"><i class="fa fa-check"></i><b>8.6.1</b> Comments on degeneracy</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-observer"><i class="fa fa-check"></i><b>8.7</b> The likelihood ratio observer</a></li>
-<li class="chapter" data-level="8.8" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc"><i class="fa fa-check"></i><b>8.8</b> PROPROC</a><ul>
+<li class="chapter" data-level="8.8" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc"><i class="fa fa-check"></i><b>8.8</b> PROPROC</a>
+<ul>
 <li class="chapter" data-level="8.8.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-formulae"><i class="fa fa-check"></i><b>8.8.1</b> PROPROC formulae</a></li>
 <li class="chapter" data-level="8.8.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-code"><i class="fa fa-check"></i><b>8.8.2</b> PROPROC code implementation</a></li>
 <li class="chapter" data-level="8.8.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-rocs"><i class="fa fa-check"></i><b>8.8.3</b> PROPROC ROC and slope plots</a></li>
 </ul></li>
-<li class="chapter" data-level="8.9" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm"><i class="fa fa-check"></i><b>8.9</b> The contaminated binormal model (CBM)</a><ul>
+<li class="chapter" data-level="8.9" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm"><i class="fa fa-check"></i><b>8.9</b> The contaminated binormal model (CBM)</a>
+<ul>
 <li class="chapter" data-level="8.9.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-formulae"><i class="fa fa-check"></i><b>8.9.1</b> CBM formulae</a></li>
 <li class="chapter" data-level="8.9.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-code"><i class="fa fa-check"></i><b>8.9.2</b> CBM code implementation</a></li>
 <li class="chapter" data-level="8.9.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-rocs"><i class="fa fa-check"></i><b>8.9.3</b> CBM ROC plots</a></li>
 <li class="chapter" data-level="8.9.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-pdfs"><i class="fa fa-check"></i><b>8.9.4</b> CBM pdf plots</a></li>
 <li class="chapter" data-level="8.9.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-slopes"><i class="fa fa-check"></i><b>8.9.5</b> CBM likelihood ratio plots</a></li>
 </ul></li>
-<li class="chapter" data-level="8.10" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma"><i class="fa fa-check"></i><b>8.10</b> The bigamma model (BGM)</a><ul>
+<li class="chapter" data-level="8.10" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma"><i class="fa fa-check"></i><b>8.10</b> The bigamma model (BGM)</a>
+<ul>
 <li class="chapter" data-level="8.10.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-formulae"><i class="fa fa-check"></i><b>8.10.1</b> BGM formulae</a></li>
 <li class="chapter" data-level="8.10.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-code"><i class="fa fa-check"></i><b>8.10.2</b> BGM code implementation</a></li>
 <li class="chapter" data-level="8.10.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-rocs"><i class="fa fa-check"></i><b>8.10.3</b> BGM ROC plots</a></li>
@@ -345,37 +398,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.11" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-discussion"><i class="fa fa-check"></i><b>8.11</b> Discussion</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="proproc-rocs.html"><a href="proproc-rocs.html"><i class="fa fa-check"></i><b>9</b> PROPROC ROC curves</a><ul>
+<li class="chapter" data-level="9" data-path="proproc-rocs.html"><a href="proproc-rocs.html"><i class="fa fa-check"></i><b>9</b> PROPROC ROC curves</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="proproc-rocs.html"><a href="proproc-rocs.html#helper-functions"><i class="fa fa-check"></i><b>9.1</b> Helper functions</a></li>
 <li class="chapter" data-level="9.2" data-path="proproc-rocs.html"><a href="proproc-rocs.html#definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters"><i class="fa fa-check"></i><b>9.2</b> Definitions of PROPROC parameters in terms of binormal model parameters</a></li>
 <li class="chapter" data-level="9.3" data-path="proproc-rocs.html"><a href="proproc-rocs.html#main-code-and-output"><i class="fa fa-check"></i><b>9.3</b> Main code and output</a></li>
 <li class="chapter" data-level="9.4" data-path="proproc-rocs.html"><a href="proproc-rocs.html#discussion"><i class="fa fa-check"></i><b>9.4</b> Discussion</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html"><i class="fa fa-check"></i><b>10</b> Metz Eqn 36 numerical check</a><ul>
+<li class="chapter" data-level="10" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html"><i class="fa fa-check"></i><b>10</b> Metz Eqn 36 numerical check</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#helper-functions-1"><i class="fa fa-check"></i><b>10.1</b> Helper functions</a></li>
 <li class="chapter" data-level="10.2" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#main-code-and-output-1"><i class="fa fa-check"></i><b>10.2</b> Main code and output</a></li>
 <li class="chapter" data-level="10.3" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#discussion-1"><i class="fa fa-check"></i><b>10.3</b> Discussion</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html"><i class="fa fa-check"></i><b>11</b> Bivariate binormal model</a><ul>
+<li class="chapter" data-level="11" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html"><i class="fa fa-check"></i><b>11</b> Bivariate binormal model</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-how-much-finished"><i class="fa fa-check"></i><b>11.1</b> TBA How much finished</a></li>
 <li class="chapter" data-level="11.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-introduction"><i class="fa fa-check"></i><b>11.2</b> Introduction</a></li>
 <li class="chapter" data-level="11.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-bivariate-density"><i class="fa fa-check"></i><b>11.3</b> Bivariate density function</a></li>
 <li class="chapter" data-level="11.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-formulae"><i class="fa fa-check"></i><b>11.4</b> The bivariate binormal model</a></li>
 <li class="chapter" data-level="11.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-visualization"><i class="fa fa-check"></i><b>11.5</b> Visualizing the bivariate density function</a></li>
 <li class="chapter" data-level="11.6" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation"><i class="fa fa-check"></i><b>11.6</b> Estimating bivariate binormal model parameters</a></li>
-<li class="chapter" data-level="11.7" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-examples"><i class="fa fa-check"></i><b>11.7</b> Examples of bivariate normal probability integrals</a><ul>
+<li class="chapter" data-level="11.7" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-examples"><i class="fa fa-check"></i><b>11.7</b> Examples of bivariate normal probability integrals</a>
+<ul>
 <li class="chapter" data-level="11.7.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation-code"><i class="fa fa-check"></i><b>11.7.1</b> Code listing</a></li>
 <li class="chapter" data-level="11.7.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-examples-integrals"><i class="fa fa-check"></i><b>11.7.2</b> Examples of bivariate normal probability integrals</a></li>
 </ul></li>
 <li class="chapter" data-level="11.8" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-likelihood"><i class="fa fa-check"></i><b>11.8</b> Likelihood function</a></li>
-<li class="chapter" data-level="11.9" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2"><i class="fa fa-check"></i><b>11.9</b> CORROC2 software</a><ul>
+<li class="chapter" data-level="11.9" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2"><i class="fa fa-check"></i><b>11.9</b> CORROC2 software</a>
+<ul>
 <li class="chapter" data-level="11.9.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-details"><i class="fa fa-check"></i><b>11.9.1</b> Details of CORROC2 software</a></li>
 <li class="chapter" data-level="11.9.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-data-input"><i class="fa fa-check"></i><b>11.9.2</b> CORROC2 data input</a></li>
 <li class="chapter" data-level="11.9.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output"><i class="fa fa-check"></i><b>11.9.3</b> CORROC2 output</a></li>
 <li class="chapter" data-level="11.9.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-covariance-matrix"><i class="fa fa-check"></i><b>11.9.4</b> Covariance matrix</a></li>
 <li class="chapter" data-level="11.9.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output-restof"><i class="fa fa-check"></i><b>11.9.5</b> Rest of CORROC2 output</a></li>
 </ul></li>
-<li class="chapter" data-level="11.10" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application"><i class="fa fa-check"></i><b>11.10</b> Application to a real dataset</a><ul>
+<li class="chapter" data-level="11.10" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application"><i class="fa fa-check"></i><b>11.10</b> Application to a real dataset</a>
+<ul>
 <li class="chapter" data-level="11.10.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-code-output"><i class="fa fa-check"></i><b>11.10.1</b> Code Output</a></li>
 <li class="chapter" data-level="11.10.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-debug-window"><i class="fa fa-check"></i><b>11.10.2</b> Contents of the Debug window, as viewed from the Mac side</a></li>
 <li class="chapter" data-level="11.10.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-corrocii-input"><i class="fa fa-check"></i><b>11.10.3</b> Contents of CorrocIIinput.txt</a></li>
@@ -403,17 +462,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="binary-task" class="section level1 hasAnchor">
+<div id="binary-task" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">Chapter 2</span> The Binary Task<a href="binary-task.html#binary-task" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="binary-task-how-much-finished" class="section level2 hasAnchor">
+<div id="binary-task-how-much-finished" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> How much finished 90%<a href="binary-task.html#binary-task-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div id="binary-taskIntro" class="section level2 hasAnchor">
+<div id="binary-taskIntro" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Introduction<a href="binary-task.html#binary-taskIntro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In the previous chapter four observer performance paradigms were introduced: the receiver operating characteristic (ROC), the free-response ROC (FROC), the location ROC (LROC) and the region of interest (ROI). The next few chapters focus on the ROC paradigm, where each case is rated for confidence in presence of disease. While a multiple point rating scale is generally used, in this chapter it is assumed that the ratings are binary, and the allowed values are “1” vs. “2”. Equivalently, the ratings could be “non-diseased” vs. “diseased”, “negative” vs. “positive”, etc. In the literature this method of data acquisition is also termed the “yes/no” procedure <span class="citation">(Green, Swets, and others <a href="#ref-green1966signal" role="doc-biblioref">1966</a>; Egan <a href="#ref-egan1975book" role="doc-biblioref">1975</a><a href="#ref-egan1975book" role="doc-biblioref">a</a>)</span>. The reason for restricting, for now, to the binary task is that the multiple rating task can be shown to be equivalent to a number of simultaneously conducted binary tasks. Therefore, understanding the simpler method is a good starting point.</p>
+<p>In the previous chapter four observer performance paradigms were introduced: the receiver operating characteristic (ROC), the free-response ROC (FROC), the location ROC (LROC) and the region of interest (ROI). The next few chapters focus on the ROC paradigm, where each case is rated for confidence in presence of disease. While a multiple point rating scale is generally used, in this chapter it is assumed that the ratings are binary, and the allowed values are “1” vs. “2”. Equivalently, the ratings could be “non-diseased” vs. “diseased”, “negative” vs. “positive”, etc. In the literature this method of data acquisition is also termed the “yes/no” procedure <span class="citation">(<a href="#ref-green1966signal" role="doc-biblioref">Green, Swets, et al. 1966</a>; <a href="#ref-egan1975book" role="doc-biblioref">Egan 1975a</a>)</span>. The reason for restricting, for now, to the binary task is that the multiple rating task can be shown to be equivalent to a number of simultaneously conducted binary tasks. Therefore, understanding the simpler method is a good starting point.</p>
 <p>Since the truth is also binary one can define a 2 x 2 table summarizing the outcomes in such studies and useful fractions that can be defined from the counts in this table, the most important ones being true positive fraction (TPF) and false positive fraction (FPF). These are used to construct measures of performance, some of which are desirable from the researcher’s point of view, but others are more relevant to radiologists. The concept of disease prevalence is introduced and used to derive relations between the different types of measures. An <code>R</code> example of calculation of these quantities is given.</p>
 </div>
-<div id="binary-task-2-2-table" class="section level2 hasAnchor">
+<div id="binary-task-2-2-table" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> The 2x2 table<a href="binary-task.html#binary-task-2-2-table" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this book, the term “case” is used for images obtained for diagnostic purposes, of a patient; often multiple images of a patient, sometimes from different modalities, are involved in an interpretation; all images of a single patient that are used in the interpretation are collectively referred to as a case. A familiar example is the 4-view presentation used in screening mammography, where two views of each breast are viewed.</p>
 <p>Let <span class="math inline">\(\text{D}\)</span> represent the radiologist’s decision with <span class="math inline">\(\text{D}=1\)</span> representing the decision “case is diagnosed as non-diseased” and <span class="math inline">\(\text{D}=2\)</span> representing the decision “case is diagnosed as diseased”. Let <span class="math inline">\(\text{T}\)</span> denote the truth with <span class="math inline">\(\text{T}=1\)</span> representing “case is actually non-diseased” and <span class="math inline">\(\text{T}=2\)</span> representing “case is actually diseased”. Each decision, one of two values, will be associated with one of two truth states, resulting in an entry in one of 4 cells arranged in a 2 x 2 layout, termed the decision vs. truth table, Table <a href="binary-task.html#tab:binary-task-truth-table">2.1</a> which is of fundamental importance in observer performance. The cells are labeled as follows. The abbreviation <span class="math inline">\(\text{TN}\)</span>, for true negative, represents a <span class="math inline">\(\text{D}=1\)</span> decision on a <span class="math inline">\(\text{T}=1\)</span> case. <span class="math inline">\(\text{FN}\)</span>, for false negative, represents a <span class="math inline">\(\text{D}=1\)</span> decision on a <span class="math inline">\(\text{T}=2\)</span> case (also termed a “miss”). <span class="math inline">\(\text{FP}\)</span>, for false positive, represents a <span class="math inline">\(\text{D}=2\)</span> decision on a <span class="math inline">\(\text{T}=1\)</span> case (a “false-alarm”) and <span class="math inline">\(\text{TP}\)</span>, for true positive, represents a <span class="math inline">\(\text{D}=2\)</span> decision on a <span class="math inline">\(\text{T}=2\)</span> case (a “hit”).</p>
@@ -459,12 +518,12 @@ TP
 </tbody>
 </table>
 <p>Table <a href="binary-task.html#tab:binary-task-truth-table2">2.2</a> shows the number of decisions in each of the four categories defined in Table <a href="binary-task.html#tab:binary-task-truth-table">2.1</a>. <span class="math inline">\(n(\text{TN})\)</span> is the number of true negative decisions, <span class="math inline">\(n(\text{FN})\)</span> is the number of false negative decisions, etc. The last row is the sum of the corresponding columns. The sum of the number of true negative decisions <span class="math inline">\(n(\text{TN})\)</span> and the number of false positive decisions <span class="math inline">\(n(\text{FP})\)</span> must equal the total number of non-diseased cases, denoted <span class="math inline">\(K_1\)</span>. Likewise, the sum of the number of false negative decisions <span class="math inline">\(n(\text{FN})\)</span> and the number of true positive decisions <span class="math inline">\(n(\text{TP})\)</span> must equal the total number of diseased cases, denoted <span class="math inline">\(K_2\)</span>. The last column is the sum of the corresponding rows. The sum of the number of true negative <span class="math inline">\(n(\text{TN})\)</span> and false negative <span class="math inline">\(n(\text{FN})\)</span> decisions is the total number of negative decisions, denoted <span class="math inline">\(n(N)\)</span>. Likewise, the sum of the number of false positive <span class="math inline">\(n(\text{FP})\)</span> and true positive <span class="math inline">\(n(\text{TP})\)</span> decisions is the total number of positive decisions, denoted <span class="math inline">\(n(P)\)</span>. Since each case yields a decision, the bottom-right corner cell is <span class="math inline">\(n(N) + n(P)\)</span>, which must also equal <span class="math inline">\(K_1+K_2\)</span>, the total number of cases denoted <span class="math inline">\(K\)</span>. These statements are summarized in Eqn. <a href="binary-task.html#eq:binary-task-truth-table-eqns">(2.1)</a>.</p>
-<p><span class="math display" id="eq:binary-task-truth-table-eqns">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-truth-table-eqns">\[\begin{equation}
 \left.
 \begin{aligned}
-K_1&amp;=n(TN)+n(FP)\\ 
-K_2&amp;=n(FN)+n(TN)\\ 
-n(N)&amp;=n(TN)+n(FN)\\ 
+K_1&amp;=n(TN)+n(FP)\\
+K_2&amp;=n(FN)+n(TN)\\
+n(N)&amp;=n(TN)+n(FN)\\
 n(P)&amp;=n(TP)+n(FP)\\
 K=K_1+K_2&amp;=n(N)+n(P)
 \end{aligned}
@@ -536,48 +595,48 @@ ColSums
 </tbody>
 </table>
 </div>
-<div id="sensitivity-and-specificity" class="section level2 hasAnchor">
+<div id="sensitivity-and-specificity" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Sensitivity and specificity<a href="binary-task.html#sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The notation <span class="math inline">\(\text{P(D|T)}\)</span> indicates the probability of diagnosis <span class="math inline">\(\text{D}\)</span> for a given truth state <span class="math inline">\(\text{T}\)</span>. The vertical bar is used to denote a conditional probability, i.e., the probability of what is to the left of the bar occurring when what is to the right of the bar is true:</p>
-<p><span class="math display" id="eq:binary-task-p-d-given-t">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-p-d-given-t">\[\begin{equation}
 \text{P(D|T)} \equiv P(\text{diagnosis is D} | \text{truth is T})
 \tag{2.2}
 \end{equation}\]</span></p>
 <p>Therefore the probability that the radiologist will diagnose “case is diseased” when the case is actually diseased is <span class="math inline">\(\text{P(D=2|T=2)}\)</span>, the probability of a true positive <span class="math inline">\(\text{P(TP)}\)</span>.</p>
-<p><span class="math display" id="eq:binary-task-p-tp">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-p-tp">\[\begin{equation}
 \text{P(TP)} = \text{P(D = 2 | T = 2)}
 \tag{2.3}
 \end{equation}\]</span></p>
 <p>Likewise, the probability that the radiologist will diagnose “case is non-diseased” when the case is actually diseased is <span class="math inline">\(\text{P(D=1|T=2)}\)</span>, the probability of a false negative <span class="math inline">\(\text{P(FN)}\)</span>.</p>
-<p><span class="math display" id="eq:binary-task-p-fn">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-p-fn">\[\begin{equation}
 \text{P(FN)} = \text{P(D = 1 | T = 2)}
 \tag{2.4}
 \end{equation}\]</span></p>
 <p>The corresponding probabilities for non-diseased cases, <span class="math inline">\(P(TN)\)</span> and <span class="math inline">\(P(FP)\)</span>, are defined by:</p>
-<p><span class="math display" id="eq:binary-task-p-tn-fp">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-p-tn-fp">\[\begin{equation}
 \left.
 \begin{aligned}
-\text{P(TN)}&amp;=\text{P(D=1|T=1)}\\ 
+\text{P(TN)}&amp;=\text{P(D=1|T=1)}\\
 \text{P(FP)}&amp;=\text{P(D=2|T=1)}
 \end{aligned}
 \right\}
 \tag{2.5}
 \end{equation}\]</span></p>
 <p>Since the diagnosis must be either <span class="math inline">\(D=1\)</span> or <span class="math inline">\(D=2\)</span>, the following must be true:</p>
-<p><span class="math display" id="eq:binary-task-p-sum-to-unity">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-p-sum-to-unity">\[\begin{equation}
 \left.
 \begin{aligned}  
-\text{P(D=1|T=1)+P(D=2|T=1)}=&amp;1\\ 
+\text{P(D=1|T=1)+P(D=2|T=1)}=&amp;1\\
 \text{P(D=1|T=2)+P(D=2|T=2)}=&amp;1
 \end{aligned}
 \right \}
 \tag{2.6}
 \end{equation}\]</span></p>
 <p>Equivalently, these equations can be written:</p>
-<p><span class="math display" id="eq:binary-task-p-sum-to-unity2">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-p-sum-to-unity2">\[\begin{equation}
 \left.
 \begin{aligned}  
-\text{P(TN)+P(FP)}=&amp; 1\\ 
+\text{P(TN)+P(FP)}=&amp; 1\\
 \text{P(FN)+P(TP)}=&amp; 1
 \end{aligned}
 \right \}
@@ -588,10 +647,10 @@ ColSums
 <li><p>An easy way to remember Eqn. <a href="binary-task.html#eq:binary-task-p-sum-to-unity2">(2.7)</a> is to start by writing down one of the four probabilities, e.g., <span class="math inline">\(\text{P(TN)}\)</span>, and “reversing” both terms inside the parentheses, i.e., <span class="math inline">\(\text{T} \Rightarrow \text{F}\)</span>, and <span class="math inline">\(\text{N} \Rightarrow \text{P}\)</span>. This yields the term <span class="math inline">\(\text{P(FP)}\)</span> which when added to the previous probability yields unity, i.e., the first equation in Eqn. <a href="binary-task.html#eq:binary-task-p-sum-to-unity2">(2.7)</a>.</p></li>
 <li><p>Because there are two equations in four unknowns, only two of the four probabilities are independent. By tradition these are chosen to be <span class="math inline">\(\text{P(D=1|T=1)}\)</span> and <span class="math inline">\(\text{P(D=2|T=2)}\)</span>, i.e., <span class="math inline">\(P(TN)\)</span> and <span class="math inline">\(P(TP)\)</span>, the probabilities of correct decisions on non-diseased and diseased cases, respectively. The two basic probabilities are so important that they have names: <span class="math inline">\(\text{P(D=2|T=2)=P(TP)}\)</span> is termed <strong>sensitivity</strong> (Se) and <span class="math inline">\(\text{P(D=1|T=1)=P(TN)}\)</span> is termed <strong>specificity</strong> (Sp):</p></li>
 </ul>
-<p><span class="math display" id="eq:binary-task-se-sp">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-se-sp">\[\begin{equation}
 \left.
 \begin{aligned}  
-\text{Se}=\text{P(TP)=P(D=2|T=2)}\\ 
+\text{Se}=\text{P(TP)=P(D=2|T=2)}\\
 \text{Sp}=\text{P(TN)=P(D=1|T=1)}
 \end{aligned}
 \right \}
@@ -602,11 +661,11 @@ ColSums
 </blockquote>
 <!-- ### Reasons for the names sensitivity and specificity -->
 <!-- It is important to understand the reason for these names and an analogy may be helpful. Most of us are sensitive to temperature, especially if the choice is between ice-cold vs. steaming hot. The sense of touch is said to be sensitive to temperature. One can imagine some neurological condition rendering a person hypersensitive to temperature, such that the person responds "hot" no matter what is being touched. For such a person the sense of touch is not very specific, as it is unable to distinguish between the two temperatures. This person would be characterized by unit sensitivity (since the response is “hot” to all steaming hot objects) and zero specificity (since the response is never “cold” to ice-cold objects). Likewise, a different neurological condition could render a person hypersensitive to cold, and the response is "cold" no matter what is being touched. Such a person would have zero sensitivity (since the response is never “hot” when touching steaming hot) and unit specificity (since the response is “cold” when touching ice-cold). Already one suspects that there is an inverse relation between sensitivity and specificity. -->
-<div id="estimating-sensitivity-and-specificity" class="section level3 hasAnchor">
+<div id="estimating-sensitivity-and-specificity" class="section level3 hasAnchor" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Estimating sensitivity and specificity<a href="binary-task.html#estimating-sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Sensitivity and specificity are the probabilities of correct decisions over diseased and non-diseased cases, respectively. The true values of these probabilities would require interpreting all diseased and non-diseased cases in the entire population of cases. In reality, one has a finite sample of cases and the corresponding quantities, calculated from this finite sample, are termed <strong>estimates</strong>. Population values are fixed, and in general unknown, while estimates are realizations of random variables. Intuitively, an estimate calculated over a larger number of cases is expected to be closer to the population value than an estimate calculated over a smaller number of cases.</p>
 <p>Estimates of sensitivity and specificity follow from counting the numbers of TP and TN decisions in Table <a href="binary-task.html#tab:binary-task-truth-table2">2.2</a> and dividing by the appropriate denominators. For sensitivity, the denominator is the number of diseased cases <span class="math inline">\(K_2\)</span> and for specificity, the appropriate denominator is the number of non-diseased cases <span class="math inline">\(K_1\)</span>. The estimation equations for sensitivity specificity are (estimates are often denoted by the “hat” or circumflex symbol ^):</p>
-<p><span class="math display" id="eq:binary-task-se-sp-est">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-se-sp-est">\[\begin{equation}
 \left.
 \begin{aligned}  
 \widehat{\text{Se}}=\widehat{\text{P(TP)}}=\frac{\text{n(TP)}}{K_2}\\
@@ -620,10 +679,10 @@ ColSums
 </blockquote>
 </div>
 </div>
-<div id="disease-prevalence" class="section level2 hasAnchor">
+<div id="disease-prevalence" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Disease prevalence<a href="binary-task.html#disease-prevalence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Disease prevalence, often abbreviated to prevalence, is defined as the probability that a randomly sampled case is of a diseased patient, i.e., the fraction of the entire population that is diseased. It is denoted <span class="math inline">\(\text{P(D|pop)}\)</span> when patients are randomly sampled from the population (“pop”) and otherwise it is denoted <span class="math inline">\(\text{P(D|lab)}\)</span>, where the condition “lab” stands for a laboratory study, where cases may be artificially enriched, and thus not representative of the population:</p>
-<p><span class="math display" id="eq:binary-task-dis-prev">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-dis-prev">\[\begin{equation}
 \left.
 \begin{aligned}  
 P(\text{D}|\text{pop})=&amp;P(\text{T}=2|\text{pop})\\
@@ -633,7 +692,7 @@ P(\text{D}|\text{lab})=&amp;P(\text{T}=2|\text{lab})
 \tag{2.10}
 \end{equation}\]</span></p>
 <p>Since the patients must be either diseased on non-diseased it follows with either sampling method that:</p>
-<p><span class="math display">\[\begin{equation} 
+<p><span class="math display">\[\begin{equation}
 \left.
 \begin{aligned}  
 P(\text{T}=1|\text{pop})+P(\text{T}=2|\text{pop})&amp;=1\\
@@ -642,7 +701,7 @@ P(\text{T}=1|\text{lab})+P(\text{T}=2|\text{lab})&amp;=1
 \right \}
 \end{equation}\]</span></p>
 <p>If a finite number of patients are sampled randomly from the population the fraction of diseased patients in the sample is an estimate of true disease prevalence.</p>
-<p><span class="math display" id="eq:binary-task-dis-prev-est">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-dis-prev-est">\[\begin{equation}
 \left.
 \begin{aligned}  
 \widehat{P(\text{D}|\text{pop})}=
@@ -652,7 +711,7 @@ P(\text{T}=1|\text{lab})+P(\text{T}=2|\text{lab})&amp;=1
 \tag{2.11}
 \end{equation}\]</span></p>
 <p>It is important to appreciate the distinction between population prevalence and the laboratory prevalence. As an example true disease prevalence for breast cancer is about five per 1000 patients in the US, but most mammography studies are conducted with comparable numbers of non-diseased and diseased cases:</p>
-<p><span class="math display" id="eq:binary-task-dis-prev-lab-vs-pop">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-dis-prev-lab-vs-pop">\[\begin{equation}
 \left.
 \begin{aligned}  
 \widehat{P(\text{D}|\text{pop})}\sim&amp; 0.005\\
@@ -662,32 +721,32 @@ P(\text{T}=1|\text{lab})+P(\text{T}=2|\text{lab})&amp;=1
 \tag{2.12}
 \end{equation}\]</span></p>
 </div>
-<div id="accuracy" class="section level2 hasAnchor">
+<div id="accuracy" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Accuracy<a href="binary-task.html#accuracy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Accuracy is defined as the fraction of all decisions that are correct. Denoting it by <span class="math inline">\(\text{Ac}\)</span> one has for the corresponding estimate:</p>
-<p><span class="math display" id="eq:binary-task-ac-est">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-ac-est">\[\begin{equation}
 \widehat{\text{Ac}}=\frac{n(TN)+n(TP)}{n(TN)+n(TP)+n(FP)+n(FN)}
 \tag{2.13}
 \end{equation}\]</span></p>
 <p>Explanation: the numerator is the total number of correct decisions and the denominator is the total number of decisions. An equivalent expression is:</p>
-<p><span class="math display" id="eq:binary-task-ac-est2">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-ac-est2">\[\begin{equation}
 \widehat{\text{Ac}}=\widehat{\text{Sp}}\widehat{P(!D)}+\widehat{\text{Se}}\widehat{P(D)}
 \tag{2.14}
 \end{equation}\]</span></p>
 <p>The exclamation mark symbol is used to denote the “not” or negation operator. For example, <span class="math inline">\(P(!D)\)</span> means the probability that the patient is not diseased. Eqn. <a href="binary-task.html#eq:binary-task-ac-est2">(2.14)</a> applies equally to laboratory or population studies, <em>provided sensitivity and specificity are estimated consistently</em>. One cannot, for example, combine a population estimate of prevalence with a laboratory estimate of sensitivity.</p>
 <p>Eqn. <a href="binary-task.html#eq:binary-task-ac-est2">(2.14)</a> can be understood from the following argument. <span class="math inline">\(\widehat{Sp}\)</span> is the fraction of correct decisions on non-diseased cases. Multiplying this by <span class="math inline">\(\widehat{P(!D)}\)</span> yields the fraction of correct negative decisions on all cases. Similarly <span class="math inline">\(\widehat{Se}\)</span> is the fraction of correct decisions on diseased cases. Multiplying this by <span class="math inline">\(\widehat{P(D)}\)</span> yields the fraction of correct positive decisions on all cases. Their sum is the fraction of correct decisions on all cases.</p>
 <p>A formal mathematical derivation follows: Eqn. <a href="binary-task.html#eq:binary-task-se-sp">(2.8)</a> yields:</p>
-<p><span class="math display" id="eq:binary-task-ntp-ntn">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-ntp-ntn">\[\begin{equation}
 \left.
 \begin{aligned}  
-n(TP)=K_2 \widehat{Se}\\ 
+n(TP)=K_2 \widehat{Se}\\
 n(TN)=K_1 \widehat{Sp}
 \end{aligned}
 \right \}
 \tag{2.15}
 \end{equation}\]</span></p>
 <p>Therefore,</p>
-<p><span class="math display" id="eq:binary-task-ac">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-ac">\[\begin{equation}
 \left.
 \begin{aligned}  
 \widehat{Ac}&amp;=\frac{n(TN)+n(TP)}{K}\\
@@ -698,7 +757,7 @@ n(TN)=K_1 \widehat{Sp}
 \tag{2.16}
 \end{equation}\]</span></p>
 <p>For the population one can dispense with the carets:</p>
-<p><span class="math display" id="eq:binary-task-ac-pop">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-ac-pop">\[\begin{equation}
 \left.
 \begin{aligned}  
 \text{Ac}&amp;=\frac{n(TN)+n(TP)}{K}\\
@@ -709,61 +768,61 @@ n(TN)=K_1 \widehat{Sp}
 \tag{2.17}
 \end{equation}\]</span></p>
 </div>
-<div id="negative-and-positive-predictive-values" class="section level2 hasAnchor">
+<div id="negative-and-positive-predictive-values" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> Negative and positive predictive values<a href="binary-task.html#negative-and-positive-predictive-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Sensitivity and specificity have desirable characteristics insofar as they reward the observer for correct decisions on diseased and non-diseased cases, respectively. They are expected to be independent of disease prevalence as one is dividing by the relevant denominator. However, radiologists interpret cases in a “mixed” situation where cases could be diseased or non-diseased. Therefore disease prevalence plays a crucial role in their decision-making – this point will be clarified shortly. Therefore a measure of performance that is desirable from the researcher’s point of view is not necessarily desirable from the radiologist’s point of view. As an example if most cases are non-diseased, i.e., disease prevalence is close to zero, specificity, being correct on non-diseased cases, is more important to the radiologist than sensitivity. Otherwise, the radiologist would be generating false positives most of the time. The radiologist who makes too many false positives would know this from subsequent clinical audits or daily case conferences which are held in most large imaging departments. There is a cost to unnecessary false positives – the cost of additional imaging and / or needle-biopsy to rule out cancer, and the pain and emotional trauma inflicted on the patient. Conversely, if disease prevalence is high, then sensitivity, being correct on diseased cases, is more important to the radiologist than specificity. With intermediate disease prevalence a weighted average of sensitivity and specificity, where the weighting involves disease prevalence, would appear to be desirable from the radiologist’s point of view.</p>
 <blockquote>
 <p>The radiologist is not interested in specificity, the normalized probability of a correct decision on non-diseased cases; rather the radiologist’s interest is in the probability that a patient diagnosed as non-diseased is actually non-diseased. The reader may notice how the conditioning variable in two conditional probabilities are reversed – more on this later. Likewise, the radiologist is not interested in sensitivity, the normalized probability of a correct decision on diseased cases; rather the radiologist’s interest is in the probability that a patient diagnosed as diseased is actually diseased. These are termed negative and positive predictive values, respectively, and denoted <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span>.</p>
 </blockquote>
 <p><span class="math inline">\(\text{NPV}\)</span> is the probability, given a non-diseased diagnosis, that the patient is actually non-diseased:</p>
-<p><span class="math display" id="eq:binary-task-npv">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-npv">\[\begin{equation}
 \text{NPV} = P(T=1|D=1)
 \tag{2.18}
 \end{equation}\]</span></p>
 <p><span class="math inline">\(\text{PPV}\)</span> is the probability, given a diseased diagnosis, that the patient is actually diseased:</p>
-<p><span class="math display" id="eq:binary-task-ppv">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-ppv">\[\begin{equation}
 \text{PPV} = P(T=2|D=2)
 \tag{2.19}
 \end{equation}\]</span></p>
 <p>Note that the conditioning in both equations are reversed from those in the definition of specificity and sensitivity, namely <span class="math inline">\(\text{Sp}=P(D=1|T=1)\)</span> and <span class="math inline">\(\text{Se}=P(D=2|T=2)\)</span>.</p>
 <p>To estimate <span class="math inline">\(\text{NPV}\)</span> one divides the number of correct negative decisions <span class="math inline">\(n(TN)\)</span> by the total number of negative decisions <span class="math inline">\(n(N)\)</span>. The latter is the sum of the number of correct negative decisions <span class="math inline">\(n(TN)\)</span> and the number of incorrect negative decisions <span class="math inline">\(n(FN)\)</span>. Therefore,</p>
-<p><span class="math display" id="eq:binary-task-npv2">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-npv2">\[\begin{equation}
 \widehat{\text{NPV}}=\frac{n(TN)}{n(TN)+n(FN)}
 \tag{2.20}
 \end{equation}\]</span></p>
 <p>Dividing the numerator and denominator by the number of negative cases, one gets:</p>
-<p><span class="math display" id="eq:binary-task-npv3">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-npv3">\[\begin{equation}
 \widehat{\text{NPV}}=\frac{\widehat{P(TN)}}{\widehat{P(TN)}+\widehat{P(FN)}}
 \tag{2.21}
 \end{equation}\]</span></p>
 <p><span class="math inline">\(\widehat{P(TN)}\)</span> equals the estimate of true negative fraction <span class="math inline">\(1-\widehat{FPF}\)</span> multiplied by the estimate of the a-priori probability that the patient is non-diseased, i.e., <span class="math inline">\(\widehat{P(!D)}\)</span>:</p>
-<p><span class="math display" id="eq:binary-task-p-tn-est">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-p-tn-est">\[\begin{equation}
 \widehat{P(TN)}=\widehat{P(!D)}(1-\widehat{FPF})
 \tag{2.22}
 \end{equation}\]</span></p>
 <p>Explanation: A similar logic to that used earlier applies: <span class="math inline">\((1-\widehat{FPF})\)</span> is the probability of being correct on non-diseased cases. Multiplying this by the estimate of probability of disease absence yields the estimate of <span class="math inline">\(\widehat{P(TN)}\)</span>.</p>
 <p>Likewise <span class="math inline">\(\widehat{P(FN)}\)</span> equals the estimate of false negative fraction, which is <span class="math inline">\((1-\widehat{TPF})\)</span> multiplied by the estimate of the probability that the patient is diseased, i.e., <span class="math inline">\((\widehat{P(D)}\)</span> :</p>
-<p><span class="math display" id="eq:binary-task-p-fn-est">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-p-fn-est">\[\begin{equation}
 \widehat{P(FN)}=\widehat{P(D)}(1-\widehat{TPF})
 \tag{2.23}
 \end{equation}\]</span></p>
 <p>Putting this all together, one has:</p>
-<p><span class="math display" id="eq:binary-task-npv-est">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-npv-est">\[\begin{equation}
 \widehat{\text{NPV}}=\frac{\widehat{P(!D)}(1-\widehat{FPF})}{(\widehat{P(!D)}(1-\widehat{FPF})+(\widehat{P(D)}(1-\widehat{TPF})}
 \tag{2.24}
 \end{equation}\]</span></p>
 <p>For the population one can dispense with the carets:</p>
-<p><span class="math display" id="eq:binary-task-npv-pop">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-npv-pop">\[\begin{equation}
 \text{NPV}=\frac{P(!D)(1-FPF)}{(P(!D)(1-FPF)+(P(D)(1-TPF)}
 \tag{2.25}
 \end{equation}\]</span></p>
 <p>Likewise, it can be shown that <span class="math inline">\(\text{PPV}\)</span> is given by:</p>
-<p><span class="math display" id="eq:binary-task-ppv-pop">\[\begin{equation} 
+<p><span class="math display" id="eq:binary-task-ppv-pop">\[\begin{equation}
 \text{PPV} =\frac{P(D)(TPF)}{P(D)(TPF)+P(!D)FPF}
 \tag{2.26}
 \end{equation}\]</span></p>
-<p>The equations defining <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span> are actually special cases of Bayes’ theorem <span class="citation">(Larsen and Marx <a href="#ref-larsen2005introduction" role="doc-biblioref">2005</a>)</span>. The theorem is:</p>
-<p><span class="math display" id="eq:binary-task-bayes">\[\begin{equation} 
+<p>The equations defining <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span> are actually special cases of Bayes’ theorem <span class="citation">(<a href="#ref-larsen2005introduction" role="doc-biblioref">Larsen and Marx 2005</a>)</span>. The theorem is:</p>
+<p><span class="math display" id="eq:binary-task-bayes">\[\begin{equation}
 \left.
 \begin{aligned}
 P(A|B)=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
@@ -773,7 +832,7 @@ P(A|B)=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
 \end{equation}\]</span></p>
 <p>An easy way to remember Eqn. <a href="binary-task.html#eq:binary-task-bayes">(2.27)</a> is to start with the numerator on the right hand side which has the “reversed” form of the desired conditioning on the left hand side. If the desired probability is <span class="math inline">\(P(A|B)\)</span> one starts with the “reversed” form of the conditioning, i.e., <span class="math inline">\(P(B|A)\)</span>, and multiplies by <span class="math inline">\(P(A)\)</span>. This yields the numerator. The denominator is the sum of two probabilities: the probability of <span class="math inline">\(B\)</span> given <span class="math inline">\(A\)</span>, i.e., <span class="math inline">\(P(B|A)\)</span>, multiplied by <span class="math inline">\(P(A)\)</span>, plus the probability of <span class="math inline">\(B\)</span> given <span class="math inline">\(!A\)</span>, i.e., <span class="math inline">\(P(B|!A)\)</span>, multiplied by <span class="math inline">\(P(!A)\)</span>.</p>
 </div>
-<div id="binary-taskNpvPpvCode" class="section level2 hasAnchor">
+<div id="binary-taskNpvPpvCode" class="section level2 hasAnchor" number="2.8">
 <h2><span class="header-section-number">2.8</span> Examples: PPV, NPV and Accuracy<a href="binary-task.html#binary-taskNpvPpvCode" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>Typical disease prevalence in the US in screening mammography is 0.005.</p></li>
@@ -782,18 +841,18 @@ P(A|B)=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="binary-task.html#cb1-1"></a><span class="co"># disease prevalence in </span></span>
 <span id="cb1-2"><a href="binary-task.html#cb1-2"></a><span class="co"># USA screening mammography </span></span>
-<span id="cb1-3"><a href="binary-task.html#cb1-3"></a>prev &lt;-<span class="st"> </span><span class="fl">0.005</span> <span class="co"># Line 3 </span></span>
-<span id="cb1-4"><a href="binary-task.html#cb1-4"></a>FPF &lt;-<span class="st"> </span><span class="fl">0.1</span> <span class="co"># typical operating point </span></span>
-<span id="cb1-5"><a href="binary-task.html#cb1-5"></a>TPF &lt;-<span class="st"> </span><span class="fl">0.8</span> <span class="co">#        do: </span></span>
-<span id="cb1-6"><a href="binary-task.html#cb1-6"></a>sp &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span>FPF </span>
-<span id="cb1-7"><a href="binary-task.html#cb1-7"></a>se &lt;-<span class="st"> </span>TPF </span>
-<span id="cb1-8"><a href="binary-task.html#cb1-8"></a>NPV &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>prev)<span class="op">*</span>(sp)<span class="op">/</span>((<span class="dv">1</span><span class="op">-</span>prev)<span class="op">*</span>(sp)<span class="op">+</span>prev<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>se)) </span>
-<span id="cb1-9"><a href="binary-task.html#cb1-9"></a>PPV &lt;-<span class="st"> </span>prev<span class="op">*</span>se<span class="op">/</span>(prev<span class="op">*</span>se<span class="op">+</span>(<span class="dv">1</span><span class="op">-</span>prev)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>sp)) </span>
-<span id="cb1-10"><a href="binary-task.html#cb1-10"></a><span class="kw">cat</span>(<span class="st">&quot;NPV = &quot;</span>, NPV, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">PPV = &quot;</span>, PPV, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1-3"><a href="binary-task.html#cb1-3"></a>prev <span class="ot">&lt;-</span> <span class="fl">0.005</span> <span class="co"># Line 3 </span></span>
+<span id="cb1-4"><a href="binary-task.html#cb1-4"></a>FPF <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="co"># typical operating point </span></span>
+<span id="cb1-5"><a href="binary-task.html#cb1-5"></a>TPF <span class="ot">&lt;-</span> <span class="fl">0.8</span> <span class="co">#        do: </span></span>
+<span id="cb1-6"><a href="binary-task.html#cb1-6"></a>sp <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>FPF </span>
+<span id="cb1-7"><a href="binary-task.html#cb1-7"></a>se <span class="ot">&lt;-</span> TPF </span>
+<span id="cb1-8"><a href="binary-task.html#cb1-8"></a>NPV <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">*</span>(sp)<span class="sc">/</span>((<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">*</span>(sp)<span class="sc">+</span>prev<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>se)) </span>
+<span id="cb1-9"><a href="binary-task.html#cb1-9"></a>PPV <span class="ot">&lt;-</span> prev<span class="sc">*</span>se<span class="sc">/</span>(prev<span class="sc">*</span>se<span class="sc">+</span>(<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sp)) </span>
+<span id="cb1-10"><a href="binary-task.html#cb1-10"></a><span class="fu">cat</span>(<span class="st">&quot;NPV = &quot;</span>, NPV, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">PPV = &quot;</span>, PPV, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb1-11"><a href="binary-task.html#cb1-11"></a><span class="co">#&gt; NPV =  0.9988846 </span></span>
 <span id="cb1-12"><a href="binary-task.html#cb1-12"></a><span class="co">#&gt; PPV =  0.03864734</span></span>
-<span id="cb1-13"><a href="binary-task.html#cb1-13"></a>ac &lt;-(<span class="dv">1</span><span class="op">-</span>prev)<span class="op">*</span>sp<span class="op">+</span>prev<span class="op">*</span>se </span>
-<span id="cb1-14"><a href="binary-task.html#cb1-14"></a><span class="kw">cat</span>(<span class="st">&quot;accuracy = &quot;</span>, ac, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb1-13"><a href="binary-task.html#cb1-13"></a>ac <span class="ot">&lt;-</span>(<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">*</span>sp<span class="sc">+</span>prev<span class="sc">*</span>se </span>
+<span id="cb1-14"><a href="binary-task.html#cb1-14"></a><span class="fu">cat</span>(<span class="st">&quot;accuracy = &quot;</span>, ac, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
 <span id="cb1-15"><a href="binary-task.html#cb1-15"></a><span class="co">#&gt; accuracy =  0.8995</span></span></code></pre></div>
 <ul>
 <li>Line 3 initializes the variable <code>prev</code>, the disease prevalence, to 0.005.</li>
@@ -803,39 +862,39 @@ P(A|B)=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
 <li>Line 9 calculates <code>PPV</code> using Eqn. <a href="binary-task.html#eq:binary-task-ppv-pop">(2.26)</a>.</li>
 <li>Line 13 calculates accuracy using Eqn. <a href="binary-task.html#eq:binary-task-ac-pop">(2.17)</a></li>
 </ul>
-<div id="binary-task-npv-ppv-comments" class="section level3 hasAnchor">
+<div id="binary-task-npv-ppv-comments" class="section level3 hasAnchor" number="2.8.1">
 <h3><span class="header-section-number">2.8.1</span> Comments<a href="binary-task.html#binary-task-npv-ppv-comments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If a woman has a negative diagnosis, chances are very small that she has breast cancer: the probability that the radiologist is incorrect in the negative diagnosis is <span class="math inline">\(1 - \text{NPV}\)</span> = 0.0011154. Even is she has a positive diagnosis the probability that she actually has cancer is still only <span class="math inline">\(\text{PPV}\)</span> = 0.0386473. That is why following a positive screening diagnosis the woman is recalled for further imaging and if that reveals cause for reasonable suspicion additional imaging is performed, perhaps augmented with a needle-biopsy, to confirm actual disease status. If the biopsy turns out positive only then is the woman referred for cancer therapy. Overall, accuracy is <span class="math inline">\(\text{Ac}\)</span> = 0.8995. The numbers in this illustration are for expert radiologists.</p>
 </div>
-<div id="binary-task-npv-ppv-irrel-lab" class="section level3 hasAnchor">
+<div id="binary-task-npv-ppv-irrel-lab" class="section level3 hasAnchor" number="2.8.2">
 <h3><span class="header-section-number">2.8.2</span> PPV and NPV are irrelevant to laboratory tasks<a href="binary-task.html#binary-task-npv-ppv-irrel-lab" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>According to the hierarchy of assessment methods described in (book) Chapter 01, TBA Table 1.1, <span class="math inline">\(\text{PPV}\)</span> and <span class="math inline">\(\text{NPV}\)</span> are level- 3 measurements. These are calculated from “live” interpretations as opposed to retrospectively calculated quantities like sensitivity and specificity. The radiologist adjusts the reporting threshold to achieve a balance between sensitivity and specificity. The balance depends critically on the expected disease prevalence. Based on geographical location and type of practice, the radiologist over time develops a feel for disease prevalence or it can be found in various databases.</p>
 <p>For example, a breast-imaging clinic that specializes in imaging high-risk women will have higher disease prevalence than the general population and the radiologist is expected to err more on the side of reduced specificity because of the expected benefit from increased sensitivity.</p>
-<p>In a laboratory study where one uses enriched case sets, the concepts of <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span> are meaningless. For example, it would be impossible to perform a laboratory study with 10,000 randomly sampled women, which would ensure about 50 actually diseased patients, which is large enough to get a reasonably precise estimate of sensitivity (estimating specificity is inherently more precise because most women are actually non-diseased). Rather, in a laboratory study one uses enriched data sets where the numbers of diseased-cases is much larger than in the general population, Eqn. <a href="binary-task.html#eq:binary-task-dis-prev-lab-vs-pop">(2.12)</a>. The radiologist cannot interpret enriched cases pretending that the actual prevalence is very low. Negative and positive predictive values while they can be calculated from laboratory data, have very little, if any, clinical meaning. No diagnostic decisions are riding on laboratory interpretations of retrospectively acquired patient images. In contrast <span class="math inline">\(\text{PPV}\)</span> and <span class="math inline">\(\text{NPV}\)</span> do have clinical meanings when calculated from large population based “live” studies. For example, the <span class="citation">(Fenton et al. <a href="#ref-fenton2007influence" role="doc-biblioref">2007</a>)</span> study sampled 684,956 women and used the results of “live” interpretations. Laboratory ROC studies are typically conducted with 50-100 non-diseased and 50-100 diseased cases. A study using about 300 cases total would be considered a “large” ROC study.</p>
+<p>In a laboratory study where one uses enriched case sets, the concepts of <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span> are meaningless. For example, it would be impossible to perform a laboratory study with 10,000 randomly sampled women, which would ensure about 50 actually diseased patients, which is large enough to get a reasonably precise estimate of sensitivity (estimating specificity is inherently more precise because most women are actually non-diseased). Rather, in a laboratory study one uses enriched data sets where the numbers of diseased-cases is much larger than in the general population, Eqn. <a href="binary-task.html#eq:binary-task-dis-prev-lab-vs-pop">(2.12)</a>. The radiologist cannot interpret enriched cases pretending that the actual prevalence is very low. Negative and positive predictive values while they can be calculated from laboratory data, have very little, if any, clinical meaning. No diagnostic decisions are riding on laboratory interpretations of retrospectively acquired patient images. In contrast <span class="math inline">\(\text{PPV}\)</span> and <span class="math inline">\(\text{NPV}\)</span> do have clinical meanings when calculated from large population based “live” studies. For example, the <span class="citation">(<a href="#ref-fenton2007influence" role="doc-biblioref">Fenton et al. 2007</a>)</span> study sampled 684,956 women and used the results of “live” interpretations. Laboratory ROC studies are typically conducted with 50-100 non-diseased and 50-100 diseased cases. A study using about 300 cases total would be considered a “large” ROC study.</p>
 </div>
 </div>
-<div id="binary-task-discussion" class="section level2 hasAnchor">
+<div id="binary-task-discussion" class="section level2 hasAnchor" number="2.9">
 <h2><span class="header-section-number">2.9</span> Discussion<a href="binary-task.html#binary-task-discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This chapter introduced the terms sensitivity, specificity, disease prevalence, positive and negative predictive values and accuracy. Due to its strong dependence on disease prevalence, accuracy is a relatively poor measure of performance. Radiologists generally have a good understanding of positive and negative predictive values, as these terms are relevant in the clinical context, being in effect their “batting averages”. They do not care as much for sensitivity and specificity. A caveat on the use of <span class="math inline">\(\text{PPV}\)</span> and <span class="math inline">\(\text{NPV}\)</span> calculated from laboratory studies is noted.</p>
 </div>
-<div id="binary-task-references" class="section level2 hasAnchor">
+<div id="binary-task-references" class="section level2 hasAnchor" number="2.10">
 <h2><span class="header-section-number">2.10</span> Chapter References<a href="binary-task.html#binary-task-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
 <h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references">
-<div id="ref-egan1975book">
-<p>Egan, James P. 1975a. <em>Signal Detection Theory and ROC Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-egan1975book" class="csl-entry">
+———. 1975a. <em>Signal Detection Theory and <span>ROC</span> Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.
 </div>
-<div id="ref-fenton2007influence">
-<p>Fenton, Joshua J, Stephen H Taplin, Patricia A Carney, Linn Abraham, Edward A Sickles, Carl D’Orsi, Eric A Berns, et al. 2007. “Influence of Computer-Aided Detection on Performance of Screening Mammography.” <em>New England Journal of Medicine</em> 356 (14): 1399–1409.</p>
+<div id="ref-fenton2007influence" class="csl-entry">
+Fenton, Joshua J, Stephen H Taplin, Patricia A Carney, Linn Abraham, Edward A Sickles, Carl D’Orsi, Eric A Berns, et al. 2007. <span>“Influence of Computer-Aided Detection on Performance of Screening Mammography.”</span> <em>New England Journal of Medicine</em> 356 (14): 1399–409.
 </div>
-<div id="ref-green1966signal">
-<p>Green, David Marvin, John A Swets, and others. 1966. <em>Signal Detection Theory and Psychophysics</em>. Vol. 1. Wiley New York.</p>
+<div id="ref-green1966signal" class="csl-entry">
+Green, David Marvin, John A Swets, et al. 1966. <em>Signal Detection Theory and Psychophysics</em>. Vol. 1. Wiley New York.
 </div>
-<div id="ref-larsen2005introduction">
-<p>Larsen, Richard J, and Morris L Marx. 2005. <em>An Introduction to Mathematical Statistics</em>. Prentice Hall Hoboken, NJ.</p>
+<div id="ref-larsen2005introduction" class="csl-entry">
+Larsen, Richard J, and Morris L Marx. 2005. <em>An Introduction to Mathematical Statistics</em>. Prentice Hall Hoboken, NJ.
 </div>
 </div>
             </section>

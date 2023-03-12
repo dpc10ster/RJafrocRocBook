@@ -4,10 +4,10 @@
 %
 \documentclass[
 ]{book}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -33,14 +33,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={The RJafroc Roc Book},
-  pdfauthor={Dev P. Chakraborty, PhD},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -81,7 +73,8 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -90,7 +83,7 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -129,8 +122,19 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={The RJafroc Roc Book},
+  pdfauthor={Dev P. Chakraborty, PhD},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
 
 \title{The RJafroc Roc Book}
 \author{Dev P. Chakraborty, PhD}
@@ -279,7 +283,7 @@ A good example of QC is the use of the American College of Radiology Mammography
 \includegraphics[width=0.5\linewidth]{images/AcrPhantom} \includegraphics[width=0.5\linewidth]{images/Clinical} \caption{(A) Image of an ACR phantom, (B) Clinical image.}\label{fig:acr-phantom-clinical}
 \end{figure}
 
-Fig. \ref{fig:acr-phantom-clinical} (A -- B): (A) Image of an American College of Radiology mammography accreditation phantom. The phantom contains target objects consisting of six fibrils, five groups of microcalcifications, and five nodule-like objects. An image of the phantom is obtained daily, before the first patient is imaged, and is inspected by a technologist, who records the number of target objects of different types that are visible. On his 27" iMac monitor, I see four fibrils, three speck groups and four masses, which would be graded as a ``pass''. This is greatly simplified version of the test. The scoring accounts for irregular fibril or partially visible masses borders, etc., all of which is intended to get more objectivity out of the measurement. (B) A breast image showing an invasive cancer, located roughly in the middle of the image. Note the lack of similarity between the two images (A) and (B). The breast image is much more complex and there is more information, and therefore more to go wrong than with the phantom image. Moreover, there is variability between patients in contrast to the fixed image in (A). In my clinical experience, the phantom images interpreted visually are a poor predictor of clinical image quality.
+Fig. \ref{fig:acr-phantom-clinical} (A -- B): (A) Image of an American College of Radiology mammography accreditation phantom. The phantom contains target objects consisting of six fibrils, five groups of microcalcifications, and five nodule-like objects. An image of the phantom is obtained daily, before the first patient is imaged, and is inspected by a technologist, who records the number of target objects of different types that are visible. On his 27'' iMac monitor, I see four fibrils, three speck groups and four masses, which would be graded as a ``pass''. This is greatly simplified version of the test. The scoring accounts for irregular fibril or partially visible masses borders, etc., all of which is intended to get more objectivity out of the measurement. (B) A breast image showing an invasive cancer, located roughly in the middle of the image. Note the lack of similarity between the two images (A) and (B). The breast image is much more complex and there is more information, and therefore more to go wrong than with the phantom image. Moreover, there is variability between patients in contrast to the fixed image in (A). In my clinical experience, the phantom images interpreted visually are a poor predictor of clinical image quality.
 
 One can perhaps appreciate the subjectivity of the measurement. Since the target locations are known, the technologist can claim to have detected it and the claim cannot be disproved; unless a claim is falsifiable, it is not science. While the QC team is trained to achieve repeatable measurements, I have shown TBA {[}30-34{]} that computer analysis of mammography phantom images (CAMPI) can achieve far greater precision and repeatability than human observer readings. Commercial software is currently available from various vendors that perform proprietary analysis of phantom images for various imaging systems (e.g., mammography machines, CT scanners, MRI scanners, ultrasound, etc.).
 
@@ -808,21 +812,21 @@ An easy way to remember Eqn. \eqref{eq:binary-task-bayes} is to start with the n
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\CommentTok{# disease prevalence in }
-\CommentTok{# USA screening mammography }
-\NormalTok{prev <-}\StringTok{ }\FloatTok{0.005} \CommentTok{# Line 3 }
-\NormalTok{FPF <-}\StringTok{ }\FloatTok{0.1} \CommentTok{# typical operating point }
-\NormalTok{TPF <-}\StringTok{ }\FloatTok{0.8} \CommentTok{#        do: }
-\NormalTok{sp <-}\StringTok{ }\DecValTok{1}\OperatorTok{-}\NormalTok{FPF }
-\NormalTok{se <-}\StringTok{ }\NormalTok{TPF }
-\NormalTok{NPV <-}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{prev)}\OperatorTok{*}\NormalTok{(sp)}\OperatorTok{/}\NormalTok{((}\DecValTok{1}\OperatorTok{-}\NormalTok{prev)}\OperatorTok{*}\NormalTok{(sp)}\OperatorTok{+}\NormalTok{prev}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{se)) }
-\NormalTok{PPV <-}\StringTok{ }\NormalTok{prev}\OperatorTok{*}\NormalTok{se}\OperatorTok{/}\NormalTok{(prev}\OperatorTok{*}\NormalTok{se}\OperatorTok{+}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{prev)}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{sp)) }
-\KeywordTok{cat}\NormalTok{(}\StringTok{"NPV = "}\NormalTok{, NPV, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{PPV = "}\NormalTok{, PPV, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> NPV =  0.9988846 }
-\CommentTok{#> PPV =  0.03864734}
-\NormalTok{ac <-(}\DecValTok{1}\OperatorTok{-}\NormalTok{prev)}\OperatorTok{*}\NormalTok{sp}\OperatorTok{+}\NormalTok{prev}\OperatorTok{*}\NormalTok{se }
-\KeywordTok{cat}\NormalTok{(}\StringTok{"accuracy = "}\NormalTok{, ac, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> accuracy =  0.8995}
+\CommentTok{\# disease prevalence in }
+\CommentTok{\# USA screening mammography }
+\NormalTok{prev }\OtherTok{\textless{}{-}} \FloatTok{0.005} \CommentTok{\# Line 3 }
+\NormalTok{FPF }\OtherTok{\textless{}{-}} \FloatTok{0.1} \CommentTok{\# typical operating point }
+\NormalTok{TPF }\OtherTok{\textless{}{-}} \FloatTok{0.8} \CommentTok{\#        do: }
+\NormalTok{sp }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{{-}}\NormalTok{FPF }
+\NormalTok{se }\OtherTok{\textless{}{-}}\NormalTok{ TPF }
+\NormalTok{NPV }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{prev)}\SpecialCharTok{*}\NormalTok{(sp)}\SpecialCharTok{/}\NormalTok{((}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{prev)}\SpecialCharTok{*}\NormalTok{(sp)}\SpecialCharTok{+}\NormalTok{prev}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{se)) }
+\NormalTok{PPV }\OtherTok{\textless{}{-}}\NormalTok{ prev}\SpecialCharTok{*}\NormalTok{se}\SpecialCharTok{/}\NormalTok{(prev}\SpecialCharTok{*}\NormalTok{se}\SpecialCharTok{+}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{prev)}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{sp)) }
+\FunctionTok{cat}\NormalTok{(}\StringTok{"NPV = "}\NormalTok{, NPV, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{PPV = "}\NormalTok{, PPV, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} NPV =  0.9988846 }
+\CommentTok{\#\textgreater{} PPV =  0.03864734}
+\NormalTok{ac }\OtherTok{\textless{}{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{prev)}\SpecialCharTok{*}\NormalTok{sp}\SpecialCharTok{+}\NormalTok{prev}\SpecialCharTok{*}\NormalTok{se }
+\FunctionTok{cat}\NormalTok{(}\StringTok{"accuracy = "}\NormalTok{, ac, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} accuracy =  0.8995}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1073,14 +1077,14 @@ To summarize the convention used in \texttt{R}, \texttt{norm} implies the unit n
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\KeywordTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{)}
-\CommentTok{#> [1] -1.959964}
-\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\FloatTok{-0.025}\NormalTok{)}
-\CommentTok{#> [1] 1.959964}
-\KeywordTok{pnorm}\NormalTok{(}\KeywordTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{))}
-\CommentTok{#> [1] 0.025}
-\KeywordTok{qnorm}\NormalTok{(}\KeywordTok{pnorm}\NormalTok{(}\OperatorTok{-}\FloatTok{1.96}\NormalTok{))}
-\CommentTok{#> [1] -1.96}
+\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{)}
+\CommentTok{\#\textgreater{} [1] {-}1.959964}
+\FunctionTok{qnorm}\NormalTok{(}\DecValTok{1}\FloatTok{{-}0.025}\NormalTok{)}
+\CommentTok{\#\textgreater{} [1] 1.959964}
+\FunctionTok{pnorm}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.025}\NormalTok{))}
+\CommentTok{\#\textgreater{} [1] 0.025}
+\FunctionTok{qnorm}\NormalTok{(}\FunctionTok{pnorm}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{1.96}\NormalTok{))}
+\CommentTok{\#\textgreater{} [1] {-}1.96}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1690,10 +1694,10 @@ As the numbers of cases increase, the sensitivity and specificity converge to a 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{pnorm}\NormalTok{(}\FloatTok{0.75}\NormalTok{) }\CommentTok{# example 1}
-\CommentTok{#> [1] 0.773}
-\DecValTok{2}\OperatorTok{*}\KeywordTok{qnorm}\NormalTok{(}\KeywordTok{pnorm}\NormalTok{(zeta)) }\CommentTok{# example 2}
-\CommentTok{#> [1] 1.5}
+\FunctionTok{pnorm}\NormalTok{(}\FloatTok{0.75}\NormalTok{) }\CommentTok{\# example 1}
+\CommentTok{\#\textgreater{} [1] 0.773}
+\DecValTok{2}\SpecialCharTok{*}\FunctionTok{qnorm}\NormalTok{(}\FunctionTok{pnorm}\NormalTok{(zeta)) }\CommentTok{\# example 2}
+\CommentTok{\#\textgreater{} [1] 1.5}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1938,22 +1942,22 @@ It is useful to replace the preceding detailed explanation with a simple algorit
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\KeywordTok{options}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
-\NormalTok{FPF <-}\StringTok{ }\NormalTok{OpPts[}\DecValTok{1}\NormalTok{,]}
-\NormalTok{TPF <-}\StringTok{ }\NormalTok{OpPts[}\DecValTok{2}\NormalTok{,]}
-\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =}\NormalTok{ FPF, }\DataTypeTok{TPF =}\NormalTok{ TPF)}
-\NormalTok{df <-}\StringTok{ }\KeywordTok{t}\NormalTok{(df)}
-\KeywordTok{print}\NormalTok{(df)}
-\CommentTok{#>       [,1] [,2]  [,3] [,4] [,5]}
-\CommentTok{#> FPF 0.0167 0.05 0.183  0.5    1}
-\CommentTok{#> TPF 0.4400 0.68 0.780  0.9    1}
-\CommentTok{# ev = equal variance model}
-\NormalTok{mu_ev <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(.}\DecValTok{5}\NormalTok{)}\OperatorTok{+}\KeywordTok{qnorm}\NormalTok{(.}\DecValTok{9}\NormalTok{);sigma_ev <-}\StringTok{ }\DecValTok{1}
-\NormalTok{Az_ev <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(mu_ev}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{))}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"uppermost point based estimate of mu_ev = "}\NormalTok{, mu_ev, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> uppermost point based estimate of mu_ev =  1.28}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"corresponding estimate of Az_ev = "}\NormalTok{, Az_ev, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> corresponding estimate of Az_ev =  0.818}
+\FunctionTok{options}\NormalTok{(}\AttributeTok{digits =} \DecValTok{3}\NormalTok{)}
+\NormalTok{FPF }\OtherTok{\textless{}{-}}\NormalTok{ OpPts[}\DecValTok{1}\NormalTok{,]}
+\NormalTok{TPF }\OtherTok{\textless{}{-}}\NormalTok{ OpPts[}\DecValTok{2}\NormalTok{,]}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{FPF =}\NormalTok{ FPF, }\AttributeTok{TPF =}\NormalTok{ TPF)}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(df)}
+\FunctionTok{print}\NormalTok{(df)}
+\CommentTok{\#\textgreater{}       [,1] [,2]  [,3] [,4] [,5]}
+\CommentTok{\#\textgreater{} FPF 0.0167 0.05 0.183  0.5    1}
+\CommentTok{\#\textgreater{} TPF 0.4400 0.68 0.780  0.9    1}
+\CommentTok{\# ev = equal variance model}
+\NormalTok{mu\_ev }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(.}\DecValTok{5}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{qnorm}\NormalTok{(.}\DecValTok{9}\NormalTok{);sigma\_ev }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{Az\_ev }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(mu\_ev}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{))}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"uppermost point based estimate of mu\_ev = "}\NormalTok{, mu\_ev, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} uppermost point based estimate of mu\_ev =  1.28}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"corresponding estimate of Az\_ev = "}\NormalTok{, Az\_ev, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} corresponding estimate of Az\_ev =  0.818}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1963,23 +1967,23 @@ Shown next is the equal-variance model fit to the uppermost non-trivial operatin
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# equal variance fit to uppermost operating point}
-\NormalTok{p1 <-}\StringTok{ }\KeywordTok{plotROC}\NormalTok{ (mu_ev, sigma_ev, FPF, TPF)}
-\CommentTok{# the following values are from unequal-variance model fitting}
-\CommentTok{# to be discussed in the next chapter}
-\NormalTok{mu <-}\StringTok{ }\FloatTok{2.17}\NormalTok{;sigma <-}\StringTok{ }\FloatTok{1.65}
-\CommentTok{# following formula is discussed in the next chapter}
-\NormalTok{Az <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(mu}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{sigma}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"binormal unequal variance model estimate of Az = "}\NormalTok{, Az, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> binormal unequal variance model estimate of Az =  0.87}
-\CommentTok{# unequal variance fit to all operating points}
-\NormalTok{p2 <-}\StringTok{ }\KeywordTok{plotROC}\NormalTok{ (mu, sigma, FPF, TPF)}
+\CommentTok{\# equal variance fit to uppermost operating point}
+\NormalTok{p1 }\OtherTok{\textless{}{-}} \FunctionTok{plotROC}\NormalTok{ (mu\_ev, sigma\_ev, FPF, TPF)}
+\CommentTok{\# the following values are from unequal{-}variance model fitting}
+\CommentTok{\# to be discussed in the next chapter}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \FloatTok{2.17}\NormalTok{;sigma }\OtherTok{\textless{}{-}} \FloatTok{1.65}
+\CommentTok{\# following formula is discussed in the next chapter}
+\NormalTok{Az }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(mu}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{sigma}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"binormal unequal variance model estimate of Az = "}\NormalTok{, Az, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} binormal unequal variance model estimate of Az =  0.87}
+\CommentTok{\# unequal variance fit to all operating points}
+\NormalTok{p2 }\OtherTok{\textless{}{-}} \FunctionTok{plotROC}\NormalTok{ (mu, sigma, FPF, TPF)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{grid.arrange}\NormalTok{(p1,p2,}\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{grid.arrange}\NormalTok{(p1,p2,}\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2005,12 +2009,12 @@ These are coded below:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Sp = 1 - FPF = 1 - 0.5}
-\CommentTok{# Se = 0.9}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"zeta from Sp = "}\NormalTok{, }\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\FloatTok{-0.5}\NormalTok{),}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> zeta from Sp =  0}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"zeta from Se = "}\NormalTok{, mu_ev}\OperatorTok{-}\KeywordTok{qnorm}\NormalTok{(}\FloatTok{0.9}\NormalTok{),}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> zeta from Se =  0}
+\CommentTok{\# Sp = 1 {-} FPF = 1 {-} 0.5}
+\CommentTok{\# Se = 0.9}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"zeta from Sp = "}\NormalTok{, }\FunctionTok{qnorm}\NormalTok{(}\DecValTok{1}\FloatTok{{-}0.5}\NormalTok{),}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} zeta from Sp =  0}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"zeta from Se = "}\NormalTok{, mu\_ev}\SpecialCharTok{{-}}\FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.9}\NormalTok{),}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} zeta from Se =  0}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2444,42 +2448,42 @@ Numerical illustration: as an illustration of the theorem it is helpful to calcu
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{trapz =}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x, y)}
-\NormalTok{\{ }\CommentTok{### computes the integral of y with respect to x using trapezoidal integration.}
-\NormalTok{  idx =}\StringTok{ }\DecValTok{2}\OperatorTok{:}\KeywordTok{length}\NormalTok{(x)}
-  \KeywordTok{return}\NormalTok{ (}\KeywordTok{as.double}\NormalTok{( (x[idx] }\OperatorTok{-}\StringTok{ }\NormalTok{x[idx}\DecValTok{-1}\NormalTok{]) }\OperatorTok{%*%}\StringTok{ }\NormalTok{(y[idx] }\OperatorTok{+}\StringTok{ }\NormalTok{y[idx}\DecValTok{-1}\NormalTok{])) }\OperatorTok{/}\StringTok{ }\DecValTok{2}\NormalTok{)}
+\NormalTok{trapz }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(x, y)}
+\NormalTok{\{ }\DocumentationTok{\#\#\# computes the integral of y with respect to x using trapezoidal integration.}
+\NormalTok{  idx }\OtherTok{=} \DecValTok{2}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(x)}
+  \FunctionTok{return}\NormalTok{ (}\FunctionTok{as.double}\NormalTok{( (x[idx] }\SpecialCharTok{{-}}\NormalTok{ x[idx}\DecValTok{{-}1}\NormalTok{]) }\SpecialCharTok{\%*\%}\NormalTok{ (y[idx] }\SpecialCharTok{+}\NormalTok{ y[idx}\DecValTok{{-}1}\NormalTok{])) }\SpecialCharTok{/} \DecValTok{2}\NormalTok{)}
 \NormalTok{\}}
 
 
-\NormalTok{Wilcoxon <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (zk1, zk2)}
+\NormalTok{Wilcoxon }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{ (zk1, zk2)}
 \NormalTok{\{}
-\NormalTok{  K1 =}\StringTok{ }\KeywordTok{length}\NormalTok{(zk1)}
-\NormalTok{  K2 =}\StringTok{ }\KeywordTok{length}\NormalTok{(zk2)}
-\NormalTok{  W <-}\StringTok{ }\DecValTok{0}
-  \ControlFlowTok{for}\NormalTok{ (k1 }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{K1) \{}
-\NormalTok{    W <-}\StringTok{ }\NormalTok{W }\OperatorTok{+}\StringTok{ }\KeywordTok{sum}\NormalTok{(zk1[k1] }\OperatorTok{<}\StringTok{ }\NormalTok{zk2)}
-\NormalTok{    W <-}\StringTok{ }\NormalTok{W }\OperatorTok{+}\StringTok{ }\FloatTok{0.5} \OperatorTok{*}\StringTok{ }\KeywordTok{sum}\NormalTok{(zk1[k1] }\OperatorTok{==}\StringTok{ }\NormalTok{zk2)}
+\NormalTok{  K1 }\OtherTok{=} \FunctionTok{length}\NormalTok{(zk1)}
+\NormalTok{  K2 }\OtherTok{=} \FunctionTok{length}\NormalTok{(zk2)}
+\NormalTok{  W }\OtherTok{\textless{}{-}} \DecValTok{0}
+  \ControlFlowTok{for}\NormalTok{ (k1 }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{K1) \{}
+\NormalTok{    W }\OtherTok{\textless{}{-}}\NormalTok{ W }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(zk1[k1] }\SpecialCharTok{\textless{}}\NormalTok{ zk2)}
+\NormalTok{    W }\OtherTok{\textless{}{-}}\NormalTok{ W }\SpecialCharTok{+} \FloatTok{0.5} \SpecialCharTok{*} \FunctionTok{sum}\NormalTok{(zk1[k1] }\SpecialCharTok{==}\NormalTok{ zk2)}
 \NormalTok{  \}}
-\NormalTok{  W <-}\StringTok{ }\NormalTok{W}\OperatorTok{/}\NormalTok{K1}\OperatorTok{/}\NormalTok{K2}
-  \KeywordTok{return}\NormalTok{ (W)}
+\NormalTok{  W }\OtherTok{\textless{}{-}}\NormalTok{ W}\SpecialCharTok{/}\NormalTok{K1}\SpecialCharTok{/}\NormalTok{K2}
+  \FunctionTok{return}\NormalTok{ (W)}
 \NormalTok{\}}
 
 
-\NormalTok{RocOperatingPoints <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{( K1, K2 ) \{}
-\NormalTok{  nOpPts <-}\StringTok{ }\KeywordTok{length}\NormalTok{(K1) }\OperatorTok{-}\StringTok{ }\DecValTok{1} \CommentTok{# number of op points}
-\NormalTok{  FPF <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DataTypeTok{dim =}\NormalTok{ nOpPts)}
-\NormalTok{  TPF <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DataTypeTok{dim =}\NormalTok{ nOpPts)}
+\NormalTok{RocOperatingPoints }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{( K1, K2 ) \{}
+\NormalTok{  nOpPts }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(K1) }\SpecialCharTok{{-}} \DecValTok{1} \CommentTok{\# number of op points}
+\NormalTok{  FPF }\OtherTok{\textless{}{-}} \FunctionTok{array}\NormalTok{(}\DecValTok{0}\NormalTok{,}\AttributeTok{dim =}\NormalTok{ nOpPts)}
+\NormalTok{  TPF }\OtherTok{\textless{}{-}} \FunctionTok{array}\NormalTok{(}\DecValTok{0}\NormalTok{,}\AttributeTok{dim =}\NormalTok{ nOpPts)}
    
-  \ControlFlowTok{for}\NormalTok{ (r }\ControlFlowTok{in}\NormalTok{ (nOpPts}\OperatorTok{+}\DecValTok{1}\NormalTok{)}\OperatorTok{:}\DecValTok{2}\NormalTok{) \{}
-\NormalTok{    FPF[r}\DecValTok{-1}\NormalTok{] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(K1[r}\OperatorTok{:}\NormalTok{(nOpPts}\OperatorTok{+}\DecValTok{1}\NormalTok{)])}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(K1)}
-\NormalTok{    TPF[r}\DecValTok{-1}\NormalTok{] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(K2[r}\OperatorTok{:}\NormalTok{(nOpPts}\OperatorTok{+}\DecValTok{1}\NormalTok{)])}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(K2)    }
+  \ControlFlowTok{for}\NormalTok{ (r }\ControlFlowTok{in}\NormalTok{ (nOpPts}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) \{}
+\NormalTok{    FPF[r}\DecValTok{{-}1}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(K1[r}\SpecialCharTok{:}\NormalTok{(nOpPts}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)])}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(K1)}
+\NormalTok{    TPF[r}\DecValTok{{-}1}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(K2[r}\SpecialCharTok{:}\NormalTok{(nOpPts}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)])}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(K2)    }
 \NormalTok{  \}}
-\NormalTok{  FPF <-}\StringTok{ }\KeywordTok{rev}\NormalTok{(FPF)}
-\NormalTok{  TPF <-}\StringTok{ }\KeywordTok{rev}\NormalTok{(TPF)}
+\NormalTok{  FPF }\OtherTok{\textless{}{-}} \FunctionTok{rev}\NormalTok{(FPF)}
+\NormalTok{  TPF }\OtherTok{\textless{}{-}} \FunctionTok{rev}\NormalTok{(TPF)}
   
-  \KeywordTok{return}\NormalTok{( }\KeywordTok{list}\NormalTok{(}
-    \DataTypeTok{FPF =}\NormalTok{ FPF,}
-    \DataTypeTok{TPF =}\NormalTok{ TPF}
+  \FunctionTok{return}\NormalTok{( }\FunctionTok{list}\NormalTok{(}
+    \AttributeTok{FPF =}\NormalTok{ FPF,}
+    \AttributeTok{TPF =}\NormalTok{ TPF}
 \NormalTok{  ) )}
 \NormalTok{\}}
 \end{Highlighting}
@@ -2489,22 +2493,22 @@ The following code reintroduces the dataset used earlier in Table \ref{tab:ratin
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{RocCountsTable =}\StringTok{ }\KeywordTok{array}\NormalTok{(}\DataTypeTok{dim =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{))}
-\NormalTok{RocCountsTable[}\DecValTok{1}\NormalTok{,]  <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{30}\NormalTok{,}\DecValTok{19}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{)}
-\NormalTok{RocCountsTable[}\DecValTok{2}\NormalTok{,]  <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{22}\NormalTok{)}
+\NormalTok{RocCountsTable }\OtherTok{=} \FunctionTok{array}\NormalTok{(}\AttributeTok{dim =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{))}
+\NormalTok{RocCountsTable[}\DecValTok{1}\NormalTok{,]  }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{30}\NormalTok{,}\DecValTok{19}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{RocCountsTable[}\DecValTok{2}\NormalTok{,]  }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{22}\NormalTok{)}
 
-\NormalTok{zk1  <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(RocCountsTable[}\DecValTok{1}\NormalTok{,]),RocCountsTable[}\DecValTok{1}\NormalTok{,])}\CommentTok{#convert frequency table to array}
-\NormalTok{zk2  <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(RocCountsTable[}\DecValTok{2}\NormalTok{,]),RocCountsTable[}\DecValTok{2}\NormalTok{,])}\CommentTok{#do:}
+\NormalTok{zk1  }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(RocCountsTable[}\DecValTok{1}\NormalTok{,]),RocCountsTable[}\DecValTok{1}\NormalTok{,])}\CommentTok{\#convert frequency table to array}
+\NormalTok{zk2  }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(RocCountsTable[}\DecValTok{2}\NormalTok{,]),RocCountsTable[}\DecValTok{2}\NormalTok{,])}\CommentTok{\#do:}
 
-\NormalTok{w  <-}\StringTok{ }\KeywordTok{Wilcoxon}\NormalTok{ (zk1, zk2)}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"The Wilcoxon statistic is = "}\NormalTok{, w, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> The Wilcoxon statistic is =  0.8606667}
-\NormalTok{ret <-}\StringTok{ }\KeywordTok{RocOperatingPoints}\NormalTok{(RocCountsTable[}\DecValTok{1}\NormalTok{,], RocCountsTable[}\DecValTok{2}\NormalTok{,])}
-\NormalTok{FPF <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{FPF;FPF <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,FPF,}\DecValTok{1}\NormalTok{)}
-\NormalTok{TPF <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{TPF;TPF <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,TPF,}\DecValTok{1}\NormalTok{)}
-\NormalTok{AUC <-}\StringTok{ }\KeywordTok{trapz}\NormalTok{(FPF,TPF) }\CommentTok{# trapezoidal integration}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"direct integration yields AUC = "}\NormalTok{, AUC, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> direct integration yields AUC =  0.8606667}
+\NormalTok{w  }\OtherTok{\textless{}{-}} \FunctionTok{Wilcoxon}\NormalTok{ (zk1, zk2)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"The Wilcoxon statistic is = "}\NormalTok{, w, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} The Wilcoxon statistic is =  0.8606667}
+\NormalTok{ret }\OtherTok{\textless{}{-}} \FunctionTok{RocOperatingPoints}\NormalTok{(RocCountsTable[}\DecValTok{1}\NormalTok{,], RocCountsTable[}\DecValTok{2}\NormalTok{,])}
+\NormalTok{FPF }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{FPF;FPF }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,FPF,}\DecValTok{1}\NormalTok{)}
+\NormalTok{TPF }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{TPF;TPF }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,TPF,}\DecValTok{1}\NormalTok{)}
+\NormalTok{AUC }\OtherTok{\textless{}{-}} \FunctionTok{trapz}\NormalTok{(FPF,TPF) }\CommentTok{\# trapezoidal integration}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"direct integration yields AUC = "}\NormalTok{, AUC, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} direct integration yields AUC =  0.8606667}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3086,24 +3090,24 @@ The following code illustrates calculation of the partial-area measure using the
 
 \begin{Shaded}
 \begin{Highlighting}[numbers=left,,]
-\NormalTok{a <-}\StringTok{ }\FloatTok{1.8}
-\NormalTok{b <-}\StringTok{ }\DecValTok{1}
-\NormalTok{fpf_c <-}\StringTok{ }\FloatTok{0.3} \CommentTok{# cannot use c as variable name}
-\NormalTok{tpf_c <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(a }\OperatorTok{+}\StringTok{ }\NormalTok{b }\OperatorTok{*}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(fpf_c))}
-\NormalTok{A_z <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(a}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{b}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
-\NormalTok{rho <-}\StringTok{ }\OperatorTok{-}\NormalTok{b}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{b}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
-\NormalTok{Lower1 <-}\StringTok{ }\OperatorTok{-}\OtherTok{Inf}
-\NormalTok{Upper1 <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(fpf_c)}
-\NormalTok{Lower2 <-}\StringTok{ }\OperatorTok{-}\OtherTok{Inf}
-\NormalTok{Upper2 <-}\StringTok{ }\NormalTok{a}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{b}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
-\NormalTok{sigma <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, rho), }\KeywordTok{c}\NormalTok{(rho, }\DecValTok{1}\NormalTok{))}
-\NormalTok{A_x <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{pmvnorm}\NormalTok{(}
-  \KeywordTok{c}\NormalTok{(Lower1, Lower2), }
-  \KeywordTok{c}\NormalTok{(Upper1, Upper2), }
-  \DataTypeTok{sigma =}\NormalTok{ sigma))}
+\NormalTok{a }\OtherTok{\textless{}{-}} \FloatTok{1.8}
+\NormalTok{b }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{fpf\_c }\OtherTok{\textless{}{-}} \FloatTok{0.3} \CommentTok{\# cannot use c as variable name}
+\NormalTok{tpf\_c }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(a }\SpecialCharTok{+}\NormalTok{ b }\SpecialCharTok{*} \FunctionTok{qnorm}\NormalTok{(fpf\_c))}
+\NormalTok{A\_z }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(a}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{b}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{rho }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\NormalTok{b}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{b}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{Lower1 }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\ConstantTok{Inf}
+\NormalTok{Upper1 }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(fpf\_c)}
+\NormalTok{Lower2 }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\ConstantTok{Inf}
+\NormalTok{Upper2 }\OtherTok{\textless{}{-}}\NormalTok{ a}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{b}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{sigma }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, rho), }\FunctionTok{c}\NormalTok{(rho, }\DecValTok{1}\NormalTok{))}
+\NormalTok{A\_x }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{pmvnorm}\NormalTok{(}
+  \FunctionTok{c}\NormalTok{(Lower1, Lower2), }
+  \FunctionTok{c}\NormalTok{(Upper1, Upper2), }
+  \AttributeTok{sigma =}\NormalTok{ sigma))}
 
-\CommentTok{# divide by area of rectangle}
-\NormalTok{A_xn <-}\StringTok{ }\NormalTok{A_x}\OperatorTok{/}\NormalTok{fpf_c}\OperatorTok{/}\NormalTok{tpf_c}
+\CommentTok{\# divide by area of rectangle}
+\NormalTok{A\_xn }\OtherTok{\textless{}{-}}\NormalTok{ A\_x}\SpecialCharTok{/}\NormalTok{fpf\_c}\SpecialCharTok{/}\NormalTok{tpf\_c}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3113,9 +3117,9 @@ The function \texttt{pmvnorm} is called at line 12. The un-normalized partial-ar
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# implement geometrical logic}
-\NormalTok{A_y <-}\StringTok{ }\NormalTok{(A_z }\OperatorTok{-}\StringTok{ }\NormalTok{A_x)}\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{fpf_c)}\OperatorTok{*}\NormalTok{(tpf_c)}
-\NormalTok{A_yn <-}\StringTok{ }\NormalTok{A_y}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{tpf_c)}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{fpf_c) }
+\CommentTok{\# implement geometrical logic}
+\NormalTok{A\_y }\OtherTok{\textless{}{-}}\NormalTok{ (A\_z }\SpecialCharTok{{-}}\NormalTok{ A\_x)}\SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{fpf\_c)}\SpecialCharTok{*}\NormalTok{(tpf\_c)}
+\NormalTok{A\_yn }\OtherTok{\textless{}{-}}\NormalTok{ A\_y}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{tpf\_c)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{fpf\_c) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -3125,13 +3129,13 @@ The variation with \(a\) of the two normalized AUC measures is shown next. The f
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{a_arr =}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{8}\NormalTok{)}
-\NormalTok{A_xn_arr <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\DataTypeTok{dim =} \KeywordTok{length}\NormalTok{(a_arr))}
-\NormalTok{A_yn_arr <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\DataTypeTok{dim =} \KeywordTok{length}\NormalTok{(a_arr))}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(a_arr)) \{}
-\NormalTok{  x <-}\StringTok{ }\KeywordTok{normalizedAreas}\NormalTok{(a_arr[i], }\DecValTok{1}\NormalTok{, }\FloatTok{0.1}\NormalTok{) }\CommentTok{# c = 0.1}
-\NormalTok{  A_xn_arr[i] <-}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{A_xn}
-\NormalTok{  A_yn_arr[i] <-}\StringTok{ }\NormalTok{x}\OperatorTok{$}\NormalTok{A_yn}
+\NormalTok{a\_arr }\OtherTok{=} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{8}\NormalTok{)}
+\NormalTok{A\_xn\_arr }\OtherTok{\textless{}{-}} \FunctionTok{array}\NormalTok{(}\AttributeTok{dim =} \FunctionTok{length}\NormalTok{(a\_arr))}
+\NormalTok{A\_yn\_arr }\OtherTok{\textless{}{-}} \FunctionTok{array}\NormalTok{(}\AttributeTok{dim =} \FunctionTok{length}\NormalTok{(a\_arr))}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(a\_arr)) \{}
+\NormalTok{  x }\OtherTok{\textless{}{-}} \FunctionTok{normalizedAreas}\NormalTok{(a\_arr[i], }\DecValTok{1}\NormalTok{, }\FloatTok{0.1}\NormalTok{) }\CommentTok{\# c = 0.1}
+\NormalTok{  A\_xn\_arr[i] }\OtherTok{\textless{}{-}}\NormalTok{ x}\SpecialCharTok{$}\NormalTok{A\_xn}
+\NormalTok{  A\_yn\_arr[i] }\OtherTok{\textless{}{-}}\NormalTok{ x}\SpecialCharTok{$}\NormalTok{A\_yn}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -3229,29 +3233,29 @@ The idea is to minimize S with respect to the parameters \((a,b)\). One approach
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# ML estimates of a and b (from Eng JAVA program)}
-\CommentTok{# a <- 1.3204; b <- 0.6075 }
-\CommentTok{# # these are not used in program; just here for comparison}
+\CommentTok{\# ML estimates of a and b (from Eng JAVA program)}
+\CommentTok{\# a \textless{}{-} 1.3204; b \textless{}{-} 0.6075 }
+\CommentTok{\# \# these are not used in program; just here for comparison}
 
-\NormalTok{FPF <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.017}\NormalTok{, }\FloatTok{0.050}\NormalTok{, }\FloatTok{0.183}\NormalTok{, }\FloatTok{0.5}\NormalTok{)  }
-\CommentTok{# this is from Table 6.11, last two rows}
-\NormalTok{TPF <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.440}\NormalTok{, }\FloatTok{0.680}\NormalTok{, }\FloatTok{0.780}\NormalTok{, }\FloatTok{0.900}\NormalTok{)}
-\CommentTok{# ...do...}
+\NormalTok{FPF }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.017}\NormalTok{, }\FloatTok{0.050}\NormalTok{, }\FloatTok{0.183}\NormalTok{, }\FloatTok{0.5}\NormalTok{)  }
+\CommentTok{\# this is from Table 6.11, last two rows}
+\NormalTok{TPF }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.440}\NormalTok{, }\FloatTok{0.680}\NormalTok{, }\FloatTok{0.780}\NormalTok{, }\FloatTok{0.900}\NormalTok{)}
+\CommentTok{\# ...do...}
 
-\NormalTok{PhiInvFPF <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(FPF)}
-\CommentTok{# apply the PHI_INV function}
-\NormalTok{PhiInvTPF <-}\StringTok{ }\KeywordTok{qnorm}\NormalTok{(TPF)}
-\CommentTok{# ... do ... }
+\NormalTok{PhiInvFPF }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(FPF)}
+\CommentTok{\# apply the PHI\_INV function}
+\NormalTok{PhiInvTPF }\OtherTok{\textless{}{-}} \FunctionTok{qnorm}\NormalTok{(TPF)}
+\CommentTok{\# ... do ... }
 
-\NormalTok{fit <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(PhiInvTPF}\OperatorTok{~}\NormalTok{PhiInvFPF)}
-\KeywordTok{print}\NormalTok{(fit)}
-\CommentTok{#> }
-\CommentTok{#> Call:}
-\CommentTok{#> lm(formula = PhiInvTPF ~ PhiInvFPF)}
-\CommentTok{#> }
-\CommentTok{#> Coefficients:}
-\CommentTok{#> (Intercept)    PhiInvFPF  }
-\CommentTok{#>    1.328844     0.630746}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(PhiInvTPF}\SpecialCharTok{\textasciitilde{}}\NormalTok{PhiInvFPF)}
+\FunctionTok{print}\NormalTok{(fit)}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Call:}
+\CommentTok{\#\textgreater{} lm(formula = PhiInvTPF \textasciitilde{} PhiInvFPF)}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Coefficients:}
+\CommentTok{\#\textgreater{} (Intercept)    PhiInvFPF  }
+\CommentTok{\#\textgreater{}    1.328844     0.630746}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3444,14 +3448,14 @@ The following code illustrates improper curves predicted by the binormal model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  aArray <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.7}\NormalTok{, }\FloatTok{0.7}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\DecValTok{2}\NormalTok{)}
-\NormalTok{  bArray <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
-\NormalTok{  chance_diag <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{y =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
-\NormalTok{  p <-}\StringTok{ }\KeywordTok{PlotBinormalFit}\NormalTok{(aArray, bArray) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.85}\NormalTok{, }\FloatTok{0.2}\NormalTok{))}
-\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ chance_diag, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y), }\DataTypeTok{linetype=}\StringTok{"dotted"}\NormalTok{)}
+\NormalTok{  aArray }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.7}\NormalTok{, }\FloatTok{0.7}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{  bArray }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{  chance\_diag }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{y =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{PlotBinormalFit}\NormalTok{(aArray, bArray) }\SpecialCharTok{+}
+    \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+} 
+    \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.85}\NormalTok{, }\FloatTok{0.2}\NormalTok{))}
+\NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ p }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =}\NormalTok{ chance\_diag, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y), }\AttributeTok{linetype=}\StringTok{"dotted"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3460,7 +3464,7 @@ The red plot is the clearest example of an improper ROC. The chance line crossin
 \hypertarget{reason-for-improper-rocs}{%
 \subsection{Reason for improper ROCs}\label{reason-for-improper-rocs}}
 
-The reason for the ``hook''" becomes apparent upon examination of the pdfs.
+The reason for the ``hook'''' becomes apparent upon examination of the pdfs.
 
 \includegraphics{06-binormal-model_files/figure-latex/unnamed-chunk-14-1.pdf}
 
@@ -3573,14 +3577,14 @@ The following code illustrates improper curves predicted by the binormal model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{  aArray <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.7}\NormalTok{, }\FloatTok{0.7}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\DecValTok{2}\NormalTok{)}
-\NormalTok{  bArray <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
-\NormalTok{  chance_diag <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{y =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
-\NormalTok{  p <-}\StringTok{ }\KeywordTok{PlotBinormalFit}\NormalTok{(aArray, bArray) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.85}\NormalTok{, }\FloatTok{0.2}\NormalTok{))}
-\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ chance_diag, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y), }\DataTypeTok{linetype=}\StringTok{"dotted"}\NormalTok{)}
+\NormalTok{  aArray }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.7}\NormalTok{, }\FloatTok{0.7}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{  bArray }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{  chance\_diag }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{y =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{PlotBinormalFit}\NormalTok{(aArray, bArray) }\SpecialCharTok{+}
+    \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+} 
+    \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.85}\NormalTok{, }\FloatTok{0.2}\NormalTok{))}
+\NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ p }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =}\NormalTok{ chance\_diag, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y), }\AttributeTok{linetype=}\StringTok{"dotted"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3750,7 +3754,7 @@ Restricting to the more common situation, the reason for the hook can be appreci
 \hypertarget{comments-on-degeneracy}{%
 \subsection{Comments on degeneracy}\label{comments-on-degeneracy}}
 
-ratings" is going to convince this observer to rate with twos, threes and fours any of the 75 easy diseased cases. If the cases are obviously diseased, and that is what the author means by ``easy cases'', they are supposed to be rated fives: ``definitely diseased''. Forcing them to rate some of them as ``probably diseased'' or ``possibly diseased'' would be irrational and guilty of bending the reading paradigm to fit the convenience of the researcher.
+ratings'' is going to convince this observer to rate with twos, threes and fours any of the 75 easy diseased cases. If the cases are obviously diseased, and that is what the author means by ``easy cases'', they are supposed to be rated fives: ``definitely diseased''. Forcing them to rate some of them as ``probably diseased'' or ``possibly diseased'' would be irrational and guilty of bending the reading paradigm to fit the convenience of the researcher.
 
 Faced with a degenerate data set the binormal model is unable to yield a reasonable and unique ROC curve Fig. 20.3 (A-C). Essentially the analyst has to discard the reader's dataset (or abandon the binormal model in favor of empirical AUCs -- which come with their own issues) -- always a bad idea. Discarding a dataset just because the model is unable to fit it is a failing of the model, and an expensive failing at that, because radiologist generated operating points do not come cheap. Furthermore, degenerate datasets are more likely with expert observers. This follows from the fact that what is an obvious diseased case to an expert may not be obvious to a less experienced observer. The latter observer is likely to apply the two, three and four ratings to some of the 75 cases that were obviously diseased to the expert. Therefore, the less experienced observer is more likely to provide a number of interior data points, and the binormal model would fit their data without encountering degeneracy problems. The result is to ``screen-out'' expert radiologists in favor of those with less expertise.
 
@@ -3918,119 +3922,119 @@ This reinforces the earlier stated more general result (more general, as it is n
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Transform2ab <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (d_a, c)\{}
-\NormalTok{  b <-}\StringTok{ }\OperatorTok{-}\NormalTok{(c}\OperatorTok{+}\DecValTok{1}\NormalTok{)}\OperatorTok{/}\NormalTok{(c}\DecValTok{-1}\NormalTok{)}
-\NormalTok{  a <-}\StringTok{ }\NormalTok{(d_a}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{))}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{b}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
-  \KeywordTok{return}\NormalTok{( }\KeywordTok{list}\NormalTok{(}
-    \DataTypeTok{a =}\NormalTok{ a,}
-    \DataTypeTok{b =}\NormalTok{ b}
+\NormalTok{Transform2ab }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{ (d\_a, c)\{}
+\NormalTok{  b }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\NormalTok{(c}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(c}\DecValTok{{-}1}\NormalTok{)}
+\NormalTok{  a }\OtherTok{\textless{}{-}}\NormalTok{ (d\_a}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{))}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{b}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+  \FunctionTok{return}\NormalTok{( }\FunctionTok{list}\NormalTok{(}
+    \AttributeTok{a =}\NormalTok{ a,}
+    \AttributeTok{b =}\NormalTok{ b}
 \NormalTok{  ) )}
 \NormalTok{\}}
 
-\NormalTok{GetLimits <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (d_a, c)}
+\NormalTok{GetLimits }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{ (d\_a, c)}
 \NormalTok{\{}
-  \ControlFlowTok{if}\NormalTok{ (c }\OperatorTok{<}\StringTok{ }\FloatTok{0.0}\NormalTok{) \{}
-\NormalTok{    LL <-}\StringTok{  }\NormalTok{d_a}\OperatorTok{/}\DecValTok{4}\OperatorTok{/}\NormalTok{c}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
-\NormalTok{    UL <-}\StringTok{  }\FloatTok{10.0}
+  \ControlFlowTok{if}\NormalTok{ (c }\SpecialCharTok{\textless{}} \FloatTok{0.0}\NormalTok{) \{}
+\NormalTok{    LL }\OtherTok{\textless{}{-}}\NormalTok{  d\_a}\SpecialCharTok{/}\DecValTok{4}\SpecialCharTok{/}\NormalTok{c}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{c}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{    UL }\OtherTok{\textless{}{-}}  \FloatTok{10.0}
 \NormalTok{  \}}
   
-  \ControlFlowTok{if}\NormalTok{ (c }\OperatorTok{==}\StringTok{ }\FloatTok{0.0}\NormalTok{) }
+  \ControlFlowTok{if}\NormalTok{ (c }\SpecialCharTok{==} \FloatTok{0.0}\NormalTok{) }
 \NormalTok{  \{}
-\NormalTok{    LL  <-}\StringTok{  }\FloatTok{-10.0}
-\NormalTok{    UL <-}\StringTok{  }\FloatTok{10.0}
+\NormalTok{    LL  }\OtherTok{\textless{}{-}}  \SpecialCharTok{{-}}\FloatTok{10.0}
+\NormalTok{    UL }\OtherTok{\textless{}{-}}  \FloatTok{10.0}
 \NormalTok{  \}}
   
-  \ControlFlowTok{if}\NormalTok{ (c }\OperatorTok{>}\StringTok{ }\FloatTok{0.0}\NormalTok{) }
+  \ControlFlowTok{if}\NormalTok{ (c }\SpecialCharTok{\textgreater{}} \FloatTok{0.0}\NormalTok{) }
 \NormalTok{  \{}
-\NormalTok{    LL <-}\StringTok{  }\FloatTok{-10.0}
-\NormalTok{    UL <-}\StringTok{  }\NormalTok{d_a}\OperatorTok{/}\DecValTok{4}\OperatorTok{/}\NormalTok{c}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\NormalTok{    LL }\OtherTok{\textless{}{-}}  \SpecialCharTok{{-}}\FloatTok{10.0}
+\NormalTok{    UL }\OtherTok{\textless{}{-}}\NormalTok{  d\_a}\SpecialCharTok{/}\DecValTok{4}\SpecialCharTok{/}\NormalTok{c}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{c}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
 \NormalTok{  \}}
-  \KeywordTok{return}\NormalTok{( }\KeywordTok{list}\NormalTok{(}
-    \DataTypeTok{LL =}\NormalTok{ LL,}
-    \DataTypeTok{UL =}\NormalTok{ UL}
+  \FunctionTok{return}\NormalTok{( }\FunctionTok{list}\NormalTok{(}
+    \AttributeTok{LL =}\NormalTok{ LL,}
+    \AttributeTok{UL =}\NormalTok{ UL}
 \NormalTok{  ) )}
   
 \NormalTok{\}}
 
 
 
-\NormalTok{Heaviside <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (c)}
+\NormalTok{Heaviside }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{ (c)}
 \NormalTok{\{}
-  \ControlFlowTok{if}\NormalTok{ (c }\OperatorTok{<}\StringTok{ }\FloatTok{0.0}\NormalTok{) rval <-}\StringTok{  }\FloatTok{0.0} \ControlFlowTok{else}\NormalTok{ rval  <-}\StringTok{  }\FloatTok{1.0}
-  \KeywordTok{return}\NormalTok{ (rval)}
+  \ControlFlowTok{if}\NormalTok{ (c }\SpecialCharTok{\textless{}} \FloatTok{0.0}\NormalTok{) rval }\OtherTok{\textless{}{-}}  \FloatTok{0.0} \ControlFlowTok{else}\NormalTok{ rval  }\OtherTok{\textless{}{-}}  \FloatTok{1.0}
+  \FunctionTok{return}\NormalTok{ (rval)}
 \NormalTok{\}}
 
-\NormalTok{FalsePositiveFraction <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (vc, d_a, c)}
+\NormalTok{FalsePositiveFraction }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{ (vc, d\_a, c)}
 \NormalTok{\{}
   
-\NormalTok{  arg1 <-}\StringTok{  }\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{c)}\OperatorTok{*}\NormalTok{vc}\OperatorTok{-}\NormalTok{d_a}\OperatorTok{/}\DecValTok{2}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
-\NormalTok{  arg2 <-}\StringTok{  }\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{c)}\OperatorTok{*}\NormalTok{vc}\OperatorTok{+}\NormalTok{d_a}\OperatorTok{/}\DecValTok{2}\OperatorTok{/}\NormalTok{c}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\NormalTok{  arg1 }\OtherTok{\textless{}{-}}  \SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{c)}\SpecialCharTok{*}\NormalTok{vc}\SpecialCharTok{{-}}\NormalTok{d\_a}\SpecialCharTok{/}\DecValTok{2}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{c}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{  arg2 }\OtherTok{\textless{}{-}}  \SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{c)}\SpecialCharTok{*}\NormalTok{vc}\SpecialCharTok{+}\NormalTok{d\_a}\SpecialCharTok{/}\DecValTok{2}\SpecialCharTok{/}\NormalTok{c}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{c}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
   
-\NormalTok{  rval =}\StringTok{ }\KeywordTok{pnorm}\NormalTok{ (arg1) }\OperatorTok{+}\StringTok{ }\KeywordTok{pnorm}\NormalTok{ (arg2) }\OperatorTok{-}\StringTok{ }\KeywordTok{Heaviside}\NormalTok{ (c)}
+\NormalTok{  rval }\OtherTok{=} \FunctionTok{pnorm}\NormalTok{ (arg1) }\SpecialCharTok{+} \FunctionTok{pnorm}\NormalTok{ (arg2) }\SpecialCharTok{{-}} \FunctionTok{Heaviside}\NormalTok{ (c)}
   
-  \KeywordTok{return}\NormalTok{ (rval)}
+  \FunctionTok{return}\NormalTok{ (rval)}
 \NormalTok{\}}
 
 
 
-\NormalTok{TruePositiveFraction <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (vc, d_a, c)}
+\NormalTok{TruePositiveFraction }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{ (vc, d\_a, c)}
 \NormalTok{\{}
-\NormalTok{  arg1 =}\StringTok{ }\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c)}\OperatorTok{*}\NormalTok{vc}\OperatorTok{+}\NormalTok{d_a}\OperatorTok{/}\DecValTok{2}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
-\NormalTok{  arg2 =}\StringTok{ }\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c)}\OperatorTok{*}\NormalTok{vc}\OperatorTok{+}\NormalTok{d_a}\OperatorTok{/}\DecValTok{2}\OperatorTok{/}\NormalTok{c}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\NormalTok{  arg1 }\OtherTok{=} \SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{c)}\SpecialCharTok{*}\NormalTok{vc}\SpecialCharTok{+}\NormalTok{d\_a}\SpecialCharTok{/}\DecValTok{2}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{c}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{  arg2 }\OtherTok{=} \SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{c)}\SpecialCharTok{*}\NormalTok{vc}\SpecialCharTok{+}\NormalTok{d\_a}\SpecialCharTok{/}\DecValTok{2}\SpecialCharTok{/}\NormalTok{c}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{c}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
   
-\NormalTok{  rval =}\StringTok{ }\KeywordTok{pnorm}\NormalTok{ (arg1) }\OperatorTok{+}\StringTok{ }\KeywordTok{pnorm}\NormalTok{ (arg2) }\OperatorTok{-}\StringTok{ }\KeywordTok{Heaviside}\NormalTok{ (c)}
+\NormalTok{  rval }\OtherTok{=} \FunctionTok{pnorm}\NormalTok{ (arg1) }\SpecialCharTok{+} \FunctionTok{pnorm}\NormalTok{ (arg2) }\SpecialCharTok{{-}} \FunctionTok{Heaviside}\NormalTok{ (c)}
   
-  \KeywordTok{return}\NormalTok{ (rval)}
+  \FunctionTok{return}\NormalTok{ (rval)}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{c1Arr <-}\StringTok{   }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\FloatTok{0.1322804}\NormalTok{, }\FloatTok{0.2225588}\NormalTok{)}
-\NormalTok{daArr  <-}\StringTok{  }\KeywordTok{c}\NormalTok{(}\FloatTok{1.197239}\NormalTok{,}\FloatTok{1.740157}\NormalTok{)}
-\NormalTok{plotRoc <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
-\NormalTok{plotSlope <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{)}
+\NormalTok{c1Arr }\OtherTok{\textless{}{-}}   \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.1322804}\NormalTok{, }\FloatTok{0.2225588}\NormalTok{)}
+\NormalTok{daArr  }\OtherTok{\textless{}{-}}  \FunctionTok{c}\NormalTok{(}\FloatTok{1.197239}\NormalTok{,}\FloatTok{1.740157}\NormalTok{)}
+\NormalTok{plotRoc }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+\NormalTok{plotSlope }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{)}
 \NormalTok{\{}
-\NormalTok{  c1 <-}\StringTok{ }\NormalTok{c1Arr[i]}
-\NormalTok{  da <-}\StringTok{ }\NormalTok{daArr[i]}
-\NormalTok{  ret <-}\StringTok{ }\KeywordTok{Transform2ab}\NormalTok{(da, c1)}
-\NormalTok{  a <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{a;b <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{b}
-  \CommentTok{# may need to adjust limits to view detail of slope plot}
-  \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) z <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
-  \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{) z <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+\NormalTok{  c1 }\OtherTok{\textless{}{-}}\NormalTok{ c1Arr[i]}
+\NormalTok{  da }\OtherTok{\textless{}{-}}\NormalTok{ daArr[i]}
+\NormalTok{  ret }\OtherTok{\textless{}{-}} \FunctionTok{Transform2ab}\NormalTok{(da, c1)}
+\NormalTok{  a }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{a;b }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{b}
+  \CommentTok{\# may need to adjust limits to view detail of slope plot}
+  \ControlFlowTok{if}\NormalTok{ (i }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) z }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
+  \ControlFlowTok{if}\NormalTok{ (i }\SpecialCharTok{==} \DecValTok{2}\NormalTok{) z }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
   
-\NormalTok{  FPF <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
-\NormalTok{  TPF <-}\StringTok{ }\KeywordTok{rocY}\NormalTok{(FPF, a, b)}
+\NormalTok{  FPF }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
+\NormalTok{  TPF }\OtherTok{\textless{}{-}} \FunctionTok{rocY}\NormalTok{(FPF, a, b)}
   
-\NormalTok{  rocPlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =}\NormalTok{ FPF, }\DataTypeTok{TPF =}\NormalTok{ TPF)}
-\NormalTok{  plotRoc[[i]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}
-\NormalTok{    rocPlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
-\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
+\NormalTok{  rocPlot }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{FPF =}\NormalTok{ FPF, }\AttributeTok{TPF =}\NormalTok{ TPF)}
+\NormalTok{  plotRoc[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
+\NormalTok{    rocPlot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ FPF, }\AttributeTok{y =}\NormalTok{ TPF)) }\SpecialCharTok{+} 
+    \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
 \NormalTok{                   LETTERS[i], }
                    \StringTok{":"}\NormalTok{, }
-                   \KeywordTok{sprintf}\NormalTok{(}\StringTok{" c = %5.3f, da = %5.3f"}\NormalTok{, }
+                   \FunctionTok{sprintf}\NormalTok{(}\StringTok{" c = \%5.3f, da = \%5.3f"}\NormalTok{, }
 \NormalTok{                           c1, da)))}
 
-  \CommentTok{# Implement Eqn. 36 from Metz-Pan paper }
-\NormalTok{  rho <-}\StringTok{ }\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{c1}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{c1}\OperatorTok{^}\DecValTok{2}\NormalTok{);sigma <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, rho), }\KeywordTok{c}\NormalTok{(rho, }\DecValTok{1}\NormalTok{))}
-\NormalTok{  lower <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OperatorTok{-}\OtherTok{Inf}\NormalTok{,}\DecValTok{2}\NormalTok{);upper <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{da}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{),}\DecValTok{0}\NormalTok{)}
-\NormalTok{  A_prop <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(da}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\DecValTok{2} \OperatorTok{*}\StringTok{ }\KeywordTok{pmvnorm}\NormalTok{(lower, upper, }\DataTypeTok{sigma =}\NormalTok{ sigma)}
-\NormalTok{  A_prop <-}\StringTok{  }\KeywordTok{as.numeric}\NormalTok{(A_prop)}
+  \CommentTok{\# Implement Eqn. 36 from Metz{-}Pan paper }
+\NormalTok{  rho }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{c1}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{c1}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{);sigma }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, rho), }\FunctionTok{c}\NormalTok{(rho, }\DecValTok{1}\NormalTok{))}
+\NormalTok{  lower }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{,}\DecValTok{2}\NormalTok{);upper }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{da}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{),}\DecValTok{0}\NormalTok{)}
+\NormalTok{  A\_prop }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(da}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{+} 
+    \DecValTok{2} \SpecialCharTok{*} \FunctionTok{pmvnorm}\NormalTok{(lower, upper, }\AttributeTok{sigma =}\NormalTok{ sigma)}
+\NormalTok{  A\_prop }\OtherTok{\textless{}{-}}  \FunctionTok{as.numeric}\NormalTok{(A\_prop)}
   
-\NormalTok{  slope <-b}\OperatorTok{*}\KeywordTok{dnorm}\NormalTok{(a}\OperatorTok{-}\NormalTok{b}\OperatorTok{*}\NormalTok{z)}\OperatorTok{/}\KeywordTok{dnorm}\NormalTok{(}\OperatorTok{-}\NormalTok{z)}
+\NormalTok{  slope }\OtherTok{\textless{}{-}}\NormalTok{b}\SpecialCharTok{*}\FunctionTok{dnorm}\NormalTok{(a}\SpecialCharTok{{-}}\NormalTok{b}\SpecialCharTok{*}\NormalTok{z)}\SpecialCharTok{/}\FunctionTok{dnorm}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{z)}
   
-\NormalTok{  slopePlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{z =}\NormalTok{ z, }\DataTypeTok{slope =}\NormalTok{ slope)}
-\NormalTok{  plotSlope[[i]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}
-\NormalTok{    slopePlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ z, }\DataTypeTok{y =}\NormalTok{ slope)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
-\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
-\NormalTok{                   LETTERS[i}\OperatorTok{+}\DecValTok{2}\NormalTok{], }
+\NormalTok{  slopePlot }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{z =}\NormalTok{ z, }\AttributeTok{slope =}\NormalTok{ slope)}
+\NormalTok{  plotSlope[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
+\NormalTok{    slopePlot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ z, }\AttributeTok{y =}\NormalTok{ slope)) }\SpecialCharTok{+} 
+    \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
+\NormalTok{                   LETTERS[i}\SpecialCharTok{+}\DecValTok{2}\NormalTok{], }
                    \StringTok{":"}\NormalTok{, }
-                   \KeywordTok{sprintf}\NormalTok{(}\StringTok{" c = %5.3f, da = %5.3f"}\NormalTok{, }
+                   \FunctionTok{sprintf}\NormalTok{(}\StringTok{" c = \%5.3f, da = \%5.3f"}\NormalTok{, }
 \NormalTok{                           c1, da)))}
 \NormalTok{\}}
 \end{Highlighting}
@@ -4115,10 +4119,10 @@ The following computes the y-coordinate of the ROC predicted by the CBM:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{CbmRocY <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (x, mu, alpha) \{}
-\NormalTok{  y <-}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{alpha)}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{pnorm}\NormalTok{(}\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{x))) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\NormalTok{alpha}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{pnorm}\NormalTok{(}\KeywordTok{qnorm}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{x)}\OperatorTok{-}\NormalTok{mu))}
-  \KeywordTok{return}\NormalTok{(y)}
+\NormalTok{CbmRocY }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{ (x, mu, alpha) \{}
+\NormalTok{  y }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{alpha)}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pnorm}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{x))) }\SpecialCharTok{+} 
+\NormalTok{    alpha}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pnorm}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{x)}\SpecialCharTok{{-}}\NormalTok{mu))}
+  \FunctionTok{return}\NormalTok{(y)}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -4127,30 +4131,30 @@ The plotting code follows:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{FPF <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
-\NormalTok{alphaArr <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\FloatTok{0.8}\NormalTok{)}
-\NormalTok{muArr <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{)}
-\NormalTok{plotRoc <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
-\NormalTok{myLabelIndx <-}\StringTok{ }\DecValTok{1}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{)}
-  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{) }
+\NormalTok{FPF }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
+\NormalTok{alphaArr }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\FloatTok{0.8}\NormalTok{)}
+\NormalTok{muArr }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{plotRoc }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+\NormalTok{myLabelIndx }\OtherTok{\textless{}{-}} \DecValTok{1}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{)}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) }
 \NormalTok{  \{}
 \NormalTok{    \{}
-\NormalTok{      alpha <-}\StringTok{ }\NormalTok{alphaArr[i]}
-\NormalTok{      mu <-}\StringTok{ }\NormalTok{muArr[j]}
-\NormalTok{      TPF <-}\StringTok{ }\KeywordTok{CbmRocY}\NormalTok{(FPF, mu, alpha)}
-\NormalTok{      rocPlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =}\NormalTok{ FPF, }\DataTypeTok{TPF =}\NormalTok{ TPF)}
-\NormalTok{      plotRoc[[myLabelIndx]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}
-\NormalTok{        rocPlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF)) }\OperatorTok{+}\StringTok{ }
-\StringTok{        }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ rocPlot) }\OperatorTok{+}\StringTok{ }
-\StringTok{        }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{        }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{ggtitle}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
+\NormalTok{      alpha }\OtherTok{\textless{}{-}}\NormalTok{ alphaArr[i]}
+\NormalTok{      mu }\OtherTok{\textless{}{-}}\NormalTok{ muArr[j]}
+\NormalTok{      TPF }\OtherTok{\textless{}{-}} \FunctionTok{CbmRocY}\NormalTok{(FPF, mu, alpha)}
+\NormalTok{      rocPlot }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{FPF =}\NormalTok{ FPF, }\AttributeTok{TPF =}\NormalTok{ TPF)}
+\NormalTok{      plotRoc[[myLabelIndx]] }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
+\NormalTok{        rocPlot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ FPF, }\AttributeTok{y =}\NormalTok{ TPF)) }\SpecialCharTok{+} 
+        \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =}\NormalTok{ rocPlot) }\SpecialCharTok{+} 
+        \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+} 
+        \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+        \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
 \NormalTok{                   LETTERS[myLabelIndx], }
                    \StringTok{":"}\NormalTok{, }
-                   \KeywordTok{sprintf}\NormalTok{(}\StringTok{" alpha = %4.2f, mu = %4.2f"}\NormalTok{, }
+                   \FunctionTok{sprintf}\NormalTok{(}\StringTok{" alpha = \%4.2f, mu = \%4.2f"}\NormalTok{, }
 \NormalTok{                           alpha, mu)))}
-\NormalTok{      myLabelIndx <-}\StringTok{ }\NormalTok{myLabelIndx }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{      myLabelIndx }\OtherTok{\textless{}{-}}\NormalTok{ myLabelIndx }\SpecialCharTok{+} \DecValTok{1}
 \NormalTok{    \}}
 \NormalTok{  \}}
 \end{Highlighting}
@@ -4158,44 +4162,44 @@ The plotting code follows:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{FPF <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
-\NormalTok{cbmPdfs <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
-\NormalTok{myLabelIndx <-}\StringTok{ }\DecValTok{1}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{)}
-  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{) }
+\NormalTok{FPF }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
+\NormalTok{cbmPdfs }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+\NormalTok{myLabelIndx }\OtherTok{\textless{}{-}} \DecValTok{1}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{)}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) }
 \NormalTok{  \{}
 \NormalTok{    \{}
-\NormalTok{      alpha <-}\StringTok{ }\NormalTok{alphaArr[i]}
-\NormalTok{      mu <-}\StringTok{ }\NormalTok{muArr[j]}
-      \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) \{}
-\NormalTok{        z1 <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
-\NormalTok{        z2 <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, mu }\OperatorTok{+}\StringTok{ }\DecValTok{3}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+\NormalTok{      alpha }\OtherTok{\textless{}{-}}\NormalTok{ alphaArr[i]}
+\NormalTok{      mu }\OtherTok{\textless{}{-}}\NormalTok{ muArr[j]}
+      \ControlFlowTok{if}\NormalTok{ (i }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) \{}
+\NormalTok{        z1 }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
+\NormalTok{        z2 }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, mu }\SpecialCharTok{+} \DecValTok{3}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
 \NormalTok{      \} }\ControlFlowTok{else}\NormalTok{ \{}
-\NormalTok{        z1 <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
-\NormalTok{        z2 <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, mu }\OperatorTok{+}\StringTok{ }\DecValTok{3}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+\NormalTok{        z1 }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
+\NormalTok{        z2 }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, mu }\SpecialCharTok{+} \DecValTok{3}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
 \NormalTok{      \}}
-\NormalTok{      Pdf1 <-}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(z1)}
-\NormalTok{      Pdf2 <-}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{alpha) }\OperatorTok{*}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(z2) }\OperatorTok{+}\StringTok{ }\NormalTok{alpha }\OperatorTok{*}\StringTok{ }\KeywordTok{dnorm}\NormalTok{(z2, mu)}
-\NormalTok{      df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
-        \DataTypeTok{z =} \KeywordTok{c}\NormalTok{(z1, z2), }\DataTypeTok{pdf =} \KeywordTok{c}\NormalTok{(Pdf1, Pdf2), }
-        \DataTypeTok{truth =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{'non'}\NormalTok{, }\KeywordTok{length}\NormalTok{(Pdf1)), }
-                  \KeywordTok{rep}\NormalTok{(}\StringTok{'dis'}\NormalTok{, }\KeywordTok{length}\NormalTok{(Pdf2)))}
+\NormalTok{      Pdf1 }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(z1)}
+\NormalTok{      Pdf2 }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ alpha) }\SpecialCharTok{*} \FunctionTok{dnorm}\NormalTok{(z2) }\SpecialCharTok{+}\NormalTok{ alpha }\SpecialCharTok{*} \FunctionTok{dnorm}\NormalTok{(z2, mu)}
+\NormalTok{      df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+        \AttributeTok{z =} \FunctionTok{c}\NormalTok{(z1, z2), }\AttributeTok{pdf =} \FunctionTok{c}\NormalTok{(Pdf1, Pdf2), }
+        \AttributeTok{truth =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}non\textquotesingle{}}\NormalTok{, }\FunctionTok{length}\NormalTok{(Pdf1)), }
+                  \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}dis\textquotesingle{}}\NormalTok{, }\FunctionTok{length}\NormalTok{(Pdf2)))}
 \NormalTok{      )}
       
-\NormalTok{      cbmPdfs[[myLabelIndx]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}
-\NormalTok{        df, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ z, }\DataTypeTok{y =}\NormalTok{ pdf, }\DataTypeTok{color =}\NormalTok{ truth)) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ df) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{scale_colour_manual}\NormalTok{(}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{,}\StringTok{"darkgrey"}\NormalTok{)) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}
-\StringTok{        }\CommentTok{#theme(legend.position = c(0.5, 0.2)) +}
-\StringTok{        }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{ggtitle}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
+\NormalTok{      cbmPdfs[[myLabelIndx]] }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
+\NormalTok{        df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ z, }\AttributeTok{y =}\NormalTok{ pdf, }\AttributeTok{color =}\NormalTok{ truth)) }\SpecialCharTok{+}
+        \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df) }\SpecialCharTok{+}
+        \FunctionTok{scale\_colour\_manual}\NormalTok{(}\AttributeTok{values=}\FunctionTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{,}\StringTok{"darkgrey"}\NormalTok{)) }\SpecialCharTok{+}
+        \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+        \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+        \CommentTok{\#theme(legend.position = c(0.5, 0.2)) +}
+        \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+        \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
 \NormalTok{                   LETTERS[myLabelIndx], }
                    \StringTok{":"}\NormalTok{, }
-                   \KeywordTok{sprintf}\NormalTok{(}\StringTok{" alpha = %5.3f, mu = %5.3f"}\NormalTok{, }
+                   \FunctionTok{sprintf}\NormalTok{(}\StringTok{" alpha = \%5.3f, mu = \%5.3f"}\NormalTok{, }
 \NormalTok{                           alpha, mu)))}
-\NormalTok{      myLabelIndx <-}\StringTok{ }\NormalTok{myLabelIndx }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{      myLabelIndx }\OtherTok{\textless{}{-}}\NormalTok{ myLabelIndx }\SpecialCharTok{+} \DecValTok{1}
 \NormalTok{    \}}
 \NormalTok{  \}}
 \end{Highlighting}
@@ -4335,16 +4339,16 @@ Here the lower incomplete gamma function \citep{abramowitz1964handbook} \(\gamma
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{aucIntegrand <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (FPF, r, lambda) }
+\NormalTok{aucIntegrand }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{ (FPF, r, lambda) }
 \NormalTok{\{}
-\NormalTok{  y <-}\StringTok{ }\DecValTok{1} \OperatorTok{-}\StringTok{ }\KeywordTok{pgamma}\NormalTok{(}\KeywordTok{qgamma}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{FPF, r), r, }\DataTypeTok{scale =} \DecValTok{1}\OperatorTok{/}\NormalTok{lambda)}
-  \KeywordTok{return}\NormalTok{(y)  }
+\NormalTok{  y }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{pgamma}\NormalTok{(}\FunctionTok{qgamma}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{FPF, r), r, }\AttributeTok{scale =} \DecValTok{1}\SpecialCharTok{/}\NormalTok{lambda)}
+  \FunctionTok{return}\NormalTok{(y)  }
 \NormalTok{\}}
 
 
-\NormalTok{biGammaRocY <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{ (x, r, lambda) \{}
-\NormalTok{  y <-}\StringTok{ }\DecValTok{1} \OperatorTok{-}\StringTok{ }\KeywordTok{pgamma}\NormalTok{(x, r, }\DataTypeTok{scale =} \DecValTok{1}\OperatorTok{/}\NormalTok{lambda)}
-  \KeywordTok{return}\NormalTok{(y)}
+\NormalTok{biGammaRocY }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{ (x, r, lambda) \{}
+\NormalTok{  y }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{pgamma}\NormalTok{(x, r, }\AttributeTok{scale =} \DecValTok{1}\SpecialCharTok{/}\NormalTok{lambda)}
+  \FunctionTok{return}\NormalTok{(y)}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -4354,57 +4358,57 @@ Here the lower incomplete gamma function \citep{abramowitz1964handbook} \(\gamma
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{rArray <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FloatTok{4.391}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{);lambdaArray <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FloatTok{0.439}\NormalTok{,}\FloatTok{0.3}\NormalTok{,}\FloatTok{0.1}\NormalTok{)}
-\CommentTok{#r <-  4.391; lambda <-  0.439 # from Dorfman paper}
-\NormalTok{plotRoc <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
-\NormalTok{plotSlope <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
-\NormalTok{pdfs <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(rArray))}
+\NormalTok{rArray }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FloatTok{4.391}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{);lambdaArray }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FloatTok{0.439}\NormalTok{,}\FloatTok{0.3}\NormalTok{,}\FloatTok{0.1}\NormalTok{)}
+\CommentTok{\#r \textless{}{-}  4.391; lambda \textless{}{-}  0.439 \# from Dorfman paper}
+\NormalTok{plotRoc }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+\NormalTok{plotSlope }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+\NormalTok{pdfs }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(rArray))}
 \NormalTok{\{}
-\NormalTok{  r <-}\StringTok{ }\NormalTok{rArray[i];lambda <-}\StringTok{ }\NormalTok{lambdaArray[i]}
-\NormalTok{  AUC <-}\StringTok{ }\KeywordTok{integrate}\NormalTok{(aucIntegrand,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{, }\DataTypeTok{r =}\NormalTok{ r, }\DataTypeTok{lambda =}\NormalTok{ lambda)}
-  \CommentTok{# cat("r = ", r, ", lambda = ", lambda, ", AUC = ", AUC$value, "\textbackslash{}n")}
-  \CommentTok{# left limit below gets the upper end of the ROC curve }
-  \CommentTok{# the right limit gets the lower corner}
-\NormalTok{  x <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, r}\OperatorTok{/}\NormalTok{lambda }\OperatorTok{+}\StringTok{ }\DecValTok{10}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(r}\OperatorTok{/}\NormalTok{lambda}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
-\NormalTok{  FPF <-}\StringTok{ }\KeywordTok{biGammaRocY}\NormalTok{(x, r, }\DecValTok{1}\NormalTok{)}
-\NormalTok{  TPF <-}\StringTok{ }\KeywordTok{biGammaRocY}\NormalTok{(x, r, lambda)}
+\NormalTok{  r }\OtherTok{\textless{}{-}}\NormalTok{ rArray[i];lambda }\OtherTok{\textless{}{-}}\NormalTok{ lambdaArray[i]}
+\NormalTok{  AUC }\OtherTok{\textless{}{-}} \FunctionTok{integrate}\NormalTok{(aucIntegrand,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{, }\AttributeTok{r =}\NormalTok{ r, }\AttributeTok{lambda =}\NormalTok{ lambda)}
+  \CommentTok{\# cat("r = ", r, ", lambda = ", lambda, ", AUC = ", AUC$value, "\textbackslash{}n")}
+  \CommentTok{\# left limit below gets the upper end of the ROC curve }
+  \CommentTok{\# the right limit gets the lower corner}
+\NormalTok{  x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, r}\SpecialCharTok{/}\NormalTok{lambda }\SpecialCharTok{+} \DecValTok{10}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(r}\SpecialCharTok{/}\NormalTok{lambda}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
+\NormalTok{  FPF }\OtherTok{\textless{}{-}} \FunctionTok{biGammaRocY}\NormalTok{(x, r, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  TPF }\OtherTok{\textless{}{-}} \FunctionTok{biGammaRocY}\NormalTok{(x, r, lambda)}
   
-\NormalTok{  rocPlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =}\NormalTok{ FPF, }\DataTypeTok{TPF =}\NormalTok{ TPF)}
-\NormalTok{  plotRoc[[i]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}
-\NormalTok{    rocPlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
+\NormalTok{  rocPlot }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{FPF =}\NormalTok{ FPF, }\AttributeTok{TPF =}\NormalTok{ TPF)}
+\NormalTok{  plotRoc[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
+\NormalTok{    rocPlot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ FPF, }\AttributeTok{y =}\NormalTok{ TPF)) }\SpecialCharTok{+} 
+    \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+} 
+    \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
 \NormalTok{           LETTERS[i], }
            \StringTok{":"}\NormalTok{, }
-           \KeywordTok{sprintf}\NormalTok{(}\StringTok{" r = %3.2f, lambda = %3.2f"}\NormalTok{, }
+           \FunctionTok{sprintf}\NormalTok{(}\StringTok{" r = \%3.2f, lambda = \%3.2f"}\NormalTok{, }
 \NormalTok{                   r, lambda)))}
 
 
-  \CommentTok{# taking mean + 3 times the standard deviation}
-\NormalTok{  x <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{, r}\OperatorTok{/}\NormalTok{lambda }\OperatorTok{+}\StringTok{ }\DecValTok{3}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(r}\OperatorTok{/}\NormalTok{lambda}\OperatorTok{^}\DecValTok{2}\NormalTok{), }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+  \CommentTok{\# taking mean + 3 times the standard deviation}
+\NormalTok{  x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{, r}\SpecialCharTok{/}\NormalTok{lambda }\SpecialCharTok{+} \DecValTok{3}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(r}\SpecialCharTok{/}\NormalTok{lambda}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
   
-\NormalTok{  Pdf1 <-}\StringTok{ }\KeywordTok{dgamma}\NormalTok{(x, r)}
-\NormalTok{  Pdf2 <-}\StringTok{ }\KeywordTok{dgamma}\NormalTok{(x, r, }\DataTypeTok{scale =} \DecValTok{1}\OperatorTok{/}\NormalTok{lambda)}
+\NormalTok{  Pdf1 }\OtherTok{\textless{}{-}} \FunctionTok{dgamma}\NormalTok{(x, r)}
+\NormalTok{  Pdf2 }\OtherTok{\textless{}{-}} \FunctionTok{dgamma}\NormalTok{(x, r, }\AttributeTok{scale =} \DecValTok{1}\SpecialCharTok{/}\NormalTok{lambda)}
   
-\NormalTok{  df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{c}\NormalTok{(x, x), }\DataTypeTok{pdf =} \KeywordTok{c}\NormalTok{(Pdf1, Pdf2), }
-                   \DataTypeTok{truth =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{'non-diseased'}\NormalTok{, }\KeywordTok{length}\NormalTok{(Pdf1)), }
-                             \KeywordTok{rep}\NormalTok{(}\StringTok{'diseased'}\NormalTok{, }\KeywordTok{length}\NormalTok{(Pdf2))))}
+\NormalTok{  df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(x, x), }\AttributeTok{pdf =} \FunctionTok{c}\NormalTok{(Pdf1, Pdf2), }
+                   \AttributeTok{truth =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}non{-}diseased\textquotesingle{}}\NormalTok{, }\FunctionTok{length}\NormalTok{(Pdf1)), }
+                             \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}diseased\textquotesingle{}}\NormalTok{, }\FunctionTok{length}\NormalTok{(Pdf2))))}
   
-\NormalTok{  pdfs[[i]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}
-\NormalTok{    df, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ pdf, }\DataTypeTok{color =}\NormalTok{ truth)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{scale_colour_manual}\NormalTok{(}\DataTypeTok{values=}\KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{,}\StringTok{"green"}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_blank}\NormalTok{(), }
-          \DataTypeTok{legend.position =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.9}\NormalTok{, }\FloatTok{0.9}\NormalTok{))}
+\NormalTok{  pdfs[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
+\NormalTok{    df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ pdf, }\AttributeTok{color =}\NormalTok{ truth)) }\SpecialCharTok{+} 
+    \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+} 
+    \FunctionTok{scale\_colour\_manual}\NormalTok{(}\AttributeTok{values=}\FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{,}\StringTok{"green"}\NormalTok{)) }\SpecialCharTok{+} 
+    \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{(), }
+          \AttributeTok{legend.position =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.9}\NormalTok{, }\FloatTok{0.9}\NormalTok{))}
   
-  \CommentTok{# may need to adjust limits to view detail of slope plot}
-\NormalTok{  x <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{)}
+  \CommentTok{\# may need to adjust limits to view detail of slope plot}
+\NormalTok{  x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
 
-\NormalTok{  slope <-}\StringTok{ }\NormalTok{(}\KeywordTok{dgamma}\NormalTok{(x, r, }\DataTypeTok{scale =} \DecValTok{1}\OperatorTok{/}\NormalTok{lambda))}\OperatorTok{/}\KeywordTok{pgamma}\NormalTok{(x, r)}
+\NormalTok{  slope }\OtherTok{\textless{}{-}}\NormalTok{ (}\FunctionTok{dgamma}\NormalTok{(x, r, }\AttributeTok{scale =} \DecValTok{1}\SpecialCharTok{/}\NormalTok{lambda))}\SpecialCharTok{/}\FunctionTok{pgamma}\NormalTok{(x, r)}
 
-\NormalTok{  slopePlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{slope =}\NormalTok{ slope)}
-\NormalTok{  plotSlope[[i]] <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(slopePlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ slope)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{()}
+\NormalTok{  slopePlot }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{slope =}\NormalTok{ slope)}
+\NormalTok{  plotSlope[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(slopePlot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ slope)) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{()}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -4467,37 +4471,37 @@ PROPOROC has some problems fitting degenerate datasets. These can be readily fix
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{c1Arr <-}\StringTok{   }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\FloatTok{0.1322804}\NormalTok{, }\FloatTok{0.2225588}\NormalTok{); daArr  <-}\StringTok{  }\KeywordTok{c}\NormalTok{(}\FloatTok{1.197239}\NormalTok{, }\FloatTok{1.740157}\NormalTok{)}
-\NormalTok{myLabel <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"D"}\NormalTok{)}
-\NormalTok{myLabelIndx <-}\StringTok{ }\DecValTok{1}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{)}
+\NormalTok{c1Arr }\OtherTok{\textless{}{-}}   \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.1322804}\NormalTok{, }\FloatTok{0.2225588}\NormalTok{); daArr  }\OtherTok{\textless{}{-}}  \FunctionTok{c}\NormalTok{(}\FloatTok{1.197239}\NormalTok{, }\FloatTok{1.740157}\NormalTok{)}
+\NormalTok{myLabel }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"D"}\NormalTok{)}
+\NormalTok{myLabelIndx }\OtherTok{\textless{}{-}} \DecValTok{1}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{)}
 \NormalTok{\{}
-\NormalTok{  c1 <-}\StringTok{ }\NormalTok{c1Arr[i]}
-\NormalTok{  da <-}\StringTok{ }\NormalTok{daArr[i]}
-\NormalTok{  ret <-}\StringTok{ }\KeywordTok{Transform2ab}\NormalTok{(da, c1)}
-\NormalTok{  a <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{a;b <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{b}
-  \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) z <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{) }\CommentTok{# may need to adjust limits to view detail of slope plot}
-  \ControlFlowTok{if}\NormalTok{ (i }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{) z <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.01}\NormalTok{) }\CommentTok{# may need to adjust limits to view detail of slope plot}
+\NormalTok{  c1 }\OtherTok{\textless{}{-}}\NormalTok{ c1Arr[i]}
+\NormalTok{  da }\OtherTok{\textless{}{-}}\NormalTok{ daArr[i]}
+\NormalTok{  ret }\OtherTok{\textless{}{-}} \FunctionTok{Transform2ab}\NormalTok{(da, c1)}
+\NormalTok{  a }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{a;b }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{b}
+  \ControlFlowTok{if}\NormalTok{ (i }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) z }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{) }\CommentTok{\# may need to adjust limits to view detail of slope plot}
+  \ControlFlowTok{if}\NormalTok{ (i }\SpecialCharTok{==} \DecValTok{2}\NormalTok{) z }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{) }\CommentTok{\# may need to adjust limits to view detail of slope plot}
   
-\NormalTok{  FPF <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
-\NormalTok{  TPF <-}\StringTok{ }\KeywordTok{rocY}\NormalTok{(FPF, a, b)}
+\NormalTok{  FPF }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
+\NormalTok{  TPF }\OtherTok{\textless{}{-}} \FunctionTok{rocY}\NormalTok{(FPF, a, b)}
   
-\NormalTok{  rocPlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =}\NormalTok{ FPF, }\DataTypeTok{TPF =}\NormalTok{ TPF)}
-\NormalTok{  plotRoc <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(rocPlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ FPF, }\DataTypeTok{y =}\NormalTok{ TPF)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{geom_line}\NormalTok{()  }\OperatorTok{+}\StringTok{ }
-\StringTok{   }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))   }\OperatorTok{+}
-\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(myLabel[myLabelIndx]);myLabelIndx <-}\StringTok{ }\NormalTok{myLabelIndx }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{  rocPlot }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{FPF =}\NormalTok{ FPF, }\AttributeTok{TPF =}\NormalTok{ TPF)}
+\NormalTok{  plotRoc }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(rocPlot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ FPF, }\AttributeTok{y =}\NormalTok{ TPF)) }\SpecialCharTok{+} 
+    \FunctionTok{geom\_line}\NormalTok{()  }\SpecialCharTok{+} 
+   \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+} 
+    \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))   }\SpecialCharTok{+}
+    \FunctionTok{ggtitle}\NormalTok{(myLabel[myLabelIndx]);myLabelIndx }\OtherTok{\textless{}{-}}\NormalTok{ myLabelIndx }\SpecialCharTok{+} \DecValTok{1}
 
-\NormalTok{  slope <-b}\OperatorTok{*}\KeywordTok{dnorm}\NormalTok{(a}\OperatorTok{-}\NormalTok{b}\OperatorTok{*}\NormalTok{z)}\OperatorTok{/}\KeywordTok{dnorm}\NormalTok{(}\OperatorTok{-}\NormalTok{z) }\CommentTok{# same as likelihood ratio}
+\NormalTok{  slope }\OtherTok{\textless{}{-}}\NormalTok{b}\SpecialCharTok{*}\FunctionTok{dnorm}\NormalTok{(a}\SpecialCharTok{{-}}\NormalTok{b}\SpecialCharTok{*}\NormalTok{z)}\SpecialCharTok{/}\FunctionTok{dnorm}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{z) }\CommentTok{\# same as likelihood ratio}
   
-\NormalTok{  slopePlot <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{z =}\NormalTok{ z, }\DataTypeTok{slope =}\NormalTok{ slope)}
-\NormalTok{  p <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(slopePlot, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ z, }\DataTypeTok{y =}\NormalTok{ slope)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{geom_line}\NormalTok{()  }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
-\StringTok{    }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{expand =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))  }\OperatorTok{+}
-\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(myLabel[myLabelIndx]);myLabelIndx <-}\StringTok{ }\NormalTok{myLabelIndx }\OperatorTok{+}\StringTok{ }\DecValTok{1}
-  \KeywordTok{print}\NormalTok{(plotRoc);}\KeywordTok{print}\NormalTok{(p)}
+\NormalTok{  slopePlot }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{z =}\NormalTok{ z, }\AttributeTok{slope =}\NormalTok{ slope)}
+\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(slopePlot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ z, }\AttributeTok{y =}\NormalTok{ slope)) }\SpecialCharTok{+} 
+    \FunctionTok{geom\_line}\NormalTok{()  }\SpecialCharTok{+} 
+    \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+} 
+    \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))  }\SpecialCharTok{+}
+    \FunctionTok{ggtitle}\NormalTok{(myLabel[myLabelIndx]);myLabelIndx }\OtherTok{\textless{}{-}}\NormalTok{ myLabelIndx }\SpecialCharTok{+} \DecValTok{1}
+  \FunctionTok{print}\NormalTok{(plotRoc);}\FunctionTok{print}\NormalTok{(p)}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -4526,38 +4530,38 @@ The two values of \texttt{z} corresponding to each cut implies, of course, that 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{npts <-}\StringTok{  }\DecValTok{10000}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{) \{}
-  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{) \{}
-\NormalTok{    C  <-}\StringTok{  }\NormalTok{c1[i,j]}
-\NormalTok{    da  <-}\StringTok{  }\NormalTok{d_a1[i,j]}
-\NormalTok{    ret <-}\StringTok{ }\KeywordTok{GetLimits}\NormalTok{(da,C)}
-\NormalTok{    LL <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{LL;UL <-}\StringTok{ }\NormalTok{ret}\OperatorTok{$}\NormalTok{UL}
-\NormalTok{    vc  <-}\StringTok{  }\KeywordTok{seq}\NormalTok{ (LL, UL, }\DataTypeTok{length.out =}\NormalTok{ npts)}
-\NormalTok{    TPF  <-}\StringTok{  }\KeywordTok{TruePositiveFraction}\NormalTok{ (vc, da, C)}
-\NormalTok{    FPF <-}\StringTok{ }\KeywordTok{FalsePositiveFraction}\NormalTok{ (vc, da, C)}
-\NormalTok{    FPF <-}\StringTok{ }\KeywordTok{rev}\NormalTok{(FPF);TPF <-}\StringTok{ }\KeywordTok{rev}\NormalTok{(TPF)}
-\NormalTok{    df2 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{FPF =}\NormalTok{ FPF, }\DataTypeTok{TPF =}\NormalTok{ TPF)}
-    \CommentTok{# do integral numerically}
-\NormalTok{    numAuc <-}\StringTok{ }\KeywordTok{trapz}\NormalTok{(FPF, TPF)}
-    \CommentTok{# Implement Eqn. 36 from Metz-Pan paper }
-\NormalTok{    rho <-}\StringTok{ }\OperatorTok{-}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{C}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{C}\OperatorTok{^}\DecValTok{2}\NormalTok{);sigma <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, rho), }\KeywordTok{c}\NormalTok{(rho, }\DecValTok{1}\NormalTok{))}
-\NormalTok{    lower <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OperatorTok{-}\OtherTok{Inf}\NormalTok{,}\DecValTok{2}\NormalTok{);upper <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\NormalTok{da}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{),}\DecValTok{0}\NormalTok{)}
-\NormalTok{    aucProproc <-}\StringTok{ }\KeywordTok{pnorm}\NormalTok{(da}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\DecValTok{2} \OperatorTok{*}\StringTok{ }\KeywordTok{pmvnorm}\NormalTok{(lower, upper, }\DataTypeTok{sigma =}\NormalTok{ sigma)}
-\NormalTok{    aucProproc <-}\StringTok{  }\KeywordTok{as.numeric}\NormalTok{(aucProproc)}
-    \KeywordTok{cat}\NormalTok{(}\StringTok{"i = "}\NormalTok{, i,}\StringTok{"j = "}\NormalTok{, j,}\StringTok{"C = "}\NormalTok{, C, }\StringTok{", da = "}\NormalTok{, da, }\StringTok{"aucProproc ="}\NormalTok{, aucProproc, }\StringTok{"Norm. Diff. = "}\NormalTok{, (aucProproc}\OperatorTok{-}\NormalTok{numAuc)}\OperatorTok{/}\NormalTok{aucProproc,}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{npts }\OtherTok{\textless{}{-}}  \DecValTok{10000}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) \{}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{) \{}
+\NormalTok{    C  }\OtherTok{\textless{}{-}}\NormalTok{  c1[i,j]}
+\NormalTok{    da  }\OtherTok{\textless{}{-}}\NormalTok{  d\_a1[i,j]}
+\NormalTok{    ret }\OtherTok{\textless{}{-}} \FunctionTok{GetLimits}\NormalTok{(da,C)}
+\NormalTok{    LL }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{LL;UL }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{UL}
+\NormalTok{    vc  }\OtherTok{\textless{}{-}}  \FunctionTok{seq}\NormalTok{ (LL, UL, }\AttributeTok{length.out =}\NormalTok{ npts)}
+\NormalTok{    TPF  }\OtherTok{\textless{}{-}}  \FunctionTok{TruePositiveFraction}\NormalTok{ (vc, da, C)}
+\NormalTok{    FPF }\OtherTok{\textless{}{-}} \FunctionTok{FalsePositiveFraction}\NormalTok{ (vc, da, C)}
+\NormalTok{    FPF }\OtherTok{\textless{}{-}} \FunctionTok{rev}\NormalTok{(FPF);TPF }\OtherTok{\textless{}{-}} \FunctionTok{rev}\NormalTok{(TPF)}
+\NormalTok{    df2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{FPF =}\NormalTok{ FPF, }\AttributeTok{TPF =}\NormalTok{ TPF)}
+    \CommentTok{\# do integral numerically}
+\NormalTok{    numAuc }\OtherTok{\textless{}{-}} \FunctionTok{trapz}\NormalTok{(FPF, TPF)}
+    \CommentTok{\# Implement Eqn. 36 from Metz{-}Pan paper }
+\NormalTok{    rho }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{C}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{C}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{);sigma }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, rho), }\FunctionTok{c}\NormalTok{(rho, }\DecValTok{1}\NormalTok{))}
+\NormalTok{    lower }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{,}\DecValTok{2}\NormalTok{);upper }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{da}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{),}\DecValTok{0}\NormalTok{)}
+\NormalTok{    aucProproc }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(da}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{+} \DecValTok{2} \SpecialCharTok{*} \FunctionTok{pmvnorm}\NormalTok{(lower, upper, }\AttributeTok{sigma =}\NormalTok{ sigma)}
+\NormalTok{    aucProproc }\OtherTok{\textless{}{-}}  \FunctionTok{as.numeric}\NormalTok{(aucProproc)}
+    \FunctionTok{cat}\NormalTok{(}\StringTok{"i = "}\NormalTok{, i,}\StringTok{"j = "}\NormalTok{, j,}\StringTok{"C = "}\NormalTok{, C, }\StringTok{", da = "}\NormalTok{, da, }\StringTok{"aucProproc ="}\NormalTok{, aucProproc, }\StringTok{"Norm. Diff. = "}\NormalTok{, (aucProproc}\SpecialCharTok{{-}}\NormalTok{numAuc)}\SpecialCharTok{/}\NormalTok{aucProproc,}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
 \NormalTok{  \}}
 \NormalTok{\}}
-\CommentTok{#> i =  1 j =  1 C =  -0.1322804 , da =  1.197239 aucProproc = 0.8014164 Norm. Diff. =  3.520017e-08 }
-\CommentTok{#> i =  1 j =  2 C =  -0.08696513 , da =  1.771176 aucProproc = 0.8947898 Norm. Diff. =  4.741875e-08 }
-\CommentTok{#> i =  1 j =  3 C =  -0.1444419 , da =  1.481935 aucProproc = 0.8526605 Norm. Diff. =  3.515431e-08 }
-\CommentTok{#> i =  1 j =  4 C =  0.08046016 , da =  1.513757 aucProproc = 0.8577776 Norm. Diff. =  4.971428e-08 }
-\CommentTok{#> i =  1 j =  5 C =  0.2225588 , da =  1.740157 aucProproc = 0.8909392 Norm. Diff. =  2.699855e-08 }
-\CommentTok{#> i =  2 j =  1 C =  -0.08174248 , da =  0.6281251 aucProproc = 0.6716574 Norm. Diff. =  2.801793e-08 }
-\CommentTok{#> i =  2 j =  2 C =  0.04976448 , da =  0.9738786 aucProproc = 0.7544739 Norm. Diff. =  5.275242e-08 }
-\CommentTok{#> i =  2 j =  3 C =  -0.1326126 , da =  1.155871 aucProproc = 0.7931787 Norm. Diff. =  3.472577e-08 }
-\CommentTok{#> i =  2 j =  4 C =  0.1182226 , da =  1.620176 aucProproc = 0.8740274 Norm. Diff. =  3.922161e-08 }
-\CommentTok{#> i =  2 j =  5 C =  0.0781033 , da =  0.8928816 aucProproc = 0.7360989 Norm. Diff. =  3.798459e-08}
+\CommentTok{\#\textgreater{} i =  1 j =  1 C =  {-}0.1322804 , da =  1.197239 aucProproc = 0.8014164 Norm. Diff. =  3.520017e{-}08 }
+\CommentTok{\#\textgreater{} i =  1 j =  2 C =  {-}0.08696513 , da =  1.771176 aucProproc = 0.8947898 Norm. Diff. =  4.741875e{-}08 }
+\CommentTok{\#\textgreater{} i =  1 j =  3 C =  {-}0.1444419 , da =  1.481935 aucProproc = 0.8526605 Norm. Diff. =  3.515431e{-}08 }
+\CommentTok{\#\textgreater{} i =  1 j =  4 C =  0.08046016 , da =  1.513757 aucProproc = 0.8577776 Norm. Diff. =  4.971428e{-}08 }
+\CommentTok{\#\textgreater{} i =  1 j =  5 C =  0.2225588 , da =  1.740157 aucProproc = 0.8909392 Norm. Diff. =  2.699855e{-}08 }
+\CommentTok{\#\textgreater{} i =  2 j =  1 C =  {-}0.08174248 , da =  0.6281251 aucProproc = 0.6716574 Norm. Diff. =  2.801793e{-}08 }
+\CommentTok{\#\textgreater{} i =  2 j =  2 C =  0.04976448 , da =  0.9738786 aucProproc = 0.7544739 Norm. Diff. =  5.275242e{-}08 }
+\CommentTok{\#\textgreater{} i =  2 j =  3 C =  {-}0.1326126 , da =  1.155871 aucProproc = 0.7931787 Norm. Diff. =  3.472577e{-}08 }
+\CommentTok{\#\textgreater{} i =  2 j =  4 C =  0.1182226 , da =  1.620176 aucProproc = 0.8740274 Norm. Diff. =  3.922161e{-}08 }
+\CommentTok{\#\textgreater{} i =  2 j =  5 C =  0.0781033 , da =  0.8928816 aucProproc = 0.7360989 Norm. Diff. =  3.798459e{-}08}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4671,26 +4675,26 @@ In the following code the call to get the pdf occurs at line: \texttt{pdf\ \text
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}\FloatTok{0.2}\NormalTok{) }\CommentTok{# the x-vector at which to evaluate pdf}
-\NormalTok{mu1 <-}\StringTok{ }\FloatTok{1.5} \CommentTok{# mean modality 1}
-\NormalTok{mu2 <-}\StringTok{ }\FloatTok{2.0} \CommentTok{# mean modality 2}
-\NormalTok{var1 <-}\StringTok{ }\FloatTok{1.1}\OperatorTok{^}\DecValTok{2}  \CommentTok{# variance modality 1}
-\NormalTok{var2 <-}\StringTok{ }\FloatTok{1.5}\OperatorTok{^}\DecValTok{2} \CommentTok{# variance modality 2}
-\NormalTok{rho <-}\StringTok{ }\FloatTok{0.6} \CommentTok{# correlation between modalities 1 and 2}
-\CommentTok{#}
-\CommentTok{# construct covariance matrix Sigma}
-\CommentTok{# }
-\NormalTok{Sigma <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(var1, rho}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(var1}\OperatorTok{*}\NormalTok{var2), }
-\NormalTok{                  rho}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(var1}\OperatorTok{*}\NormalTok{var2), var2),}\DecValTok{2}\NormalTok{)}
-\CommentTok{#}
-\CommentTok{# pdf }
-\CommentTok{# }
-\NormalTok{pdf  <-}\StringTok{ }\KeywordTok{dmvnorm}\NormalTok{(x, }\DataTypeTok{mean =} \KeywordTok{c}\NormalTok{(mu1,mu2), }\DataTypeTok{sigma =}\NormalTok{ Sigma)}
-\CommentTok{#}
-\CommentTok{# print results}
-\CommentTok{# }
-\KeywordTok{cat}\NormalTok{(}\StringTok{"density at x1 = 0.1 and x2 = 0.2 = "}\NormalTok{, pdf, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> density at x1 = 0.1 and x2 = 0.2 =  0.04622722}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}\FloatTok{0.2}\NormalTok{) }\CommentTok{\# the x{-}vector at which to evaluate pdf}
+\NormalTok{mu1 }\OtherTok{\textless{}{-}} \FloatTok{1.5} \CommentTok{\# mean modality 1}
+\NormalTok{mu2 }\OtherTok{\textless{}{-}} \FloatTok{2.0} \CommentTok{\# mean modality 2}
+\NormalTok{var1 }\OtherTok{\textless{}{-}} \FloatTok{1.1}\SpecialCharTok{\^{}}\DecValTok{2}  \CommentTok{\# variance modality 1}
+\NormalTok{var2 }\OtherTok{\textless{}{-}} \FloatTok{1.5}\SpecialCharTok{\^{}}\DecValTok{2} \CommentTok{\# variance modality 2}
+\NormalTok{rho }\OtherTok{\textless{}{-}} \FloatTok{0.6} \CommentTok{\# correlation between modalities 1 and 2}
+\CommentTok{\#}
+\CommentTok{\# construct covariance matrix Sigma}
+\CommentTok{\# }
+\NormalTok{Sigma }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(var1, rho}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(var1}\SpecialCharTok{*}\NormalTok{var2), }
+\NormalTok{                  rho}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(var1}\SpecialCharTok{*}\NormalTok{var2), var2),}\DecValTok{2}\NormalTok{)}
+\CommentTok{\#}
+\CommentTok{\# pdf }
+\CommentTok{\# }
+\NormalTok{pdf  }\OtherTok{\textless{}{-}} \FunctionTok{dmvnorm}\NormalTok{(x, }\AttributeTok{mean =} \FunctionTok{c}\NormalTok{(mu1,mu2), }\AttributeTok{sigma =}\NormalTok{ Sigma)}
+\CommentTok{\#}
+\CommentTok{\# print results}
+\CommentTok{\# }
+\FunctionTok{cat}\NormalTok{(}\StringTok{"density at x1 = 0.1 and x2 = 0.2 = "}\NormalTok{, pdf, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} density at x1 = 0.1 and x2 = 0.2 =  0.04622722}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4781,48 +4785,48 @@ In understanding the bivariate distribution it is helpful to visualize the pdfs.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}\FloatTok{0.2}\NormalTok{) }\CommentTok{# the x-vector at which to evaluate pdf}
-\NormalTok{mu1 <-}\StringTok{ }\FloatTok{1.5} \CommentTok{# diseased mean modality 1}
-\NormalTok{mu2 <-}\StringTok{ }\FloatTok{2.0} \CommentTok{# diseased mean modality 2}
-\NormalTok{var1 <-}\StringTok{ }\DecValTok{1}  \CommentTok{# diseased variance modality 1}
-\NormalTok{var2 <-}\StringTok{ }\NormalTok{(}\FloatTok{1.5}\NormalTok{)}\OperatorTok{^}\DecValTok{2} \CommentTok{# diseased variance modality 2}
-\NormalTok{rho1 <-}\StringTok{ }\FloatTok{0.3} \CommentTok{# non-diseased correlation}
-\NormalTok{rho2 <-}\StringTok{ }\FloatTok{0.6} \CommentTok{# diseased correlation}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}\FloatTok{0.2}\NormalTok{) }\CommentTok{\# the x{-}vector at which to evaluate pdf}
+\NormalTok{mu1 }\OtherTok{\textless{}{-}} \FloatTok{1.5} \CommentTok{\# diseased mean modality 1}
+\NormalTok{mu2 }\OtherTok{\textless{}{-}} \FloatTok{2.0} \CommentTok{\# diseased mean modality 2}
+\NormalTok{var1 }\OtherTok{\textless{}{-}} \DecValTok{1}  \CommentTok{\# diseased variance modality 1}
+\NormalTok{var2 }\OtherTok{\textless{}{-}}\NormalTok{ (}\FloatTok{1.5}\NormalTok{)}\SpecialCharTok{\^{}}\DecValTok{2} \CommentTok{\# diseased variance modality 2}
+\NormalTok{rho1 }\OtherTok{\textless{}{-}} \FloatTok{0.3} \CommentTok{\# non{-}diseased correlation}
+\NormalTok{rho2 }\OtherTok{\textless{}{-}} \FloatTok{0.6} \CommentTok{\# diseased correlation}
 
-\CommentTok{#}
-\CommentTok{# construction the covariance matrix Sigma1 for non-diseased}
-\CommentTok{# }
-\NormalTok{Sigma1 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, rho1, rho1, var2),}\DecValTok{2}\NormalTok{)}
+\CommentTok{\#}
+\CommentTok{\# construction the covariance matrix Sigma1 for non{-}diseased}
+\CommentTok{\# }
+\NormalTok{Sigma1 }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, rho1, rho1, var2),}\DecValTok{2}\NormalTok{)}
 
-\CommentTok{#}
-\CommentTok{# pdf for non-diseased}
-\CommentTok{# }
-\CommentTok{# following defaults to zero mean for each modality}
-\NormalTok{pdf1  <-}\StringTok{ }\KeywordTok{dmvnorm}\NormalTok{(x, }\DataTypeTok{sigma =}\NormalTok{ Sigma1) }
+\CommentTok{\#}
+\CommentTok{\# pdf for non{-}diseased}
+\CommentTok{\# }
+\CommentTok{\# following defaults to zero mean for each modality}
+\NormalTok{pdf1  }\OtherTok{\textless{}{-}} \FunctionTok{dmvnorm}\NormalTok{(x, }\AttributeTok{sigma =}\NormalTok{ Sigma1) }
 
-\CommentTok{#}
-\CommentTok{# construction the covariance matrix Sigma2 for diseased}
-\CommentTok{# }
-\NormalTok{Sigma2 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(var1, rho2}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(var1}\OperatorTok{*}\NormalTok{var2), rho2}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{(var1}\OperatorTok{*}\NormalTok{var2), var2),}\DecValTok{2}\NormalTok{)}
+\CommentTok{\#}
+\CommentTok{\# construction the covariance matrix Sigma2 for diseased}
+\CommentTok{\# }
+\NormalTok{Sigma2 }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(var1, rho2}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(var1}\SpecialCharTok{*}\NormalTok{var2), rho2}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(var1}\SpecialCharTok{*}\NormalTok{var2), var2),}\DecValTok{2}\NormalTok{)}
 
-\CommentTok{#}
-\CommentTok{# pdf for diseased}
-\CommentTok{# }
-\NormalTok{pdf2  <-}\StringTok{ }\KeywordTok{dmvnorm}\NormalTok{(x, }\DataTypeTok{mean =} \KeywordTok{c}\NormalTok{(mu1,mu2), }\DataTypeTok{sigma =}\NormalTok{ Sigma2)}
+\CommentTok{\#}
+\CommentTok{\# pdf for diseased}
+\CommentTok{\# }
+\NormalTok{pdf2  }\OtherTok{\textless{}{-}} \FunctionTok{dmvnorm}\NormalTok{(x, }\AttributeTok{mean =} \FunctionTok{c}\NormalTok{(mu1,mu2), }\AttributeTok{sigma =}\NormalTok{ Sigma2)}
 
-\CommentTok{#}
-\CommentTok{# print results}
-\CommentTok{# }
-\KeywordTok{cat}\NormalTok{(}\StringTok{"mu1 ="}\NormalTok{, mu1, }\StringTok{", mu2 ="}\NormalTok{, mu2, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> mu1 = 1.5 , mu2 = 2}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"var1 ="}\NormalTok{, var1, }\StringTok{", var2 ="}\NormalTok{, var2, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> var1 = 1 , var2 = 2.25}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"rho1 ="}\NormalTok{, rho1, }\StringTok{", rho2 ="}\NormalTok{, rho2, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> rho1 = 0.3 , rho2 = 0.6}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"non-diseased density at x1 = 0.1 and x2 = 0.2 = "}\NormalTok{, pdf1, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> non-diseased density at x1 = 0.1 and x2 = 0.2 =  0.1070327}
-\KeywordTok{cat}\NormalTok{(}\StringTok{"diseased density at x1 = 0.1 and x2 = 0.2 = "}\NormalTok{, pdf2, }\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{#> diseased density at x1 = 0.1 and x2 = 0.2 =  0.04498399}
+\CommentTok{\#}
+\CommentTok{\# print results}
+\CommentTok{\# }
+\FunctionTok{cat}\NormalTok{(}\StringTok{"mu1 ="}\NormalTok{, mu1, }\StringTok{", mu2 ="}\NormalTok{, mu2, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} mu1 = 1.5 , mu2 = 2}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"var1 ="}\NormalTok{, var1, }\StringTok{", var2 ="}\NormalTok{, var2, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} var1 = 1 , var2 = 2.25}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"rho1 ="}\NormalTok{, rho1, }\StringTok{", rho2 ="}\NormalTok{, rho2, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} rho1 = 0.3 , rho2 = 0.6}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"non{-}diseased density at x1 = 0.1 and x2 = 0.2 = "}\NormalTok{, pdf1, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} non{-}diseased density at x1 = 0.1 and x2 = 0.2 =  0.1070327}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"diseased density at x1 = 0.1 and x2 = 0.2 = "}\NormalTok{, pdf2, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} diseased density at x1 = 0.1 and x2 = 0.2 =  0.04498399}
 \end{Highlighting}
 \end{Shaded}
 

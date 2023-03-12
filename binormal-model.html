@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -58,18 +57,18 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -89,13 +88,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -108,7 +107,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -122,6 +121,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -139,32 +160,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">RJafroc documentation</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#rationale-and-organization"><i class="fa fa-check"></i><b>0.1</b> Rationale and Organization</a></li>
 <li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#tba-acknowledgements"><i class="fa fa-check"></i><b>0.2</b> TBA Acknowledgements</a></li>
 <li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#temporary-comments"><i class="fa fa-check"></i><b>0.3</b> Temporary comments</a></li>
 </ul></li>
 <li class="part"><span><b>Overview</b></span></li>
-<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> An overview of the field</a><ul>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> An overview of the field</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html#overview-how-much-finished"><i class="fa fa-check"></i><b>1.1</b> How much finished 55%</a></li>
 <li class="chapter" data-level="1.2" data-path="overview.html"><a href="overview.html#preliminaries-intro"><i class="fa fa-check"></i><b>1.2</b> Introduction</a></li>
-<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#clinical-tasks"><i class="fa fa-check"></i><b>1.3</b> Clinical tasks</a><ul>
+<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#clinical-tasks"><i class="fa fa-check"></i><b>1.3</b> Clinical tasks</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="overview.html"><a href="overview.html#workflow-in-an-imaging-study"><i class="fa fa-check"></i><b>1.3.1</b> Workflow in an imaging study</a></li>
 <li class="chapter" data-level="1.3.2" data-path="overview.html"><a href="overview.html#the-screening-and-diagnostic-workup-tasks"><i class="fa fa-check"></i><b>1.3.2</b> The screening and diagnostic workup tasks</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="overview.html"><a href="overview.html#imaging-device-development-and-its-clinical-deployment"><i class="fa fa-check"></i><b>1.4</b> Imaging device development and its clinical deployment</a><ul>
+<li class="chapter" data-level="1.4" data-path="overview.html"><a href="overview.html#imaging-device-development-and-its-clinical-deployment"><i class="fa fa-check"></i><b>1.4</b> Imaging device development and its clinical deployment</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="overview.html"><a href="overview.html#physical-measurements"><i class="fa fa-check"></i><b>1.4.1</b> Physical measurements</a></li>
 <li class="chapter" data-level="1.4.2" data-path="overview.html"><a href="overview.html#quality-control-and-image-quality-optimization"><i class="fa fa-check"></i><b>1.4.2</b> Quality Control and Image quality optimization</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="overview.html"><a href="overview.html#image-quality-vs.-task-performance"><i class="fa fa-check"></i><b>1.5</b> Image quality vs. task performance</a></li>
 <li class="chapter" data-level="1.6" data-path="overview.html"><a href="overview.html#why-physical-measures-are-not-enough"><i class="fa fa-check"></i><b>1.6</b> Why physical measures are not enough</a></li>
 <li class="chapter" data-level="1.7" data-path="overview.html"><a href="overview.html#model-observers"><i class="fa fa-check"></i><b>1.7</b> Model observers</a></li>
-<li class="chapter" data-level="1.8" data-path="overview.html"><a href="overview.html#measuring-observer-performance-four-paradigms"><i class="fa fa-check"></i><b>1.8</b> Measuring observer performance: four paradigms</a><ul>
+<li class="chapter" data-level="1.8" data-path="overview.html"><a href="overview.html#measuring-observer-performance-four-paradigms"><i class="fa fa-check"></i><b>1.8</b> Measuring observer performance: four paradigms</a>
+<ul>
 <li class="chapter" data-level="1.8.1" data-path="overview.html"><a href="overview.html#basic-approach-to-the-analysis"><i class="fa fa-check"></i><b>1.8.1</b> Basic approach to the analysis</a></li>
 <li class="chapter" data-level="1.8.2" data-path="overview.html"><a href="overview.html#historical-notes"><i class="fa fa-check"></i><b>1.8.2</b> Historical notes</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="overview.html"><a href="overview.html#hierarchy-of-assessment-methods"><i class="fa fa-check"></i><b>1.9</b> Hierarchy of assessment methods</a></li>
-<li class="chapter" data-level="1.10" data-path="overview.html"><a href="overview.html#overview-of-the-book-and-how-to-use-it"><i class="fa fa-check"></i><b>1.10</b> Overview of the book and how to use it</a><ul>
+<li class="chapter" data-level="1.10" data-path="overview.html"><a href="overview.html#overview-of-the-book-and-how-to-use-it"><i class="fa fa-check"></i><b>1.10</b> Overview of the book and how to use it</a>
+<ul>
 <li class="chapter" data-level="1.10.1" data-path="overview.html"><a href="overview.html#overview-of-the-book"><i class="fa fa-check"></i><b>1.10.1</b> Overview of the book</a></li>
 <li class="chapter" data-level="1.10.2" data-path="overview.html"><a href="overview.html#how-to-use-the-book"><i class="fa fa-check"></i><b>1.10.2</b> How to use the book</a></li>
 </ul></li>
@@ -173,27 +200,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.13" data-path="overview.html"><a href="overview.html#overview-references"><i class="fa fa-check"></i><b>1.13</b> Chapter References</a></li>
 </ul></li>
 <li class="part"><span><b>ROC paradigm</b></span></li>
-<li class="chapter" data-level="2" data-path="binary-task.html"><a href="binary-task.html"><i class="fa fa-check"></i><b>2</b> The Binary Task</a><ul>
+<li class="chapter" data-level="2" data-path="binary-task.html"><a href="binary-task.html"><i class="fa fa-check"></i><b>2</b> The Binary Task</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="binary-task.html"><a href="binary-task.html#binary-task-how-much-finished"><i class="fa fa-check"></i><b>2.1</b> How much finished 90%</a></li>
 <li class="chapter" data-level="2.2" data-path="binary-task.html"><a href="binary-task.html#binary-taskIntro"><i class="fa fa-check"></i><b>2.2</b> Introduction</a></li>
 <li class="chapter" data-level="2.3" data-path="binary-task.html"><a href="binary-task.html#binary-task-2-2-table"><i class="fa fa-check"></i><b>2.3</b> The 2x2 table</a></li>
-<li class="chapter" data-level="2.4" data-path="binary-task.html"><a href="binary-task.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4</b> Sensitivity and specificity</a><ul>
+<li class="chapter" data-level="2.4" data-path="binary-task.html"><a href="binary-task.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4</b> Sensitivity and specificity</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="binary-task.html"><a href="binary-task.html#estimating-sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4.1</b> Estimating sensitivity and specificity</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="binary-task.html"><a href="binary-task.html#disease-prevalence"><i class="fa fa-check"></i><b>2.5</b> Disease prevalence</a></li>
 <li class="chapter" data-level="2.6" data-path="binary-task.html"><a href="binary-task.html#accuracy"><i class="fa fa-check"></i><b>2.6</b> Accuracy</a></li>
 <li class="chapter" data-level="2.7" data-path="binary-task.html"><a href="binary-task.html#negative-and-positive-predictive-values"><i class="fa fa-check"></i><b>2.7</b> Negative and positive predictive values</a></li>
-<li class="chapter" data-level="2.8" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvCode"><i class="fa fa-check"></i><b>2.8</b> Examples: PPV, NPV and Accuracy</a><ul>
+<li class="chapter" data-level="2.8" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvCode"><i class="fa fa-check"></i><b>2.8</b> Examples: PPV, NPV and Accuracy</a>
+<ul>
 <li class="chapter" data-level="2.8.1" data-path="binary-task.html"><a href="binary-task.html#binary-task-npv-ppv-comments"><i class="fa fa-check"></i><b>2.8.1</b> Comments</a></li>
 <li class="chapter" data-level="2.8.2" data-path="binary-task.html"><a href="binary-task.html#binary-task-npv-ppv-irrel-lab"><i class="fa fa-check"></i><b>2.8.2</b> PPV and NPV are irrelevant to laboratory tasks</a></li>
 </ul></li>
 <li class="chapter" data-level="2.9" data-path="binary-task.html"><a href="binary-task.html#binary-task-discussion"><i class="fa fa-check"></i><b>2.9</b> Discussion</a></li>
 <li class="chapter" data-level="2.10" data-path="binary-task.html"><a href="binary-task.html#binary-task-references"><i class="fa fa-check"></i><b>2.10</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="binary-task-model.html"><a href="binary-task-model.html"><i class="fa fa-check"></i><b>3</b> Modeling the binary Task</a><ul>
+<li class="chapter" data-level="3" data-path="binary-task-model.html"><a href="binary-task-model.html"><i class="fa fa-check"></i><b>3</b> Modeling the binary Task</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-how-much-finished"><i class="fa fa-check"></i><b>3.1</b> How much finished 95%</a></li>
 <li class="chapter" data-level="3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-intro"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
-<li class="chapter" data-level="3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-z-sample-model"><i class="fa fa-check"></i><b>3.3</b> Decision variable and reporting threshold</a><ul>
+<li class="chapter" data-level="3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-z-sample-model"><i class="fa fa-check"></i><b>3.3</b> Decision variable and reporting threshold</a>
+<ul>
 <li class="chapter" data-level="3.3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-decision-variable"><i class="fa fa-check"></i><b>3.3.1</b> Existence of a decision variable</a></li>
 <li class="chapter" data-level="3.3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-reporting-threshold"><i class="fa fa-check"></i><b>3.3.2</b> Existence of a reporting threshold</a></li>
 <li class="chapter" data-level="3.3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#adequacy-of-the-training-session"><i class="fa fa-check"></i><b>3.3.3</b> Adequacy of the training session</a></li>
@@ -204,7 +236,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-normal-distribution"><i class="fa fa-check"></i><b>3.7</b> The normal distribution</a></li>
 <li class="chapter" data-level="3.8" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity"><i class="fa fa-check"></i><b>3.8</b> Analytic expressions for specificity and sensitivity</a></li>
 <li class="chapter" data-level="3.9" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity-inverse-variation"><i class="fa fa-check"></i><b>3.9</b> Inverse variation of sensitivity and specificity</a></li>
-<li class="chapter" data-level="3.10" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-roc-curve"><i class="fa fa-check"></i><b>3.10</b> The ROC curve</a><ul>
+<li class="chapter" data-level="3.10" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-roc-curve"><i class="fa fa-check"></i><b>3.10</b> The ROC curve</a>
+<ul>
 <li class="chapter" data-level="3.10.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-chance-diagonal"><i class="fa fa-check"></i><b>3.10.1</b> The chance diagonal</a></li>
 <li class="chapter" data-level="3.10.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-guessing-observer"><i class="fa fa-check"></i><b>3.10.2</b> The guessing observer</a></li>
 <li class="chapter" data-level="3.10.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-symmetry-wrt-negative-diagonal"><i class="fa fa-check"></i><b>3.10.3</b> Symmetry with respect to negative diagonal</a></li>
@@ -216,18 +249,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.11" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-confidence-intervals"><i class="fa fa-check"></i><b>3.11</b> Confidence intervals for an operating point</a></li>
 <li class="chapter" data-level="3.12" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-beam-study"><i class="fa fa-check"></i><b>3.12</b> Variability: the Beam study</a></li>
 <li class="chapter" data-level="3.13" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-discussion"><i class="fa fa-check"></i><b>3.13</b> Discussion</a></li>
-<li class="chapter" data-level="3.14" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-demo"><i class="fa fa-check"></i><b>3.14</b> Appendix I</a><ul>
+<li class="chapter" data-level="3.14" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-demo"><i class="fa fa-check"></i><b>3.14</b> Appendix I</a>
+<ul>
 <li class="chapter" data-level="3.14.1" data-path="binary-task-model.html"><a href="binary-task-model.html#estimates-from-a-finite-sample"><i class="fa fa-check"></i><b>3.14.1</b> Estimates from a finite sample</a></li>
 <li class="chapter" data-level="3.14.2" data-path="binary-task-model.html"><a href="binary-task-model.html#changing-the-seed-variable"><i class="fa fa-check"></i><b>3.14.2</b> Changing the seed variable</a></li>
 <li class="chapter" data-level="3.14.3" data-path="binary-task-model.html"><a href="binary-task-model.html#increasing-the-numbers-of-cases"><i class="fa fa-check"></i><b>3.14.3</b> Increasing the numbers of cases</a></li>
 </ul></li>
 <li class="chapter" data-level="3.15" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-references"><i class="fa fa-check"></i><b>3.15</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html"><i class="fa fa-check"></i><b>4</b> Ratings Paradigm</a><ul>
+<li class="chapter" data-level="4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html"><i class="fa fa-check"></i><b>4</b> Ratings Paradigm</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-how-much-finished"><i class="fa fa-check"></i><b>4.1</b> How much finished 90%</a></li>
 <li class="chapter" data-level="4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
 <li class="chapter" data-level="4.3" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-roc-counts-table"><i class="fa fa-check"></i><b>4.3</b> The ROC counts table</a></li>
-<li class="chapter" data-level="4.4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-operating-points-from-counts-table"><i class="fa fa-check"></i><b>4.4</b> Operating points from counts table</a><ul>
+<li class="chapter" data-level="4.4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-operating-points-from-counts-table"><i class="fa fa-check"></i><b>4.4</b> Operating points from counts table</a>
+<ul>
 <li class="chapter" data-level="4.4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#labeling-the-points"><i class="fa fa-check"></i><b>4.4.1</b> Labeling the points</a></li>
 <li class="chapter" data-level="4.4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-examples"><i class="fa fa-check"></i><b>4.4.2</b> Examples</a></li>
 </ul></li>
@@ -238,16 +274,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.9" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-2afc"><i class="fa fa-check"></i><b>4.9</b> The forced choice paradigm</a></li>
 <li class="chapter" data-level="4.10" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-observer-studies-as-simulations"><i class="fa fa-check"></i><b>4.10</b> Observer performance studies as laboratory simulations of clinical tasks</a></li>
 <li class="chapter" data-level="4.11" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-discrete-vs-continuous-ratings"><i class="fa fa-check"></i><b>4.11</b> Discrete vs. continuous ratings: the Miller study</a></li>
-<li class="chapter" data-level="4.12" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale"><i class="fa fa-check"></i><b>4.12</b> The BI-RADS ratings scale and ROC studies</a><ul>
+<li class="chapter" data-level="4.12" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale"><i class="fa fa-check"></i><b>4.12</b> The BI-RADS ratings scale and ROC studies</a>
+<ul>
 <li class="chapter" data-level="4.12.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale-controversy"><i class="fa fa-check"></i><b>4.12.1</b> The controversy</a></li>
 </ul></li>
 <li class="chapter" data-level="4.13" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-discussion"><i class="fa fa-check"></i><b>4.13</b> Discussion</a></li>
 <li class="chapter" data-level="4.14" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-references"><i class="fa fa-check"></i><b>4.14</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="empirical-auc.html"><a href="empirical-auc.html"><i class="fa fa-check"></i><b>5</b> Empirical AUC</a><ul>
+<li class="chapter" data-level="5" data-path="empirical-auc.html"><a href="empirical-auc.html"><i class="fa fa-check"></i><b>5</b> Empirical AUC</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-how-much-finished"><i class="fa fa-check"></i><b>5.1</b> How much finished 90%</a></li>
 <li class="chapter" data-level="5.2" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-introduction"><i class="fa fa-check"></i><b>5.2</b> Introduction</a></li>
-<li class="chapter" data-level="5.3" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-roc-plot"><i class="fa fa-check"></i><b>5.3</b> The empirical ROC plot</a><ul>
+<li class="chapter" data-level="5.3" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-roc-plot"><i class="fa fa-check"></i><b>5.3</b> The empirical ROC plot</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="empirical-auc.html"><a href="empirical-auc.html#notation-for-cases"><i class="fa fa-check"></i><b>5.3.1</b> Notation for cases</a></li>
 <li class="chapter" data-level="5.3.2" data-path="empirical-auc.html"><a href="empirical-auc.html#an-empirical-operating-point"><i class="fa fa-check"></i><b>5.3.2</b> An empirical operating point</a></li>
 </ul></li>
@@ -258,16 +297,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.8" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem-importance"><i class="fa fa-check"></i><b>5.8</b> Importance of Bamber’s theorem</a></li>
 <li class="chapter" data-level="5.9" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-discussion-summary"><i class="fa fa-check"></i><b>5.9</b> Discussion / Summary</a></li>
 <li class="chapter" data-level="5.10" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-bamber-theorem-proof"><i class="fa fa-check"></i><b>5.10</b> Appendix: Bamber theorem proof</a></li>
-<li class="chapter" data-level="5.11" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-bamber-theorem-a0-term"><i class="fa fa-check"></i><b>5.11</b> Appendix: The <span class="math inline">\(A_0\)</span> term</a><ul>
+<li class="chapter" data-level="5.11" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-bamber-theorem-a0-term"><i class="fa fa-check"></i><b>5.11</b> Appendix: The <span class="math inline">\(A_0\)</span> term</a>
+<ul>
 <li class="chapter" data-level="5.11.1" data-path="empirical-auc.html"><a href="empirical-auc.html#upper-triangle"><i class="fa fa-check"></i><b>5.11.1</b> Upper triangle</a></li>
 <li class="chapter" data-level="5.11.2" data-path="empirical-auc.html"><a href="empirical-auc.html#lowest-trapezoid"><i class="fa fa-check"></i><b>5.11.2</b> Lowest trapezoid</a></li>
 </ul></li>
 <li class="chapter" data-level="5.12" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-references"><i class="fa fa-check"></i><b>5.12</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="binormal-model.html"><a href="binormal-model.html"><i class="fa fa-check"></i><b>6</b> Binormal model</a><ul>
+<li class="chapter" data-level="6" data-path="binormal-model.html"><a href="binormal-model.html"><i class="fa fa-check"></i><b>6</b> Binormal model</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-how-much-finished"><i class="fa fa-check"></i><b>6.1</b> How much finished 97%</a></li>
 <li class="chapter" data-level="6.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-introduction"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
-<li class="chapter" data-level="6.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-definition"><i class="fa fa-check"></i><b>6.3</b> Binormal model</a><ul>
+<li class="chapter" data-level="6.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-definition"><i class="fa fa-check"></i><b>6.3</b> Binormal model</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="binormal-model.html"><a href="binormal-model.html#binned-data"><i class="fa fa-check"></i><b>6.3.1</b> Binned data</a></li>
 <li class="chapter" data-level="6.3.2" data-path="binormal-model.html"><a href="binormal-model.html#sensitivity-and-specificity-1"><i class="fa fa-check"></i><b>6.3.2</b> Sensitivity and specificity</a></li>
 <li class="chapter" data-level="6.3.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-in-conventional-notation"><i class="fa fa-check"></i><b>6.3.3</b> Binormal model in conventional notation</a></li>
@@ -277,14 +319,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.6" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-invariance-property"><i class="fa fa-check"></i><b>6.6</b> Invariance property of pdfs</a></li>
 <li class="chapter" data-level="6.7" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-full-auc"><i class="fa fa-check"></i><b>6.7</b> Az and d-prime measures</a></li>
 <li class="chapter" data-level="6.8" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-fitting"><i class="fa fa-check"></i><b>6.8</b> Fitting the binormal model</a></li>
-<li class="chapter" data-level="6.9" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc"><i class="fa fa-check"></i><b>6.9</b> Partial AUC measures</a><ul>
+<li class="chapter" data-level="6.9" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc"><i class="fa fa-check"></i><b>6.9</b> Partial AUC measures</a>
+<ul>
 <li class="chapter" data-level="6.9.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-meaning-partial-auc-definitions"><i class="fa fa-check"></i><b>6.9.1</b> Measure emphasizing high specificity</a></li>
 <li class="chapter" data-level="6.9.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-metz-partial-auc"><i class="fa fa-check"></i><b>6.9.2</b> Measure emphasizing high sensitivity</a></li>
 <li class="chapter" data-level="6.9.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-metz-partial-auc-example"><i class="fa fa-check"></i><b>6.9.3</b> Numerical examples</a></li>
 </ul></li>
 <li class="chapter" data-level="6.10" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc-comments"><i class="fa fa-check"></i><b>6.10</b> Comments on partial AUC measures</a></li>
 <li class="chapter" data-level="6.11" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-discussion"><i class="fa fa-check"></i><b>6.11</b> Discussion</a></li>
-<li class="chapter" data-level="6.12" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting"><i class="fa fa-check"></i><b>6.12</b> Appendix: Fitting an ROC curve</a><ul>
+<li class="chapter" data-level="6.12" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting"><i class="fa fa-check"></i><b>6.12</b> Appendix: Fitting an ROC curve</a>
+<ul>
 <li class="chapter" data-level="6.12.1" data-path="binormal-model.html"><a href="binormal-model.html#java-fitted-roc-curve"><i class="fa fa-check"></i><b>6.12.1</b> JAVA fitted ROC curve</a></li>
 <li class="chapter" data-level="6.12.2" data-path="binormal-model.html"><a href="binormal-model.html#simplistic-straight-line-fit-to-the-roc-curve"><i class="fa fa-check"></i><b>6.12.2</b> Simplistic straight line fit to the ROC curve</a></li>
 <li class="chapter" data-level="6.12.3" data-path="binormal-model.html"><a href="binormal-model.html#maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>6.12.3</b> Maximum likelihood estimation (MLE)</a></li>
@@ -293,10 +337,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.12.6" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-covariance-matrix"><i class="fa fa-check"></i><b>6.12.6</b> Estimating the covariance matrix</a></li>
 <li class="chapter" data-level="6.12.7" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-variance-of-az"><i class="fa fa-check"></i><b>6.12.7</b> Estimating the variance of Az</a></li>
 </ul></li>
-<li class="chapter" data-level="6.13" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-improper-curves"><i class="fa fa-check"></i><b>6.13</b> Appendix: Improper ROCs</a><ul>
+<li class="chapter" data-level="6.13" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-improper-curves"><i class="fa fa-check"></i><b>6.13</b> Appendix: Improper ROCs</a>
+<ul>
 <li class="chapter" data-level="6.13.1" data-path="binormal-model.html"><a href="binormal-model.html#reason-for-improper-rocs"><i class="fa fa-check"></i><b>6.13.1</b> Reason for improper ROCs</a></li>
 </ul></li>
-<li class="chapter" data-level="6.14" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degeneracy-artifacts"><i class="fa fa-check"></i><b>6.14</b> Appendix: Binormal model degeneracy and artifacts</a><ul>
+<li class="chapter" data-level="6.14" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degeneracy-artifacts"><i class="fa fa-check"></i><b>6.14</b> Appendix: Binormal model degeneracy and artifacts</a>
+<ul>
 <li class="chapter" data-level="6.14.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degenerate-datasets"><i class="fa fa-check"></i><b>6.14.1</b> Degenerate datasets</a></li>
 <li class="chapter" data-level="6.14.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-understanding-degenerate-datasets"><i class="fa fa-check"></i><b>6.14.2</b> Understanding degenerate datasets</a></li>
 <li class="chapter" data-level="6.14.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-exact-fit-not-unique"><i class="fa fa-check"></i><b>6.14.3</b> The exact fit is not unique</a></li>
@@ -305,38 +351,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.15" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-references"><i class="fa fa-check"></i><b>6.15</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="improper-rocs.html"><a href="improper-rocs.html"><i class="fa fa-check"></i><b>7</b> Improper ROC curves</a><ul>
+<li class="chapter" data-level="7" data-path="improper-rocs.html"><a href="improper-rocs.html"><i class="fa fa-check"></i><b>7</b> Improper ROC curves</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="improper-rocs.html"><a href="improper-rocs.html#improper-rocs-how-much-finished"><i class="fa fa-check"></i><b>7.1</b> How much finished 10%</a></li>
 <li class="chapter" data-level="7.2" data-path="improper-rocs.html"><a href="improper-rocs.html#the-binormal-model"><i class="fa fa-check"></i><b>7.2</b> The binormal model</a></li>
 <li class="chapter" data-level="7.3" data-path="improper-rocs.html"><a href="improper-rocs.html#improper-rocs-1"><i class="fa fa-check"></i><b>7.3</b> Improper ROCs</a></li>
 <li class="chapter" data-level="7.4" data-path="improper-rocs.html"><a href="improper-rocs.html#reason-for-improper-rocs-1"><i class="fa fa-check"></i><b>7.4</b> Reason for improper ROCs</a></li>
 </ul></li>
 <li class="part"><span><b>Advanced topics</b></span></li>
-<li class="chapter" data-level="8" data-path="proper-roc-models.html"><a href="proper-roc-models.html"><i class="fa fa-check"></i><b>8</b> Proper ROC models</a><ul>
+<li class="chapter" data-level="8" data-path="proper-roc-models.html"><a href="proper-roc-models.html"><i class="fa fa-check"></i><b>8</b> Proper ROC models</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-how-much-finished"><i class="fa fa-check"></i><b>8.1</b> TBA How much finished</a></li>
 <li class="chapter" data-level="8.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-introduction"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
 <li class="chapter" data-level="8.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem1"><i class="fa fa-check"></i><b>8.3</b> Theorem: ROC slope equals likelihood ratio</a></li>
-<li class="chapter" data-level="8.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem2"><i class="fa fa-check"></i><b>8.4</b> Theorem: likelihood ratio observer maximizes AUC</a><ul>
+<li class="chapter" data-level="8.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem2"><i class="fa fa-check"></i><b>8.4</b> Theorem: likelihood ratio observer maximizes AUC</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#explanation"><i class="fa fa-check"></i><b>8.4.1</b> Explanation</a></li>
 </ul></li>
 <li class="chapter" data-level="8.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proper-vs-improper"><i class="fa fa-check"></i><b>8.5</b> Proper vs. improper ROC curves</a></li>
-<li class="chapter" data-level="8.6" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-degenerate-datasets"><i class="fa fa-check"></i><b>8.6</b> Degenerate datasets</a><ul>
+<li class="chapter" data-level="8.6" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-degenerate-datasets"><i class="fa fa-check"></i><b>8.6</b> Degenerate datasets</a>
+<ul>
 <li class="chapter" data-level="8.6.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#comments-on-degeneracy"><i class="fa fa-check"></i><b>8.6.1</b> Comments on degeneracy</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-observer"><i class="fa fa-check"></i><b>8.7</b> The likelihood ratio observer</a></li>
-<li class="chapter" data-level="8.8" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc"><i class="fa fa-check"></i><b>8.8</b> PROPROC</a><ul>
+<li class="chapter" data-level="8.8" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc"><i class="fa fa-check"></i><b>8.8</b> PROPROC</a>
+<ul>
 <li class="chapter" data-level="8.8.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-formulae"><i class="fa fa-check"></i><b>8.8.1</b> PROPROC formulae</a></li>
 <li class="chapter" data-level="8.8.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-code"><i class="fa fa-check"></i><b>8.8.2</b> PROPROC code implementation</a></li>
 <li class="chapter" data-level="8.8.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-rocs"><i class="fa fa-check"></i><b>8.8.3</b> PROPROC ROC and slope plots</a></li>
 </ul></li>
-<li class="chapter" data-level="8.9" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm"><i class="fa fa-check"></i><b>8.9</b> The contaminated binormal model (CBM)</a><ul>
+<li class="chapter" data-level="8.9" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm"><i class="fa fa-check"></i><b>8.9</b> The contaminated binormal model (CBM)</a>
+<ul>
 <li class="chapter" data-level="8.9.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-formulae"><i class="fa fa-check"></i><b>8.9.1</b> CBM formulae</a></li>
 <li class="chapter" data-level="8.9.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-code"><i class="fa fa-check"></i><b>8.9.2</b> CBM code implementation</a></li>
 <li class="chapter" data-level="8.9.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-rocs"><i class="fa fa-check"></i><b>8.9.3</b> CBM ROC plots</a></li>
 <li class="chapter" data-level="8.9.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-pdfs"><i class="fa fa-check"></i><b>8.9.4</b> CBM pdf plots</a></li>
 <li class="chapter" data-level="8.9.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-slopes"><i class="fa fa-check"></i><b>8.9.5</b> CBM likelihood ratio plots</a></li>
 </ul></li>
-<li class="chapter" data-level="8.10" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma"><i class="fa fa-check"></i><b>8.10</b> The bigamma model (BGM)</a><ul>
+<li class="chapter" data-level="8.10" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma"><i class="fa fa-check"></i><b>8.10</b> The bigamma model (BGM)</a>
+<ul>
 <li class="chapter" data-level="8.10.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-formulae"><i class="fa fa-check"></i><b>8.10.1</b> BGM formulae</a></li>
 <li class="chapter" data-level="8.10.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-code"><i class="fa fa-check"></i><b>8.10.2</b> BGM code implementation</a></li>
 <li class="chapter" data-level="8.10.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-rocs"><i class="fa fa-check"></i><b>8.10.3</b> BGM ROC plots</a></li>
@@ -345,37 +398,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.11" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-discussion"><i class="fa fa-check"></i><b>8.11</b> Discussion</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="proproc-rocs.html"><a href="proproc-rocs.html"><i class="fa fa-check"></i><b>9</b> PROPROC ROC curves</a><ul>
+<li class="chapter" data-level="9" data-path="proproc-rocs.html"><a href="proproc-rocs.html"><i class="fa fa-check"></i><b>9</b> PROPROC ROC curves</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="proproc-rocs.html"><a href="proproc-rocs.html#helper-functions"><i class="fa fa-check"></i><b>9.1</b> Helper functions</a></li>
 <li class="chapter" data-level="9.2" data-path="proproc-rocs.html"><a href="proproc-rocs.html#definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters"><i class="fa fa-check"></i><b>9.2</b> Definitions of PROPROC parameters in terms of binormal model parameters</a></li>
 <li class="chapter" data-level="9.3" data-path="proproc-rocs.html"><a href="proproc-rocs.html#main-code-and-output"><i class="fa fa-check"></i><b>9.3</b> Main code and output</a></li>
 <li class="chapter" data-level="9.4" data-path="proproc-rocs.html"><a href="proproc-rocs.html#discussion"><i class="fa fa-check"></i><b>9.4</b> Discussion</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html"><i class="fa fa-check"></i><b>10</b> Metz Eqn 36 numerical check</a><ul>
+<li class="chapter" data-level="10" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html"><i class="fa fa-check"></i><b>10</b> Metz Eqn 36 numerical check</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#helper-functions-1"><i class="fa fa-check"></i><b>10.1</b> Helper functions</a></li>
 <li class="chapter" data-level="10.2" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#main-code-and-output-1"><i class="fa fa-check"></i><b>10.2</b> Main code and output</a></li>
 <li class="chapter" data-level="10.3" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#discussion-1"><i class="fa fa-check"></i><b>10.3</b> Discussion</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html"><i class="fa fa-check"></i><b>11</b> Bivariate binormal model</a><ul>
+<li class="chapter" data-level="11" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html"><i class="fa fa-check"></i><b>11</b> Bivariate binormal model</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-how-much-finished"><i class="fa fa-check"></i><b>11.1</b> TBA How much finished</a></li>
 <li class="chapter" data-level="11.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-introduction"><i class="fa fa-check"></i><b>11.2</b> Introduction</a></li>
 <li class="chapter" data-level="11.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-bivariate-density"><i class="fa fa-check"></i><b>11.3</b> Bivariate density function</a></li>
 <li class="chapter" data-level="11.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-formulae"><i class="fa fa-check"></i><b>11.4</b> The bivariate binormal model</a></li>
 <li class="chapter" data-level="11.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-visualization"><i class="fa fa-check"></i><b>11.5</b> Visualizing the bivariate density function</a></li>
 <li class="chapter" data-level="11.6" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation"><i class="fa fa-check"></i><b>11.6</b> Estimating bivariate binormal model parameters</a></li>
-<li class="chapter" data-level="11.7" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-examples"><i class="fa fa-check"></i><b>11.7</b> Examples of bivariate normal probability integrals</a><ul>
+<li class="chapter" data-level="11.7" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-examples"><i class="fa fa-check"></i><b>11.7</b> Examples of bivariate normal probability integrals</a>
+<ul>
 <li class="chapter" data-level="11.7.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation-code"><i class="fa fa-check"></i><b>11.7.1</b> Code listing</a></li>
 <li class="chapter" data-level="11.7.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-examples-integrals"><i class="fa fa-check"></i><b>11.7.2</b> Examples of bivariate normal probability integrals</a></li>
 </ul></li>
 <li class="chapter" data-level="11.8" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-likelihood"><i class="fa fa-check"></i><b>11.8</b> Likelihood function</a></li>
-<li class="chapter" data-level="11.9" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2"><i class="fa fa-check"></i><b>11.9</b> CORROC2 software</a><ul>
+<li class="chapter" data-level="11.9" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2"><i class="fa fa-check"></i><b>11.9</b> CORROC2 software</a>
+<ul>
 <li class="chapter" data-level="11.9.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-details"><i class="fa fa-check"></i><b>11.9.1</b> Details of CORROC2 software</a></li>
 <li class="chapter" data-level="11.9.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-data-input"><i class="fa fa-check"></i><b>11.9.2</b> CORROC2 data input</a></li>
 <li class="chapter" data-level="11.9.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output"><i class="fa fa-check"></i><b>11.9.3</b> CORROC2 output</a></li>
 <li class="chapter" data-level="11.9.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-covariance-matrix"><i class="fa fa-check"></i><b>11.9.4</b> Covariance matrix</a></li>
 <li class="chapter" data-level="11.9.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output-restof"><i class="fa fa-check"></i><b>11.9.5</b> Rest of CORROC2 output</a></li>
 </ul></li>
-<li class="chapter" data-level="11.10" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application"><i class="fa fa-check"></i><b>11.10</b> Application to a real dataset</a><ul>
+<li class="chapter" data-level="11.10" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application"><i class="fa fa-check"></i><b>11.10</b> Application to a real dataset</a>
+<ul>
 <li class="chapter" data-level="11.10.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-code-output"><i class="fa fa-check"></i><b>11.10.1</b> Code Output</a></li>
 <li class="chapter" data-level="11.10.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-debug-window"><i class="fa fa-check"></i><b>11.10.2</b> Contents of the Debug window, as viewed from the Mac side</a></li>
 <li class="chapter" data-level="11.10.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-corrocii-input"><i class="fa fa-check"></i><b>11.10.3</b> Contents of CorrocIIinput.txt</a></li>
@@ -403,20 +462,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="binormal-model" class="section level1 hasAnchor">
+<div id="binormal-model" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Binormal model<a href="binormal-model.html#binormal-model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="binormal-model-how-much-finished" class="section level2 hasAnchor">
+<div id="binormal-model-how-much-finished" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> How much finished 97%<a href="binormal-model.html#binormal-model-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div id="binormal-model-introduction" class="section level2 hasAnchor">
+<div id="binormal-model-introduction" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Introduction<a href="binormal-model.html#binormal-model-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The equal variance binormal model was described in Chapter <a href="binary-task.html#binary-task">2</a>. The ratings method of acquiring ROC data and calculation of operating points was discussed in Chapter <a href="ratings-paradigm.html#ratings-paradigm">4</a>. It was shown there that for a clinical dataset the unequal-variance binormal model visually fitted the data better than the equal-variance binormal model.</p>
 <p>This chapter deals with the unequal-variance binormal model, often abbreviated to <strong>binormal model</strong>. It is applicable to univariate datasets in which there is <em>one rating per case</em>, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier “univariate” is often omitted. In Chapter <code>TempComment \@ref(bivariate-binormal-model)</code> a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality.</p>
 </div>
-<div id="binormal-model-definition" class="section level2 hasAnchor">
+<div id="binormal-model-definition" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> Binormal model<a href="binormal-model.html#binormal-model-definition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The binormal model is defined by (capital letters indicate random variables lower-case are realized values and <span class="math inline">\(t\)</span> denotes the truth state):</p>
-<p><span class="math display" id="eq:binormal-model-z-samples-1">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-model-z-samples-1">\[\begin{equation}
 \left.
 \begin{aligned}
 Z_{k_tt} \sim &amp;N\left ( \mu_t,\sigma_{t}^{2} \right )\\
@@ -426,7 +485,7 @@ t&amp;=1,2
 \tag{6.1}
 \end{equation}\]</span></p>
 <p>where</p>
-<p><span class="math display" id="eq:binormal-model-z-samples-2">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-model-z-samples-2">\[\begin{equation}
 \left.
 \begin{aligned}
 \mu_1=&amp;0\\
@@ -438,7 +497,7 @@ t&amp;=1,2
 \tag{6.2}
 \end{equation}\]</span></p>
 <p>Eqn. <a href="binormal-model.html#eq:binormal-model-z-samples-1">(6.1)</a> states that the z-samples for non-diseased cases (<span class="math inline">\(t = 1\)</span>) are distributed as a <span class="math inline">\(N(0,1)\)</span> distribution, i.e., the unit normal distribution, while the z-samples for diseased cases (<span class="math inline">\(t = 2\)</span>) are distributed as a <span class="math inline">\(N(\mu,\sigma^2)\)</span> distribution, i.e., a normal distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. In the unequal-variance binormal model, the variance <span class="math inline">\(\sigma^2\)</span> of the z-samples for diseased cases is allowed to be different from unity. Most ROC datasets are consistent with <span class="math inline">\(\sigma &gt; 1\)</span>.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
-<div id="binned-data" class="section level3 hasAnchor">
+<div id="binned-data" class="section level3 hasAnchor" number="6.3.1">
 <h3><span class="header-section-number">6.3.1</span> Binned data<a href="binormal-model.html#binned-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In an R-rating ROC study the observed ratings <span class="math inline">\(r\)</span> take on integer values 1 through <span class="math inline">\(R\)</span> it being understood that higher ratings correspond to greater confidence for presence of disease. Define <span class="math inline">\(R-1\)</span> ordered cutoffs <span class="math inline">\(\zeta_i\)</span> where <span class="math inline">\(i=1,2,...,R-1\)</span> and <span class="math inline">\(\zeta_1 &lt; \zeta_2,...&lt; \zeta_{R-1}\)</span>. Also define two dummy cutoffs <span class="math inline">\(\zeta_0 = -\infty\)</span> and <span class="math inline">\(\zeta_R = +\infty\)</span>. The <strong>binning rule</strong> for a case with realized z-sample z is (Chapter <a href="ratings-paradigm.html#ratings-paradigm">4</a>, Eqn. <a href="ratings-paradigm.html#eq:ratings-paradigm-binning-rule">(4.4)</a>):</p>
 <p><span class="math display" id="eq:binormal-model-binning-rule">\[\begin{equation}
@@ -458,24 +517,24 @@ FIGURE 6.1: The pdfs of the two binormal model distributions for <span class="ma
 </div>
 <p>The above figure, generated with <span class="math inline">\(\mu = 1.5\)</span>, <span class="math inline">\(\sigma = 1.5\)</span>, <span class="math inline">\(\zeta_1 = -2\)</span>, <span class="math inline">\(\zeta_2 = -0.5\)</span>, <span class="math inline">\(\zeta_3 = 1\)</span> and <span class="math inline">\(\zeta_4 = 2.5\)</span>, illustrates how realized z-samples are converted to ratings, i.e., application of the binning rule <a href="binormal-model.html#eq:binormal-model-binning-rule">(6.3)</a>. For example, a case with z-sample equal to -2.5 would be rated “1”, and one with z-sample equal to -1 would be rated “2”, cases with z-samples greater than 2.5 would be rated “5”.</p>
 </div>
-<div id="sensitivity-and-specificity-1" class="section level3 hasAnchor">
+<div id="sensitivity-and-specificity-1" class="section level3 hasAnchor" number="6.3.2">
 <h3><span class="header-section-number">6.3.2</span> Sensitivity and specificity<a href="binormal-model.html#sensitivity-and-specificity-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let <span class="math inline">\(Z_t\)</span> denote the random z-sample for truth state <span class="math inline">\(t\)</span> (<span class="math inline">\(t\)</span> = 1 for non-diseased and <span class="math inline">\(t\)</span> = 2 for diseased cases). Since the distribution of z-samples from disease-free cases is <span class="math inline">\(N(0,1)\)</span>, the expression for specificity in Chapter <a href="binary-task-model.html#binary-task-model">3</a> applies:</p>
-<p><span class="math display" id="eq:binormal-model-specificity">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-model-specificity">\[\begin{equation}
 \text{Sp}\left ( \zeta \right )=P\left ( Z_1 &lt; \zeta \right )=\Phi\left ( \zeta \right )
 \tag{6.4}
 \end{equation}\]</span></p>
 <p>To obtain an expression for sensitivity, consider that for truth state <span class="math inline">\(t = 2\)</span>, the random variable <span class="math inline">\(\frac{Z_2-\mu}{\sigma}\)</span> is distributed as <span class="math inline">\(N(0,1)\)</span>:</p>
-<p><span class="math display">\[\begin{equation*} 
+<p><span class="math display">\[\begin{equation*}
 \frac{Z_2-\mu}{\sigma}\sim N\left ( 0,1 \right )
 \end{equation*}\]</span></p>
 <p>Sensitivity, abbreviated to <span class="math inline">\(\text{Se}\)</span>, is defined by <span class="math inline">\(\text{Se} \equiv P\left ( Z_2 &gt; \zeta \right )\)</span>. It follows, because <span class="math inline">\(\sigma\)</span> is positive, that:</p>
-<p><span class="math display">\[\begin{equation*} 
+<p><span class="math display">\[\begin{equation*}
 \text{Se}\left ( \zeta | \mu, \sigma \right ) = P\left ( \frac{Z_2-\mu}{\sigma} &gt; \frac{\zeta-\mu}{\sigma} \right )
 \end{equation*}\]</span></p>
 <p>The right-hand-side can be rewritten as follows:</p>
-<p><span class="math display" id="eq:binormal-model-sensitivity2">\[\begin{equation} 
-\left. 
+<p><span class="math display" id="eq:binormal-model-sensitivity2">\[\begin{equation}
+\left.
 \begin{aligned}
 \text{Se}\left ( \zeta | \mu, \sigma \right )&amp;= 1 - P\left ( \frac{Z_2-\mu}{\sigma} \leq  \frac{\zeta-\mu}{\sigma} \right )\\
 &amp;=1-\Phi\left (  \frac{\zeta-\mu}{\sigma}\right )=\Phi\left (  \frac{\mu-\zeta}{\sigma}\right )
@@ -484,8 +543,8 @@ FIGURE 6.1: The pdfs of the two binormal model distributions for <span class="ma
 \tag{6.5}
 \end{equation}\]</span></p>
 <p>Summarizing, the formulae for the specificity and sensitivity for the binormal model are:</p>
-<p><span class="math display" id="eq:binormal-model-se-sp">\[\begin{equation} 
-\left. 
+<p><span class="math display" id="eq:binormal-model-se-sp">\[\begin{equation}
+\left.
 \begin{aligned}
 \text{Sp}\left ( \zeta \right ) &amp;= \Phi\left ( \zeta \right )\\
 \text{Se}\left ( \zeta | \mu, \sigma \right ) &amp;= \Phi\left (  \frac{\mu-\zeta}{\sigma}\right )
@@ -494,8 +553,8 @@ FIGURE 6.1: The pdfs of the two binormal model distributions for <span class="ma
 \tag{6.6}
 \end{equation}\]</span></p>
 <p>The coordinates of the operating point defined by <span class="math inline">\(\zeta\)</span> are given by:</p>
-<p><span class="math display" id="eq:binormal-model-fpf">\[\begin{equation} 
-\left. 
+<p><span class="math display" id="eq:binormal-model-fpf">\[\begin{equation}
+\left.
 \begin{aligned}
 \text{FPF}\left ( \zeta \right ) &amp;= 1 - \text{Sp}\left ( \zeta \right ) \\
 &amp;= 1 - \Phi\left ( \zeta \right ) \\
@@ -504,27 +563,27 @@ FIGURE 6.1: The pdfs of the two binormal model distributions for <span class="ma
 \right \}
 \tag{6.7}
 \end{equation}\]</span></p>
-<p><span class="math display" id="eq:binormal-model-tpf">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-model-tpf">\[\begin{equation}
 \text{TPF}\left ( \zeta | \mu, \sigma \right ) = \Phi\left ( \frac{\mu-\zeta}{\sigma} \right )
 \tag{6.8}
 \end{equation}\]</span></p>
 <p>An equation for a curve is usually expressed as <span class="math inline">\(y=f(x)\)</span>. An expression of this form for the ROC curve, i.e., the y-coordinate (TPF) expressed as a function of the x-coordinate (FPF), follows upon inversion of the expression for FPF, Eqn. <a href="binormal-model.html#eq:binormal-model-fpf">(6.7)</a>:</p>
-<p><span class="math display" id="eq:binormal-model-zeta">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-model-zeta">\[\begin{equation}
 \zeta = -\Phi^{-1}\left ( \text{FPF} \right )
 \tag{6.9}
 \end{equation}\]</span></p>
 <p>Substitution of Eqn. <a href="binormal-model.html#eq:binormal-model-zeta">(6.9)</a> in Eqn. <a href="binormal-model.html#eq:binormal-model-tpf">(6.8)</a> yields:</p>
-<p><span class="math display" id="eq:binormal-model-roc-curve1">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-model-roc-curve1">\[\begin{equation}
 \text{TPF} = \Phi\left ( \frac{\mu + \Phi^{-1}\left (\text{FPF}  \right )}{\sigma} \right )
 \tag{6.10}
 \end{equation}\]</span></p>
 <p>This equation will be put into conventional notation next.</p>
 </div>
-<div id="binormal-model-in-conventional-notation" class="section level3 hasAnchor">
+<div id="binormal-model-in-conventional-notation" class="section level3 hasAnchor" number="6.3.3">
 <h3><span class="header-section-number">6.3.3</span> Binormal model in conventional notation<a href="binormal-model.html#binormal-model-in-conventional-notation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <span class="math inline">\((\mu,\sigma)\)</span> notation just described makes sense when extending the binormal model to newer models described later (see Chapter <code>TempComment \@ref(proper-roc-models)</code>). However, it was not the way the binormal model was originally parameterized. Instead the following notation is widely used in the literature:</p>
-<p><span class="math display" id="eq:binormal-model-ab-parameters">\[\begin{equation} 
-\left. 
+<p><span class="math display" id="eq:binormal-model-ab-parameters">\[\begin{equation}
+\left.
 \begin{aligned}
 a&amp;=\frac{\mu}{\sigma}\\
 b&amp;=\frac{1}{\sigma}
@@ -533,11 +592,11 @@ b&amp;=\frac{1}{\sigma}
 \tag{6.11}
 \end{equation}\]</span></p>
 <blockquote>
-<p>The reason for the <span class="math inline">\((a,b)\)</span> instead of the <span class="math inline">\((\mu,\sigma)\)</span> notation is historical. <span class="citation">(Dorfman and Alf Jr <a href="#ref-dorfman1969maximum" role="doc-biblioref">1969</a>)</span> assumed that the diseased distribution had unit variance, and the non-diseased distribution had standard deviation <span class="math inline">\(b\)</span> and their separation was <span class="math inline">\(a\)</span>, see Plot A in Fig. <a href="binormal-model.html#fig:binormal-model-ab2-mu-sigma">6.2</a>.</p>
+<p>The reason for the <span class="math inline">\((a,b)\)</span> instead of the <span class="math inline">\((\mu,\sigma)\)</span> notation is historical. <span class="citation">(<a href="#ref-dorfman1969maximum" role="doc-biblioref">Dorfman and Alf Jr 1969</a>)</span> assumed that the diseased distribution had unit variance, and the non-diseased distribution had standard deviation <span class="math inline">\(b\)</span> and their separation was <span class="math inline">\(a\)</span>, see Plot A in Fig. <a href="binormal-model.html#fig:binormal-model-ab2-mu-sigma">6.2</a>.</p>
 </blockquote>
 <p>By dividing the z-samples by <span class="math inline">\(b\)</span>, the variance of the distribution labeled “Noise” becomes unity, its mean stays at zero, and the variance of the distribution labeled “Signal” becomes <span class="math inline">\(1/b\)</span>, and its mean becomes <span class="math inline">\(a/b\)</span>, see plot B. Accordingly the inverses of Eqn. <a href="binormal-model.html#eq:binormal-model-ab-parameters">(6.11)</a> are:</p>
-<p><span class="math display" id="eq:binormal-model-ab-parameters-inv">\[\begin{equation} 
-\left. 
+<p><span class="math display" id="eq:binormal-model-ab-parameters-inv">\[\begin{equation}
+\left.
 \begin{aligned}
 \mu&amp;=\frac{a}{b}\\
 \sigma&amp;=\frac{1}{b}
@@ -554,10 +613,10 @@ FIGURE 6.2: Plot A shows the definitions of the (a,b) parameters of the binormal
 </div>
 </div>
 </div>
-<div id="binormal-model-roc-curve" class="section level2 hasAnchor">
+<div id="binormal-model-roc-curve" class="section level2 hasAnchor" number="6.4">
 <h2><span class="header-section-number">6.4</span> ROC curve<a href="binormal-model.html#binormal-model-roc-curve" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Using the <span class="math inline">\((a,b)\)</span> notation, Eqn. <a href="binormal-model.html#eq:binormal-model-roc-curve1">(6.10)</a> for the ROC curve reduces to:</p>
-<p><span class="math display" id="eq:binormal-model-roc-curve-tpf-fpf">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-model-roc-curve-tpf-fpf">\[\begin{equation}
 \text{TPF}\left ( \text{FPF} \right ) = \Phi\left ( a+ b \Phi^{-1}\left (\text{FPF}  \right ) \right )
 \tag{6.13}
 \end{equation}\]</span></p>
@@ -578,18 +637,18 @@ FIGURE 6.2: Plot A shows the definitions of the (a,b) parameters of the binormal
 \tag{6.15}
 \end{equation}\]</span></p>
 </div>
-<div id="binormal-model-pdfs" class="section level2 hasAnchor">
+<div id="binormal-model-pdfs" class="section level2 hasAnchor" number="6.5">
 <h2><span class="header-section-number">6.5</span> Density functions<a href="binormal-model.html#binormal-model-pdfs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>According to Eqn. <a href="binormal-model.html#eq:binormal-model-z-samples-1">(6.1)</a> the probability that a non-diseased case z-sample is smaller than <span class="math inline">\(\zeta\)</span>, i.e., the cumulative distribution function (CDF) function for non-diseased cases, is:</p>
-<p><span class="math display">\[\begin{equation*} 
+<p><span class="math display">\[\begin{equation*}
 P\left ( Z \le \zeta \mid  Z\sim N\left ( 0,1 \right ) \right ) = 1-FPF\left ( \zeta \right ) = \Phi \left ( \zeta  \right )
 \end{equation*}\]</span></p>
 <p>Likewise, the CDF for diseased case z-samples is:</p>
-<p><span class="math display">\[\begin{equation*} 
+<p><span class="math display">\[\begin{equation*}
 P\left ( Z \le \zeta \mid  Z\sim N\left ( \mu,\sigma^2 \right ) \right ) = 1-\text{TPF}\left ( \zeta \right ) = \Phi \left ( \frac{\zeta - \mu}{\sigma}  \right )
 \end{equation*}\]</span></p>
 <p>Since the <em>pdf</em> is the derivative of the corresponding CDF function, it follows that (the superscripts N and D denote non-diseased and diseased cases, respectively):</p>
-<p><span class="math display" id="eq:binormal-model-pdf-n">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-model-pdf-n">\[\begin{equation}
 \left.
 \begin{aligned}
 pdf_N\left ( \zeta \right ) &amp;= \frac{\partial \Phi\left ( \zeta \right )}{\partial \zeta} \\
@@ -599,7 +658,7 @@ pdf_N\left ( \zeta \right ) &amp;= \frac{\partial \Phi\left ( \zeta \right )}{\p
 \right \}
 \tag{6.16}
 \end{equation}\]</span></p>
-<p><span class="math display" id="eq:binormal-model-pdf-d-mu-sigma">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-model-pdf-d-mu-sigma">\[\begin{equation}
 \left.
 \begin{aligned}
 pdf_D\left ( \zeta \right ) &amp;= \frac{\partial \Phi\left ( \frac{\zeta - \mu}{\sigma} \right )}{\partial \zeta} \\ &amp;= \frac{1}{\sigma} \phi\left ( \frac{\zeta - \mu}{\sigma} \right ) \\
@@ -609,7 +668,7 @@ pdf_D\left ( \zeta \right ) &amp;= \frac{\partial \Phi\left ( \frac{\zeta - \mu}
 \tag{6.17}
 \end{equation}\]</span></p>
 <p>The second equation can be written in <span class="math inline">\((a,b)\)</span> notation as:</p>
-<p><span class="math display" id="eq:binormal-model-pdf-d-a-b">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-model-pdf-d-a-b">\[\begin{equation}
 \left.
 \begin{aligned}
 pdf_D\left ( \zeta \right ) &amp;= b\phi\left ( b\zeta-a \right ) \\
@@ -619,9 +678,9 @@ pdf_D\left ( \zeta \right ) &amp;= b\phi\left ( b\zeta-a \right ) \\
 \tag{6.18}
 \end{equation}\]</span></p>
 </div>
-<div id="binormal-model-invariance-property" class="section level2 hasAnchor">
+<div id="binormal-model-invariance-property" class="section level2 hasAnchor" number="6.6">
 <h2><span class="header-section-number">6.6</span> Invariance property of pdfs<a href="binormal-model.html#binormal-model-invariance-property" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The binormal model is not as restrictive as might appear at first sight. Any monotone increasing transformation <span class="math inline">\(Y=f(Z)\)</span> applied to the observed z-samples, and the associated thresholds, will yield the same observed data, e.g., Table <a href="ratings-paradigm.html#tab:ratings-paradigm-example-table">4.1</a>. This is because such a transformation leaves the ordering of the ratings unaltered and hence results in the same operating points. While the distributions for <span class="math inline">\(Y\)</span> will not be binormal (i.e., two independent normal distributions), one can safely “pretend” that one is still dealing with an underlying binormal model. An alternative way of stating this is that any pair of distributions is allowed as long as they are reducible to a binormal model form by a monotonic increasing transformation of Y: e.g., <span class="math inline">\(Z=f^{-1}\)</span>. [If <span class="math inline">\(f\)</span> is a monotone increasing function of its argument, so is <span class="math inline">\(f^{-1}\)</span>}.] For this reason, the term “pair of latent underlying normal distributions” is sometimes used to describe the binormal model. The robustness of the binormal model has been investigated <span class="citation">(Hanley <a href="#ref-hanley1988robustness" role="doc-biblioref">1988</a>; Dorfman et al. <a href="#ref-dorfman1997proper" role="doc-biblioref">1997</a>)</span>. The referenced paper by Dorfman et al has an excellent discussion of the robustness of the binormal model.</p>
+<p>The binormal model is not as restrictive as might appear at first sight. Any monotone increasing transformation <span class="math inline">\(Y=f(Z)\)</span> applied to the observed z-samples, and the associated thresholds, will yield the same observed data, e.g., Table <a href="ratings-paradigm.html#tab:ratings-paradigm-example-table">4.1</a>. This is because such a transformation leaves the ordering of the ratings unaltered and hence results in the same operating points. While the distributions for <span class="math inline">\(Y\)</span> will not be binormal (i.e., two independent normal distributions), one can safely “pretend” that one is still dealing with an underlying binormal model. An alternative way of stating this is that any pair of distributions is allowed as long as they are reducible to a binormal model form by a monotonic increasing transformation of Y: e.g., <span class="math inline">\(Z=f^{-1}\)</span>. [If <span class="math inline">\(f\)</span> is a monotone increasing function of its argument, so is <span class="math inline">\(f^{-1}\)</span>}.] For this reason, the term “pair of latent underlying normal distributions” is sometimes used to describe the binormal model. The robustness of the binormal model has been investigated <span class="citation">(<a href="#ref-hanley1988robustness" role="doc-biblioref">Hanley 1988</a>; <a href="#ref-dorfman1997proper" role="doc-biblioref">Dorfman et al. 1997</a>)</span>. The referenced paper by Dorfman et al has an excellent discussion of the robustness of the binormal model.</p>
 <p>The robustness of the binormal model, i.e., the flexibility allowed by the infinite choices of monotonic increasing functions, application of each of which leaves the ordering of the data unaltered, is widely misunderstood. The non-Gaussian appearance of histograms of ratings in ROC studies can lead one to incorrect conclusions that the binormal model is inapplicable to these datasets. To quote a reviewer of one of my recent papers:</p>
 <blockquote>
 <p>I have had multiple encounters with statisticians who do not understand this difference…. They show me histograms of data, and tell me that the data is obviously not normal, therefore the binormal model should not be used.</p>
@@ -637,51 +696,51 @@ pdf_D\left ( \zeta \right ) &amp;= b\phi\left ( b\zeta-a \right ) \\
 </ul>
 <p><strong>Visual examination of the shape of the histograms of ratings, or standard tests for normality, yield little, if any, insight into whether the underlying binormal model assumptions are being violated.</strong></p>
 </div>
-<div id="binormal-model-full-auc" class="section level2 hasAnchor">
+<div id="binormal-model-full-auc" class="section level2 hasAnchor" number="6.7">
 <h2><span class="header-section-number">6.7</span> Az and d-prime measures<a href="binormal-model.html#binormal-model-full-auc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The (full) area under the ROC, denoted <span class="math inline">\(A_z\)</span>, is derived in <span class="citation">(Thompson and Zucchini <a href="#ref-thompson1989statistical" role="doc-biblioref">1989</a>)</span>:</p>
-<p><span class="math display" id="eq:binormal-model-ab-2az">\[\begin{equation} 
+<p>The (full) area under the ROC, denoted <span class="math inline">\(A_z\)</span>, is derived in <span class="citation">(<a href="#ref-thompson1989statistical" role="doc-biblioref">Thompson and Zucchini 1989</a>)</span>:</p>
+<p><span class="math display" id="eq:binormal-model-ab-2az">\[\begin{equation}
 A_z=\Phi\left ( \frac{a}{\sqrt{1+b^2}} \right )=\Phi\left ( \frac{\mu}{\sqrt{1+\sigma^2}} \right )
 \tag{6.19}
 \end{equation}\]</span></p>
 <p>The binormal fitted AUC increases as <span class="math inline">\(a\)</span> increases or as <span class="math inline">\(b\)</span> decreases. Equivalently, it increases as <span class="math inline">\(\mu\)</span> increases or as <span class="math inline">\(\sigma\)</span> decreases.</p>
 <p>The reason for the name <span class="math inline">\(A_z\)</span> is that historically (prior to maximum likelihood estimation) this quantity was estimated by converting the probabilities FPF and TPF to <em>z-deviates</em> (see TBA), which of-course assumes normal distributions. The z-subscript is meant to emphasize that this is a binormal model derived estimate.</p>
 <p>The <span class="math inline">\(d&#39;\)</span> parameter is defined as the separation of two unit-variance normal distributions yielding the same AUC as that predicted by the <span class="math inline">\((a,b)\)</span> parameter binormal model. It is defined by:</p>
-<p><span class="math display" id="eq:binormal-model-ab-2dprime">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-model-ab-2dprime">\[\begin{equation}
 d&#39;=\sqrt{2}\Phi^{-1}\left ( A_z \right )
 \tag{6.20}
 \end{equation}\]</span></p>
 <p>The d’ index can be regarded as a perceptual signal-to-noise-ratio.</p>
 </div>
-<div id="binormal-model-fitting" class="section level2 hasAnchor">
+<div id="binormal-model-fitting" class="section level2 hasAnchor" number="6.8">
 <h2><span class="header-section-number">6.8</span> Fitting the binormal model<a href="binormal-model.html#binormal-model-fitting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><span class="citation">(Dorfman and Alf Jr <a href="#ref-dorfman1969maximum" role="doc-biblioref">1969</a>)</span> were the first to fit ratings data to the binormal model. The details of the procedure are in Appendix <a href="binormal-model.html#binormal-model-curve-fitting">6.12</a>. While historically very important in showing how statistically valid quantitative analysis is possible using ROC ratings data, the fitting procedure suffers from what are termed “degeneracy issues” and “fitting artifacts” discussed in Appendix <a href="binormal-model.html#binormal-model-degeneracy-artifacts">6.14</a>. Degeneracy is when the fitting procedure yields unreasonable parameter values. Fitting artifacts occur when the fitted curve predicts worse than chance level performance in some region of the fitted ROC curve. Because of these issues usage of this method is now discouraged as it has largely been supplanted by other software such as the CBM fitting method, the proper ROC fitting method implemented in PROPROC and the RSM (radiological search model) based fitting method. These are discussed in later chapters.</p>
+<p><span class="citation">(<a href="#ref-dorfman1969maximum" role="doc-biblioref">Dorfman and Alf Jr 1969</a>)</span> were the first to fit ratings data to the binormal model. The details of the procedure are in Appendix <a href="binormal-model.html#binormal-model-curve-fitting">6.12</a>. While historically very important in showing how statistically valid quantitative analysis is possible using ROC ratings data, the fitting procedure suffers from what are termed “degeneracy issues” and “fitting artifacts” discussed in Appendix <a href="binormal-model.html#binormal-model-degeneracy-artifacts">6.14</a>. Degeneracy is when the fitting procedure yields unreasonable parameter values. Fitting artifacts occur when the fitted curve predicts worse than chance level performance in some region of the fitted ROC curve. Because of these issues usage of this method is now discouraged as it has largely been supplanted by other software such as the CBM fitting method, the proper ROC fitting method implemented in PROPROC and the RSM (radiological search model) based fitting method. These are discussed in later chapters.</p>
 </div>
-<div id="binormal-model-partial-auc" class="section level2 hasAnchor">
+<div id="binormal-model-partial-auc" class="section level2 hasAnchor" number="6.9">
 <h2><span class="header-section-number">6.9</span> Partial AUC measures<a href="binormal-model.html#binormal-model-partial-auc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Two partial AUC measures have been defined. The idea is to have an AUC-like measure that emphasizes some region of the ROC curve, one that is argued to be clinically more significant, instead of <span class="math inline">\(A_z\)</span> which characterizes the whole curve. In the following two definitions are considered, one that emphasizes the high specificity region of the ROC curve and one which emphasizes the high sensitivity region of the curve.</p>
 <p>Shorthand: denote <span class="math inline">\(A \equiv A_z\)</span>, <span class="math inline">\(x \equiv \text{FPF}\)</span> and <span class="math inline">\(y \equiv \text{TPF}\)</span>. The two partial AUC measures correspond to a partial integral along the x-axis starting from the origin (high specificity) and the other to a partial integral along the y-axis ending at (1,1) corresponding to high sensitivity. These are denoted by X and Y superscripts.</p>
-<div id="binormal-model-meaning-partial-auc-definitions" class="section level3 hasAnchor">
+<div id="binormal-model-meaning-partial-auc-definitions" class="section level3 hasAnchor" number="6.9.1">
 <h3><span class="header-section-number">6.9.1</span> Measure emphasizing high specificity<a href="binormal-model.html#binormal-model-meaning-partial-auc-definitions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The partial area under the ROC, <span class="math inline">\(A_c^{X}\)</span>, is defined as that extending from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = c\)</span>, where <span class="math inline">\(0 \le c \le 1\)</span> (in our notation <span class="math inline">\(c\)</span> always means a cutoff on the x-axis of the ROC):</p>
-<p><span class="math display" id="eq:binormal-model-partial-area-a1">\[\begin{equation} 
-\left. 
+<p><span class="math display" id="eq:binormal-model-partial-area-a1">\[\begin{equation}
+\left.
 \begin{aligned}
-A_c^{X} &amp;= \int_{x=0}^{x=c} y \, dx 
-\\&amp;=  \int_{x=0}^{x=c} \Phi\left ( a + b \; \Phi^{-1} \left ( x \right ) \right ) \, dx 
+A_c^{X} &amp;= \int_{x=0}^{x=c} y \, dx
+\\&amp;=  \int_{x=0}^{x=c} \Phi\left ( a + b \; \Phi^{-1} \left ( x \right ) \right ) \, dx
 \end{aligned}
 \right \}
 \tag{6.21}
 \end{equation}\]</span></p>
 <p>The second form follows from Eqn. <a href="binormal-model.html#eq:binormal-model-roc-curve-tpf-fpf">(6.13)</a>.</p>
-<p><span class="citation">(Thompson and Zucchini <a href="#ref-thompson1989statistical" role="doc-biblioref">1989</a>)</span> derive a formula for the partial-area in terms of the binormal model parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>:</p>
+<p><span class="citation">(<a href="#ref-thompson1989statistical" role="doc-biblioref">Thompson and Zucchini 1989</a>)</span> derive a formula for the partial-area in terms of the binormal model parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>:</p>
 <p><span class="math display" id="eq:binormal-model-partial-area-final">\[\begin{equation}
 A_c^{X} = \int_{z_2=-\infty}^{\Phi^{-1}\left ( c \right )}   \int_{z_1=-\infty}^{\frac{a}{\sqrt{1+b^2}}} \phi\left ( z_1,z_2;\rho \right ) dz_1dz_2
 \tag{6.22}
 \end{equation}\]</span></p>
 <p>On the right hand side the integrand <span class="math inline">\(\phi\left ( z_1,z_2;\rho \right )\)</span> is the standard bivariate normal density function with correlation coefficient <span class="math inline">\(\rho\)</span>. It is defined by:</p>
 <p><span class="math display" id="eq:binormal-model-bivariate-density">\[\begin{equation}
-\left. 
+\left.
 \begin{aligned}
 \phi\left (z_1,z_2;\rho \right ) &amp;= \frac{1}{2 \pi \sqrt{1-\rho^2}} \exp\left ( -\frac{z_1^2 -2\rho z_1 z_2 +z_2^2}{2\left ( 1-\rho^2 \right )} \right ) \\
 \rho &amp;= - \frac{b}{\sqrt{1+b^2}}
@@ -699,11 +758,11 @@ A_c^{XN} = \frac{A_c^{X}}{\text{TPF}\left ( c \right ) \times c}
 \tag{6.24}
 \end{equation}\]</span></p>
 </div>
-<div id="binormal-model-metz-partial-auc" class="section level3 hasAnchor">
+<div id="binormal-model-metz-partial-auc" class="section level3 hasAnchor" number="6.9.2">
 <h3><span class="header-section-number">6.9.2</span> Measure emphasizing high sensitivity<a href="binormal-model.html#binormal-model-metz-partial-auc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Since the integral in Eqn. <a href="binormal-model.html#eq:binormal-model-partial-area-a1">(6.21)</a> is from <span class="math inline">\(x = 0\)</span> to <span class="math inline">\(x = c\)</span> this partial AUC measure emphasizes the <em>high specificity</em> region of the ROC curve (since <span class="math inline">\(x = 0\)</span> corresponds to unit, i.e. highest, specificity).</p>
-<p>An alternative partial AUC measure has been defined <span class="citation">(Jiang, Metz, and Nishikawa <a href="#ref-jiang1996receiver" role="doc-biblioref">1996</a>)</span> that emphasizes the <em>high sensitivity</em> region of the ROC as follows:</p>
-<p><span class="math display" id="eq:binormal-model-partial-area-ac-metz">\[\begin{equation} 
+<p>An alternative partial AUC measure has been defined <span class="citation">(<a href="#ref-jiang1996receiver" role="doc-biblioref">Jiang, Metz, and Nishikawa 1996</a>)</span> that emphasizes the <em>high sensitivity</em> region of the ROC as follows:</p>
+<p><span class="math display" id="eq:binormal-model-partial-area-ac-metz">\[\begin{equation}
 A_c^{Y} = \int_{y=\text{TPF}(c)}^{y=1} \left (1-x  \right ) \, dy
 \tag{6.25}
 \end{equation}\]</span></p>
@@ -717,7 +776,7 @@ A_c^{YN} = \frac{A_c^{Y}}{\left (1 - \text{TPF}(c)  \right ) \times \left (1-c  
 <p>An ROC curve can be defined over the truncated dataset where all z-samples <strong>greater</strong> than <span class="math inline">\(-\Phi^{-1}(c)\)</span> are ignored. <strong><span class="math inline">\(A_c^{YN}\)</span> is the classification accuracy between diseased and non-diseased cases measured over the truncated dataset.</strong> By definition the normalized area ranges between 0 and 1.</p>
 </blockquote>
 </div>
-<div id="binormal-model-metz-partial-auc-example" class="section level3 hasAnchor">
+<div id="binormal-model-metz-partial-auc-example" class="section level3 hasAnchor" number="6.9.3">
 <h3><span class="header-section-number">6.9.3</span> Numerical examples<a href="binormal-model.html#binormal-model-metz-partial-auc-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Fig. <a href="binormal-model.html#fig:binormal-model-partial-areas">6.3</a> shows the two un-normalized areas.</p>
 <div class="figure"><span style="display:block;" id="fig:binormal-model-partial-areas"></span>
@@ -726,40 +785,40 @@ A_c^{YN} = \frac{A_c^{Y}}{\left (1 - \text{TPF}(c)  \right ) \times \left (1-c  
 FIGURE 6.3: Un-normalized partial AUC measures: the blue shaded area is <span class="math inline">\(A_c^{X}\)</span>, the partial area below the ROC; the green shaded area is <span class="math inline">\(A_c^{Y}\)</span> the partial area above the ROC. Parameters are <span class="math inline">\(a = 1.8\)</span>, <span class="math inline">\(b = 1\)</span> and <span class="math inline">\(c = 0.3\)</span>.
 </p>
 </div>
-<p>The following code illustrates calculation of the partial-area measure using the function <code>pmvnorm</code> in the <code>R</code> package <code>mvtnorm</code> <span class="citation">(Genz et al. <a href="#ref-R-mvtnorm" role="doc-biblioref">2021</a>)</span>. The parameter values were: <span class="math inline">\(a = 1.8\)</span>, <span class="math inline">\(b = 1\)</span> and <span class="math inline">\(c = 0.3\)</span> (see lines 1-3 below).</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb16-1"><a href="binormal-model.html#cb16-1"></a>a &lt;-<span class="st"> </span><span class="fl">1.8</span></span>
-<span id="cb16-2"><a href="binormal-model.html#cb16-2"></a>b &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb16-3"><a href="binormal-model.html#cb16-3"></a>fpf_c &lt;-<span class="st"> </span><span class="fl">0.3</span> <span class="co"># cannot use c as variable name</span></span>
-<span id="cb16-4"><a href="binormal-model.html#cb16-4"></a>tpf_c &lt;-<span class="st"> </span><span class="kw">pnorm</span>(a <span class="op">+</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span><span class="kw">qnorm</span>(fpf_c))</span>
-<span id="cb16-5"><a href="binormal-model.html#cb16-5"></a>A_z &lt;-<span class="st"> </span><span class="kw">pnorm</span>(a<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>b<span class="op">^</span><span class="dv">2</span>))</span>
-<span id="cb16-6"><a href="binormal-model.html#cb16-6"></a>rho &lt;-<span class="st"> </span><span class="op">-</span>b<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>b<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb16-7"><a href="binormal-model.html#cb16-7"></a>Lower1 &lt;-<span class="st"> </span><span class="op">-</span><span class="ot">Inf</span></span>
-<span id="cb16-8"><a href="binormal-model.html#cb16-8"></a>Upper1 &lt;-<span class="st"> </span><span class="kw">qnorm</span>(fpf_c)</span>
-<span id="cb16-9"><a href="binormal-model.html#cb16-9"></a>Lower2 &lt;-<span class="st"> </span><span class="op">-</span><span class="ot">Inf</span></span>
-<span id="cb16-10"><a href="binormal-model.html#cb16-10"></a>Upper2 &lt;-<span class="st"> </span>a<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">1</span><span class="op">+</span>b<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb16-11"><a href="binormal-model.html#cb16-11"></a>sigma &lt;-<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, rho), <span class="kw">c</span>(rho, <span class="dv">1</span>))</span>
-<span id="cb16-12"><a href="binormal-model.html#cb16-12"></a>A_x &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">pmvnorm</span>(</span>
-<span id="cb16-13"><a href="binormal-model.html#cb16-13"></a>  <span class="kw">c</span>(Lower1, Lower2), </span>
-<span id="cb16-14"><a href="binormal-model.html#cb16-14"></a>  <span class="kw">c</span>(Upper1, Upper2), </span>
-<span id="cb16-15"><a href="binormal-model.html#cb16-15"></a>  <span class="dt">sigma =</span> sigma))</span>
+<p>The following code illustrates calculation of the partial-area measure using the function <code>pmvnorm</code> in the <code>R</code> package <code>mvtnorm</code> <span class="citation">(<a href="#ref-R-mvtnorm" role="doc-biblioref">Genz et al. 2021</a>)</span>. The parameter values were: <span class="math inline">\(a = 1.8\)</span>, <span class="math inline">\(b = 1\)</span> and <span class="math inline">\(c = 0.3\)</span> (see lines 1-3 below).</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb16-1"><a href="binormal-model.html#cb16-1"></a>a <span class="ot">&lt;-</span> <span class="fl">1.8</span></span>
+<span id="cb16-2"><a href="binormal-model.html#cb16-2"></a>b <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb16-3"><a href="binormal-model.html#cb16-3"></a>fpf_c <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="co"># cannot use c as variable name</span></span>
+<span id="cb16-4"><a href="binormal-model.html#cb16-4"></a>tpf_c <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(a <span class="sc">+</span> b <span class="sc">*</span> <span class="fu">qnorm</span>(fpf_c))</span>
+<span id="cb16-5"><a href="binormal-model.html#cb16-5"></a>A_z <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(a<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">+</span>b<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb16-6"><a href="binormal-model.html#cb16-6"></a>rho <span class="ot">&lt;-</span> <span class="sc">-</span>b<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">+</span>b<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb16-7"><a href="binormal-model.html#cb16-7"></a>Lower1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="cn">Inf</span></span>
+<span id="cb16-8"><a href="binormal-model.html#cb16-8"></a>Upper1 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(fpf_c)</span>
+<span id="cb16-9"><a href="binormal-model.html#cb16-9"></a>Lower2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="cn">Inf</span></span>
+<span id="cb16-10"><a href="binormal-model.html#cb16-10"></a>Upper2 <span class="ot">&lt;-</span> a<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">+</span>b<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb16-11"><a href="binormal-model.html#cb16-11"></a>sigma <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, rho), <span class="fu">c</span>(rho, <span class="dv">1</span>))</span>
+<span id="cb16-12"><a href="binormal-model.html#cb16-12"></a>A_x <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">pmvnorm</span>(</span>
+<span id="cb16-13"><a href="binormal-model.html#cb16-13"></a>  <span class="fu">c</span>(Lower1, Lower2), </span>
+<span id="cb16-14"><a href="binormal-model.html#cb16-14"></a>  <span class="fu">c</span>(Upper1, Upper2), </span>
+<span id="cb16-15"><a href="binormal-model.html#cb16-15"></a>  <span class="at">sigma =</span> sigma))</span>
 <span id="cb16-16"><a href="binormal-model.html#cb16-16"></a></span>
 <span id="cb16-17"><a href="binormal-model.html#cb16-17"></a><span class="co"># divide by area of rectangle</span></span>
-<span id="cb16-18"><a href="binormal-model.html#cb16-18"></a>A_xn &lt;-<span class="st"> </span>A_x<span class="op">/</span>fpf_c<span class="op">/</span>tpf_c</span></code></pre></div>
+<span id="cb16-18"><a href="binormal-model.html#cb16-18"></a>A_xn <span class="ot">&lt;-</span> A_x<span class="sc">/</span>fpf_c<span class="sc">/</span>tpf_c</span></code></pre></div>
 <p>The function <code>pmvnorm</code> is called at line 12. The un-normalized partial-area measure <span class="math inline">\(A_c^{X}\)</span> = 0.216. The corresponding full AUC measure is <span class="math inline">\(A_z\)</span> = 0.898. The normalized measure is <span class="math inline">\(A_c^{XN}\)</span> = 0.802. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples smaller than <span class="math inline">\(-\Phi^{-1}(c)\)</span> = 0.524. This measure emphasizes specificity.</p>
 <p><span class="math inline">\(A_c^{Y}\)</span> can be calculated using geometry. One subtracts <span class="math inline">\(A_c^{X}\)</span> from <span class="math inline">\(A_z\)</span> to get the area under the ROC to the right of <span class="math inline">\(\text{FPF}=c\)</span>. Next one subtracts from this quantity the area of the rectangle with base <span class="math inline">\((1 - c)\)</span> and height <span class="math inline">\(\text{TPF}_c\)</span>. This yields the area if the green shaded region <span class="math inline">\(A_c^{Y}\)</span>. To normalize it one divides by the area of the rectangle defined by the corner points <span class="math inline">\((c,\text{TPF}_c)\)</span> and (1,1).</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="binormal-model.html#cb17-1"></a><span class="co"># implement geometrical logic</span></span>
-<span id="cb17-2"><a href="binormal-model.html#cb17-2"></a>A_y &lt;-<span class="st"> </span>(A_z <span class="op">-</span><span class="st"> </span>A_x)<span class="op">-</span>(<span class="dv">1</span><span class="op">-</span>fpf_c)<span class="op">*</span>(tpf_c)</span>
-<span id="cb17-3"><a href="binormal-model.html#cb17-3"></a>A_yn &lt;-<span class="st"> </span>A_y<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>tpf_c)<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>fpf_c) </span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="binormal-model.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># implement geometrical logic</span></span>
+<span id="cb17-2"><a href="binormal-model.html#cb17-2" aria-hidden="true" tabindex="-1"></a>A_y <span class="ot">&lt;-</span> (A_z <span class="sc">-</span> A_x)<span class="sc">-</span>(<span class="dv">1</span><span class="sc">-</span>fpf_c)<span class="sc">*</span>(tpf_c)</span>
+<span id="cb17-3"><a href="binormal-model.html#cb17-3" aria-hidden="true" tabindex="-1"></a>A_yn <span class="ot">&lt;-</span> A_y<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>tpf_c)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>fpf_c) </span></code></pre></div>
 <p>The un-normalized partial-area measure <span class="math inline">\(A_c^{Y}\)</span> = 0.053. The normalized measure is <span class="math inline">\(A_c^{YN}\)</span> = 0.748. This is the classification accuracy between non-diseased and diseased cases in the truncated dataset defined by ignoring cases with z-samples greater than <span class="math inline">\(-\Phi^{-1}(c)\)</span> = 0.524. This measure emphasizes sensitivity.</p>
 <p>The variation with <span class="math inline">\(a\)</span> of the two normalized AUC measures is shown next. The function <code>normalizedAreas</code> encapsulates the above calculations and is called for different values of <span class="math inline">\(a\)</span>.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="binormal-model.html#cb18-1"></a>a_arr =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>)</span>
-<span id="cb18-2"><a href="binormal-model.html#cb18-2"></a>A_xn_arr &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">length</span>(a_arr))</span>
-<span id="cb18-3"><a href="binormal-model.html#cb18-3"></a>A_yn_arr &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">length</span>(a_arr))</span>
-<span id="cb18-4"><a href="binormal-model.html#cb18-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(a_arr)) {</span>
-<span id="cb18-5"><a href="binormal-model.html#cb18-5"></a>  x &lt;-<span class="st"> </span><span class="kw">normalizedAreas</span>(a_arr[i], <span class="dv">1</span>, <span class="fl">0.1</span>) <span class="co"># c = 0.1</span></span>
-<span id="cb18-6"><a href="binormal-model.html#cb18-6"></a>  A_xn_arr[i] &lt;-<span class="st"> </span>x<span class="op">$</span>A_xn</span>
-<span id="cb18-7"><a href="binormal-model.html#cb18-7"></a>  A_yn_arr[i] &lt;-<span class="st"> </span>x<span class="op">$</span>A_yn</span>
-<span id="cb18-8"><a href="binormal-model.html#cb18-8"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="binormal-model.html#cb18-1" aria-hidden="true" tabindex="-1"></a>a_arr <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">8</span>)</span>
+<span id="cb18-2"><a href="binormal-model.html#cb18-2" aria-hidden="true" tabindex="-1"></a>A_xn_arr <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="at">dim =</span> <span class="fu">length</span>(a_arr))</span>
+<span id="cb18-3"><a href="binormal-model.html#cb18-3" aria-hidden="true" tabindex="-1"></a>A_yn_arr <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="at">dim =</span> <span class="fu">length</span>(a_arr))</span>
+<span id="cb18-4"><a href="binormal-model.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(a_arr)) {</span>
+<span id="cb18-5"><a href="binormal-model.html#cb18-5" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">normalizedAreas</span>(a_arr[i], <span class="dv">1</span>, <span class="fl">0.1</span>) <span class="co"># c = 0.1</span></span>
+<span id="cb18-6"><a href="binormal-model.html#cb18-6" aria-hidden="true" tabindex="-1"></a>  A_xn_arr[i] <span class="ot">&lt;-</span> x<span class="sc">$</span>A_xn</span>
+<span id="cb18-7"><a href="binormal-model.html#cb18-7" aria-hidden="true" tabindex="-1"></a>  A_yn_arr[i] <span class="ot">&lt;-</span> x<span class="sc">$</span>A_yn</span>
+<span id="cb18-8"><a href="binormal-model.html#cb18-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <table>
 <caption>
 <span id="tab:summary-table-partial-normalized-areas">TABLE 6.1: </span>Summary of normalized <span class="math inline">\(A_c^{XN}\)</span> and <span class="math inline">\(A_c^{YN}\)</span> partial AUCs for different values of the <span class="math inline">\(a\)</span> parameter, where <span class="math inline">\(b = 1\)</span> and <span class="math inline">\(c = 0.1\)</span>.
@@ -882,67 +941,67 @@ FIGURE 6.3: Un-normalized partial AUC measures: the blue shaded area is <span cl
 <p>Table <a href="binormal-model.html#tab:summary-table-partial-normalized-areas">6.1</a> shows <span class="math inline">\(A_c^{XN}\)</span> and <span class="math inline">\(A_c^{YN}\)</span> partial AUCs for different values of the <span class="math inline">\(a\)</span> parameter for <span class="math inline">\(b = 1\)</span> and <span class="math inline">\(c = 0.1\)</span>. It demonstrates that the normalized areas are constrained between 0.5 and 1 (as long as <span class="math inline">\(a\)</span> in non-negative). For numerical reasons (basically a zero-divided-by-zero condition) it is difficult to show that <span class="math inline">\(A_c^{YN}\)</span> approaches 1 in the limit of very large a-parameter (since the green shaded area shrinks to zero).</p>
 </div>
 </div>
-<div id="binormal-model-partial-auc-comments" class="section level2 hasAnchor">
+<div id="binormal-model-partial-auc-comments" class="section level2 hasAnchor" number="6.10">
 <h2><span class="header-section-number">6.10</span> Comments on partial AUC measures<a href="binormal-model.html#binormal-model-partial-auc-comments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are several issues with the adoption of either partial AUC measure.</p>
 <ol style="list-style-type: decimal">
 <li><p>Since a partial area measure corresponds to classification accuracy measured over a <strong>truncated</strong> dataset a fundamental correspondence between <span class="math inline">\(A_z\)</span> and classification accuracy measured over the <strong>entire</strong> dataset is lost. A basic statistical principle of the desirability of an estimate valid for the entire population is being violated.</p></li>
-<li><p>The choice of the truncation cutoff is arbitrary and subject to bias on the part of the investigator. This is similar to the type of bias that is inherent in a single point (sensitivity-specificity) based approach to analysis: this was the very reason for adoption of a measure such as <span class="math inline">\(A_z\)</span> that averages over the whole curve, as argued so eloquently in <span class="citation">(Metz <a href="#ref-metz1978rocmethodology" role="doc-biblioref">1978</a>)</span>.</p></li>
+<li><p>The choice of the truncation cutoff is arbitrary and subject to bias on the part of the investigator. This is similar to the type of bias that is inherent in a single point (sensitivity-specificity) based approach to analysis: this was the very reason for adoption of a measure such as <span class="math inline">\(A_z\)</span> that averages over the whole curve, as argued so eloquently in <span class="citation">(<a href="#ref-metz1978rocmethodology" role="doc-biblioref">C. E. Metz 1978</a>)</span>.</p></li>
 <li><p>Then there is the issue of possible loss of statistical power. If <span class="math inline">\(A_z\)</span> is estimated from the whole dataset and either Eqn. <a href="binormal-model.html#eq:binormal-model-normalized-partial-auc-specificity">(6.24)</a> or Eqn. <a href="binormal-model.html#eq:binormal-model-normalized-partial-auc-sensitivity">(6.26)</a> is used to estimate partial AUC, then one expects no loss in statistical power, as these equations represent noiseless mathematical transformations using the <span class="math inline">\((a,b)\)</span> parameters estimated over the entire dataset. However, if an empirical partial AUC measure is used there will surely be loss of statistical power resulting from ignoring some of the data. Due to degeneracy issues usage of the empirical partial AUC is often unavoidable. This is because performing significance testing requires that the dataset be re-sampled many times and the parametric fit may not work every time.</p></li>
 </ol>
-<p>The second point is illustrated by the study reported in <span class="citation">(Jiang, Metz, and Nishikawa <a href="#ref-jiang1996receiver" role="doc-biblioref">1996</a>)</span>. The ROC curves of a developmental-stage CAD system and that of radiologists cross each other: at high specificity the radiologists were better but the reverse was true at high sensitivity. By choosing the latter region the authors demonstrated statistically significant superiority of CAD over radiologists. Analysis using <span class="math inline">\(A_z\)</span> failed to reach statistical significance.</p>
-<p>Two very large clinical studies <span class="citation">(Fenton et al. <a href="#ref-fenton2007influence" role="doc-biblioref">2007</a>, @fenton2011effectiveness)</span> using 222,135 and 684,956 women, respectively, showed that a commercial CAD can actually have a detrimental effect on patient outcome<span class="citation">(Philpotts <a href="#ref-philpotts2009can" role="doc-biblioref">2009</a>)</span>. A more recent study has confirmed the negative view of the efficacy of CAD<span class="citation">(Lehman et al. <a href="#ref-lehman2015diagnostic" role="doc-biblioref">2015</a>)</span> and there has even been a call for ending Medicare reimbursement for CAD interpretations<span class="citation">(Fenton <a href="#ref-fenton2015time" role="doc-biblioref">2015</a>)</span>. I have not followed the field since ca. 2016 and it is likely that newer versions of CAD now being used in the clinic are better than those evaluated in the cited studies. But the point is that even using a ca. 1996 developmental-stage CAD the authors were able to claim, using a partial AUC measure, that CAD outperformed radiologists, a result clearly not borne out by later large clinical studies while the <span class="math inline">\(A_z\)</span> measure did not allow this conclusion.</p>
+<p>The second point is illustrated by the study reported in <span class="citation">(<a href="#ref-jiang1996receiver" role="doc-biblioref">Jiang, Metz, and Nishikawa 1996</a>)</span>. The ROC curves of a developmental-stage CAD system and that of radiologists cross each other: at high specificity the radiologists were better but the reverse was true at high sensitivity. By choosing the latter region the authors demonstrated statistically significant superiority of CAD over radiologists. Analysis using <span class="math inline">\(A_z\)</span> failed to reach statistical significance.</p>
+<p>Two very large clinical studies <span class="citation">Fenton et al. (<a href="#ref-fenton2011effectiveness" role="doc-biblioref">2011</a>)</span> using 222,135 and 684,956 women, respectively, showed that a commercial CAD can actually have a detrimental effect on patient outcome<span class="citation">(<a href="#ref-philpotts2009can" role="doc-biblioref">Philpotts 2009</a>)</span>. A more recent study has confirmed the negative view of the efficacy of CAD<span class="citation">(<a href="#ref-lehman2015diagnostic" role="doc-biblioref">Lehman et al. 2015</a>)</span> and there has even been a call for ending Medicare reimbursement for CAD interpretations<span class="citation">(<a href="#ref-fenton2015time" role="doc-biblioref">Fenton 2015</a>)</span>. I have not followed the field since ca. 2016 and it is likely that newer versions of CAD now being used in the clinic are better than those evaluated in the cited studies. But the point is that even using a ca. 1996 developmental-stage CAD the authors were able to claim, using a partial AUC measure, that CAD outperformed radiologists, a result clearly not borne out by later large clinical studies while the <span class="math inline">\(A_z\)</span> measure did not allow this conclusion.</p>
 </div>
-<div id="binormal-model-discussion" class="section level2 hasAnchor">
+<div id="binormal-model-discussion" class="section level2 hasAnchor" number="6.11">
 <h2><span class="header-section-number">6.11</span> Discussion<a href="binormal-model.html#binormal-model-discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The binormal model is historically very important and the contribution by Dorfman and Alf <span class="citation">(Dorfman and Alf Jr <a href="#ref-dorfman1969maximum" role="doc-biblioref">1969</a>)</span> was seminal. Prior to their work, there was no statistically valid way of estimating AUC from observed ratings counts. Their work and a key paper <span class="citation">(Lusted <a href="#ref-RN1487" role="doc-biblioref">1971</a>)</span> accelerated research using ROC methods. The number of publications using their algorithm, and the more modern versions developed by Metz and colleagues, is probably well in excess of 500. Because of its key role, I have endeavored to take out some of the mystery about how the binormal model parameters are estimated. In particular, a common misunderstanding that the binormal model assumptions are violated by real datasets, when in fact it is quite robust to apparent deviations from normality, is addressed (details are in Section <a href="binormal-model.html#binormal-model-invariance-property">6.6</a>).</p>
+<p>The binormal model is historically very important and the contribution by Dorfman and Alf <span class="citation">(<a href="#ref-dorfman1969maximum" role="doc-biblioref">Dorfman and Alf Jr 1969</a>)</span> was seminal. Prior to their work, there was no statistically valid way of estimating AUC from observed ratings counts. Their work and a key paper <span class="citation">(<a href="#ref-RN1487" role="doc-biblioref">Lusted 1971</a>)</span> accelerated research using ROC methods. The number of publications using their algorithm, and the more modern versions developed by Metz and colleagues, is probably well in excess of 500. Because of its key role, I have endeavored to take out some of the mystery about how the binormal model parameters are estimated. In particular, a common misunderstanding that the binormal model assumptions are violated by real datasets, when in fact it is quite robust to apparent deviations from normality, is addressed (details are in Section <a href="binormal-model.html#binormal-model-invariance-property">6.6</a>).</p>
 <p>A good understanding of this chapter should enable the reader to better understand alternative ROC models, discussed later.</p>
 <p>To this day the binormal model is widely used to fit ROC datasets. In spite of its limitations, the binormal model has been very useful in bringing a level of quantification to this field that did not exist prior to 1969.</p>
 </div>
-<div id="binormal-model-curve-fitting" class="section level2 hasAnchor">
+<div id="binormal-model-curve-fitting" class="section level2 hasAnchor" number="6.12">
 <h2><span class="header-section-number">6.12</span> Appendix: Fitting an ROC curve<a href="binormal-model.html#binormal-model-curve-fitting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One aim of this chapter is to demystify statistical curve fitting. With the passing of Profs. Donald Dorfman, Charles Metz and Richard Swensson, parametric modeling is much neglected. Researchers have instead focused on non-parametric analysis using the empirical AUC defined in Chapter <a href="empirical-auc.html#empirical-auc">5</a>. A claimed advantage (overstated in my opinion, see Section <a href="binormal-model.html#binormal-model-invariance-property">6.6</a>) of non-parametric analysis is the absence of distributional assumptions. Non-parametric analysis yields no insight into what is limiting performance. Binormal model based curve fitting described in this chapter will allow the reader to appreciate a later chapter (see RSM fitting chapter in <code>RJafrocFrocBook</code>) that describes a more complex fitting method which yields important insights into the factors limiting human observer (or artificial intelligence algorithm) performance.</p>
-<div id="java-fitted-roc-curve" class="section level3 hasAnchor">
+<div id="java-fitted-roc-curve" class="section level3 hasAnchor" number="6.12.1">
 <h3><span class="header-section-number">6.12.1</span> JAVA fitted ROC curve<a href="binormal-model.html#java-fitted-roc-curve" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This section, described in the physical book, has been abbreviated to a <a href="http://www.rad.jhmi.edu/jeng/javarad/roc/JROCFITi.html">relevant website</a>.</p>
 </div>
-<div id="simplistic-straight-line-fit-to-the-roc-curve" class="section level3 hasAnchor">
+<div id="simplistic-straight-line-fit-to-the-roc-curve" class="section level3 hasAnchor" number="6.12.2">
 <h3><span class="header-section-number">6.12.2</span> Simplistic straight line fit to the ROC curve<a href="binormal-model.html#simplistic-straight-line-fit-to-the-roc-curve" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To be described next is a method for fitting data such as in Table <a href="ratings-paradigm.html#tab:ratings-paradigm-example-table">4.1</a> to the binormal model, i.e., determining the parameters <span class="math inline">\((a,b)\)</span> and the thresholds <span class="math inline">\(\zeta_r , \quad r = 1, 2, ..., R-1\)</span>, to best fit, in some to-be-defined sense, the observed cell counts. The most common method uses an algorithm called maximum likelihood. But before getting to that, I describe the least-square method, which is conceptually simpler, but not really applicable, as will be explained shortly.</p>
-<div id="least-squares-estimation" class="section level4 hasAnchor">
+<div id="least-squares-estimation" class="section level4 hasAnchor" number="6.12.2.1">
 <h4><span class="header-section-number">6.12.2.1</span> Least-squares estimation<a href="binormal-model.html#least-squares-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>By applying the function <span class="math inline">\(\Phi^{-1}\)</span> to both sides of Eqn. <a href="binormal-model.html#eq:binormal-model-roc-curve1">(6.10)</a>, one gets (the “inverse” function cancels the “forward” function on the right hand side):</p>
-<p><span class="math display">\[\begin{equation*} 
+<p><span class="math display">\[\begin{equation*}
 \Phi^{-1}\left ( \text{TPF} \right ) = a + b \Phi^{-1}\left ( FPF \right )
 \end{equation*}\]</span></p>
-<p>This suggests that a plot of <span class="math inline">\(y = \Phi^{-1}\left ( \text{TPF} \right )\)</span> vs. <span class="math inline">\(x=\Phi^{-1}\left ( FPF \right )\)</span> is expected to follow a straight line with slope <span class="math inline">\(b\)</span> and intercept <span class="math inline">\(a\)</span>. Fitting a straight line to such data is generally performed by the method of least-squares, a capability present in most software packages and spreadsheets. Alternatively, one can simply visually draw the best straight line that fits the points, memorably referred to <span class="citation">(Press et al. <a href="#ref-RN300" role="doc-biblioref">2007</a>)</span> as “chi-by-eye”. This was the way parameters of the binormal model were estimated prior to Dorfman and Alf’s work <span class="citation">(Dorfman and Alf Jr <a href="#ref-dorfman1969maximum" role="doc-biblioref">1969</a>)</span>. The least-squares method is a quantitative way of accomplishing the same aim. If <span class="math inline">\(\left ( x_t,y_t \right )\)</span> are the data points, one constructs <span class="math inline">\(S\)</span>, the sum of the squared deviations of the observed ordinates from the predicted values (since <span class="math inline">\(R\)</span> is the number of ratings bins, the summation runs over the <span class="math inline">\(R-1\)</span> operating points):</p>
-<p><span class="math display">\[\begin{equation*} 
+<p>This suggests that a plot of <span class="math inline">\(y = \Phi^{-1}\left ( \text{TPF} \right )\)</span> vs. <span class="math inline">\(x=\Phi^{-1}\left ( FPF \right )\)</span> is expected to follow a straight line with slope <span class="math inline">\(b\)</span> and intercept <span class="math inline">\(a\)</span>. Fitting a straight line to such data is generally performed by the method of least-squares, a capability present in most software packages and spreadsheets. Alternatively, one can simply visually draw the best straight line that fits the points, memorably referred to <span class="citation">(<a href="#ref-RN300" role="doc-biblioref">Press et al. 2007</a>)</span> as “chi-by-eye”. This was the way parameters of the binormal model were estimated prior to Dorfman and Alf’s work <span class="citation">(<a href="#ref-dorfman1969maximum" role="doc-biblioref">Dorfman and Alf Jr 1969</a>)</span>. The least-squares method is a quantitative way of accomplishing the same aim. If <span class="math inline">\(\left ( x_t,y_t \right )\)</span> are the data points, one constructs <span class="math inline">\(S\)</span>, the sum of the squared deviations of the observed ordinates from the predicted values (since <span class="math inline">\(R\)</span> is the number of ratings bins, the summation runs over the <span class="math inline">\(R-1\)</span> operating points):</p>
+<p><span class="math display">\[\begin{equation*}
 S  = \sum_{i=1}^{R-1}\left ( y_i - \left ( a + bx_i \right ) \right )^2
 \end{equation*}\]</span></p>
 <p>The idea is to minimize S with respect to the parameters <span class="math inline">\((a,b)\)</span>. One approach is to differentiate this with respect to <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> and equate each resulting derivate expression to zero. This yields two equations in two unknowns, which are solved for <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. If the reader has never done this before, one should go through these steps at least once, but it would be smarter in future to use software that does all this. In <code>R</code> the least-squares fitting function is <code>lm(y~x)</code>, which in its simplest form fits a linear model <code>lm(y~x)</code> using the method of least-squares (in case you are wondering <code>lm</code> stands for linear model, a whole branch of statistics in itself; in this example one is using its simplest capability).</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="binormal-model.html#cb19-1"></a><span class="co"># ML estimates of a and b (from Eng JAVA program)</span></span>
-<span id="cb19-2"><a href="binormal-model.html#cb19-2"></a><span class="co"># a &lt;- 1.3204; b &lt;- 0.6075 </span></span>
-<span id="cb19-3"><a href="binormal-model.html#cb19-3"></a><span class="co"># # these are not used in program; just here for comparison</span></span>
-<span id="cb19-4"><a href="binormal-model.html#cb19-4"></a></span>
-<span id="cb19-5"><a href="binormal-model.html#cb19-5"></a>FPF &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.017</span>, <span class="fl">0.050</span>, <span class="fl">0.183</span>, <span class="fl">0.5</span>)  </span>
-<span id="cb19-6"><a href="binormal-model.html#cb19-6"></a><span class="co"># this is from Table 6.11, last two rows</span></span>
-<span id="cb19-7"><a href="binormal-model.html#cb19-7"></a>TPF &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.440</span>, <span class="fl">0.680</span>, <span class="fl">0.780</span>, <span class="fl">0.900</span>)</span>
-<span id="cb19-8"><a href="binormal-model.html#cb19-8"></a><span class="co"># ...do...</span></span>
-<span id="cb19-9"><a href="binormal-model.html#cb19-9"></a></span>
-<span id="cb19-10"><a href="binormal-model.html#cb19-10"></a>PhiInvFPF &lt;-<span class="st"> </span><span class="kw">qnorm</span>(FPF)</span>
-<span id="cb19-11"><a href="binormal-model.html#cb19-11"></a><span class="co"># apply the PHI_INV function</span></span>
-<span id="cb19-12"><a href="binormal-model.html#cb19-12"></a>PhiInvTPF &lt;-<span class="st"> </span><span class="kw">qnorm</span>(TPF)</span>
-<span id="cb19-13"><a href="binormal-model.html#cb19-13"></a><span class="co"># ... do ... </span></span>
-<span id="cb19-14"><a href="binormal-model.html#cb19-14"></a></span>
-<span id="cb19-15"><a href="binormal-model.html#cb19-15"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(PhiInvTPF<span class="op">~</span>PhiInvFPF)</span>
-<span id="cb19-16"><a href="binormal-model.html#cb19-16"></a><span class="kw">print</span>(fit)</span>
-<span id="cb19-17"><a href="binormal-model.html#cb19-17"></a><span class="co">#&gt; </span></span>
-<span id="cb19-18"><a href="binormal-model.html#cb19-18"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb19-19"><a href="binormal-model.html#cb19-19"></a><span class="co">#&gt; lm(formula = PhiInvTPF ~ PhiInvFPF)</span></span>
-<span id="cb19-20"><a href="binormal-model.html#cb19-20"></a><span class="co">#&gt; </span></span>
-<span id="cb19-21"><a href="binormal-model.html#cb19-21"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb19-22"><a href="binormal-model.html#cb19-22"></a><span class="co">#&gt; (Intercept)    PhiInvFPF  </span></span>
-<span id="cb19-23"><a href="binormal-model.html#cb19-23"></a><span class="co">#&gt;    1.328844     0.630746</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="binormal-model.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ML estimates of a and b (from Eng JAVA program)</span></span>
+<span id="cb19-2"><a href="binormal-model.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># a &lt;- 1.3204; b &lt;- 0.6075 </span></span>
+<span id="cb19-3"><a href="binormal-model.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># # these are not used in program; just here for comparison</span></span>
+<span id="cb19-4"><a href="binormal-model.html#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="binormal-model.html#cb19-5" aria-hidden="true" tabindex="-1"></a>FPF <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.017</span>, <span class="fl">0.050</span>, <span class="fl">0.183</span>, <span class="fl">0.5</span>)  </span>
+<span id="cb19-6"><a href="binormal-model.html#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># this is from Table 6.11, last two rows</span></span>
+<span id="cb19-7"><a href="binormal-model.html#cb19-7" aria-hidden="true" tabindex="-1"></a>TPF <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.440</span>, <span class="fl">0.680</span>, <span class="fl">0.780</span>, <span class="fl">0.900</span>)</span>
+<span id="cb19-8"><a href="binormal-model.html#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ...do...</span></span>
+<span id="cb19-9"><a href="binormal-model.html#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="binormal-model.html#cb19-10" aria-hidden="true" tabindex="-1"></a>PhiInvFPF <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(FPF)</span>
+<span id="cb19-11"><a href="binormal-model.html#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># apply the PHI_INV function</span></span>
+<span id="cb19-12"><a href="binormal-model.html#cb19-12" aria-hidden="true" tabindex="-1"></a>PhiInvTPF <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(TPF)</span>
+<span id="cb19-13"><a href="binormal-model.html#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ... do ... </span></span>
+<span id="cb19-14"><a href="binormal-model.html#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="binormal-model.html#cb19-15" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(PhiInvTPF<span class="sc">~</span>PhiInvFPF)</span>
+<span id="cb19-16"><a href="binormal-model.html#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fit)</span>
+<span id="cb19-17"><a href="binormal-model.html#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-18"><a href="binormal-model.html#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb19-19"><a href="binormal-model.html#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = PhiInvTPF ~ PhiInvFPF)</span></span>
+<span id="cb19-20"><a href="binormal-model.html#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-21"><a href="binormal-model.html#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb19-22"><a href="binormal-model.html#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)    PhiInvFPF  </span></span>
+<span id="cb19-23"><a href="binormal-model.html#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    1.328844     0.630746</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:binormal-model-line-fit"></span>
 <img src="06-binormal-model_files/figure-html/binormal-model-line-fit-1.png" alt="The straight line fit method of estimating parameters of the fitting model." width="672" />
 <p class="caption">
@@ -951,48 +1010,48 @@ FIGURE 6.4: The straight line fit method of estimating parameters of the fitting
 </div>
 <p>Fig. <a href="binormal-model.html#fig:binormal-model-line-fit">6.4</a> shows operating points from Table <a href="ratings-paradigm.html#tab:ratings-paradigm-example-table">4.1</a>, transformed by the <span class="math inline">\(\Phi^{-1}\)</span> function; the slope of the line is the least-squares estimate of the <span class="math inline">\(b\)</span> parameter and the intercept is the corresponding <span class="math inline">\(a\)</span> parameter of the binormal model.</p>
 <p>The last line contains the least squares estimated values, <span class="math inline">\(a\)</span> = 1.3288 and <span class="math inline">\(b\)</span> = 0.6307. The corresponding maximum likelihood estimates of these parameters, as yielded by the Eng web code, see Appendix, are listed in line 4 of the main program: <span class="math inline">\(a\)</span> = 1.3204 and <span class="math inline">\(b\)</span> = 0.6075. The estimates appear to be close, particularly the estimate of <span class="math inline">\(a\)</span> , but there are a few things wrong with the least-squares approach. First, the method of least squares assumes that the data points are independent. Because of the manner in which they are constructed, namely by cumulating points, the independence assumption is not valid for ROC operating points. Cumulating the 4 and 5 responses constrains the resulting operating point to be above and to the right of the point obtained by cumulating the 5 responses only, so the data points are definitely not independent. Similarly, cumulating the 3, 4 and 5 responses constrains the resulting operating point to be above and to the right of the point obtained by cumulating the 4 and 5 responses, and so on. The second problem is the linear least-squares method assumes there is no error in measuring x; the only source of error that is accounted for is in the y-coordinate. In fact, both coordinates of an ROC operating point are subject to sampling error. Third, disregard of error in the x-direction is further implicit in the estimates of the thresholds, which according to Eqn. (6.2.19), is given by:</p>
-<p><span class="math display">\[\begin{equation*} 
+<p><span class="math display">\[\begin{equation*}
 \zeta_r = - \Phi^{-1}\left ( FPF_r \right )
 \end{equation*}\]</span></p>
 <p>These are “rigid” estimates that assume no error in the FPF values. As was shown in Chapter <a href="binary-task.html#binary-task">2</a>, 95% confidence intervals apply to these estimates.</p>
 <p>A historical note: prior to computers and easy access to statistical functions the analyst had to use a special plotting paper, termed “double probability paper”, that converted probabilities into x and y distances using the inverse function.</p>
 </div>
 </div>
-<div id="maximum-likelihood-estimation-mle" class="section level3 hasAnchor">
+<div id="maximum-likelihood-estimation-mle" class="section level3 hasAnchor" number="6.12.3">
 <h3><span class="header-section-number">6.12.3</span> Maximum likelihood estimation (MLE)<a href="binormal-model.html#maximum-likelihood-estimation-mle" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The approach taken by Dorfman and Alf was to maximize the likelihood function instead of S. The likelihood function is the probability of the observed data given a set of parameter values, i.e.,</p>
-<p><span class="math display">\[\begin{equation*} 
+<p><span class="math display">\[\begin{equation*}
 \text {L} \equiv P\left ( data \mid \text {parameters} \right )
 \end{equation*}\]</span></p>
 <p>Generally “data” is suppressed, so likelihood is a function of the parameters; but “data” is always implicit. With reference to Fig. 6.1, the probability of a non-diseased case yielding a count in the 2nd bin equals the area under the curve labeled “Noise” bounded by the vertical lines at <span class="math inline">\(\zeta_1\)</span> and <span class="math inline">\(\zeta_2\)</span>. In general, the probability of a non-diseased case yielding a count in the <span class="math inline">\(r^\text{th}\)</span> bin equals the area under the curve labeled “Noise” bounded by the vertical lines at <span class="math inline">\(\zeta_{r-1}\)</span> and <span class="math inline">\(\zeta_r\)</span>. Since the area to the left of a threshold is the CDF corresponding to that threshold, the required probability is <span class="math inline">\(\Phi\left ( \zeta_r \right ) - \Phi\left ( \zeta_{r-1} \right )\)</span>; we are simply subtracting two expressions for specificity, Eqn. (6.2.5).</p>
-<p><span class="math display">\[\begin{equation*} 
+<p><span class="math display">\[\begin{equation*}
 \text {count in non-diseased bin } r = \Phi\left ( \zeta_r \right ) - \Phi\left ( \zeta_{r-1} \right )
 \end{equation*}\]</span></p>
 <p>Similarly, the probability of a diseased case yielding a count in the rth bin equals the area under the curve labeled “Signal” bounded by the vertical lines at <span class="math inline">\(\zeta_{r-1}\)</span> and <span class="math inline">\(\zeta_r\)</span>. The area under the diseased distribution to the left of threshold <span class="math inline">\(\zeta_r\)</span> is the <span class="math inline">\(1 - \text{TPF}\)</span> at that threshold:</p>
-<p><span class="math display">\[\begin{equation*} 
+<p><span class="math display">\[\begin{equation*}
 1 - \Phi\left ( \frac{\mu-\zeta_r}{\sigma} \right ) = \Phi\left ( \frac{\zeta_r - \mu}{\sigma} \right )
 \end{equation*}\]</span></p>
 <p>The area between the two thresholds is:</p>
-<p><span class="math display">\[\begin{align*} 
+<p><span class="math display">\[\begin{align*}
 P\left ( \text{count in diseased bin }r \right ) &amp;= \Phi\left ( \frac{\zeta_r - \mu}{\sigma} \right ) - \Phi\left ( \frac{\zeta_{r-1} - \mu}{\sigma} \right ) \\
 &amp;= \Phi\left ( b\zeta_r-a \right ) - \Phi\left ( b\zeta_{r-1}-a \right )
 \end{align*}\]</span></p>
 <p>Let <span class="math inline">\(K_{1r}\)</span> denote the number of non-diseased cases in the rth bin, and <span class="math inline">\(K_{2r}\)</span> denotes the number of diseased cases in the rth bin. Consider the number of counts <span class="math inline">\(K_{1r}\)</span> in non-diseased case bin <span class="math inline">\(r\)</span>. Since the probability of each count is <span class="math inline">\(\Phi\left ( \zeta_{r+1} \right ) - \Phi\left ( \zeta_r \right )\)</span>, the probability of the observed number of counts, assuming the counts are independent, is <span class="math inline">\({\left(\Phi\left ( \zeta_{r+1} \right ) - \Phi\left ( \zeta_r \right ) \right )}^{K_{1r}}\)</span>. Similarly, the probability of observing counts in diseased case bin <span class="math inline">\(r\)</span> is <span class="math inline">\({\left (\Phi\left ( b\zeta_{r+1}-a \right ) - \Phi\left ( b\zeta_r-a \right ) \right )}^{K_{2r}}\)</span>, subject to the same independence assumption. The probability of simultaneously observing <span class="math inline">\(K_{1r}\)</span> counts in non-diseased case bin r and <span class="math inline">\(K_{2r}\)</span> counts in diseased case bin <span class="math inline">\(r\)</span> is the product of these individual probabilities (again, an independence assumption is being used):</p>
-<p><span class="math display">\[\begin{equation*} 
+<p><span class="math display">\[\begin{equation*}
 \left (\Phi\left ( \zeta_{r+1}  \right ) - \Phi\left ( \zeta_r  \right )  \right )^{K_{1r}} \left (\Phi\left ( b\zeta_{r+1}-a  \right ) - \Phi\left ( b\zeta_r-a  \right )  \right )^{K_{2r}}
 \end{equation*}\]</span></p>
 <p>Similar expressions apply for all integer values of <span class="math inline">\(r\)</span> ranging from <span class="math inline">\(1,2,...,R\)</span>. Therefore the probability of observing the entire data set is the product of expressions like Eqn. (6.4.5), over all values of <span class="math inline">\(r\)</span>:</p>
-<p><span class="math display" id="eq:binormal-modelProductProb">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-modelProductProb">\[\begin{equation}
 \prod_{r=1}^{R}\left [\left (\Phi\left ( \zeta_{r+1}  \right ) - \Phi\left ( \zeta_r  \right )  \right )^{K_{1r}} \left (\Phi\left ( b\zeta_{r+1}-a  \right ) - \Phi\left ( b\zeta_r-a  \right )  \right )^{K_{2r}}  \right ]
 \tag{6.27}
 \end{equation}\]</span></p>
 <p>We are almost there. A specific combination of <span class="math inline">\(K_{11},K_{12},...,K_{1R}\)</span> counts from <span class="math inline">\(K_1\)</span> non-diseased cases and counts <span class="math inline">\(K_{21},K_{22},...,K_{2R}\)</span> from <span class="math inline">\(K_2\)</span> diseased cases can occur the following number of times (given by the multinomial factor shown below):</p>
-<p><span class="math display" id="eq:binormal-modelCombFactor">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-modelCombFactor">\[\begin{equation}
 \frac{K_1!}{\prod_{r=1}^{R}K_{1r}!}\frac{K_2!}{\prod_{r=1}^{R}K_{2r}!}
 \tag{6.28}
 \end{equation}\]</span></p>
 <p>The likelihood function is the product of Eqn. <a href="binormal-model.html#eq:binormal-modelProductProb">(6.27)</a> and Eqn. <a href="binormal-model.html#eq:binormal-modelCombFactor">(6.28)</a>:</p>
-<p><span class="math display" id="eq:binormal-modelLikelihood">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-modelLikelihood">\[\begin{equation}
 \begin{split}
 L\left ( a,b,\overrightarrow{\zeta} \right ) &amp;= \left (\frac{K_1!}{\prod_{r=1}^{R}K_{1r}!}\frac{K_2!}{\prod_{r=1}^{R}K_{2r}!}  \right ) \times \\
 &amp;\quad\prod_{r=1}^{R}\left [\left (\Phi\left ( \zeta_{r+1}  \right ) - \Phi\left ( \zeta_r  \right )  \right )^{K_{1r}} \left (\Phi\left ( b\zeta_{r+1}-a  \right ) - \Phi\left ( b\zeta_r-a  \right )  \right )^{K_{2r}}  \right ]
@@ -1001,21 +1060,21 @@ L\left ( a,b,\overrightarrow{\zeta} \right ) &amp;= \left (\frac{K_1!}{\prod_{r=
 \end{equation}\]</span></p>
 <p>The left hand side of Eqn. <a href="binormal-model.html#eq:binormal-modelLikelihood">(6.29)</a> shows explicitly the dependence of the likelihood function on the parameters of the model, namely <span class="math inline">\(a,b,\overrightarrow{\zeta}\)</span>, where the vector of thresholds <span class="math inline">\(\overrightarrow{\zeta}\)</span> is a compact notation for the set of thresholds <span class="math inline">\(\zeta_1,\zeta_2,...,\zeta_R\)</span>, (note that since <span class="math inline">\(\zeta_0 = -\infty\)</span>, and <span class="math inline">\(\zeta_R = +\infty\)</span>, only <span class="math inline">\(R-1\)</span> free threshold parameters are involved, and the total number of free parameters in the model is <span class="math inline">\(R+1\)</span>). For example, for a 5-rating ROC study, the total number of free parameters is 6, i.e., <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> and 4 thresholds <span class="math inline">\(\zeta_1,\zeta_2,\zeta_3,\zeta_4\)</span>.</p>
 <p>Eqn. <a href="binormal-model.html#eq:binormal-modelLikelihood">(6.29)</a> is forbidding but here comes a simplification. The difference of probabilities such as <span class="math inline">\(\Phi\left ( \zeta_r \right )-\Phi\left ( \zeta_{r-1} \right )\)</span> is guaranteed to be positive and less than one [the <span class="math inline">\(\Phi\)</span> function is a probability, i.e., in the range 0 to 1, and since <span class="math inline">\(\zeta_r\)</span> is greater than <span class="math inline">\(\zeta_{r-1}\)</span>, the difference is positive and less than one]. When the difference is raised to the power of <span class="math inline">\(K_{1r}\)</span> (a non-negative integer) a very small number can result. Multiplication of all these small numbers may result in an even smaller number, which may be too small to be represented as a floating-point value, especially as the number of counts increases. To prevent this we resort to a trick. Instead of maximizing the likelihood function <span class="math inline">\(L\left ( a,b,\overrightarrow{\zeta} \right )\)</span> we choose to maximize the logarithm of the likelihood function (the base of the logarithm is immaterial). The logarithm of the likelihood function is:</p>
-<p><span class="math display" id="eq:binormal-model-ll">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-model-ll">\[\begin{equation}
 LL\left ( a,b,\overrightarrow{\zeta} \right )=\log \left ( L\left ( a,b,\overrightarrow{\zeta} \right ) \right )
 \tag{6.30}
 \end{equation}\]</span></p>
 <p>Since the logarithm is a monotonically increasing function of its argument, maximizing the logarithm of the likelihood function is equivalent to maximizing the likelihood function. Taking the logarithm converts the product symbols in Eqn. (6.4.8) to summations, so instead of multiplying small numbers one is adding them, thereby avoiding underflow errors. Another simplification is that one can ignore the logarithm of the multinomial factor involving the factorials, because these do not depend on the parameters of the model. Putting all this together, we get the following expression for the logarithm of the likelihood function:</p>
-<p><span class="math display" id="eq:binormal-modelLL">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-modelLL">\[\begin{equation}
 \begin{split}
 LL\left ( a,b,\overrightarrow{\zeta} \right ) \propto&amp; \sum_{r=1}^{R} K_{1r}\log \left ( \Phi\left ( \zeta_{r+1} \right ) - \Phi\left ( \zeta_r \right ) \right ) \\
-&amp;+ \sum_{r=1}^{R} K_{2r}\log \left ( \Phi\left (b \zeta_{r+1} - a \right ) - \Phi\left ( b \zeta_r - a \right ) \right ) 
+&amp;+ \sum_{r=1}^{R} K_{2r}\log \left ( \Phi\left (b \zeta_{r+1} - a \right ) - \Phi\left ( b \zeta_r - a \right ) \right )
 \end{split}
 \tag{6.31}
 \end{equation}\]</span></p>
 <p>The left hand side of Eqn. <a href="binormal-model.html#eq:binormal-modelLL">(6.31)</a> is a function of the model parameters <span class="math inline">\(a,b,\overrightarrow{\zeta}\)</span> and the observed data, the latter being the counts contained in the vectors <span class="math inline">\(\overrightarrow{K_1}\)</span> and <span class="math inline">\(\overrightarrow{K_2}\)</span>, where the vector notation is used as a compact form for the counts <span class="math inline">\(K_{11},K_{12},...,K_{1R}\)</span> and <span class="math inline">\(K_{21},K_{22},...,K_{2R}\)</span>, respectively. The right hand side of Eqn. <a href="binormal-model.html#eq:binormal-modelLL">(6.31)</a> is monotonically related to the probability of observing the data given the model parameters <span class="math inline">\(a,b,\overrightarrow{\zeta}\)</span>. If the choice of model parameters is poor, then the probability of observing the data will be small and log likelihood will be small. With a better choice of model parameters the probability and log likelihood will increase. With optimal choice of model parameters the probability and log likelihood will be maximized, and the corresponding optimal values of the model parameters are called maximum likelihood estimates (MLEs). These are the estimates produced by the programs RSCORE and ROCFIT.</p>
 </div>
-<div id="code-implementing-mle" class="section level3 hasAnchor">
+<div id="code-implementing-mle" class="section level3 hasAnchor" number="6.12.4">
 <h3><span class="header-section-number">6.12.4</span> Code implementing MLE<a href="binormal-model.html#code-implementing-mle" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <pre><code>#&gt; $a
 #&gt; [1] 1.32045261
@@ -1039,12 +1098,12 @@ LL\left ( a,b,\overrightarrow{\zeta} \right ) \propto&amp; \sum_{r=1}^{R} K_{1r}
 FIGURE 6.5: Operating points and fitted binormal ROC curve. The fitting values are <span class="math inline">\(a = 1.3204\)</span> and <span class="math inline">\(b = 0.6075\)</span>. Confidence intervals are shown for the lowest and uppermost non-trivial points.
 </p>
 </div>
-<p>Note the usage of the <code>RJafroc</code> package <span class="citation">(Chakraborty and Zhai <a href="#ref-R-RJafroc" role="doc-biblioref">2022</a>)</span>. Specifically, the function <code>FitBinormalRoc</code>. The ratings table is converted to an <code>RJafroc</code> dataset object, followed by application of the fitting function. The results, contained in <code>retFit</code> should be compared to those obtained from the <a href="http://www.rad.jhmi.edu/jeng/javarad/roc/JROCFITi.html">website implementation of ROCFIT</a>.</p>
+<p>Note the usage of the <code>RJafroc</code> package <span class="citation">(<a href="#ref-R-RJafroc" role="doc-biblioref">Dev Chakraborty and Zhai 2022</a>)</span>. Specifically, the function <code>FitBinormalRoc</code>. The ratings table is converted to an <code>RJafroc</code> dataset object, followed by application of the fitting function. The results, contained in <code>retFit</code> should be compared to those obtained from the <a href="http://www.rad.jhmi.edu/jeng/javarad/roc/JROCFITi.html">website implementation of ROCFIT</a>.</p>
 </div>
-<div id="binormal-model-curve-fitting-validation" class="section level3 hasAnchor">
+<div id="binormal-model-curve-fitting-validation" class="section level3 hasAnchor" number="6.12.5">
 <h3><span class="header-section-number">6.12.5</span> Validating the fit<a href="binormal-model.html#binormal-model-curve-fitting-validation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The above ROC curve is a good visual fit to the observed operating points. Quantification of the validity of the fitting model is accomplished by calculating the Pearson goodness-of-fit test <span class="citation">(Pearson <a href="#ref-RN2656" role="doc-biblioref">1900</a>)</span>, also known as the chi-square test, which uses the statistic defined by <span class="citation">(Larsen and Marx <a href="#ref-larsen2005introduction" role="doc-biblioref">2005</a>)</span>:</p>
-<p><span class="math display" id="eq:binormal-modelGoodnessFit">\[\begin{equation} 
+<p>The above ROC curve is a good visual fit to the observed operating points. Quantification of the validity of the fitting model is accomplished by calculating the Pearson goodness-of-fit test <span class="citation">(<a href="#ref-RN2656" role="doc-biblioref">Pearson 1900</a>)</span>, also known as the chi-square test, which uses the statistic defined by <span class="citation">(<a href="#ref-larsen2005introduction" role="doc-biblioref">Larsen and Marx 2005</a>)</span>:</p>
+<p><span class="math display" id="eq:binormal-modelGoodnessFit">\[\begin{equation}
 C^2=\sum_{t=1}^{2}\sum_{r=1}^{R}\frac{\left (K_{tr}-\left \langle K_{tr} \right \rangle  \right )^2}{\left \langle K_{tr} \right \rangle}\\
 K_{tr} \geq 5
 \tag{6.32}
@@ -1059,44 +1118,44 @@ K_{tr} \geq 5
 \end{equation}\]</span></p>
 <p>These expressions should make sense: the difference between the two CDF functions is the probability of a count in the specified bin, and multiplication by the total number of relevant cases should yield the expected counts (a non-integer).</p>
 <p>It can be shown that under the null hypothesis that the assumed probability distribution functions for the counts equals the true probability distributions, i.e., the model is valid, the statistic <span class="math inline">\(C^2\)</span> is distributed as:</p>
-<p><span class="math display" id="eq:binormal-modelGoodnessFitDistr">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-modelGoodnessFitDistr">\[\begin{equation}
 C^2\sim \chi_{df}^{2}
 \tag{6.34}
 \end{equation}\]</span></p>
 <p>Here <span class="math inline">\(C^2\sim \chi_{df}^{2}\)</span> is the chi-square distribution with degrees of freedom <em>df</em> defined by:</p>
-<p><span class="math display" id="eq:binormal-modelGoodnessFitdf">\[\begin{equation} 
+<p><span class="math display" id="eq:binormal-modelGoodnessFitdf">\[\begin{equation}
 df=\left ( R-1 \right )+\left ( R-1 \right )-\left (2+ R-1 \right )=\left ( R-3 \right )
 \tag{6.35}
 \end{equation}\]</span></p>
 <p>The right hand side of the above equation has been written in an expansive form to illustrate the general rule: for <span class="math inline">\(R\)</span> non-diseased cells in the ratings table, the degree of freedom is <span class="math inline">\(R-1\)</span>: this is because when all but one cells are specified, the last is determined, because they must sum to <span class="math inline">\(K_1\)</span> . Similarly, the degree of freedom for the diseased cells is also <span class="math inline">\(R-1\)</span>. Last, we need to subtract the number of free parameters in the model, which is <span class="math inline">\((2+R-1)\)</span>, i.e., the <span class="math inline">\(a,b\)</span> parameters and the <span class="math inline">\(R-1\)</span> thresholds. It is evident that if <span class="math inline">\(R = 3\)</span> then <span class="math inline">\(df = 0\)</span>. In this situation, there are only two non-trivial operating points and the straight-line fit shown will pass through both of them. With two basic parameters, fitting two points is trivial, and goodness of fit cannot be calculated.</p>
 <p>Under the null hypothesis (i.e., model is valid) <span class="math inline">\(C^2\)</span> is distributed as <span class="math inline">\(\chi_{df}^{2}\)</span>. Therefore, one computes the probability that this statistic is larger than the observed value, called the <em>p-value</em>. If this probability is very small, that means that the deviations of the observed values of the cell counts from the expected values are so large that it is unlikely that the model is correct. The degree of unlikeliness is quantified by the p-value. Poor fits lead to small p values.</p>
-<p>At the 5% significance level, one concludes that the fit is not good if <span class="math inline">\(p &lt; 0.05\)</span>. In practice one occasionally accepts smaller values of <span class="math inline">\(p\)</span>, <span class="math inline">\(p &gt; 0.001\)</span> before completely abandoning a model. It is known that adoption of a stricter criterion, e.g., <span class="math inline">\(p &gt; 0.05\)</span>, can occasionally lead to rejection of a retrospectively valid model <span class="citation">(Press et al. <a href="#ref-RN300" role="doc-biblioref">2007</a>)</span>.</p>
+<p>At the 5% significance level, one concludes that the fit is not good if <span class="math inline">\(p &lt; 0.05\)</span>. In practice one occasionally accepts smaller values of <span class="math inline">\(p\)</span>, <span class="math inline">\(p &gt; 0.001\)</span> before completely abandoning a model. It is known that adoption of a stricter criterion, e.g., <span class="math inline">\(p &gt; 0.05\)</span>, can occasionally lead to rejection of a retrospectively valid model <span class="citation">(<a href="#ref-RN300" role="doc-biblioref">Press et al. 2007</a>)</span>.</p>
 </div>
-<div id="estimating-the-covariance-matrix" class="section level3 hasAnchor">
+<div id="estimating-the-covariance-matrix" class="section level3 hasAnchor" number="6.12.6">
 <h3><span class="header-section-number">6.12.6</span> Estimating the covariance matrix<a href="binormal-model.html#estimating-the-covariance-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>TBA See book chapter 6.4.3. This is implemented in <code>RJafroc.</code></p>
 </div>
-<div id="estimating-the-variance-of-az" class="section level3 hasAnchor">
+<div id="estimating-the-variance-of-az" class="section level3 hasAnchor" number="6.12.7">
 <h3><span class="header-section-number">6.12.7</span> Estimating the variance of Az<a href="binormal-model.html#estimating-the-variance-of-az" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>TBA See book chapter 6.4.4. This is implemented in <code>RJafroc</code>.</p>
 </div>
 </div>
-<div id="binormal-model-improper-curves" class="section level2 hasAnchor">
+<div id="binormal-model-improper-curves" class="section level2 hasAnchor" number="6.13">
 <h2><span class="header-section-number">6.13</span> Appendix: Improper ROCs<a href="binormal-model.html#binormal-model-improper-curves" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Binormal model fits invariably lead to ROC curves that inappropriately cross the chance diagonal, leading to a prediction of a region of the ROC curve where performance is worse than chance (even for expert observers). Such curves are termed <em>improper</em>. This type of curve occurs whenever <span class="math inline">\(b &lt; 1\)</span>.</p>
 <p>The following code illustrates improper curves predicted by the binormal model.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="binormal-model.html#cb21-1"></a>  aArray &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.7</span>, <span class="fl">1.5</span>, <span class="dv">2</span>)</span>
-<span id="cb21-2"><a href="binormal-model.html#cb21-2"></a>  bArray &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)</span>
-<span id="cb21-3"><a href="binormal-model.html#cb21-3"></a>  chance_diag &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb21-4"><a href="binormal-model.html#cb21-4"></a>  p &lt;-<span class="st"> </span><span class="kw">PlotBinormalFit</span>(aArray, bArray) <span class="op">+</span></span>
-<span id="cb21-5"><a href="binormal-model.html#cb21-5"></a><span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb21-6"><a href="binormal-model.html#cb21-6"></a><span class="st">    </span><span class="kw">scale_y_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span></span>
-<span id="cb21-7"><a href="binormal-model.html#cb21-7"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.85</span>, <span class="fl">0.2</span>))</span>
-<span id="cb21-8"><a href="binormal-model.html#cb21-8"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> chance_diag, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">linetype=</span><span class="st">&quot;dotted&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="binormal-model.html#cb21-1" aria-hidden="true" tabindex="-1"></a>  aArray <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.7</span>, <span class="fl">1.5</span>, <span class="dv">2</span>)</span>
+<span id="cb21-2"><a href="binormal-model.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  bArray <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)</span>
+<span id="cb21-3"><a href="binormal-model.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  chance_diag <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb21-4"><a href="binormal-model.html#cb21-4" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">PlotBinormalFit</span>(aArray, bArray) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="binormal-model.html#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span> </span>
+<span id="cb21-6"><a href="binormal-model.html#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="binormal-model.html#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.2</span>))</span>
+<span id="cb21-8"><a href="binormal-model.html#cb21-8" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> chance_diag, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">linetype=</span><span class="st">&quot;dotted&quot;</span>)</span></code></pre></div>
 <p>The red plot is the clearest example of an improper ROC. The chance line crossing near the upper right corner, around (0.919,0.919) and the fact that the ROC curve must eventually reach (1, 1) implies that the curve must turn upwards as one approaches (1, 1), thereby displaying a “hook”. Whenever <span class="math inline">\(b \ne 1\)</span> the hook is there regardless of whether it is easily visible or not. If <span class="math inline">\(b &lt; 1\)</span> the hook is near the upper right corner. If <span class="math inline">\(b &gt; 1\)</span> the hook is near the origin (see green line, corresponding to <span class="math inline">\(a = 0.7, b = 1.5\)</span>). With increasing <span class="math inline">\(a\)</span> the hook is less prominent (see blue line corresponding to <span class="math inline">\(a = 1.5, b = 0.5\)</span> and purple line corresponding to <span class="math inline">\(a = 2, b = 0.5\)</span>. But it is there.</p>
-<div id="reason-for-improper-rocs" class="section level3 hasAnchor">
+<div id="reason-for-improper-rocs" class="section level3 hasAnchor" number="6.13.1">
 <h3><span class="header-section-number">6.13.1</span> Reason for improper ROCs<a href="binormal-model.html#reason-for-improper-rocs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The reason for the “hook”" becomes apparent upon examination of the pdfs.</p>
+<p>The reason for the “hook”” becomes apparent upon examination of the pdfs.</p>
 <p><img src="06-binormal-model_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <div class="figure"><span style="display:block;" id="fig:improper-roc-reason"></span>
 <img src="06-binormal-model_files/figure-html/improper-roc-reason-1.png" alt="Reason for improper ROC." width="672" />
@@ -1107,17 +1166,17 @@ FIGURE 6.6: Reason for improper ROC.
 <p>In Figure <a href="binormal-model.html#fig:improper-roc-reason">6.6</a> <span class="math inline">\(a = 0.7\)</span> and <span class="math inline">\(b = 0.5\)</span>. Since <span class="math inline">\(b &lt; 1\)</span> the diseased <em>pdf</em> is broader and has a lower peak (since the integral under each distribution is unity) than the non-diseased pdf. Starting from the extreme right and then sliding an imaginary threshold to the left one sees that initially, just below <span class="math inline">\(z = 7\)</span>, the diseased distribution starts contributing while the non-diseased distribution is not contributing, causing the ROC to start with infinite slope near the origin (because TPF is increasing while FPF is not). Around <span class="math inline">\(z = 2.5\)</span> the non-diseased distribution starts contributing, causing the ROC slope to decrease. Around <span class="math inline">\(z = -3\)</span> almost all of the non-diseased distribution has contributed which means FPF is near unity, but since not all of the broader diseased distribution has contributed TPF is less than unity. Here is a region where <span class="math inline">\(TPF &lt; FPF\)</span>, meaning that the operating point is below the chance diagonal. As the threshold is lowered further, TPF continues to increase, as the rest of the diseased distribution contributes while FPF stays almost constant at unity. In this region, the ROC curve is approaching the upper right corner with almost infinite slope (because TPF is increasing but FPF is not).</p>
 </div>
 </div>
-<div id="binormal-model-degeneracy-artifacts" class="section level2 hasAnchor">
+<div id="binormal-model-degeneracy-artifacts" class="section level2 hasAnchor" number="6.14">
 <h2><span class="header-section-number">6.14</span> Appendix: Binormal model degeneracy and artifacts<a href="binormal-model.html#binormal-model-degeneracy-artifacts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Two helper functions are introduced here, <code>BMPoints</code> for binormal model predicted operating points and <code>CBMPoints</code> for for CBM (contaminated binormal model) operating points. The latter will become clearer in Chapter <code>TempComment \@ref(proper-roc-models)</code>. As always, to view the hidden code one needs to <code>fork</code> the repository.</p>
 <p>It has been stated that the <code>b</code>-parameter of the binormal model is generally observed to be less than one, consistent with the diseased distribution being wider than the non-diseased one. The ROC literature is largely silent on the reason for this finding. One reason, namely location uncertainty, is presented in Chapter “Predictions of the RSM”, where RSM stands for Radiological Search Model. Basically, if the location of the lesion is unknown, then z-samples from diseased cases can be of two types, samples from the correct lesion location, or samples from non-lesion locations. The resulting mixture distribution will then appear to have larger variance than samples from non-diseased regions. This type of mixing need not be restricted to location uncertainty. Even is location is known, if the lesions are non-homogenous (e.g., they contain a range of contrasts) then a similar mixture-distribution induced broadening is expected. The contaminated binormal model (CBM) – see Chapter <code>TempComment \@ref(proper-roc-models)</code> – also predicts that the diseased distribution is wider than the non-diseased one.</p>
-<p>The fact that the <code>b</code>-parameter is less than unity implies that the predicted ROC curve is improper, meaning its slope is not monotone decreasing as the operating point moves up the curve. The result is that a portion of the curve, near (1,1) that crosses the chance-diagonal and hooks upward approaching (1,1) with infinite slope. Ways of fitting proper ROC curves are described in Chapter <code>TempComment \@ref(proper-roc-models)</code>. Usually the hook is not readily visible. For example, in Fig. <a href="binormal-model.html#fig:binormal-model-fit">6.5</a>, one would have to “zoom-in” on the upper right corner to see it, but the reader should make no mistake about it, the hook is there as <span class="math inline">\(b &lt; 1\)</span>. An example is Fig. 1 in <span class="citation">(Pisano et al. <a href="#ref-pisano2005diagnostic" role="doc-biblioref">2005</a>)</span> where each of the film modality ROC curves cross the chance diagonal and hook upwards to (1,1).</p>
-<div id="binormal-model-degenerate-datasets" class="section level3 hasAnchor">
+<p>The fact that the <code>b</code>-parameter is less than unity implies that the predicted ROC curve is improper, meaning its slope is not monotone decreasing as the operating point moves up the curve. The result is that a portion of the curve, near (1,1) that crosses the chance-diagonal and hooks upward approaching (1,1) with infinite slope. Ways of fitting proper ROC curves are described in Chapter <code>TempComment \@ref(proper-roc-models)</code>. Usually the hook is not readily visible. For example, in Fig. <a href="binormal-model.html#fig:binormal-model-fit">6.5</a>, one would have to “zoom-in” on the upper right corner to see it, but the reader should make no mistake about it, the hook is there as <span class="math inline">\(b &lt; 1\)</span>. An example is Fig. 1 in <span class="citation">(<a href="#ref-pisano2005diagnostic" role="doc-biblioref">Pisano et al. 2005</a>)</span> where each of the film modality ROC curves cross the chance diagonal and hook upwards to (1,1).</p>
+<div id="binormal-model-degenerate-datasets" class="section level3 hasAnchor" number="6.14.1">
 <h3><span class="header-section-number">6.14.1</span> Degenerate datasets<a href="binormal-model.html#binormal-model-degenerate-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The unphysical nature of the hook is not the only reason for seeking alternate ROC models. The binormal model is also highly susceptible to degeneracy problems. If the dataset does not provide any interior operating points (i.e., all observed points lie on the axes defined by FPF = 0 or TPF = 1) then the model fits these points with <span class="math inline">\(b = 0\)</span>. The resulting straight-line segment fits do not make physical sense. These problems are addressed by the contaminated binormal model to be discussed in Chapter <a href="proper-roc-models.html#proper-roc-models">8</a>.</p>
 <p>Metz defined binormal degenerate data sets as those that result in exact-fit binormal ROC curves of inappropriate shape consisting of a series of horizontal and/or vertical line segments in which the ROC “curve” crosses the chance line. The crossing of the chance line occurs because the degenerate data sets can be fitted exactly by infinite or zero values for the model slope parameter <code>b</code>, and infinite values for the decision thresholds, or both.</p>
 </div>
-<div id="binormal-model-understanding-degenerate-datasets" class="section level3 hasAnchor">
+<div id="binormal-model-understanding-degenerate-datasets" class="section level3 hasAnchor" number="6.14.2">
 <h3><span class="header-section-number">6.14.2</span> Understanding degenerate datasets<a href="binormal-model.html#binormal-model-understanding-degenerate-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To understand this, consider that the non-diseased distribution is a Dirac delta function centered at zero (this function integrates to unity) and the unit variance diseased distribution is centered at 0.6744898. In other words this binormal model is characterized by <span class="math inline">\(a = 0.6744898\)</span> and <span class="math inline">\(b = 0\)</span>. What is the expected ROC curve? As the threshold <span class="math inline">\(\zeta\)</span> is moved from the far right gradually to the left, TPF will increase but FPF is stuck at zero until <span class="math inline">\(\zeta\)</span> reaches zero. Just before reaching this point, the coordinates of the ROC operating point are (0, 0.75). The 0.75 is due to the fact that <span class="math inline">\(z = 0\)</span> is -0.6744898 units relative to the center of the diseased distribution, so the area under the diseased distribution to the left of <span class="math inline">\(z = 0\)</span> is 0.250. Since <code>pnorm</code> is the probability <em>below</em> the threshold, TPF must be its complement, namely 0.750000016. This explains the operating point (0,0.75) which lies on the y-axis. As the threshold crosses the delta function FPF shoots up from 0 to 1 but TPF stays constant. Therefore, the operating point has jumped from (0, 0.75) to (1, 0.75). When the threshold is reduced further, the operating point moves up vertically, along the right side of the ROC plot, until the threshold is so small that virtually all of diseased distribution exceeds it and the operating point reaches (1, 1). The ROC curve is illustrated in plot A.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:binormal-model-degenerate-datasets-example1"></span>
@@ -1128,7 +1187,7 @@ FIGURE 6.7: An extreme example of a binormal fit with a hook.
 </div>
 <p>Fig. <a href="binormal-model.html#fig:binormal-model-degenerate-datasets-example1">6.7</a> is an extreme example of an ROC curve with a “hook”. If the data is such that the only operating point provided by the observer is (0,0.75) then this curve is an exact fit to the operating point.</p>
 </div>
-<div id="binormal-model-exact-fit-not-unique" class="section level3 hasAnchor">
+<div id="binormal-model-exact-fit-not-unique" class="section level3 hasAnchor" number="6.14.3">
 <h3><span class="header-section-number">6.14.3</span> The exact fit is not unique<a href="binormal-model.html#binormal-model-exact-fit-not-unique" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Actually, given one operating point (0, 0.75) the preceding fit is not even unique. If the diseased distribution is shifted appropriately to the right of its previous position, and one can determine the necessary value of a, then the ROC curve will shoot upwards through the operating point (0, 0.75) to (0, 0.9), as in plot B, before proceeding horizontally to (1, 0.9) and then completing the curve to (1, 1). If the diseased distribution is shifted well to the right, i.e., a is very large, then the ROC curve will shoot upwards past the operating point, as in plot C, all the way to (0,1) before proceeding horizontally to (1, 1).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:binormal-model-degenerate-datasets-example2"></span>
@@ -1145,11 +1204,11 @@ FIGURE 6.9: The exact fit is not unique.
 </div>
 <p>Figs. <a href="binormal-model.html#fig:binormal-model-degenerate-datasets-example1">6.7</a>, <a href="binormal-model.html#fig:binormal-model-degenerate-datasets-example2">6.8</a> and <a href="binormal-model.html#fig:binormal-model-degenerate-datasets-example3">6.9</a> all represent exact fits to the observed operating point with <span class="math inline">\(b = 0\)</span> and different values of <span class="math inline">\(a\)</span>. None of them is reasonable.</p>
 </div>
-<div id="binormal-model-comments" class="section level3 hasAnchor">
+<div id="binormal-model-comments" class="section level3 hasAnchor" number="6.14.4">
 <h3><span class="header-section-number">6.14.4</span> Comments on degeneracy<a href="binormal-model.html#binormal-model-comments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Degeneracy occurs if the observer does not provide any interior operating points. So why worry about it? Perhaps one has a non-cooperating observer, who is not heeding the instructions to <em>spread the ratings, use all the bins</em>. A simple example shows that the observer could if fact be cooperating fully and is still unable to provide any interior data points. Consider 100 diseased cases consisting of 75 easy cases and 25 difficult ones and 100 easy non-diseased cases. The observer is expected to rate the 75 easy diseased cases as <em>fives</em>, the difficult ones as <em>ones</em> and the 100 non-diseased cases are rated <em>ones</em>. No amount of coaxing <em>please, please spread your ratings</em> is going to convince this observer to rate with twos, threes and fours any of the 75 easy diseased cases. If the cases are obviously diseased, and that is what is meant by <em>easy cases</em>, they are supposed to be rated fives: <em>definitely diseased</em>. Forcing them to rate some of them as <em>probably diseased</em> or <em>possibly diseased</em> would be irrational and guilty of bending the reading paradigm to fit the convenience of the researcher.</p>
 </div>
-<div id="binormal-model-reasonable-fit" class="section level3 hasAnchor">
+<div id="binormal-model-reasonable-fit" class="section level3 hasAnchor" number="6.14.5">
 <h3><span class="header-section-number">6.14.5</span> A reasonable fit to the degenerate dataset<a href="binormal-model.html#binormal-model-reasonable-fit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If the dataset yields a single operating point (0, 0.75), what is a reasonable ROC plot? There is a theorem that given an observed operating point, the line connecting that point to (1, 1) represents a lower bound on achievable performance by the observer. The observer using a guessing mechanism to classify the remaining cases achieves the lower bound. Here is an explanation of this theorem. Having rated the 75 easy diseased cases as fives, the observer is left with 25 diseased cases and 100 non-diseased cases, all of which appear definitely non-diseased to the observer. Suppose the observer randomly rates 20% of the remaining cases as fours. This would pick up five of the actually diseased cases and 20 non-diseased ones. Therefore, the total number of diseased cases rated four or higher is 80, and the corresponding number of non-diseased cases is 20. The new operating point of the observer is (0.20, 0.80). Now, one has two operating points, the original one on the y-axis at (0, 0.75) and an interior point (0.20, 0.80). Next, instead of randomly rating 20% of the remaining cases as fours, the observer rates 40% of them as fours, then the interior point would have been (0.40, 0.85). The reader can appreciate that simply by increasing the fraction of remaining cases that are randomly rated fours, the observer can move the operating point along the straight line connecting (0, 0.75) and (1, 1), as in plot D. Since a guessing mechanism is being used, this must represent a lower bound on performance. The resulting ROC curve is proper and the net AUC = 0.875.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:binormal-model-degenerate-reasonable-fit"></span>
@@ -1161,63 +1220,63 @@ FIGURE 6.10: A reasonable fit to a degenerate dataset.
 <p>For this dataset this is in fact the fit yielded by the contaminated binormal model (CBM) and the radiological search model (RSM). Why should one select the lowest possible performance consistent with the data? Because it yields a <em>unique</em> value for performance: any higher performance would not be unique.</p>
 </div>
 </div>
-<div id="binormal-model-references" class="section level2 hasAnchor">
+<div id="binormal-model-references" class="section level2 hasAnchor" number="6.15">
 <h2><span class="header-section-number">6.15</span> Chapter References<a href="binormal-model.html#binormal-model-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
 <h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references">
-<div id="ref-R-RJafroc">
-<p>Chakraborty, Dev, and Xuetong Zhai. 2022. <em>RJafroc: Artificial Intelligence Systems and Observer Performance</em>. <a href="https://dpc10ster.github.io/RJafroc/">https://dpc10ster.github.io/RJafroc/</a>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-R-RJafroc" class="csl-entry">
+Chakraborty, Dev, and Xuetong Zhai. 2022. <em>RJafroc: Artificial Intelligence Systems and Observer Performance</em>. <a href="https://dpc10ster.github.io/RJafroc/">https://dpc10ster.github.io/RJafroc/</a>.
 </div>
-<div id="ref-dorfman1969maximum">
-<p>Dorfman, Donald D, and Edward Alf Jr. 1969. “Maximum-Likelihood Estimation of Parameters of Signal-Detection Theory and Determination of Confidence Intervals—Rating-Method Data.” <em>Journal of Mathematical Psychology</em> 6 (3): 487–96.</p>
+<div id="ref-dorfman1969maximum" class="csl-entry">
+Dorfman, Donald D, and Edward Alf Jr. 1969. <span>“Maximum-Likelihood Estimation of Parameters of Signal-Detection Theory and Determination of Confidence Intervals—Rating-Method Data.”</span> <em>Journal of Mathematical Psychology</em> 6 (3): 487–96.
 </div>
-<div id="ref-dorfman1997proper">
-<p>Dorfman, Donald D, Kevin S Berbaum, Charles E Metz, Russell V Lenth, James A Hanley, and Hatem Abu Dagga. 1997. “Proper Receiver Operating Characteristic Analysis: The Bigamma Model.” <em>Academic Radiology</em> 4 (2): 138–49.</p>
+<div id="ref-dorfman1997proper" class="csl-entry">
+Dorfman, Donald D, Kevin S Berbaum, Charles E Metz, Russell V Lenth, James A Hanley, and Hatem Abu Dagga. 1997. <span>“Proper Receiver Operating Characteristic Analysis: The Bigamma Model.”</span> <em>Academic Radiology</em> 4 (2): 138–49.
 </div>
-<div id="ref-fenton2015time">
-<p>Fenton, Joshua J. 2015. “Is It Time to Stop Paying for Computer-Aided Mammography?” <em>JAMA Internal Medicine</em> 175 (11): 1837–8.</p>
+<div id="ref-fenton2015time" class="csl-entry">
+Fenton, Joshua J. 2015. <span>“Is It Time to Stop Paying for Computer-Aided Mammography?”</span> <em>JAMA Internal Medicine</em> 175 (11): 1837–38.
 </div>
-<div id="ref-fenton2007influence">
-<p>Fenton, Joshua J, Stephen H Taplin, Patricia A Carney, Linn Abraham, Edward A Sickles, Carl D’Orsi, Eric A Berns, et al. 2007. “Influence of Computer-Aided Detection on Performance of Screening Mammography.” <em>New England Journal of Medicine</em> 356 (14): 1399–1409.</p>
+<div id="ref-fenton2011effectiveness" class="csl-entry">
+Fenton, Joshua J, Linn Abraham, Stephen H Taplin, Berta M Geller, Patricia A Carney, Carl D’Orsi, Joann G Elmore, William E Barlow, and Breast Cancer Surveillance Consortium. 2011. <span>“Effectiveness of Computer-Aided Detection in Community Mammography Practice.”</span> <em>Journal of the National Cancer Institute</em> 103 (15): 1152–61.
 </div>
-<div id="ref-R-mvtnorm">
-<p>Genz, Alan, Frank Bretz, Tetsuhisa Miwa, Xuefei Mi, and Torsten Hothorn. 2021. <em>Mvtnorm: Multivariate Normal and T Distributions</em>. <a href="http://mvtnorm.R-forge.R-project.org">http://mvtnorm.R-forge.R-project.org</a>.</p>
+<div id="ref-R-mvtnorm" class="csl-entry">
+Genz, Alan, Frank Bretz, Tetsuhisa Miwa, Xuefei Mi, and Torsten Hothorn. 2021. <em>Mvtnorm: Multivariate Normal and t Distributions</em>. <a href="http://mvtnorm.R-forge.R-project.org">http://mvtnorm.R-forge.R-project.org</a>.
 </div>
-<div id="ref-hanley1988robustness">
-<p>Hanley, James A. 1988. “The Robustness of the" Binormal" Assumptions Used in Fitting Roc Curves.” <em>Medical Decision Making</em> 8 (3): 197–203.</p>
+<div id="ref-hanley1988robustness" class="csl-entry">
+Hanley, James A. 1988. <span>“The Robustness of the" Binormal" Assumptions Used in Fitting ROC Curves.”</span> <em>Medical Decision Making</em> 8 (3): 197–203.
 </div>
-<div id="ref-jiang1996receiver">
-<p>Jiang, Yulei, Charles E Metz, and Robert M Nishikawa. 1996. “A Receiver Operating Characteristic Partial Area Index for Highly Sensitive Diagnostic Tests.” <em>Radiology</em> 201 (3): 745–50.</p>
+<div id="ref-jiang1996receiver" class="csl-entry">
+Jiang, Yulei, Charles E Metz, and Robert M Nishikawa. 1996. <span>“A Receiver Operating Characteristic Partial Area Index for Highly Sensitive Diagnostic Tests.”</span> <em>Radiology</em> 201 (3): 745–50.
 </div>
-<div id="ref-larsen2005introduction">
-<p>Larsen, Richard J, and Morris L Marx. 2005. <em>An Introduction to Mathematical Statistics</em>. Prentice Hall Hoboken, NJ.</p>
+<div id="ref-larsen2005introduction" class="csl-entry">
+Larsen, Richard J, and Morris L Marx. 2005. <em>An Introduction to Mathematical Statistics</em>. Prentice Hall Hoboken, NJ.
 </div>
-<div id="ref-lehman2015diagnostic">
-<p>Lehman, Constance D, Robert D Wellman, Diana SM Buist, Karla Kerlikowske, Anna NA Tosteson, Diana L Miglioretti, Breast Cancer Surveillance Consortium, and others. 2015. “Diagnostic Accuracy of Digital Screening Mammography with and Without Computer-Aided Detection.” <em>JAMA Internal Medicine</em> 175 (11): 1828–37.</p>
+<div id="ref-lehman2015diagnostic" class="csl-entry">
+Lehman, Constance D, Robert D Wellman, Diana SM Buist, Karla Kerlikowske, Anna NA Tosteson, Diana L Miglioretti, Breast Cancer Surveillance Consortium, et al. 2015. <span>“Diagnostic Accuracy of Digital Screening Mammography with and Without Computer-Aided Detection.”</span> <em>JAMA Internal Medicine</em> 175 (11): 1828–37.
 </div>
-<div id="ref-RN1487">
-<p>Lusted, L. B. 1971. “Signal Detectability and Medical Decision Making.” Journal Article. <em>Science</em> 171: 1217–1219. <a href="https://doi.org/10.1126/science.171.3977.1217">https://doi.org/10.1126/science.171.3977.1217</a>.</p>
+<div id="ref-RN1487" class="csl-entry">
+Lusted, L. B. 1971. <span>“Signal Detectability and Medical Decision Making.”</span> Journal Article. <em>Science</em> 171: 1217–1219. <a href="https://doi.org/10.1126/science.171.3977.1217">https://doi.org/10.1126/science.171.3977.1217</a>.
 </div>
-<div id="ref-metz1978rocmethodology">
-<p>Metz, C. E. 1978. “Basic Principles of ROC Analysis.” Journal Article. <em>Seminars in Nuclear Medicine</em> 8 (4): 283–98. <a href="https://doi.org/10.1016/s0001-2998(78)80014-2">https://doi.org/10.1016/s0001-2998(78)80014-2</a>.</p>
+<div id="ref-metz1978rocmethodology" class="csl-entry">
+Metz, C. E. 1978. <span>“Basic Principles of <span>ROC</span> Analysis.”</span> Journal Article. <em>Seminars in Nuclear Medicine</em> 8 (4): 283–98. <a href="https://doi.org/10.1016/s0001-2998(78)80014-2">https://doi.org/10.1016/s0001-2998(78)80014-2</a>.
 </div>
-<div id="ref-RN2656">
-<p>Pearson, Karl. 1900. “X. On the Criterion That a Given System of Deviations from the Probable in the Case of a Correlated System of Variables Is Such That It Can Be Reasonably Supposed to Have Arisen from Random Sampling.” Journal Article. <em>The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science</em> 50 (302): 157–75. <a href="https://doi.org/10.1080/14786440009463897">https://doi.org/10.1080/14786440009463897</a>.</p>
+<div id="ref-RN2656" class="csl-entry">
+Pearson, Karl. 1900. <span>“X. On the Criterion That a Given System of Deviations from the Probable in the Case of a Correlated System of Variables Is Such That It Can Be Reasonably Supposed to Have Arisen from Random Sampling.”</span> Journal Article. <em>The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science</em> 50 (302): 157–75. <a href="https://doi.org/10.1080/14786440009463897">https://doi.org/10.1080/14786440009463897</a>.
 </div>
-<div id="ref-philpotts2009can">
-<p>Philpotts, Liane E. 2009. “Can Computer-Aided Detection Be Detrimental to Mammographic Interpretation?” <em>Radiology</em> 253 (1): 17–22.</p>
+<div id="ref-philpotts2009can" class="csl-entry">
+Philpotts, Liane E. 2009. <span>“Can Computer-Aided Detection Be Detrimental to Mammographic Interpretation?”</span> <em>Radiology</em> 253 (1): 17–22.
 </div>
-<div id="ref-pisano2005diagnostic">
-<p>Pisano, Etta D, Constantine Gatsonis, Edward Hendrick, Martin Yaffe, Janet K Baum, Suddhasatta Acharyya, Emily F Conant, et al. 2005. “Diagnostic Performance of Digital Versus Film Mammography for Breast-Cancer Screening.” <em>New England Journal of Medicine</em> 353 (17): 1773–83.</p>
+<div id="ref-pisano2005diagnostic" class="csl-entry">
+Pisano, Etta D, Constantine Gatsonis, Edward Hendrick, Martin Yaffe, Janet K Baum, Suddhasatta Acharyya, Emily F Conant, et al. 2005. <span>“Diagnostic Performance of Digital Versus Film Mammography for Breast-Cancer Screening.”</span> <em>New England Journal of Medicine</em> 353 (17): 1773–83.
 </div>
-<div id="ref-RN300">
-<p>Press, W. H., S. A. Teukolsky, W. T. Vetterling, and B. P. Flannery. 2007. <em>Numerical Recipes: The Art of Scientific Computing</em>. Book. 3rd ed. Cambridge: Cambridge University Press.</p>
+<div id="ref-RN300" class="csl-entry">
+Press, W. H., S. A. Teukolsky, W. T. Vetterling, and B. P. Flannery. 2007. <em>Numerical Recipes: The Art of Scientific Computing</em>. Book. 3rd ed. Cambridge: Cambridge University Press.
 </div>
-<div id="ref-thompson1989statistical">
-<p>Thompson, Mary Lou, and Walter Zucchini. 1989. “On the Statistical Analysis of Roc Curves.” <em>Statistics in Medicine</em> 8 (10): 1277–90.</p>
+<div id="ref-thompson1989statistical" class="csl-entry">
+Thompson, Mary Lou, and Walter Zucchini. 1989. <span>“On the Statistical Analysis of ROC Curves.”</span> <em>Statistics in Medicine</em> 8 (10): 1277–90.
 </div>
 </div>
 <div class="footnotes">

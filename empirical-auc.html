@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -58,18 +57,18 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -89,13 +88,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -108,7 +107,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -122,6 +121,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -139,32 +160,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">RJafroc documentation</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#rationale-and-organization"><i class="fa fa-check"></i><b>0.1</b> Rationale and Organization</a></li>
 <li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#tba-acknowledgements"><i class="fa fa-check"></i><b>0.2</b> TBA Acknowledgements</a></li>
 <li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#temporary-comments"><i class="fa fa-check"></i><b>0.3</b> Temporary comments</a></li>
 </ul></li>
 <li class="part"><span><b>Overview</b></span></li>
-<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> An overview of the field</a><ul>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> An overview of the field</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html#overview-how-much-finished"><i class="fa fa-check"></i><b>1.1</b> How much finished 55%</a></li>
 <li class="chapter" data-level="1.2" data-path="overview.html"><a href="overview.html#preliminaries-intro"><i class="fa fa-check"></i><b>1.2</b> Introduction</a></li>
-<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#clinical-tasks"><i class="fa fa-check"></i><b>1.3</b> Clinical tasks</a><ul>
+<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#clinical-tasks"><i class="fa fa-check"></i><b>1.3</b> Clinical tasks</a>
+<ul>
 <li class="chapter" data-level="1.3.1" data-path="overview.html"><a href="overview.html#workflow-in-an-imaging-study"><i class="fa fa-check"></i><b>1.3.1</b> Workflow in an imaging study</a></li>
 <li class="chapter" data-level="1.3.2" data-path="overview.html"><a href="overview.html#the-screening-and-diagnostic-workup-tasks"><i class="fa fa-check"></i><b>1.3.2</b> The screening and diagnostic workup tasks</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="overview.html"><a href="overview.html#imaging-device-development-and-its-clinical-deployment"><i class="fa fa-check"></i><b>1.4</b> Imaging device development and its clinical deployment</a><ul>
+<li class="chapter" data-level="1.4" data-path="overview.html"><a href="overview.html#imaging-device-development-and-its-clinical-deployment"><i class="fa fa-check"></i><b>1.4</b> Imaging device development and its clinical deployment</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="overview.html"><a href="overview.html#physical-measurements"><i class="fa fa-check"></i><b>1.4.1</b> Physical measurements</a></li>
 <li class="chapter" data-level="1.4.2" data-path="overview.html"><a href="overview.html#quality-control-and-image-quality-optimization"><i class="fa fa-check"></i><b>1.4.2</b> Quality Control and Image quality optimization</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="overview.html"><a href="overview.html#image-quality-vs.-task-performance"><i class="fa fa-check"></i><b>1.5</b> Image quality vs. task performance</a></li>
 <li class="chapter" data-level="1.6" data-path="overview.html"><a href="overview.html#why-physical-measures-are-not-enough"><i class="fa fa-check"></i><b>1.6</b> Why physical measures are not enough</a></li>
 <li class="chapter" data-level="1.7" data-path="overview.html"><a href="overview.html#model-observers"><i class="fa fa-check"></i><b>1.7</b> Model observers</a></li>
-<li class="chapter" data-level="1.8" data-path="overview.html"><a href="overview.html#measuring-observer-performance-four-paradigms"><i class="fa fa-check"></i><b>1.8</b> Measuring observer performance: four paradigms</a><ul>
+<li class="chapter" data-level="1.8" data-path="overview.html"><a href="overview.html#measuring-observer-performance-four-paradigms"><i class="fa fa-check"></i><b>1.8</b> Measuring observer performance: four paradigms</a>
+<ul>
 <li class="chapter" data-level="1.8.1" data-path="overview.html"><a href="overview.html#basic-approach-to-the-analysis"><i class="fa fa-check"></i><b>1.8.1</b> Basic approach to the analysis</a></li>
 <li class="chapter" data-level="1.8.2" data-path="overview.html"><a href="overview.html#historical-notes"><i class="fa fa-check"></i><b>1.8.2</b> Historical notes</a></li>
 </ul></li>
 <li class="chapter" data-level="1.9" data-path="overview.html"><a href="overview.html#hierarchy-of-assessment-methods"><i class="fa fa-check"></i><b>1.9</b> Hierarchy of assessment methods</a></li>
-<li class="chapter" data-level="1.10" data-path="overview.html"><a href="overview.html#overview-of-the-book-and-how-to-use-it"><i class="fa fa-check"></i><b>1.10</b> Overview of the book and how to use it</a><ul>
+<li class="chapter" data-level="1.10" data-path="overview.html"><a href="overview.html#overview-of-the-book-and-how-to-use-it"><i class="fa fa-check"></i><b>1.10</b> Overview of the book and how to use it</a>
+<ul>
 <li class="chapter" data-level="1.10.1" data-path="overview.html"><a href="overview.html#overview-of-the-book"><i class="fa fa-check"></i><b>1.10.1</b> Overview of the book</a></li>
 <li class="chapter" data-level="1.10.2" data-path="overview.html"><a href="overview.html#how-to-use-the-book"><i class="fa fa-check"></i><b>1.10.2</b> How to use the book</a></li>
 </ul></li>
@@ -173,27 +200,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.13" data-path="overview.html"><a href="overview.html#overview-references"><i class="fa fa-check"></i><b>1.13</b> Chapter References</a></li>
 </ul></li>
 <li class="part"><span><b>ROC paradigm</b></span></li>
-<li class="chapter" data-level="2" data-path="binary-task.html"><a href="binary-task.html"><i class="fa fa-check"></i><b>2</b> The Binary Task</a><ul>
+<li class="chapter" data-level="2" data-path="binary-task.html"><a href="binary-task.html"><i class="fa fa-check"></i><b>2</b> The Binary Task</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="binary-task.html"><a href="binary-task.html#binary-task-how-much-finished"><i class="fa fa-check"></i><b>2.1</b> How much finished 90%</a></li>
 <li class="chapter" data-level="2.2" data-path="binary-task.html"><a href="binary-task.html#binary-taskIntro"><i class="fa fa-check"></i><b>2.2</b> Introduction</a></li>
 <li class="chapter" data-level="2.3" data-path="binary-task.html"><a href="binary-task.html#binary-task-2-2-table"><i class="fa fa-check"></i><b>2.3</b> The 2x2 table</a></li>
-<li class="chapter" data-level="2.4" data-path="binary-task.html"><a href="binary-task.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4</b> Sensitivity and specificity</a><ul>
+<li class="chapter" data-level="2.4" data-path="binary-task.html"><a href="binary-task.html#sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4</b> Sensitivity and specificity</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="binary-task.html"><a href="binary-task.html#estimating-sensitivity-and-specificity"><i class="fa fa-check"></i><b>2.4.1</b> Estimating sensitivity and specificity</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="binary-task.html"><a href="binary-task.html#disease-prevalence"><i class="fa fa-check"></i><b>2.5</b> Disease prevalence</a></li>
 <li class="chapter" data-level="2.6" data-path="binary-task.html"><a href="binary-task.html#accuracy"><i class="fa fa-check"></i><b>2.6</b> Accuracy</a></li>
 <li class="chapter" data-level="2.7" data-path="binary-task.html"><a href="binary-task.html#negative-and-positive-predictive-values"><i class="fa fa-check"></i><b>2.7</b> Negative and positive predictive values</a></li>
-<li class="chapter" data-level="2.8" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvCode"><i class="fa fa-check"></i><b>2.8</b> Examples: PPV, NPV and Accuracy</a><ul>
+<li class="chapter" data-level="2.8" data-path="binary-task.html"><a href="binary-task.html#binary-taskNpvPpvCode"><i class="fa fa-check"></i><b>2.8</b> Examples: PPV, NPV and Accuracy</a>
+<ul>
 <li class="chapter" data-level="2.8.1" data-path="binary-task.html"><a href="binary-task.html#binary-task-npv-ppv-comments"><i class="fa fa-check"></i><b>2.8.1</b> Comments</a></li>
 <li class="chapter" data-level="2.8.2" data-path="binary-task.html"><a href="binary-task.html#binary-task-npv-ppv-irrel-lab"><i class="fa fa-check"></i><b>2.8.2</b> PPV and NPV are irrelevant to laboratory tasks</a></li>
 </ul></li>
 <li class="chapter" data-level="2.9" data-path="binary-task.html"><a href="binary-task.html#binary-task-discussion"><i class="fa fa-check"></i><b>2.9</b> Discussion</a></li>
 <li class="chapter" data-level="2.10" data-path="binary-task.html"><a href="binary-task.html#binary-task-references"><i class="fa fa-check"></i><b>2.10</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="binary-task-model.html"><a href="binary-task-model.html"><i class="fa fa-check"></i><b>3</b> Modeling the binary Task</a><ul>
+<li class="chapter" data-level="3" data-path="binary-task-model.html"><a href="binary-task-model.html"><i class="fa fa-check"></i><b>3</b> Modeling the binary Task</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-how-much-finished"><i class="fa fa-check"></i><b>3.1</b> How much finished 95%</a></li>
 <li class="chapter" data-level="3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-intro"><i class="fa fa-check"></i><b>3.2</b> Introduction</a></li>
-<li class="chapter" data-level="3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-z-sample-model"><i class="fa fa-check"></i><b>3.3</b> Decision variable and reporting threshold</a><ul>
+<li class="chapter" data-level="3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-z-sample-model"><i class="fa fa-check"></i><b>3.3</b> Decision variable and reporting threshold</a>
+<ul>
 <li class="chapter" data-level="3.3.1" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-decision-variable"><i class="fa fa-check"></i><b>3.3.1</b> Existence of a decision variable</a></li>
 <li class="chapter" data-level="3.3.2" data-path="binary-task-model.html"><a href="binary-task-model.html#existence-of-a-reporting-threshold"><i class="fa fa-check"></i><b>3.3.2</b> Existence of a reporting threshold</a></li>
 <li class="chapter" data-level="3.3.3" data-path="binary-task-model.html"><a href="binary-task-model.html#adequacy-of-the-training-session"><i class="fa fa-check"></i><b>3.3.3</b> Adequacy of the training session</a></li>
@@ -204,7 +236,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-normal-distribution"><i class="fa fa-check"></i><b>3.7</b> The normal distribution</a></li>
 <li class="chapter" data-level="3.8" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity"><i class="fa fa-check"></i><b>3.8</b> Analytic expressions for specificity and sensitivity</a></li>
 <li class="chapter" data-level="3.9" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-sensitivity-specificity-inverse-variation"><i class="fa fa-check"></i><b>3.9</b> Inverse variation of sensitivity and specificity</a></li>
-<li class="chapter" data-level="3.10" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-roc-curve"><i class="fa fa-check"></i><b>3.10</b> The ROC curve</a><ul>
+<li class="chapter" data-level="3.10" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-roc-curve"><i class="fa fa-check"></i><b>3.10</b> The ROC curve</a>
+<ul>
 <li class="chapter" data-level="3.10.1" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-chance-diagonal"><i class="fa fa-check"></i><b>3.10.1</b> The chance diagonal</a></li>
 <li class="chapter" data-level="3.10.2" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-guessing-observer"><i class="fa fa-check"></i><b>3.10.2</b> The guessing observer</a></li>
 <li class="chapter" data-level="3.10.3" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-symmetry-wrt-negative-diagonal"><i class="fa fa-check"></i><b>3.10.3</b> Symmetry with respect to negative diagonal</a></li>
@@ -216,18 +249,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.11" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-confidence-intervals"><i class="fa fa-check"></i><b>3.11</b> Confidence intervals for an operating point</a></li>
 <li class="chapter" data-level="3.12" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-beam-study"><i class="fa fa-check"></i><b>3.12</b> Variability: the Beam study</a></li>
 <li class="chapter" data-level="3.13" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-discussion"><i class="fa fa-check"></i><b>3.13</b> Discussion</a></li>
-<li class="chapter" data-level="3.14" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-demo"><i class="fa fa-check"></i><b>3.14</b> Appendix I</a><ul>
+<li class="chapter" data-level="3.14" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-demo"><i class="fa fa-check"></i><b>3.14</b> Appendix I</a>
+<ul>
 <li class="chapter" data-level="3.14.1" data-path="binary-task-model.html"><a href="binary-task-model.html#estimates-from-a-finite-sample"><i class="fa fa-check"></i><b>3.14.1</b> Estimates from a finite sample</a></li>
 <li class="chapter" data-level="3.14.2" data-path="binary-task-model.html"><a href="binary-task-model.html#changing-the-seed-variable"><i class="fa fa-check"></i><b>3.14.2</b> Changing the seed variable</a></li>
 <li class="chapter" data-level="3.14.3" data-path="binary-task-model.html"><a href="binary-task-model.html#increasing-the-numbers-of-cases"><i class="fa fa-check"></i><b>3.14.3</b> Increasing the numbers of cases</a></li>
 </ul></li>
 <li class="chapter" data-level="3.15" data-path="binary-task-model.html"><a href="binary-task-model.html#binary-task-model-references"><i class="fa fa-check"></i><b>3.15</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html"><i class="fa fa-check"></i><b>4</b> Ratings Paradigm</a><ul>
+<li class="chapter" data-level="4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html"><i class="fa fa-check"></i><b>4</b> Ratings Paradigm</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-how-much-finished"><i class="fa fa-check"></i><b>4.1</b> How much finished 90%</a></li>
 <li class="chapter" data-level="4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-introduction"><i class="fa fa-check"></i><b>4.2</b> Introduction</a></li>
 <li class="chapter" data-level="4.3" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-roc-counts-table"><i class="fa fa-check"></i><b>4.3</b> The ROC counts table</a></li>
-<li class="chapter" data-level="4.4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-operating-points-from-counts-table"><i class="fa fa-check"></i><b>4.4</b> Operating points from counts table</a><ul>
+<li class="chapter" data-level="4.4" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-operating-points-from-counts-table"><i class="fa fa-check"></i><b>4.4</b> Operating points from counts table</a>
+<ul>
 <li class="chapter" data-level="4.4.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#labeling-the-points"><i class="fa fa-check"></i><b>4.4.1</b> Labeling the points</a></li>
 <li class="chapter" data-level="4.4.2" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-task-examples"><i class="fa fa-check"></i><b>4.4.2</b> Examples</a></li>
 </ul></li>
@@ -238,16 +274,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.9" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-2afc"><i class="fa fa-check"></i><b>4.9</b> The forced choice paradigm</a></li>
 <li class="chapter" data-level="4.10" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-observer-studies-as-simulations"><i class="fa fa-check"></i><b>4.10</b> Observer performance studies as laboratory simulations of clinical tasks</a></li>
 <li class="chapter" data-level="4.11" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-discrete-vs-continuous-ratings"><i class="fa fa-check"></i><b>4.11</b> Discrete vs. continuous ratings: the Miller study</a></li>
-<li class="chapter" data-level="4.12" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale"><i class="fa fa-check"></i><b>4.12</b> The BI-RADS ratings scale and ROC studies</a><ul>
+<li class="chapter" data-level="4.12" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale"><i class="fa fa-check"></i><b>4.12</b> The BI-RADS ratings scale and ROC studies</a>
+<ul>
 <li class="chapter" data-level="4.12.1" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#binary-task-birads-rating-scale-controversy"><i class="fa fa-check"></i><b>4.12.1</b> The controversy</a></li>
 </ul></li>
 <li class="chapter" data-level="4.13" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-discussion"><i class="fa fa-check"></i><b>4.13</b> Discussion</a></li>
 <li class="chapter" data-level="4.14" data-path="ratings-paradigm.html"><a href="ratings-paradigm.html#ratings-paradigm-references"><i class="fa fa-check"></i><b>4.14</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="empirical-auc.html"><a href="empirical-auc.html"><i class="fa fa-check"></i><b>5</b> Empirical AUC</a><ul>
+<li class="chapter" data-level="5" data-path="empirical-auc.html"><a href="empirical-auc.html"><i class="fa fa-check"></i><b>5</b> Empirical AUC</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-how-much-finished"><i class="fa fa-check"></i><b>5.1</b> How much finished 90%</a></li>
 <li class="chapter" data-level="5.2" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-introduction"><i class="fa fa-check"></i><b>5.2</b> Introduction</a></li>
-<li class="chapter" data-level="5.3" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-roc-plot"><i class="fa fa-check"></i><b>5.3</b> The empirical ROC plot</a><ul>
+<li class="chapter" data-level="5.3" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-roc-plot"><i class="fa fa-check"></i><b>5.3</b> The empirical ROC plot</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="empirical-auc.html"><a href="empirical-auc.html#notation-for-cases"><i class="fa fa-check"></i><b>5.3.1</b> Notation for cases</a></li>
 <li class="chapter" data-level="5.3.2" data-path="empirical-auc.html"><a href="empirical-auc.html#an-empirical-operating-point"><i class="fa fa-check"></i><b>5.3.2</b> An empirical operating point</a></li>
 </ul></li>
@@ -258,16 +297,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.8" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem-importance"><i class="fa fa-check"></i><b>5.8</b> Importance of Bamber’s theorem</a></li>
 <li class="chapter" data-level="5.9" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-discussion-summary"><i class="fa fa-check"></i><b>5.9</b> Discussion / Summary</a></li>
 <li class="chapter" data-level="5.10" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-bamber-theorem-proof"><i class="fa fa-check"></i><b>5.10</b> Appendix: Bamber theorem proof</a></li>
-<li class="chapter" data-level="5.11" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-bamber-theorem-a0-term"><i class="fa fa-check"></i><b>5.11</b> Appendix: The <span class="math inline">\(A_0\)</span> term</a><ul>
+<li class="chapter" data-level="5.11" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-bamber-theorem-a0-term"><i class="fa fa-check"></i><b>5.11</b> Appendix: The <span class="math inline">\(A_0\)</span> term</a>
+<ul>
 <li class="chapter" data-level="5.11.1" data-path="empirical-auc.html"><a href="empirical-auc.html#upper-triangle"><i class="fa fa-check"></i><b>5.11.1</b> Upper triangle</a></li>
 <li class="chapter" data-level="5.11.2" data-path="empirical-auc.html"><a href="empirical-auc.html#lowest-trapezoid"><i class="fa fa-check"></i><b>5.11.2</b> Lowest trapezoid</a></li>
 </ul></li>
 <li class="chapter" data-level="5.12" data-path="empirical-auc.html"><a href="empirical-auc.html#empirical-auc-references"><i class="fa fa-check"></i><b>5.12</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="binormal-model.html"><a href="binormal-model.html"><i class="fa fa-check"></i><b>6</b> Binormal model</a><ul>
+<li class="chapter" data-level="6" data-path="binormal-model.html"><a href="binormal-model.html"><i class="fa fa-check"></i><b>6</b> Binormal model</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-how-much-finished"><i class="fa fa-check"></i><b>6.1</b> How much finished 97%</a></li>
 <li class="chapter" data-level="6.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-introduction"><i class="fa fa-check"></i><b>6.2</b> Introduction</a></li>
-<li class="chapter" data-level="6.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-definition"><i class="fa fa-check"></i><b>6.3</b> Binormal model</a><ul>
+<li class="chapter" data-level="6.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-definition"><i class="fa fa-check"></i><b>6.3</b> Binormal model</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="binormal-model.html"><a href="binormal-model.html#binned-data"><i class="fa fa-check"></i><b>6.3.1</b> Binned data</a></li>
 <li class="chapter" data-level="6.3.2" data-path="binormal-model.html"><a href="binormal-model.html#sensitivity-and-specificity-1"><i class="fa fa-check"></i><b>6.3.2</b> Sensitivity and specificity</a></li>
 <li class="chapter" data-level="6.3.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-in-conventional-notation"><i class="fa fa-check"></i><b>6.3.3</b> Binormal model in conventional notation</a></li>
@@ -277,14 +319,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.6" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-invariance-property"><i class="fa fa-check"></i><b>6.6</b> Invariance property of pdfs</a></li>
 <li class="chapter" data-level="6.7" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-full-auc"><i class="fa fa-check"></i><b>6.7</b> Az and d-prime measures</a></li>
 <li class="chapter" data-level="6.8" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-fitting"><i class="fa fa-check"></i><b>6.8</b> Fitting the binormal model</a></li>
-<li class="chapter" data-level="6.9" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc"><i class="fa fa-check"></i><b>6.9</b> Partial AUC measures</a><ul>
+<li class="chapter" data-level="6.9" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc"><i class="fa fa-check"></i><b>6.9</b> Partial AUC measures</a>
+<ul>
 <li class="chapter" data-level="6.9.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-meaning-partial-auc-definitions"><i class="fa fa-check"></i><b>6.9.1</b> Measure emphasizing high specificity</a></li>
 <li class="chapter" data-level="6.9.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-metz-partial-auc"><i class="fa fa-check"></i><b>6.9.2</b> Measure emphasizing high sensitivity</a></li>
 <li class="chapter" data-level="6.9.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-metz-partial-auc-example"><i class="fa fa-check"></i><b>6.9.3</b> Numerical examples</a></li>
 </ul></li>
 <li class="chapter" data-level="6.10" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-partial-auc-comments"><i class="fa fa-check"></i><b>6.10</b> Comments on partial AUC measures</a></li>
 <li class="chapter" data-level="6.11" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-discussion"><i class="fa fa-check"></i><b>6.11</b> Discussion</a></li>
-<li class="chapter" data-level="6.12" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting"><i class="fa fa-check"></i><b>6.12</b> Appendix: Fitting an ROC curve</a><ul>
+<li class="chapter" data-level="6.12" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-curve-fitting"><i class="fa fa-check"></i><b>6.12</b> Appendix: Fitting an ROC curve</a>
+<ul>
 <li class="chapter" data-level="6.12.1" data-path="binormal-model.html"><a href="binormal-model.html#java-fitted-roc-curve"><i class="fa fa-check"></i><b>6.12.1</b> JAVA fitted ROC curve</a></li>
 <li class="chapter" data-level="6.12.2" data-path="binormal-model.html"><a href="binormal-model.html#simplistic-straight-line-fit-to-the-roc-curve"><i class="fa fa-check"></i><b>6.12.2</b> Simplistic straight line fit to the ROC curve</a></li>
 <li class="chapter" data-level="6.12.3" data-path="binormal-model.html"><a href="binormal-model.html#maximum-likelihood-estimation-mle"><i class="fa fa-check"></i><b>6.12.3</b> Maximum likelihood estimation (MLE)</a></li>
@@ -293,10 +337,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.12.6" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-covariance-matrix"><i class="fa fa-check"></i><b>6.12.6</b> Estimating the covariance matrix</a></li>
 <li class="chapter" data-level="6.12.7" data-path="binormal-model.html"><a href="binormal-model.html#estimating-the-variance-of-az"><i class="fa fa-check"></i><b>6.12.7</b> Estimating the variance of Az</a></li>
 </ul></li>
-<li class="chapter" data-level="6.13" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-improper-curves"><i class="fa fa-check"></i><b>6.13</b> Appendix: Improper ROCs</a><ul>
+<li class="chapter" data-level="6.13" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-improper-curves"><i class="fa fa-check"></i><b>6.13</b> Appendix: Improper ROCs</a>
+<ul>
 <li class="chapter" data-level="6.13.1" data-path="binormal-model.html"><a href="binormal-model.html#reason-for-improper-rocs"><i class="fa fa-check"></i><b>6.13.1</b> Reason for improper ROCs</a></li>
 </ul></li>
-<li class="chapter" data-level="6.14" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degeneracy-artifacts"><i class="fa fa-check"></i><b>6.14</b> Appendix: Binormal model degeneracy and artifacts</a><ul>
+<li class="chapter" data-level="6.14" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degeneracy-artifacts"><i class="fa fa-check"></i><b>6.14</b> Appendix: Binormal model degeneracy and artifacts</a>
+<ul>
 <li class="chapter" data-level="6.14.1" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-degenerate-datasets"><i class="fa fa-check"></i><b>6.14.1</b> Degenerate datasets</a></li>
 <li class="chapter" data-level="6.14.2" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-understanding-degenerate-datasets"><i class="fa fa-check"></i><b>6.14.2</b> Understanding degenerate datasets</a></li>
 <li class="chapter" data-level="6.14.3" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-exact-fit-not-unique"><i class="fa fa-check"></i><b>6.14.3</b> The exact fit is not unique</a></li>
@@ -305,38 +351,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.15" data-path="binormal-model.html"><a href="binormal-model.html#binormal-model-references"><i class="fa fa-check"></i><b>6.15</b> Chapter References</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="improper-rocs.html"><a href="improper-rocs.html"><i class="fa fa-check"></i><b>7</b> Improper ROC curves</a><ul>
+<li class="chapter" data-level="7" data-path="improper-rocs.html"><a href="improper-rocs.html"><i class="fa fa-check"></i><b>7</b> Improper ROC curves</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="improper-rocs.html"><a href="improper-rocs.html#improper-rocs-how-much-finished"><i class="fa fa-check"></i><b>7.1</b> How much finished 10%</a></li>
 <li class="chapter" data-level="7.2" data-path="improper-rocs.html"><a href="improper-rocs.html#the-binormal-model"><i class="fa fa-check"></i><b>7.2</b> The binormal model</a></li>
 <li class="chapter" data-level="7.3" data-path="improper-rocs.html"><a href="improper-rocs.html#improper-rocs-1"><i class="fa fa-check"></i><b>7.3</b> Improper ROCs</a></li>
 <li class="chapter" data-level="7.4" data-path="improper-rocs.html"><a href="improper-rocs.html#reason-for-improper-rocs-1"><i class="fa fa-check"></i><b>7.4</b> Reason for improper ROCs</a></li>
 </ul></li>
 <li class="part"><span><b>Advanced topics</b></span></li>
-<li class="chapter" data-level="8" data-path="proper-roc-models.html"><a href="proper-roc-models.html"><i class="fa fa-check"></i><b>8</b> Proper ROC models</a><ul>
+<li class="chapter" data-level="8" data-path="proper-roc-models.html"><a href="proper-roc-models.html"><i class="fa fa-check"></i><b>8</b> Proper ROC models</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-how-much-finished"><i class="fa fa-check"></i><b>8.1</b> TBA How much finished</a></li>
 <li class="chapter" data-level="8.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-introduction"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
 <li class="chapter" data-level="8.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem1"><i class="fa fa-check"></i><b>8.3</b> Theorem: ROC slope equals likelihood ratio</a></li>
-<li class="chapter" data-level="8.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem2"><i class="fa fa-check"></i><b>8.4</b> Theorem: likelihood ratio observer maximizes AUC</a><ul>
+<li class="chapter" data-level="8.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem2"><i class="fa fa-check"></i><b>8.4</b> Theorem: likelihood ratio observer maximizes AUC</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#explanation"><i class="fa fa-check"></i><b>8.4.1</b> Explanation</a></li>
 </ul></li>
 <li class="chapter" data-level="8.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proper-vs-improper"><i class="fa fa-check"></i><b>8.5</b> Proper vs. improper ROC curves</a></li>
-<li class="chapter" data-level="8.6" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-degenerate-datasets"><i class="fa fa-check"></i><b>8.6</b> Degenerate datasets</a><ul>
+<li class="chapter" data-level="8.6" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-degenerate-datasets"><i class="fa fa-check"></i><b>8.6</b> Degenerate datasets</a>
+<ul>
 <li class="chapter" data-level="8.6.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#comments-on-degeneracy"><i class="fa fa-check"></i><b>8.6.1</b> Comments on degeneracy</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-observer"><i class="fa fa-check"></i><b>8.7</b> The likelihood ratio observer</a></li>
-<li class="chapter" data-level="8.8" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc"><i class="fa fa-check"></i><b>8.8</b> PROPROC</a><ul>
+<li class="chapter" data-level="8.8" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc"><i class="fa fa-check"></i><b>8.8</b> PROPROC</a>
+<ul>
 <li class="chapter" data-level="8.8.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-formulae"><i class="fa fa-check"></i><b>8.8.1</b> PROPROC formulae</a></li>
 <li class="chapter" data-level="8.8.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-code"><i class="fa fa-check"></i><b>8.8.2</b> PROPROC code implementation</a></li>
 <li class="chapter" data-level="8.8.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-proproc-rocs"><i class="fa fa-check"></i><b>8.8.3</b> PROPROC ROC and slope plots</a></li>
 </ul></li>
-<li class="chapter" data-level="8.9" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm"><i class="fa fa-check"></i><b>8.9</b> The contaminated binormal model (CBM)</a><ul>
+<li class="chapter" data-level="8.9" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm"><i class="fa fa-check"></i><b>8.9</b> The contaminated binormal model (CBM)</a>
+<ul>
 <li class="chapter" data-level="8.9.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-formulae"><i class="fa fa-check"></i><b>8.9.1</b> CBM formulae</a></li>
 <li class="chapter" data-level="8.9.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-code"><i class="fa fa-check"></i><b>8.9.2</b> CBM code implementation</a></li>
 <li class="chapter" data-level="8.9.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-rocs"><i class="fa fa-check"></i><b>8.9.3</b> CBM ROC plots</a></li>
 <li class="chapter" data-level="8.9.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-pdfs"><i class="fa fa-check"></i><b>8.9.4</b> CBM pdf plots</a></li>
 <li class="chapter" data-level="8.9.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-slopes"><i class="fa fa-check"></i><b>8.9.5</b> CBM likelihood ratio plots</a></li>
 </ul></li>
-<li class="chapter" data-level="8.10" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma"><i class="fa fa-check"></i><b>8.10</b> The bigamma model (BGM)</a><ul>
+<li class="chapter" data-level="8.10" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma"><i class="fa fa-check"></i><b>8.10</b> The bigamma model (BGM)</a>
+<ul>
 <li class="chapter" data-level="8.10.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-formulae"><i class="fa fa-check"></i><b>8.10.1</b> BGM formulae</a></li>
 <li class="chapter" data-level="8.10.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-code"><i class="fa fa-check"></i><b>8.10.2</b> BGM code implementation</a></li>
 <li class="chapter" data-level="8.10.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma-rocs"><i class="fa fa-check"></i><b>8.10.3</b> BGM ROC plots</a></li>
@@ -345,37 +398,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.11" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-discussion"><i class="fa fa-check"></i><b>8.11</b> Discussion</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="proproc-rocs.html"><a href="proproc-rocs.html"><i class="fa fa-check"></i><b>9</b> PROPROC ROC curves</a><ul>
+<li class="chapter" data-level="9" data-path="proproc-rocs.html"><a href="proproc-rocs.html"><i class="fa fa-check"></i><b>9</b> PROPROC ROC curves</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="proproc-rocs.html"><a href="proproc-rocs.html#helper-functions"><i class="fa fa-check"></i><b>9.1</b> Helper functions</a></li>
 <li class="chapter" data-level="9.2" data-path="proproc-rocs.html"><a href="proproc-rocs.html#definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters"><i class="fa fa-check"></i><b>9.2</b> Definitions of PROPROC parameters in terms of binormal model parameters</a></li>
 <li class="chapter" data-level="9.3" data-path="proproc-rocs.html"><a href="proproc-rocs.html#main-code-and-output"><i class="fa fa-check"></i><b>9.3</b> Main code and output</a></li>
 <li class="chapter" data-level="9.4" data-path="proproc-rocs.html"><a href="proproc-rocs.html#discussion"><i class="fa fa-check"></i><b>9.4</b> Discussion</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html"><i class="fa fa-check"></i><b>10</b> Metz Eqn 36 numerical check</a><ul>
+<li class="chapter" data-level="10" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html"><i class="fa fa-check"></i><b>10</b> Metz Eqn 36 numerical check</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#helper-functions-1"><i class="fa fa-check"></i><b>10.1</b> Helper functions</a></li>
 <li class="chapter" data-level="10.2" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#main-code-and-output-1"><i class="fa fa-check"></i><b>10.2</b> Main code and output</a></li>
 <li class="chapter" data-level="10.3" data-path="metz-eqn-36.html"><a href="metz-eqn-36.html#discussion-1"><i class="fa fa-check"></i><b>10.3</b> Discussion</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html"><i class="fa fa-check"></i><b>11</b> Bivariate binormal model</a><ul>
+<li class="chapter" data-level="11" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html"><i class="fa fa-check"></i><b>11</b> Bivariate binormal model</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-how-much-finished"><i class="fa fa-check"></i><b>11.1</b> TBA How much finished</a></li>
 <li class="chapter" data-level="11.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-introduction"><i class="fa fa-check"></i><b>11.2</b> Introduction</a></li>
 <li class="chapter" data-level="11.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-bivariate-density"><i class="fa fa-check"></i><b>11.3</b> Bivariate density function</a></li>
 <li class="chapter" data-level="11.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-formulae"><i class="fa fa-check"></i><b>11.4</b> The bivariate binormal model</a></li>
 <li class="chapter" data-level="11.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-visualization"><i class="fa fa-check"></i><b>11.5</b> Visualizing the bivariate density function</a></li>
 <li class="chapter" data-level="11.6" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation"><i class="fa fa-check"></i><b>11.6</b> Estimating bivariate binormal model parameters</a></li>
-<li class="chapter" data-level="11.7" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-examples"><i class="fa fa-check"></i><b>11.7</b> Examples of bivariate normal probability integrals</a><ul>
+<li class="chapter" data-level="11.7" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-examples"><i class="fa fa-check"></i><b>11.7</b> Examples of bivariate normal probability integrals</a>
+<ul>
 <li class="chapter" data-level="11.7.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-estimation-code"><i class="fa fa-check"></i><b>11.7.1</b> Code listing</a></li>
 <li class="chapter" data-level="11.7.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-examples-integrals"><i class="fa fa-check"></i><b>11.7.2</b> Examples of bivariate normal probability integrals</a></li>
 </ul></li>
 <li class="chapter" data-level="11.8" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-likelihood"><i class="fa fa-check"></i><b>11.8</b> Likelihood function</a></li>
-<li class="chapter" data-level="11.9" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2"><i class="fa fa-check"></i><b>11.9</b> CORROC2 software</a><ul>
+<li class="chapter" data-level="11.9" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2"><i class="fa fa-check"></i><b>11.9</b> CORROC2 software</a>
+<ul>
 <li class="chapter" data-level="11.9.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-details"><i class="fa fa-check"></i><b>11.9.1</b> Details of CORROC2 software</a></li>
 <li class="chapter" data-level="11.9.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-data-input"><i class="fa fa-check"></i><b>11.9.2</b> CORROC2 data input</a></li>
 <li class="chapter" data-level="11.9.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output"><i class="fa fa-check"></i><b>11.9.3</b> CORROC2 output</a></li>
 <li class="chapter" data-level="11.9.4" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-covariance-matrix"><i class="fa fa-check"></i><b>11.9.4</b> Covariance matrix</a></li>
 <li class="chapter" data-level="11.9.5" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-output-restof"><i class="fa fa-check"></i><b>11.9.5</b> Rest of CORROC2 output</a></li>
 </ul></li>
-<li class="chapter" data-level="11.10" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application"><i class="fa fa-check"></i><b>11.10</b> Application to a real dataset</a><ul>
+<li class="chapter" data-level="11.10" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application"><i class="fa fa-check"></i><b>11.10</b> Application to a real dataset</a>
+<ul>
 <li class="chapter" data-level="11.10.1" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-code-output"><i class="fa fa-check"></i><b>11.10.1</b> Code Output</a></li>
 <li class="chapter" data-level="11.10.2" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-debug-window"><i class="fa fa-check"></i><b>11.10.2</b> Contents of the Debug window, as viewed from the Mac side</a></li>
 <li class="chapter" data-level="11.10.3" data-path="bivariate-binormal-model.html"><a href="bivariate-binormal-model.html#bivariate-binormal-model-corroc2-application-corrocii-input"><i class="fa fa-check"></i><b>11.10.3</b> Contents of CorrocIIinput.txt</a></li>
@@ -403,12 +462,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="empirical-auc" class="section level1 hasAnchor">
+<div id="empirical-auc" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Empirical AUC<a href="empirical-auc.html#empirical-auc" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="empirical-auc-how-much-finished" class="section level2 hasAnchor">
+<div id="empirical-auc-how-much-finished" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> How much finished 90%<a href="empirical-auc.html#empirical-auc-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div id="empirical-auc-introduction" class="section level2 hasAnchor">
+<div id="empirical-auc-introduction" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Introduction<a href="empirical-auc.html#empirical-auc-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The ROC plot is defined as the plot of sensitivity (y-axis) vs. 1-specificity (x-axis). Equivalently, it is the plot of <span class="math inline">\(\text{TPF}\)</span> vs. <span class="math inline">\(\text{FPF}\)</span>. An equal variance binormal model was introduced in an earlier chapter which allows an ROC plot to be fitted to a single observed operating point. The more commonly used ratings paradigm was introduced in the previous chapter.</p>
 <p>It was shown, Fig. <a href="ratings-paradigm.html#fig:ratings-paradigm-eq-var-fit">4.2</a>, that the equal variance binormal model did not fit a clinical dataset and that an unequal variance binormal model yielded a better visual fit. This turns out to be a general finding. Before getting into the complexity of the unequal variance binormal model curve fitting, see next chapter, it is appropriate to introduce a simpler <strong>empirical</strong> approach which is very popular with some researchers.</p>
@@ -418,12 +477,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <p>The empirical method is also termed “non-parametric” as it does not involve parametric assumptions (specifically normality assumptions are not needed). Notation is introduced for labeling individual cases. The empirical area under the ROC (AUC) under the empirical plot is defined. An important theorem relating AUC to the Wilcoxon statistic is stated.</p>
 </div>
-<div id="empirical-roc-plot" class="section level2 hasAnchor">
+<div id="empirical-roc-plot" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> The empirical ROC plot<a href="empirical-auc.html#empirical-roc-plot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <blockquote>
 <p>The empirical ROC plot is constructed by connecting adjacent observed operating points, including the trivial ones at (0,0) and (1,1), with straight lines. The trapezoidal area under this plot is a non-parametric figure of merit that is threshold independent. Since no parametric assumptions are involved some prefer it to parametric methods such as the one to be described in the next chapter.^ [In the context of AUC, the terms empirical, trapezoidal, or non-parametric all mean the same thing.]</p>
 </blockquote>
-<div id="notation-for-cases" class="section level3 hasAnchor">
+<div id="notation-for-cases" class="section level3 hasAnchor" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> Notation for cases<a href="empirical-auc.html#notation-for-cases" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Cases are indexed by <span class="math inline">\(k_tt\)</span> where <span class="math inline">\(t\)</span> indicates the truth-status at the case (i.e., patient) level, with <span class="math inline">\(t=1\)</span> for non diseased cases and <span class="math inline">\(t=2\)</span> for diseased cases. Index <span class="math inline">\(k_1\)</span> ranges from one to <span class="math inline">\(K_1\)</span> for non-diseased cases and <span class="math inline">\(k_2\)</span> ranges from one to <span class="math inline">\(K_2\)</span> for diseased cases where <span class="math inline">\(K_1\)</span> and <span class="math inline">\(K_2\)</span> are the total number of non-diseased and diseased cases respectively. In Table <a href="empirical-auc.html#tab:empirical-ROC-2index-notation">5.1</a> each case is represented as a shaded box using lighter shading for non-diseased cases and darker shading for diseased cases. There are 11 non-diseased cases, labeled N1 – N11, in the upper row of boxes and there are seven diseased cases, labeled D1 – D7, in the lower row.</p>
 <table>
@@ -527,7 +586,7 @@ D7
 </table>
 <p>To address any cell (i.e., case) in Table <a href="empirical-auc.html#tab:empirical-ROC-2index-notation">5.1</a> one needs two indices: the row number <span class="math inline">\(t\)</span> and the column number <span class="math inline">\(k_tt\)</span>. Since the column number depends on the value of <span class="math inline">\(t\)</span> one needs two indices to specify it: specifically, <span class="math inline">\(k_tt\)</span> denotes the column number <span class="math inline">\(k_t\)</span> of a case with truth index <span class="math inline">\(t\)</span>. My notation may appear to be unnecessarily liberal in its usage of the <span class="math inline">\(t\)</span> subscript. Alternative notation commonly uses a single index <span class="math inline">\(k\)</span> to label the cases. It reserves the first <span class="math inline">\(K_1\)</span> positions for non-diseased cases and the rest for diseased cases: e.g., <span class="math inline">\(k = 3\)</span> corresponds to the third non-diseased case, <span class="math inline">\(k = K_1+5\)</span> corresponds to the fifth diseased case, etc. Because it extends easily to more complex data structures, e.g., FROC, I prefer the two-index notation.</p>
 </div>
-<div id="an-empirical-operating-point" class="section level3 hasAnchor">
+<div id="an-empirical-operating-point" class="section level3 hasAnchor" number="5.3.2">
 <h3><span class="header-section-number">5.3.2</span> An empirical operating point<a href="empirical-auc.html#an-empirical-operating-point" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let <span class="math inline">\(z_{k_tt}\)</span> represent the z-sample of case <span class="math inline">\(k_tt\)</span>. For a given reporting threshold <span class="math inline">\(\zeta\)</span>, and assuming a positive-directed rating scale (i.e., higher values correspond to greater confidence in presence of disease), empirical false positive fraction <span class="math inline">\(\text{FPF}(\zeta)\)</span> and empirical true positive fraction <span class="math inline">\(\text{TPF}(\zeta)\)</span> are defined by:</p>
 <p><span class="math display" id="eq:empirical-auc-op-pt">\[\begin{equation}
@@ -548,7 +607,7 @@ O\left ( \zeta \right ) = \left ( \text{FPF}\left ( \zeta \right ), TPF\left ( \
 <p>The difference between Eqn. <a href="empirical-auc.html#eq:empirical-auc-op-pt">(5.1)</a> and Eqn. <a href="binary-task-model.html#eq:binary-task-model-fpf-tpf">(3.18)</a> is that the former is non-parametric while the latter is parametric.</p>
 </div>
 </div>
-<div id="empirical-auc-operating-points" class="section level2 hasAnchor">
+<div id="empirical-auc-operating-points" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Empirical operating points from ratings data<a href="empirical-auc.html#empirical-auc-operating-points" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Consider a ratings ROC study with <span class="math inline">\(R\)</span> bins. Describing an R-rating empirical ROC plot requires <span class="math inline">\(R-1\)</span> ordered empirical thresholds, see Eqn. <a href="ratings-paradigm.html#eq:ratings-paradigm-empirical-zeta">(4.5)</a>.</p>
 <p>The operating point <span class="math inline">\(O(\zeta_r)\)</span> is given by:</p>
@@ -557,7 +616,7 @@ O\left ( \zeta_r \right ) = \left ( \text{FPF}\left ( \zeta_r \right ), TPF\left
 \tag{5.3}
 \end{equation}\]</span></p>
 <p>Its coordinates are defined by:</p>
-<p><span class="math display" id="eq:empirical-operating-point-fpf-tpf">\[\begin{equation} 
+<p><span class="math display" id="eq:empirical-operating-point-fpf-tpf">\[\begin{equation}
 \left.
 \begin{aligned}
 \text{FPF}_r \equiv \text{FPF}\left ( \zeta_r \right )=&amp;\frac {1} {K_1} \sum_{k_1=1}^{K_1}I \left ( z_{k_11} \geq  \zeta_r\right ) \\
@@ -567,7 +626,7 @@ O\left ( \zeta_r \right ) = \left ( \text{FPF}\left ( \zeta_r \right ), TPF\left
 \tag{5.4}
 \end{equation}\]</span></p>
 <p>For example,</p>
-<p><span class="math display" id="eq:empirical-operating-point-fpf-tpf-4">\[\begin{equation} 
+<p><span class="math display" id="eq:empirical-operating-point-fpf-tpf-4">\[\begin{equation}
 \left.
 \begin{aligned}
 \text{FPF}_4 \equiv \text{FPF}\left ( \zeta_4 \right )=&amp;\frac {1} {K_1} \sum_{k_1=1}^{K_1}I \left ( z_{k_11} \geq  \zeta_4\right ) \\
@@ -579,9 +638,9 @@ O_4 \equiv \left ( \text{FPF}_4, \text{TPF}_4 \right ) =&amp; \left ( 0.017, 0.4
 \end{equation}\]</span></p>
 <p>Fig. <a href="ratings-paradigm.html#fig:ratings-paradigm-labeling-points-figure">4.1</a> is the empirical ROC plot. It illustrates the convention used to label the operating points introduced earlier is, i.e., <span class="math inline">\(O_2\)</span> is the uppermost non-trivial point, and the subscripts increment by unity as one moves down the plot. By convention, not shown are the trivial operating points <span class="math inline">\(O_0 \equiv (\text{FPF}_0, \text{TPF}_0) = (1,1)\)</span> and <span class="math inline">\(O_R \equiv (\text{FPF}_R, \text{TPF}_R) = (0,0)\)</span>, where <span class="math inline">\(R = 5\)</span>.</p>
 </div>
-<div id="empirical-auc-area-under" class="section level2 hasAnchor">
+<div id="empirical-auc-area-under" class="section level2 hasAnchor" number="5.5">
 <h2><span class="header-section-number">5.5</span> AUC under the empirical ROC plot<a href="empirical-auc.html#empirical-auc-area-under" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Fig. <a href="empirical-auc.html#fig:empirical-auc-empirical-auc">5.1</a> shows the empirical plot for the data in Table 4.1. The area under the curve (AUC) is the shaded area. By dropping imaginary vertical lines from the non-trivial operating points onto the x-axis, the shaded area is seen to be the sum of one triangular shaped area and four trapezoids. One can write equations to calculate the total area but there is a theorem (see below) that the empirical area is equal to a statistic known as the Mann-Whitney-Wilcoxon statistic <span class="citation">(Wilcoxon <a href="#ref-RN2191" role="doc-biblioref">1945</a>; Mann and Whitney <a href="#ref-RN2197" role="doc-biblioref">1947</a>)</span>, which, in this book, is abbreviated to the <strong>Wilcoxon statistic</strong>. Calculating this statistic is much simpler than summing the areas of the triangle and trapezoids or performing planimetry.</p>
+<p>Fig. <a href="empirical-auc.html#fig:empirical-auc-empirical-auc">5.1</a> shows the empirical plot for the data in Table 4.1. The area under the curve (AUC) is the shaded area. By dropping imaginary vertical lines from the non-trivial operating points onto the x-axis, the shaded area is seen to be the sum of one triangular shaped area and four trapezoids. One can write equations to calculate the total area but there is a theorem (see below) that the empirical area is equal to a statistic known as the Mann-Whitney-Wilcoxon statistic <span class="citation">(<a href="#ref-RN2191" role="doc-biblioref">Wilcoxon 1945</a>; <a href="#ref-RN2197" role="doc-biblioref">Mann and Whitney 1947</a>)</span>, which, in this book, is abbreviated to the <strong>Wilcoxon statistic</strong>. Calculating this statistic is much simpler than summing the areas of the triangle and trapezoids or performing planimetry.</p>
 <div class="figure"><span style="display:block;" id="fig:empirical-auc-empirical-auc"></span>
 <img src="05-empirical-auc_files/figure-html/empirical-auc-empirical-auc-1.png" alt="The empirical ROC plot corresponding to Table 4.1; the shaded area is the empirical AUC." width="672" />
 <p class="caption">
@@ -589,7 +648,7 @@ FIGURE 5.1: The empirical ROC plot corresponding to Table 4.1; the shaded area i
 </p>
 </div>
 </div>
-<div id="empirical-auc-wilcoxon" class="section level2 hasAnchor">
+<div id="empirical-auc-wilcoxon" class="section level2 hasAnchor" number="5.6">
 <h2><span class="header-section-number">5.6</span> The Wilcoxon statistic<a href="empirical-auc.html#empirical-auc-wilcoxon" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A statistic is any value calculated from observed data. The Wilcoxon statistic is defined by:</p>
 <p><span class="math display" id="eq:empirical-auc-wilcoxon">\[\begin{equation}
@@ -609,7 +668,7 @@ FIGURE 5.1: The empirical ROC plot corresponding to Table 4.1; the shaded area i
 \end{equation}\]</span></p>
 <p>The function <span class="math inline">\(\psi\left ( x, y \right )\)</span> is unity if the diseased case is rated higher, 0.5 if the two are rated the same and zero otherwise. Each evaluation of the kernel function results from a comparison of a case from the non-diseased set with one from the diseased set. In Eqn. <a href="empirical-auc.html#eq:empirical-auc-wilcoxon">(5.6)</a> the two summations and division by the total number of comparisons yields the observed, i.e., empirical, probability that diseased cases are rated higher than non-diseased ones. Since it is a probability, it can range from zero to one. However, if the observer has any discrimination ability at all, one expects diseased cases to be rated equal or greater than non-diseased ones, so in practice one expects <span class="math inline">\(0.5 \leq \text{W} \leq 1\)</span>. The limit 0.5 corresponds to a guessing observer whose operating point lies on the chance diagonal of the ROC plot.</p>
 </div>
-<div id="empirical-auc-wilcoxon-bamber-theorem" class="section level2 hasAnchor">
+<div id="empirical-auc-wilcoxon-bamber-theorem" class="section level2 hasAnchor" number="5.7">
 <h2><span class="header-section-number">5.7</span> Bamber’s Equivalence theorem<a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>It is shown in the Appendix <a href="empirical-auc.html#empirical-auc-bamber-theorem-proof">5.10</a> that the Wilcoxon statistic <span class="math inline">\(\text{W}\)</span> equals the area <span class="math inline">\(\text{AUC}\)</span> under the empirical ROC plot:</p>
 <p><span class="math display" id="eq:empirical-auc-bamber-theorem">\[\begin{equation}
@@ -617,74 +676,74 @@ FIGURE 5.1: The empirical ROC plot corresponding to Table 4.1; the shaded area i
 \tag{5.8}
 \end{equation}\]</span></p>
 <p>Numerical illustration: as an illustration of the theorem it is helpful to calculate the sum on the right hand side of Eqn. <a href="empirical-auc.html#eq:empirical-auc-wilcoxon">(5.6)</a> and compare it to direct integration of the area under the empirical ROC curve (i.e., adding the area of a triangle and several trapezoids). The function is called <code>trapz(x,y)</code>, see below. It takes two array arguments, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, where <span class="math inline">\(x \equiv \text{FPF}\)</span> and <span class="math inline">\(y \equiv \text{TPF}\)</span>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="empirical-auc.html#cb14-1"></a>trapz =<span class="st"> </span><span class="cf">function</span>(x, y)</span>
-<span id="cb14-2"><a href="empirical-auc.html#cb14-2"></a>{ <span class="co">### computes the integral of y with respect to x using trapezoidal integration.</span></span>
-<span id="cb14-3"><a href="empirical-auc.html#cb14-3"></a>  idx =<span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(x)</span>
-<span id="cb14-4"><a href="empirical-auc.html#cb14-4"></a>  <span class="kw">return</span> (<span class="kw">as.double</span>( (x[idx] <span class="op">-</span><span class="st"> </span>x[idx<span class="dv">-1</span>]) <span class="op">%*%</span><span class="st"> </span>(y[idx] <span class="op">+</span><span class="st"> </span>y[idx<span class="dv">-1</span>])) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)</span>
-<span id="cb14-5"><a href="empirical-auc.html#cb14-5"></a>}</span>
-<span id="cb14-6"><a href="empirical-auc.html#cb14-6"></a></span>
-<span id="cb14-7"><a href="empirical-auc.html#cb14-7"></a></span>
-<span id="cb14-8"><a href="empirical-auc.html#cb14-8"></a>Wilcoxon &lt;-<span class="st"> </span><span class="cf">function</span> (zk1, zk2)</span>
-<span id="cb14-9"><a href="empirical-auc.html#cb14-9"></a>{</span>
-<span id="cb14-10"><a href="empirical-auc.html#cb14-10"></a>  K1 =<span class="st"> </span><span class="kw">length</span>(zk1)</span>
-<span id="cb14-11"><a href="empirical-auc.html#cb14-11"></a>  K2 =<span class="st"> </span><span class="kw">length</span>(zk2)</span>
-<span id="cb14-12"><a href="empirical-auc.html#cb14-12"></a>  W &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb14-13"><a href="empirical-auc.html#cb14-13"></a>  <span class="cf">for</span> (k1 <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K1) {</span>
-<span id="cb14-14"><a href="empirical-auc.html#cb14-14"></a>    W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">&lt;</span><span class="st"> </span>zk2)</span>
-<span id="cb14-15"><a href="empirical-auc.html#cb14-15"></a>    W &lt;-<span class="st"> </span>W <span class="op">+</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(zk1[k1] <span class="op">==</span><span class="st"> </span>zk2)</span>
-<span id="cb14-16"><a href="empirical-auc.html#cb14-16"></a>  }</span>
-<span id="cb14-17"><a href="empirical-auc.html#cb14-17"></a>  W &lt;-<span class="st"> </span>W<span class="op">/</span>K1<span class="op">/</span>K2</span>
-<span id="cb14-18"><a href="empirical-auc.html#cb14-18"></a>  <span class="kw">return</span> (W)</span>
-<span id="cb14-19"><a href="empirical-auc.html#cb14-19"></a>}</span>
-<span id="cb14-20"><a href="empirical-auc.html#cb14-20"></a></span>
-<span id="cb14-21"><a href="empirical-auc.html#cb14-21"></a></span>
-<span id="cb14-22"><a href="empirical-auc.html#cb14-22"></a>RocOperatingPoints &lt;-<span class="st"> </span><span class="cf">function</span>( K1, K2 ) {</span>
-<span id="cb14-23"><a href="empirical-auc.html#cb14-23"></a>  nOpPts &lt;-<span class="st"> </span><span class="kw">length</span>(K1) <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="co"># number of op points</span></span>
-<span id="cb14-24"><a href="empirical-auc.html#cb14-24"></a>  FPF &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>,<span class="dt">dim =</span> nOpPts)</span>
-<span id="cb14-25"><a href="empirical-auc.html#cb14-25"></a>  TPF &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>,<span class="dt">dim =</span> nOpPts)</span>
-<span id="cb14-26"><a href="empirical-auc.html#cb14-26"></a>   </span>
-<span id="cb14-27"><a href="empirical-auc.html#cb14-27"></a>  <span class="cf">for</span> (r <span class="cf">in</span> (nOpPts<span class="op">+</span><span class="dv">1</span>)<span class="op">:</span><span class="dv">2</span>) {</span>
-<span id="cb14-28"><a href="empirical-auc.html#cb14-28"></a>    FPF[r<span class="dv">-1</span>] &lt;-<span class="st"> </span><span class="kw">sum</span>(K1[r<span class="op">:</span>(nOpPts<span class="op">+</span><span class="dv">1</span>)])<span class="op">/</span><span class="kw">sum</span>(K1)</span>
-<span id="cb14-29"><a href="empirical-auc.html#cb14-29"></a>    TPF[r<span class="dv">-1</span>] &lt;-<span class="st"> </span><span class="kw">sum</span>(K2[r<span class="op">:</span>(nOpPts<span class="op">+</span><span class="dv">1</span>)])<span class="op">/</span><span class="kw">sum</span>(K2)    </span>
-<span id="cb14-30"><a href="empirical-auc.html#cb14-30"></a>  }</span>
-<span id="cb14-31"><a href="empirical-auc.html#cb14-31"></a>  FPF &lt;-<span class="st"> </span><span class="kw">rev</span>(FPF)</span>
-<span id="cb14-32"><a href="empirical-auc.html#cb14-32"></a>  TPF &lt;-<span class="st"> </span><span class="kw">rev</span>(TPF)</span>
-<span id="cb14-33"><a href="empirical-auc.html#cb14-33"></a>  </span>
-<span id="cb14-34"><a href="empirical-auc.html#cb14-34"></a>  <span class="kw">return</span>( <span class="kw">list</span>(</span>
-<span id="cb14-35"><a href="empirical-auc.html#cb14-35"></a>    <span class="dt">FPF =</span> FPF,</span>
-<span id="cb14-36"><a href="empirical-auc.html#cb14-36"></a>    <span class="dt">TPF =</span> TPF</span>
-<span id="cb14-37"><a href="empirical-auc.html#cb14-37"></a>  ) )</span>
-<span id="cb14-38"><a href="empirical-auc.html#cb14-38"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="empirical-auc.html#cb14-1" aria-hidden="true" tabindex="-1"></a>trapz <span class="ot">=</span> <span class="cf">function</span>(x, y)</span>
+<span id="cb14-2"><a href="empirical-auc.html#cb14-2" aria-hidden="true" tabindex="-1"></a>{ <span class="do">### computes the integral of y with respect to x using trapezoidal integration.</span></span>
+<span id="cb14-3"><a href="empirical-auc.html#cb14-3" aria-hidden="true" tabindex="-1"></a>  idx <span class="ot">=</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(x)</span>
+<span id="cb14-4"><a href="empirical-auc.html#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (<span class="fu">as.double</span>( (x[idx] <span class="sc">-</span> x[idx<span class="dv">-1</span>]) <span class="sc">%*%</span> (y[idx] <span class="sc">+</span> y[idx<span class="dv">-1</span>])) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb14-5"><a href="empirical-auc.html#cb14-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-6"><a href="empirical-auc.html#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="empirical-auc.html#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="empirical-auc.html#cb14-8" aria-hidden="true" tabindex="-1"></a>Wilcoxon <span class="ot">&lt;-</span> <span class="cf">function</span> (zk1, zk2)</span>
+<span id="cb14-9"><a href="empirical-auc.html#cb14-9" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb14-10"><a href="empirical-auc.html#cb14-10" aria-hidden="true" tabindex="-1"></a>  K1 <span class="ot">=</span> <span class="fu">length</span>(zk1)</span>
+<span id="cb14-11"><a href="empirical-auc.html#cb14-11" aria-hidden="true" tabindex="-1"></a>  K2 <span class="ot">=</span> <span class="fu">length</span>(zk2)</span>
+<span id="cb14-12"><a href="empirical-auc.html#cb14-12" aria-hidden="true" tabindex="-1"></a>  W <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb14-13"><a href="empirical-auc.html#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (k1 <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>K1) {</span>
+<span id="cb14-14"><a href="empirical-auc.html#cb14-14" aria-hidden="true" tabindex="-1"></a>    W <span class="ot">&lt;-</span> W <span class="sc">+</span> <span class="fu">sum</span>(zk1[k1] <span class="sc">&lt;</span> zk2)</span>
+<span id="cb14-15"><a href="empirical-auc.html#cb14-15" aria-hidden="true" tabindex="-1"></a>    W <span class="ot">&lt;-</span> W <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="fu">sum</span>(zk1[k1] <span class="sc">==</span> zk2)</span>
+<span id="cb14-16"><a href="empirical-auc.html#cb14-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-17"><a href="empirical-auc.html#cb14-17" aria-hidden="true" tabindex="-1"></a>  W <span class="ot">&lt;-</span> W<span class="sc">/</span>K1<span class="sc">/</span>K2</span>
+<span id="cb14-18"><a href="empirical-auc.html#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (W)</span>
+<span id="cb14-19"><a href="empirical-auc.html#cb14-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-20"><a href="empirical-auc.html#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-21"><a href="empirical-auc.html#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="empirical-auc.html#cb14-22" aria-hidden="true" tabindex="-1"></a>RocOperatingPoints <span class="ot">&lt;-</span> <span class="cf">function</span>( K1, K2 ) {</span>
+<span id="cb14-23"><a href="empirical-auc.html#cb14-23" aria-hidden="true" tabindex="-1"></a>  nOpPts <span class="ot">&lt;-</span> <span class="fu">length</span>(K1) <span class="sc">-</span> <span class="dv">1</span> <span class="co"># number of op points</span></span>
+<span id="cb14-24"><a href="empirical-auc.html#cb14-24" aria-hidden="true" tabindex="-1"></a>  FPF <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">0</span>,<span class="at">dim =</span> nOpPts)</span>
+<span id="cb14-25"><a href="empirical-auc.html#cb14-25" aria-hidden="true" tabindex="-1"></a>  TPF <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">0</span>,<span class="at">dim =</span> nOpPts)</span>
+<span id="cb14-26"><a href="empirical-auc.html#cb14-26" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb14-27"><a href="empirical-auc.html#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (r <span class="cf">in</span> (nOpPts<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span><span class="dv">2</span>) {</span>
+<span id="cb14-28"><a href="empirical-auc.html#cb14-28" aria-hidden="true" tabindex="-1"></a>    FPF[r<span class="dv">-1</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(K1[r<span class="sc">:</span>(nOpPts<span class="sc">+</span><span class="dv">1</span>)])<span class="sc">/</span><span class="fu">sum</span>(K1)</span>
+<span id="cb14-29"><a href="empirical-auc.html#cb14-29" aria-hidden="true" tabindex="-1"></a>    TPF[r<span class="dv">-1</span>] <span class="ot">&lt;-</span> <span class="fu">sum</span>(K2[r<span class="sc">:</span>(nOpPts<span class="sc">+</span><span class="dv">1</span>)])<span class="sc">/</span><span class="fu">sum</span>(K2)    </span>
+<span id="cb14-30"><a href="empirical-auc.html#cb14-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-31"><a href="empirical-auc.html#cb14-31" aria-hidden="true" tabindex="-1"></a>  FPF <span class="ot">&lt;-</span> <span class="fu">rev</span>(FPF)</span>
+<span id="cb14-32"><a href="empirical-auc.html#cb14-32" aria-hidden="true" tabindex="-1"></a>  TPF <span class="ot">&lt;-</span> <span class="fu">rev</span>(TPF)</span>
+<span id="cb14-33"><a href="empirical-auc.html#cb14-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-34"><a href="empirical-auc.html#cb14-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>( <span class="fu">list</span>(</span>
+<span id="cb14-35"><a href="empirical-auc.html#cb14-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">FPF =</span> FPF,</span>
+<span id="cb14-36"><a href="empirical-auc.html#cb14-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">TPF =</span> TPF</span>
+<span id="cb14-37"><a href="empirical-auc.html#cb14-37" aria-hidden="true" tabindex="-1"></a>  ) )</span>
+<span id="cb14-38"><a href="empirical-auc.html#cb14-38" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>The following code reintroduces the dataset used earlier in Table <a href="ratings-paradigm.html#tab:ratings-paradigm-example-table">4.1</a>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="empirical-auc.html#cb15-1"></a>RocCountsTable =<span class="st"> </span><span class="kw">array</span>(<span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>))</span>
-<span id="cb15-2"><a href="empirical-auc.html#cb15-2"></a>RocCountsTable[<span class="dv">1</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">19</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
-<span id="cb15-3"><a href="empirical-auc.html#cb15-3"></a>RocCountsTable[<span class="dv">2</span>,]  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">12</span>,<span class="dv">22</span>)</span>
-<span id="cb15-4"><a href="empirical-auc.html#cb15-4"></a></span>
-<span id="cb15-5"><a href="empirical-auc.html#cb15-5"></a>zk1  &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(RocCountsTable[<span class="dv">1</span>,]),RocCountsTable[<span class="dv">1</span>,])<span class="co">#convert frequency table to array</span></span>
-<span id="cb15-6"><a href="empirical-auc.html#cb15-6"></a>zk2  &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(RocCountsTable[<span class="dv">2</span>,]),RocCountsTable[<span class="dv">2</span>,])<span class="co">#do:</span></span>
-<span id="cb15-7"><a href="empirical-auc.html#cb15-7"></a></span>
-<span id="cb15-8"><a href="empirical-auc.html#cb15-8"></a>w  &lt;-<span class="st"> </span><span class="kw">Wilcoxon</span> (zk1, zk2)</span>
-<span id="cb15-9"><a href="empirical-auc.html#cb15-9"></a><span class="kw">cat</span>(<span class="st">&quot;The Wilcoxon statistic is = &quot;</span>, w, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb15-10"><a href="empirical-auc.html#cb15-10"></a><span class="co">#&gt; The Wilcoxon statistic is =  0.8606667</span></span>
-<span id="cb15-11"><a href="empirical-auc.html#cb15-11"></a>ret &lt;-<span class="st"> </span><span class="kw">RocOperatingPoints</span>(RocCountsTable[<span class="dv">1</span>,], RocCountsTable[<span class="dv">2</span>,])</span>
-<span id="cb15-12"><a href="empirical-auc.html#cb15-12"></a>FPF &lt;-<span class="st"> </span>ret<span class="op">$</span>FPF;FPF &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,FPF,<span class="dv">1</span>)</span>
-<span id="cb15-13"><a href="empirical-auc.html#cb15-13"></a>TPF &lt;-<span class="st"> </span>ret<span class="op">$</span>TPF;TPF &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,TPF,<span class="dv">1</span>)</span>
-<span id="cb15-14"><a href="empirical-auc.html#cb15-14"></a>AUC &lt;-<span class="st"> </span><span class="kw">trapz</span>(FPF,TPF) <span class="co"># trapezoidal integration</span></span>
-<span id="cb15-15"><a href="empirical-auc.html#cb15-15"></a><span class="kw">cat</span>(<span class="st">&quot;direct integration yields AUC = &quot;</span>, AUC, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb15-16"><a href="empirical-auc.html#cb15-16"></a><span class="co">#&gt; direct integration yields AUC =  0.8606667</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="empirical-auc.html#cb15-1" aria-hidden="true" tabindex="-1"></a>RocCountsTable <span class="ot">=</span> <span class="fu">array</span>(<span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>))</span>
+<span id="cb15-2"><a href="empirical-auc.html#cb15-2" aria-hidden="true" tabindex="-1"></a>RocCountsTable[<span class="dv">1</span>,]  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>,<span class="dv">19</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="cb15-3"><a href="empirical-auc.html#cb15-3" aria-hidden="true" tabindex="-1"></a>RocCountsTable[<span class="dv">2</span>,]  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">12</span>,<span class="dv">22</span>)</span>
+<span id="cb15-4"><a href="empirical-auc.html#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="empirical-auc.html#cb15-5" aria-hidden="true" tabindex="-1"></a>zk1  <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(RocCountsTable[<span class="dv">1</span>,]),RocCountsTable[<span class="dv">1</span>,])<span class="co">#convert frequency table to array</span></span>
+<span id="cb15-6"><a href="empirical-auc.html#cb15-6" aria-hidden="true" tabindex="-1"></a>zk2  <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(RocCountsTable[<span class="dv">2</span>,]),RocCountsTable[<span class="dv">2</span>,])<span class="co">#do:</span></span>
+<span id="cb15-7"><a href="empirical-auc.html#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="empirical-auc.html#cb15-8" aria-hidden="true" tabindex="-1"></a>w  <span class="ot">&lt;-</span> <span class="fu">Wilcoxon</span> (zk1, zk2)</span>
+<span id="cb15-9"><a href="empirical-auc.html#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;The Wilcoxon statistic is = &quot;</span>, w, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb15-10"><a href="empirical-auc.html#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The Wilcoxon statistic is =  0.8606667</span></span>
+<span id="cb15-11"><a href="empirical-auc.html#cb15-11" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">RocOperatingPoints</span>(RocCountsTable[<span class="dv">1</span>,], RocCountsTable[<span class="dv">2</span>,])</span>
+<span id="cb15-12"><a href="empirical-auc.html#cb15-12" aria-hidden="true" tabindex="-1"></a>FPF <span class="ot">&lt;-</span> ret<span class="sc">$</span>FPF;FPF <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,FPF,<span class="dv">1</span>)</span>
+<span id="cb15-13"><a href="empirical-auc.html#cb15-13" aria-hidden="true" tabindex="-1"></a>TPF <span class="ot">&lt;-</span> ret<span class="sc">$</span>TPF;TPF <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,TPF,<span class="dv">1</span>)</span>
+<span id="cb15-14"><a href="empirical-auc.html#cb15-14" aria-hidden="true" tabindex="-1"></a>AUC <span class="ot">&lt;-</span> <span class="fu">trapz</span>(FPF,TPF) <span class="co"># trapezoidal integration</span></span>
+<span id="cb15-15"><a href="empirical-auc.html#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;direct integration yields AUC = &quot;</span>, AUC, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb15-16"><a href="empirical-auc.html#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; direct integration yields AUC =  0.8606667</span></span></code></pre></div>
 <p>Note the equality of the two estimates.</p>
 </div>
-<div id="empirical-auc-wilcoxon-bamber-theorem-importance" class="section level2 hasAnchor">
+<div id="empirical-auc-wilcoxon-bamber-theorem-importance" class="section level2 hasAnchor" number="5.8">
 <h2><span class="header-section-number">5.8</span> Importance of Bamber’s theorem<a href="empirical-auc.html#empirical-auc-wilcoxon-bamber-theorem-importance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The equivalence theorem is the starting point for all non-parametric methods of analyzing ROC plots, e.g., <span class="citation">(Hanley and Hajian-Tilaki <a href="#ref-hanley1997sampling" role="doc-biblioref">1997</a>; DeLong, DeLong, and Clarke-Pearson <a href="#ref-delong1988comparing" role="doc-biblioref">1988</a>)</span>. Prior to Bamber’s work one knew how to plot an empirical operating characteristic and how to calculate the Wilcoxon statistic, but their equality had not been shown. This was Bamber’s essential contribution. In the absence of this theorem, the Wilcoxon statistic would be “just another statistic”, at least in the context of ROC analysis. The theorem is so important that a paper appeared in Radiology <span class="citation">(Hanley and McNeil <a href="#ref-hanley1982meaning" role="doc-biblioref">1982</a>)</span> devoted to the equivalence. The title of this paper was “The meaning and use of the area under a receiver operating characteristic (ROC) curve”. The equivalence theorem literally gives meaning to the empirical area under the ROC.</p>
+<p>The equivalence theorem is the starting point for all non-parametric methods of analyzing ROC plots, e.g., <span class="citation">(<a href="#ref-hanley1997sampling" role="doc-biblioref">Hanley and Hajian-Tilaki 1997</a>; <a href="#ref-delong1988comparing" role="doc-biblioref">DeLong, DeLong, and Clarke-Pearson 1988</a>)</span>. Prior to Bamber’s work one knew how to plot an empirical operating characteristic and how to calculate the Wilcoxon statistic, but their equality had not been shown. This was Bamber’s essential contribution. In the absence of this theorem, the Wilcoxon statistic would be “just another statistic”, at least in the context of ROC analysis. The theorem is so important that a paper appeared in Radiology <span class="citation">(<a href="#ref-hanley1982meaning" role="doc-biblioref">Hanley and McNeil 1982</a>)</span> devoted to the equivalence. The title of this paper was “The meaning and use of the area under a receiver operating characteristic (ROC) curve”. The equivalence theorem literally gives meaning to the empirical area under the ROC.</p>
 </div>
-<div id="empirical-auc-discussion-summary" class="section level2 hasAnchor">
+<div id="empirical-auc-discussion-summary" class="section level2 hasAnchor" number="5.9">
 <h2><span class="header-section-number">5.9</span> Discussion / Summary<a href="empirical-auc.html#empirical-auc-discussion-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this chapter, a simple method for estimating the empirical area under the ROC plot has been described. Its simplicity and clear physical interpretation as the AUC under the empirical ROC (not fitted, not true) has spurred much theoretical development. Since the empirical AUC always yields a number the researcher could be unaware about unusual behavior of the empirical ROC curve, so it is a good idea to plot the data and look for any signs of large extrapolations. An example would be data points clustered at low <span class="math inline">\(\text{FPF}\)</span> values, which imply a large AUC contribution, unsupported by intermediate operating points, from the line connecting the uppermost non-trivial operating point to (1,1).</p>
 </div>
-<div id="empirical-auc-bamber-theorem-proof" class="section level2 hasAnchor">
+<div id="empirical-auc-bamber-theorem-proof" class="section level2 hasAnchor" number="5.10">
 <h2><span class="header-section-number">5.10</span> Appendix: Bamber theorem proof<a href="empirical-auc.html#empirical-auc-bamber-theorem-proof" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The following proof is adapted from <span class="citation">(Bamber <a href="#ref-bamber1975area" role="doc-biblioref">1975</a>)</span> and while it may appear to be restricted to discrete ratings, the result is in fact quite general, i.e., it is applicable even if the ratings are acquired on a continuous scale. The reason is that in an R-rating ROC study the observed z-samples or ratings take on integer values, 1 through R. If R is large enough, ordering information present in the continuous data is not lost upon binning. In the following it is helpful to keep in mind that one is dealing with discrete distributions of the ratings, described by probability mass functions as opposed to probability density functions, e.g., <span class="math inline">\(P(Z_2 = \zeta_i)\)</span> is not zero, as would be the case for continuous ratings. The proof is illustrated with Fig. <a href="empirical-auc.html#fig:empirical-auc-bamber-theorem">5.2</a>.</p>
+<p>The following proof is adapted from <span class="citation">(<a href="#ref-bamber1975area" role="doc-biblioref">Bamber 1975</a>)</span> and while it may appear to be restricted to discrete ratings, the result is in fact quite general, i.e., it is applicable even if the ratings are acquired on a continuous scale. The reason is that in an R-rating ROC study the observed z-samples or ratings take on integer values, 1 through R. If R is large enough, ordering information present in the continuous data is not lost upon binning. In the following it is helpful to keep in mind that one is dealing with discrete distributions of the ratings, described by probability mass functions as opposed to probability density functions, e.g., <span class="math inline">\(P(Z_2 = \zeta_i)\)</span> is not zero, as would be the case for continuous ratings. The proof is illustrated with Fig. <a href="empirical-auc.html#fig:empirical-auc-bamber-theorem">5.2</a>.</p>
 <div class="figure"><span style="display:block;" id="fig:empirical-auc-bamber-theorem"></span>
 <img src="05-empirical-auc_files/figure-html/empirical-auc-bamber-theorem-1.png" alt=":Illustration of the derivation of Bamber's equivalence theorem. Shows an empirical ROC plot for R = 5; the shaded area is due to points labeled i and i + 1." width="672" />
 <p class="caption">
@@ -727,7 +786,7 @@ A_i &amp;=P\left ( Z_2 = \zeta_i \right )\left [ \frac{1}{2} P\left ( Z_1 = \zet
 \left.
 \begin{aligned}
 AUC &amp; = \sum_{i=0}^{R-1}A_i\\
- &amp; = \frac{1}{2}\sum_{i=0}^{R-1}P\left ( Z_2=\zeta_i \right )P\left ( Z_1=\zeta_i \right )+\sum_{i=0}^{R-1}P\left ( Z_2=\zeta_i \right )P\left ( Z_1&lt;\zeta_i \right )
+&amp; = \frac{1}{2}\sum_{i=0}^{R-1}P\left ( Z_2=\zeta_i \right )P\left ( Z_1=\zeta_i \right )+\sum_{i=0}^{R-1}P\left ( Z_2=\zeta_i \right )P\left ( Z_1&lt;\zeta_i \right )
 \end{aligned}
 \right \}
 \tag{5.14}
@@ -740,13 +799,13 @@ AUC=\frac{1}{2}P\left ( Z_1 = Z_2 \right ) + P\left ( Z_1 &lt; Z_2 \right )
 \end{equation}\]</span></p>
 <p>The Wilcoxon statistic was defined in Eqn. <a href="empirical-auc.html#eq:empirical-auc-wilcoxon">(5.6)</a>. It can be seen that the comparisons implied by the summations and the weighting implied by the kernel function are estimating the two probabilities in the expression for in Eqn. <a href="empirical-auc.html#eq:empirical-auc-bamber-theorem-proof7">(5.15)</a>. Therefore, <span class="math inline">\(AUC = W\)</span>.</p>
 </div>
-<div id="empirical-auc-bamber-theorem-a0-term" class="section level2 hasAnchor">
+<div id="empirical-auc-bamber-theorem-a0-term" class="section level2 hasAnchor" number="5.11">
 <h2><span class="header-section-number">5.11</span> Appendix: The <span class="math inline">\(A_0\)</span> term<a href="empirical-auc.html#empirical-auc-bamber-theorem-a0-term" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="upper-triangle" class="section level3 hasAnchor">
+<div id="upper-triangle" class="section level3 hasAnchor" number="5.11.1">
 <h3><span class="header-section-number">5.11.1</span> Upper triangle<a href="empirical-auc.html#upper-triangle" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For <span class="math inline">\(i = 0\)</span>, Eqn. <a href="empirical-auc.html#eq:empirical-auc-bamber-theorem-proof5">(5.13)</a> implies (since the lowest empirical threshold is unity, the lowest allowed rating, and there are no cases rated less than one):</p>
 <p><span class="math display">\[\begin{equation}
-\left. 
+\left.
 \begin{aligned}
 A_0 =&amp; P\left ( Z_2 = 1 \right )\left [ \frac{1}{2} P\left ( Z_1=1 \right ) + P\left ( Z_1&lt;1 \right )\right ] \\
 A_0 =&amp; \frac{1}{2} P\left ( Z_1=1 \right ) P\left ( Z_2=1 \right )\\
@@ -763,7 +822,7 @@ A_0 =&amp; \frac{1}{2} P\left ( Z_1=1 \right ) P\left ( Z_2=1 \right )\\
 \end{equation}\]</span></p>
 <p>Q.E.D.</p>
 </div>
-<div id="lowest-trapezoid" class="section level3 hasAnchor">
+<div id="lowest-trapezoid" class="section level3 hasAnchor" number="5.11.2">
 <h3><span class="header-section-number">5.11.2</span> Lowest trapezoid<a href="empirical-auc.html#lowest-trapezoid" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For <span class="math inline">\(i = 4\)</span>, Eqn. <a href="empirical-auc.html#eq:empirical-auc-bamber-theorem-proof5">(5.13)</a> implies:</p>
 <p><span class="math display">\[\begin{equation}
@@ -791,30 +850,30 @@ P\left ( Z_2 \geq 5 \right ) = P\left ( Z_2 = 5 \right )
 <p>Multiplication of the last two expressions yields <span class="math inline">\(A_4\)</span>.</p>
 </div>
 </div>
-<div id="empirical-auc-references" class="section level2 hasAnchor">
+<div id="empirical-auc-references" class="section level2 hasAnchor" number="5.12">
 <h2><span class="header-section-number">5.12</span> Chapter References<a href="empirical-auc.html#empirical-auc-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
 <h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references">
-<div id="ref-bamber1975area">
-<p>Bamber, Donald. 1975. “The Area Above the Ordinal Dominance Graph and the Area Below the Receiver Operating Characteristic Graph.” <em>Journal of Mathematical Psychology</em> 12 (4): 387–415.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-bamber1975area" class="csl-entry">
+Bamber, Donald. 1975. <span>“The Area Above the Ordinal Dominance Graph and the Area Below the Receiver Operating Characteristic Graph.”</span> <em>Journal of Mathematical Psychology</em> 12 (4): 387–415.
 </div>
-<div id="ref-delong1988comparing">
-<p>DeLong, Elizabeth R, David M DeLong, and Daniel L Clarke-Pearson. 1988. “Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.” <em>Biometrics</em>, 837–45.</p>
+<div id="ref-delong1988comparing" class="csl-entry">
+DeLong, Elizabeth R, David M DeLong, and Daniel L Clarke-Pearson. 1988. <span>“Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach.”</span> <em>Biometrics</em>, 837–45.
 </div>
-<div id="ref-hanley1997sampling">
-<p>Hanley, James A, and Karim O Hajian-Tilaki. 1997. “Sampling Variability of Nonparametric Estimates of the Areas Under Receiver Operating Characteristic Curves: An Update.” <em>Academic Radiology</em> 4 (1): 49–58.</p>
+<div id="ref-hanley1997sampling" class="csl-entry">
+Hanley, James A, and Karim O Hajian-Tilaki. 1997. <span>“Sampling Variability of Nonparametric Estimates of the Areas Under Receiver Operating Characteristic Curves: An Update.”</span> <em>Academic Radiology</em> 4 (1): 49–58.
 </div>
-<div id="ref-hanley1982meaning">
-<p>Hanley, James A, and Barbara J McNeil. 1982. “The Meaning and Use of the Area Under a Receiver Operating Characteristic (Roc) Curve.” <em>Radiology</em> 143 (1): 29–36.</p>
+<div id="ref-hanley1982meaning" class="csl-entry">
+Hanley, James A, and Barbara J McNeil. 1982. <span>“The Meaning and Use of the Area Under a Receiver Operating Characteristic (ROC) Curve.”</span> <em>Radiology</em> 143 (1): 29–36.
 </div>
-<div id="ref-RN2197">
-<p>Mann, H. B., and D. R. Whitney. 1947. “On a Test of Whether One of Two Random Variables Is Stochastically Larger Than the Other.” Journal Article. <em>Annals of Mathematical Statistics</em> 18: 50−60.</p>
+<div id="ref-RN2197" class="csl-entry">
+Mann, H. B., and D. R. Whitney. 1947. <span>“On a Test of Whether One of Two Random Variables Is Stochastically Larger Than the Other.”</span> Journal Article. <em>Annals of Mathematical Statistics</em> 18: 50−60.
 </div>
-<div id="ref-RN2191">
-<p>Wilcoxon, F. 1945. “Individual Comparison by Ranking Methods.” Journal Article. <em>Biometrics</em> 1: 80–83.</p>
+<div id="ref-RN2191" class="csl-entry">
+Wilcoxon, F. 1945. <span>“Individual Comparison by Ranking Methods.”</span> Journal Article. <em>Biometrics</em> 1: 80–83.
 </div>
 </div>
             </section>
