@@ -1,4 +1,4 @@
-# RJafrocSigTestBook
+# RJafrocRocBook
 
 # Summary
 
@@ -7,7 +7,7 @@ See [this link](https://dpc10ster.github.io/ai-froc-research/) for a summary of 
 
 # What is this repository for?
 
-* This book reviews significance testing methodology.
+* This book reviews ROC methodology.
 
 # How much finished {-}
 
