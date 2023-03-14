@@ -17,27 +17,30 @@
 ```
 
 
-## TBA How much finished {#proper-roc-models-how-much-finished}
-50%
+## How much finished 50% {#proper-roc-models-how-much-finished}
+
 
 
 ## Introduction {#proper-roc-models-introduction}
-So far, two methods have been described for fitting curves to ROC operating points, namely the (unequal variance) binormal model, book Chapter 06 and the radiological search model (RSM), book Chapter 16. The binormal model has been widely used to fit ROC operating points in many studies, dating to the early 1960s, and in a wide range of applications that are not just limited to medical imaging. It is a two-parameter model, i.e., $a$, $b$, excluding threshold parameters. However, binormal model fits almost invariably lead to ROC curves that inappropriately cross the chance diagonal, leading to a prediction of a region of the ROC curve where performance is worse than chance, even for expert observers. By convention, such curves are termed "improper". A chance line crossing near the upper right corner, which occurs when $b < 1$, and the fact that the ROC curve must eventually reach (1, 1) implies the curve must turn upwards as one approaches (1, 1), thereby displaying a "hook". The hook occurs near the origin if $b > 1$. Since $b$ is a continuous-variable parameter, there is zero probability that an estimate of $b$ will be exactly equal to one, the only condition under which there is no "hook". *Therefore, every fitted binormal model ROC curve is improper.*
+The binormal model has been widely used to fit ROC datasets in a wide range of applications that are not limited to medical imaging. However, binormal model fits almost invariably lead to ROC curves that inappropriately cross the chance diagonal leading to a prediction of a region of the ROC curve where performance is worse than chance even for expert observers. By convention, such curves are termed "improper". A chance line crossing near the upper right corner of the ROC plot occurs when $b < 1$ and near the origin if $b > 1$. 
 
-The improper behavior is often not readily visible. One may need to "zoom-in" on the upper-right corner to see it. This has been used as an argument for minimizing its importance / relevance [@metz1978rocmethodology]. In my judgment, any fit that predicts worse than chance level performance anywhere on the ROC plot, visible or not, is scientifically indefensible. Quite appropriately much effort has gone into developing models that always predict proper ROC curves, i.e., those that do not drop below the chance diagonal. These are called "proper" ROC curves (some of literature uses the quotes and some does not). There are at least four methods for fitting proper ROC curves, and these are listed in reverse chronological order. 
+> Since $b$ is a continuous-variable parameter there is zero probability that an estimate of $b$ will be exactly equal to one, the only condition under which there is no "hook". Therefore, every fitted binormal model ROC curve is "improper".
 
-* The most recent (2016) one [@chakraborty2011estimating; @chakraborty2012inverse] is based on the radiological search model (RSM), which is implemented in the `RJafroc` package, as described in book Chapter 18. 
+The improper behavior is often not readily visible. One may need to "zoom-in" on the upper-right corner to see it. Any fit that predicts worse than chance level performance anywhere on the ROC plot, visible or not, is scientifically indefensible. Much effort has gone into developing models that always predict proper ROC curves, i.e., those that do not cross the chance diagonal. These are called "proper" ROC curves (some of literature uses the quotes and some does not). There are at least four methods for fitting proper ROC curves, and these are listed in reverse chronological order. 
 
-* Next, (2000) is a method [@dorfman2000contaminated1; @dorfman2000contaminated2; @dorfman2000contaminated3] based on the contaminated binormal model (CBM), available as part of DBM-MRMC software from a University of Iowa website and which is implemented in the `RJafroc` package. 
+* The most recent (2016) one [@chakraborty2011estimating; @chakraborty2012inverse] is based on the radiological search model (RSM) and is implemented in the `RJafroc` package. 
 
-* Next, (1999) is the binormal model-based proper ROC fitting algorithm [@metz1999proper; @pan1997proper] developed by Metz and Pan, implemented in PROPROC software available as part of DBM-MRMC software. 
+* A method [@dorfman2000contaminated1; @dorfman2000contaminated2; @dorfman2000contaminated3] based on the contaminated binormal model (CBM), available as part of DBM-MRMC software from a University of Iowa website and also implemented in the `RJafroc` package. 
 
-* Next, (1997) is the bigamma model [@dorfman1997proper] fitting algorithm for which no software currently exists as far as I am aware. 
-* Next, (1996) is LROCFIT, based on the location ROC (LROC) paradigm [@swensson1996unified], which also predicts proper ROC curves, but the data has to be acquired according to the LROC paradigm, while all of the other methods described in this chapter, and in book Chapter 18, work with ROC data. 
+* The binormal model-based proper ROC fitting algorithm [@metz1999proper; @pan1997proper] developed by Metz and Pan implemented in PROPROC software available as part of DBM-MRMC software. 
 
-A related issue is data degeneracy that occurs when a reader fails to provide an interior ROC point, i.e., a point that lies inside the ROC unit-square, as distinct from points on the axes. The binormal model is unable to yield reasonable fits to such data (which tend to be generated by experts; for example the perfect radiologist will detect lesions without generating any false positives, leading to a point on the y-axis). Inability to fit a dataset means the researcher has no option but to discard them or use empirical methods. The CBM and RSM methods are able to fit degenerate datasets. It has been claimed incorrectly, as shown below, that PROPROC can fit degenerate datasets – it cannot.
+* The bigamma model [@dorfman1997proper] fitting algorithm for which no software currently exists as far as I am aware. 
 
-There is a theorem relating the slope of a general ROC curve, independent of model assumptions, to a quantity called the *likelihood ratio*. This will lead to the distinction between "proper" and "improper" ROC curves. Needed first is an understanding of the likelihood ratio and demonstration (not a proof) of an important theorem, namely *the slope of the ROC curve always equals the likelihood ratio, independent of parametric assumptions*.
+* LROCFIT, based on the location ROC (LROC) paradigm [@swensson1996unified], which also predicts proper ROC curves, but the data has to be acquired according to the LROC paradigm while all of the other methods described in this chapter work with ROC data (no localization information). 
+
+A related issue is data degeneracy that occurs when a reader fails to provide an interior ROC point. The binormal model does not yield reasonable fits to such data and the researcher has no option but to discard this data or use the empirical AUC. 
+
+> Needed first is an understanding of a quantity called the likelihood ratio and demonstration that the slope of the true (???) ROC curve always equals the likelihood ratio, independent of parametric assumptions.
 
 
 ## Theorem: ROC slope equals likelihood ratio {#proper-roc-models-likelihood-ratio-theorem1}
@@ -46,22 +49,25 @@ There is a theorem relating the slope of a general ROC curve, independent of mod
 \left.\begin{aligned}
 \text{FPF}&=\Phi\left( -z \right)\\
 \text{TPF}&=\Phi\left( a-bz \right)
-\end{aligned}\right\}
+\end{aligned}
+\right\}
 (\#eq:proper-roc-models-binormal-model)
 \end{equation} 
 
 The slope $m$ of the ROC curve is:
 
+
 \begin{equation} 
 \left.\begin{aligned}
 m\left( z|a,b \right)&=\frac{\frac{\partial \left( TPF \right)}{\partial z}}{\frac{\partial \left( FPF \right)}{\partial z}}\\ 
 &=\frac{b\phi\left( a-bz \right)}{\phi\left( -z \right)}\\ 
-&=b\exp\left( -\frac{1}{2} \left[ \left( bz-a \right)^2 \right]-z^2\right)
+&=b\exp\left( -\frac{\left( bz-a \right)^2 - z^2}{2} \right)
 \end{aligned}\right\}
 (\#eq:proper-roc-models-slope)
 \end{equation} 
 
-The probability density functions (pdfs) for the binormal model were defined in TBA Eqn. (6.23) and TBA Eqn. (6.24) and for convenience are reproduced here (N = non-diseased, D = diseased):
+
+The probability density functions (pdfs) for the binormal model were defined earlier and are reproduced here (N = non-diseased, D = diseased):
 
 
 \begin{equation} 
@@ -78,42 +84,53 @@ The likelihood ratio is defined by (the subscript "BIN" is for "binormal model")
 
 \begin{equation} 
 \left.\begin{aligned}
-l_{BIN}\left( z | a,b\right) &= \frac{\text{pdf}_D\left( z \right)}{\text{pdf}_N\left( z \right)} \\
+l_{\text{BIN}}\left( z | a,b\right) &\equiv \frac{\text{pdf}_D\left( z \right)}{\text{pdf}_N\left( z \right)} \\
 &= b\exp\left( -\frac{\left( bz-a \right)^2 -z^2}{2} \right) \\
 \end{aligned}\right\}
 (\#eq:proper-roc-models-likelihood-ratio)
 \end{equation} 
 
 
+
 It is seen from Eqn. \@ref(eq:proper-roc-models-slope) and Eqn. \@ref(eq:proper-roc-models-likelihood-ratio) that the likelihood ratio equals the slope of the ROC curve:
 
 
 \begin{equation} 
-l_{BIN}\left( z | a,b\right) = m\left( z | a,b\right)
+l_{\text{BIN}}\left( z | a,b\right) = m\left( z | a,b\right)
 (\#eq:proper-roc-models-likelihood-ratio-theorem)
 \end{equation} 
 
 
 
-While illustrated for the binormal model, this theorem is actually independent of any distributional assumptions [@Egan1975]. The reason for the name "likelihood ratio" is that early researchers in the field, mostly psychophysicists, used the term "likelihood function" for what statisticians term "probability density function". Hence the ratio of two likelihood functions was termed a "likelihood ratio", when in fact it is a ratio of two pdfs. The likelihood ratio should never be confused with the likelihood function defined in Book Chapter 06, which is the probability of an observed dataset, given a set of parameter values, and which is the starting point of maximum likelihood estimation methods.
+While illustrated for the binormal model, this theorem is actually independent of any distributional assumptions [@Egan1975]. The reason for the name "likelihood ratio" is that early researchers in the field used the term "likelihood function" for what statisticians now term "probability density function". Hence the ratio of two likelihood functions was termed a "likelihood ratio" when in fact it is a ratio of two pdfs. 
 
 
 ## Theorem: likelihood ratio observer maximizes AUC {#proper-roc-models-likelihood-ratio-theorem2}
 
-An observer who maximizes TPF for a given FPF, for all values of FPF in the range (0,1), is called a Neyman-Pearson observer [@neyman1933ix]. It can be shown that the Neyman-Pearson observer uses the likelihood ratio as the decision variable [@green1966signal]. The proof is a little involved and will not be repeated here. A mathematical description is found in the book [@barrett2013foundations] by Barrett and Myers, Section 13.2.6. *A consequence of the theorem is that AUC for a likelihood ratio observer represents an upper limit on performance, and such an observer is called an "ideal observer" and an observer using the likelihood ratio as the decision variable always yields proper ROC curves.*
+An observer who maximizes TPF for a given FPF for all values $0 \le \text{FPF} \le 1$, is called a Neyman-Pearson observer [@neyman1933ix]. It can be shown that the Neyman-Pearson observer uses the likelihood ratio as the decision variable [@green1966signal]. 
+
+> A consequence of the theorem is that AUC for a likelihood ratio observer represents an upper limit on performance, and such an observer is called an "ideal observer" use of the likelihood ratio as the decision variable always yields proper ROC curves.
+
+
+These statements call for an explanation.
 
 ### Explanation 
 
-So far the decision rule has been, book Chapter 03, that if the z-sample for a case is equal to or greater than threshold $\zeta$ the case is diagnosed as diseased, and otherwise it is diagnosed as non-diseased.  The likelihood ratio involves a deeper concept. It is assumed that the observer is aware of the distribution of the z-samples for diseased and non-diseased cases, i.e., the observer knows the pdfs as a function of z. Then, for an observed value of z for a particular case, the observer computes the pdf for the diseased distribution at that value of z, namely $\text{pdf}_D(z)$ and does the same for the non-diseased distribution $\text{pdf}_N(z)$. Assuming equal numbers of diseased and non-diseased cased, if $\text{pdf}_D\left( z \right) \ge \text{pdf}_N\left( z \right)$, which is equivalent to $l(z) \ge 1$, it is more probable that the case is diseased, and if the reverse is true if $l(z) < 1$. In other words, the likelihood ratio observer does not merely use the z-sample to make decisions. Instead, the observer uses the observed z-sample and knowledge of the value of the two pdfs at the observed value of z to compute the ratio $l(z)$  and only if the ratio is equal or greater than some preset value $\lambda$, the case is diagnosed as diseased and otherwise the case is diagnosed as non-diseased. 
+So far the decision rule has been that if the z-sample for a case is equal to or greater than threshold $\zeta$ the case is diagnosed as diseased, and otherwise it is diagnosed as non-diseased. 
 
-A word on notation: I am attempting to be consistent: when the decision variable was $z$, I used the corresponding Greek character to denote a threshold on that axis. Since likelihood ratio is denoted $l$, the corresponding Greek character is $]\lambda$. ^[This is not to be confused with the RSM parameter with the same symbol.]
-
-So in effect, the observer has transformed the decision variable $z$ to a new variable $l$ defined by $l \equiv \frac{\text{pdf}_D\left( z \right)}{\text{pdf}_N\left( z \right)}$ , and the new variable is used for making decisions. Varying $\lambda$ allows the observer to move along the resulting *likelihood ratio ROC curve*, which has the "proper" property. The value of $\lambda$ used by the observer is determined by the disease prevalence and the costs and benefits of incorrect (FN and FP) and correct decisions (TP and TN). Assuming equal costs, benefits, and disease prevalence of 0.5, the observer will select $\lambda = 1$ as the operating point. If on the other hand disease-prevalence is 0.1, the observer will adopt a higher value of $\lambda$, corresponding to moving down the ROC curve, to decrease FPF.
-
-If decision variable z results in improper ROC curves, as does the z-sample in the binormal model, the transformation will not be monotonic ^[For a positive-directed decision variable, as in this book, the term "monotonic" is always meant to be "monotonic increasing". It is possible for a transformation to be monotonic decreasing, as in $l = 1/z$.]. If the transformation were monotonic, that would imply that z was already equivalent to the likelihood ratio, since a monotonic transformation exists that relates the two. As was learned from earlier chapters, the ROC curve is invariant to monotonic transformations of the decision variable. If the z-sample from a different model, e.g., the highest rating  sample of the RSM, always yields proper ROC curves, book Chapter 17, then it must already be equivalent to the likelihood ratio.
+The likelihood ratio involves a deeper concept. It is assumed that the observer knows the pdfs of non-diseased and diseased cases as functions of z. Assuming equal numbers of diseased and non-diseased cased the observer uses the observed z-sample and knowledge of the value of the two pdfs at the observed value of z to compute the ratio $l(z)$. If the ratio is equal or greater than some preset value $\lambda$, the case is diagnosed as diseased and otherwise the case is diagnosed as non-diseased.
 
 
-To summarize these concepts in equations, the likelihood ratio observer transforms z to l:
+A word on notation: when the decision variable was $z$, I used the corresponding Greek character $\zeta$ to denote a threshold on that axis. Since likelihood ratio is denoted $l$, the corresponding Greek character is $\lambda$.
+
+
+So in effect, the observer has transformed the decision variable $z$ to a new variable $l$ defined by $l \equiv \frac{\text{pdf}_D\left( z \right)}{\text{pdf}_N\left( z \right)}$ and the new variable $l$ is used for making decisions. Varying $\lambda$ allows the observer to move along the resulting *likelihood ratio ROC curve*, which has the "proper" property. 
+
+
+If the decision variable z results in improper ROC curves, as does the z-sample in the binormal model, the transformation will not be monotonic ^[For a positive-directed decision variable, as in this book, the term "monotonic" is always meant to be "monotonic increasing". It is possible for a transformation to be monotonic decreasing, as in $l = 1/z$.]. If the transformation were monotonic, that would imply that z was already equivalent to the likelihood ratio since a monotonic transformation exists that relates the two. The ROC curve is invariant to monotonic transformations of the decision variable. 
+
+
+To summarize these concepts in equations, the likelihood ratio observer transforms $z$ to $l$:
 
 \begin{equation} 
 l\left( z \right) \equiv  \frac{\text{pdf}_D\left( z \right)}{\text{pdf}_N\left( z \right)}
@@ -130,85 +147,11 @@ M\left( x_2 \right) \ge M\left( x_1 \right)
 More accurately, "increasing" should be replaced by "non-decreasing"; i.e., the transformation allows flat portions.
 
 
-## Proper vs. improper ROC curves {#proper-roc-models-proper-vs-improper}
-
-If $b=1$, 
-
-\begin{equation} 
-m\left( z|a,b=1 \right)=\exp\left( -\frac{1}{2} \left[ \left( a^2-2az \right)^2 \right]\right)
-(\#eq:proper-roc-models-b-equal-1)
-\end{equation} 
-
-
-At $z=-\infty$ the slope is zero and at $z=+\infty$ the slope is infinite. This is reasonable behavior: the ROC curve starts out at the origin with infinite slope and gradually bends down and eventually approaches (1, 1) with zero slope. This is an example of a "proper" ROC. However, if $0 < b < 1$, which is true for most datasets (clinical or not [@green1966signal]), the slope is infinite at the origin, which is fine, *and* at (1, 1), which spells trouble. For the ROC curve to have started out at the origin with infinite slope and then approach (1, 1), again with infinite slope, means that at some intermediate point it must have crossed the chance diagonal. This behavior, termed "the hook", generally occurs just below the upper right corner, Plot A in Fig. \@ref(fig:proper-roc-models-plots-1). If $b > 1$ the binormal model predicts that the slope is zero near the origin, which means the ROC curve starts out below the chance diagonal, in other words the "hook" is still there, but it occurs just above the origin, Plot B in Fig. \@ref(fig:proper-roc-models-plots-1). Usually, Plots C and D in Fig. \@ref(fig:proper-roc-models-plots-1), the hook is not readily visible unless one "zooms in" on the part near the top-right corner. 
-
-
-```{r echo=FALSE, proper-roc-models-plots-1, fig.cap="Predicted improper ROC curves: top-left is for a = 0.7, b = 0.5, top-right is for a = 0.7, b = 1.5, bottom-left is for a = 1.5, b = 0.5 and bottom-right is for a = 2, b = 0.5.", fig.show='hold'}
-# rocY.R
-# x is rocX, i.e., FPF
-rocY <- function (x, a, b) {
-  y <- pnorm(a + b*qnorm(x))
-  return(y)
-}
-
-aArray <- c(0.7, 0.7, 1.5, 2)
-bArray <- c(0.5, 1.5, 0.5, 0.5)
-z <- seq(-3, 5, by = 0.01) 
-FPF <- seq(0.0, 1, 0.01)
-plotRoc <- list()
-for (i in 1:length(aArray))
-{
-  a <- aArray[i]
-  b <- bArray[i]
-  TPF <- rocY(FPF, a, b)
-  rocPlot <- data.frame(FPF = FPF, TPF = TPF)
-  plotRoc[[i]] <- ggplot(
-    rocPlot, aes(x = FPF, y = TPF)) + geom_line() +
-    ggtitle(paste0("Plot ", LETTERS[i], ":", 
-                   sprintf(" a = %3.1f, b = %3.1f", 
-                           a, b)))
-}
-grid.arrange(grobs = list(plotRoc[[1]],
-                          plotRoc[[2]],
-                          plotRoc[[3]],
-                          plotRoc[[4]]),
-             nrow =2,ncol=2)
-
-# CODING REFERENCE: save this for future grid plots
-# p1 <-  readPNG("images/proper-rocs/Fig1.png")
-# p2 <-  readPNG("images/proper-rocs/Fig2.png") 
-# p3 <-  readPNG("images/proper-rocs/Fig3.png") 
-# p4 <-  readPNG("images/proper-rocs/Fig4.png") 
-# grid.arrange(grobs = list(rasterGrob(p1),rasterGrob(p2),rasterGrob(p3),rasterGrob(p4)),
-#              nrow =2,ncol=2)
-```
-
-
-## Degenerate datasets {#proper-roc-models-degenerate-datasets}
-
-Metz2 defined binormal degenerate data sets as those that result in exact-fit binormal ROC curves of inappropriate shape consisting of a series of horizontal and/or vertical line segments in which the ROC "curve" crosses the chance line. The crossing of the chance line occurs because the degenerate data sets can be fitted exactly by infinite or zero values for the model slope parameter b, and infinite values for the reporting thresholds, or both. To understand this, consider that the non-diseased distribution is a Dirac delta function centered at zero (by definition such a function integrates to unity), and the unit variance diseased distribution is centered at 0.6744898.  In other words this binormal model is characterized by a = 0.6744898 and b = zero and the two distributions consist of a delta function at z = zero and a unit normal centered at z = a.  What is the expected ROC curve? As the threshold is moved from the far right, gradually to the left, TPF will increase but FPF will be stuck at zero until the threshold reaches zero. Just before reaching this point, the coordinates of the ROC operating point are (0, 0.75). The 0.75 is due to the fact that z = zero is -0.6744898 units relative to the center of the diseased distribution, so the area under the diseased distribution below z = zero is  .  Since pnorm is giving the probability below the threshold, TPF must be its complement, namely 0.75. This explains the operating point (0,0.75), which lies on the y-axis. As the threshold crosses the zero-width delta function, FPF shoots up from 0 to 1, but TPF stays constant. Therefore, the operating point has jumped from (0, 0.75) to (1, 0.75). When the threshold is reduced further, the operating point moves up vertically, along the right side of the ROC plot, until the threshold is so small that virtually all of diseased distribution exceeds it and the operating point reaches (1, 1). The ROC curve is illustrated in Fig. 20.3 (A). This is an extreme example of an ROC curve with a "hook". If the data is such that the only operating point provided by the observer is (0,0.75) then this curve will be an exact fit to the data point. An example of such a dataset is in Table 20.1.
-
-Actually, given one operating point (0, 0.75) the preceding fit is not even unique. If the diseased distribution is shifted appropriately to the right of its previous position, and one can determine  the necessary value of a, then the ROC curve will shoot upwards through the operating point (0, 0.75) to (0, 0.9), as in Fig. 20.3 (B), before proceeding horizontally to (1, 0.9) and then completing the curve to (1, 1).  If the diseased distribution is shifted well to the right, i.e., a is very large, then the ROC curve will shoot upwards past the operating point, as in Fig. 20.3 (C), all the way to (0,1) before proceeding horizontally to (1, 1). All of these represent maximum likelihood fits, albeit with b = zero, and different values of a. Not one of them is reasonable.  
-
-
-Restricting to the more common   situation, the reason for the hook can be appreciated from Fig. 20.2 (B) showing the pdf functions for non-diseased and diseased cases as functions of z. The plot corresponds to the same parameter value that generated Fig. 20.1(A). Since  , the diseased pdf is broader and has a lower peak (since the integrals under each distribution are unity) than the non-diseased pdf. Sliding an imaginary threshold to the left, starting from the extreme right, one sees that initially, just below z = 7, the diseased distribution starts being "picked up" while the non-diseased distribution is not "picked up", causing the ROC, Fig. 20.2 (A), to start with infinite slope near the origin (because TPF increases while FPF does not). Around z = 2.5 the non-diseased distribution starts being "picked up", causing the ROC slope to decrease. Around z = -3, almost all of the non-diseased distribution has been "picked up" which mean FPF is near unity, but since not all of the broader diseased distribution has been "picked up", TPF is less than unity. Here is a region where TPF < FPF, meaning the operating point is below the chance diagonal. As the threshold is lowered further, TPF continues to increase, as the rest of the diseased distribution is "picked up" while FPF stays almost constant at unity. In this region, the ROC curve is approaching the upper right corner with almost infinite slope (because TPF is increasing but FPF is not). 
-
-
-### Comments on degeneracy
-
-ratings" is going to convince this observer to rate with twos, threes and fours any of the 75 easy diseased cases. If the cases are obviously diseased, and that is what the author means by "easy cases", they are supposed to be rated fives: "definitely diseased". Forcing them to rate some of them as "probably diseased" or "possibly diseased" would be irrational and guilty of bending the reading paradigm to fit the convenience of the researcher.
-
-Faced with a degenerate data set the binormal model is unable to yield a reasonable and unique ROC curve Fig. 20.3 (A-C). Essentially the analyst has to discard the reader's dataset (or abandon the binormal model in favor of empirical AUCs – which come with their own issues) – always a bad idea. Discarding a dataset just because the model is unable to fit it is a failing of the model, and an expensive failing at that, because radiologist generated operating points do not come cheap. Furthermore, degenerate datasets are more likely with expert observers. This follows from the fact that what is an obvious diseased case to an expert may not be obvious to a less experienced observer. The latter observer is likely to apply the two, three and four ratings to some of the 75 cases that were obviously diseased to the expert. Therefore, the less experienced observer is more likely to provide a number of interior data points, and the binormal model would fit their data without encountering degeneracy problems. The result is to "screen-out" expert radiologists in favor of those with less expertise. 
-
-One could argue that the choice of dataset, with a mixture of very easy and very difficult, was incorrect. One should have chosen a more mixed dataset. The counter argument is what if the population consists of these types of bimodal cases. Any sample from such a population would be expected to yield degenerate datasets. A "bullet-proof" model should be able to deal with the data as it comes, and not be restricted to datasets that are convenient to the model. As a general scientific principle, the model should accommodate the data, not vise-versa.
-
-If the dataset yields a single operating point (0, 0.75), what is a reasonable ROC plot? There is a theorem that given an observed operating point, the line connecting that point to (1, 1) represents a lower bound on achievable performance by the observer. The lower bound is achieved by the observer using a guessing mechanism to classify the remaining cases. Here is an elaboration on this theorem. Having rated the 75 easy diseased cases as fives, the observer is left with 25 diseased cases and 100 non-diseased cases, all 125 of which look non-diseased to the observer. Suppose the observer randomly rates 20% of the remaining cases as fours. This would pick up five of the actually diseased cases and 20 non-diseased ones. Therefore, the total number of diseased cases rated four or higher is 80, and the corresponding number of non-diseased cases is 20. The new operating point of the observer is (0.20, 0.80). Now, one has two operating points, the original one on the y-axis at (0, 0.75) and an interior point (0.20, 0.80). Next, instead of randomly rating 20% of the remaining cases as fours, the observer rates 40% of them as fours, then the interior point would have been (0.40, 0.85). The reader can appreciate that simply by increasing the fraction of remaining cases that are randomly rated fours, the observer can move along the straight line connecting (0, 0.75) and (1, 1), as in Fig. 20.3 (D). Since a guessing mechanism is being used, this must represent a lower bound on performance. The resulting ROC curve is proper and the net AUC = 0.875. This is in fact the fit yielded by the CBM and RSM models for this dataset. The empirical AUC also yields this result.
-
-Why should one select the lowest possible performance consistent with the data? Because it yields a unique value for performance and higher performance is both not unique, Fig. 20.3 (A-D), and is guilty of extrapolating outside the data. 
-
 ## The likelihood ratio observer {#proper-roc-models-likelihood-ratio-observer}
 
-**An observer using the likelihood ratio, or any monotonic transformation of it, as the decision variable, is termed a likelihood ratio observer.** This is worthy of some illustrations, Fig. \@ref(fig:proper-roc-models-plots-2) Plots A-F, all of which apply to $a = 0.7$ and  $b = 0.5$. The ordinate is labeled $\text{lr}$, for *likelihood ratio*, identical to $l$ in the equations, i.e., the slope of the ROC. 
+> An observer using the likelihood ratio, or any monotonic transformation of it, as the decision variable, is termed a likelihood ratio observer.
+
+This is worthy of some illustrations: Fig. \@ref(fig:proper-roc-models-plots-2) plots A-F, all of which apply to $a = 0.7$ and $b = 0.5$. The ordinate is labeled $\text{lr}$ for likelihood ratio. 
 
 ```{r echo=FALSE}
 a <- 0.7;b <- 0.5 # values used in Fig. 20.6.1 (A-F) of book
@@ -232,12 +175,12 @@ for (i in 1:length(zArray))
   slopePlot <- data.frame(z = z, lr = lr)
   plotSlope[[i]] <- ggplot(
     slopePlot, aes(x = z, y = lr)) + geom_line() + 
-    ggtitle(paste0("Plot ", LETTERS[i], ": range=", zArrayText[i]))
+    ggtitle(paste0(LETTERS[i], ": range=", zArrayText[i]))
 }
 ```
 
 
-```{r echo=FALSE, proper-roc-models-plots-2, fig.cap="These plots of slopes $\\text{lr}$ of the ROC curves as functions of z all apply to $a = 0.7, b = 0.5$. They correspond to different ranges along the z-axis, starting with a 'birds-eye' view (A, top left) and gradually focusing in on the region near the minimum (F, bottom right). ", fig.show='hold'}
+```{r echo=FALSE, proper-roc-models-plots-2, fig.cap="These plots of likelihood ratio $\\text{lr}$ of the ROC curves as functions of z for $a = 0.7, b = 0.5$. They correspond to different ranges along the z-axis, starting with a 'birds-eye' view (panel A) and gradually focusing in on the region near the minimum (panel F). ", fig.show='hold'}
 grid.arrange(grobs = list(plotSlope[[1]],
                           plotSlope[[2]],
                           plotSlope[[3]],
@@ -246,15 +189,19 @@ grid.arrange(grobs = list(plotSlope[[1]],
                           plotSlope[[6]]), nrow =3, ncol=2)
 ```
 
-For now focus on Plot A in Fig. \@ref(fig:proper-roc-models-plots-2) in which range of z is: -5 to 8.  Imagine a sliding threshold $\lambda$ moving down along the *ordinate*, starting from very high values, $\approx 1.5 \times 10^{11}$. The decision rule is to diagnose the case as "diseased" if $l > \lambda$, and otherwise the case is diagnosed as "non-diseased". In Plot A the likelihood ratio $\text{lr}$ seems, for all practical purposes, to be monotonically related to z, so on the surface is makes no difference which decision rule is used, that based on $l > \lambda$ or the one based on $z > \zeta$. The same conclusion is reached for Plot B, which shows the range z: (-3,5). Plot C reveals the first hint of trouble. It shows the range z: (-3,3); now, the ordinate $l$ is not monotonically related to $z$, rather the function $l(z|a,b)$  has a minimum, so for values of $l$ below approximately 1 (the value depends on the choice of the $a$ and $b$ parameters) there are two values of $\zeta$ corresponding to a single value of $\lambda$. This behavior is amplified in the remaining plots, as one "homes" in on the minimum. Taking the clearest example, Plot F, for $\lambda = 0.37$ the two values are (-0.7277494065, 0.2055839269). ^[I achieved this extraordinary precision by solving the quadratic equation in Maple™.] The two values are denoted by $\zeta_L=-0.728$ and $\zeta_U=0.206$. The likelihood ratio observer, using threshold $\lambda=0.37$, declares all cases with $l > 0.37$ as "diseased" and "non-diseased" otherwise. Therefore, the corresponding z-sample binormal model observer must declare cases with $z > \zeta_U$ and cases with $z \le \zeta_L$  as diseased and "non-diseased" otherwise. The z-sample based decision rule is non-intuitive and bifurcated: why should cases with very low z-samples be declared diseased? The reason is that the z-sample based model assumed by the observer (as noted earlier, the analysis assumes that the observer "knows" or "learns" the two distributions and makes rational decisions based on this knowledge) is itself unphysical. According to the z-sample based model, i.e., binormal model, both very high and very low values of z are consistent with the case being diseased. If the observer is rational, then he will abandon making decisions based on $z$ and instead use the transformation $l=l(z|a,b)$ to make decisions based on $l$. The l-based decision rule is much simpler (i.e., not bifurcated): if $l > \lambda$ one diagnoses the case as "diseased", otherwise one diagnoses it as "non-diseased".
+For now focus on Plot A in Fig. \@ref(fig:proper-roc-models-plots-2) in which range of z is: -5 to 8.  Imagine a sliding threshold $\lambda$ moving down along the ordinate, starting from very high values, $\approx 1.5 \times 10^{11}$. The decision rule is to diagnose the case as "diseased" if $\text{lr} > \lambda$, and otherwise the case is diagnosed as "non-diseased". In Plot A the likelihood ratio $\text{lr}$ seems, for all practical purposes, to be monotonically related to z, so on the surface is makes no difference which decision rule is used, that based on $\text{lr} \ge \lambda$ or the one based on $z \ge \zeta$. The same conclusion is reached for Plot B, which focuses on the range (-3,5). Plot C reveals the first hint of something different going on [it shows the range (-3,3)], for now the ordinate $l$ is not monotonically related to $z$, rather the function $l(z|a,b)$  has a minimum. For values of $\text{lr}$ below approximately 1 there are two values of $\zeta$ corresponding to a single value of $\lambda$. This behavior is amplified in the remaining plots, as one "homes" in on the minimum. Taking the clearest example, Plot F, for $\lambda = 0.37$ the two values are (-0.728, 0.206). The two values are denoted by $\zeta_L=-0.728$ and $\zeta_U=0.206$. The likelihood ratio observer, using threshold $\lambda=0.37$ declares all cases with $\text{lr} \ge 0.37$ as "diseased" and "non-diseased" otherwise. The corresponding z-sample binormal model observer must declare cases with $z \ge \zeta_U$ and cases with $z < \zeta_L$ as diseased and "non-diseased" otherwise. The z-sample rule is non-intuitive: why should cases with very low z-samples be declared diseased? The reason is that the z-sample based model assumed by the observer (as noted earlier, the analysis assumes that the observer "knows" or "learns" the two distributions and makes rational decisions based on this knowledge) is itself unphysical. According to the binormal model both very high and very low values of z are consistent with the case being diseased. If the observer is rational, then he will abandon making decisions based on $z$ and instead use the transformation $\text{lr}=\text{lr}(z|a,b)$ to make decisions based on $\text{lr}$. The $\text{lr}$-based decision rule is intuitive: if $\text{lr} > \lambda$ one diagnoses the case as "diseased", otherwise one diagnoses it as "non-diseased".
 
-Since likelihood ratio decreases monotonically as $\lambda$ is reduced (i.e., one is moving down the y-axis in Fig. \@ref(fig:proper-roc-models-plots-2), starting from a very high value), the slope of the resulting ROC curve decreases monotonically ^[One needs to think carefully about this sentence to eventually "get it".]. In other words, the likelihood ratio observer generates a proper ROC curve. Another theorem14,16,18, is that the likelihood ratio observer achieves highest AUC as compared to an observer using any other decision rule, e.g., one based on the binormal model z-sample exceeding threshold $\zeta$. Since likelihood ratio is the ratio of two probabilities, it is always positive. More accurately, it is non-negative. The slope of the proper ROC at the upper-right corner is non-negative. Unlike traditional ROC curves, the slope of proper ROC fits do not generally decrease monotonically to zero as one moves up the curve. Rather it approaches a positive constant. In special cases the limiting slope can be zero, as in the $b = 1$ binormal model example shown earlier, see following Eqn. \@ref(eq:proper-roc-models-b-equal-1), so it is more accurate to say that the limiting slope is non-negative.
 
-For the binormal model based likelihood ratio observer, the slope will not decrease to zero, rather it will decrease to the limiting value, 0.3606620722, suggested by \@ref(fig:proper-roc-models-plots-2) Plot F (for values of $\lambda$ below the minimum, there are no solutions for z). 
+> Since likelihood ratio decreases monotonically as $\lambda$ is reduced (i.e., one is moving down the y-axis in Fig. \@ref(fig:proper-roc-models-plots-2) the slope ROC curve decreases monotonically as one moves up the curve. One needs to think carefully about this sentence to eventually "get it". In other words, the likelihood ratio observer generates a proper ROC curve. 
 
-The observer can use a decision rule that is based on any monotonic increasing transformation of the likelihood ratio and the resulting ROC curve will be identical to that based on the likelihood ratio; the slope of the resulting curve always equals the likelihood ratio (before the monotonic transformation). For example, the monotonic transformation could yield a variable ranging from  -infinity to plus infinity, but the slope of the resulting ROC curve will still be that for the likelihood ratio observer prior to the transformation. The limiting value of the slope is model dependent; specifically, if the binormal model is used, the limiting slope depends on the values of $a,b$.
 
-A final theorem not explicitly stated in the literature: since AUC of the likelihood ratio observer is optimal with respect to other observers using different decision rules, or different underlying models of the decision variable, the AUC achieved by the likelihood ratio observer is unique, regardless of the model used to fit the proper ROC curve. In other words, the shapes of the predicted proper ROC curves are model dependent and could differ from each other, but the AUCs will be the same. This was empirically demonstrated in book Chapter 18, in connection with RSM, PROPROC and CBM fitted AUCs.
+Another theorem14,16,18, is that the likelihood ratio observer achieves highest AUC as compared to an observer using any other decision rule, e.g., one based on the binormal model z-sample exceeding threshold $\zeta$. Since likelihood ratio is the ratio of two probabilities, it - and the slope of the ROC -  is always non-negative.
+
+For the binormal model based likelihood ratio observer, the slope will not decrease to zero, rather it will decrease to the limiting value, 0.361, suggested by \@ref(fig:proper-roc-models-plots-2) Plot F (for values of $\lambda$ below the minimum, there are no solutions for z). 
+
+The observer can use a decision rule that is based on any monotonic increasing transformation of the likelihood ratio and the resulting ROC curve will be identical to that based on the likelihood ratio; the slope of the resulting curve always equals the likelihood ratio (i.e., before the monotonic transformation). For example, the monotonic transformation could yield a variable ranging from  -infinity to plus infinity, but the slope of the resulting ROC curve will still be that for the likelihood ratio observer prior to the transformation. The limiting value of the slope is model dependent; specifically, if the binormal model is used, the limiting slope depends on the values of $a,b$.
+
+A final theorem not explicitly stated in the literature: since AUC of the likelihood ratio observer is optimal with respect to other observers using different decision rules or different underlying models of the decision variable, *the AUC achieved by the likelihood ratio observer is unique, regardless of the model used to fit the proper ROC curve.* In other words, the shapes of the predicted proper ROC curves are model dependent and could differ from each other, but the AUCs will be the same. This is empirically demonstrated in book Chapter TBA 18 for RSM, PROPROC and CBM fitted AUCs.
 
 
 ## PROPROC {#proper-roc-models-proproc}
@@ -478,6 +425,16 @@ TruePositiveFraction <- function (vc, d_a, c)
 }
 
 ```
+
+
+
+```{r echo=FALSE}
+rocY <- function (x, a, b) {
+  y <- pnorm(a + b*qnorm(x))
+  return(y)
+}
+```
+
 
 
 ```{r}
@@ -1041,10 +998,9 @@ There used to be software called BIGAMMA, formerly MAXGAM [@dorfman1997proper], 
 
 ## Discussion {#proper-roc-models-discussion}
 
-With the readily availability of CBM and RSM (both implemented in `RJafroc`) there is no excuse for not using them. These programs are "bullet-proof": they can fit any dataset that one cares to throw at them. The author's preference is to use RSM as it yields additional information about search and lesion-localization performance not available using CBM.
-
-PROPOROC has some problems fitting degenerate datasets. These can be readily fixed but to my knowledge no one is actively maintaining this important contribution by Prof. Metz.
+With the readily availability of CBM and RSM (both implemented in `RJafroc`) there is no excuse for not using them. These programs are indeed "bullet-proof": they can fit any dataset that one cares to throw at them. The author's preference is to use RSM as it yields additional information about search and lesion-localization performance not available using CBM. PROPOROC has some problems fitting degenerate datasets that can be readily fixed but to my knowledge no one is actively maintaining this important contribution by Prof. Metz.
 
 
 
+## Chapter References {#proper-roc-models-references} 
 
