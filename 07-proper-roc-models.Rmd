@@ -195,13 +195,16 @@ For now focus on Plot A in Fig. \@ref(fig:proper-roc-models-plots-2) in which ra
 > Since likelihood ratio decreases monotonically as $\lambda$ is reduced (i.e., one is moving down the y-axis in Fig. \@ref(fig:proper-roc-models-plots-2) the slope ROC curve decreases monotonically as one moves up the curve. One needs to think carefully about this sentence to eventually "get it". In other words, the likelihood ratio observer generates a proper ROC curve. 
 
 
-Another theorem14,16,18, is that the likelihood ratio observer achieves highest AUC as compared to an observer using any other decision rule, e.g., one based on the binormal model z-sample exceeding threshold $\zeta$. Since likelihood ratio is the ratio of two probabilities, it - and the slope of the ROC -  is always non-negative.
+Another theorem14,16,18, is that the likelihood ratio observer achieves highest AUC when compared to other observers using other decision rules. Specifically, the likelihood ration observer achieves higher AUC than one using the binormal model z-sample exceeding a threshold. For the binormal model based likelihood ratio observer, the slope will not decrease to zero, rather it will decrease to the limiting value, 0.361, suggested by \@ref(fig:proper-roc-models-plots-2) Plot F (for values of $\lambda$ below the minimum, there are no solutions for z). 
 
-For the binormal model based likelihood ratio observer, the slope will not decrease to zero, rather it will decrease to the limiting value, 0.361, suggested by \@ref(fig:proper-roc-models-plots-2) Plot F (for values of $\lambda$ below the minimum, there are no solutions for z). 
+
+Since likelihood ratio is the ratio of two probabilities, it - and consequently the slope of the ROC -  is always non-negative. This rules out chance line crossings and "hooks".
+
 
 The observer can use a decision rule that is based on any monotonic increasing transformation of the likelihood ratio and the resulting ROC curve will be identical to that based on the likelihood ratio; the slope of the resulting curve always equals the likelihood ratio (i.e., before the monotonic transformation). For example, the monotonic transformation could yield a variable ranging from  -infinity to plus infinity, but the slope of the resulting ROC curve will still be that for the likelihood ratio observer prior to the transformation. The limiting value of the slope is model dependent; specifically, if the binormal model is used, the limiting slope depends on the values of $a,b$.
 
-A final theorem not explicitly stated in the literature: since AUC of the likelihood ratio observer is optimal with respect to other observers using different decision rules or different underlying models of the decision variable, *the AUC achieved by the likelihood ratio observer is unique, regardless of the model used to fit the proper ROC curve.* In other words, the shapes of the predicted proper ROC curves are model dependent and could differ from each other, but the AUCs will be the same. This is empirically demonstrated in book Chapter TBA 18 for RSM, PROPROC and CBM fitted AUCs.
+A final theorem: since AUC of the likelihood ratio observer is optimal with respect to other observers using different decision rules or different underlying models of the decision variable, *the AUC achieved by the likelihood ratio observer is unique, regardless of the model used to fit the proper ROC curve.* In other words, the shapes of the predicted proper ROC curves could be model dependent and differ from each other but the AUCs will be the same. This is demonstrated in book Chapter TBA 18 for RSM, PROPROC and CBM fitted AUCs.
+
 
 
 ## PROPROC {#proper-roc-models-proproc}
