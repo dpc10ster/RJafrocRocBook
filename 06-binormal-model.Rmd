@@ -681,7 +681,7 @@ The d' index can be regarded as a perceptual signal-to-noise-ratio.
 
 ## Fitting the binormal model {#binormal-model-fitting}
 
-[@dorfman1969maximum] were the first to fit ratings data to the binormal model. The details of the procedure are in Appendix \@ref(binormal-model-curve-fitting). While historically very important in showing how statistically valid quantitative analysis is possible using ROC ratings data, the fitting procedure suffers from what are termed "degeneracy issues" and "fitting artifacts" discussed in Appendix \@ref(binormal-model-degeneracy-artifacts). Degeneracy is when the fitting procedure yields unreasonable parameter values. Fitting artifacts occur when the fitted curve predicts worse than chance level performance in some region of the fitted ROC curve. Because of these issues usage of this method is now discouraged as it has largely been supplanted by other software such as the CBM fitting method, the proper ROC fitting method implemented in PROPROC and the RSM (radiological search model) based fitting method. These are discussed in later chapters. 
+[@dorfman1969maximum] were the first to fit ratings data to the binormal model. The details of the procedure are in Appendix \@ref(binormal-model-curve-fitting). While historically very important in showing how statistically valid quantitative analysis is possible using ROC ratings data, the fitting procedure suffers from what are termed "degeneracy issues" and "fitting artifacts" discussed in Appendix \@ref(binormal-model-degeneracy). Degeneracy is when the fitting procedure yields unreasonable parameter values. Fitting artifacts occur when the fitted curve predicts worse than chance level performance in some region of the fitted ROC curve. Because of these issues usage of this method is now discouraged as it has largely been supplanted by other software such as the CBM fitting method, the proper ROC fitting method implemented in PROPROC and the RSM (radiological search model) based fitting method. These are discussed in later chapters. 
 
 
 
@@ -1225,10 +1225,8 @@ Usually the hook is not readily visible. For example, in Fig. \@ref(fig:binormal
 
 One reason for for $b < 1$, namely location uncertainty, follows from the Radiological Search Model (RSM) presented in `RJafrocFrocBook`. If the location of the lesion is unknown to the observer, then z-samples from diseased cases are of two types: samples from lesion localizations centered at $\mu$ or samples from non-lesion localizations centered at 0. The resulting mixture-distribution will have larger variance than samples from non-diseased regions centered at 0 occurring on non-diseased cases. The mixing need not be restricted to location uncertainty. Even is location is known, if the lesions are non-homogenous (e.g., they contain a range of contrasts or sizes) then a similar mixture-distribution induced broadening is expected. The contaminated binormal model (CBM) -- see Chapter `TempComment \@ref(proper-roc-models)` -- also predicts that the diseased distribution is wider than the non-diseased one.
 
-
   
-## Degenerate datasets {#binormal-model-degenerate-datasets}
-
+## Degenerate datasets {#binormal-model-degeneracy}
 
 
 ```{r echo=FALSE}
@@ -1254,17 +1252,26 @@ CBMPoints <- function(mu, alpha){
 ```
 
 
-
 The unphysical nature of the "hook" is not the only reason for seeking alternate ROC models. The binormal model is also highly susceptible to degeneracy problems. 
 
 
-> Metz defined binormal degenerate data sets as those that result in exact-fit binormal ROC curves of inappropriate shape consisting of a series of horizontal and/or vertical line segments in which the ROC "curve" crosses the chance line. The crossing of the chance line occurs because the degenerate data sets can be fitted exactly by infinite or zero values for the model slope parameter $b$, and infinite values for the decision thresholds, or both. 
+> Metz defined binormal degenerate data sets as those that result in exact-fit binormal ROC curves of inappropriate shape consisting of a series of horizontal and/or vertical line segments in which the ROC "curve" crosses the chance line.  
   
 ### Understanding degenerate datasets {#binormal-model-understanding-degenerate-datasets}
 
-To understand this, consider that the non-diseased distribution pdf is a Dirac delta function centered at zero (this function integrates to unity) and the unit variance diseased distribution is centered at 0.6744898.  In other words this model is characterized by $a = 0.6744898$ and $b = 0$.  As the threshold $\zeta$ is moved from the far right to the left, TPF will increase but FPF is stuck at zero until $\zeta$ reaches zero. Just before reaching this point, the coordinates of the ROC operating point are (0, 0.75). The 0.75 is due to the fact that $z = 0$ is -0.6744898 units relative to the center of the diseased distribution, so the area under the diseased distribution to the left of $z = 0$ is `r simplePrint(pnorm(-0.6744898))`. Since `pnorm` is the probability below the threshold, TPF must be its complement, namely `r 1-pnorm(-0.6744898)`. This explains the operating point (0,0.75) which lies on the y-axis. As the threshold crosses the delta function FPF shoots up from 0 to 1 but TPF stays constant. Therefore, the operating point has jumped from (0, 0.75) to (1, 0.75). When the threshold is reduced further, the operating point moves up vertically, along the right side of the ROC plot, until the threshold is so small that virtually all of diseased distribution exceeds it and the operating point reaches (1, 1). The ROC curve is illustrated in plot A. 
+To understand this, consider that the non-diseased distribution pdf is a Dirac delta function centered at zero (this function integrates to unity) and the unit variance diseased distribution is centered at 0.6744898.  In other words this model is characterized by $a = 0.6744898$ and $b = 0$.  As the threshold $\zeta$ is moved leftward starting from the far right TPF will increase but $\text{FPF}=0$ until $\zeta$ reaches zero. Just before reaching this value the coordinates of the ROC operating point are (0, 0.75). The 0.75 is due to the fact that $z = 0$ is -0.6744898 units relative to the center of the diseased distribution, so the area under the diseased distribution to the left of $z = 0$ is `pnorm(-0.6744898)`, i.e., `r simplePrint(pnorm(-0.6744898))`. Since `pnorm` is the probability to the left of the threshold, TPF is its complement, namely `1-pnorm(-0.6744898)`, i.e., `r 1-pnorm(-0.6744898)`. 
+
+As the threshold crosses the delta function FPF jumps from 0 to 1 but TPF stays constant. The operating point has jumped from (0, 0.75) to (1, 0.75). When the threshold is reduced further, the operating point moves up vertically along the right side of the ROC plot, until the threshold is so small that virtually all of diseased distribution exceeds it and the operating point reaches (1, 1). The ROC curve is illustrated in Fig. \@ref(fig:binormal-model-degeneracy-fig) panel A, which is an extreme example of an ROC curve with a "hook". Since the fit passes through the sole operating point provided by the observer, i.e., (0,0.75), it is an exact fit to the operating point.  
+
+
+### The exact fit is not unique {#binormal-model-exact-fit-not-unique}
+
+Given only one observed operating point (0, 0.75) the preceding fit is not unique. If the diseased distribution is shifted appropriately to the right, by varying $a$, see below, then the ROC curve will be the vertical line segment from the origin to (0, 0.9) followed by a horizontal line segment to (1, 0.9) and a vertical line segment to (1, 1), see Fig. \@ref(fig:binormal-model-degeneracy-fig) panel B.  If the diseased distribution is shifted well to the right, i.e., $a$ is very large, then the ROC curve will be the vertical line segment from the origin to (0,1) followed by the horizontal line segment to (1, 1) as in panel C.
+
   
-```{r, binormal-model-degenerate-datasets-example1, fig.align = "center", fig.cap="An extreme example of a binormal fit with a hook.", fig.show='hold', echo = FALSE}
+
+```{r echo = FALSE}
+
 plotOP <- data.frame(FPF = 0, TPF = 0.75)
 a <- 0.6744898; b <- 0
 plotCurve <- BMPoints(a, b)
@@ -1274,16 +1281,7 @@ figA <- ggplot(mapping = aes(x = FPF, y = TPF)) +
   scale_x_continuous(expand = c(0, 0)) + 
   scale_y_continuous(expand = c(0, 0)) +
   ggtitle("A")
-#print(figA)
-```             
 
-Fig. \@ref(fig:binormal-model-degenerate-datasets-example1) is an extreme example of an ROC curve with a "hook". If the data is such that the only operating point provided by the observer is (0,0.75) then this curve is an exact fit to the operating point.  
-
-### The exact fit is not unique {#binormal-model-exact-fit-not-unique}
-
-Actually, given one operating point (0, 0.75) the preceding fit is not even unique. If the diseased distribution is shifted appropriately to the right of its previous position, and one can determine the necessary value of $a$, then the ROC curve will shoot upwards through the operating point (0, 0.75) to (0, 0.9), as in plot B, before proceeding horizontally to (1, 0.9) and then completing the curve vertically to (1, 1).  If the diseased distribution is shifted well to the right, i.e., $a$ is very large, then the ROC curve will shoot upwards past the operating point, as in plot C, all the way to (0,1) before proceeding horizontally to (1, 1).
-
-```{r binormal-model-degenerate-datasets-example2, fig.align = "center", fig.cap="The exact fit is not unique.", fig.show='hold', echo = FALSE}
 a <- 1.281552; b <- 0
 plotCurve <- BMPoints(a, b)
 figB <- ggplot(mapping = aes(x = FPF, y = TPF)) + 
@@ -1292,11 +1290,7 @@ figB <- ggplot(mapping = aes(x = FPF, y = TPF)) +
   scale_x_continuous(expand = c(0, 0)) + 
   scale_y_continuous(expand = c(0, 0)) +
   ggtitle("B")
-#print(figB);
-```
 
-
-```{r binormal-model-degenerate-datasets-example3, fig.align = "center", fig.cap="The exact fit is not unique.", fig.show='hold', echo = FALSE}
 a <- Inf; b <- 0
 plotCurve <- BMPoints(a, b)
 figC <- ggplot(mapping = aes(x = FPF, y = TPF)) + 
@@ -1305,11 +1299,7 @@ figC <- ggplot(mapping = aes(x = FPF, y = TPF)) +
   scale_x_continuous(expand = c(0, 0)) + 
   scale_y_continuous(expand = c(0, 0)) +
   ggtitle("C")
-#print(figC)
-```             
 
-
-```{r binormal-model-degenerate-datasets-example4, fig.align = "center", fig.cap="A reasonable fit to a degenerate dataset.", fig.show='hold', echo = FALSE}
 mu <- Inf; alpha <- 0.75
 plotCurve <- CBMPoints(mu, alpha)
 figD <- ggplot(mapping = aes(x = FPF, y = TPF)) + 
@@ -1318,26 +1308,32 @@ figD <- ggplot(mapping = aes(x = FPF, y = TPF)) +
   scale_x_continuous(expand = c(0, 0)) + 
   scale_y_continuous(expand = c(0, 0)) +
   ggtitle("D")
-#print(figD)
 ```             
 
 
-```{r binormal-model-degeneracy, fig.cap="Panels A, B and C illustrate that the exact fit is not unique. Panel D illustrates a reasonable unique fit to the data.", fig.show='hold', echo=FALSE}
+```{r binormal-model-degeneracy-fig, fig.cap="Panels A, B and C illustrate that the exact fit is not unique. Panel D illustrates a reasonable unique fit to the data.", fig.show='hold', echo=FALSE}
 grid.arrange(grobs = list(figA, figB, figC, figD),
              nrow =2,ncol=2)
 ```
 
 
-Panels A, B and C in Fig. \@ref(fig:binormal-model-degeneracy) represent exact fits to the observed operating point with $b = 0$ and different values of $a$. None of them is reasonable. Panel D is discussed below.
+Panels A, B and C in Fig. \@ref(fig:binormal-model-degeneracy-fig) represent exact fits to the observed operating point with $b = 0$ and different values of $a$. None of them is reasonable. Panel D is discussed below.
 
 
-### Comments on degeneracy  {#binormal-model-comments}
+### On instructing an observer to "spread their ratings"  {#binormal-model-spread-ratings}
 
-Degeneracy occurs if the observer does not provide any interior operating points. So why worry about it? Perhaps one has a non-cooperating observer, who is not heeding the instructions to *spread the ratings, use all the bins*. The following example shows that the observer could in fact be cooperating fully and still be unable to provide any interior data points. Consider 100 diseased cases consisting of 75 easy cases and 25 difficult cases and 100 easy non-diseased cases. The observer is expected to rate the 75 easy diseased cases as *fives*, the difficult diseased cases as *ones* and the 100 easy non-diseased cases as *ones*. No amount of coaxing to spread their ratings is going to convince this observer to rate with twos, threes and fours any of the 75 easy diseased cases. If the cases are obviously diseased, and that is what is meant by *easy cases* they are supposed to be rated fives, i.e., definitely diseased. Forcing them to rate some of them as *probably diseased* or *possibly diseased* would be irrational and guilty of bending the reading paradigm to fit the convenience of the researcher, never a good idea.
+> Degeneracy occurs if the observer does not provide any interior operating points. Perhaps one has a non-cooperating observer who is not heeding the instructions to *spread the ratings, use all the bins*. The observer could in fact be cooperating fully and still be unable to provide any interior data points. 
+
+
+> Consider 100 diseased cases consisting of 75 easy cases and 25 difficult cases and 100 non-diseased cases of varying degrees of difficulty but less suspicious than the "five" category. The observer is expected to rate the 75 easy diseased cases as "fives" and the remaining cases as less than "fives" yielding the operating point (0, 0.75). No amount of coaxing to "spread their ratings" is going to convince the observer to rate with "twos", "threes" and "fours" any of the 75 easy diseased cases. If the cases are obviously diseased, and that is what is meant by easy diseased cases, they are supposed to be rated fives, i.e., definitely diseased. Forcing them to rate some of them as "probably diseased" or "possibly diseased" would be like altering the reading paradigm to fit the convenience of the researcher, never a good idea.
 
 
 ### A reasonable fit to the degenerate dataset {#binormal-model-reasonable-fit}
 
-If the dataset yields a single operating point (0, 0.75), what is a reasonable ROC plot? A theorem states that given an observed operating point, the line connecting that point to (1, 1) represents a lower bound on achievable performance by the observer. The observer achieves this lower bound by guessing to classify the remaining cases: having rated the 75 easy diseased cases as fives the observer is left with 25 difficult diseased cases and 100 easy non-diseased cases. The guessing observer may randomly rate 1/5th of the remaining cases as fours. This would correctly classify 5 of the actually diseased cases (25/5) and 20 non-diseased ones (100/5). Therefore, the total number of diseased cases rated four or higher is 80 and the corresponding number of non-diseased cases is 20. The new operating point of the observer is (0.20, 0.80). One has two operating points, the original one on the y-axis at (0, 0.75) and an interior point (0.20, 0.80). Next, instead of randomly rating 1/5th of the remaining cases as fours, the observer rates 2/5th of them as fours resulting in an additional interior point (0.40, 0.85). By simply increasing the fraction of remaining cases that are randomly rated fours, the observer can move the operating point along the straight line connecting (0, 0.75) and (1, 1), as in plot D in Fig. \@ref(fig:binormal-model-degeneracy). Since it involves guessing this must represent a lower bound on performance. The lowest possible performance yields a unique ROC curve: any higher ROC curve would not be unique. 
+> Theorem: given an observed operating point the line connecting that point to (1, 1) represents a lower bound on achievable performance by the observer. 
+
+The observer achieves the lower bound by guessing to classify the remaining cases, i.e., those not contributing to the observed operating point. This is how it works: having rated the 75 easy diseased cases as "fives" and the rest of the cases in lower bins the guessing observer randomly rates 1/5th of the remaining cases in the "four" bin. This would add 5 diseased cases (25/5) and 20 non-diseased cases (100/5) in the "four" bin yielding the interior point (0.20, 0.80). If the observer randomly rates 2/5th of the cases to the "four" bin rating category one obtains the interior point (0.40, 0.85). By simply increasing the fraction of cases that are randomly rated "fours" the observer can move the operating point along the straight line connecting (0, 0.75) and (1, 1), as in plot D in Fig. \@ref(fig:binormal-model-degeneracy-fig). Since it involves guessing this must represent a lower bound on performance. 
+
+>The lowest possible performance yields a unique ROC curve: any higher ROC curve would not be unique. 
 
 ## Chapter References {#binormal-model-references} 
