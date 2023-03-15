@@ -4339,123 +4339,32 @@ There used to be software called BIGAMMA, formerly MAXGAM \citep{dorfman1997prop
 
 With the readily availability of CBM and RSM (both implemented in \texttt{RJafroc}) there is no excuse for not using them. These programs are indeed ``bullet-proof'': they can fit any dataset that one cares to throw at them. The author's preference is to use RSM as it yields additional information about search and lesion-localization performance not available using CBM. PROPOROC has some problems fitting degenerate datasets that can be readily fixed but to my knowledge no one is actively maintaining this important contribution by Prof.~Metz.
 
-\hypertarget{proper-roc-models-references}{%
-\section{Chapter References}\label{proper-roc-models-references}}
+\hypertarget{proper-roc-models-metz-eqn-36}{%
+\section{Appendix: Metz Eqn 36 numerical check}\label{proper-roc-models-metz-eqn-36}}
 
-\hypertarget{proproc-rocs}{%
-\chapter{PROPROC ROC curves}\label{proproc-rocs}}
-
-\hypertarget{helper-functions}{%
-\section{Helper functions}\label{helper-functions}}
-
-\hypertarget{definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters}{%
-\section{Definitions of PROPROC parameters in terms of binormal model parameters}\label{definitions-of-proproc-parameters-in-terms-of-binormal-model-parameters}}
-
-\[c=\frac{b-1}{b+1};{{d}_{a}}=\frac{\sqrt{2}a}{\sqrt{1+{{b}^{2}}}}\]
+The \(c\) and \(d_a\) parameters used here are from an FROC study in breast tomosynthesis \citep{andersson2008breast}. There are two modalities and five readers.
 
 \hypertarget{main-code-and-output}{%
-\section{Main code and output}\label{main-code-and-output}}
+\subsection{Main code and output}\label{main-code-and-output}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{c1Arr }\OtherTok{\textless{}{-}}   \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.1322804}\NormalTok{, }\FloatTok{0.2225588}\NormalTok{); daArr  }\OtherTok{\textless{}{-}}  \FunctionTok{c}\NormalTok{(}\FloatTok{1.197239}\NormalTok{, }\FloatTok{1.740157}\NormalTok{)}
-\NormalTok{myLabel }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"D"}\NormalTok{)}
-\NormalTok{myLabelIndx }\OtherTok{\textless{}{-}} \DecValTok{1}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{)}
-\NormalTok{\{}
-\NormalTok{  c1 }\OtherTok{\textless{}{-}}\NormalTok{ c1Arr[i]}
-\NormalTok{  da }\OtherTok{\textless{}{-}}\NormalTok{ daArr[i]}
-\NormalTok{  ret }\OtherTok{\textless{}{-}} \FunctionTok{Transform2ab}\NormalTok{(da, c1)}
-\NormalTok{  a }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{a;b }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{b}
-  \ControlFlowTok{if}\NormalTok{ (i }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) z }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{) }\CommentTok{\# may need to adjust limits to view detail of slope plot}
-  \ControlFlowTok{if}\NormalTok{ (i }\SpecialCharTok{==} \DecValTok{2}\NormalTok{) z }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{) }\CommentTok{\# may need to adjust limits to view detail of slope plot}
-  
-\NormalTok{  FPF }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
-\NormalTok{  TPF }\OtherTok{\textless{}{-}} \FunctionTok{rocY}\NormalTok{(FPF, a, b)}
-  
-\NormalTok{  rocPlot }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{FPF =}\NormalTok{ FPF, }\AttributeTok{TPF =}\NormalTok{ TPF)}
-\NormalTok{  plotRoc }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(rocPlot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ FPF, }\AttributeTok{y =}\NormalTok{ TPF)) }\SpecialCharTok{+} 
-    \FunctionTok{geom\_line}\NormalTok{()  }\SpecialCharTok{+} 
-   \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+} 
-    \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))   }\SpecialCharTok{+}
-    \FunctionTok{ggtitle}\NormalTok{(myLabel[myLabelIndx]);myLabelIndx }\OtherTok{\textless{}{-}}\NormalTok{ myLabelIndx }\SpecialCharTok{+} \DecValTok{1}
+\begin{verbatim}
+#>    i j           c        da aucProproc     normDiff
+#> 1  1 1 -0.13228036 1.1972393  0.8014164 3.520017e-08
+#> 2  1 2 -0.08696513 1.7711756  0.8947898 4.741875e-08
+#> 3  1 3 -0.14444185 1.4819349  0.8526605 3.515431e-08
+#> 4  1 4  0.08046016 1.5137569  0.8577776 4.971428e-08
+#> 5  1 5  0.22255876 1.7401572  0.8909392 2.699855e-08
+#> 6  2 1 -0.08174248 0.6281251  0.6716574 2.801793e-08
+#> 7  2 2  0.04976448 0.9738786  0.7544739 5.275242e-08
+#> 8  2 3 -0.13261262 1.1558707  0.7931787 3.472577e-08
+#> 9  2 4  0.11822263 1.6201757  0.8740274 3.922161e-08
+#> 10 2 5  0.07810330 0.8928816  0.7360989 3.798459e-08
+\end{verbatim}
 
-\NormalTok{  slope }\OtherTok{\textless{}{-}}\NormalTok{b}\SpecialCharTok{*}\FunctionTok{dnorm}\NormalTok{(a}\SpecialCharTok{{-}}\NormalTok{b}\SpecialCharTok{*}\NormalTok{z)}\SpecialCharTok{/}\FunctionTok{dnorm}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{z) }\CommentTok{\# same as likelihood ratio}
-  
-\NormalTok{  slopePlot }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{z =}\NormalTok{ z, }\AttributeTok{slope =}\NormalTok{ slope)}
-\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(slopePlot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ z, }\AttributeTok{y =}\NormalTok{ slope)) }\SpecialCharTok{+} 
-    \FunctionTok{geom\_line}\NormalTok{()  }\SpecialCharTok{+} 
-    \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+} 
-    \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))  }\SpecialCharTok{+}
-    \FunctionTok{ggtitle}\NormalTok{(myLabel[myLabelIndx]);myLabelIndx }\OtherTok{\textless{}{-}}\NormalTok{ myLabelIndx }\SpecialCharTok{+} \DecValTok{1}
-  \FunctionTok{print}\NormalTok{(plotRoc);}\FunctionTok{print}\NormalTok{(p)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
+Note the close correspondence between the formula, Eqn. 36 in \citep{metz1999proper}, and the numerical estimate. Eqn. 31 and Eqn. 36 in the paper (they differ only in parameterizations) are provided without proof -- it was probably obvious to Prof Metz or he wanted to leave it to us ``mere mortals'' to figure it out as a final parting gesture of his legacy. The author once put a significant effort into proving it and even had a bright graduate student from the biostatistics department work on it to no avail. I have observed that these equations always yield very close to the numerical estimates so the theorem is obviously empirically correct, but I have been unable to prove it analytically.
 
-\includegraphics{20b-proproc-roc-curves_files/figure-latex/unnamed-chunk-2-1.pdf} \includegraphics{20b-proproc-roc-curves_files/figure-latex/unnamed-chunk-2-2.pdf} \includegraphics{20b-proproc-roc-curves_files/figure-latex/unnamed-chunk-2-3.pdf} \includegraphics{20b-proproc-roc-curves_files/figure-latex/unnamed-chunk-2-4.pdf}
-
-\hypertarget{discussion}{%
-\section{Discussion}\label{discussion}}
-
-Plot A is for \texttt{c1} = -0.1322804, \texttt{da} = 1.197239 while plot C is for \texttt{c1} = 0.2225588, \texttt{da} = 1.740157. Plots B and D are the corresponding slope plots as functions of the binormal model z-sample. In plot A, the slope is infinite near the origin and the curve approaches the upper-right corner with finite slope. The situation is reversed in plot C where the slope is finite near the origin and the curve approaches the upper-right corner with zero slope.
-
-These two readers are from a clinical dataset, \texttt{dataset01}. Highest rating inferred ROC data from original FROC data, were analyzed by PROPROC and the resulting parameter values are coded here. They were chosen as they demonstrate key differences in the shapes of proper ROC plots. Plot A corresponds to a negative value of \texttt{c1}, which implies \texttt{b\ \textless{}\ 1}. The slope of the proper ROC is infinite near the origin and approaches a positive constant near the upper right corner of the ROC. Plot C is for a positive value of \texttt{c1}, i.e., for \texttt{b\ \textgreater{}\ 1}. Now the slope of the proper ROC is finite near the origin and approaches zero near the upper right corner.
-
-Considering plot D, as one ``cuts'' the slope axis horizontally with a sliding threshold, starting with very high values and moving downwards, the slope of the ROC curve starts at the origin with a large but finite value. This corresponds to the peak in plot D. Above the peak, there are no solutions for \texttt{z}. The slope decreases monotonically to zero, corresponding to the flattening out of the slope at zero for \texttt{z\ \textasciitilde{}\ \ -2}.
-
-The two values of \texttt{z} corresponding to each cut implies, of course, that the binormal model based proper algorithm has to do a lot of bookkeeping, since each horizontal cut splits the decision axis into 3 regions. One can think of shrinking each of plots B \& D horizontally to zero width, and all that remains is the slope axis with a thick vertical line superimposed on it, corresponding to the horizontally collapsed curves. In plot B the vertical line extends from positive infinity down to about 0.1, and represents the range of decision variable samples encountered by the observer on the likelihood ratio scale. In plot D the vertical line extends from a finite value (\textasciitilde9.4) to zero. For the stated binormal model parameters values outside of these ranges are not possible.
-
-\hypertarget{metz-eqn-36}{%
-\chapter{Metz Eqn 36 numerical check}\label{metz-eqn-36}}
-
-\hypertarget{helper-functions-1}{%
-\section{Helper functions}\label{helper-functions-1}}
-
-\hypertarget{main-code-and-output-1}{%
-\section{Main code and output}\label{main-code-and-output-1}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{npts }\OtherTok{\textless{}{-}}  \DecValTok{10000}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) \{}
-  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{) \{}
-\NormalTok{    C  }\OtherTok{\textless{}{-}}\NormalTok{  c1[i,j]}
-\NormalTok{    da  }\OtherTok{\textless{}{-}}\NormalTok{  d\_a1[i,j]}
-\NormalTok{    ret }\OtherTok{\textless{}{-}} \FunctionTok{GetLimits}\NormalTok{(da,C)}
-\NormalTok{    LL }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{LL;UL }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{UL}
-\NormalTok{    vc  }\OtherTok{\textless{}{-}}  \FunctionTok{seq}\NormalTok{ (LL, UL, }\AttributeTok{length.out =}\NormalTok{ npts)}
-\NormalTok{    TPF  }\OtherTok{\textless{}{-}}  \FunctionTok{TruePositiveFraction}\NormalTok{ (vc, da, C)}
-\NormalTok{    FPF }\OtherTok{\textless{}{-}} \FunctionTok{FalsePositiveFraction}\NormalTok{ (vc, da, C)}
-\NormalTok{    FPF }\OtherTok{\textless{}{-}} \FunctionTok{rev}\NormalTok{(FPF);TPF }\OtherTok{\textless{}{-}} \FunctionTok{rev}\NormalTok{(TPF)}
-\NormalTok{    df2 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{FPF =}\NormalTok{ FPF, }\AttributeTok{TPF =}\NormalTok{ TPF)}
-    \CommentTok{\# do integral numerically}
-\NormalTok{    numAuc }\OtherTok{\textless{}{-}} \FunctionTok{trapz}\NormalTok{(FPF, TPF)}
-    \CommentTok{\# Implement Eqn. 36 from Metz{-}Pan paper }
-\NormalTok{    rho }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{C}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{C}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{);sigma }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, rho), }\FunctionTok{c}\NormalTok{(rho, }\DecValTok{1}\NormalTok{))}
-\NormalTok{    lower }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{,}\DecValTok{2}\NormalTok{);upper }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{da}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{),}\DecValTok{0}\NormalTok{)}
-\NormalTok{    aucProproc }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(da}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{+} \DecValTok{2} \SpecialCharTok{*} \FunctionTok{pmvnorm}\NormalTok{(lower, upper, }\AttributeTok{sigma =}\NormalTok{ sigma)}
-\NormalTok{    aucProproc }\OtherTok{\textless{}{-}}  \FunctionTok{as.numeric}\NormalTok{(aucProproc)}
-    \FunctionTok{cat}\NormalTok{(}\StringTok{"i = "}\NormalTok{, i,}\StringTok{"j = "}\NormalTok{, j,}\StringTok{"C = "}\NormalTok{, C, }\StringTok{", da = "}\NormalTok{, da, }\StringTok{"aucProproc ="}\NormalTok{, aucProproc, }\StringTok{"Norm. Diff. = "}\NormalTok{, (aucProproc}\SpecialCharTok{{-}}\NormalTok{numAuc)}\SpecialCharTok{/}\NormalTok{aucProproc,}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\NormalTok{  \}}
-\NormalTok{\}}
-\CommentTok{\#\textgreater{} i =  1 j =  1 C =  {-}0.1322804 , da =  1.197239 aucProproc = 0.8014164 Norm. Diff. =  3.520017e{-}08 }
-\CommentTok{\#\textgreater{} i =  1 j =  2 C =  {-}0.08696513 , da =  1.771176 aucProproc = 0.8947898 Norm. Diff. =  4.741875e{-}08 }
-\CommentTok{\#\textgreater{} i =  1 j =  3 C =  {-}0.1444419 , da =  1.481935 aucProproc = 0.8526605 Norm. Diff. =  3.515431e{-}08 }
-\CommentTok{\#\textgreater{} i =  1 j =  4 C =  0.08046016 , da =  1.513757 aucProproc = 0.8577776 Norm. Diff. =  4.971428e{-}08 }
-\CommentTok{\#\textgreater{} i =  1 j =  5 C =  0.2225588 , da =  1.740157 aucProproc = 0.8909392 Norm. Diff. =  2.699855e{-}08 }
-\CommentTok{\#\textgreater{} i =  2 j =  1 C =  {-}0.08174248 , da =  0.6281251 aucProproc = 0.6716574 Norm. Diff. =  2.801793e{-}08 }
-\CommentTok{\#\textgreater{} i =  2 j =  2 C =  0.04976448 , da =  0.9738786 aucProproc = 0.7544739 Norm. Diff. =  5.275242e{-}08 }
-\CommentTok{\#\textgreater{} i =  2 j =  3 C =  {-}0.1326126 , da =  1.155871 aucProproc = 0.7931787 Norm. Diff. =  3.472577e{-}08 }
-\CommentTok{\#\textgreater{} i =  2 j =  4 C =  0.1182226 , da =  1.620176 aucProproc = 0.8740274 Norm. Diff. =  3.922161e{-}08 }
-\CommentTok{\#\textgreater{} i =  2 j =  5 C =  0.0781033 , da =  0.8928816 aucProproc = 0.7360989 Norm. Diff. =  3.798459e{-}08}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{discussion-1}{%
-\section{Discussion}\label{discussion-1}}
-
-Note the close correspondence between the formula, Eqn. 36 in the Metz-Pan paper and the numerical estimate. As a historical note, Eqn. 31 and Eqn. 36 (they differ only in parameterizations) in the referenced publication are provided without proof -- it was probably obvious to Prof Metz or he wanted to leave it to us ``mere mortals'' to figure it out, as a final parting gesture of his legacy. The author once put a significant effort into proving it and even had a bright graduate student from the biostatistics department work on it to no avail. The author has observed that these equations always yield very close to the numerical estimates, to within numerical precisions, so the theorem is correct empirically, but he has been unable to prove it analytically. It is left as an exercise for a gifted reader to prove/disprove these equations.
+\hypertarget{proper-roc-models-references}{%
+\section{Chapter References}\label{proper-roc-models-references}}
 
 \hypertarget{bivariate-binormal-model}{%
 \chapter{Bivariate binormal model}\label{bivariate-binormal-model}}
@@ -4719,7 +4628,7 @@ In understanding the bivariate distribution it is helpful to visualize the pdfs.
 
 \begin{figure}
 \centering
-\includegraphics{21-bivariate-binormal-model_files/figure-latex/bivariate-binormal-model-pdf-plots-1.pdf}
+\includegraphics{10-bivariate-binormal-model_files/figure-latex/bivariate-binormal-model-pdf-plots-1.pdf}
 \caption{\label{fig:bivariate-binormal-model-pdf-plots}Bivariate pdf plots: Top-left is the default view. Top-right is the `birds eye' view, with the pdf-axis `literally coming at the reader' at right angles to the paper or screen. Bottom-left is the view looking along the y-axis at x = 0. Bottom-right is the view looking along the x-axis at y = 0. The \texttt{R} package \texttt{plotly} was used to capture these screen-shots.}
 \end{figure}
 

@@ -877,6 +877,37 @@ There used to be software called BIGAMMA, formerly MAXGAM [@dorfman1997proper], 
 With the readily availability of CBM and RSM (both implemented in `RJafroc`) there is no excuse for not using them. These programs are indeed "bullet-proof": they can fit any dataset that one cares to throw at them. The author's preference is to use RSM as it yields additional information about search and lesion-localization performance not available using CBM. PROPOROC has some problems fitting degenerate datasets that can be readily fixed but to my knowledge no one is actively maintaining this important contribution by Prof. Metz.
 
 
+## Appendix: Metz Eqn 36 numerical check {#proper-roc-models-metz-eqn-36}
+
+
+The $c$ and $d_a$ parameters used here are from an FROC study in breast tomosynthesis [@andersson2008breast]. There are two modalities and five readers. 
+
+
+
+
+
+### Main code and output
+  
+
+```
+#>    i j           c        da aucProproc     normDiff
+#> 1  1 1 -0.13228036 1.1972393  0.8014164 3.520017e-08
+#> 2  1 2 -0.08696513 1.7711756  0.8947898 4.741875e-08
+#> 3  1 3 -0.14444185 1.4819349  0.8526605 3.515431e-08
+#> 4  1 4  0.08046016 1.5137569  0.8577776 4.971428e-08
+#> 5  1 5  0.22255876 1.7401572  0.8909392 2.699855e-08
+#> 6  2 1 -0.08174248 0.6281251  0.6716574 2.801793e-08
+#> 7  2 2  0.04976448 0.9738786  0.7544739 5.275242e-08
+#> 8  2 3 -0.13261262 1.1558707  0.7931787 3.472577e-08
+#> 9  2 4  0.11822263 1.6201757  0.8740274 3.922161e-08
+#> 10 2 5  0.07810330 0.8928816  0.7360989 3.798459e-08
+```
+
+
+
+
+Note the close correspondence between the formula, Eqn. 36 in [@metz1999proper], and the numerical estimate. Eqn. 31 and Eqn. 36 in the paper (they differ only in parameterizations) are provided without proof – it was probably obvious to Prof Metz or he wanted to leave it to us "mere mortals" to figure it out as a final parting gesture of his legacy. The author once put a significant effort into proving it and even had a bright graduate student from the biostatistics department work on it to no avail. I have observed that these equations always yield very close to the numerical estimates so the theorem is obviously empirically correct, but I have been unable to prove it analytically.
+
 
 ## Chapter References {#proper-roc-models-references} 
 
