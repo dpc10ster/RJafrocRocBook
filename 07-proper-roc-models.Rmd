@@ -961,6 +961,98 @@ There used to be software called BIGAMMA, formerly MAXGAM [@dorfman1997proper], 
 With the readily availability of CBM and RSM (both implemented in `RJafroc`) there is no excuse for not using them. These programs are indeed "bullet-proof": they can fit any dataset that one cares to throw at them. The author's preference is to use RSM as it yields additional information about search and lesion-localization performance not available using CBM. PROPOROC has some problems fitting degenerate datasets that can be readily fixed but to my knowledge no one is actively maintaining this important contribution by Prof. Metz.
 
 
+## Appendix: Metz Eqn 36 numerical check {#proper-roc-models-metz-eqn-36}
+
+
+The $c$ and $d_a$ parameters used here are from an FROC study in breast tomosynthesis [@andersson2008breast]. There are two modalities and five readers. 
+
+```{r echo=FALSE}
+
+# TonyData.R
+c1 <- array(dim=c(5,2))
+d_a <- array(dim=c(5,2))
+
+c1[1,1] <- -0.132280361
+d_a[1,1] <- 1.197239295
+c1[2,1] <- -0.086965135	
+d_a[2,1] <- 1.771175637
+c1[3,1] <- -0.144441852	
+d_a[3,1] <- 1.481934876
+c1[4,1] <- 0.080460161	
+d_a[4,1] <- 1.513756914
+c1[5,1] <- 0.222558765	
+d_a[5,1] <- 1.740157217
+
+c1[1,2] <- -0.081742476	
+d_a[1,2] <- 0.628125133
+c1[2,2] <- 0.049764485	
+d_a[2,2] <- 0.973878556
+c1[3,2] <- -0.132612623	
+d_a[3,2] <- 1.155870661
+c1[4,2] <- 0.118222633	
+d_a[4,2] <- 1.620175716
+c1[5,2] <- 0.078103299	
+d_a[5,2] <- 0.89288159
+
+d_a <- t(d_a)
+c1 <- t(c1)
+
+```
+
+```{r echo=FALSE}
+
+trapz = function(x, y) 
+{ ### computes the integral of y with respect to x using trapezoidal integration. 
+  idx = 2:length(x)
+  return (as.double( (x[idx] - x[idx-1]) %*% (y[idx] + y[idx-1])) / 2)
+}
+
+```
+
+### Main code and output
+  
+```{r echo=FALSE}
+npts <-  10000
+
+df <- data.frame(i = integer(),
+                 j = numeric(),
+                 c = numeric(),
+                 da = numeric(),
+                 aucProproc = numeric(),
+                 normDiff = numeric(),
+                 stringsAsFactors = FALSE)
+index <- 1
+for (i in 1:2) {
+  for (j in 1:5) {
+    c11  <-  c1[i,j]
+    da  <-  d_a[i,j]
+    ret <- GetLimits(da,c11)
+    LL <- ret$LL;UL <- ret$UL
+    vc  <-  seq (LL, UL, length.out = npts)
+    TPF  <-  TruePositiveFraction (vc, da, c11)
+    FPF <- FalsePositiveFraction (vc, da, c11)
+    FPF <- rev(FPF);TPF <- rev(TPF)
+    df2 <- data.frame(FPF = FPF, TPF = TPF)
+    # do integral numerically
+    numAuc <- trapz(FPF, TPF)
+    # Implement Eqn. 36 from Metz-Pan paper 
+    rho <- -(1-c11^2)/(1+c11^2);sigma <- rbind(c(1, rho), c(rho, 1))
+    lower <- rep(-Inf,2);upper <- c(-da/sqrt(2),0)
+    aucProproc <- pnorm(da/sqrt(2)) + 2 * pmvnorm(lower, upper, sigma = sigma)
+    aucProproc <-  as.numeric(aucProproc)
+    normDiff <- (aucProproc-numAuc)/aucProproc
+    df[index, ] <- c(i,j,c11,da,aucProproc,normDiff)
+    index <- index + 1
+  }
+}
+print(df)
+```             
+
+
+
+
+Note the close correspondence between the formula, Eqn. 36 in [@metz1999proper], and the numerical estimate. Eqn. 31 and Eqn. 36 in the paper (they differ only in parameterizations) are provided without proof – it was probably obvious to Prof Metz or he wanted to leave it to us "mere mortals" to figure it out as a final parting gesture of his legacy. The author once put a significant effort into proving it and even had a bright graduate student from the biostatistics department work on it to no avail. I have observed that these equations always yield very close to the numerical estimates so the theorem is obviously empirically correct, but I have been unable to prove it analytically.
+
 
 ## Chapter References {#proper-roc-models-references} 
 

@@ -12,9 +12,7 @@ rmd_files: [
   "05-empirical-auc.Rmd", 
   "06-binormal-model.Rmd",
   "07-proper-roc-models.Rmd",
-  "20b-proproc-roc-curves.Rmd",
-  "20c-metz-eqn-36.Rmd",
-  "21-bivariate-binormal-model.Rmd",
+  "10-bivariate-binormal-model.Rmd",
   "99-references.Rmd",
 ]
 
