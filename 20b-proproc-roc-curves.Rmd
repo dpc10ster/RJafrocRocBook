@@ -8,6 +8,7 @@
   library(RJafroc)
   library(ggplot2)
   library(mvtnorm)
+  library(here)
 ```
 
 ## Helper functions
