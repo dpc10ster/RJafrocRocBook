@@ -429,13 +429,16 @@ The contaminated binormal model [@dorfman2000contaminated1; @dorfman2000contamin
 
 
 \begin{equation} 
-\begin{matrix}
-\text{if} & \zeta_{r-1} \le z < \zeta_r & \text{rating} = r 
-\end{matrix}
-\end{equation} 
+\left.\begin{aligned}
+\text{if}~\left (\zeta_{r-1} \le z < \zeta_r  \right ) \text{rating} = r\\
+r=1,2,...,R_{ROC} 
+\end{aligned}\right\}
+(\#eq:proper-roc-models-binning-rule)
+\end{equation}
 
 
-Therefore, CBM is characterized by the parameters $\mu, \alpha, \zeta_r$ where $r=1,2,...,R_{\text{ROC}-1}$. The parameters $\mu, \alpha$ can be used to predict the ROC curve and the area under the curve.
+
+Therefore, CBM is characterized by the parameters $\mu, \alpha, \overrightarrow{\zeta}$. The parameters $\mu, \alpha$ can be used to predict the ROC curve and the area under the curve.
 
 
 ### CBM formulae {#proper-roc-models-cbm-formulae}
@@ -468,7 +471,7 @@ l_\text{CBM}\left( z|a,b \right)&=\frac{\left( 1-\alpha \right)\phi(z) + \alpha 
 \end{equation} 
 
 
-The function increases monotonically as $z$ increases proving that the predicted ROC curve is proper, i.e., its slope decreases monotonically as the operating point moves up the curve (causing both $z$ and the likelihood ratio to decrease). The slope at the origin (infinite $z$) is infinite and the slope at the upper-right corner is  $(1-\alpha)$. The predicted ROC coordinates are:
+The function increases monotonically as $z$ increases which shows that the predicted ROC curve is proper, i.e., its slope decreases monotonically as the operating point moves up the curve (causing both $z$ and the likelihood ratio to decrease). The slope at the origin (infinite $z$) is infinite and the slope at the upper-right corner is  $(1-\alpha)$. The predicted ROC coordinates are:
 
 
 
@@ -481,7 +484,9 @@ The function increases monotonically as $z$ increases proving that the predicted
 \end{equation} 
 
 
-Since on non-diseased cases the sampling behaviors are identical, the expression for $\text{FPF}\left( \zeta \right)$ is identical to that for the binormal model: the probability that the z-sample for a non-diseased case exceeds $\zeta$ is $\Phi\left( -\zeta \right)$. The second Eqn. \@ref(eq:proper-roc-models-cbm-fpf-tpf) can be understood as follows. $\text{TPF}\left( \zeta \right)$ is the probability that a diseased case z-sample exceeds $\zeta$. There are two possibilities: the z-sample arose from the zero-centered distribution, which occurs with probability $\left( 1-\alpha \right)$, or it arose from the $\mu_\text{CBM}$-centered distribution, which occurs with probability $\alpha$. In the former case, the probability that the z-sample exceeds $\zeta$ is $\Phi\left( -\zeta \right)$. In the latter case, the probability is $\Phi\left( \mu_\text{CBM}-\zeta \right)$. The net probability is the weighted sum of these component probabilities in proportion to their relative frequencies $\left( 1-\alpha \right):\alpha$. A similar logic can be used to derive the AUC under the CBM fitted ROC curve: 
+Since on non-diseased cases the sampling behaviors are identical, the expression for $\text{FPF}\left( \zeta \right)$ is identical to that for the binormal model: the probability that the z-sample for a non-diseased case exceeds $\zeta$ is $\Phi\left( -\zeta \right)$. The second Eqn. \@ref(eq:proper-roc-models-cbm-fpf-tpf) can be understood as follows. $\text{TPF}\left( \zeta \right)$ is the probability that a diseased case z-sample exceeds $\zeta$. There are two possibilities: the z-sample arose from the zero-centered distribution, which occurs with probability $\left( 1-\alpha \right)$, or it arose from the $\mu_\text{CBM}$-centered distribution, which occurs with probability $\alpha$. In the former case, the probability that the z-sample exceeds $\zeta$ is $\Phi\left( -\zeta \right)$. In the latter case, the probability is $\Phi\left( \mu_\text{CBM}-\zeta \right)$. The net probability is the weighted sum of the component probabilities in proportion to their relative frequencies $\left( 1-\alpha \right):\alpha$. 
+
+A similar logic can be used to derive the AUC under the CBM fitted ROC curve: 
 
 
 \begin{equation}
@@ -492,99 +497,15 @@ Since on non-diseased cases the sampling behaviors are identical, the expression
 In the limit $\mu_\text{CBM} \rightarrow \infty$, $\text{AUC}_\text{CBM} \rightarrow 0.5\left( 1+\alpha \right)$ and in the limit $\mu_\text{CBM} \rightarrow 0$, $\text{AUC}_\text{CBM} \rightarrow 0.5$.
 
 
-### CBM code implementation {#proper-roc-models-cbm-code}
-
-
-The following computes the y-coordinate of the ROC predicted by the CBM: 
-
-
-```r
-CbmRocY <- function (x, mu, alpha) {
-  y <- (1-alpha)*(1-pnorm(qnorm(1-x))) + 
-    alpha*(1-pnorm(qnorm(1-x)-mu))
-  return(y)
-}
-```
-
-
-The plotting code follows:
-
-
-
-```r
-FPF <- seq(0.0, 1, 0.001)
-alphaArr <- c(0.2, 0.8)
-muArr <- c(1,3)
-plotRoc <- list()
-myLabelIndx <- 1
-for (i in 1:2)
-  for (j in 1:2) 
-  {
-    {
-      alpha <- alphaArr[i]
-      mu <- muArr[j]
-      TPF <- CbmRocY(FPF, mu, alpha)
-      rocPlot <- data.frame(FPF = FPF, TPF = TPF)
-      plotRoc[[myLabelIndx]] <- ggplot(
-        rocPlot, aes(x = FPF, y = TPF)) + 
-        geom_line(data = rocPlot) + 
-        scale_x_continuous(expand = c(0, 0)) + 
-        scale_y_continuous(expand = c(0, 0)) +
-        ggtitle(paste0("Plot ", 
-                   LETTERS[myLabelIndx], 
-                   ":", 
-                   sprintf(" alpha = %4.2f, mu = %4.2f", 
-                           alpha, mu)))
-      myLabelIndx <- myLabelIndx + 1
-    }
-  }
-```
 
 
 
 
-```r
-FPF <- seq(0.0, 1, 0.001)
-cbmPdfs <- list()
-myLabelIndx <- 1
-for (i in 1:2)
-  for (j in 1:2) 
-  {
-    {
-      alpha <- alphaArr[i]
-      mu <- muArr[j]
-      if (i == 1) {
-        z1 <- seq(-3, 3, by = 0.01)
-        z2 <- seq(-3, mu + 3, by = 0.01)
-      } else {
-        z1 <- seq(-3, 3, by = 0.01)
-        z2 <- seq(-3, mu + 3, by = 0.01)
-      }
-      Pdf1 <- dnorm(z1)
-      Pdf2 <- (1 - alpha) * dnorm(z2) + alpha * dnorm(z2, mu)
-      df <- data.frame(
-        z = c(z1, z2), pdf = c(Pdf1, Pdf2), 
-        truth = c(rep('non', length(Pdf1)), 
-                  rep('dis', length(Pdf2)))
-      )
-      
-      cbmPdfs[[myLabelIndx]] <- ggplot(
-        df, aes(x = z, y = pdf, color = truth)) +
-        geom_line(data = df) +
-        scale_colour_manual(values=c("black","darkgrey")) +
-        scale_x_continuous(expand = c(0, 0)) +
-        scale_y_continuous(expand = c(0, 0)) +
-        #theme(legend.position = c(0.5, 0.2)) +
-        theme(legend.position = "none") +
-        ggtitle(paste0("Plot ", 
-                   LETTERS[myLabelIndx], 
-                   ":", 
-                   sprintf(" alpha = %5.3f, mu = %5.3f", 
-                           alpha, mu)))
-      myLabelIndx <- myLabelIndx + 1
-    }
-  }
-```
+
+
+
+
+
 
 
 
@@ -606,7 +527,7 @@ The following figures should further clarify these equations. Fig. \@ref(fig:pro
 </div>
 
 
-As one might expect as $\mu$ and/or $\alpha$ increases performance gets better and the curve more closely approaches the top-left corner. Try as one might, by varying the parameters, one can never get the predicted curve to cross the chance diagonal, confirming viscerally that one is dealing with a proper ROC model. A proof of this property is in Eqn. \@ref(eq:proper-roc-models-cbm-likelihood) and the paragraph following it.
+As one might expect as $\mu$ and/or $\alpha$ increases performance gets better and the curve more closely approaches the top-left corner. The predicted ROC curve is always proper.
 
 The pdf plots are shown next, Fig. \@ref(fig:proper-roc-models-cbm-plots-2). 
 
@@ -633,7 +554,7 @@ Likelihood ratio plots are shown next, Fig. \@ref(fig:proper-roc-models-cbm-plot
 </div>
 
 
-Fig. \@ref(fig:proper-roc-models-cbm-plots-3) are the corresponding slope (or likelihood ratio) plots for the same parameter values as in the other figures in this section. All plots are monotonic with $z$: as $z$ increases, the slope increases; this makes the reader using $z$, under the CBM model, a likelihood ratio observer. In addition, according to Eqn. (20.26), the slope approaches $1-\alpha$ as $z$ approaches $–\infty$, i.e., once again we encounter a proper ROC curve which approaches the upper-right corner with non-zero slope (except for the special case $\alpha = 1$).
+All plots are monotonic with $z$: as $z$ increases the slope increases. The reader using $z$ to make decisions, where z is sampled as in the CBM model, is a likelihood ratio observer. In addition, according to TBA Eqn. (20.26), the limiting slope at the upper right corner of the ROC plot approaches $1-\alpha$ as $z \rightarrow –\infty$.
 
 
 ## The bigamma model (BGM) {#proper-roc-models-bigamma}
@@ -662,7 +583,9 @@ x\ge 0, r>0, \lambda >0
 \end{equation}
 
 
-It has the following interpretation: for integer $r$, assuming events are Poisson distributed with rate parameter $\lambda$, the $\text{pdf}$ of event $r$ follows Eqn. \@ref(eq:proper-roc-models-gamma-pdf). However, in this equation, $r$ is not restricted to integers. Alternatively, $l/r$ is called the scale parameter and $r$ is called the shape parameter of the gamma distribution. 
+$l/r$ is called the scale parameter and $r$ is called the shape parameter of the gamma distribution.
+
+<!-- It has the following interpretation: for integer $r$, assuming events are Poisson distributed with rate parameter $\lambda$, the $\text{pdf}$ of event $r$ follows Eqn. \@ref(eq:proper-roc-models-gamma-pdf). However, in this equation, $r$ is not restricted to integers. Alternatively, $l/r$ is called the scale parameter and $r$ is called the shape parameter of the gamma distribution.  -->
 
 The mean and variance of this distribution are given by:
 
@@ -678,7 +601,7 @@ Var\left( X \right) &= \frac{r}{\lambda^2} \\
 
 
 
-The constant-shape bigamma model is defined [@dorfman1997proper] by the following pdfs (note $\lambda = 1$ for the non-diseased density and for either density $x \ge 0$): 
+The constant-shape bigamma model is defined [@dorfman1997proper] by the following pdfs (note $\lambda = 1$ for the non-diseased pdf and for either pdf $x \ge 0$): 
 
 
 
@@ -715,10 +638,10 @@ l_\text{BG}\left( x;r,\lambda \right) &= \frac{\text{pdf}_D\left( x \right)}{\te
 \end{equation} 
 
 
-The subscript "BG" is for bigamma model. Since the exponential is a monotonic function of its argument, the likelihood ratio is a monotonic function of $x$, which implies that an observer using knowledge of this distribution and basing decisions on observed values of $x$ exceeding a threshold, is a likelihood ratio observer. Notice the usage of $x$ rather than $z$; the latter denotes samples from normal distributions. The bigamma model observer bases decisions on the x-sample, not the z-sample. In addition, for notational consistency one uses the symbol $\xi$  to denote a threshold on the x-axis. If $x > \xi$ the case is diagnosed as diseased and otherwise it is diagnosed non-diseased.
+The subscript "BG" is for bigamma model. Since the exponential is a monotonic function of its argument, the likelihood ratio is a monotonic function of $x$, which implies that an observer using knowledge of this distribution and basing decisions on observed values of $x$ exceeding a threshold, is a likelihood ratio observer. Notice the usage of $x$ rather than $z$ as the latter denotes samples from normal distributions. The bigamma model observer bases decisions on the x-sample, the binormal model observer bases decisions on the z-sample. In addition, for notational consistency one uses the symbol $\xi$  to denote a threshold on the x-axis. If $x \ge \xi$ the case is diagnosed as diseased and otherwise it is diagnosed non-diseased.
 
 
-Since $0 < \lambda \le 1$ the slope at the upper right corner (corresponding to $x = 0$) is $\lambda ^ r$ and the slope is infinite at the origin (corresponding to $x = \infty$). As with PROPROC and CBM, once again one encounters a proper ROC curve approaching the upper-right corner with finite slope. If $\lambda > 1$ the slope is zero at the origin, which would cause the ROC curve to start out below the chance diagonal. Therefore, constraint $0 < \lambda \le 1$ is needed not just to yield a wider distribution for diseased cases but to also assure the ROC curve is proper. If $\lambda = 1$ then regardless of the value of $r$, the ROC curve is the chance diagonal because the two pdfs become identical.
+Since $0 < \lambda \le 1$ the slope at the upper right corner of the ROC (corresponding to $x = 0$) is $\lambda ^ r$ and the slope is infinite at the origin (corresponding to $x = \infty$). As with PROPROC and CBM, once again one encounters a proper ROC curve approaching the upper-right corner with finite slope. If $\lambda > 1$ the slope is zero at the origin, which would cause the ROC curve to start out below the chance diagonal. Therefore, constraint $0 < \lambda \le 1$ is needed not just to yield a wider distribution for diseased cases but to also assure the ROC curve is proper. If $\lambda = 1$ then regardless of the value of $r$, the ROC curve is the chance diagonal because the two pdfs become identical.
 
 The cumulative distribution function (CDF) of the gamma distribution is given by:
 
@@ -740,16 +663,16 @@ Here the lower incomplete gamma function [@abramowitz1964handbook] $\gamma\left(
 
 
  
-[Since `R` implements the CDF of the gamma distribution directly, as `pgamma()` one actually has no use for Eqn. \@ref(eq:proper-roc-models-gamma-incomplete) which is included for pedagogic completeness.] The coordinates of the predicted ROC at threshold $\xi$  are (the complementary probability is needed as FPF and TPF are the probabilities of exceeding a threshold):
+Since `R` implements the CDF of the gamma distribution directly, as `pgamma()` one actually has no use for Eqn. \@ref(eq:proper-roc-models-gamma-incomplete) which is included for pedagogic completeness. The coordinates of the predicted ROC at threshold $\xi$  are (the complementary probability is needed as FPF and TPF are the probabilities of exceeding a threshold):
 
 
 
 \begin{equation}
 \left.\begin{aligned}
 \text{FPF}\left( \xi|r \right) &= 1 - \frac{\gamma\left( r,\xi \right)}{\Gamma\left( r \right)} \\
-&=\int_{\xi}^{\infty} f\left( u;r,1 \right) \\
+&=\int_{\xi}^{\infty} du ~ f\left( u;r,1 \right) \\
 \text{TPF}\left( \xi|r, \lambda \right) &= 1 - \frac{\gamma\left( r,\lambda \xi \right)}{\Gamma\left( r \right)} \\
-&=\int_{\xi}^{\infty} f\left( u;r,\lambda \right) \\
+&=\int_{\xi}^{\infty} du ~ f\left( u;r,\lambda \right) \\
 \end{aligned}\right\}
 (\#eq:proper-roc-models-gamma-fpf-tpf)
 \end{equation} 
@@ -757,19 +680,6 @@ Here the lower incomplete gamma function [@abramowitz1964handbook] $\gamma\left(
 
 
 
-```r
-aucIntegrand <- function (FPF, r, lambda) 
-{
-  y <- 1 - pgamma(qgamma(1-FPF, r), r, scale = 1/lambda)
-  return(y)  
-}
-
-
-biGammaRocY <- function (x, r, lambda) {
-  y <- 1 - pgamma(x, r, scale = 1/lambda)
-  return(y)
-}
-```
 
 
 ### BGM code implementation {#proper-roc-models-bigamma-code}
@@ -778,60 +688,6 @@ biGammaRocY <- function (x, r, lambda) {
 
 
 
-```r
-rArray <- c(1,4.391,5,10);lambdaArray <- c(1,0.439,0.3,0.1)
-#r <-  4.391; lambda <-  0.439 # from Dorfman paper
-plotRoc <- list()
-plotSlope <- list()
-pdfs <- list()
-for (i in 1:length(rArray))
-{
-  r <- rArray[i];lambda <- lambdaArray[i]
-  AUC <- integrate(aucIntegrand,0,1, r = r, lambda = lambda)
-  # cat("r = ", r, ", lambda = ", lambda, ", AUC = ", AUC$value, "\n")
-  # left limit below gets the upper end of the ROC curve 
-  # the right limit gets the lower corner
-  x <- seq(0, r/lambda + 10*sqrt(r/lambda^2), by = 0.01)
-  FPF <- biGammaRocY(x, r, 1)
-  TPF <- biGammaRocY(x, r, lambda)
-  
-  rocPlot <- data.frame(FPF = FPF, TPF = TPF)
-  plotRoc[[i]] <- ggplot(
-    rocPlot, aes(x = FPF, y = TPF)) + 
-    geom_line() + 
-    ggtitle(paste0("Plot ", 
-           LETTERS[i], 
-           ":", 
-           sprintf(" r = %3.2f, lambda = %3.2f", 
-                   r, lambda)))
-
-
-  # taking mean + 3 times the standard deviation
-  x <- seq(0.01, r/lambda + 3*sqrt(r/lambda^2), by = 0.01)
-  
-  Pdf1 <- dgamma(x, r)
-  Pdf2 <- dgamma(x, r, scale = 1/lambda)
-  
-  df <- data.frame(x = c(x, x), pdf = c(Pdf1, Pdf2), 
-                   truth = c(rep('non-diseased', length(Pdf1)), 
-                             rep('diseased', length(Pdf2))))
-  
-  pdfs[[i]] <- ggplot(
-    df, aes(x = x, y = pdf, color = truth)) + 
-    geom_line() + 
-    scale_colour_manual(values=c("red","green")) + 
-    theme(legend.title = element_blank(), 
-          legend.position = c(0.9, 0.9))
-  
-  # may need to adjust limits to view detail of slope plot
-  x <- seq(0.01, 1, by = 0.01)
-
-  slope <- (dgamma(x, r, scale = 1/lambda))/pgamma(x, r)
-
-  slopePlot <- data.frame(x = x, slope = slope)
-  plotSlope[[i]] <- ggplot(slopePlot, aes(x = x, y = slope)) + geom_line()
-}
-```
 
 
 The bigamma-model formulae, coded above, generates ROC plots, Fig. \@ref(fig:proper-roc-models-bigamma-plots-1), pdfs plots for non-diseased and diseased cases, Fig. \@ref(fig:proper-roc-models-bigamma-plots-2) and likelihood ratio (slope) plots Fig. \@ref(fig:proper-roc-models-bigamma-plots-3) for four pairs of values of the $(r, \lambda)$ bigamma model parameters. Plot A is for $(r = 1, \lambda = 1)$ when the ROC becomes the chance diagonal regardless of the value of $r$. Plot B is for $(r = 4.39, \lambda = 0.439)$ identical to those used for simulations in ^[dorfman1997proper]. Plot  C is for $(r = 5, \lambda = 0.3) and Plot D is for $(r = 10, \lambda = 0.1). 

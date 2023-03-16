@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-03-15" />
+<meta name="date" content="2023-03-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -369,10 +369,9 @@ div.csl-indent {
 <li class="chapter" data-level="7.7" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm"><i class="fa fa-check"></i><b>7.7</b> The contaminated binormal model (CBM)</a>
 <ul>
 <li class="chapter" data-level="7.7.1" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-formulae"><i class="fa fa-check"></i><b>7.7.1</b> CBM formulae</a></li>
-<li class="chapter" data-level="7.7.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-code"><i class="fa fa-check"></i><b>7.7.2</b> CBM code implementation</a></li>
-<li class="chapter" data-level="7.7.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-rocs"><i class="fa fa-check"></i><b>7.7.3</b> CBM ROC plots</a></li>
-<li class="chapter" data-level="7.7.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-pdfs"><i class="fa fa-check"></i><b>7.7.4</b> CBM pdf plots</a></li>
-<li class="chapter" data-level="7.7.5" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-slopes"><i class="fa fa-check"></i><b>7.7.5</b> CBM likelihood ratio plots</a></li>
+<li class="chapter" data-level="7.7.2" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-rocs"><i class="fa fa-check"></i><b>7.7.2</b> CBM ROC plots</a></li>
+<li class="chapter" data-level="7.7.3" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-pdfs"><i class="fa fa-check"></i><b>7.7.3</b> CBM pdf plots</a></li>
+<li class="chapter" data-level="7.7.4" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-cbm-slopes"><i class="fa fa-check"></i><b>7.7.4</b> CBM likelihood ratio plots</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="proper-roc-models.html"><a href="proper-roc-models.html#proper-roc-models-bigamma"><i class="fa fa-check"></i><b>7.8</b> The bigamma model (BGM)</a>
 <ul>
@@ -741,23 +740,25 @@ FIGURE 7.2: The plots are labeled by the values of <span class="math inline">\(c
 <div id="proper-roc-models-cbm" class="section level2 hasAnchor" number="7.7">
 <h2><span class="header-section-number">7.7</span> The contaminated binormal model (CBM)<a href="proper-roc-models.html#proper-roc-models-cbm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The contaminated binormal model <span class="citation">(<a href="#ref-dorfman2000contaminated1" role="doc-biblioref">Dorfman, Berbaum, and Brandser 2000</a>; <a href="#ref-dorfman2000contaminated2" role="doc-biblioref">Dorfman and Berbaum 2000b</a>, <a href="#ref-dorfman2000contaminated3" role="doc-biblioref">2000a</a>)</span>, or CBM, is an alternate model for decision variable sampling in an ROC study. Like the binormal model, it is a two-parameter model, excluding cutoffs. The first parameter is <span class="math inline">\(\mu_\text{CBM}\)</span>, the separation of two unit-variance normal distributions. The sampling for non-diseased cases is from the <span class="math inline">\(N(0,1)\)</span> distribution, while sampling for diseased cases is from the <span class="math inline">\(N(\mu_\text{CBM},1)\)</span> distribution, provided the disease is visible, otherwise it is from the <span class="math inline">\(N(0,1)\)</span> distribution. In other words, for diseased cases the sampling is from a mixture distribution of two unit variance normal distributions, one centered at <span class="math inline">\(\mu\)</span> and the other centered at 0, with mixing fraction <span class="math inline">\(\alpha\)</span>, the fraction of diseased cases where the abnormality is actually visible. The binning is accomplished, as usual, by the cutoff vector <span class="math inline">\(\overrightarrow{\zeta}=\left( \zeta_1,...,\zeta_{\text{ROC}-1} \right)\)</span>, where <span class="math inline">\(R_\text{ROC}\)</span> is the number of ROC bins. Defining dummy cutoffs <span class="math inline">\(\zeta_0=-\infty\)</span> and <span class="math inline">\(\zeta_{\text{ROC}}=\infty\)</span>, the binning rule is as before:</p>
-<p><span class="math display">\[\begin{equation}
-\begin{matrix}
-\text{if} &amp; \zeta_{r-1} \le z &lt; \zeta_r &amp; \text{rating} = r
-\end{matrix}
+<p><span class="math display" id="eq:proper-roc-models-binning-rule">\[\begin{equation}
+\left.\begin{aligned}
+\text{if}~\left (\zeta_{r-1} \le z &lt; \zeta_r  \right ) \text{rating} = r\\
+r=1,2,...,R_{ROC}
+\end{aligned}\right\}
+\tag{7.18}
 \end{equation}\]</span></p>
-<p>Therefore, CBM is characterized by the parameters <span class="math inline">\(\mu, \alpha, \zeta_r\)</span> where <span class="math inline">\(r=1,2,...,R_{\text{ROC}-1}\)</span>. The parameters <span class="math inline">\(\mu, \alpha\)</span> can be used to predict the ROC curve and the area under the curve.</p>
+<p>Therefore, CBM is characterized by the parameters <span class="math inline">\(\mu, \alpha, \overrightarrow{\zeta}\)</span>. The parameters <span class="math inline">\(\mu, \alpha\)</span> can be used to predict the ROC curve and the area under the curve.</p>
 <div id="proper-roc-models-cbm-formulae" class="section level3 hasAnchor" number="7.7.1">
 <h3><span class="header-section-number">7.7.1</span> CBM formulae<a href="proper-roc-models.html#proper-roc-models-cbm-formulae" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For non-diseased cases, the <span class="math inline">\(\text{pdf}\)</span> is the same as for the binormal model:</p>
 <p><span class="math display" id="eq:proper-roc-models-cbm-pdfn">\[\begin{equation}
 \text{pdf}_N=\phi(z)
-\tag{7.18}
+\tag{7.19}
 \end{equation}\]</span></p>
 <p>For diseased cases the <span class="math inline">\(\text{pdf}\)</span> is a mixture of two unit variance distributions, one centered at zero and the other at <span class="math inline">\(\mu_\text{CBM}\)</span>, with mixing fractions <span class="math inline">\((1-\alpha)\)</span> and <span class="math inline">\(\alpha\)</span>, respectively:</p>
 <p><span class="math display" id="eq:proper-roc-models-cbm-pdfd">\[\begin{equation}
 \text{pdf}_D=\left( 1-\alpha \right)\phi(z) + \alpha \phi(z-\mu_\text{CBM})
-\tag{7.19}
+\tag{7.20}
 \end{equation}\]</span></p>
 <p>The likelihood ratio for the CBM model is given by the ratio of the two pdfs:</p>
 <p><span class="math display" id="eq:proper-roc-models-cbm-likelihood">\[\begin{equation}
@@ -765,101 +766,26 @@ FIGURE 7.2: The plots are labeled by the values of <span class="math inline">\(c
 l_\text{CBM}\left( z|a,b \right)&amp;=\frac{\left( 1-\alpha \right)\phi(z) + \alpha \phi(z-\mu_\text{CBM})}{\phi(z)}\\
 &amp;=\left( 1-\alpha \right)+\alpha \, \exp\left(-\frac{\mu_\text{CBM}^2}{2}+z\,\mu_\text{CBM}  \right)
 \end{aligned}\right\}
-\tag{7.20}
+\tag{7.21}
 \end{equation}\]</span></p>
-<p>The function increases monotonically as <span class="math inline">\(z\)</span> increases proving that the predicted ROC curve is proper, i.e., its slope decreases monotonically as the operating point moves up the curve (causing both <span class="math inline">\(z\)</span> and the likelihood ratio to decrease). The slope at the origin (infinite <span class="math inline">\(z\)</span>) is infinite and the slope at the upper-right corner is <span class="math inline">\((1-\alpha)\)</span>. The predicted ROC coordinates are:</p>
+<p>The function increases monotonically as <span class="math inline">\(z\)</span> increases which shows that the predicted ROC curve is proper, i.e., its slope decreases monotonically as the operating point moves up the curve (causing both <span class="math inline">\(z\)</span> and the likelihood ratio to decrease). The slope at the origin (infinite <span class="math inline">\(z\)</span>) is infinite and the slope at the upper-right corner is <span class="math inline">\((1-\alpha)\)</span>. The predicted ROC coordinates are:</p>
 <p><span class="math display" id="eq:proper-roc-models-cbm-fpf-tpf">\[\begin{equation}
 \left.\begin{aligned}
 \text{FPF}\left( \zeta \right) &amp;= \Phi\left( -\zeta \right)\\
 \text{TPF}\left( \zeta \right) &amp;= \left( 1-\alpha \right)\Phi\left( -\zeta \right)+\alpha \,\Phi\left( \mu_\text{CBM}-\zeta \right)
 \end{aligned}\right\}
-\tag{7.21}
+\tag{7.22}
 \end{equation}\]</span></p>
-<p>Since on non-diseased cases the sampling behaviors are identical, the expression for <span class="math inline">\(\text{FPF}\left( \zeta \right)\)</span> is identical to that for the binormal model: the probability that the z-sample for a non-diseased case exceeds <span class="math inline">\(\zeta\)</span> is <span class="math inline">\(\Phi\left( -\zeta \right)\)</span>. The second Eqn. <a href="proper-roc-models.html#eq:proper-roc-models-cbm-fpf-tpf">(7.21)</a> can be understood as follows. <span class="math inline">\(\text{TPF}\left( \zeta \right)\)</span> is the probability that a diseased case z-sample exceeds <span class="math inline">\(\zeta\)</span>. There are two possibilities: the z-sample arose from the zero-centered distribution, which occurs with probability <span class="math inline">\(\left( 1-\alpha \right)\)</span>, or it arose from the <span class="math inline">\(\mu_\text{CBM}\)</span>-centered distribution, which occurs with probability <span class="math inline">\(\alpha\)</span>. In the former case, the probability that the z-sample exceeds <span class="math inline">\(\zeta\)</span> is <span class="math inline">\(\Phi\left( -\zeta \right)\)</span>. In the latter case, the probability is <span class="math inline">\(\Phi\left( \mu_\text{CBM}-\zeta \right)\)</span>. The net probability is the weighted sum of these component probabilities in proportion to their relative frequencies <span class="math inline">\(\left( 1-\alpha \right):\alpha\)</span>. A similar logic can be used to derive the AUC under the CBM fitted ROC curve:</p>
+<p>Since on non-diseased cases the sampling behaviors are identical, the expression for <span class="math inline">\(\text{FPF}\left( \zeta \right)\)</span> is identical to that for the binormal model: the probability that the z-sample for a non-diseased case exceeds <span class="math inline">\(\zeta\)</span> is <span class="math inline">\(\Phi\left( -\zeta \right)\)</span>. The second Eqn. <a href="proper-roc-models.html#eq:proper-roc-models-cbm-fpf-tpf">(7.22)</a> can be understood as follows. <span class="math inline">\(\text{TPF}\left( \zeta \right)\)</span> is the probability that a diseased case z-sample exceeds <span class="math inline">\(\zeta\)</span>. There are two possibilities: the z-sample arose from the zero-centered distribution, which occurs with probability <span class="math inline">\(\left( 1-\alpha \right)\)</span>, or it arose from the <span class="math inline">\(\mu_\text{CBM}\)</span>-centered distribution, which occurs with probability <span class="math inline">\(\alpha\)</span>. In the former case, the probability that the z-sample exceeds <span class="math inline">\(\zeta\)</span> is <span class="math inline">\(\Phi\left( -\zeta \right)\)</span>. In the latter case, the probability is <span class="math inline">\(\Phi\left( \mu_\text{CBM}-\zeta \right)\)</span>. The net probability is the weighted sum of the component probabilities in proportion to their relative frequencies <span class="math inline">\(\left( 1-\alpha \right):\alpha\)</span>.</p>
+<p>A similar logic can be used to derive the AUC under the CBM fitted ROC curve:</p>
 <p><span class="math display" id="eq:proper-roc-models-cbm-auc">\[\begin{equation}
 \text{AUC}_\text{CBM}=0.5\left( 1-\alpha \right)+\alpha \,\Phi\left( \frac {\mu_\text{CBM}}{\sqrt{2}} \right)
-\tag{7.22}
+\tag{7.23}
 \end{equation}\]</span></p>
 <p>In the limit <span class="math inline">\(\mu_\text{CBM} \rightarrow \infty\)</span>, <span class="math inline">\(\text{AUC}_\text{CBM} \rightarrow 0.5\left( 1+\alpha \right)\)</span> and in the limit <span class="math inline">\(\mu_\text{CBM} \rightarrow 0\)</span>, <span class="math inline">\(\text{AUC}_\text{CBM} \rightarrow 0.5\)</span>.</p>
 </div>
-<div id="proper-roc-models-cbm-code" class="section level3 hasAnchor" number="7.7.2">
-<h3><span class="header-section-number">7.7.2</span> CBM code implementation<a href="proper-roc-models.html#proper-roc-models-cbm-code" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The following computes the y-coordinate of the ROC predicted by the CBM:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="proper-roc-models.html#cb23-1" aria-hidden="true" tabindex="-1"></a>CbmRocY <span class="ot">&lt;-</span> <span class="cf">function</span> (x, mu, alpha) {</span>
-<span id="cb23-2"><a href="proper-roc-models.html#cb23-2" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>alpha)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="fu">qnorm</span>(<span class="dv">1</span><span class="sc">-</span>x))) <span class="sc">+</span> </span>
-<span id="cb23-3"><a href="proper-roc-models.html#cb23-3" aria-hidden="true" tabindex="-1"></a>    alpha<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(<span class="fu">qnorm</span>(<span class="dv">1</span><span class="sc">-</span>x)<span class="sc">-</span>mu))</span>
-<span id="cb23-4"><a href="proper-roc-models.html#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
-<span id="cb23-5"><a href="proper-roc-models.html#cb23-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p>The plotting code follows:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="proper-roc-models.html#cb24-1" aria-hidden="true" tabindex="-1"></a>FPF <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)</span>
-<span id="cb24-2"><a href="proper-roc-models.html#cb24-2" aria-hidden="true" tabindex="-1"></a>alphaArr <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.8</span>)</span>
-<span id="cb24-3"><a href="proper-roc-models.html#cb24-3" aria-hidden="true" tabindex="-1"></a>muArr <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)</span>
-<span id="cb24-4"><a href="proper-roc-models.html#cb24-4" aria-hidden="true" tabindex="-1"></a>plotRoc <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb24-5"><a href="proper-roc-models.html#cb24-5" aria-hidden="true" tabindex="-1"></a>myLabelIndx <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb24-6"><a href="proper-roc-models.html#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
-<span id="cb24-7"><a href="proper-roc-models.html#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) </span>
-<span id="cb24-8"><a href="proper-roc-models.html#cb24-8" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb24-9"><a href="proper-roc-models.html#cb24-9" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb24-10"><a href="proper-roc-models.html#cb24-10" aria-hidden="true" tabindex="-1"></a>      alpha <span class="ot">&lt;-</span> alphaArr[i]</span>
-<span id="cb24-11"><a href="proper-roc-models.html#cb24-11" aria-hidden="true" tabindex="-1"></a>      mu <span class="ot">&lt;-</span> muArr[j]</span>
-<span id="cb24-12"><a href="proper-roc-models.html#cb24-12" aria-hidden="true" tabindex="-1"></a>      TPF <span class="ot">&lt;-</span> <span class="fu">CbmRocY</span>(FPF, mu, alpha)</span>
-<span id="cb24-13"><a href="proper-roc-models.html#cb24-13" aria-hidden="true" tabindex="-1"></a>      rocPlot <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FPF =</span> FPF, <span class="at">TPF =</span> TPF)</span>
-<span id="cb24-14"><a href="proper-roc-models.html#cb24-14" aria-hidden="true" tabindex="-1"></a>      plotRoc[[myLabelIndx]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb24-15"><a href="proper-roc-models.html#cb24-15" aria-hidden="true" tabindex="-1"></a>        rocPlot, <span class="fu">aes</span>(<span class="at">x =</span> FPF, <span class="at">y =</span> TPF)) <span class="sc">+</span> </span>
-<span id="cb24-16"><a href="proper-roc-models.html#cb24-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">data =</span> rocPlot) <span class="sc">+</span> </span>
-<span id="cb24-17"><a href="proper-roc-models.html#cb24-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span> </span>
-<span id="cb24-18"><a href="proper-roc-models.html#cb24-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb24-19"><a href="proper-roc-models.html#cb24-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
-<span id="cb24-20"><a href="proper-roc-models.html#cb24-20" aria-hidden="true" tabindex="-1"></a>                   LETTERS[myLabelIndx], </span>
-<span id="cb24-21"><a href="proper-roc-models.html#cb24-21" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&quot;:&quot;</span>, </span>
-<span id="cb24-22"><a href="proper-roc-models.html#cb24-22" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">sprintf</span>(<span class="st">&quot; alpha = %4.2f, mu = %4.2f&quot;</span>, </span>
-<span id="cb24-23"><a href="proper-roc-models.html#cb24-23" aria-hidden="true" tabindex="-1"></a>                           alpha, mu)))</span>
-<span id="cb24-24"><a href="proper-roc-models.html#cb24-24" aria-hidden="true" tabindex="-1"></a>      myLabelIndx <span class="ot">&lt;-</span> myLabelIndx <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb24-25"><a href="proper-roc-models.html#cb24-25" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb24-26"><a href="proper-roc-models.html#cb24-26" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="proper-roc-models.html#cb25-1" aria-hidden="true" tabindex="-1"></a>FPF <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)</span>
-<span id="cb25-2"><a href="proper-roc-models.html#cb25-2" aria-hidden="true" tabindex="-1"></a>cbmPdfs <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb25-3"><a href="proper-roc-models.html#cb25-3" aria-hidden="true" tabindex="-1"></a>myLabelIndx <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb25-4"><a href="proper-roc-models.html#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
-<span id="cb25-5"><a href="proper-roc-models.html#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) </span>
-<span id="cb25-6"><a href="proper-roc-models.html#cb25-6" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb25-7"><a href="proper-roc-models.html#cb25-7" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb25-8"><a href="proper-roc-models.html#cb25-8" aria-hidden="true" tabindex="-1"></a>      alpha <span class="ot">&lt;-</span> alphaArr[i]</span>
-<span id="cb25-9"><a href="proper-roc-models.html#cb25-9" aria-hidden="true" tabindex="-1"></a>      mu <span class="ot">&lt;-</span> muArr[j]</span>
-<span id="cb25-10"><a href="proper-roc-models.html#cb25-10" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (i <span class="sc">==</span> <span class="dv">1</span>) {</span>
-<span id="cb25-11"><a href="proper-roc-models.html#cb25-11" aria-hidden="true" tabindex="-1"></a>        z1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb25-12"><a href="proper-roc-models.html#cb25-12" aria-hidden="true" tabindex="-1"></a>        z2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, mu <span class="sc">+</span> <span class="dv">3</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb25-13"><a href="proper-roc-models.html#cb25-13" aria-hidden="true" tabindex="-1"></a>      } <span class="cf">else</span> {</span>
-<span id="cb25-14"><a href="proper-roc-models.html#cb25-14" aria-hidden="true" tabindex="-1"></a>        z1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb25-15"><a href="proper-roc-models.html#cb25-15" aria-hidden="true" tabindex="-1"></a>        z2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, mu <span class="sc">+</span> <span class="dv">3</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb25-16"><a href="proper-roc-models.html#cb25-16" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb25-17"><a href="proper-roc-models.html#cb25-17" aria-hidden="true" tabindex="-1"></a>      Pdf1 <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(z1)</span>
-<span id="cb25-18"><a href="proper-roc-models.html#cb25-18" aria-hidden="true" tabindex="-1"></a>      Pdf2 <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> alpha) <span class="sc">*</span> <span class="fu">dnorm</span>(z2) <span class="sc">+</span> alpha <span class="sc">*</span> <span class="fu">dnorm</span>(z2, mu)</span>
-<span id="cb25-19"><a href="proper-roc-models.html#cb25-19" aria-hidden="true" tabindex="-1"></a>      df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb25-20"><a href="proper-roc-models.html#cb25-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">z =</span> <span class="fu">c</span>(z1, z2), <span class="at">pdf =</span> <span class="fu">c</span>(Pdf1, Pdf2), </span>
-<span id="cb25-21"><a href="proper-roc-models.html#cb25-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">truth =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;non&#39;</span>, <span class="fu">length</span>(Pdf1)), </span>
-<span id="cb25-22"><a href="proper-roc-models.html#cb25-22" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">rep</span>(<span class="st">&#39;dis&#39;</span>, <span class="fu">length</span>(Pdf2)))</span>
-<span id="cb25-23"><a href="proper-roc-models.html#cb25-23" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb25-24"><a href="proper-roc-models.html#cb25-24" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb25-25"><a href="proper-roc-models.html#cb25-25" aria-hidden="true" tabindex="-1"></a>      cbmPdfs[[myLabelIndx]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb25-26"><a href="proper-roc-models.html#cb25-26" aria-hidden="true" tabindex="-1"></a>        df, <span class="fu">aes</span>(<span class="at">x =</span> z, <span class="at">y =</span> pdf, <span class="at">color =</span> truth)) <span class="sc">+</span></span>
-<span id="cb25-27"><a href="proper-roc-models.html#cb25-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">data =</span> df) <span class="sc">+</span></span>
-<span id="cb25-28"><a href="proper-roc-models.html#cb25-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_colour_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>,<span class="st">&quot;darkgrey&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb25-29"><a href="proper-roc-models.html#cb25-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb25-30"><a href="proper-roc-models.html#cb25-30" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb25-31"><a href="proper-roc-models.html#cb25-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">#theme(legend.position = c(0.5, 0.2)) +</span></span>
-<span id="cb25-32"><a href="proper-roc-models.html#cb25-32" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb25-33"><a href="proper-roc-models.html#cb25-33" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
-<span id="cb25-34"><a href="proper-roc-models.html#cb25-34" aria-hidden="true" tabindex="-1"></a>                   LETTERS[myLabelIndx], </span>
-<span id="cb25-35"><a href="proper-roc-models.html#cb25-35" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&quot;:&quot;</span>, </span>
-<span id="cb25-36"><a href="proper-roc-models.html#cb25-36" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">sprintf</span>(<span class="st">&quot; alpha = %5.3f, mu = %5.3f&quot;</span>, </span>
-<span id="cb25-37"><a href="proper-roc-models.html#cb25-37" aria-hidden="true" tabindex="-1"></a>                           alpha, mu)))</span>
-<span id="cb25-38"><a href="proper-roc-models.html#cb25-38" aria-hidden="true" tabindex="-1"></a>      myLabelIndx <span class="ot">&lt;-</span> myLabelIndx <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb25-39"><a href="proper-roc-models.html#cb25-39" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb25-40"><a href="proper-roc-models.html#cb25-40" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
-</div>
-<div id="proper-roc-models-cbm-rocs" class="section level3 hasAnchor" number="7.7.3">
-<h3><span class="header-section-number">7.7.3</span> CBM ROC plots<a href="proper-roc-models.html#proper-roc-models-cbm-rocs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="proper-roc-models-cbm-rocs" class="section level3 hasAnchor" number="7.7.2">
+<h3><span class="header-section-number">7.7.2</span> CBM ROC plots<a href="proper-roc-models.html#proper-roc-models-cbm-rocs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following figures should further clarify these equations. Fig. <a href="proper-roc-models.html#fig:proper-roc-models-cbm-plots-1">7.3</a> shows ROC curves predicted by the CBM model; the values of the <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\mu\)</span> parameters are indicated in the legend. For small <span class="math inline">\(\alpha\)</span> and/or small <span class="math inline">\(\mu\)</span> the curve approaches the chance diagonal consistent with the notion that if the lesion is not visible performance can be no better than chance level.</p>
 <div class="figure"><span style="display:block;" id="fig:proper-roc-models-cbm-plots-1"></span>
 <img src="07-proper-roc-models_files/figure-html/proper-roc-models-cbm-plots-1-1.png" alt="ROC curves predicted by the CBM model. The corresponding values of the parameters are indicated above the plots. For small $\alpha$ or small $\mu$ the curve approaches the chance diagonal, consistent with the notion that if the lesion is not visible, performance can be no better than chance level." width="672" />
@@ -867,11 +793,11 @@ l_\text{CBM}\left( z|a,b \right)&amp;=\frac{\left( 1-\alpha \right)\phi(z) + \al
 FIGURE 7.3: ROC curves predicted by the CBM model. The corresponding values of the parameters are indicated above the plots. For small <span class="math inline">\(\alpha\)</span> or small <span class="math inline">\(\mu\)</span> the curve approaches the chance diagonal, consistent with the notion that if the lesion is not visible, performance can be no better than chance level.
 </p>
 </div>
-<p>As one might expect as <span class="math inline">\(\mu\)</span> and/or <span class="math inline">\(\alpha\)</span> increases performance gets better and the curve more closely approaches the top-left corner. Try as one might, by varying the parameters, one can never get the predicted curve to cross the chance diagonal, confirming viscerally that one is dealing with a proper ROC model. A proof of this property is in Eqn. <a href="proper-roc-models.html#eq:proper-roc-models-cbm-likelihood">(7.20)</a> and the paragraph following it.</p>
+<p>As one might expect as <span class="math inline">\(\mu\)</span> and/or <span class="math inline">\(\alpha\)</span> increases performance gets better and the curve more closely approaches the top-left corner. The predicted ROC curve is always proper.</p>
 <p>The pdf plots are shown next, Fig. <a href="proper-roc-models.html#fig:proper-roc-models-cbm-plots-2">7.4</a>.</p>
 </div>
-<div id="proper-roc-models-cbm-pdfs" class="section level3 hasAnchor" number="7.7.4">
-<h3><span class="header-section-number">7.7.4</span> CBM pdf plots<a href="proper-roc-models.html#proper-roc-models-cbm-pdfs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="proper-roc-models-cbm-pdfs" class="section level3 hasAnchor" number="7.7.3">
+<h3><span class="header-section-number">7.7.3</span> CBM pdf plots<a href="proper-roc-models.html#proper-roc-models-cbm-pdfs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="figure"><span style="display:block;" id="fig:proper-roc-models-cbm-plots-2"></span>
 <img src="07-proper-roc-models_files/figure-html/proper-roc-models-cbm-plots-2-1.png" alt="Density functions predicted by CBM. The dark line is the diseased distribution. The grey line is the non-diseased distribution. The bimodal diseased distribution is clearly evident in plots B and D." width="672" />
 <p class="caption">
@@ -880,15 +806,15 @@ FIGURE 7.4: Density functions predicted by CBM. The dark line is the diseased di
 </div>
 <p>Likelihood ratio plots are shown next, Fig. <a href="proper-roc-models.html#fig:proper-roc-models-cbm-plots-3">7.5</a>.</p>
 </div>
-<div id="proper-roc-models-cbm-slopes" class="section level3 hasAnchor" number="7.7.5">
-<h3><span class="header-section-number">7.7.5</span> CBM likelihood ratio plots<a href="proper-roc-models.html#proper-roc-models-cbm-slopes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="proper-roc-models-cbm-slopes" class="section level3 hasAnchor" number="7.7.4">
+<h3><span class="header-section-number">7.7.4</span> CBM likelihood ratio plots<a href="proper-roc-models.html#proper-roc-models-cbm-slopes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="figure"><span style="display:block;" id="fig:proper-roc-models-cbm-plots-3"></span>
 <img src="07-proper-roc-models_files/figure-html/proper-roc-models-cbm-plots-3-1.png" alt="The slope plots are labeled by the values of $\alpha$ and $\mu$. Close examination of the region near the flat part shows it does not plateau at zero; rather the minimum is at $(1 - \alpha)$." width="672" />
 <p class="caption">
 FIGURE 7.5: The slope plots are labeled by the values of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\mu\)</span>. Close examination of the region near the flat part shows it does not plateau at zero; rather the minimum is at <span class="math inline">\((1 - \alpha)\)</span>.
 </p>
 </div>
-<p>Fig. <a href="proper-roc-models.html#fig:proper-roc-models-cbm-plots-3">7.5</a> are the corresponding slope (or likelihood ratio) plots for the same parameter values as in the other figures in this section. All plots are monotonic with <span class="math inline">\(z\)</span>: as <span class="math inline">\(z\)</span> increases, the slope increases; this makes the reader using <span class="math inline">\(z\)</span>, under the CBM model, a likelihood ratio observer. In addition, according to Eqn. (20.26), the slope approaches <span class="math inline">\(1-\alpha\)</span> as <span class="math inline">\(z\)</span> approaches <span class="math inline">\(–\infty\)</span>, i.e., once again we encounter a proper ROC curve which approaches the upper-right corner with non-zero slope (except for the special case <span class="math inline">\(\alpha = 1\)</span>).</p>
+<p>All plots are monotonic with <span class="math inline">\(z\)</span>: as <span class="math inline">\(z\)</span> increases the slope increases. The reader using <span class="math inline">\(z\)</span> to make decisions, where z is sampled as in the CBM model, is a likelihood ratio observer. In addition, according to TBA Eqn. (20.26), the limiting slope at the upper right corner of the ROC plot approaches <span class="math inline">\(1-\alpha\)</span> as <span class="math inline">\(z \rightarrow –\infty\)</span>.</p>
 </div>
 </div>
 <div id="proper-roc-models-bigamma" class="section level2 hasAnchor" number="7.8">
@@ -898,7 +824,7 @@ FIGURE 7.5: The slope plots are labeled by the values of <span class="math inlin
 <p>The gamma function is defined by <span class="citation">(<a href="#ref-abramowitz1964handbook" role="doc-biblioref">Abramowitz and Stegun 1964</a>)</span>:</p>
 <p><span class="math display" id="eq:proper-roc-models-gamma">\[\begin{equation}
 \Gamma\left( x \right) = \int_{0}^{\infty}t^{x-1}e^{-t} dt
-\tag{7.23}
+\tag{7.24}
 \end{equation}\]</span></p>
 <p>A random variable <span class="math inline">\(X\)</span> has a gamma distribution if its <span class="math inline">\(\text{pdf}\)</span> is <span class="citation">(<a href="#ref-larsen2005introduction" role="doc-biblioref">Larsen and Marx 2005</a>)</span>:</p>
 <p><span class="math display" id="eq:proper-roc-models-gamma-pdf">\[\begin{equation}
@@ -906,18 +832,19 @@ FIGURE 7.5: The slope plots are labeled by the values of <span class="math inlin
 f\left( x |r,\lambda\right) = \frac{\lambda^r}{\Gamma\left( r \right)}x^{r-1}e^{-\lambda x}; &amp;
 x\ge 0, r&gt;0, \lambda &gt;0
 \end{matrix}
-\tag{7.24}
+\tag{7.25}
 \end{equation}\]</span></p>
-<p>It has the following interpretation: for integer <span class="math inline">\(r\)</span>, assuming events are Poisson distributed with rate parameter <span class="math inline">\(\lambda\)</span>, the <span class="math inline">\(\text{pdf}\)</span> of event <span class="math inline">\(r\)</span> follows Eqn. <a href="proper-roc-models.html#eq:proper-roc-models-gamma-pdf">(7.24)</a>. However, in this equation, <span class="math inline">\(r\)</span> is not restricted to integers. Alternatively, <span class="math inline">\(l/r\)</span> is called the scale parameter and <span class="math inline">\(r\)</span> is called the shape parameter of the gamma distribution.</p>
+<p><span class="math inline">\(l/r\)</span> is called the scale parameter and <span class="math inline">\(r\)</span> is called the shape parameter of the gamma distribution.</p>
+<!-- It has the following interpretation: for integer $r$, assuming events are Poisson distributed with rate parameter $\lambda$, the $\text{pdf}$ of event $r$ follows Eqn. \@ref(eq:proper-roc-models-gamma-pdf). However, in this equation, $r$ is not restricted to integers. Alternatively, $l/r$ is called the scale parameter and $r$ is called the shape parameter of the gamma distribution.  -->
 <p>The mean and variance of this distribution are given by:</p>
 <p><span class="math display" id="eq:proper-roc-models-gamma-mean-var">\[\begin{equation}
 \left.\begin{aligned}
 E\left( X \right) &amp;= \frac{r}{\lambda} \\
 Var\left( X \right) &amp;= \frac{r}{\lambda^2} \\
 \end{aligned}\right\}
-\tag{7.25}
+\tag{7.26}
 \end{equation}\]</span></p>
-<p>The constant-shape bigamma model is defined <span class="citation">(<a href="#ref-dorfman1997proper" role="doc-biblioref">Dorfman et al. 1997</a>)</span> by the following pdfs (note <span class="math inline">\(\lambda = 1\)</span> for the non-diseased density and for either density <span class="math inline">\(x \ge 0\)</span>):</p>
+<p>The constant-shape bigamma model is defined <span class="citation">(<a href="#ref-dorfman1997proper" role="doc-biblioref">Dorfman et al. 1997</a>)</span> by the following pdfs (note <span class="math inline">\(\lambda = 1\)</span> for the non-diseased pdf and for either pdf <span class="math inline">\(x \ge 0\)</span>):</p>
 <p><span class="math display" id="eq:proper-roc-models-gamma-pdfs">\[\begin{equation}
 \left.\begin{aligned}
 \text{pdf}_N\left( x \right) &amp;= f\left( x;r,1 \right)\\
@@ -925,12 +852,12 @@ Var\left( X \right) &amp;= \frac{r}{\lambda^2} \\
 \text{pdf}_D\left( x \right) &amp;= f\left( x;r,\lambda \right)\\
 &amp;= \frac{\lambda^r}{\Gamma\left( r \right)}x^{r-1}e^{-\lambda x}
 \end{aligned}\right\}
-\tag{7.26}
+\tag{7.27}
 \end{equation}\]</span></p>
 <p>The reason for the name “bigamma” is because it involves two gamma distributions (just as “binormal” refers to two normal distributions). If the variance of the diseased distribution is to be larger than that of the non-diseased one the following constraint must hold:</p>
 <p><span class="math display" id="eq:proper-roc-models-bigamma-lambda-inequality">\[\begin{equation}
 0 &lt; \lambda \le 1
-\tag{7.27}
+\tag{7.28}
 \end{equation}\]</span></p>
 <p>The limitation <span class="math inline">\(x \ge 0\)</span> suggests that <span class="math inline">\(x\)</span> is equivalent to a likelihood ratio (the ratio of two pdfs must be non-negative), which will be shown shortly to be true. The model assumes the same shape parameter <span class="math inline">\(r\)</span> for non-diseased and diseased cases, which is the basic reason why it predicts proper ROC curves. The likelihood ratio function <span class="math inline">\(l(x)\)</span> is given by:</p>
 <p><span class="math display" id="eq:proper-roc-models-bigamma-likelihood">\[\begin{equation}
@@ -938,97 +865,34 @@ Var\left( X \right) &amp;= \frac{r}{\lambda^2} \\
 l_\text{BG}\left( x;r,\lambda \right) &amp;= \frac{\text{pdf}_D\left( x \right)}{\text{pdf}_N\left( x \right)} \\
 &amp;=\lambda^r e^{-\left( \lambda - 1 \right) x}
 \end{aligned}\right\}
-\tag{7.28}
+\tag{7.29}
 \end{equation}\]</span></p>
-<p>The subscript “BG” is for bigamma model. Since the exponential is a monotonic function of its argument, the likelihood ratio is a monotonic function of <span class="math inline">\(x\)</span>, which implies that an observer using knowledge of this distribution and basing decisions on observed values of <span class="math inline">\(x\)</span> exceeding a threshold, is a likelihood ratio observer. Notice the usage of <span class="math inline">\(x\)</span> rather than <span class="math inline">\(z\)</span>; the latter denotes samples from normal distributions. The bigamma model observer bases decisions on the x-sample, not the z-sample. In addition, for notational consistency one uses the symbol <span class="math inline">\(\xi\)</span> to denote a threshold on the x-axis. If <span class="math inline">\(x &gt; \xi\)</span> the case is diagnosed as diseased and otherwise it is diagnosed non-diseased.</p>
-<p>Since <span class="math inline">\(0 &lt; \lambda \le 1\)</span> the slope at the upper right corner (corresponding to <span class="math inline">\(x = 0\)</span>) is <span class="math inline">\(\lambda ^ r\)</span> and the slope is infinite at the origin (corresponding to <span class="math inline">\(x = \infty\)</span>). As with PROPROC and CBM, once again one encounters a proper ROC curve approaching the upper-right corner with finite slope. If <span class="math inline">\(\lambda &gt; 1\)</span> the slope is zero at the origin, which would cause the ROC curve to start out below the chance diagonal. Therefore, constraint <span class="math inline">\(0 &lt; \lambda \le 1\)</span> is needed not just to yield a wider distribution for diseased cases but to also assure the ROC curve is proper. If <span class="math inline">\(\lambda = 1\)</span> then regardless of the value of <span class="math inline">\(r\)</span>, the ROC curve is the chance diagonal because the two pdfs become identical.</p>
+<p>The subscript “BG” is for bigamma model. Since the exponential is a monotonic function of its argument, the likelihood ratio is a monotonic function of <span class="math inline">\(x\)</span>, which implies that an observer using knowledge of this distribution and basing decisions on observed values of <span class="math inline">\(x\)</span> exceeding a threshold, is a likelihood ratio observer. Notice the usage of <span class="math inline">\(x\)</span> rather than <span class="math inline">\(z\)</span> as the latter denotes samples from normal distributions. The bigamma model observer bases decisions on the x-sample, the binormal model observer bases decisions on the z-sample. In addition, for notational consistency one uses the symbol <span class="math inline">\(\xi\)</span> to denote a threshold on the x-axis. If <span class="math inline">\(x \ge \xi\)</span> the case is diagnosed as diseased and otherwise it is diagnosed non-diseased.</p>
+<p>Since <span class="math inline">\(0 &lt; \lambda \le 1\)</span> the slope at the upper right corner of the ROC (corresponding to <span class="math inline">\(x = 0\)</span>) is <span class="math inline">\(\lambda ^ r\)</span> and the slope is infinite at the origin (corresponding to <span class="math inline">\(x = \infty\)</span>). As with PROPROC and CBM, once again one encounters a proper ROC curve approaching the upper-right corner with finite slope. If <span class="math inline">\(\lambda &gt; 1\)</span> the slope is zero at the origin, which would cause the ROC curve to start out below the chance diagonal. Therefore, constraint <span class="math inline">\(0 &lt; \lambda \le 1\)</span> is needed not just to yield a wider distribution for diseased cases but to also assure the ROC curve is proper. If <span class="math inline">\(\lambda = 1\)</span> then regardless of the value of <span class="math inline">\(r\)</span>, the ROC curve is the chance diagonal because the two pdfs become identical.</p>
 <p>The cumulative distribution function (CDF) of the gamma distribution is given by:</p>
 <p><span class="math display" id="eq:proper-roc-models-gamma-cdf">\[\begin{equation}
 F\left( x;r,\lambda \right) = \int_{0}^{x}f\left( u;r,\lambda \right) du
 = \frac{\gamma\left( r, \lambda x \right)}{\Gamma\left( r \right)}
-\tag{7.29}
+\tag{7.30}
 \end{equation}\]</span></p>
 <p>Here the lower incomplete gamma function <span class="citation">(<a href="#ref-abramowitz1964handbook" role="doc-biblioref">Abramowitz and Stegun 1964</a>)</span> <span class="math inline">\(\gamma\left( s,x \right)\)</span> is defined by:</p>
 <p><span class="math display" id="eq:proper-roc-models-gamma-incomplete">\[\begin{equation}
 \gamma\left( s,x \right) = \int_{0}^{x} t^{s-1} e^{-t} dt
-\tag{7.30}
+\tag{7.31}
 \end{equation}\]</span></p>
-<p>[Since <code>R</code> implements the CDF of the gamma distribution directly, as <code>pgamma()</code> one actually has no use for Eqn. <a href="proper-roc-models.html#eq:proper-roc-models-gamma-incomplete">(7.30)</a> which is included for pedagogic completeness.] The coordinates of the predicted ROC at threshold <span class="math inline">\(\xi\)</span> are (the complementary probability is needed as FPF and TPF are the probabilities of exceeding a threshold):</p>
+<p>Since <code>R</code> implements the CDF of the gamma distribution directly, as <code>pgamma()</code> one actually has no use for Eqn. <a href="proper-roc-models.html#eq:proper-roc-models-gamma-incomplete">(7.31)</a> which is included for pedagogic completeness. The coordinates of the predicted ROC at threshold <span class="math inline">\(\xi\)</span> are (the complementary probability is needed as FPF and TPF are the probabilities of exceeding a threshold):</p>
 <p><span class="math display" id="eq:proper-roc-models-gamma-fpf-tpf">\[\begin{equation}
 \left.\begin{aligned}
 \text{FPF}\left( \xi|r \right) &amp;= 1 - \frac{\gamma\left( r,\xi \right)}{\Gamma\left( r \right)} \\
-&amp;=\int_{\xi}^{\infty} f\left( u;r,1 \right) \\
+&amp;=\int_{\xi}^{\infty} du ~ f\left( u;r,1 \right) \\
 \text{TPF}\left( \xi|r, \lambda \right) &amp;= 1 - \frac{\gamma\left( r,\lambda \xi \right)}{\Gamma\left( r \right)} \\
-&amp;=\int_{\xi}^{\infty} f\left( u;r,\lambda \right) \\
+&amp;=\int_{\xi}^{\infty} du ~ f\left( u;r,\lambda \right) \\
 \end{aligned}\right\}
-\tag{7.31}
+\tag{7.32}
 \end{equation}\]</span></p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="proper-roc-models.html#cb26-1" aria-hidden="true" tabindex="-1"></a>aucIntegrand <span class="ot">&lt;-</span> <span class="cf">function</span> (FPF, r, lambda) </span>
-<span id="cb26-2"><a href="proper-roc-models.html#cb26-2" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb26-3"><a href="proper-roc-models.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pgamma</span>(<span class="fu">qgamma</span>(<span class="dv">1</span><span class="sc">-</span>FPF, r), r, <span class="at">scale =</span> <span class="dv">1</span><span class="sc">/</span>lambda)</span>
-<span id="cb26-4"><a href="proper-roc-models.html#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)  </span>
-<span id="cb26-5"><a href="proper-roc-models.html#cb26-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb26-6"><a href="proper-roc-models.html#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="proper-roc-models.html#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="proper-roc-models.html#cb26-8" aria-hidden="true" tabindex="-1"></a>biGammaRocY <span class="ot">&lt;-</span> <span class="cf">function</span> (x, r, lambda) {</span>
-<span id="cb26-9"><a href="proper-roc-models.html#cb26-9" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pgamma</span>(x, r, <span class="at">scale =</span> <span class="dv">1</span><span class="sc">/</span>lambda)</span>
-<span id="cb26-10"><a href="proper-roc-models.html#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
-<span id="cb26-11"><a href="proper-roc-models.html#cb26-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="proper-roc-models-bigamma-code" class="section level3 hasAnchor" number="7.8.2">
 <h3><span class="header-section-number">7.8.2</span> BGM code implementation<a href="proper-roc-models.html#proper-roc-models-bigamma-code" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="proper-roc-models.html#cb27-1" aria-hidden="true" tabindex="-1"></a>rArray <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">4.391</span>,<span class="dv">5</span>,<span class="dv">10</span>);lambdaArray <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.439</span>,<span class="fl">0.3</span>,<span class="fl">0.1</span>)</span>
-<span id="cb27-2"><a href="proper-roc-models.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#r &lt;-  4.391; lambda &lt;-  0.439 # from Dorfman paper</span></span>
-<span id="cb27-3"><a href="proper-roc-models.html#cb27-3" aria-hidden="true" tabindex="-1"></a>plotRoc <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb27-4"><a href="proper-roc-models.html#cb27-4" aria-hidden="true" tabindex="-1"></a>plotSlope <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb27-5"><a href="proper-roc-models.html#cb27-5" aria-hidden="true" tabindex="-1"></a>pdfs <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb27-6"><a href="proper-roc-models.html#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(rArray))</span>
-<span id="cb27-7"><a href="proper-roc-models.html#cb27-7" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb27-8"><a href="proper-roc-models.html#cb27-8" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">&lt;-</span> rArray[i];lambda <span class="ot">&lt;-</span> lambdaArray[i]</span>
-<span id="cb27-9"><a href="proper-roc-models.html#cb27-9" aria-hidden="true" tabindex="-1"></a>  AUC <span class="ot">&lt;-</span> <span class="fu">integrate</span>(aucIntegrand,<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">r =</span> r, <span class="at">lambda =</span> lambda)</span>
-<span id="cb27-10"><a href="proper-roc-models.html#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># cat(&quot;r = &quot;, r, &quot;, lambda = &quot;, lambda, &quot;, AUC = &quot;, AUC$value, &quot;\n&quot;)</span></span>
-<span id="cb27-11"><a href="proper-roc-models.html#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># left limit below gets the upper end of the ROC curve </span></span>
-<span id="cb27-12"><a href="proper-roc-models.html#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the right limit gets the lower corner</span></span>
-<span id="cb27-13"><a href="proper-roc-models.html#cb27-13" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, r<span class="sc">/</span>lambda <span class="sc">+</span> <span class="dv">10</span><span class="sc">*</span><span class="fu">sqrt</span>(r<span class="sc">/</span>lambda<span class="sc">^</span><span class="dv">2</span>), <span class="at">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb27-14"><a href="proper-roc-models.html#cb27-14" aria-hidden="true" tabindex="-1"></a>  FPF <span class="ot">&lt;-</span> <span class="fu">biGammaRocY</span>(x, r, <span class="dv">1</span>)</span>
-<span id="cb27-15"><a href="proper-roc-models.html#cb27-15" aria-hidden="true" tabindex="-1"></a>  TPF <span class="ot">&lt;-</span> <span class="fu">biGammaRocY</span>(x, r, lambda)</span>
-<span id="cb27-16"><a href="proper-roc-models.html#cb27-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb27-17"><a href="proper-roc-models.html#cb27-17" aria-hidden="true" tabindex="-1"></a>  rocPlot <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FPF =</span> FPF, <span class="at">TPF =</span> TPF)</span>
-<span id="cb27-18"><a href="proper-roc-models.html#cb27-18" aria-hidden="true" tabindex="-1"></a>  plotRoc[[i]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb27-19"><a href="proper-roc-models.html#cb27-19" aria-hidden="true" tabindex="-1"></a>    rocPlot, <span class="fu">aes</span>(<span class="at">x =</span> FPF, <span class="at">y =</span> TPF)) <span class="sc">+</span> </span>
-<span id="cb27-20"><a href="proper-roc-models.html#cb27-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb27-21"><a href="proper-roc-models.html#cb27-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
-<span id="cb27-22"><a href="proper-roc-models.html#cb27-22" aria-hidden="true" tabindex="-1"></a>           LETTERS[i], </span>
-<span id="cb27-23"><a href="proper-roc-models.html#cb27-23" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;:&quot;</span>, </span>
-<span id="cb27-24"><a href="proper-roc-models.html#cb27-24" aria-hidden="true" tabindex="-1"></a>           <span class="fu">sprintf</span>(<span class="st">&quot; r = %3.2f, lambda = %3.2f&quot;</span>, </span>
-<span id="cb27-25"><a href="proper-roc-models.html#cb27-25" aria-hidden="true" tabindex="-1"></a>                   r, lambda)))</span>
-<span id="cb27-26"><a href="proper-roc-models.html#cb27-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-27"><a href="proper-roc-models.html#cb27-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-28"><a href="proper-roc-models.html#cb27-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># taking mean + 3 times the standard deviation</span></span>
-<span id="cb27-29"><a href="proper-roc-models.html#cb27-29" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.01</span>, r<span class="sc">/</span>lambda <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">sqrt</span>(r<span class="sc">/</span>lambda<span class="sc">^</span><span class="dv">2</span>), <span class="at">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb27-30"><a href="proper-roc-models.html#cb27-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb27-31"><a href="proper-roc-models.html#cb27-31" aria-hidden="true" tabindex="-1"></a>  Pdf1 <span class="ot">&lt;-</span> <span class="fu">dgamma</span>(x, r)</span>
-<span id="cb27-32"><a href="proper-roc-models.html#cb27-32" aria-hidden="true" tabindex="-1"></a>  Pdf2 <span class="ot">&lt;-</span> <span class="fu">dgamma</span>(x, r, <span class="at">scale =</span> <span class="dv">1</span><span class="sc">/</span>lambda)</span>
-<span id="cb27-33"><a href="proper-roc-models.html#cb27-33" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb27-34"><a href="proper-roc-models.html#cb27-34" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(x, x), <span class="at">pdf =</span> <span class="fu">c</span>(Pdf1, Pdf2), </span>
-<span id="cb27-35"><a href="proper-roc-models.html#cb27-35" aria-hidden="true" tabindex="-1"></a>                   <span class="at">truth =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&#39;non-diseased&#39;</span>, <span class="fu">length</span>(Pdf1)), </span>
-<span id="cb27-36"><a href="proper-roc-models.html#cb27-36" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">rep</span>(<span class="st">&#39;diseased&#39;</span>, <span class="fu">length</span>(Pdf2))))</span>
-<span id="cb27-37"><a href="proper-roc-models.html#cb27-37" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb27-38"><a href="proper-roc-models.html#cb27-38" aria-hidden="true" tabindex="-1"></a>  pdfs[[i]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb27-39"><a href="proper-roc-models.html#cb27-39" aria-hidden="true" tabindex="-1"></a>    df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> pdf, <span class="at">color =</span> truth)) <span class="sc">+</span> </span>
-<span id="cb27-40"><a href="proper-roc-models.html#cb27-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb27-41"><a href="proper-roc-models.html#cb27-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_colour_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;green&quot;</span>)) <span class="sc">+</span> </span>
-<span id="cb27-42"><a href="proper-roc-models.html#cb27-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(), </span>
-<span id="cb27-43"><a href="proper-roc-models.html#cb27-43" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.9</span>))</span>
-<span id="cb27-44"><a href="proper-roc-models.html#cb27-44" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb27-45"><a href="proper-roc-models.html#cb27-45" aria-hidden="true" tabindex="-1"></a>  <span class="co"># may need to adjust limits to view detail of slope plot</span></span>
-<span id="cb27-46"><a href="proper-roc-models.html#cb27-46" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.01</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb27-47"><a href="proper-roc-models.html#cb27-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-48"><a href="proper-roc-models.html#cb27-48" aria-hidden="true" tabindex="-1"></a>  slope <span class="ot">&lt;-</span> (<span class="fu">dgamma</span>(x, r, <span class="at">scale =</span> <span class="dv">1</span><span class="sc">/</span>lambda))<span class="sc">/</span><span class="fu">pgamma</span>(x, r)</span>
-<span id="cb27-49"><a href="proper-roc-models.html#cb27-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-50"><a href="proper-roc-models.html#cb27-50" aria-hidden="true" tabindex="-1"></a>  slopePlot <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">slope =</span> slope)</span>
-<span id="cb27-51"><a href="proper-roc-models.html#cb27-51" aria-hidden="true" tabindex="-1"></a>  plotSlope[[i]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(slopePlot, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> slope)) <span class="sc">+</span> <span class="fu">geom_line</span>()</span>
-<span id="cb27-52"><a href="proper-roc-models.html#cb27-52" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>The bigamma-model formulae, coded above, generates ROC plots, Fig. <a href="proper-roc-models.html#fig:proper-roc-models-bigamma-plots-1">7.6</a>, pdfs plots for non-diseased and diseased cases, Fig. <a href="proper-roc-models.html#fig:proper-roc-models-bigamma-plots-2">7.7</a> and likelihood ratio (slope) plots Fig. <a href="proper-roc-models.html#fig:proper-roc-models-bigamma-plots-3">7.8</a> for four pairs of values of the <span class="math inline">\((r, \lambda)\)</span> bigamma model parameters. Plot A is for <span class="math inline">\((r = 1, \lambda = 1)\)</span> when the ROC becomes the chance diagonal regardless of the value of <span class="math inline">\(r\)</span>. Plot B is for <span class="math inline">\((r = 4.39, \lambda = 0.439)\)</span> identical to those used for simulations in <a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>. Plot C is for $(r = 5, = 0.3) and Plot D is for $(r = 10, = 0.1).</p>
 </div>
 <div id="proper-roc-models-bigamma-rocs" class="section level3 hasAnchor" number="7.8.3">

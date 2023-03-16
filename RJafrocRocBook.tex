@@ -138,7 +138,7 @@
 
 \title{The RJafroc Roc Book}
 \author{Dev P. Chakraborty, PhD}
-\date{2023-03-15}
+\date{2023-03-16}
 
 \begin{document}
 \maketitle
@@ -3945,12 +3945,14 @@ The two values of z that can occur for each value of \(\lambda\) implies that th
 The contaminated binormal model \citep{dorfman2000contaminated1, dorfman2000contaminated2, dorfman2000contaminated3}, or CBM, is an alternate model for decision variable sampling in an ROC study. Like the binormal model, it is a two-parameter model, excluding cutoffs. The first parameter is \(\mu_\text{CBM}\), the separation of two unit-variance normal distributions. The sampling for non-diseased cases is from the \(N(0,1)\) distribution, while sampling for diseased cases is from the \(N(\mu_\text{CBM},1)\) distribution, provided the disease is visible, otherwise it is from the \(N(0,1)\) distribution. In other words, for diseased cases the sampling is from a mixture distribution of two unit variance normal distributions, one centered at \(\mu\) and the other centered at 0, with mixing fraction \(\alpha\), the fraction of diseased cases where the abnormality is actually visible. The binning is accomplished, as usual, by the cutoff vector \(\overrightarrow{\zeta}=\left( \zeta_1,...,\zeta_{\text{ROC}-1} \right)\), where \(R_\text{ROC}\) is the number of ROC bins. Defining dummy cutoffs \(\zeta_0=-\infty\) and \(\zeta_{\text{ROC}}=\infty\), the binning rule is as before:
 
 \begin{equation} 
-\begin{matrix}
-\text{if} & \zeta_{r-1} \le z < \zeta_r & \text{rating} = r 
-\end{matrix}
+\left.\begin{aligned}
+\text{if}~\left (\zeta_{r-1} \le z < \zeta_r  \right ) \text{rating} = r\\
+r=1,2,...,R_{ROC} 
+\end{aligned}\right\}
+\label{eq:proper-roc-models-binning-rule}
 \end{equation}
 
-Therefore, CBM is characterized by the parameters \(\mu, \alpha, \zeta_r\) where \(r=1,2,...,R_{\text{ROC}-1}\). The parameters \(\mu, \alpha\) can be used to predict the ROC curve and the area under the curve.
+Therefore, CBM is characterized by the parameters \(\mu, \alpha, \overrightarrow{\zeta}\). The parameters \(\mu, \alpha\) can be used to predict the ROC curve and the area under the curve.
 
 \hypertarget{proper-roc-models-cbm-formulae}{%
 \subsection{CBM formulae}\label{proper-roc-models-cbm-formulae}}
@@ -3979,7 +3981,7 @@ l_\text{CBM}\left( z|a,b \right)&=\frac{\left( 1-\alpha \right)\phi(z) + \alpha 
 \label{eq:proper-roc-models-cbm-likelihood}
 \end{equation}
 
-The function increases monotonically as \(z\) increases proving that the predicted ROC curve is proper, i.e., its slope decreases monotonically as the operating point moves up the curve (causing both \(z\) and the likelihood ratio to decrease). The slope at the origin (infinite \(z\)) is infinite and the slope at the upper-right corner is \((1-\alpha)\). The predicted ROC coordinates are:
+The function increases monotonically as \(z\) increases which shows that the predicted ROC curve is proper, i.e., its slope decreases monotonically as the operating point moves up the curve (causing both \(z\) and the likelihood ratio to decrease). The slope at the origin (infinite \(z\)) is infinite and the slope at the upper-right corner is \((1-\alpha)\). The predicted ROC coordinates are:
 
 \begin{equation}
 \left.\begin{aligned}
@@ -3989,7 +3991,9 @@ The function increases monotonically as \(z\) increases proving that the predict
 \label{eq:proper-roc-models-cbm-fpf-tpf}
 \end{equation}
 
-Since on non-diseased cases the sampling behaviors are identical, the expression for \(\text{FPF}\left( \zeta \right)\) is identical to that for the binormal model: the probability that the z-sample for a non-diseased case exceeds \(\zeta\) is \(\Phi\left( -\zeta \right)\). The second Eqn. \eqref{eq:proper-roc-models-cbm-fpf-tpf} can be understood as follows. \(\text{TPF}\left( \zeta \right)\) is the probability that a diseased case z-sample exceeds \(\zeta\). There are two possibilities: the z-sample arose from the zero-centered distribution, which occurs with probability \(\left( 1-\alpha \right)\), or it arose from the \(\mu_\text{CBM}\)-centered distribution, which occurs with probability \(\alpha\). In the former case, the probability that the z-sample exceeds \(\zeta\) is \(\Phi\left( -\zeta \right)\). In the latter case, the probability is \(\Phi\left( \mu_\text{CBM}-\zeta \right)\). The net probability is the weighted sum of these component probabilities in proportion to their relative frequencies \(\left( 1-\alpha \right):\alpha\). A similar logic can be used to derive the AUC under the CBM fitted ROC curve:
+Since on non-diseased cases the sampling behaviors are identical, the expression for \(\text{FPF}\left( \zeta \right)\) is identical to that for the binormal model: the probability that the z-sample for a non-diseased case exceeds \(\zeta\) is \(\Phi\left( -\zeta \right)\). The second Eqn. \eqref{eq:proper-roc-models-cbm-fpf-tpf} can be understood as follows. \(\text{TPF}\left( \zeta \right)\) is the probability that a diseased case z-sample exceeds \(\zeta\). There are two possibilities: the z-sample arose from the zero-centered distribution, which occurs with probability \(\left( 1-\alpha \right)\), or it arose from the \(\mu_\text{CBM}\)-centered distribution, which occurs with probability \(\alpha\). In the former case, the probability that the z-sample exceeds \(\zeta\) is \(\Phi\left( -\zeta \right)\). In the latter case, the probability is \(\Phi\left( \mu_\text{CBM}-\zeta \right)\). The net probability is the weighted sum of the component probabilities in proportion to their relative frequencies \(\left( 1-\alpha \right):\alpha\).
+
+A similar logic can be used to derive the AUC under the CBM fitted ROC curve:
 
 \begin{equation}
 \text{AUC}_\text{CBM}=0.5\left( 1-\alpha \right)+\alpha \,\Phi\left( \frac {\mu_\text{CBM}}{\sqrt{2}} \right)
@@ -3997,99 +4001,6 @@ Since on non-diseased cases the sampling behaviors are identical, the expression
 \end{equation}
 
 In the limit \(\mu_\text{CBM} \rightarrow \infty\), \(\text{AUC}_\text{CBM} \rightarrow 0.5\left( 1+\alpha \right)\) and in the limit \(\mu_\text{CBM} \rightarrow 0\), \(\text{AUC}_\text{CBM} \rightarrow 0.5\).
-
-\hypertarget{proper-roc-models-cbm-code}{%
-\subsection{CBM code implementation}\label{proper-roc-models-cbm-code}}
-
-The following computes the y-coordinate of the ROC predicted by the CBM:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{CbmRocY }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{ (x, mu, alpha) \{}
-\NormalTok{  y }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{alpha)}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pnorm}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{x))) }\SpecialCharTok{+} 
-\NormalTok{    alpha}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\FunctionTok{pnorm}\NormalTok{(}\FunctionTok{qnorm}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{x)}\SpecialCharTok{{-}}\NormalTok{mu))}
-  \FunctionTok{return}\NormalTok{(y)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-The plotting code follows:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{FPF }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
-\NormalTok{alphaArr }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\FloatTok{0.8}\NormalTok{)}
-\NormalTok{muArr }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{)}
-\NormalTok{plotRoc }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
-\NormalTok{myLabelIndx }\OtherTok{\textless{}{-}} \DecValTok{1}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{)}
-  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) }
-\NormalTok{  \{}
-\NormalTok{    \{}
-\NormalTok{      alpha }\OtherTok{\textless{}{-}}\NormalTok{ alphaArr[i]}
-\NormalTok{      mu }\OtherTok{\textless{}{-}}\NormalTok{ muArr[j]}
-\NormalTok{      TPF }\OtherTok{\textless{}{-}} \FunctionTok{CbmRocY}\NormalTok{(FPF, mu, alpha)}
-\NormalTok{      rocPlot }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{FPF =}\NormalTok{ FPF, }\AttributeTok{TPF =}\NormalTok{ TPF)}
-\NormalTok{      plotRoc[[myLabelIndx]] }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
-\NormalTok{        rocPlot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ FPF, }\AttributeTok{y =}\NormalTok{ TPF)) }\SpecialCharTok{+} 
-        \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =}\NormalTok{ rocPlot) }\SpecialCharTok{+} 
-        \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+} 
-        \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
-        \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
-\NormalTok{                   LETTERS[myLabelIndx], }
-                   \StringTok{":"}\NormalTok{, }
-                   \FunctionTok{sprintf}\NormalTok{(}\StringTok{" alpha = \%4.2f, mu = \%4.2f"}\NormalTok{, }
-\NormalTok{                           alpha, mu)))}
-\NormalTok{      myLabelIndx }\OtherTok{\textless{}{-}}\NormalTok{ myLabelIndx }\SpecialCharTok{+} \DecValTok{1}
-\NormalTok{    \}}
-\NormalTok{  \}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{FPF }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{)}
-\NormalTok{cbmPdfs }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
-\NormalTok{myLabelIndx }\OtherTok{\textless{}{-}} \DecValTok{1}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{)}
-  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{) }
-\NormalTok{  \{}
-\NormalTok{    \{}
-\NormalTok{      alpha }\OtherTok{\textless{}{-}}\NormalTok{ alphaArr[i]}
-\NormalTok{      mu }\OtherTok{\textless{}{-}}\NormalTok{ muArr[j]}
-      \ControlFlowTok{if}\NormalTok{ (i }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) \{}
-\NormalTok{        z1 }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
-\NormalTok{        z2 }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, mu }\SpecialCharTok{+} \DecValTok{3}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
-\NormalTok{      \} }\ControlFlowTok{else}\NormalTok{ \{}
-\NormalTok{        z1 }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
-\NormalTok{        z2 }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, mu }\SpecialCharTok{+} \DecValTok{3}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
-\NormalTok{      \}}
-\NormalTok{      Pdf1 }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(z1)}
-\NormalTok{      Pdf2 }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ alpha) }\SpecialCharTok{*} \FunctionTok{dnorm}\NormalTok{(z2) }\SpecialCharTok{+}\NormalTok{ alpha }\SpecialCharTok{*} \FunctionTok{dnorm}\NormalTok{(z2, mu)}
-\NormalTok{      df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
-        \AttributeTok{z =} \FunctionTok{c}\NormalTok{(z1, z2), }\AttributeTok{pdf =} \FunctionTok{c}\NormalTok{(Pdf1, Pdf2), }
-        \AttributeTok{truth =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}non\textquotesingle{}}\NormalTok{, }\FunctionTok{length}\NormalTok{(Pdf1)), }
-                  \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}dis\textquotesingle{}}\NormalTok{, }\FunctionTok{length}\NormalTok{(Pdf2)))}
-\NormalTok{      )}
-      
-\NormalTok{      cbmPdfs[[myLabelIndx]] }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
-\NormalTok{        df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ z, }\AttributeTok{y =}\NormalTok{ pdf, }\AttributeTok{color =}\NormalTok{ truth)) }\SpecialCharTok{+}
-        \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df) }\SpecialCharTok{+}
-        \FunctionTok{scale\_colour\_manual}\NormalTok{(}\AttributeTok{values=}\FunctionTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{,}\StringTok{"darkgrey"}\NormalTok{)) }\SpecialCharTok{+}
-        \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
-        \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{expand =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
-        \CommentTok{\#theme(legend.position = c(0.5, 0.2)) +}
-        \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
-        \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
-\NormalTok{                   LETTERS[myLabelIndx], }
-                   \StringTok{":"}\NormalTok{, }
-                   \FunctionTok{sprintf}\NormalTok{(}\StringTok{" alpha = \%5.3f, mu = \%5.3f"}\NormalTok{, }
-\NormalTok{                           alpha, mu)))}
-\NormalTok{      myLabelIndx }\OtherTok{\textless{}{-}}\NormalTok{ myLabelIndx }\SpecialCharTok{+} \DecValTok{1}
-\NormalTok{    \}}
-\NormalTok{  \}}
-\end{Highlighting}
-\end{Shaded}
 
 \hypertarget{proper-roc-models-cbm-rocs}{%
 \subsection{CBM ROC plots}\label{proper-roc-models-cbm-rocs}}
@@ -4102,7 +4013,7 @@ The following figures should further clarify these equations. Fig. \ref{fig:prop
 \caption{\label{fig:proper-roc-models-cbm-plots-1}ROC curves predicted by the CBM model. The corresponding values of the parameters are indicated above the plots. For small \(\alpha\) or small \(\mu\) the curve approaches the chance diagonal, consistent with the notion that if the lesion is not visible, performance can be no better than chance level.}
 \end{figure}
 
-As one might expect as \(\mu\) and/or \(\alpha\) increases performance gets better and the curve more closely approaches the top-left corner. Try as one might, by varying the parameters, one can never get the predicted curve to cross the chance diagonal, confirming viscerally that one is dealing with a proper ROC model. A proof of this property is in Eqn. \eqref{eq:proper-roc-models-cbm-likelihood} and the paragraph following it.
+As one might expect as \(\mu\) and/or \(\alpha\) increases performance gets better and the curve more closely approaches the top-left corner. The predicted ROC curve is always proper.
 
 The pdf plots are shown next, Fig. \ref{fig:proper-roc-models-cbm-plots-2}.
 
@@ -4126,7 +4037,7 @@ Likelihood ratio plots are shown next, Fig. \ref{fig:proper-roc-models-cbm-plots
 \caption{\label{fig:proper-roc-models-cbm-plots-3}The slope plots are labeled by the values of \(\alpha\) and \(\mu\). Close examination of the region near the flat part shows it does not plateau at zero; rather the minimum is at \((1 - \alpha)\).}
 \end{figure}
 
-Fig. \ref{fig:proper-roc-models-cbm-plots-3} are the corresponding slope (or likelihood ratio) plots for the same parameter values as in the other figures in this section. All plots are monotonic with \(z\): as \(z\) increases, the slope increases; this makes the reader using \(z\), under the CBM model, a likelihood ratio observer. In addition, according to Eqn. (20.26), the slope approaches \(1-\alpha\) as \(z\) approaches \(–\infty\), i.e., once again we encounter a proper ROC curve which approaches the upper-right corner with non-zero slope (except for the special case \(\alpha = 1\)).
+All plots are monotonic with \(z\): as \(z\) increases the slope increases. The reader using \(z\) to make decisions, where z is sampled as in the CBM model, is a likelihood ratio observer. In addition, according to TBA Eqn. (20.26), the limiting slope at the upper right corner of the ROC plot approaches \(1-\alpha\) as \(z \rightarrow –\infty\).
 
 \hypertarget{proper-roc-models-bigamma}{%
 \section{The bigamma model (BGM)}\label{proper-roc-models-bigamma}}
@@ -4151,7 +4062,7 @@ x\ge 0, r>0, \lambda >0
 \label{eq:proper-roc-models-gamma-pdf}
 \end{equation}
 
-It has the following interpretation: for integer \(r\), assuming events are Poisson distributed with rate parameter \(\lambda\), the \(\text{pdf}\) of event \(r\) follows Eqn. \eqref{eq:proper-roc-models-gamma-pdf}. However, in this equation, \(r\) is not restricted to integers. Alternatively, \(l/r\) is called the scale parameter and \(r\) is called the shape parameter of the gamma distribution.
+\(l/r\) is called the scale parameter and \(r\) is called the shape parameter of the gamma distribution.
 
 The mean and variance of this distribution are given by:
 
@@ -4163,7 +4074,7 @@ Var\left( X \right) &= \frac{r}{\lambda^2} \\
 \label{eq:proper-roc-models-gamma-mean-var}
 \end{equation}
 
-The constant-shape bigamma model is defined \citep{dorfman1997proper} by the following pdfs (note \(\lambda = 1\) for the non-diseased density and for either density \(x \ge 0\)):
+The constant-shape bigamma model is defined \citep{dorfman1997proper} by the following pdfs (note \(\lambda = 1\) for the non-diseased pdf and for either pdf \(x \ge 0\)):
 
 \begin{equation}
 \left.\begin{aligned}
@@ -4192,9 +4103,9 @@ l_\text{BG}\left( x;r,\lambda \right) &= \frac{\text{pdf}_D\left( x \right)}{\te
 \label{eq:proper-roc-models-bigamma-likelihood}
 \end{equation}
 
-The subscript ``BG'' is for bigamma model. Since the exponential is a monotonic function of its argument, the likelihood ratio is a monotonic function of \(x\), which implies that an observer using knowledge of this distribution and basing decisions on observed values of \(x\) exceeding a threshold, is a likelihood ratio observer. Notice the usage of \(x\) rather than \(z\); the latter denotes samples from normal distributions. The bigamma model observer bases decisions on the x-sample, not the z-sample. In addition, for notational consistency one uses the symbol \(\xi\) to denote a threshold on the x-axis. If \(x > \xi\) the case is diagnosed as diseased and otherwise it is diagnosed non-diseased.
+The subscript ``BG'' is for bigamma model. Since the exponential is a monotonic function of its argument, the likelihood ratio is a monotonic function of \(x\), which implies that an observer using knowledge of this distribution and basing decisions on observed values of \(x\) exceeding a threshold, is a likelihood ratio observer. Notice the usage of \(x\) rather than \(z\) as the latter denotes samples from normal distributions. The bigamma model observer bases decisions on the x-sample, the binormal model observer bases decisions on the z-sample. In addition, for notational consistency one uses the symbol \(\xi\) to denote a threshold on the x-axis. If \(x \ge \xi\) the case is diagnosed as diseased and otherwise it is diagnosed non-diseased.
 
-Since \(0 < \lambda \le 1\) the slope at the upper right corner (corresponding to \(x = 0\)) is \(\lambda ^ r\) and the slope is infinite at the origin (corresponding to \(x = \infty\)). As with PROPROC and CBM, once again one encounters a proper ROC curve approaching the upper-right corner with finite slope. If \(\lambda > 1\) the slope is zero at the origin, which would cause the ROC curve to start out below the chance diagonal. Therefore, constraint \(0 < \lambda \le 1\) is needed not just to yield a wider distribution for diseased cases but to also assure the ROC curve is proper. If \(\lambda = 1\) then regardless of the value of \(r\), the ROC curve is the chance diagonal because the two pdfs become identical.
+Since \(0 < \lambda \le 1\) the slope at the upper right corner of the ROC (corresponding to \(x = 0\)) is \(\lambda ^ r\) and the slope is infinite at the origin (corresponding to \(x = \infty\)). As with PROPROC and CBM, once again one encounters a proper ROC curve approaching the upper-right corner with finite slope. If \(\lambda > 1\) the slope is zero at the origin, which would cause the ROC curve to start out below the chance diagonal. Therefore, constraint \(0 < \lambda \le 1\) is needed not just to yield a wider distribution for diseased cases but to also assure the ROC curve is proper. If \(\lambda = 1\) then regardless of the value of \(r\), the ROC curve is the chance diagonal because the two pdfs become identical.
 
 The cumulative distribution function (CDF) of the gamma distribution is given by:
 
@@ -4211,93 +4122,20 @@ Here the lower incomplete gamma function \citep{abramowitz1964handbook} \(\gamma
 \label{eq:proper-roc-models-gamma-incomplete}
 \end{equation}
 
-{[}Since \texttt{R} implements the CDF of the gamma distribution directly, as \texttt{pgamma()} one actually has no use for Eqn. \eqref{eq:proper-roc-models-gamma-incomplete} which is included for pedagogic completeness.{]} The coordinates of the predicted ROC at threshold \(\xi\) are (the complementary probability is needed as FPF and TPF are the probabilities of exceeding a threshold):
+Since \texttt{R} implements the CDF of the gamma distribution directly, as \texttt{pgamma()} one actually has no use for Eqn. \eqref{eq:proper-roc-models-gamma-incomplete} which is included for pedagogic completeness. The coordinates of the predicted ROC at threshold \(\xi\) are (the complementary probability is needed as FPF and TPF are the probabilities of exceeding a threshold):
 
 \begin{equation}
 \left.\begin{aligned}
 \text{FPF}\left( \xi|r \right) &= 1 - \frac{\gamma\left( r,\xi \right)}{\Gamma\left( r \right)} \\
-&=\int_{\xi}^{\infty} f\left( u;r,1 \right) \\
+&=\int_{\xi}^{\infty} du ~ f\left( u;r,1 \right) \\
 \text{TPF}\left( \xi|r, \lambda \right) &= 1 - \frac{\gamma\left( r,\lambda \xi \right)}{\Gamma\left( r \right)} \\
-&=\int_{\xi}^{\infty} f\left( u;r,\lambda \right) \\
+&=\int_{\xi}^{\infty} du ~ f\left( u;r,\lambda \right) \\
 \end{aligned}\right\}
 \label{eq:proper-roc-models-gamma-fpf-tpf}
 \end{equation}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{aucIntegrand }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{ (FPF, r, lambda) }
-\NormalTok{\{}
-\NormalTok{  y }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{pgamma}\NormalTok{(}\FunctionTok{qgamma}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{FPF, r), r, }\AttributeTok{scale =} \DecValTok{1}\SpecialCharTok{/}\NormalTok{lambda)}
-  \FunctionTok{return}\NormalTok{(y)  }
-\NormalTok{\}}
-
-
-\NormalTok{biGammaRocY }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{ (x, r, lambda) \{}
-\NormalTok{  y }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{pgamma}\NormalTok{(x, r, }\AttributeTok{scale =} \DecValTok{1}\SpecialCharTok{/}\NormalTok{lambda)}
-  \FunctionTok{return}\NormalTok{(y)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
 \hypertarget{proper-roc-models-bigamma-code}{%
 \subsection{BGM code implementation}\label{proper-roc-models-bigamma-code}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{rArray }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FloatTok{4.391}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{);lambdaArray }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FloatTok{0.439}\NormalTok{,}\FloatTok{0.3}\NormalTok{,}\FloatTok{0.1}\NormalTok{)}
-\CommentTok{\#r \textless{}{-}  4.391; lambda \textless{}{-}  0.439 \# from Dorfman paper}
-\NormalTok{plotRoc }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
-\NormalTok{plotSlope }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
-\NormalTok{pdfs }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(rArray))}
-\NormalTok{\{}
-\NormalTok{  r }\OtherTok{\textless{}{-}}\NormalTok{ rArray[i];lambda }\OtherTok{\textless{}{-}}\NormalTok{ lambdaArray[i]}
-\NormalTok{  AUC }\OtherTok{\textless{}{-}} \FunctionTok{integrate}\NormalTok{(aucIntegrand,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{, }\AttributeTok{r =}\NormalTok{ r, }\AttributeTok{lambda =}\NormalTok{ lambda)}
-  \CommentTok{\# cat("r = ", r, ", lambda = ", lambda, ", AUC = ", AUC$value, "\textbackslash{}n")}
-  \CommentTok{\# left limit below gets the upper end of the ROC curve }
-  \CommentTok{\# the right limit gets the lower corner}
-\NormalTok{  x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, r}\SpecialCharTok{/}\NormalTok{lambda }\SpecialCharTok{+} \DecValTok{10}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(r}\SpecialCharTok{/}\NormalTok{lambda}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
-\NormalTok{  FPF }\OtherTok{\textless{}{-}} \FunctionTok{biGammaRocY}\NormalTok{(x, r, }\DecValTok{1}\NormalTok{)}
-\NormalTok{  TPF }\OtherTok{\textless{}{-}} \FunctionTok{biGammaRocY}\NormalTok{(x, r, lambda)}
-  
-\NormalTok{  rocPlot }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{FPF =}\NormalTok{ FPF, }\AttributeTok{TPF =}\NormalTok{ TPF)}
-\NormalTok{  plotRoc[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
-\NormalTok{    rocPlot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ FPF, }\AttributeTok{y =}\NormalTok{ TPF)) }\SpecialCharTok{+} 
-    \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+} 
-    \FunctionTok{ggtitle}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Plot "}\NormalTok{, }
-\NormalTok{           LETTERS[i], }
-           \StringTok{":"}\NormalTok{, }
-           \FunctionTok{sprintf}\NormalTok{(}\StringTok{" r = \%3.2f, lambda = \%3.2f"}\NormalTok{, }
-\NormalTok{                   r, lambda)))}
-
-
-  \CommentTok{\# taking mean + 3 times the standard deviation}
-\NormalTok{  x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{, r}\SpecialCharTok{/}\NormalTok{lambda }\SpecialCharTok{+} \DecValTok{3}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(r}\SpecialCharTok{/}\NormalTok{lambda}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
-  
-\NormalTok{  Pdf1 }\OtherTok{\textless{}{-}} \FunctionTok{dgamma}\NormalTok{(x, r)}
-\NormalTok{  Pdf2 }\OtherTok{\textless{}{-}} \FunctionTok{dgamma}\NormalTok{(x, r, }\AttributeTok{scale =} \DecValTok{1}\SpecialCharTok{/}\NormalTok{lambda)}
-  
-\NormalTok{  df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(x, x), }\AttributeTok{pdf =} \FunctionTok{c}\NormalTok{(Pdf1, Pdf2), }
-                   \AttributeTok{truth =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}non{-}diseased\textquotesingle{}}\NormalTok{, }\FunctionTok{length}\NormalTok{(Pdf1)), }
-                             \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}diseased\textquotesingle{}}\NormalTok{, }\FunctionTok{length}\NormalTok{(Pdf2))))}
-  
-\NormalTok{  pdfs[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}
-\NormalTok{    df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ pdf, }\AttributeTok{color =}\NormalTok{ truth)) }\SpecialCharTok{+} 
-    \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+} 
-    \FunctionTok{scale\_colour\_manual}\NormalTok{(}\AttributeTok{values=}\FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{,}\StringTok{"green"}\NormalTok{)) }\SpecialCharTok{+} 
-    \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{(), }
-          \AttributeTok{legend.position =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.9}\NormalTok{, }\FloatTok{0.9}\NormalTok{))}
-  
-  \CommentTok{\# may need to adjust limits to view detail of slope plot}
-\NormalTok{  x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.01}\NormalTok{)}
-
-\NormalTok{  slope }\OtherTok{\textless{}{-}}\NormalTok{ (}\FunctionTok{dgamma}\NormalTok{(x, r, }\AttributeTok{scale =} \DecValTok{1}\SpecialCharTok{/}\NormalTok{lambda))}\SpecialCharTok{/}\FunctionTok{pgamma}\NormalTok{(x, r)}
-
-\NormalTok{  slopePlot }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{slope =}\NormalTok{ slope)}
-\NormalTok{  plotSlope[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(slopePlot, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ slope)) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{()}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
 
 The bigamma-model formulae, coded above, generates ROC plots, Fig. \ref{fig:proper-roc-models-bigamma-plots-1}, pdfs plots for non-diseased and diseased cases, Fig. \ref{fig:proper-roc-models-bigamma-plots-2} and likelihood ratio (slope) plots Fig. \ref{fig:proper-roc-models-bigamma-plots-3} for four pairs of values of the \((r, \lambda)\) bigamma model parameters. Plot A is for \((r = 1, \lambda = 1)\) when the ROC becomes the chance diagonal regardless of the value of \(r\). Plot B is for \((r = 4.39, \lambda = 0.439)\) identical to those used for simulations in \footnote{dorfman1997proper}. Plot C is for \$(r = 5, \lambda = 0.3) and Plot D is for \$(r = 10, \lambda = 0.1).
 

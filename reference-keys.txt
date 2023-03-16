@@ -165,6 +165,7 @@ eq:proper-roc-models-def-bivariate-cdf
 eq:proper-roc-models-area-proproc2
 eq:proper-roc-models-area-proproc-az-inequality
 fig:proper-roc-models-plots-3
+eq:proper-roc-models-binning-rule
 eq:proper-roc-models-cbm-pdfn
 eq:proper-roc-models-cbm-pdfd
 eq:proper-roc-models-cbm-likelihood
@@ -350,7 +351,6 @@ proper-roc-models-proproc-formulae
 proper-roc-models-proproc-code
 proper-roc-models-cbm
 proper-roc-models-cbm-formulae
-proper-roc-models-cbm-code
 proper-roc-models-cbm-rocs
 proper-roc-models-cbm-pdfs
 proper-roc-models-cbm-slopes
