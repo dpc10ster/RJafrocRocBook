@@ -183,9 +183,9 @@ eq:proper-roc-models-bigamma-likelihood
 eq:proper-roc-models-gamma-cdf
 eq:proper-roc-models-gamma-incomplete
 eq:proper-roc-models-gamma-fpf-tpf
-fig:proper-roc-models-bigamma-plots-1
-fig:proper-roc-models-bigamma-plots-2
-fig:proper-roc-models-bigamma-plots-3
+fig:proper-roc-models-bigamma-plots-roc
+fig:proper-roc-models-bigamma-plots-pdf
+fig:proper-roc-models-bigamma-plots-lr
 eq:multivariate-sampling-model
 eq:bivariate-binormal-model-density-function-multivariate
 eq:bivariate-binormal-model-density-function
@@ -356,7 +356,6 @@ proper-roc-models-cbm-pdfs
 proper-roc-models-cbm-slopes
 proper-roc-models-bigamma
 proper-roc-models-bigamma-formulae
-proper-roc-models-bigamma-code
 proper-roc-models-bigamma-rocs
 proper-roc-models-bigamma-pdfs
 proper-roc-models-bigamma-slopes
