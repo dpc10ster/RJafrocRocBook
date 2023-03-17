@@ -7,7 +7,7 @@
 
 
 
-## How much finished 50% {#proper-roc-models-how-much-finished}
+## How much finished 95% {#proper-roc-models-how-much-finished}
 
 
 
@@ -687,7 +687,7 @@ Here the lower incomplete gamma function [@abramowitz1964handbook] $\gamma\left(
 
 
 
-### BGM ROC plots {#proper-roc-models-bigamma-rocs}
+### BGM ROC plots {#proper-roc-models-bigamma-code}
 
 
 

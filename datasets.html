@@ -4,20 +4,20 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 The Binary Task | Modeling ROC data</title>
-  <meta name="description" content="Chapter 2 The Binary Task | Modeling ROC data." />
+  <title>Chapter 11 Datasets | Modeling ROC data</title>
+  <meta name="description" content="Chapter 11 Datasets | Modeling ROC data." />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 The Binary Task | Modeling ROC data" />
+  <meta property="og:title" content="Chapter 11 Datasets | Modeling ROC data" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Chapter 2 The Binary Task | Modeling ROC data." />
+  <meta property="og:description" content="Chapter 11 Datasets | Modeling ROC data." />
   <meta name="github-repo" content="dpc10ster/RJafrocRocBook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 The Binary Task | Modeling ROC data" />
+  <meta name="twitter:title" content="Chapter 11 Datasets | Modeling ROC data" />
   
-  <meta name="twitter:description" content="Chapter 2 The Binary Task | Modeling ROC data." />
+  <meta name="twitter:description" content="Chapter 11 Datasets | Modeling ROC data." />
   
 
 <meta name="author" content="Dev P. Chakraborty, PhD" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="overview.html"/>
-<link rel="next" href="binary-task-model.html"/>
+<link rel="prev" href="bivariate-binormal-model.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -513,439 +513,184 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="binary-task" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Chapter 2</span> The Binary Task<a href="binary-task.html#binary-task" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="binary-task-how-much-finished" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> How much finished 90%<a href="binary-task.html#binary-task-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="datasets" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Chapter 11</span> Datasets<a href="datasets.html#datasets" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="datasets-datasetsdd" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Datasets embedded in <code>RJafroc</code><a href="datasets.html#datasets-datasetsdd" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>They are identified in the code by dataset<code>dd</code> (where <code>dd</code> is an integer in the range <code>01</code> to <code>14</code>). As an example, <code>dataset01</code> can be viewed <a href="https://dpc10ster.github.io/RJafroc/reference/dataset01.html">here</a>.</p>
+<div id="datasets-dataset01" class="section level3 hasAnchor" number="11.1.1">
+<h3><span class="header-section-number">11.1.1</span> Dataset01<a href="datasets.html#datasets-dataset01" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>dataset01</code> “TONY” FROC dataset <span class="citation">(<a href="#ref-chakraborty2011estimating" role="doc-biblioref">DP Chakraborty and Svahn 2011</a>)</span></p>
+<pre><code>## List of 3
+##  $ NL   : num [1:2, 1:5, 1:185, 1:3] 3 -Inf 3 -Inf 4 ...
+##  $ LL   : num [1:2, 1:5, 1:89, 1:2] 4 4 3 -Inf 3.5 ...
+##  $ LL_IL: logi NA</code></pre>
 </div>
-<div id="binary-taskIntro" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Introduction<a href="binary-task.html#binary-taskIntro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In the previous chapter four observer performance paradigms were introduced: the receiver operating characteristic (ROC), the free-response ROC (FROC), the location ROC (LROC) and the region of interest (ROI). The next few chapters focus on the ROC paradigm, where each case is rated for confidence in presence of disease. While a multiple point rating scale is generally used, in this chapter it is assumed that the ratings are binary, and the allowed values are “1” vs. “2”. Equivalently, the ratings could be “non-diseased” vs. “diseased”, “negative” vs. “positive”, etc. In the literature this method of data acquisition is also termed the “yes/no” procedure <span class="citation">(<a href="#ref-green1966signal" role="doc-biblioref">Green, Swets, et al. 1966</a>; <a href="#ref-egan1975book" role="doc-biblioref">Egan 1975a</a>)</span>. The reason for restricting, for now, to the binary task is that the multiple rating task can be shown to be equivalent to a number of simultaneously conducted binary tasks. Therefore, understanding the simpler method is a good starting point.</p>
-<p>Since the truth is also binary one can define a 2 x 2 table summarizing the outcomes in such studies and useful fractions that can be defined from the counts in this table, the most important ones being true positive fraction (TPF) and false positive fraction (FPF). These are used to construct measures of performance, some of which are desirable from the researcher’s point of view, but others are more relevant to radiologists. The concept of disease prevalence is introduced and used to derive relations between the different types of measures. An <code>R</code> example of calculation of these quantities is given.</p>
+<div id="datasets-dataset02" class="section level3 hasAnchor" number="11.1.2">
+<h3><span class="header-section-number">11.1.2</span> Dataset02<a href="datasets.html#datasets-dataset02" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>dataset02</code> “VAN-DYKE” (Van Dyke) ROC dataset <span class="citation">(<a href="#ref-RN1993" role="doc-biblioref">Van Dyke et al. 1993</a>)</span></p>
+<pre><code>## List of 3
+##  $ NL   : num [1:2, 1:5, 1:114, 1] 1 3 2 3 2 2 1 2 3 2 ...
+##  $ LL   : num [1:2, 1:5, 1:45, 1] 5 5 5 5 5 5 5 5 5 5 ...
+##  $ LL_IL: logi NA</code></pre>
 </div>
-<div id="binary-task-2-2-table" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> The 2x2 table<a href="binary-task.html#binary-task-2-2-table" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this book, the term “case” is used for images obtained for diagnostic purposes, of a patient; often multiple images of a patient, sometimes from different modalities, are involved in an interpretation; all images of a single patient that are used in the interpretation are collectively referred to as a case. A familiar example is the 4-view presentation used in screening mammography, where two views of each breast are viewed.</p>
-<p>Let <span class="math inline">\(\text{D}\)</span> represent the radiologist’s decision with <span class="math inline">\(\text{D}=1\)</span> representing the decision “case is diagnosed as non-diseased” and <span class="math inline">\(\text{D}=2\)</span> representing the decision “case is diagnosed as diseased”. Let <span class="math inline">\(\text{T}\)</span> denote the truth with <span class="math inline">\(\text{T}=1\)</span> representing “case is actually non-diseased” and <span class="math inline">\(\text{T}=2\)</span> representing “case is actually diseased”. Each decision, one of two values, will be associated with one of two truth states, resulting in an entry in one of 4 cells arranged in a 2 x 2 layout, termed the decision vs. truth table, Table <a href="binary-task.html#tab:binary-task-truth-table">2.1</a> which is of fundamental importance in observer performance. The cells are labeled as follows. The abbreviation <span class="math inline">\(\text{TN}\)</span>, for true negative, represents a <span class="math inline">\(\text{D}=1\)</span> decision on a <span class="math inline">\(\text{T}=1\)</span> case. <span class="math inline">\(\text{FN}\)</span>, for false negative, represents a <span class="math inline">\(\text{D}=1\)</span> decision on a <span class="math inline">\(\text{T}=2\)</span> case (also termed a “miss”). <span class="math inline">\(\text{FP}\)</span>, for false positive, represents a <span class="math inline">\(\text{D}=2\)</span> decision on a <span class="math inline">\(\text{T}=1\)</span> case (a “false-alarm”) and <span class="math inline">\(\text{TP}\)</span>, for true positive, represents a <span class="math inline">\(\text{D}=2\)</span> decision on a <span class="math inline">\(\text{T}=2\)</span> case (a “hit”).</p>
-<table>
-<caption>
-<span id="tab:binary-task-truth-table">TABLE 2.1: </span>Truth Table.
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-T=1
-</th>
-<th style="text-align:left;">
-T=2
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-D=1
-</td>
-<td style="text-align:left;">
-TN
-</td>
-<td style="text-align:left;">
-FN
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-D=2
-</td>
-<td style="text-align:left;">
-FP
-</td>
-<td style="text-align:left;">
-TP
-</td>
-</tr>
-</tbody>
-</table>
-<p>Table <a href="binary-task.html#tab:binary-task-truth-table2">2.2</a> shows the number of decisions in each of the four categories defined in Table <a href="binary-task.html#tab:binary-task-truth-table">2.1</a>. <span class="math inline">\(n(\text{TN})\)</span> is the number of true negative decisions, <span class="math inline">\(n(\text{FN})\)</span> is the number of false negative decisions, etc. The last row is the sum of the corresponding columns. The sum of the number of true negative decisions <span class="math inline">\(n(\text{TN})\)</span> and the number of false positive decisions <span class="math inline">\(n(\text{FP})\)</span> must equal the total number of non-diseased cases, denoted <span class="math inline">\(K_1\)</span>. Likewise, the sum of the number of false negative decisions <span class="math inline">\(n(\text{FN})\)</span> and the number of true positive decisions <span class="math inline">\(n(\text{TP})\)</span> must equal the total number of diseased cases, denoted <span class="math inline">\(K_2\)</span>. The last column is the sum of the corresponding rows. The sum of the number of true negative <span class="math inline">\(n(\text{TN})\)</span> and false negative <span class="math inline">\(n(\text{FN})\)</span> decisions is the total number of negative decisions, denoted <span class="math inline">\(n(N)\)</span>. Likewise, the sum of the number of false positive <span class="math inline">\(n(\text{FP})\)</span> and true positive <span class="math inline">\(n(\text{TP})\)</span> decisions is the total number of positive decisions, denoted <span class="math inline">\(n(P)\)</span>. Since each case yields a decision, the bottom-right corner cell is <span class="math inline">\(n(N) + n(P)\)</span>, which must also equal <span class="math inline">\(K_1+K_2\)</span>, the total number of cases denoted <span class="math inline">\(K\)</span>. These statements are summarized in Eqn. <a href="binary-task.html#eq:binary-task-truth-table-eqns">(2.1)</a>.</p>
-<p><span class="math display" id="eq:binary-task-truth-table-eqns">\[\begin{equation}
-\left.
-\begin{aligned}
-K_1&amp;=n(TN)+n(FP)\\
-K_2&amp;=n(FN)+n(TN)\\
-n(N)&amp;=n(TN)+n(FN)\\
-n(P)&amp;=n(TP)+n(FP)\\
-K=K_1+K_2&amp;=n(N)+n(P)
-\end{aligned}
-\right\}
-\tag{2.1}
-\end{equation}\]</span></p>
-<table>
-<caption>
-<span id="tab:binary-task-truth-table2">TABLE 2.2: </span>Individual 2x2 table cell counts and row and column sums. <span class="math inline">\(K_1\)</span> is the number of non-diseased cases, <span class="math inline">\(K_2\)</span> is the number of diseased cases and <span class="math inline">\(K\)</span> is the total number of cases.
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-T=1
-</th>
-<th style="text-align:left;">
-T=2
-</th>
-<th style="text-align:left;">
-RowSums
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-D=1
-</td>
-<td style="text-align:left;">
-n(TN)
-</td>
-<td style="text-align:left;">
-n(FN)
-</td>
-<td style="text-align:left;">
-n(N)=n(TN)+n(FN)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-D=2
-</td>
-<td style="text-align:left;">
-n(FP)
-</td>
-<td style="text-align:left;">
-n(TP)
-</td>
-<td style="text-align:left;">
-n(P)=n(FP)+n(TP)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ColSums
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K_1\)</span>=n(TN)+n(FP)
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K_2\)</span>=n(FN)+n(TP)
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K=K_1+K_2\)</span>=n(N)+n(P)
-</td>
-</tr>
-</tbody>
-</table>
+<div id="datasets-dataset03" class="section level3 hasAnchor" number="11.1.3">
+<h3><span class="header-section-number">11.1.3</span> Dataset03<a href="datasets.html#datasets-dataset03" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>dataset03</code> “FRANKEN” (Franken) ROC dataset <span class="citation">(<a href="#ref-RN1995" role="doc-biblioref">Franken et al. 1992</a>)</span></p>
+<pre><code>## List of 3
+##  $ NL   : num [1:2, 1:4, 1:100, 1] 3 3 4 3 3 3 4 1 1 3 ...
+##  $ LL   : num [1:2, 1:4, 1:67, 1] 5 5 4 4 5 4 4 5 2 2 ...
+##  $ LL_IL: logi NA</code></pre>
 </div>
-<div id="sensitivity-and-specificity" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Sensitivity and specificity<a href="binary-task.html#sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The notation <span class="math inline">\(\text{P(D|T)}\)</span> indicates the probability of diagnosis <span class="math inline">\(\text{D}\)</span> for a given truth state <span class="math inline">\(\text{T}\)</span>. The vertical bar is used to denote a conditional probability, i.e., the probability of what is to the left of the bar occurring when what is to the right of the bar is true:</p>
-<p><span class="math display" id="eq:binary-task-p-d-given-t">\[\begin{equation}
-\text{P(D|T)} \equiv P(\text{diagnosis is D} | \text{truth is T})
-\tag{2.2}
-\end{equation}\]</span></p>
-<p>Therefore the probability that the radiologist will diagnose “case is diseased” when the case is actually diseased is <span class="math inline">\(\text{P(D=2|T=2)}\)</span>, the probability of a true positive <span class="math inline">\(\text{P(TP)}\)</span>.</p>
-<p><span class="math display" id="eq:binary-task-p-tp">\[\begin{equation}
-\text{P(TP)} = \text{P(D = 2 | T = 2)}
-\tag{2.3}
-\end{equation}\]</span></p>
-<p>Likewise, the probability that the radiologist will diagnose “case is non-diseased” when the case is actually diseased is <span class="math inline">\(\text{P(D=1|T=2)}\)</span>, the probability of a false negative <span class="math inline">\(\text{P(FN)}\)</span>.</p>
-<p><span class="math display" id="eq:binary-task-p-fn">\[\begin{equation}
-\text{P(FN)} = \text{P(D = 1 | T = 2)}
-\tag{2.4}
-\end{equation}\]</span></p>
-<p>The corresponding probabilities for non-diseased cases, <span class="math inline">\(P(TN)\)</span> and <span class="math inline">\(P(FP)\)</span>, are defined by:</p>
-<p><span class="math display" id="eq:binary-task-p-tn-fp">\[\begin{equation}
-\left.
-\begin{aligned}
-\text{P(TN)}&amp;=\text{P(D=1|T=1)}\\
-\text{P(FP)}&amp;=\text{P(D=2|T=1)}
-\end{aligned}
-\right\}
-\tag{2.5}
-\end{equation}\]</span></p>
-<p>Since the diagnosis must be either <span class="math inline">\(D=1\)</span> or <span class="math inline">\(D=2\)</span>, the following must be true:</p>
-<p><span class="math display" id="eq:binary-task-p-sum-to-unity">\[\begin{equation}
-\left.
-\begin{aligned}  
-\text{P(D=1|T=1)+P(D=2|T=1)}=&amp;1\\
-\text{P(D=1|T=2)+P(D=2|T=2)}=&amp;1
-\end{aligned}
-\right \}
-\tag{2.6}
-\end{equation}\]</span></p>
-<p>Equivalently, these equations can be written:</p>
-<p><span class="math display" id="eq:binary-task-p-sum-to-unity2">\[\begin{equation}
-\left.
-\begin{aligned}  
-\text{P(TN)+P(FP)}=&amp; 1\\
-\text{P(FN)+P(TP)}=&amp; 1
-\end{aligned}
-\right \}
-\tag{2.7}
-\end{equation}\]</span></p>
-<p>Comments:</p>
+<div id="datasets-dataset04" class="section level3 hasAnchor" number="11.1.4">
+<h3><span class="header-section-number">11.1.4</span> Dataset04<a href="datasets.html#datasets-dataset04" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>dataset04</code> “FEDERICA” (Federica Zanca) FROC dataset <span class="citation">(<a href="#ref-zanca2009evaluation" role="doc-biblioref">Federica Zanca et al. 2009</a>)</span></p>
+<pre><code>## List of 3
+##  $ NL   : num [1:5, 1:4, 1:200, 1:7] -Inf -Inf 1 -Inf -Inf ...
+##  $ LL   : num [1:5, 1:4, 1:100, 1:3] 4 5 4 5 4 3 5 4 4 3 ...
+##  $ LL_IL: logi NA</code></pre>
+</div>
+<div id="datasets-dataset05" class="section level3 hasAnchor" number="11.1.5">
+<h3><span class="header-section-number">11.1.5</span> Dataset05<a href="datasets.html#datasets-dataset05" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>dataset05</code> “THOMPSON” (John Thompson) FROC dataset <span class="citation">(<a href="#ref-RN2368" role="doc-biblioref">J. D. Thompson et al. 2014</a>)</span></p>
+<pre><code>## List of 3
+##  $ NL   : num [1:2, 1:9, 1:92, 1:7] 4 5 -Inf -Inf 8 ...
+##  $ LL   : num [1:2, 1:9, 1:47, 1:3] 5 9 -Inf 10 8 ...
+##  $ LL_IL: logi NA</code></pre>
+</div>
+<div id="datasets-dataset06" class="section level3 hasAnchor" number="11.1.6">
+<h3><span class="header-section-number">11.1.6</span> Dataset06<a href="datasets.html#datasets-dataset06" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li><p>An easy way to remember Eqn. <a href="binary-task.html#eq:binary-task-p-sum-to-unity2">(2.7)</a> is to start by writing down one of the four probabilities, e.g., <span class="math inline">\(\text{P(TN)}\)</span>, and “reversing” both terms inside the parentheses, i.e., <span class="math inline">\(\text{T} \Rightarrow \text{F}\)</span>, and <span class="math inline">\(\text{N} \Rightarrow \text{P}\)</span>. This yields the term <span class="math inline">\(\text{P(FP)}\)</span> which when added to the previous probability yields unity, i.e., the first equation in Eqn. <a href="binary-task.html#eq:binary-task-p-sum-to-unity2">(2.7)</a>.</p></li>
-<li><p>Because there are two equations in four unknowns, only two of the four probabilities are independent. By tradition these are chosen to be <span class="math inline">\(\text{P(D=1|T=1)}\)</span> and <span class="math inline">\(\text{P(D=2|T=2)}\)</span>, i.e., <span class="math inline">\(P(TN)\)</span> and <span class="math inline">\(P(TP)\)</span>, the probabilities of correct decisions on non-diseased and diseased cases, respectively. The two basic probabilities are so important that they have names: <span class="math inline">\(\text{P(D=2|T=2)=P(TP)}\)</span> is termed <strong>sensitivity</strong> (Se) and <span class="math inline">\(\text{P(D=1|T=1)=P(TN)}\)</span> is termed <strong>specificity</strong> (Sp):</p></li>
+<li><code>dataset06</code> “MAGNUS” (Magnus Bath) FROC dataset <span class="citation">(<a href="#ref-RN1929" role="doc-biblioref">Vikgren et al. 2008</a>)</span></li>
 </ul>
-<p><span class="math display" id="eq:binary-task-se-sp">\[\begin{equation}
-\left.
-\begin{aligned}  
-\text{Se}=\text{P(TP)=P(D=2|T=2)}\\
-\text{Sp}=\text{P(TN)=P(D=1|T=1)}
-\end{aligned}
-\right \}
-\tag{2.8}
-\end{equation}\]</span></p>
-<blockquote>
-<p>The radiologist can be regarded as a diagnostic-test yielding a binary decision under the binary truth condition. More generally, any test (e.g., a blood test for HIV) yielding a binary result (positive or negative) under a binary truth condition is said to be sensitive if it correctly detects the diseased condition most of the time. The test is said to be specific if it correctly detects the non-diseased condition most of the time. Sensitivity is how correct the test is at detecting a diseased condition, and specificity is how correct the test is at detecting a non-diseased condition.</p>
-</blockquote>
-<!-- ### Reasons for the names sensitivity and specificity -->
-<!-- It is important to understand the reason for these names and an analogy may be helpful. Most of us are sensitive to temperature, especially if the choice is between ice-cold vs. steaming hot. The sense of touch is said to be sensitive to temperature. One can imagine some neurological condition rendering a person hypersensitive to temperature, such that the person responds "hot" no matter what is being touched. For such a person the sense of touch is not very specific, as it is unable to distinguish between the two temperatures. This person would be characterized by unit sensitivity (since the response is “hot” to all steaming hot objects) and zero specificity (since the response is never “cold” to ice-cold objects). Likewise, a different neurological condition could render a person hypersensitive to cold, and the response is "cold" no matter what is being touched. Such a person would have zero sensitivity (since the response is never “hot” when touching steaming hot) and unit specificity (since the response is “cold” when touching ice-cold). Already one suspects that there is an inverse relation between sensitivity and specificity. -->
-<div id="estimating-sensitivity-and-specificity" class="section level3 hasAnchor" number="2.4.1">
-<h3><span class="header-section-number">2.4.1</span> Estimating sensitivity and specificity<a href="binary-task.html#estimating-sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Sensitivity and specificity are the probabilities of correct decisions over diseased and non-diseased cases, respectively. The true values of these probabilities would require interpreting all diseased and non-diseased cases in the entire population of cases. In reality, one has a finite sample of cases and the corresponding quantities, calculated from this finite sample, are termed <strong>estimates</strong>. Population values are fixed, and in general unknown, while estimates are realizations of random variables. Intuitively, an estimate calculated over a larger number of cases is expected to be closer to the population value than an estimate calculated over a smaller number of cases.</p>
-<p>Estimates of sensitivity and specificity follow from counting the numbers of TP and TN decisions in Table <a href="binary-task.html#tab:binary-task-truth-table2">2.2</a> and dividing by the appropriate denominators. For sensitivity, the denominator is the number of diseased cases <span class="math inline">\(K_2\)</span> and for specificity, the appropriate denominator is the number of non-diseased cases <span class="math inline">\(K_1\)</span>. The estimation equations for sensitivity specificity are (estimates are often denoted by the “hat” or circumflex symbol ^):</p>
-<p><span class="math display" id="eq:binary-task-se-sp-est">\[\begin{equation}
-\left.
-\begin{aligned}  
-\widehat{\text{Se}}=\widehat{\text{P(TP)}}=\frac{\text{n(TP)}}{K_2}\\
-\widehat{\text{Sp}}=\widehat{\text{P(TN)}}=\frac{\text{n(TN)}}{K_1}
-\end{aligned}
-\right \}
-\tag{2.9}
-\end{equation}\]</span></p>
-<blockquote>
-<p>The ratio of the number of TP decisions to the number of actually diseased cases is termed <strong>true positive fraction</strong> <span class="math inline">\(\widehat{\text{TPF}}\)</span>, an estimate of sensitivity, or equivalently an estimate of <span class="math inline">\(\widehat{\text{P(TP)}}\)</span>. Likewise, the ratio of the number of TN decisions to the number of actually non-diseased cases is termed <strong>true negative fraction</strong> <span class="math inline">\(\widehat{\text{TNF}}\)</span>, an estimate of specificity, or equivalently an estimate of <span class="math inline">\(\widehat{\text{P(TN)}}\)</span>. The complements of <span class="math inline">\(\widehat{\text{TPF}}\)</span> and <span class="math inline">\(\widehat{\text{TNF}}\)</span> are termed <strong>false negative fraction</strong> <span class="math inline">\(\widehat{\text{FNF}}\)</span> and <strong>false positive fraction</strong> <span class="math inline">\(\widehat{\text{FPF}}\)</span>, respectively.</p>
-</blockquote>
+<pre><code>## List of 3
+##  $ NL   : num [1:2, 1:4, 1:89, 1:17] 1 -Inf -Inf -Inf 1 ...
+##  $ LL   : num [1:2, 1:4, 1:42, 1:15] -Inf -Inf -Inf -Inf -Inf ...
+##  $ LL_IL: logi NA</code></pre>
+</div>
+<div id="datasets-dataset07" class="section level3 hasAnchor" number="11.1.7">
+<h3><span class="header-section-number">11.1.7</span> Dataset07<a href="datasets.html#datasets-dataset07" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>dataset07</code> “LUCY-WARREN” (Lucy Warren) FROC dataset <span class="citation">(<a href="#ref-RN2507" role="doc-biblioref">Warren et al. 2014</a>)</span></p>
+<pre><code>## List of 3
+##  $ NL   : num [1:5, 1:7, 1:162, 1:4] 1 2 1 2 -Inf ...
+##  $ LL   : num [1:5, 1:7, 1:81, 1:3] 2 -Inf 2 -Inf 1 ...
+##  $ LL_IL: logi NA</code></pre>
+</div>
+<div id="datasets-dataset08" class="section level3 hasAnchor" number="11.1.8">
+<h3><span class="header-section-number">11.1.8</span> Dataset08<a href="datasets.html#datasets-dataset08" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>dataset08</code> “PENEDO” (Monica Penedo) FROC dataset <span class="citation">(<a href="#ref-RN1520" role="doc-biblioref">Penedo et al. 2005</a>)</span></p>
+<pre><code>## List of 3
+##  $ NL   : num [1:5, 1:5, 1:112, 1] 3 2 3 2 3 0 0 4 0 2 ...
+##  $ LL   : num [1:5, 1:5, 1:64, 1] 3 2 4 3 3 3 3 4 4 3 ...
+##  $ LL_IL: logi NA</code></pre>
+</div>
+<div id="datasets-dataset09" class="section level3 hasAnchor" number="11.1.9">
+<h3><span class="header-section-number">11.1.9</span> Dataset09<a href="datasets.html#datasets-dataset09" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>dataset09</code> “NICO-CAD-ROC” (Nico Karssemeijer) ROC dataset <span class="citation">(<a href="#ref-hupse2013standalone" role="doc-biblioref">Hupse et al. 2013</a>)</span></p>
+<pre><code>## List of 3
+##  $ NL   : num [1, 1:10, 1:200, 1] 28 0 14 0 16 0 31 0 0 0 ...
+##  $ LL   : num [1, 1:10, 1:80, 1] 29 12 13 10 41 67 61 51 67 0 ...
+##  $ LL_IL: logi NA</code></pre>
+</div>
+<div id="datasets-dataset10" class="section level3 hasAnchor" number="11.1.10">
+<h3><span class="header-section-number">11.1.10</span> Dataset10<a href="datasets.html#datasets-dataset10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>dataset10</code> “RUSCHIN” (Mark Ruschin) ROC dataset <span class="citation">(<a href="#ref-RN1646" role="doc-biblioref">Ruschin et al. 2007</a>)</span></p>
+<pre><code>## List of 3
+##  $ NL   : num [1:3, 1:8, 1:90, 1] 1 0 0 0 0 0 1 0 0 0 ...
+##  $ LL   : num [1:3, 1:8, 1:40, 1] 2 1 1 2 0 0 0 0 0 3 ...
+##  $ LL_IL: logi NA</code></pre>
+</div>
+<div id="datasets-dataset11" class="section level3 hasAnchor" number="11.1.11">
+<h3><span class="header-section-number">11.1.11</span> Dataset11<a href="datasets.html#datasets-dataset11" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>dataset11</code> “DOBBINS-1” (James Dobbins) FROC dataset <span class="citation">(<a href="#ref-Dobbins2016MultiInstitutional" role="doc-biblioref">Dobbins III et al. 2016</a>)</span></p>
+<pre><code>## List of 3
+##  $ NL   : num [1:4, 1:5, 1:158, 1:4] -Inf -Inf -Inf -Inf -Inf ...
+##  $ LL   : num [1:4, 1:5, 1:115, 1:20] -Inf -Inf -Inf -Inf -Inf ...
+##  $ LL_IL: logi NA</code></pre>
+</div>
+<div id="datasets-dataset12" class="section level3 hasAnchor" number="11.1.12">
+<h3><span class="header-section-number">11.1.12</span> Dataset12<a href="datasets.html#datasets-dataset12" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>dataset12</code> “DOBBINS-2” (James Dobbins) ROC dataset <span class="citation">(<a href="#ref-Dobbins2016MultiInstitutional" role="doc-biblioref">Dobbins III et al. 2016</a>)</span></p>
+<pre><code>## List of 3
+##  $ NL   : num [1:4, 1:5, 1:152, 1] -Inf -Inf -Inf -Inf -Inf ...
+##  $ LL   : num [1:4, 1:5, 1:88, 1] 3 4 4 -Inf -Inf ...
+##  $ LL_IL: logi NA</code></pre>
+</div>
+<div id="datasets-dataset13" class="section level3 hasAnchor" number="11.1.13">
+<h3><span class="header-section-number">11.1.13</span> Dataset13<a href="datasets.html#datasets-dataset13" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>dataset13</code> “DOBBINS-3” (James Dobbins) FROC dataset <span class="citation">(<a href="#ref-Dobbins2016MultiInstitutional" role="doc-biblioref">Dobbins III et al. 2016</a>)</span></p>
+<pre><code>## List of 3
+##  $ NL   : num [1:4, 1:5, 1:158, 1:4] -Inf 3 -Inf 4 5 ...
+##  $ LL   : num [1:4, 1:5, 1:106, 1:15] -Inf -Inf -Inf -Inf -Inf ...
+##  $ LL_IL: logi NA</code></pre>
+</div>
+<div id="datasets-dataset14" class="section level3 hasAnchor" number="11.1.14">
+<h3><span class="header-section-number">11.1.14</span> Dataset14<a href="datasets.html#datasets-dataset14" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>dataset14</code> “FEDERICA-REAL-ROC” (Federica Zanca) <em>real</em> ROC dataset <span class="citation">(<a href="#ref-RN2318" role="doc-biblioref">F. Zanca et al. 2012</a>)</span></p>
+<pre><code>## List of 3
+##  $ NL   : num [1:2, 1:4, 1:200, 1] 2 2 2 2 1 3 2 2 3 1 ...
+##  $ LL   : num [1:2, 1:4, 1:100, 1] 6 5 6 4 5 5 5 5 5 4 ...
+##  $ LL_IL: logi NA</code></pre>
 </div>
 </div>
-<div id="disease-prevalence" class="section level2 hasAnchor" number="2.5">
-<h2><span class="header-section-number">2.5</span> Disease prevalence<a href="binary-task.html#disease-prevalence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Disease prevalence, often abbreviated to prevalence, is defined as the probability that a randomly sampled case is of a diseased patient, i.e., the fraction of the entire population that is diseased. It is denoted <span class="math inline">\(\text{P(D|pop)}\)</span> when patients are randomly sampled from the population (“pop”) and otherwise it is denoted <span class="math inline">\(\text{P(D|lab)}\)</span>, where the condition “lab” stands for a laboratory study, where cases may be artificially enriched, and thus not representative of the population:</p>
-<p><span class="math display" id="eq:binary-task-dis-prev">\[\begin{equation}
-\left.
-\begin{aligned}  
-P(\text{D}|\text{pop})=&amp;P(\text{T}=2|\text{pop})\\
-P(\text{D}|\text{lab})=&amp;P(\text{T}=2|\text{lab})
-\end{aligned}
-\right \}
-\tag{2.10}
-\end{equation}\]</span></p>
-<p>Since the patients must be either diseased on non-diseased it follows with either sampling method that:</p>
-<p><span class="math display">\[\begin{equation}
-\left.
-\begin{aligned}  
-P(\text{T}=1|\text{pop})+P(\text{T}=2|\text{pop})&amp;=1\\
-P(\text{T}=1|\text{lab})+P(\text{T}=2|\text{lab})&amp;=1
-\end{aligned}
-\right \}
-\end{equation}\]</span></p>
-<p>If a finite number of patients are sampled randomly from the population the fraction of diseased patients in the sample is an estimate of true disease prevalence.</p>
-<p><span class="math display" id="eq:binary-task-dis-prev-est">\[\begin{equation}
-\left.
-\begin{aligned}  
-\widehat{P(\text{D}|\text{pop})}=
-\frac{K_2}{K_1+K_2}
-\end{aligned}
-\right \}
-\tag{2.11}
-\end{equation}\]</span></p>
-<p>It is important to appreciate the distinction between population prevalence and the laboratory prevalence. As an example true disease prevalence for breast cancer is about five per 1000 patients in the US, but most mammography studies are conducted with comparable numbers of non-diseased and diseased cases:</p>
-<p><span class="math display" id="eq:binary-task-dis-prev-lab-vs-pop">\[\begin{equation}
-\left.
-\begin{aligned}  
-\widehat{P(\text{D}|\text{pop})}\sim&amp; 0.005\\
-\widehat{P(\text{D}|\text{lab})}\sim&amp; 0.5\gg \widehat{P(\text{D}|\text{pop})}
-\end{aligned}
-\right \}
-\tag{2.12}
-\end{equation}\]</span></p>
+<div id="other-datasets" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Other datasets<a href="datasets.html#other-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="datasets-datasetCadLroc" class="section level3 hasAnchor" number="11.2.1">
+<h3><span class="header-section-number">11.2.1</span> DatasetCadLroc<a href="datasets.html#datasets-datasetCadLroc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>datasetCadLroc</code> “NICO-CAD-LROC” (Nico Karssemeijer) standalone CAD LROC dataset</p>
+<pre><code>## List of 3
+##  $ NL   : num [1, 1:10, 1:200, 1] 28 0 14 0 16 0 31 0 0 0 ...
+##  $ LL   : num [1, 1:10, 1:80, 1] 0 0 0 0 0 0 0 0 67 0 ...
+##  $ LL_IL: num [1, 1:10, 1:80, 1] 29 12 13 10 41 67 61 51 0 0 ...</code></pre>
 </div>
-<div id="accuracy" class="section level2 hasAnchor" number="2.6">
-<h2><span class="header-section-number">2.6</span> Accuracy<a href="binary-task.html#accuracy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Accuracy is defined as the fraction of all decisions that are correct. Denoting it by <span class="math inline">\(\text{Ac}\)</span> one has for the corresponding estimate:</p>
-<p><span class="math display" id="eq:binary-task-ac-est">\[\begin{equation}
-\widehat{\text{Ac}}=\frac{n(TN)+n(TP)}{n(TN)+n(TP)+n(FP)+n(FN)}
-\tag{2.13}
-\end{equation}\]</span></p>
-<p>Explanation: the numerator is the total number of correct decisions and the denominator is the total number of decisions. An equivalent expression is:</p>
-<p><span class="math display" id="eq:binary-task-ac-est2">\[\begin{equation}
-\widehat{\text{Ac}}=\widehat{\text{Sp}}\widehat{P(!D)}+\widehat{\text{Se}}\widehat{P(D)}
-\tag{2.14}
-\end{equation}\]</span></p>
-<p>The exclamation mark symbol is used to denote the “not” or negation operator. For example, <span class="math inline">\(P(!D)\)</span> means the probability that the patient is not diseased. Eqn. <a href="binary-task.html#eq:binary-task-ac-est2">(2.14)</a> applies equally to laboratory or population studies, <em>provided sensitivity and specificity are estimated consistently</em>. One cannot, for example, combine a population estimate of prevalence with a laboratory estimate of sensitivity.</p>
-<p>Eqn. <a href="binary-task.html#eq:binary-task-ac-est2">(2.14)</a> can be understood from the following argument. <span class="math inline">\(\widehat{Sp}\)</span> is the fraction of correct decisions on non-diseased cases. Multiplying this by <span class="math inline">\(\widehat{P(!D)}\)</span> yields the fraction of correct negative decisions on all cases. Similarly <span class="math inline">\(\widehat{Se}\)</span> is the fraction of correct decisions on diseased cases. Multiplying this by <span class="math inline">\(\widehat{P(D)}\)</span> yields the fraction of correct positive decisions on all cases. Their sum is the fraction of correct decisions on all cases.</p>
-<p>A formal mathematical derivation follows: Eqn. <a href="binary-task.html#eq:binary-task-se-sp">(2.8)</a> yields:</p>
-<p><span class="math display" id="eq:binary-task-ntp-ntn">\[\begin{equation}
-\left.
-\begin{aligned}  
-n(TP)=K_2 \widehat{Se}\\
-n(TN)=K_1 \widehat{Sp}
-\end{aligned}
-\right \}
-\tag{2.15}
-\end{equation}\]</span></p>
-<p>Therefore,</p>
-<p><span class="math display" id="eq:binary-task-ac">\[\begin{equation}
-\left.
-\begin{aligned}  
-\widehat{Ac}&amp;=\frac{n(TN)+n(TP)}{K}\\
-&amp;=\frac{K_1 \widehat{Sp}+K_2 \widehat{Se}}{K}\\
-&amp;=\widehat{Sp} \widehat{P(!D)}+\widehat{Se}\widehat{P(D)}
-\end{aligned}
-\right \}
-\tag{2.16}
-\end{equation}\]</span></p>
-<p>For the population one can dispense with the carets:</p>
-<p><span class="math display" id="eq:binary-task-ac-pop">\[\begin{equation}
-\left.
-\begin{aligned}  
-\text{Ac}&amp;=\frac{n(TN)+n(TP)}{K}\\
-&amp;=\frac{K_1 \text{Sp}+K_2 \text{Se}}{K}\\
-&amp;=\text{Sp} \text{P(!D)}+\text{Se}\widehat{P(D)}
-\end{aligned}
-\right \}
-\tag{2.17}
-\end{equation}\]</span></p>
-</div>
-<div id="negative-and-positive-predictive-values" class="section level2 hasAnchor" number="2.7">
-<h2><span class="header-section-number">2.7</span> Negative and positive predictive values<a href="binary-task.html#negative-and-positive-predictive-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Sensitivity and specificity have desirable characteristics insofar as they reward the observer for correct decisions on diseased and non-diseased cases, respectively. They are expected to be independent of disease prevalence as one is dividing by the relevant denominator. However, radiologists interpret cases in a “mixed” situation where cases could be diseased or non-diseased. Therefore disease prevalence plays a crucial role in their decision-making – this point will be clarified shortly. Therefore a measure of performance that is desirable from the researcher’s point of view is not necessarily desirable from the radiologist’s point of view. As an example if most cases are non-diseased, i.e., disease prevalence is close to zero, specificity, being correct on non-diseased cases, is more important to the radiologist than sensitivity. Otherwise, the radiologist would be generating false positives most of the time. The radiologist who makes too many false positives would know this from subsequent clinical audits or daily case conferences which are held in most large imaging departments. There is a cost to unnecessary false positives – the cost of additional imaging and / or needle-biopsy to rule out cancer, and the pain and emotional trauma inflicted on the patient. Conversely, if disease prevalence is high, then sensitivity, being correct on diseased cases, is more important to the radiologist than specificity. With intermediate disease prevalence a weighted average of sensitivity and specificity, where the weighting involves disease prevalence, would appear to be desirable from the radiologist’s point of view.</p>
-<blockquote>
-<p>The radiologist is not interested in specificity, the normalized probability of a correct decision on non-diseased cases; rather the radiologist’s interest is in the probability that a patient diagnosed as non-diseased is actually non-diseased. The reader may notice how the conditioning variable in two conditional probabilities are reversed – more on this later. Likewise, the radiologist is not interested in sensitivity, the normalized probability of a correct decision on diseased cases; rather the radiologist’s interest is in the probability that a patient diagnosed as diseased is actually diseased. These are termed negative and positive predictive values, respectively, and denoted <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span>.</p>
-</blockquote>
-<p><span class="math inline">\(\text{NPV}\)</span> is the probability, given a non-diseased diagnosis, that the patient is actually non-diseased:</p>
-<p><span class="math display" id="eq:binary-task-npv">\[\begin{equation}
-\text{NPV} = P(T=1|D=1)
-\tag{2.18}
-\end{equation}\]</span></p>
-<p><span class="math inline">\(\text{PPV}\)</span> is the probability, given a diseased diagnosis, that the patient is actually diseased:</p>
-<p><span class="math display" id="eq:binary-task-ppv">\[\begin{equation}
-\text{PPV} = P(T=2|D=2)
-\tag{2.19}
-\end{equation}\]</span></p>
-<p>Note that the conditioning in both equations are reversed from those in the definition of specificity and sensitivity, namely <span class="math inline">\(\text{Sp}=P(D=1|T=1)\)</span> and <span class="math inline">\(\text{Se}=P(D=2|T=2)\)</span>.</p>
-<p>To estimate <span class="math inline">\(\text{NPV}\)</span> one divides the number of correct negative decisions <span class="math inline">\(n(TN)\)</span> by the total number of negative decisions <span class="math inline">\(n(N)\)</span>. The latter is the sum of the number of correct negative decisions <span class="math inline">\(n(TN)\)</span> and the number of incorrect negative decisions <span class="math inline">\(n(FN)\)</span>. Therefore,</p>
-<p><span class="math display" id="eq:binary-task-npv2">\[\begin{equation}
-\widehat{\text{NPV}}=\frac{n(TN)}{n(TN)+n(FN)}
-\tag{2.20}
-\end{equation}\]</span></p>
-<p>Dividing the numerator and denominator by the number of negative cases, one gets:</p>
-<p><span class="math display" id="eq:binary-task-npv3">\[\begin{equation}
-\widehat{\text{NPV}}=\frac{\widehat{P(TN)}}{\widehat{P(TN)}+\widehat{P(FN)}}
-\tag{2.21}
-\end{equation}\]</span></p>
-<p><span class="math inline">\(\widehat{P(TN)}\)</span> equals the estimate of true negative fraction <span class="math inline">\(1-\widehat{FPF}\)</span> multiplied by the estimate of the a-priori probability that the patient is non-diseased, i.e., <span class="math inline">\(\widehat{P(!D)}\)</span>:</p>
-<p><span class="math display" id="eq:binary-task-p-tn-est">\[\begin{equation}
-\widehat{P(TN)}=\widehat{P(!D)}(1-\widehat{FPF})
-\tag{2.22}
-\end{equation}\]</span></p>
-<p>Explanation: A similar logic to that used earlier applies: <span class="math inline">\((1-\widehat{FPF})\)</span> is the probability of being correct on non-diseased cases. Multiplying this by the estimate of probability of disease absence yields the estimate of <span class="math inline">\(\widehat{P(TN)}\)</span>.</p>
-<p>Likewise <span class="math inline">\(\widehat{P(FN)}\)</span> equals the estimate of false negative fraction, which is <span class="math inline">\((1-\widehat{TPF})\)</span> multiplied by the estimate of the probability that the patient is diseased, i.e., <span class="math inline">\((\widehat{P(D)}\)</span> :</p>
-<p><span class="math display" id="eq:binary-task-p-fn-est">\[\begin{equation}
-\widehat{P(FN)}=\widehat{P(D)}(1-\widehat{TPF})
-\tag{2.23}
-\end{equation}\]</span></p>
-<p>Putting this all together, one has:</p>
-<p><span class="math display" id="eq:binary-task-npv-est">\[\begin{equation}
-\widehat{\text{NPV}}=\frac{\widehat{P(!D)}(1-\widehat{FPF})}{(\widehat{P(!D)}(1-\widehat{FPF})+(\widehat{P(D)}(1-\widehat{TPF})}
-\tag{2.24}
-\end{equation}\]</span></p>
-<p>For the population one can dispense with the carets:</p>
-<p><span class="math display" id="eq:binary-task-npv-pop">\[\begin{equation}
-\text{NPV}=\frac{P(!D)(1-FPF)}{(P(!D)(1-FPF)+(P(D)(1-TPF)}
-\tag{2.25}
-\end{equation}\]</span></p>
-<p>Likewise, it can be shown that <span class="math inline">\(\text{PPV}\)</span> is given by:</p>
-<p><span class="math display" id="eq:binary-task-ppv-pop">\[\begin{equation}
-\text{PPV} =\frac{P(D)(TPF)}{P(D)(TPF)+P(!D)FPF}
-\tag{2.26}
-\end{equation}\]</span></p>
-<p>The equations defining <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span> are actually special cases of Bayes’ theorem <span class="citation">(<a href="#ref-larsen2005introduction" role="doc-biblioref">Larsen and Marx 2005</a>)</span>. The theorem is:</p>
-<p><span class="math display" id="eq:binary-task-bayes">\[\begin{equation}
-\left.
-\begin{aligned}
-P(A|B)=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
-\end{aligned}
-\right \}
-\tag{2.27}
-\end{equation}\]</span></p>
-<p>An easy way to remember Eqn. <a href="binary-task.html#eq:binary-task-bayes">(2.27)</a> is to start with the numerator on the right hand side which has the “reversed” form of the desired conditioning on the left hand side. If the desired probability is <span class="math inline">\(P(A|B)\)</span> one starts with the “reversed” form of the conditioning, i.e., <span class="math inline">\(P(B|A)\)</span>, and multiplies by <span class="math inline">\(P(A)\)</span>. This yields the numerator. The denominator is the sum of two probabilities: the probability of <span class="math inline">\(B\)</span> given <span class="math inline">\(A\)</span>, i.e., <span class="math inline">\(P(B|A)\)</span>, multiplied by <span class="math inline">\(P(A)\)</span>, plus the probability of <span class="math inline">\(B\)</span> given <span class="math inline">\(!A\)</span>, i.e., <span class="math inline">\(P(B|!A)\)</span>, multiplied by <span class="math inline">\(P(!A)\)</span>.</p>
-</div>
-<div id="binary-taskNpvPpvCode" class="section level2 hasAnchor" number="2.8">
-<h2><span class="header-section-number">2.8</span> Examples: PPV, NPV and Accuracy<a href="binary-task.html#binary-taskNpvPpvCode" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><p>Typical disease prevalence in the US in screening mammography is 0.005.</p></li>
-<li><p>A typical operating point, for an expert mammographer, is FPF = 0.1, TPF = 0.8. What are <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span>?</p></li>
-<li><p>What is Accuracy?</p></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="binary-task.html#cb1-1"></a><span class="co"># disease prevalence in </span></span>
-<span id="cb1-2"><a href="binary-task.html#cb1-2"></a><span class="co"># USA screening mammography </span></span>
-<span id="cb1-3"><a href="binary-task.html#cb1-3"></a>prev <span class="ot">&lt;-</span> <span class="fl">0.005</span> <span class="co"># Line 3 </span></span>
-<span id="cb1-4"><a href="binary-task.html#cb1-4"></a>FPF <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="co"># typical operating point </span></span>
-<span id="cb1-5"><a href="binary-task.html#cb1-5"></a>TPF <span class="ot">&lt;-</span> <span class="fl">0.8</span> <span class="co">#        do: </span></span>
-<span id="cb1-6"><a href="binary-task.html#cb1-6"></a>sp <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>FPF </span>
-<span id="cb1-7"><a href="binary-task.html#cb1-7"></a>se <span class="ot">&lt;-</span> TPF </span>
-<span id="cb1-8"><a href="binary-task.html#cb1-8"></a>NPV <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">*</span>(sp)<span class="sc">/</span>((<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">*</span>(sp)<span class="sc">+</span>prev<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>se)) </span>
-<span id="cb1-9"><a href="binary-task.html#cb1-9"></a>PPV <span class="ot">&lt;-</span> prev<span class="sc">*</span>se<span class="sc">/</span>(prev<span class="sc">*</span>se<span class="sc">+</span>(<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sp)) </span>
-<span id="cb1-10"><a href="binary-task.html#cb1-10"></a><span class="fu">cat</span>(<span class="st">&quot;NPV = &quot;</span>, NPV, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">PPV = &quot;</span>, PPV, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1-11"><a href="binary-task.html#cb1-11"></a><span class="co">#&gt; NPV =  0.9988846 </span></span>
-<span id="cb1-12"><a href="binary-task.html#cb1-12"></a><span class="co">#&gt; PPV =  0.03864734</span></span>
-<span id="cb1-13"><a href="binary-task.html#cb1-13"></a>ac <span class="ot">&lt;-</span>(<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">*</span>sp<span class="sc">+</span>prev<span class="sc">*</span>se </span>
-<span id="cb1-14"><a href="binary-task.html#cb1-14"></a><span class="fu">cat</span>(<span class="st">&quot;accuracy = &quot;</span>, ac, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1-15"><a href="binary-task.html#cb1-15"></a><span class="co">#&gt; accuracy =  0.8995</span></span></code></pre></div>
-<ul>
-<li>Line 3 initializes the variable <code>prev</code>, the disease prevalence, to 0.005.</li>
-<li>Line 4 assigns <code>0.1</code> to <code>FPF</code> and line 5 assigns <code>0.8</code> to <code>TPF</code>.</li>
-<li>Lines 6 and 7 initialize sp and se.</li>
-<li>Line 8 calculates <code>NPV</code> using Eqn. <a href="binary-task.html#eq:binary-task-npv-pop">(2.25)</a>.</li>
-<li>Line 9 calculates <code>PPV</code> using Eqn. <a href="binary-task.html#eq:binary-task-ppv-pop">(2.26)</a>.</li>
-<li>Line 13 calculates accuracy using Eqn. <a href="binary-task.html#eq:binary-task-ac-pop">(2.17)</a></li>
-</ul>
-<div id="binary-task-npv-ppv-comments" class="section level3 hasAnchor" number="2.8.1">
-<h3><span class="header-section-number">2.8.1</span> Comments<a href="binary-task.html#binary-task-npv-ppv-comments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If a woman has a negative diagnosis, chances are very small that she has breast cancer: the probability that the radiologist is incorrect in the negative diagnosis is <span class="math inline">\(1 - \text{NPV}\)</span> = 0.0011154. Even is she has a positive diagnosis the probability that she actually has cancer is still only <span class="math inline">\(\text{PPV}\)</span> = 0.0386473. That is why following a positive screening diagnosis the woman is recalled for further imaging and if that reveals cause for reasonable suspicion additional imaging is performed, perhaps augmented with a needle-biopsy, to confirm actual disease status. If the biopsy turns out positive only then is the woman referred for cancer therapy. Overall, accuracy is <span class="math inline">\(\text{Ac}\)</span> = 0.8995. The numbers in this illustration are for expert radiologists.</p>
-</div>
-<div id="binary-task-npv-ppv-irrel-lab" class="section level3 hasAnchor" number="2.8.2">
-<h3><span class="header-section-number">2.8.2</span> PPV and NPV are irrelevant to laboratory tasks<a href="binary-task.html#binary-task-npv-ppv-irrel-lab" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>According to the hierarchy of assessment methods described in (book) Chapter 01, TBA Table 1.1, <span class="math inline">\(\text{PPV}\)</span> and <span class="math inline">\(\text{NPV}\)</span> are level- 3 measurements. These are calculated from “live” interpretations as opposed to retrospectively calculated quantities like sensitivity and specificity. The radiologist adjusts the reporting threshold to achieve a balance between sensitivity and specificity. The balance depends critically on the expected disease prevalence. Based on geographical location and type of practice, the radiologist over time develops a feel for disease prevalence or it can be found in various databases.</p>
-<p>For example, a breast-imaging clinic that specializes in imaging high-risk women will have higher disease prevalence than the general population and the radiologist is expected to err more on the side of reduced specificity because of the expected benefit from increased sensitivity.</p>
-<p>In a laboratory study where one uses enriched case sets, the concepts of <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span> are meaningless. For example, it would be impossible to perform a laboratory study with 10,000 randomly sampled women, which would ensure about 50 actually diseased patients, which is large enough to get a reasonably precise estimate of sensitivity (estimating specificity is inherently more precise because most women are actually non-diseased). Rather, in a laboratory study one uses enriched data sets where the numbers of diseased-cases is much larger than in the general population, Eqn. <a href="binary-task.html#eq:binary-task-dis-prev-lab-vs-pop">(2.12)</a>. The radiologist cannot interpret enriched cases pretending that the actual prevalence is very low. Negative and positive predictive values while they can be calculated from laboratory data, have very little, if any, clinical meaning. No diagnostic decisions are riding on laboratory interpretations of retrospectively acquired patient images. In contrast <span class="math inline">\(\text{PPV}\)</span> and <span class="math inline">\(\text{NPV}\)</span> do have clinical meanings when calculated from large population based “live” studies. For example, the <span class="citation">(<a href="#ref-fenton2007influence" role="doc-biblioref">Fenton et al. 2007</a>)</span> study sampled 684,956 women and used the results of “live” interpretations. Laboratory ROC studies are typically conducted with 50-100 non-diseased and 50-100 diseased cases. A study using about 300 cases total would be considered a “large” ROC study.</p>
-</div>
-</div>
-<div id="binary-task-discussion" class="section level2 hasAnchor" number="2.9">
-<h2><span class="header-section-number">2.9</span> Discussion<a href="binary-task.html#binary-task-discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This chapter introduced the terms sensitivity, specificity, disease prevalence, positive and negative predictive values and accuracy. Due to its strong dependence on disease prevalence, accuracy is a relatively poor measure of performance. Radiologists generally have a good understanding of positive and negative predictive values, as these terms are relevant in the clinical context, being in effect their “batting averages”. They do not care as much for sensitivity and specificity. A caveat on the use of <span class="math inline">\(\text{PPV}\)</span> and <span class="math inline">\(\text{NPV}\)</span> calculated from laboratory studies is noted.</p>
-</div>
-<div id="binary-task-references" class="section level2 hasAnchor" number="2.10">
-<h2><span class="header-section-number">2.10</span> Chapter References<a href="binary-task.html#binary-task-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="datasets-datasetCadSimuFroc" class="section level3 hasAnchor" number="11.2.2">
+<h3><span class="header-section-number">11.2.2</span> datasetCadSimuFroc<a href="datasets.html#datasets-datasetCadSimuFroc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>datasetCadSimuFroc</code> “SIM-CAD-FROC” (Nico Karssemeijer) simulated standalone CAD FROC dataset</p>
+<pre><code>## List of 3
+##  $ NL   : num [1, 1:10, 1:200, 1] 28 -Inf 14 -Inf 16 ...
+##  $ LL   : num [1, 1:10, 1:80, 1] -Inf -Inf -Inf -Inf -Inf ...
+##  $ LL_IL: logi NA</code></pre>
 
+</div>
 </div>
 </div>
 <h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-egan1975book" class="csl-entry">
-———. 1975a. <em>Signal Detection Theory and <span>ROC</span> Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.
+<div id="ref-chakraborty2011estimating" class="csl-entry">
+Chakraborty, DP, and Tony Svahn. 2011. <span>“Estimating the Parameters of a Model of Visual Search from ROC Data: An Alternate Method for Fitting Proper ROC Curves.”</span> In <em>Medical Imaging 2011: Image Perception, Observer Performance, and Technology Assessment</em>, 7966:189–97. SPIE.
 </div>
-<div id="ref-fenton2007influence" class="csl-entry">
-Fenton, Joshua J, Stephen H Taplin, Patricia A Carney, Linn Abraham, Edward A Sickles, Carl D’Orsi, Eric A Berns, et al. 2007. <span>“Influence of Computer-Aided Detection on Performance of Screening Mammography.”</span> <em>New England Journal of Medicine</em> 356 (14): 1399–409.
+<div id="ref-Dobbins2016MultiInstitutional" class="csl-entry">
+Dobbins III, James T, H Page McAdams, John M Sabol, Dev P Chakraborty, Ella A Kazerooni, Gautham P Reddy, Jenny Vikgren, and Magnus Båth. 2016. <span>“Multi-Institutional Evaluation of Digital Tomosynthesis, Dual-Energy Radiography, and Conventional Chest Radiography for the Detection and Management of Pulmonary Nodules.”</span> Journal Article. <em>Radiology</em> 282 (1): 236–50.
 </div>
-<div id="ref-green1966signal" class="csl-entry">
-Green, David Marvin, John A Swets, et al. 1966. <em>Signal Detection Theory and Psychophysics</em>. Vol. 1. Wiley New York.
+<div id="ref-RN1995" class="csl-entry">
+Franken, Jr., Edmund A., Kevin S. Berbaum, Susan M. Marley, Wilbur L. Smith, Yutaka Sato, Simon C. S. Kao, and Steven G. Milam. 1992. <span>“Evaluation of a Digital Workstation for Interpreting Neonatal Examinations: A Receiver Operating Characteristic Study.”</span> Journal Article. <em>Investigative Radiology</em> 27 (9): 732–37. <a href="http://journals.lww.com/investigativeradiology/Fulltext/1992/09000/Evaluation_of_a_Digital_Workstation_for.16.aspx">http://journals.lww.com/investigativeradiology/Fulltext/1992/09000/Evaluation_of_a_Digital_Workstation_for.16.aspx</a>.
 </div>
-<div id="ref-larsen2005introduction" class="csl-entry">
-Larsen, Richard J, and Morris L Marx. 2005. <em>An Introduction to Mathematical Statistics</em>. Prentice Hall Hoboken, NJ.
+<div id="ref-hupse2013standalone" class="csl-entry">
+Hupse, Rianne, Maurice Samulski, Marc Lobbes, Ard Heeten, MechliW Imhof-Tas, David Beijerinck, Ruud Pijnappel, Carla Boetes, and Nico Karssemeijer. 2013. <span>“Standalone Computer-Aided Detection Compared to Radiologists’ Performance for the Detection of Mammographic Masses.”</span> Journal Article. <em>European Radiology</em> 23 (1): 93–100. <a href="https://doi.org/10.1007/s00330-012-2562-7">https://doi.org/10.1007/s00330-012-2562-7</a>.
+</div>
+<div id="ref-RN1520" class="csl-entry">
+Penedo, Monica, Miguel Souto, Pablo G. Tahoces, Jose M. Carreira, Justo Villalon, Gerardo Porto, Carmen Seoane, et al. 2005. <span>“Free-Response Receiver Operating Characteristic Evaluation of Lossy JPEG2000 and Object-Based Set Partitioning in Hierarchical Trees Compression of Digitized Mammograms.”</span> Journal Article. <em>Radiology</em> 237 (2): 450–57.
+</div>
+<div id="ref-RN1646" class="csl-entry">
+Ruschin, Mark., Pontus. Timberg, Magnus. Bath, Bengt. Hemdal, Tony. Svahn, Rob. Saunders, Ehsan. Samei, et al. 2007. <span>“Dose Dependence of Mass and Microcalcification Detection in Digital Mammography: Free Response Human Observer Studies.”</span> Journal Article. <em>Medical Physics</em> 34: 400–407.
+</div>
+<div id="ref-RN2368" class="csl-entry">
+Thompson, John D, Peter Hogg, David J Manning, Katy Szczepura, and Dev P Chakraborty. 2014. <span>“A Free-Response Evaluation Determining Value in the Computed Tomography Attenuation Correction Image for Revealing Pulmonary Incidental Findings: A Phantom Study.”</span> Journal Article. <em>Academic Radiology</em> 21 (4): 538–45.
+</div>
+<div id="ref-RN1993" class="csl-entry">
+Van Dyke, C. W., R. D. White, N. A. Obuchowski, M. A. Geisinger, R. J. Lorig, and M. A. Meziane. 1993. <span>“Cine <span>MRI</span> in the Diagnosis of Thoracic Aortic Dissection.”</span> Journal Article. <em>79th RSNA Meetings</em>.
+</div>
+<div id="ref-RN1929" class="csl-entry">
+Vikgren, Jenny, Sara Zachrisson, Angelica Svalkvist, Ase A. Johnsson, Marianne Boijsen, Agneta Flinck, Susanne Kheddache, and Magnus Bath. 2008. <span>“Comparison of Chest Tomosynthesis and Chest Radiography for Detection of Pulmonary Nodules: Human Observer Study of Clinical Cases.”</span> Journal Article. <em>Radiology</em> 249 (3): 1034–41. <a href="https://doi.org/10.1148/radiol.2492080304">https://doi.org/10.1148/radiol.2492080304</a>.
+</div>
+<div id="ref-RN2507" class="csl-entry">
+Warren, Lucy M, Rosalind M Given-Wilson, Matthew G Wallis, Julie Cooke, Mark D Halling-Brown, Alistair Mackenzie, Dev P Chakraborty, Hilde Bosmans, David R Dance, and Kenneth C Young. 2014. <span>“The Effect of Image Processing on the Detection of Cancers in Digital Mammography.”</span> Journal Article. <em>American Journal of Roentgenology</em> 203 (2): 387–93.
+</div>
+<div id="ref-zanca2009evaluation" class="csl-entry">
+Zanca, Federica, Jurgen Jacobs, Chantal Van Ongeval, Filip Claus, Valerie Celis, Catherine Geniets, Veerle Provost, Herman Pauwels, Guy Marchal, and Hilde Bosmans. 2009. <span>“Evaluation of Clinical Image Processing Algorithms Used in Digital Mammography.”</span> <em>Medical Physics</em> 36 (3): 765–75.
+</div>
+<div id="ref-RN2318" class="csl-entry">
+Zanca, F., S. L. Hillis, F. Claus, C. Van Ongeval, V. Celis, V. Provoost, H.-J Yoon, and H. Bosmans. 2012. <span>“Correlation of Free-Response and Receiver-Operating-Characteristic Area-Under-the-Curve Estimates: Results from Independently Conducted <span>FROC</span>/<span>ROC</span> Studies in Mammography.”</span> Journal Article. <em>Med Phys</em> 39 (10): 5917–29.
 </div>
 </div>
             </section>
@@ -953,8 +698,8 @@ Larsen, Richard J, and Morris L Marx. 2005. <em>An Introduction to Mathematical 
           </div>
         </div>
       </div>
-<a href="overview.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="binary-task-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="bivariate-binormal-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
