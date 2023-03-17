@@ -15,20 +15,23 @@
 ```
 
 
-## TBA How much finished {#bivariate-binormal-model-how-much-finished}
-20%
+## TBA How much finished 20% {#bivariate-binormal-model-how-much-finished}
+
 
 
 ## Introduction {#bivariate-binormal-model-introduction}
 
-Until now, the focus for the ROC paradigm has been on the single rating per case scenario where a single reader interprets a set of cases in a single modality. Of greater clinical interest is a study where a group of readers interprets a common set of cases in multiple modalities. This is because such a study, properly analyzed, yields results that are expected to generalize to the populations of readers and cases from which the study readers and cases were sampled. However, before one can understand several readers interpreting a common case set in multiple modalities, a good place to start is two readers interpreting a common set of cases. Historically, the field progressed from this starting point (the DBMH and ORH analyses methods came after the method to be described here). One might wonder why even bother describing the older approach, since methods for analyzing MRMC datasets have already been described. The analyses methods do not address how to fit the data to models (instead, they assume a figure of merit can be calculated and describe how to perform significance testing using the figure of merit). Data fitting is crucial to understanding factors limiting performance. Before bringing in a three-parameter model like the RSM, addressed in book Chapter 18, it is important to understand the two–parameter model applicable to paired ROC data. The analyst is dealing with two ratings per case, one per reader. An analogous situation applies when one has a single reader interpreting cases in two modalities. The analyst is again faced with two ratings per case, one per modality.
-
-In book Chapter 06 the univariate binormal model was described, which is appropriate for modeling the single rating per case situation (the "binormal" comes from the two truth states, not the two modalities). From the previous discussion, it is evident that this needs to be extended to a bivariate model, which would describe studies where each case yields two ratings. Because of the dual interpretations the two ratings per case are correlated. Assuming a 5-rating positive-directed ROC study, on especially easy non-diseased cases the two ratings will both tend to be low (e.g., 1’s) and on especially easy diseased cases the two ratings will both tend to be high (e.g., 5’s) and on difficult cases, both ratings are likely to be in the ambiguous range (e.g., 3’s). 
-
-Here is the plan for this chapter. First, the bivariate extension of the univariate binormal model is described. Since most of the readers of this book are expected to not experts in statistics, bivariate sampling will be described at a relatively simple level. Visualization of the resulting probability density functions (pdfs) is demonstrated, which allows the reader to interactively view them, which should allow a better understand of this relatively more complex distribution. Estimation of parameters of the bivariate model from ratings data is addressed. The usage of free software implementing this procedure, i.e., CORROC2, is described. The data format used by CORROC2 is described in some detail as well as how to interpret the program output. ^[Since this software runs on Windows, material is provided to allow the user to run it on a MAC (most of this necessary digression, since the author is using OS X, is in TBA Online Appendix 21.D). This digression is not needed in one is using a Windows platform.] Finally, the application of the software to clinical datasets is described. A recent advance that solves degeneracy problems associated with CORROC2 is described, namely CORCBM, for correlated CBM. We conclude with a discussion of the applications of CORROC2.
+Until now the focus has been on the single rating per case scenario where a reader interprets a set of cases in a single modality. Of greater clinical interest is a study where a group of readers interprets a common set of cases in multiple modalities (this is termed multipl-reader multiple-case or MRMC). An MRMC study, properly analyzed, yields results that are expected to generalize to the populations of readers and cases from which the study readers and cases were sampled. However, before one can handle MRMC a good place to start is two readers interpreting a common set of cases. Historically, the field progressed from here (the significance testing methods described in Book TBA came after the method to be described here). 
 
 
-## Bivariate density function {#bivariate-binormal-model-bivariate-density}
+One might wonder why even bother describing the older approach ^[The significance testing methods assume a figure of merit can be calculated and address how to perform significance testing using that figure of merit.]. Before bringing in the RSM, addressed in TBA book Chapter 18 it is helpful to understand the paired binormal model applicable to paired ROC data. This handles two ratings per case, one per reader, and the analogous situation when one has a single reader interpreting cases in two modalities. 
+
+In Chapter \@ref(binormal-model) the univariate binormal model was described, which is appropriate for modeling the single rating per case situation (the "bi" comes from the two truth states, not the two modalities). From the previous discussion it is evident that this needs to be extended to a bivariate model describing studies where each case yields two ratings. Because of the dual interpretations the two ratings per case are correlated. Assuming a 5-rating positive-directed ROC study on especially easy non-diseased cases the two ratings will both tend to be low (e.g., 1’s) and on especially easy diseased cases the two ratings will both tend to be high (e.g., 5’s) and on difficult cases, both ratings are likely to be in the ambiguous range (e.g., 3’s). 
+
+Here is the plan for this chapter. First, the bivariate extension of the univariate binormal model is described. Since most of the readers of this book are not expected to be experts in statistics bivariate sampling will be described at a relatively simple level. Visualization of the probability density functions (pdfs) is demonstrated using an interactive display tool. Estimation of parameters of the bivariate model from ratings data is addressed. The usage of software implementing this procedure is described. The data format used by CORROC2 is described in some detail as well as how to interpret the program output. ^[Since this software runs on Windows, material is provided to allow the user to run it on a MAC (most of this necessary digression, since the author is using OS X, is in TBA Online Appendix 21.D). This digression is not needed in one is using a Windows platform.] Finally, the application of the software to clinical datasets is described. A recent advance that solves degeneracy problems associated with CORROC2 is described, namely CORCBM, for correlated CBM. We conclude with a discussion of the applications of CORROC2 or CORCBM.
+
+
+## The bivariate normal density function {#bivariate-binormal-model-density}
 
 Sampling from the multivariate normal distribution $N_p$ is as follows:
 
@@ -39,7 +42,7 @@ Sampling from the multivariate normal distribution $N_p$ is as follows:
 \end{equation} 
 
 
-Here $\overrightarrow{x}$ is a length $p$ vector of observed samples, $\overrightarrow{\mu}$ is a length $p$ vector containing the means of the multivariate distribution and $\Sigma$ is the covariance matrix describing the variances, and correlations between the observed samples. 
+Here $\overrightarrow{x}$ is a length $p$ vector of the observed z-samples for each case, $\overrightarrow{\mu}$ is a length $p$ vector containing the means of the multivariate distribution and $\Sigma$ is the covariance matrix describing the variances, and correlations between the observed samples. 
 
 The multivariate normal probability density function $f_p\left( \overrightarrow{x} ~~ \bigg \rvert ~~\overrightarrow{\mu}, ~~ \overrightarrow{\Sigma} \right)$ is defined by:
 
@@ -53,7 +56,7 @@ f_p\left( \overrightarrow{x} ~~ \bigg \rvert ~~\overrightarrow{\mu}, ~~ \overrig
 
 Here $|\Sigma|$ is the determinant of the matrix and $T$ is the transpose operator. 
 
-For the special case of a bivariate normal distribution, $p = 2$, this is equivalent to (the subscript 2 is suppressed) ^[In the univariate case, $p = 1$, $\Sigma$ is replaced by $\sigma^2$, and the above expression reduces to the pdf of the normal distribution $N(\mu, \sigma^2)$.]:
+For the special case of a bivariate normal distribution $p = 2$ this is equivalent to (the subscript 2 is suppressed) ^[In the univariate case, $p = 1$, $\Sigma$ is replaced by $\sigma^2$, and the above expression reduces to the pdf of the normal distribution $N(\mu, \sigma^2)$.]:
 
 
 
@@ -90,7 +93,7 @@ For a bivariate distribution the covariance matrix is:
 
 
 
-The `R` function to evaluate Eqn. \@ref(eq:bivariate-binormal-model-density-function-multivariate) is `dmvnorm()`, for “density of multivariate normal distribution”, available via `R` package `mvtnorm`. Its usage is illustrated next for the following parameter values:
+The `R` function to evaluate Eqn. \@ref(eq:bivariate-binormal-model-density-function-multivariate) is `dmvnorm()`, for “density of multivariate normal distribution” available via `R` package `mvtnorm` [@R-mvtnorm]. Its usage is illustrated next for the following parameter values:
 
 
 \begin{equation} 
@@ -153,9 +156,12 @@ cat("density at x1 = 0.1 and x2 = 0.2 = ", pdf, "\n")
 The parameters describing the bivariate normal distribution are $\overrightarrow{\mu}$ and $\Sigma$. The total number of parameters is five: two means, two variances and a correlation coefficient. 
 
 
+
 ## The bivariate binormal model {#bivariate-binormal-model-formulae}
 
-The bivariate binormal model is an extension of the bivariate model just described, to *two truth-states*, non-diseased and diseased, each modeled separately as a bivariate normal distribution. This could potentially result in a doubling of the number of parameters from 5 to 10, but by appropriate shifting and scaling transformations one can ensure that the two means of the bivariate distribution for non-diseased cases are zeroes and the two variances are each unity. This reduces the total number of parameters to 6: $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$, $\rho_1$, $\rho_2$. The bivariate binormal parameters are:
+The bivariate binormal model is an extension of the bivariate model just described, to *two truth-states: non-diseased and diseased*, each modeled separately as a bivariate normal distribution. This could potentially result in a doubling of the number of parameters but by appropriate shifting and scaling transformations one can ensure that the two means of the bivariate distribution for non-diseased cases are zeroes and the corresponding variances are unity. This reduces the total number of parameters to the following: $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$, $\rho_1$, $\rho_2$ where the subscript "1" refers to non-diseased and the subscript "2" refers to diseased cases. 
+
+The bivariate binormal parameters are:
 
 
 \begin{equation} 

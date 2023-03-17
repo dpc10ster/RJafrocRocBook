@@ -12,7 +12,10 @@ rmd_files: [
   "05-empirical-auc.Rmd", 
   "06-binormal-model.Rmd",
   "07-proper-roc-models.Rmd",
+  "08-rsm-fitting.Rmd",
+  "09-rsm-3-fits.Rmd",
   "10-bivariate-binormal-model.Rmd",
+  "90-datasets.Rmd",
   "99-references.Rmd",
 ]
 

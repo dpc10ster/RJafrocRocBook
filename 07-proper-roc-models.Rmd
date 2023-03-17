@@ -19,7 +19,7 @@
 source(here::here("R/proproc/proprocFunctions.R"))
 ```
 
-## How much finished 50% {#proper-roc-models-how-much-finished}
+## How much finished 95% {#proper-roc-models-how-much-finished}
 
 
 
@@ -853,7 +853,7 @@ biGammaRocY <- function (x, r, lambda) {
 ```
 
 
-### BGM ROC plots {#proper-roc-models-bigamma-rocs}
+### BGM ROC plots {#proper-roc-models-bigamma-code}
 
 
 ```{r echo=FALSE}
