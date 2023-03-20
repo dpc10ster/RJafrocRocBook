@@ -137,7 +137,7 @@ str(RJafroc::dataset13$ratings)
 ### Dataset14 {#datasets-dataset14}
 
 
-`dataset14` "FEDERICA-REAL-ROC" (Federica Zanca) *real* ROC dataset [@RN2318]
+`dataset14` "FEDERICA-REAL-ROC" (Federica Zanca) *real* ROC dataset [@zanca2012correlation]
 
 
 ```{r, echo=FALSE}

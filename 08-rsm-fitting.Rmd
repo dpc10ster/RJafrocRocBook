@@ -20,12 +20,9 @@ library(here)
 
 ## Introduction {#rsm-fitting-intro}
 
-The Radiological Search Model (RSM) is detailed in my [FROC paradigm book](https://dpc10ster.github.io/RJafrocFrocBook/). A brief summary follows: the RSM has three non-threshold related parameters: $\mu$, $\lambda$ and $\nu$ and as before $\zeta$ is a sliding threshold that determines the operating point. One also needs to specify the lesion distribution vector $\overrightarrow{f_L})$, basically the fraction of diseased cases with one lesion, the fraction with two lesions, etc, and let $R_{FROC}$ denote the number of bins in the FROC rating study.
+The Radiological Search Model (RSM) is detailed in my [FROC paradigm book](https://dpc10ster.github.io/RJafrocFrocBook/). Early efforts at estimating RSM parameters revealed that an FROC curve based estimation method patterned after [@edwards2002maximum] worked only for designer level CAD data and not for human observer data. Subsequent effort focused on ROC curve-based fitting, and this proved successful at fitting human observer datasets. A preliminary account of this work is in  [@chakraborty2011estimating]. 
 
-
-Early efforts at estimating parameters of the RSM revealed that an FROC curve based estimation method patterned after [@edwards2002maximum] worked only for designer level CAD data and not for human observer data. Subsequent effort focused on ROC curve-based fitting, and this proved successful at fitting radiologist datasets where detailed definition of the ROC curve is not available. A preliminary account of this work is in  [@chakraborty2011estimating]. 
-
-> The reader should be surprised to learn that the ROC curve based fitting works which implies that one does not even need FROC data to estimate RSM parameters. I have previously stated that the ROC paradigm ignores search so how can one estimate search-model parameters from ROC data? The reason is that the *shape* of the RSM-predicted ROC curve and the *location* of the end-point depend on the RSM parameters. 
+> It may be surprising that the ROC curve based fitting works, which implies that one does not even need FROC data to estimate RSM parameters. I have previously stated that the ROC paradigm ignores search so how can one estimate search-model parameters from ROC data? The reason is that the *shape* of the RSM-predicted ROC curve and the *location* of the end-point depend on the RSM parameters. 
 
 
 ## ROC Likelihood function {#rsm-fitting-roc-likelihood}
@@ -63,15 +60,15 @@ LL_{ROC} \left ( \mu, \lambda, \nu, \overrightarrow{f_L} \right )= \sum_{r=0}^{R
 \end{equation}
 
 
-The total number of parameters to be estimated, including thresholds, is $3+R_{FROC}$. Maximizing the likelihood function yields estimates of the RSM parameters. 
+The total number of parameters to be estimated, including thresholds, is $3+R_{FROC}$. Maximizing the likelihood function yields parameter estimates. 
 
 
-The Broyden–Fletcher–Goldfarb–Shanno (BFGS) [@RN2646; @RN2647; @RN2648; @RN2649; @RN2651; @RN2650] minimization algorithm, as implemented as function `mle2()` in R-package [@R-bbmle] was used to minimize the negative of the likelihood function. Since the BFGS-algorithm varies each parameter in an unrestricted range $(-\infty, \infty)$, which would cause problems (e.g., RSM parameters cannot be negative and thresholds are subject to an ordering constraint) appropriate transformations ("forward" and "inverse") were used so that, irrespective of values chosen by the BFGS-algorithm, the values supplied to the log-likelihood function were always valid. 
+The Broyden–Fletcher–Goldfarb–Shanno (BFGS) [@shanno1970optimal; @shanno1970conditioning; @goldfarb1970family; @fletcher1970new; @fletcher2013practical; @broyden1970convergence] minimization algorithm, as implemented as function `mle2()` in R-package [@R-bbmle] was used to minimize the negative of the likelihood function. Since the BFGS-algorithm varies each parameter in an unrestricted range $(-\infty, \infty)$, which would cause problems (e.g., RSM parameters cannot be negative and thresholds are subject to an ordering constraint) appropriate transformations ("forward" and "inverse") were used so that, irrespective of values chosen by the BFGS-algorithm, the values supplied to the log-likelihood function were always valid. 
 
 
 ## Implementation {#rsm-fitting-fit-rsm}
 
-Function `FitRsmROC()` fits an RSM-predicted ROC curve to a binned single-modality single-reader ROC dataset. It is called by `ret <- FitRsmRoc(binnedRocData, lesDistr, trt = 1, rdr = 1)`, where `binnedRocData` is a binned multi-treatment multi-reader ROC dataset, `lesDistr` is the lesion distribution vector $\overrightarrow{f_L})$ for the dataset and `trt` and `rdr` are the desired treatment and reader to extract from the dataset, each of which defaults to one. 
+Function `FitRsmROC()` fits an RSM-predicted ROC curve to a binned single-modality single-reader ROC dataset. It is called by `ret <- FitRsmRoc(binnedRocData, lesDistr, trt = 1, rdr = 1)`, where `binnedRocData` is a binned multi-treatment multi-reader ROC dataset, `lesDistr` is the lesion distribution vector $\overrightarrow{f_L}$ for the dataset and `trt` and `rdr` are the desired treatment and reader to extract from the dataset, each of which defaults to one. 
 
 
 The return value `ret` is a `list` with the following elements:
@@ -101,7 +98,7 @@ lesDistr <- UtilLesionDistrVector(dataset04)
 ret <- FitRsmRoc(rocData, lesDistr = lesDistr)
 ```
 
-The lesion distribution vector is `r lesDistr`. This means that fraction `r lesDistr[1]` of diseased cases contain one lesion, fraction `r lesDistr[2]` contain two lesions and fraction `r lesDistr[3]` contain three lesions. The lesion distribution vector is needed because the fitted curve depends on the lesion distribution. For example, the ROC curve will be lower if each diseased case contains one lesion than if each diseased case contains three lesions.   
+The lesion distribution vector is `r lesDistr`. This means that fraction `r lesDistr[1]` of diseased cases contain one lesion, fraction `r lesDistr[2]` contain two lesions and fraction `r lesDistr[3]` contain three lesions.    
 
 The fitted parameter values are as follows (not shown are cutoffs excepting $\zeta_1$, the chi-square statistic and the covariance matrix):
 
@@ -116,16 +113,13 @@ The fitted parameter values are as follows (not shown are cutoffs excepting $\ze
 * $\text{NLLFin}$ = `r round(ret$NLLFin,2)`
 
 
-The relatively large separation parameter $\mu$ implies good lesion-classification performance. The large $\lambda$ parameter implies poor lesion-localization performance. On the average the observer generates `r round(ret$lambda,2)` latent NL marks per image. However, because of the relatively large value of $\zeta_1$, i.e., `r round(ret$zetas[1],2)`, only fraction `r round(pnorm(-ret$zetas[1]),3)` of these are actually marked, resulting in `r round(ret$lambda*pnorm(-ret$zetas[1]),2)` actual marks per image. Lesion-localization performance depends on the numbers of latent marks, i.e., $\lambda$ and $\nu$, not the actual numbers of marks. 
+<!-- The relatively large separation parameter $\mu$ implies good lesion-classification performance. The large $\lambda$ parameter implies poor lesion-localization performance. On the average the observer generates `r round(ret$lambda,2)` latent NL marks per image. However, because of the relatively large value of $\zeta_1$, i.e., `r round(ret$zetas[1],2)`, only fraction `r round(pnorm(-ret$zetas[1]),3)` of these are actually marked, resulting in `r round(ret$lambda*pnorm(-ret$zetas[1]),2)` actual marks per image. Lesion-localization performance depends on the numbers of latent marks, i.e., $\lambda$ and $\nu$, not the actual numbers of marks.  -->
 
 
-The fitting program decreased the negative log-likelihood (NLL) from `r round(ret$NLLIni,2)` to `r round(ret$NLLFin,2)`. A decrease in negative log-likelihood is expected since one is maximizing the log-likelihood.  
+The fitting program decreased the negative log-likelihood (NLL) from `r round(ret$NLLIni,2)` to `r round(ret$NLLFin,2)`. A decrease in negative log-likelihood is expected since one is maximizing the log-likelihood. Because the RSM contains 3 parameters, which is one more than conventional ROC models, the chi-square goodness of fit statistic usually cannot be calculated except for large datasets - the criterion of at least 5 counts in each bin for true positives and false positives is usually hard to meet. Using the method described in Section \@ref(binormal-model-curve-fitting-validation) the degrees of freedom is $\text{df} = R_{FROC} - 3$^[The expansive form of the relevant equation is $R_{FROC} + R_{FROC} - (3 + R_{FROC}) = R_{FROC} - 3$].
 
 
-Because the RSM contains 3 parameters, which is one more than conventional ROC models, the chisquare goodness of fit statistic usually cannot be calculated, except for large datasets - the criterion of at least 5 counts in each bin for true positives and false positives is usually hard to meet. Using the method described in Section \@ref(binormal-model-curve-fitting-validation) the degrees of freedom is $\text{df} = R_{FROC} - 3$^[The expansive form of the relevant equation is $R_{FROC} + R_{FROC} - (3 + R_{FROC}) = R_{FROC} - 3$].
-
-
-Shown next is the fitted plot. Error bars (exact 95% confidence intervals) are shown for the lowest and highest operating points.
+Shown next is the fitted plot and exact 95% confidence intervals for the lowest and highest operating points.
 
 
 ```{r rsm-fitting-example-fit, fig.cap= "RSM-fitted ROC curve for treatment one and reader one of `dataset04`.", fig.show='hold', echo = FALSE}
@@ -133,14 +127,14 @@ print(ret$fittedPlot)
 ```
 
 
-The fitted ROC curve in Fig. \@ref(fig:rsm-fitting-example-fit) is proper. The area under the proper ROC (calculated by numerical integration of the RSM-predicted curve) is `r round(ret$AUC,3)` which will be shown in Chapter \@ref(rsm-3-fit) to be identical to that yielded by two other proper ROC fitting methods (CBM and PROPROC) and higher than the binormal model fitted value.
+The fitted ROC curve in Fig. \@ref(fig:rsm-fitting-example-fit) is proper. The area under the proper ROC (calculated by numerical integration of the RSM-predicted curve) is `r round(ret$AUC,3)` which will be shown in Chapter \@ref(rsm-3-fits) to be close to that yielded by CBM and PROPROC and higher than the binormal model fitted value.
 
 
 ## Discussion / Summary {#rsm-fitting-discussion-summary}
 
 Over the years, there have been several attempts at fitting FROC data. Prior to the RSM-based ROC curve approach described in this chapter all methods aimed at fitting FROC curves in the mistaken belief that this approach was using all the data. The earliest was [@chakraborty1989maximum]. This was followed by [@swensson1996unified], subsequently shown to be equivalent to my earlier work as far as predicting the FROC curve was concerned [@chakraborty2008operating]. In the meantime CAD developers, who relied heavily on the FROC curve to evaluate their algorithms, developed an empirical approach that was subsequently put on a formal basis in [@edwards2002maximum]. While this method works with CAD data it fails with radiologist data -- the reason is that it assumes $\zeta_1 = -\infty$ (i.e., the algorithm marks every suspcioius region) which is not true for radiologists as discussed in my 2017 print book.
 
-This chapter describes an approach to fitting ROC curves using the RSM. On the face of it fitting the ROC curve seems to be ignoring much of the data. For example the ROC rating on a non-diseased case is the rating of the highest-rated mark on that image, or negative infinity if the case has no marks. If the case has several NL marks, only the highest rated one is used. In fact the highest rated mark contains information about the other marks on the case, namely that they were all rated lower. The statistical term for this is a *sufficient statistic* [@larsen2005introduction]. As an example, the highest of a number of samples from a uniform distribution is a sufficient statistic, i.e., it contains all the information contained in the observed samples. While not quite the same for normally distributed values, neglect of the NLs rated lower is not as bad as might seem at first. 
+This chapter describes an approach to fitting ROC curves using the RSM. On the face of it fitting the ROC curve seems to be ignoring much of the data (since the ROC rating on a case is the rating of the highest-rated mark on that case). If the case has several marks only the highest rated one is used. In fact the highest rated mark contains information about the other marks on the case, namely that they were all rated lower. For example the highest of a number of samples from a uniform distribution is a sufficient statistic, i.e., it contains all the information contained in the observed samples. Neglect of the marks rated lower is not as bad as might seem at first. 
 
 The next chapter describes application of the RSM and other available proper ROC fitting methods to a number of datasets.
 
