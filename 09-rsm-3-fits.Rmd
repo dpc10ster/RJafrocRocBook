@@ -16,9 +16,8 @@ library(doParallel)
 ```
 
 
-## TBA How much finished {#rsm-3-fits-how-much-finished}
+## How much finished 99% {#rsm-3-fits-how-much-finished}
 
-99%
 
 
 ## TBA Introduction {#rsm-3-fits-intro}
@@ -28,22 +27,22 @@ A proper ROC curve is one whose slope decreases monotonically as the operating p
 There are three methods for fitting proper curves to ROC datasets: 
 
 * The radiological search model (RSM) described in Chapter \@ref(rsm-fitting), 
-* The PROPROC (proper ROC) model described in TBA Chapter 20. 
-* The CBM (contaminated binormal model) described in TBA Chapter 20. 
+* The PROPROC (proper ROC) model described in Chapter \@ref(proper-roc-models). 
+* The CBM (contaminated binormal model) also described in Chapter \@ref(proper-roc-models). 
 
-This chapter compares these methods by fitting them to 14 multiple-treatment multiple-reader datasets described in Chapter \@ref(datasets). Comparing the RSM to the binormal model would be inappropriate, as the latter does not predict proper ROCs. 
+This chapter compares these methods by fitting them to 14 multiple-treatment multiple-reader datasets described in Chapter \@ref(datasets). Comparing the RSM to the binormal model would be inappropriate as the latter does not predict proper ROCs. 
 
-The motivation for this work was a serendipitous finding [@chakraborty2011estimating] that PROPROC fitted ROC AUCs and RSM fitted ROC AUCs were identical for some datasets. This led to extending that work to include CBM and more datasets. 
+The motivation for this work was a serendipitous finding [@chakraborty2011estimating] that PROPROC fitted ROC AUCs and RSM fitted ROC AUCs were identical for some datasets. This led to extending that work to include CBM-fitting and more datasets. 
 
 
 
 
 ## Application to datasets {#rsm-3-fits-applications}
 
-Both RSM and CBM are implemented in `RJafroc`. `PROPROC` is implemented in Windows software OR DBM-MRMC 2.5 ^[Sept. 04, 2014; the version used in this chapter is no longer distributed.] that was available [here](https://perception.lab.uiowa.edu/software), last accessed 1/4/21.
+Both RSM and CBM are implemented in [@R-RJafroc]. `PROPROC` is implemented in Windows software OR DBM-MRMC 2.5 ^[Sept. 04, 2014; the version used in this chapter is no longer distributed.] that was available [here, last accessed 1/4/21](https://perception.lab.uiowa.edu/software).
 
 
-The RSM, PROPROC and CBM algorithms were applied to datasets described in Chapter @\ref(datasets). 
+The RSM, PROPROC and CBM algorithms were applied to datasets described in Chapter @\ref(datasets). These are named as follows:
 
 
 
@@ -58,10 +57,10 @@ datasetNames <-
 
 
 
-These are abbreviations for "TONY", "Van Dyke", "Franken", "Federica", "Thompson", "Magnus", "Lucy Warren", "Penedo", "Nico-CAD-ROC", "Ruschin", "Dobbins-1", "Dobbins-2", "Dobbins-3", "Federica Real Roc". These datasets are included with `RJafroc` and the corresponding objects are named `datasetXX`, where XX is an integer ranging from 1 to 14.
+These are abbreviations for "Dr. Tony Svahn", "Dr. Van Dyke", "Dr. Franken", "Dr. Federica Zanca", "Dr. John Thompson", "Dr. Magnus Baath", "Dr. Lucy Warren", "Dr. Monica Penedo", "Dr. Nico Karssemeijer CAD ROC", "Dr. Mark Ruschin", "Dr. James Dobbins-1", "Dr. James Dobbins-2", "Dr. James Dobbins-3", "Dr. Federica Zanc a real ROC". These datasets are included with the `RJafroc` package and the corresponding objects are named `datasetXX`, where XX is an integer ranging from 1 to 14.
 
 
-In the following we focus, for now, on just two ROC datasets (these have been widely used in the literature to illustrate ROC analysis methodology advances) namely the Van Dyke (VD) and the Franken (FR) datasets. Illustrative examples are shown for treatment 1 and reader 2 for the Van Dyke dataset and for treatment 2 and reader 3 for the Franken dataset. Plots for all treatment-reader combinations for these two datasets are in Appendix \@ref(rsm-3-fits-representative-plots-van-dyke) and Appendix \@ref(rsm-3-fits-representative-plots-franken).
+In the following we focus, for now, on just two ROC datasets (these have been used in the past to illustrate methodology advances in ROC analysis) namely the Dr. Van Dyke (VD) and the Dr. E. Franken (FR) datasets. Fits are shown for treatment 1 and reader 2 for the Van Dyke dataset and for treatment 2 and reader 3 for the Franken dataset. Plots for all treatment-reader combinations for these two datasets are in Appendix \@ref(rsm-3-fits-all-plots-van-dyke) for the Van Dyke dataset and Appendix \@ref(rsm-3-fits-representative-plots-franken) for the Franken dataset.
 
 
 
@@ -72,40 +71,45 @@ source(here::here("R/compare-3-fits/Compare3ProperRocFits.R"))
 
 ```{r rsm-3-fits-code-f2, echo=TRUE}
 # VD dataset
-ret <- Compare3ProperRocFits(datasetNames, which(datasetNames == "VD"))
+ret <- Compare3ProperRocFits(
+  datasetNames, 
+  which(datasetNames == "VD"))
 resultsVD <- ret$allResults
 plotsVD <- ret$allPlots
 
 # FR dataset
-ret <- Compare3ProperRocFits(datasetNames, which(datasetNames == "FR"))
+ret <- Compare3ProperRocFits(
+  datasetNames, 
+  which(datasetNames == "FR"))
 resultsFR <- ret$allResults
 plotsFR <- ret$allPlots
 ```
 
 
-* The supporting code is in the function `Compare3ProperRocFits()` located at `R/compare-3-fits/Compare3ProperRocFits.R`. 
-* The analyzed results file locations are shown in Section \@ref(rsm-3-fits-pre-analyzed-results).
+* The supporting code is in function `Compare3ProperRocFits()` located at `R/compare-3-fits/`. 
+* The already-analyzed results file locations are shown in Section \@ref(rsm-3-fits-pre-analyzed-results).
 * The fitted parameters are contained in `resultsVD` and `resultsFR; the composite plots (i.e., 3 overlaid plots corresponding to the three proper ROC fitting algorithms) for each treatment and reader, are contained in `plotsVD` and `plotsFR`. 
 
 
 ## Composite plots {#rsm-3-fits-composite-plots}
 
-* The `plotArr` list contains plots for the two datasets. The Van Dyke plots are in `plotsVD` and the Franken in `plotsFR`. 
-* The Van Dyke dataset contains $I \times J = 2 \times 5 = 10$ composite plots. 
-* The Franken dataset contains $I \times J = 2 \times 4 = 8$ composite plots. 
+* The `plotArr` list contains plots for the two datasets. The Van Dyke plots are in `$plotsVD` and the Franken in `$plotsFR`. 
+* The Van Dyke dataset yields $I \times J = 2 \times 5 = 10$ composite plots. 
+* The Franken dataset yields $I \times J = 2 \times 4 = 8$ composite plots. 
 
 
 The following code shows how to display the composite plot for the Van Dyke dataset for treatment 1 and reader 2, i.e., i = 1 and j = 2. 
 
 
 ```{r rsm-3-fits-plots-vd-12, fig.cap="Composite plots for Van Dyke dataset for treatment = 1, reader 2.", fig.show='hold', echo=TRUE}
+# i = 1 and j = 2 
 plotsVD[[1,2]]
 ```
 
 
 It contains 3 fitted curves:
 
-* The RSM fitted curve is in black. 
+* The RSM fitted curve is in black -- this is the only fit that includes a dashed line extending to (1,1). 
 * The PROPROC fitted curve is in red. 
 * The CBM fitted curve is in blue. 
 
@@ -113,18 +117,19 @@ It contains 3 fitted curves:
 Three operating points from the binned data are shown as well as exact 95% confidence intervals for the lowest and uppermost operating points. 
 
 
-All 10 composite plots for the Van Dyke dataset are shown in Appendix \@ref(rsm-3-fits-representative-plots-van-dyke).
+All 10 composite plots for the Van Dyke dataset are shown in Appendix \@ref(rsm-3-fits-all-plots-van-dyke).
 
 
 The next example shows composite plots for the Franken dataset for treatment = 2 and reader = 3.
 
 
-```{r rsm-3-fits-plots-fr-23, fig.cap="Composite plots for Franken dataset for treatment = 2, reader 3.", fig.show='hold', echo=FALSE}
+```{r rsm-3-fits-plots-fr-23, fig.cap="Composite plots for Franken dataset for treatment = 2, reader 3.", fig.show='hold', echo=TRUE}
+# i = 2 and j = 3 
 plotsFR[[2,3]]
 ```
 
 
-Note that the RSM end-point is almost at the upper right corner, implying lower lesion-localization performance.
+<!-- Note that the RSM end-point is almost at the upper right corner, implying lower lesion-localization performance. -->
 
 
 All 10 composite plots for the Franken dataset are shown in Appendix \@ref(rsm-3-fits-representative-plots-franken).
@@ -132,12 +137,12 @@ All 10 composite plots for the Franken dataset are shown in Appendix \@ref(rsm-3
 
 ## RSM parameters {#rsm-3-fits-rsm-parameters}
 
-The parameters corresponding to the RSM plots for the Van Dyke dataset are accessed as shown next. 
+The parameters corresponding to the RSM plots for the Van Dyke dataset are accessed as follows: 
 
 * `resultsVD[[i,j]]$retRsm$mu` is the RSM $\mu$ parameter for the Van Dyke dataset for treatment i and reader j; 
 * `resultsVD[[i,j]]$retRsm$lambda` is the RSM $\lambda$ parameter;  
 * `resultsVD[[i,j]]$retRsm$nu` is the RSM $\nu$ parameter; 
-* `resultsVD[[i,j]]$retRsm$zeta1` is the RSM $\zeta_1$ parameter; 
+* `resultsVD[[i,j]]$retRsm$zeta1` is the RSM $\zeta_1$ parameter. 
 
 
 ### RSM parameters Van Dyke dataset i = 1, j= 2
@@ -158,45 +163,45 @@ cat("RSM parameters, Van Dyke Dataset, i=1, j=2:",
 ```
 
 
-The first four values are the fitted values for the RSM parameters $\mu$, $\lambda$, $\nu$ and $\zeta_1$. The next value is the AUC under the fitted RSM curve followed by its standard error. The last two values are the initial and final values of negative log-likelihood ^[The initial value is calculated using initial estimates of parameters and the final value is that resulting from the log-likelihood maximization procedure. Since in fact negative log-likelihood is being *minimized*, the final value is smaller than the initial value.].  
+The first four values are the fitted values for the RSM parameters $\mu$, $\lambda$, $\nu$ and $\zeta_1$. The next value is the AUC under the fitted RSM curve followed by its standard error. The last two values are the initial and final values of negative log-likelihood. The initial value is calculated using initial estimates of parameters and the final value is that resulting from the BFGS log-likelihood maximization procedure. Since negative log-likelihood (NLL) is being *minimized*, the final value is smaller than the initial value.  
 
-From the previous chapter the RSM parameters can be used to calculate lesion-localization and lesion-classification performances, namely $L_L$ and $L_C$ respectively. The following function calculates these values: 
-
-
-```{r echo=TRUE}
-LesionLocLesionCls <- function(mu, lambda, nu, lesDistr) {
-  temp <- 0
-  for (L in 1:length(lesDistr)) {
-    temp <- temp + lesDistr[L] * (1 - nu)^L
-  }
-  L_L <- exp(-lambda) * (1 - temp)
-  L_C <- pnorm(mu/sqrt(2))
-  return(list(
-    L_L = L_L,
-    L_C = L_C
-  ))
-}
-```
+<!-- From the previous chapter the RSM parameters can be used to calculate lesion-localization and lesion-classification performances, namely $L_L$ and $L_C$ respectively. The following function calculates these values:  -->
 
 
-The function is used as follows:
+<!-- ```{r echo=TRUE} -->
+<!-- LesionLocLesionCls <- function(mu, lambda, nu, lesDistr) { -->
+<!--   temp <- 0 -->
+<!--   for (L in 1:length(lesDistr)) { -->
+<!--     temp <- temp + lesDistr[L] * (1 - nu)^L -->
+<!--   } -->
+<!--   L_L <- exp(-lambda) * (1 - temp) -->
+<!--   L_C <- pnorm(mu/sqrt(2)) -->
+<!--   return(list( -->
+<!--     L_L = L_L, -->
+<!--     L_C = L_C -->
+<!--   )) -->
+<!-- } -->
+<!-- ``` -->
 
 
-```{r echo=TRUE}
-mu <- resultsVD[[1,2]]$retRsm$mu
-lambda <- resultsVD[[1,2]]$retRsm$lambda
-nu <- resultsVD[[1,2]]$retRsm$nu
-f <- which(datasetNames == "VD")
-fileName <- datasetNames[f]
-theData <- get(sprintf("dataset%02d", f)) # the datasets already exist as R objects
-lesDistr <- UtilLesionDistrVector(theData) # RSM ROC fitting needs to know lesDistr
+<!-- The function is used as follows: -->
 
-ret <- LesionLocLesionCls(mu, lambda, nu, lesDistr)
-L_L <- ret$L_L
-L_C <- ret$L_C
-  
-cat(sprintf("VD data i=1 j=2:  L_L = %7.3f, L_C = %7.3f", L_L, L_C), "\n")
-```
+
+<!-- ```{r echo=TRUE} -->
+<!-- mu <- resultsVD[[1,2]]$retRsm$mu -->
+<!-- lambda <- resultsVD[[1,2]]$retRsm$lambda -->
+<!-- nu <- resultsVD[[1,2]]$retRsm$nu -->
+<!-- f <- which(datasetNames == "VD") -->
+<!-- fileName <- datasetNames[f] -->
+<!-- theData <- get(sprintf("dataset%02d", f)) # the datasets already exist as R objects -->
+<!-- lesDistr <- UtilLesionDistrVector(theData) # RSM ROC fitting needs to know lesDistr -->
+
+<!-- ret <- LesionLocLesionCls(mu, lambda, nu, lesDistr) -->
+<!-- L_L <- ret$L_L -->
+<!-- L_C <- ret$L_C -->
+
+<!-- cat(sprintf("VD data i=1 j=2:  L_L = %7.3f, L_C = %7.3f", L_L, L_C), "\n") -->
+<!-- ``` -->
 
 
 
@@ -223,27 +228,27 @@ cat("RSM parameters, Franken dataset, i=2, j=3:",
 ```
 
 
-Shown next are the lesion-localization and lesion-classification performances for this dataset.
+<!-- Shown next are the lesion-localization and lesion-classification performances for this dataset. -->
 
 
-```{r echo=FALSE}
-mu <- resultsFR[[2,3]]$retRsm$mu
-lambda <- resultsFR[[2,3]]$retRsm$lambda
-nu <- resultsFR[[2,3]]$retRsm$nu
-f <- which(datasetNames == "FR")
-fileName <- datasetNames[f]
-theData <- get(sprintf("dataset%02d", f)) # the datasets already exist as R objects
-lesDistr <- UtilLesionDistrVector(theData) # RSM ROC fitting needs to know lesDistr
+<!-- ```{r echo=FALSE} -->
+<!-- mu <- resultsFR[[2,3]]$retRsm$mu -->
+<!-- lambda <- resultsFR[[2,3]]$retRsm$lambda -->
+<!-- nu <- resultsFR[[2,3]]$retRsm$nu -->
+<!-- f <- which(datasetNames == "FR") -->
+<!-- fileName <- datasetNames[f] -->
+<!-- theData <- get(sprintf("dataset%02d", f)) # the datasets already exist as R objects -->
+<!-- lesDistr <- UtilLesionDistrVector(theData) # RSM ROC fitting needs to know lesDistr -->
 
-ret <- LesionLocLesionCls(mu, lambda, nu, lesDistr)
-L_L <- ret$L_L
-L_C <- ret$L_C
-  
-cat(sprintf("FR data i=2, j=3:  L_L = %7.3f, L_C = %7.3f", L_L, L_C), "\n")
-```
+<!-- ret <- LesionLocLesionCls(mu, lambda, nu, lesDistr) -->
+<!-- L_L <- ret$L_L -->
+<!-- L_C <- ret$L_C -->
+
+<!-- cat(sprintf("FR data i=2, j=3:  L_L = %7.3f, L_C = %7.3f", L_L, L_C), "\n") -->
+<!-- ``` -->
 
 
-While the lesion-classification performances are similar for the two examples, the lesion-localization performances are different, with the Van Dyke dataset showing a greater value. This is evident from the location of the end-points in the two plots shown in Fig. \@ref(fig:rsm-3-fits-plots-vd-12) and Fig.  \@ref(fig:rsm-3-fits-plots-fr-23) (an end-point closer to the top-left corner implies greater lesion-localization performance).
+<!-- While the lesion-classification performances are similar for the two examples, the lesion-localization performances are different, with the Van Dyke dataset showing a greater value. This is evident from the location of the end-points in the two plots shown in Fig. \@ref(fig:rsm-3-fits-plots-vd-12) and Fig.  \@ref(fig:rsm-3-fits-plots-fr-23) (an end-point closer to the top-left corner implies greater lesion-localization performance). -->
 
 
 
@@ -536,7 +541,7 @@ knitr::include_graphics("images/compare-3-fits/RSM6.png")
 
 
 
-### Plots for the Van Dyke dataset {#rsm-3-fits-representative-plots-van-dyke}
+### Plots for the Van Dyke dataset {#rsm-3-fits-all-plots-van-dyke}
 
 The following plots are arranged in pairs, with the left plot corresponding to treatment 1 and the right to treatment 2. 
 
