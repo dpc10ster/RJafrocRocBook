@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-03-17" />
+<meta name="date" content="2023-03-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -401,16 +401,16 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="8" data-path="rsm-fitting.html"><a href="rsm-fitting.html"><i class="fa fa-check"></i><b>8</b> RSM fitting</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-how-much-finished"><i class="fa fa-check"></i><b>8.1</b> How much finished</a></li>
-<li class="chapter" data-level="8.2" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-intro"><i class="fa fa-check"></i><b>8.2</b> TBA Introduction</a></li>
+<li class="chapter" data-level="8.1" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-how-much-finished"><i class="fa fa-check"></i><b>8.1</b> How much finished 99%</a></li>
+<li class="chapter" data-level="8.2" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-intro"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
 <li class="chapter" data-level="8.3" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-roc-likelihood"><i class="fa fa-check"></i><b>8.3</b> ROC Likelihood function</a></li>
-<li class="chapter" data-level="8.4" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-fitrsmroc-implementation"><i class="fa fa-check"></i><b>8.4</b> Implementation</a></li>
+<li class="chapter" data-level="8.4" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-fit-rsm"><i class="fa fa-check"></i><b>8.4</b> Implementation</a></li>
 <li class="chapter" data-level="8.5" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-fitrsmroc-usage-example"><i class="fa fa-check"></i><b>8.5</b> <code>FitRsmROC</code> usage example</a></li>
 <li class="chapter" data-level="8.6" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-discussion-summary"><i class="fa fa-check"></i><b>8.6</b> Discussion / Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="rsm-3-fits.html"><a href="rsm-3-fits.html"><i class="fa fa-check"></i><b>9</b> Three proper ROC fits</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="rsm-3-fits.html"><a href="rsm-3-fits.html#rsm-3-fits-how-much-finished"><i class="fa fa-check"></i><b>9.1</b> TBA How much finished</a></li>
+<li class="chapter" data-level="9.1" data-path="rsm-3-fits.html"><a href="rsm-3-fits.html#rsm-3-fits-how-much-finished"><i class="fa fa-check"></i><b>9.1</b> How much finished 99%</a></li>
 <li class="chapter" data-level="9.2" data-path="rsm-3-fits.html"><a href="rsm-3-fits.html#rsm-3-fits-intro"><i class="fa fa-check"></i><b>9.2</b> TBA Introduction</a></li>
 <li class="chapter" data-level="9.3" data-path="rsm-3-fits.html"><a href="rsm-3-fits.html#rsm-3-fits-applications"><i class="fa fa-check"></i><b>9.3</b> Application to datasets</a></li>
 <li class="chapter" data-level="9.4" data-path="rsm-3-fits.html"><a href="rsm-3-fits.html#rsm-3-fits-composite-plots"><i class="fa fa-check"></i><b>9.4</b> Composite plots</a></li>
@@ -432,7 +432,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="9.10.1" data-path="rsm-3-fits.html"><a href="rsm-3-fits.html#rsm-3-fits-one-dataset-proproc"><i class="fa fa-check"></i><b>9.10.1</b> Location of PROPROC files</a></li>
 <li class="chapter" data-level="9.10.2" data-path="rsm-3-fits.html"><a href="rsm-3-fits.html#rsm-3-fits-pre-analyzed-results"><i class="fa fa-check"></i><b>9.10.2</b> Location of pre-analyzed results</a></li>
-<li class="chapter" data-level="9.10.3" data-path="rsm-3-fits.html"><a href="rsm-3-fits.html#rsm-3-fits-representative-plots-van-dyke"><i class="fa fa-check"></i><b>9.10.3</b> Plots for the Van Dyke dataset</a></li>
+<li class="chapter" data-level="9.10.3" data-path="rsm-3-fits.html"><a href="rsm-3-fits.html#rsm-3-fits-all-plots-van-dyke"><i class="fa fa-check"></i><b>9.10.3</b> Plots for the Van Dyke dataset</a></li>
 <li class="chapter" data-level="9.10.4" data-path="rsm-3-fits.html"><a href="rsm-3-fits.html#rsm-3-fits-representative-plots-franken"><i class="fa fa-check"></i><b>9.10.4</b> Plots for the Franken dataset</a></li>
 </ul></li>
 </ul></li>
@@ -521,9 +521,9 @@ div.csl-indent {
 <div id="bivariate-binormal-model-introduction" class="section level2 hasAnchor" number="10.2">
 <h2><span class="header-section-number">10.2</span> Introduction<a href="bivariate-binormal-model.html#bivariate-binormal-model-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Until now the focus has been on the single rating per case scenario where a reader interprets a set of cases in a single modality. Of greater clinical interest is a study where a group of readers interprets a common set of cases in multiple modalities (this is termed multipl-reader multiple-case or MRMC). An MRMC study, properly analyzed, yields results that are expected to generalize to the populations of readers and cases from which the study readers and cases were sampled. However, before one can handle MRMC a good place to start is two readers interpreting a common set of cases. Historically, the field progressed from here (the significance testing methods described in Book TBA came after the method to be described here).</p>
-<p>One might wonder why even bother describing the older approach <a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>. Before bringing in the RSM, addressed in TBA book Chapter 18 it is helpful to understand the paired binormal model applicable to paired ROC data. This handles two ratings per case, one per reader, and the analogous situation when one has a single reader interpreting cases in two modalities.</p>
+<p>One might wonder why even bother describing the older approach <a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>. Before bringing in the RSM, addressed in TBA book Chapter 18 it is helpful to understand the paired binormal model applicable to paired ROC data. This handles two ratings per case, one per reader, and the analogous situation when one has a single reader interpreting cases in two modalities.</p>
 <p>In Chapter <a href="binormal-model.html#binormal-model">6</a> the univariate binormal model was described, which is appropriate for modeling the single rating per case situation (the “bi” comes from the two truth states, not the two modalities). From the previous discussion it is evident that this needs to be extended to a bivariate model describing studies where each case yields two ratings. Because of the dual interpretations the two ratings per case are correlated. Assuming a 5-rating positive-directed ROC study on especially easy non-diseased cases the two ratings will both tend to be low (e.g., 1’s) and on especially easy diseased cases the two ratings will both tend to be high (e.g., 5’s) and on difficult cases, both ratings are likely to be in the ambiguous range (e.g., 3’s).</p>
-<p>Here is the plan for this chapter. First, the bivariate extension of the univariate binormal model is described. Since most of the readers of this book are not expected to be experts in statistics bivariate sampling will be described at a relatively simple level. Visualization of the probability density functions (pdfs) is demonstrated using an interactive display tool. Estimation of parameters of the bivariate model from ratings data is addressed. The usage of software implementing this procedure is described. The data format used by CORROC2 is described in some detail as well as how to interpret the program output. <a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> Finally, the application of the software to clinical datasets is described. A recent advance that solves degeneracy problems associated with CORROC2 is described, namely CORCBM, for correlated CBM. We conclude with a discussion of the applications of CORROC2 or CORCBM.</p>
+<p>Here is the plan for this chapter. First, the bivariate extension of the univariate binormal model is described. Since most of the readers of this book are not expected to be experts in statistics bivariate sampling will be described at a relatively simple level. Visualization of the probability density functions (pdfs) is demonstrated using an interactive display tool. Estimation of parameters of the bivariate model from ratings data is addressed. The usage of software implementing this procedure is described. The data format used by CORROC2 is described in some detail as well as how to interpret the program output. <a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> Finally, the application of the software to clinical datasets is described. A recent advance that solves degeneracy problems associated with CORROC2 is described, namely CORCBM, for correlated CBM. We conclude with a discussion of the applications of CORROC2 or CORCBM.</p>
 </div>
 <div id="bivariate-binormal-model-density" class="section level2 hasAnchor" number="10.3">
 <h2><span class="header-section-number">10.3</span> The bivariate normal density function<a href="bivariate-binormal-model.html#bivariate-binormal-model-density" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -540,7 +540,7 @@ f_p\left( \overrightarrow{x} ~~ \bigg \rvert ~~\overrightarrow{\mu}, ~~ \overrig
 \tag{10.2}
 \end{equation}\]</span></p>
 <p>Here <span class="math inline">\(|\Sigma|\)</span> is the determinant of the matrix and <span class="math inline">\(T\)</span> is the transpose operator.</p>
-<p>For the special case of a bivariate normal distribution <span class="math inline">\(p = 2\)</span> this is equivalent to (the subscript 2 is suppressed) <a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>:</p>
+<p>For the special case of a bivariate normal distribution <span class="math inline">\(p = 2\)</span> this is equivalent to (the subscript 2 is suppressed) <a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>:</p>
 <p><span class="math display" id="eq:bivariate-binormal-model-density-function">\[\begin{equation}
 f\left( x_1,x_2 ~~ \bigg \rvert ~~ \mu_1, \mu_2,  \sigma_1, \sigma_2, \rho \right)
 = \frac{1}{2 \pi \sigma_1 \sigma_2 \sqrt{1-\rho^2}}\exp\left( -\frac{t}{2\left( 1-\rho^2 \right)} \right)
@@ -595,26 +595,26 @@ t=\frac{\left( x_1-\mu_1 \right)^2}{\sigma_1^2}-\frac{2\rho\left( x_1-\mu_1 \rig
 \tag{10.6}
 \end{equation}\]</span></p>
 <p>In the following code the call to get the pdf occurs at line: <code>pdf &lt;- dmvnorm(x, mean = c(mu1,mu2), sigma = Sigma)</code>.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="bivariate-binormal-model.html#cb41-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>,<span class="fl">0.2</span>) <span class="co"># the x-vector at which to evaluate pdf</span></span>
-<span id="cb41-2"><a href="bivariate-binormal-model.html#cb41-2" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="fl">1.5</span> <span class="co"># mean modality 1</span></span>
-<span id="cb41-3"><a href="bivariate-binormal-model.html#cb41-3" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="fl">2.0</span> <span class="co"># mean modality 2</span></span>
-<span id="cb41-4"><a href="bivariate-binormal-model.html#cb41-4" aria-hidden="true" tabindex="-1"></a>var1 <span class="ot">&lt;-</span> <span class="fl">1.1</span><span class="sc">^</span><span class="dv">2</span>  <span class="co"># variance modality 1</span></span>
-<span id="cb41-5"><a href="bivariate-binormal-model.html#cb41-5" aria-hidden="true" tabindex="-1"></a>var2 <span class="ot">&lt;-</span> <span class="fl">1.5</span><span class="sc">^</span><span class="dv">2</span> <span class="co"># variance modality 2</span></span>
-<span id="cb41-6"><a href="bivariate-binormal-model.html#cb41-6" aria-hidden="true" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="fl">0.6</span> <span class="co"># correlation between modalities 1 and 2</span></span>
-<span id="cb41-7"><a href="bivariate-binormal-model.html#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb41-8"><a href="bivariate-binormal-model.html#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co"># construct covariance matrix Sigma</span></span>
-<span id="cb41-9"><a href="bivariate-binormal-model.html#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb41-10"><a href="bivariate-binormal-model.html#cb41-10" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(var1, rho<span class="sc">*</span><span class="fu">sqrt</span>(var1<span class="sc">*</span>var2), </span>
-<span id="cb41-11"><a href="bivariate-binormal-model.html#cb41-11" aria-hidden="true" tabindex="-1"></a>                  rho<span class="sc">*</span><span class="fu">sqrt</span>(var1<span class="sc">*</span>var2), var2),<span class="dv">2</span>)</span>
-<span id="cb41-12"><a href="bivariate-binormal-model.html#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb41-13"><a href="bivariate-binormal-model.html#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="co"># pdf </span></span>
-<span id="cb41-14"><a href="bivariate-binormal-model.html#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb41-15"><a href="bivariate-binormal-model.html#cb41-15" aria-hidden="true" tabindex="-1"></a>pdf  <span class="ot">&lt;-</span> <span class="fu">dmvnorm</span>(x, <span class="at">mean =</span> <span class="fu">c</span>(mu1,mu2), <span class="at">sigma =</span> Sigma)</span>
-<span id="cb41-16"><a href="bivariate-binormal-model.html#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb41-17"><a href="bivariate-binormal-model.html#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
-<span id="cb41-18"><a href="bivariate-binormal-model.html#cb41-18" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb41-19"><a href="bivariate-binormal-model.html#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;density at x1 = 0.1 and x2 = 0.2 = &quot;</span>, pdf, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb41-20"><a href="bivariate-binormal-model.html#cb41-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; density at x1 = 0.1 and x2 = 0.2 =  0.04622722</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="bivariate-binormal-model.html#cb37-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>,<span class="fl">0.2</span>) <span class="co"># the x-vector at which to evaluate pdf</span></span>
+<span id="cb37-2"><a href="bivariate-binormal-model.html#cb37-2" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="fl">1.5</span> <span class="co"># mean modality 1</span></span>
+<span id="cb37-3"><a href="bivariate-binormal-model.html#cb37-3" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="fl">2.0</span> <span class="co"># mean modality 2</span></span>
+<span id="cb37-4"><a href="bivariate-binormal-model.html#cb37-4" aria-hidden="true" tabindex="-1"></a>var1 <span class="ot">&lt;-</span> <span class="fl">1.1</span><span class="sc">^</span><span class="dv">2</span>  <span class="co"># variance modality 1</span></span>
+<span id="cb37-5"><a href="bivariate-binormal-model.html#cb37-5" aria-hidden="true" tabindex="-1"></a>var2 <span class="ot">&lt;-</span> <span class="fl">1.5</span><span class="sc">^</span><span class="dv">2</span> <span class="co"># variance modality 2</span></span>
+<span id="cb37-6"><a href="bivariate-binormal-model.html#cb37-6" aria-hidden="true" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="fl">0.6</span> <span class="co"># correlation between modalities 1 and 2</span></span>
+<span id="cb37-7"><a href="bivariate-binormal-model.html#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb37-8"><a href="bivariate-binormal-model.html#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="co"># construct covariance matrix Sigma</span></span>
+<span id="cb37-9"><a href="bivariate-binormal-model.html#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb37-10"><a href="bivariate-binormal-model.html#cb37-10" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(var1, rho<span class="sc">*</span><span class="fu">sqrt</span>(var1<span class="sc">*</span>var2), </span>
+<span id="cb37-11"><a href="bivariate-binormal-model.html#cb37-11" aria-hidden="true" tabindex="-1"></a>                  rho<span class="sc">*</span><span class="fu">sqrt</span>(var1<span class="sc">*</span>var2), var2),<span class="dv">2</span>)</span>
+<span id="cb37-12"><a href="bivariate-binormal-model.html#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb37-13"><a href="bivariate-binormal-model.html#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># pdf </span></span>
+<span id="cb37-14"><a href="bivariate-binormal-model.html#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb37-15"><a href="bivariate-binormal-model.html#cb37-15" aria-hidden="true" tabindex="-1"></a>pdf  <span class="ot">&lt;-</span> <span class="fu">dmvnorm</span>(x, <span class="at">mean =</span> <span class="fu">c</span>(mu1,mu2), <span class="at">sigma =</span> Sigma)</span>
+<span id="cb37-16"><a href="bivariate-binormal-model.html#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb37-17"><a href="bivariate-binormal-model.html#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb37-18"><a href="bivariate-binormal-model.html#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb37-19"><a href="bivariate-binormal-model.html#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;density at x1 = 0.1 and x2 = 0.2 = &quot;</span>, pdf, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb37-20"><a href="bivariate-binormal-model.html#cb37-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; density at x1 = 0.1 and x2 = 0.2 =  0.04622722</span></span></code></pre></div>
 <p>The parameters describing the bivariate normal distribution are <span class="math inline">\(\overrightarrow{\mu}\)</span> and <span class="math inline">\(\Sigma\)</span>. The total number of parameters is five: two means, two variances and a correlation coefficient.</p>
 </div>
 <div id="bivariate-binormal-model-formulae" class="section level2 hasAnchor" number="10.4">
@@ -686,48 +686,48 @@ z_{k_22} &amp;\sim  N\left( \mu, \sigma^2 \right)
 <div id="bivariate-binormal-model-multivariate-density-visualization" class="section level2 hasAnchor" number="10.5">
 <h2><span class="header-section-number">10.5</span> Visualizing the bivariate density function<a href="bivariate-binormal-model.html#bivariate-binormal-model-multivariate-density-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In understanding the bivariate distribution it is helpful to visualize the pdfs. Since one is dealing with a vector <span class="math inline">\(\overrightarrow{x}\)</span> of length 2, one needs two axes to depict <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> and a third axis to depict the pdf. A sophisticated visualization technique is available for <code>R</code>. The package is called <code>plotly</code>. It is interactive in the sense that by dragging the cursor over the plot one can visualize it from different viewpoints. The following images were captured using this package. Shown in Fig. <a href="bivariate-binormal-model.html#fig:bivariate-binormal-model-pdf-plots">10.1</a> are four views of the bivariate distribution density function for <span class="math inline">\(\mu_{12} = 1.5\)</span>, <span class="math inline">\(\mu_{22} = 2.0\)</span>, <span class="math inline">\(\sigma_1 = 1.0\)</span>, <span class="math inline">\(\sigma_2 = 1.5\)</span>, <span class="math inline">\(\rho_1 = 0.3\)</span> and <span class="math inline">\(\rho_2 = 0.6\)</span>.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="bivariate-binormal-model.html#cb42-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>,<span class="fl">0.2</span>) <span class="co"># the x-vector at which to evaluate pdf</span></span>
-<span id="cb42-2"><a href="bivariate-binormal-model.html#cb42-2" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="fl">1.5</span> <span class="co"># diseased mean modality 1</span></span>
-<span id="cb42-3"><a href="bivariate-binormal-model.html#cb42-3" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="fl">2.0</span> <span class="co"># diseased mean modality 2</span></span>
-<span id="cb42-4"><a href="bivariate-binormal-model.html#cb42-4" aria-hidden="true" tabindex="-1"></a>var1 <span class="ot">&lt;-</span> <span class="dv">1</span>  <span class="co"># diseased variance modality 1</span></span>
-<span id="cb42-5"><a href="bivariate-binormal-model.html#cb42-5" aria-hidden="true" tabindex="-1"></a>var2 <span class="ot">&lt;-</span> (<span class="fl">1.5</span>)<span class="sc">^</span><span class="dv">2</span> <span class="co"># diseased variance modality 2</span></span>
-<span id="cb42-6"><a href="bivariate-binormal-model.html#cb42-6" aria-hidden="true" tabindex="-1"></a>rho1 <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="co"># non-diseased correlation</span></span>
-<span id="cb42-7"><a href="bivariate-binormal-model.html#cb42-7" aria-hidden="true" tabindex="-1"></a>rho2 <span class="ot">&lt;-</span> <span class="fl">0.6</span> <span class="co"># diseased correlation</span></span>
-<span id="cb42-8"><a href="bivariate-binormal-model.html#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-9"><a href="bivariate-binormal-model.html#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb42-10"><a href="bivariate-binormal-model.html#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="co"># construction the covariance matrix Sigma1 for non-diseased</span></span>
-<span id="cb42-11"><a href="bivariate-binormal-model.html#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb42-12"><a href="bivariate-binormal-model.html#cb42-12" aria-hidden="true" tabindex="-1"></a>Sigma1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, rho1, rho1, var2),<span class="dv">2</span>)</span>
-<span id="cb42-13"><a href="bivariate-binormal-model.html#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-14"><a href="bivariate-binormal-model.html#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb42-15"><a href="bivariate-binormal-model.html#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="co"># pdf for non-diseased</span></span>
-<span id="cb42-16"><a href="bivariate-binormal-model.html#cb42-16" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb42-17"><a href="bivariate-binormal-model.html#cb42-17" aria-hidden="true" tabindex="-1"></a><span class="co"># following defaults to zero mean for each modality</span></span>
-<span id="cb42-18"><a href="bivariate-binormal-model.html#cb42-18" aria-hidden="true" tabindex="-1"></a>pdf1  <span class="ot">&lt;-</span> <span class="fu">dmvnorm</span>(x, <span class="at">sigma =</span> Sigma1) </span>
-<span id="cb42-19"><a href="bivariate-binormal-model.html#cb42-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-20"><a href="bivariate-binormal-model.html#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb42-21"><a href="bivariate-binormal-model.html#cb42-21" aria-hidden="true" tabindex="-1"></a><span class="co"># construction the covariance matrix Sigma2 for diseased</span></span>
-<span id="cb42-22"><a href="bivariate-binormal-model.html#cb42-22" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb42-23"><a href="bivariate-binormal-model.html#cb42-23" aria-hidden="true" tabindex="-1"></a>Sigma2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(var1, rho2<span class="sc">*</span><span class="fu">sqrt</span>(var1<span class="sc">*</span>var2), rho2<span class="sc">*</span><span class="fu">sqrt</span>(var1<span class="sc">*</span>var2), var2),<span class="dv">2</span>)</span>
-<span id="cb42-24"><a href="bivariate-binormal-model.html#cb42-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-25"><a href="bivariate-binormal-model.html#cb42-25" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb42-26"><a href="bivariate-binormal-model.html#cb42-26" aria-hidden="true" tabindex="-1"></a><span class="co"># pdf for diseased</span></span>
-<span id="cb42-27"><a href="bivariate-binormal-model.html#cb42-27" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb42-28"><a href="bivariate-binormal-model.html#cb42-28" aria-hidden="true" tabindex="-1"></a>pdf2  <span class="ot">&lt;-</span> <span class="fu">dmvnorm</span>(x, <span class="at">mean =</span> <span class="fu">c</span>(mu1,mu2), <span class="at">sigma =</span> Sigma2)</span>
-<span id="cb42-29"><a href="bivariate-binormal-model.html#cb42-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-30"><a href="bivariate-binormal-model.html#cb42-30" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb42-31"><a href="bivariate-binormal-model.html#cb42-31" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
-<span id="cb42-32"><a href="bivariate-binormal-model.html#cb42-32" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb42-33"><a href="bivariate-binormal-model.html#cb42-33" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;mu1 =&quot;</span>, mu1, <span class="st">&quot;, mu2 =&quot;</span>, mu2, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb42-34"><a href="bivariate-binormal-model.html#cb42-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mu1 = 1.5 , mu2 = 2</span></span>
-<span id="cb42-35"><a href="bivariate-binormal-model.html#cb42-35" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;var1 =&quot;</span>, var1, <span class="st">&quot;, var2 =&quot;</span>, var2, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb42-36"><a href="bivariate-binormal-model.html#cb42-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; var1 = 1 , var2 = 2.25</span></span>
-<span id="cb42-37"><a href="bivariate-binormal-model.html#cb42-37" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;rho1 =&quot;</span>, rho1, <span class="st">&quot;, rho2 =&quot;</span>, rho2, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb42-38"><a href="bivariate-binormal-model.html#cb42-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rho1 = 0.3 , rho2 = 0.6</span></span>
-<span id="cb42-39"><a href="bivariate-binormal-model.html#cb42-39" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;non-diseased density at x1 = 0.1 and x2 = 0.2 = &quot;</span>, pdf1, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb42-40"><a href="bivariate-binormal-model.html#cb42-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; non-diseased density at x1 = 0.1 and x2 = 0.2 =  0.1070327</span></span>
-<span id="cb42-41"><a href="bivariate-binormal-model.html#cb42-41" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;diseased density at x1 = 0.1 and x2 = 0.2 = &quot;</span>, pdf2, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb42-42"><a href="bivariate-binormal-model.html#cb42-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; diseased density at x1 = 0.1 and x2 = 0.2 =  0.04498399</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="bivariate-binormal-model.html#cb38-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>,<span class="fl">0.2</span>) <span class="co"># the x-vector at which to evaluate pdf</span></span>
+<span id="cb38-2"><a href="bivariate-binormal-model.html#cb38-2" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="fl">1.5</span> <span class="co"># diseased mean modality 1</span></span>
+<span id="cb38-3"><a href="bivariate-binormal-model.html#cb38-3" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="fl">2.0</span> <span class="co"># diseased mean modality 2</span></span>
+<span id="cb38-4"><a href="bivariate-binormal-model.html#cb38-4" aria-hidden="true" tabindex="-1"></a>var1 <span class="ot">&lt;-</span> <span class="dv">1</span>  <span class="co"># diseased variance modality 1</span></span>
+<span id="cb38-5"><a href="bivariate-binormal-model.html#cb38-5" aria-hidden="true" tabindex="-1"></a>var2 <span class="ot">&lt;-</span> (<span class="fl">1.5</span>)<span class="sc">^</span><span class="dv">2</span> <span class="co"># diseased variance modality 2</span></span>
+<span id="cb38-6"><a href="bivariate-binormal-model.html#cb38-6" aria-hidden="true" tabindex="-1"></a>rho1 <span class="ot">&lt;-</span> <span class="fl">0.3</span> <span class="co"># non-diseased correlation</span></span>
+<span id="cb38-7"><a href="bivariate-binormal-model.html#cb38-7" aria-hidden="true" tabindex="-1"></a>rho2 <span class="ot">&lt;-</span> <span class="fl">0.6</span> <span class="co"># diseased correlation</span></span>
+<span id="cb38-8"><a href="bivariate-binormal-model.html#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="bivariate-binormal-model.html#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb38-10"><a href="bivariate-binormal-model.html#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co"># construction the covariance matrix Sigma1 for non-diseased</span></span>
+<span id="cb38-11"><a href="bivariate-binormal-model.html#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-12"><a href="bivariate-binormal-model.html#cb38-12" aria-hidden="true" tabindex="-1"></a>Sigma1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, rho1, rho1, var2),<span class="dv">2</span>)</span>
+<span id="cb38-13"><a href="bivariate-binormal-model.html#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="bivariate-binormal-model.html#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb38-15"><a href="bivariate-binormal-model.html#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="co"># pdf for non-diseased</span></span>
+<span id="cb38-16"><a href="bivariate-binormal-model.html#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-17"><a href="bivariate-binormal-model.html#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="co"># following defaults to zero mean for each modality</span></span>
+<span id="cb38-18"><a href="bivariate-binormal-model.html#cb38-18" aria-hidden="true" tabindex="-1"></a>pdf1  <span class="ot">&lt;-</span> <span class="fu">dmvnorm</span>(x, <span class="at">sigma =</span> Sigma1) </span>
+<span id="cb38-19"><a href="bivariate-binormal-model.html#cb38-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-20"><a href="bivariate-binormal-model.html#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb38-21"><a href="bivariate-binormal-model.html#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="co"># construction the covariance matrix Sigma2 for diseased</span></span>
+<span id="cb38-22"><a href="bivariate-binormal-model.html#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-23"><a href="bivariate-binormal-model.html#cb38-23" aria-hidden="true" tabindex="-1"></a>Sigma2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(var1, rho2<span class="sc">*</span><span class="fu">sqrt</span>(var1<span class="sc">*</span>var2), rho2<span class="sc">*</span><span class="fu">sqrt</span>(var1<span class="sc">*</span>var2), var2),<span class="dv">2</span>)</span>
+<span id="cb38-24"><a href="bivariate-binormal-model.html#cb38-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-25"><a href="bivariate-binormal-model.html#cb38-25" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb38-26"><a href="bivariate-binormal-model.html#cb38-26" aria-hidden="true" tabindex="-1"></a><span class="co"># pdf for diseased</span></span>
+<span id="cb38-27"><a href="bivariate-binormal-model.html#cb38-27" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-28"><a href="bivariate-binormal-model.html#cb38-28" aria-hidden="true" tabindex="-1"></a>pdf2  <span class="ot">&lt;-</span> <span class="fu">dmvnorm</span>(x, <span class="at">mean =</span> <span class="fu">c</span>(mu1,mu2), <span class="at">sigma =</span> Sigma2)</span>
+<span id="cb38-29"><a href="bivariate-binormal-model.html#cb38-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-30"><a href="bivariate-binormal-model.html#cb38-30" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb38-31"><a href="bivariate-binormal-model.html#cb38-31" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb38-32"><a href="bivariate-binormal-model.html#cb38-32" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-33"><a href="bivariate-binormal-model.html#cb38-33" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;mu1 =&quot;</span>, mu1, <span class="st">&quot;, mu2 =&quot;</span>, mu2, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb38-34"><a href="bivariate-binormal-model.html#cb38-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mu1 = 1.5 , mu2 = 2</span></span>
+<span id="cb38-35"><a href="bivariate-binormal-model.html#cb38-35" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;var1 =&quot;</span>, var1, <span class="st">&quot;, var2 =&quot;</span>, var2, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb38-36"><a href="bivariate-binormal-model.html#cb38-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; var1 = 1 , var2 = 2.25</span></span>
+<span id="cb38-37"><a href="bivariate-binormal-model.html#cb38-37" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;rho1 =&quot;</span>, rho1, <span class="st">&quot;, rho2 =&quot;</span>, rho2, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb38-38"><a href="bivariate-binormal-model.html#cb38-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; rho1 = 0.3 , rho2 = 0.6</span></span>
+<span id="cb38-39"><a href="bivariate-binormal-model.html#cb38-39" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;non-diseased density at x1 = 0.1 and x2 = 0.2 = &quot;</span>, pdf1, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb38-40"><a href="bivariate-binormal-model.html#cb38-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; non-diseased density at x1 = 0.1 and x2 = 0.2 =  0.1070327</span></span>
+<span id="cb38-41"><a href="bivariate-binormal-model.html#cb38-41" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;diseased density at x1 = 0.1 and x2 = 0.2 = &quot;</span>, pdf2, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb38-42"><a href="bivariate-binormal-model.html#cb38-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; diseased density at x1 = 0.1 and x2 = 0.2 =  0.04498399</span></span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:bivariate-binormal-model-pdf-plots"></span>
 <img src="10-bivariate-binormal-model_files/figure-html/bivariate-binormal-model-pdf-plots-1.png" alt="Bivariate pdf plots: Top-left is the default view. Top-right is the 'birds eye' view, with the pdf-axis 'literally coming at the reader' at right angles to the paper or screen. Bottom-left is the view looking along the y-axis at x = 0. Bottom-right is the view looking along the x-axis at y = 0. The `R` package `plotly` was used to capture these screen-shots." width="672" />
 <p class="caption">
@@ -951,10 +951,10 @@ Genz, Alan, Frank Bretz, Tetsuhisa Miwa, Xuefei Mi, and Torsten Hothorn. 2021. <
 </div>
 <div class="footnotes">
 <hr />
-<ol start="19">
-<li id="fn19"><p>The significance testing methods assume a figure of merit can be calculated and address how to perform significance testing using that figure of merit.<a href="bivariate-binormal-model.html#fnref19" class="footnote-back">↩︎</a></p></li>
-<li id="fn20"><p>Since this software runs on Windows, material is provided to allow the user to run it on a MAC (most of this necessary digression, since the author is using OS X, is in TBA Online Appendix 21.D). This digression is not needed in one is using a Windows platform.<a href="bivariate-binormal-model.html#fnref20" class="footnote-back">↩︎</a></p></li>
-<li id="fn21"><p>In the univariate case, <span class="math inline">\(p = 1\)</span>, <span class="math inline">\(\Sigma\)</span> is replaced by <span class="math inline">\(\sigma^2\)</span>, and the above expression reduces to the pdf of the normal distribution <span class="math inline">\(N(\mu, \sigma^2)\)</span>.<a href="bivariate-binormal-model.html#fnref21" class="footnote-back">↩︎</a></p></li>
+<ol start="17">
+<li id="fn17"><p>The significance testing methods assume a figure of merit can be calculated and address how to perform significance testing using that figure of merit.<a href="bivariate-binormal-model.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<li id="fn18"><p>Since this software runs on Windows, material is provided to allow the user to run it on a MAC (most of this necessary digression, since the author is using OS X, is in TBA Online Appendix 21.D). This digression is not needed in one is using a Windows platform.<a href="bivariate-binormal-model.html#fnref18" class="footnote-back">↩︎</a></p></li>
+<li id="fn19"><p>In the univariate case, <span class="math inline">\(p = 1\)</span>, <span class="math inline">\(\Sigma\)</span> is replaced by <span class="math inline">\(\sigma^2\)</span>, and the above expression reduces to the pdf of the normal distribution <span class="math inline">\(N(\mu, \sigma^2)\)</span>.<a href="bivariate-binormal-model.html#fnref19" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

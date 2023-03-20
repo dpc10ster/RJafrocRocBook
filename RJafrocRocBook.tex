@@ -138,7 +138,7 @@
 
 \title{Modeling ROC data}
 \author{Dev P. Chakraborty, PhD}
-\date{2023-03-17}
+\date{2023-03-20}
 
 \begin{document}
 \maketitle
@@ -4401,21 +4401,23 @@ Note the close correspondence between the formula, Eqn. 36 in \citep{metz1999pro
 \chapter{RSM fitting}\label{rsm-fitting}}
 
 \hypertarget{rsm-fitting-how-much-finished}{%
-\section{How much finished}\label{rsm-fitting-how-much-finished}}
-
-99\%
+\section{How much finished 99\%}\label{rsm-fitting-how-much-finished}}
 
 \hypertarget{rsm-fitting-intro}{%
-\section{TBA Introduction}\label{rsm-fitting-intro}}
+\section{Introduction}\label{rsm-fitting-intro}}
 
-Early work, reported in my 2017 print book, revealed that an FROC curve based estimation method worked only for designer level CAD data and not for human observer data. Subsequent effort focused on ROC curve-based fitting, and this proved successful at fitting radiologist datasets where detailed definition of the ROC curve is not available. A preliminary account of this work can be found in a conference proceeding \citep{chakraborty2011estimating}.
+The Radiological Search Model (RSM) is detailed in my \href{https://dpc10ster.github.io/RJafrocFrocBook/}{FROC paradigm book}. Early efforts at estimating RSM parameters revealed that an FROC curve based estimation method patterned after \citep{edwards2002maximum} worked only for designer level CAD data and not for human observer data. Subsequent effort focused on ROC curve-based fitting, and this proved successful at fitting human observer datasets. A preliminary account of this work is in \citep{chakraborty2011estimating}.
 
-The reader should be surprised to learn that the ROC curve based fitting works, \emph{which implies that one does not even need FROC data to estimate RSM parameters.} I have previously stated that the ROC paradigm ignores search, so how can one estimate search-model parameters from ROC data? The reason is that the \emph{shape} of the RSM-predicted ROC curve and the \emph{location} of the end-point depend on the RSM parameters.
+\begin{quote}
+It may be surprising that the ROC curve based fitting works, which implies that one does not even need FROC data to estimate RSM parameters. I have previously stated that the ROC paradigm ignores search so how can one estimate search-model parameters from ROC data? The reason is that the \emph{shape} of the RSM-predicted ROC curve and the \emph{location} of the end-point depend on the RSM parameters.
+\end{quote}
 
 \hypertarget{rsm-fitting-roc-likelihood}{%
 \section{ROC Likelihood function}\label{rsm-fitting-roc-likelihood}}
 
-In Chapter \texttt{TempComment\ \textbackslash{}@ref(rsm-predictions)} expressions were derived for the coordinates \((x,y)\) of the ROC curve predicted by the RSM, see Eqn. \texttt{TempComment\ \ \textbackslash{}@ref(eq:rsm-predictions-fpf)} and Eqn. \texttt{TempComment\ \textbackslash{}@ref(eq:rsm-predictions-tpf2)}, where \(x\equiv x(\zeta,\lambda)\) and \(y \equiv y(\zeta , \mu, \lambda, \nu, \overrightarrow{f_L})\). Let \((F_r,T_r)\) denote the number of false positives and true positives in ROC rating bin \(r\) defined by thresholds \([\zeta_r, \zeta_{r+1})\), for \(r = 0, 1, ..., R_{FROC}\). \((F_0,T_0)\) represent the \emph{known} numbers of non-diseased and diseased cases, respectively, with no marks, \((F_1,T_1)\) represent the corresponding numbers with highest rating equal to one, etc.
+In Chapter \texttt{TempComment\ \textbackslash{}@ref(rsm-predictions)} expressions were derived for the coordinates \((x,y)\) of the ROC curve predicted by the RSM, see Eqn. \texttt{TempComment\ \ \textbackslash{}@ref(eq:rsm-predictions-fpf)} and Eqn. \texttt{TempComment\ \textbackslash{}@ref(eq:rsm-predictions-tpf2)}, where \(x\equiv x(\zeta,\lambda)\) and \(y \equiv y(\zeta , \mu, \lambda, \nu, \overrightarrow{f_L})\).
+
+Let \((F_r,T_r)\) denote the number of false positives and true positives in the ROC rating bin \(r\) defined by thresholds \([\zeta_r, \zeta_{r+1})\) where \(r = 0, 1, ..., R_{FROC}\). \((F_0,T_0)\) represent the numbers of non-diseased and diseased cases respectively with no marks, \((F_1,T_1)\) represent the corresponding numbers with highest rating equal to one, etc.
 
 The probability \(P_{1r}\) of a count in non-diseased ROC bin \(r\) is:
 
@@ -4442,14 +4444,14 @@ LL_{ROC} \left ( \mu, \lambda, \nu, \overrightarrow{f_L} \right )= \sum_{r=0}^{R
 \label{eq:rsm-fitting-roc-ll2}
 \end{equation}
 
-The total number of parameters to be estimated, including the \(R_{FROC}\) thresholds, is \(3+R_{FROC}\). Maximizing the likelihood function yields estimates of the RSM parameters.
+The total number of parameters to be estimated, including thresholds, is \(3+R_{FROC}\). Maximizing the likelihood function yields parameter estimates.
 
-The Broyden--Fletcher--Goldfarb--Shanno (BFGS) \citep{RN2646, RN2647, RN2648, RN2649, RN2651, RN2650} minimization algorithm, as implemented as function \texttt{mle2()} in R-package \citep{R-bbmle}, was used to minimize the negative of the likelihood function. Since the BFGS-algorithm varies each parameter in an unrestricted range \((-\infty, \infty)\), which would cause problems (e.g., RSM physical parameters cannot be negative and thresholds need to be properly ordered), appropriate variable transformations (both ``forward'' and ``inverse'') were used so that parameters supplied to the log-likelihood function were always in the valid range, irrespective of values chosen by the BFGS-algorithm.
+The Broyden--Fletcher--Goldfarb--Shanno (BFGS) \citep{shanno1970optimal, shanno1970conditioning, goldfarb1970family, fletcher1970new, fletcher2013practical, broyden1970convergence} minimization algorithm, as implemented as function \texttt{mle2()} in R-package \citep{R-bbmle} was used to minimize the negative of the likelihood function. Since the BFGS-algorithm varies each parameter in an unrestricted range \((-\infty, \infty)\), which would cause problems (e.g., RSM parameters cannot be negative and thresholds are subject to an ordering constraint) appropriate transformations (``forward'' and ``inverse'') were used so that, irrespective of values chosen by the BFGS-algorithm, the values supplied to the log-likelihood function were always valid.
 
-\hypertarget{rsm-fitting-fitrsmroc-implementation}{%
-\section{Implementation}\label{rsm-fitting-fitrsmroc-implementation}}
+\hypertarget{rsm-fitting-fit-rsm}{%
+\section{Implementation}\label{rsm-fitting-fit-rsm}}
 
-Function \texttt{FitRsmROC()} fits an RSM-predicted ROC curve to a binned single-modality single-reader ROC dataset. It is called by \texttt{ret\ \textless{}-\ FitRsmRoc(binnedRocData,\ lesDistr,\ trt\ =\ 1,\ rdr\ =\ 1)}, where \texttt{binnedRocData} is a binned multi-treatment multi-reader ROC dataset, \texttt{lesDistr} is the lesion distribution vector for the dataset and \texttt{trt} and \texttt{rdr} are the desired treatment and reader to extract from the dataset, each of which defaults to one.
+Function \texttt{FitRsmROC()} fits an RSM-predicted ROC curve to a binned single-modality single-reader ROC dataset. It is called by \texttt{ret\ \textless{}-\ FitRsmRoc(binnedRocData,\ lesDistr,\ trt\ =\ 1,\ rdr\ =\ 1)}, where \texttt{binnedRocData} is a binned multi-treatment multi-reader ROC dataset, \texttt{lesDistr} is the lesion distribution vector \(\overrightarrow{f_L}\) for the dataset and \texttt{trt} and \texttt{rdr} are the desired treatment and reader to extract from the dataset, each of which defaults to one.
 
 The return value \texttt{ret} is a \texttt{list} with the following elements:
 
@@ -4487,7 +4489,7 @@ The return value \texttt{ret} is a \texttt{list} with the following elements:
 \begin{itemize}
 \tightlist
 \item
-  The following example uses the \emph{first} treatment in \texttt{dataset04}; this is a 5 treatment 4 radiologist FROC dataset \citep{zanca2009evaluation} consisting of 200 cases acquired on a 5-point integer scale, i.e., it is already binned. If not one needs to bin the dataset using \texttt{DfBDataset()}. The number of parameters to be estimated increases with the number of bins: for each additional bin one needs to estimate an additional cutoff parameter.
+  The following example uses the \emph{first} treatment in \texttt{dataset04}; this is a 5 treatment 4 radiologist FROC dataset \citep{zanca2009evaluation} consisting of 200 cases acquired on a 5-point integer scale, i.e., it is already binned. If not one needs to bin the dataset using \texttt{DfBinDataset()}. The number of parameters to be estimated increases with the number of bins since for each additional bin one needs to estimate an additional cutoff parameter.
 \end{itemize}
 
 \begin{Shaded}
@@ -4498,9 +4500,9 @@ The return value \texttt{ret} is a \texttt{list} with the following elements:
 \end{Highlighting}
 \end{Shaded}
 
-The lesion distribution vector is 0.69, 0.2, 0.11. This means that fraction 0.69 of each diseased case contains one lesion, fraction 0.2 contains two lesions and fraction 0.11 contains three lesions. Since the fitted curve depends on the lesion distribution the fitting function needs to know this distribution. \footnote{For example, all else being equal, if each diseased case contains one lesion the ROC curve will be lower than if each diseased case contains three lesions.}
+The lesion distribution vector is 0.69, 0.2, 0.11. This means that fraction 0.69 of diseased cases contain one lesion, fraction 0.2 contain two lesions and fraction 0.11 contain three lesions.
 
-The fitted parameter values are as follows (all cutoffs excepting \(\zeta_1\), the chi-square statistic and the covariance matrix, are not shown):
+The fitted parameter values are as follows (not shown are cutoffs excepting \(\zeta_1\), the chi-square statistic and the covariance matrix):
 
 \begin{quote}
 \begin{itemize}
@@ -4524,30 +4526,24 @@ The fitted parameter values are as follows (all cutoffs excepting \(\zeta_1\), t
 \end{itemize}
 \end{quote}
 
-The relatively large separation parameter \(\mu\) implies good lesion-classification performance. The large \(\lambda\) parameter implies poor lesion-localization performance. On the average the observer generates 9.94 latent NL marks per image. However, because of the relatively large value of \(\zeta_1\), i.e., 1.5, only fraction 0.066 of these are actually marked, resulting in 0.66 actual marks per image. Lesion-localization performance depends on the numbers of latent marks, i.e., \(\lambda\) and \(\nu\), not the actual numbers of marks.
+The fitting program decreased the negative log-likelihood (NLL) from 281.4 to 267.27. A decrease in negative log-likelihood is expected since one is maximizing the log-likelihood. Because the RSM contains 3 parameters, which is one more than conventional ROC models, the chi-square goodness of fit statistic usually cannot be calculated except for large datasets - the criterion of at least 5 counts in each bin for true positives and false positives is usually hard to meet. Using the method described in Section \ref{binormal-model-curve-fitting-validation} the degrees of freedom is \(\text{df} = R_{FROC} - 3\)\footnote{The expansive form of the relevant equation is \(R_{FROC} + R_{FROC} - (3 + R_{FROC}) = R_{FROC} - 3\)}.
 
-The fitting program decreased the negative of the log-likelihood function from 281.4 to 267.27. A decrease in negative log-likelihood is equivalent to an increase in the likelihood, which is as expected, as the function maximizes the log-likelihood.
+Shown next is the fitted plot and exact 95\% confidence intervals for the lowest and highest operating points.
 
-Because the RSM contains 3 parameters, which is one more than conventional ROC models, the chisquare goodness of fit statistic usually cannot be calculated, except for large datasets - the criterion of 5 counts in each bin for true positives and false positives is usually hard to meet. Using the \href{https://dpc10ster.github.io/RJafrocRocBook/binormal-model.html\#binormal-model-curve-fitting-validation-appendix-5}{method} described in RJafrocRocBook the degrees of freedom is \(\text{df} = R_{FROC} - 3\).\footnote{The expansive form of the relevant equation is \(R_{FROC} + R_{FROC} - (3 + R_{FROC}) = R_{FROC} - 3\)}
+\begin{figure}
+\centering
+\includegraphics{08-rsm-fitting_files/figure-latex/rsm-fitting-example-fit-1.pdf}
+\caption{\label{fig:rsm-fitting-example-fit}RSM-fitted ROC curve for treatment one and reader one of \texttt{dataset04}.}
+\end{figure}
 
-Shown next is the fitted plot. Error bars (exact 95\% confidence intervals) are shown for the lowest and highest operating points.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{print}\NormalTok{(ret}\SpecialCharTok{$}\NormalTok{fittedPlot)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{08-rsm-fitting_files/figure-latex/unnamed-chunk-2-1.pdf}
-
-The fitted ROC curve is proper: it's slope decreases monotonically as one moves up the curve thereby ruling out hooks such as are predicted by the binormal model. The area under the proper ROC (calculated by numerical integration of the RSM-predicted curve) is 0.906 which will be shown in a subsequent chapter TBA to be identical to that yielded by other proper ROC fitting methods and higher than the binormal model fitted value.
+The fitted ROC curve in Fig. \ref{fig:rsm-fitting-example-fit} is proper. The area under the proper ROC (calculated by numerical integration of the RSM-predicted curve) is 0.906 which will be shown in Chapter \ref{rsm-3-fits} to be close to that yielded by CBM and PROPROC and higher than the binormal model fitted value.
 
 \hypertarget{rsm-fitting-discussion-summary}{%
 \section{Discussion / Summary}\label{rsm-fitting-discussion-summary}}
 
-Over the years, there have been several attempts at fitting FROC data. Prior to the RSM-based ROC curve approach described in this chapter, all methods were aimed at fitting FROC curves in the mistaken belief that this approach was using all the data. The earliest was my FROCFIT software \citep{chakraborty1989maximum}. This was followed by Swensson's approach \citep{swensson1996unified}, subsequently shown to be equivalent to my earlier work, as far as predicting the FROC curve was concerned \citep{chakraborty2008operating}. In the meantime, CAD developers, who relied heavily on the FROC curve to evaluate their algorithms, developed an empirical approach that was subsequently put on a formal basis in the IDCA (initial detection and candidate analysis) method \citep{edwards2002maximum}. While this method works with CAD data it fails with radiologist data -- the reason is that it assumes \(\zeta_1 = -\infty\) which is not true for radiologists (this is discussed in my 2017 print book).
+Over the years, there have been several attempts at fitting FROC data. Prior to the RSM-based ROC curve approach described in this chapter all methods aimed at fitting FROC curves in the mistaken belief that this approach was using all the data. The earliest was \citep{chakraborty1989maximum}. This was followed by \citep{swensson1996unified}, subsequently shown to be equivalent to my earlier work as far as predicting the FROC curve was concerned \citep{chakraborty2008operating}. In the meantime CAD developers, who relied heavily on the FROC curve to evaluate their algorithms, developed an empirical approach that was subsequently put on a formal basis in \citep{edwards2002maximum}. While this method works with CAD data it fails with radiologist data -- the reason is that it assumes \(\zeta_1 = -\infty\) (i.e., the algorithm marks every suspcioius region) which is not true for radiologists as discussed in my 2017 print book.
 
-This chapter describes an approach to fitting ROC curves using the RSM. On the face of it fitting the ROC curve seems to be ignoring much of the data. For example the ROC rating on a non-diseased case is the rating of the highest-rated mark on that image, or negative infinity if the case has no marks. If the case has several NL marks, only the highest rated one is used. In fact the highest rated mark contains information about the other marks on the case, namely they were all rated lower. The statistical term for this is \emph{sufficiency} \citep{larsen2005introduction}. As an example, the highest of a number of samples from a uniform distribution is a sufficient statistic, i.e., it contains all the information contained in the observed samples. While not quite the same for normally distributed values, neglect of the NLs rated lower is not as bad as might seem at first.
+This chapter describes an approach to fitting ROC curves using the RSM. On the face of it fitting the ROC curve seems to be ignoring much of the data (since the ROC rating on a case is the rating of the highest-rated mark on that case). If the case has several marks only the highest rated one is used. In fact the highest rated mark contains information about the other marks on the case, namely that they were all rated lower. For example the highest of a number of samples from a uniform distribution is a sufficient statistic, i.e., it contains all the information contained in the observed samples. Neglect of the marks rated lower is not as bad as might seem at first.
 
 The next chapter describes application of the RSM and other available proper ROC fitting methods to a number of datasets.
 
@@ -4555,9 +4551,7 @@ The next chapter describes application of the RSM and other available proper ROC
 \chapter{Three proper ROC fits}\label{rsm-3-fits}}
 
 \hypertarget{rsm-3-fits-how-much-finished}{%
-\section{TBA How much finished}\label{rsm-3-fits-how-much-finished}}
-
-99\%
+\section{How much finished 99\%}\label{rsm-3-fits-how-much-finished}}
 
 \hypertarget{rsm-3-fits-intro}{%
 \section{TBA Introduction}\label{rsm-3-fits-intro}}
@@ -4571,21 +4565,21 @@ There are three methods for fitting proper curves to ROC datasets:
 \item
   The radiological search model (RSM) described in Chapter \ref{rsm-fitting},
 \item
-  The PROPROC (proper ROC) model described in TBA Chapter 20.
+  The PROPROC (proper ROC) model described in Chapter \ref{proper-roc-models}.
 \item
-  The CBM (contaminated binormal model) described in TBA Chapter 20.
+  The CBM (contaminated binormal model) also described in Chapter \ref{proper-roc-models}.
 \end{itemize}
 
-This chapter compares these methods by fitting them to 14 multiple-treatment multiple-reader datasets described in Chapter \ref{datasets}. Comparing the RSM to the binormal model would be inappropriate, as the latter does not predict proper ROCs.
+This chapter compares these methods by fitting them to 14 multiple-treatment multiple-reader datasets described in Chapter \ref{datasets}. Comparing the RSM to the binormal model would be inappropriate as the latter does not predict proper ROCs.
 
-The motivation for this work was a serendipitous finding \citep{chakraborty2011estimating} that PROPROC fitted ROC AUCs and RSM fitted ROC AUCs were identical for some datasets. This led to extending that work to include CBM and more datasets.
+The motivation for this work was a serendipitous finding \citep{chakraborty2011estimating} that PROPROC fitted ROC AUCs and RSM fitted ROC AUCs were identical for some datasets. This led to extending that work to include CBM-fitting and more datasets.
 
 \hypertarget{rsm-3-fits-applications}{%
 \section{Application to datasets}\label{rsm-3-fits-applications}}
 
-Both RSM and CBM are implemented in \texttt{RJafroc}. \texttt{PROPROC} is implemented in Windows software OR DBM-MRMC 2.5 \footnote{Sept.~04, 2014; the version used in this chapter is no longer distributed.} that was available \href{https://perception.lab.uiowa.edu/software}{here}, last accessed 1/4/21.
+Both RSM and CBM are implemented in \citep{R-RJafroc}. \texttt{PROPROC} is implemented in Windows software OR DBM-MRMC 2.5 \footnote{Sept.~04, 2014; the version used in this chapter is no longer distributed.} that was available \href{https://perception.lab.uiowa.edu/software}{here, last accessed 1/4/21}.
 
-The RSM, PROPROC and CBM algorithms were applied to datasets described in Chapter @\ref(datasets).
+The RSM, PROPROC and CBM algorithms were applied to datasets described in Chapter \ref{datasets}. These are named as follows:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4598,19 +4592,23 @@ The RSM, PROPROC and CBM algorithms were applied to datasets described in Chapte
 \end{Highlighting}
 \end{Shaded}
 
-These are abbreviations for ``TONY'', ``Van Dyke'', ``Franken'', ``Federica'', ``Thompson'', ``Magnus'', ``Lucy Warren'', ``Penedo'', ``Nico-CAD-ROC'', ``Ruschin'', ``Dobbins-1'', ``Dobbins-2'', ``Dobbins-3'', ``Federica Real Roc''. These datasets are included with \texttt{RJafroc} and the corresponding objects are named \texttt{datasetXX}, where XX is an integer ranging from 1 to 14.
+These are abbreviations for ``Dr.~Tony Svahn'', ``Dr.~Van Dyke'', ``Dr.~Franken'', ``Dr.~Federica Zanca'', ``Dr.~John Thompson'', ``Dr.~Magnus Baath'', ``Dr.~Lucy Warren'', ``Dr.~Monica Penedo'', ``Dr.~Nico Karssemeijer CAD ROC'', ``Dr.~Mark Ruschin'', ``Dr.~James Dobbins-1'', ``Dr.~James Dobbins-2'', ``Dr.~James Dobbins-3'', ``Dr.~Federica Zanc a real ROC''. These datasets are included with the \texttt{RJafroc} package and the corresponding objects are named \texttt{datasetXX}, where XX is an integer ranging from 1 to 14.
 
-In the following we focus, for now, on just two ROC datasets (these have been widely used in the literature to illustrate ROC analysis methodology advances) namely the Van Dyke (VD) and the Franken (FR) datasets. Illustrative examples are shown for treatment 1 and reader 2 for the Van Dyke dataset and for treatment 2 and reader 3 for the Franken dataset. Plots for all treatment-reader combinations for these two datasets are in Appendix \ref{rsm-3-fits-representative-plots-van-dyke} and Appendix \ref{rsm-3-fits-representative-plots-franken}.
+In the following we focus, for now, on just two ROC datasets (these have been used in the past to illustrate methodology advances in ROC analysis) namely the Dr.~Van Dyke (VD) and the Dr.~E. Franken (FR) datasets. Fits are shown for treatment 1 and reader 2 for the Van Dyke dataset and for treatment 2 and reader 3 for the Franken dataset. Plots for all treatment-reader combinations for these two datasets are in Appendix \ref{rsm-3-fits-all-plots-van-dyke} for the Van Dyke dataset and Appendix \ref{rsm-3-fits-representative-plots-franken} for the Franken dataset.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# VD dataset}
-\NormalTok{ret }\OtherTok{\textless{}{-}} \FunctionTok{Compare3ProperRocFits}\NormalTok{(datasetNames, }\FunctionTok{which}\NormalTok{(datasetNames }\SpecialCharTok{==} \StringTok{"VD"}\NormalTok{))}
+\NormalTok{ret }\OtherTok{\textless{}{-}} \FunctionTok{Compare3ProperRocFits}\NormalTok{(}
+\NormalTok{  datasetNames, }
+  \FunctionTok{which}\NormalTok{(datasetNames }\SpecialCharTok{==} \StringTok{"VD"}\NormalTok{))}
 \NormalTok{resultsVD }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{allResults}
 \NormalTok{plotsVD }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{allPlots}
 
 \CommentTok{\# FR dataset}
-\NormalTok{ret }\OtherTok{\textless{}{-}} \FunctionTok{Compare3ProperRocFits}\NormalTok{(datasetNames, }\FunctionTok{which}\NormalTok{(datasetNames }\SpecialCharTok{==} \StringTok{"FR"}\NormalTok{))}
+\NormalTok{ret }\OtherTok{\textless{}{-}} \FunctionTok{Compare3ProperRocFits}\NormalTok{(}
+\NormalTok{  datasetNames, }
+  \FunctionTok{which}\NormalTok{(datasetNames }\SpecialCharTok{==} \StringTok{"FR"}\NormalTok{))}
 \NormalTok{resultsFR }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{allResults}
 \NormalTok{plotsFR }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{allPlots}
 \end{Highlighting}
@@ -4619,9 +4617,9 @@ In the following we focus, for now, on just two ROC datasets (these have been wi
 \begin{itemize}
 \tightlist
 \item
-  The supporting code is in the function \texttt{Compare3ProperRocFits()} located at \texttt{R/compare-3-fits/Compare3ProperRocFits.R}.
+  The supporting code is in function \texttt{Compare3ProperRocFits()} located at \texttt{R/compare-3-fits/}.
 \item
-  The analyzed results file locations are shown in Section \ref{rsm-3-fits-pre-analyzed-results}.
+  The already-analyzed results file locations are shown in Section \ref{rsm-3-fits-pre-analyzed-results}.
 \item
   The fitted parameters are contained in \texttt{resultsVD} and \texttt{resultsFR;\ the\ composite\ plots\ (i.e.,\ 3\ overlaid\ plots\ corresponding\ to\ the\ three\ proper\ ROC\ fitting\ algorithms)\ for\ each\ treatment\ and\ reader,\ are\ contained\ in}plotsVD\texttt{and}plotsFR`.
 \end{itemize}
@@ -4632,17 +4630,18 @@ In the following we focus, for now, on just two ROC datasets (these have been wi
 \begin{itemize}
 \tightlist
 \item
-  The \texttt{plotArr} list contains plots for the two datasets. The Van Dyke plots are in \texttt{plotsVD} and the Franken in \texttt{plotsFR}.
+  The \texttt{plotArr} list contains plots for the two datasets. The Van Dyke plots are in \texttt{\$plotsVD} and the Franken in \texttt{\$plotsFR}.
 \item
-  The Van Dyke dataset contains \(I \times J = 2 \times 5 = 10\) composite plots.
+  The Van Dyke dataset yields \(I \times J = 2 \times 5 = 10\) composite plots.
 \item
-  The Franken dataset contains \(I \times J = 2 \times 4 = 8\) composite plots.
+  The Franken dataset yields \(I \times J = 2 \times 4 = 8\) composite plots.
 \end{itemize}
 
 The following code shows how to display the composite plot for the Van Dyke dataset for treatment 1 and reader 2, i.e., i = 1 and j = 2.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# i = 1 and j = 2 }
 \NormalTok{plotsVD[[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{]]}
 \end{Highlighting}
 \end{Shaded}
@@ -4658,7 +4657,7 @@ It contains 3 fitted curves:
 \begin{itemize}
 \tightlist
 \item
-  The RSM fitted curve is in black.
+  The RSM fitted curve is in black -- this is the only fit that includes a dashed line extending to (1,1).
 \item
   The PROPROC fitted curve is in red.
 \item
@@ -4667,9 +4666,16 @@ It contains 3 fitted curves:
 
 Three operating points from the binned data are shown as well as exact 95\% confidence intervals for the lowest and uppermost operating points.
 
-All 10 composite plots for the Van Dyke dataset are shown in Appendix \ref{rsm-3-fits-representative-plots-van-dyke}.
+All 10 composite plots for the Van Dyke dataset are shown in Appendix \ref{rsm-3-fits-all-plots-van-dyke}.
 
 The next example shows composite plots for the Franken dataset for treatment = 2 and reader = 3.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# i = 2 and j = 3 }
+\NormalTok{plotsFR[[}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{figure}
 \centering
@@ -4677,14 +4683,12 @@ The next example shows composite plots for the Franken dataset for treatment = 2
 \caption{\label{fig:rsm-3-fits-plots-fr-23}Composite plots for Franken dataset for treatment = 2, reader 3.}
 \end{figure}
 
-Note that the RSM end-point is almost at the upper right corner, implying lower lesion-localization performance.
-
 All 10 composite plots for the Franken dataset are shown in Appendix \ref{rsm-3-fits-representative-plots-franken}.
 
 \hypertarget{rsm-3-fits-rsm-parameters}{%
 \section{RSM parameters}\label{rsm-3-fits-rsm-parameters}}
 
-The parameters corresponding to the RSM plots for the Van Dyke dataset are accessed as shown next.
+The parameters corresponding to the RSM plots for the Van Dyke dataset are accessed as follows:
 
 \begin{itemize}
 \tightlist
@@ -4695,7 +4699,7 @@ The parameters corresponding to the RSM plots for the Van Dyke dataset are acces
 \item
   \texttt{resultsVD{[}{[}i,j{]}{]}\$retRsm\$nu} is the RSM \(\nu\) parameter;
 \item
-  \texttt{resultsVD{[}{[}i,j{]}{]}\$retRsm\$zeta1} is the RSM \(\zeta_1\) parameter;
+  \texttt{resultsVD{[}{[}i,j{]}{]}\$retRsm\$zeta1} is the RSM \(\zeta_1\) parameter.
 \end{itemize}
 
 \hypertarget{rsm-parameters-van-dyke-dataset-i-1-j-2}{%
@@ -4715,50 +4719,7 @@ The following displays RSM parameters for the Van Dyke dataset, treatment 1 and 
 ## NLLfin =  85.86244
 \end{verbatim}
 
-The first four values are the fitted values for the RSM parameters \(\mu\), \(\lambda\), \(\nu\) and \(\zeta_1\). The next value is the AUC under the fitted RSM curve followed by its standard error. The last two values are the initial and final values of negative log-likelihood \footnote{The initial value is calculated using initial estimates of parameters and the final value is that resulting from the log-likelihood maximization procedure. Since in fact negative log-likelihood is being \emph{minimized}, the final value is smaller than the initial value.}.
-
-From the previous chapter the RSM parameters can be used to calculate lesion-localization and lesion-classification performances, namely \(L_L\) and \(L_C\) respectively. The following function calculates these values:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{LesionLocLesionCls }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(mu, lambda, nu, lesDistr) \{}
-\NormalTok{  temp }\OtherTok{\textless{}{-}} \DecValTok{0}
-  \ControlFlowTok{for}\NormalTok{ (L }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(lesDistr)) \{}
-\NormalTok{    temp }\OtherTok{\textless{}{-}}\NormalTok{ temp }\SpecialCharTok{+}\NormalTok{ lesDistr[L] }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ nu)}\SpecialCharTok{\^{}}\NormalTok{L}
-\NormalTok{  \}}
-\NormalTok{  L\_L }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{lambda) }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ temp)}
-\NormalTok{  L\_C }\OtherTok{\textless{}{-}} \FunctionTok{pnorm}\NormalTok{(mu}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{))}
-  \FunctionTok{return}\NormalTok{(}\FunctionTok{list}\NormalTok{(}
-    \AttributeTok{L\_L =}\NormalTok{ L\_L,}
-    \AttributeTok{L\_C =}\NormalTok{ L\_C}
-\NormalTok{  ))}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-The function is used as follows:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{mu }\OtherTok{\textless{}{-}}\NormalTok{ resultsVD[[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{]]}\SpecialCharTok{$}\NormalTok{retRsm}\SpecialCharTok{$}\NormalTok{mu}
-\NormalTok{lambda }\OtherTok{\textless{}{-}}\NormalTok{ resultsVD[[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{]]}\SpecialCharTok{$}\NormalTok{retRsm}\SpecialCharTok{$}\NormalTok{lambda}
-\NormalTok{nu }\OtherTok{\textless{}{-}}\NormalTok{ resultsVD[[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{]]}\SpecialCharTok{$}\NormalTok{retRsm}\SpecialCharTok{$}\NormalTok{nu}
-\NormalTok{f }\OtherTok{\textless{}{-}} \FunctionTok{which}\NormalTok{(datasetNames }\SpecialCharTok{==} \StringTok{"VD"}\NormalTok{)}
-\NormalTok{fileName }\OtherTok{\textless{}{-}}\NormalTok{ datasetNames[f]}
-\NormalTok{theData }\OtherTok{\textless{}{-}} \FunctionTok{get}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"dataset\%02d"}\NormalTok{, f)) }\CommentTok{\# the datasets already exist as R objects}
-\NormalTok{lesDistr }\OtherTok{\textless{}{-}} \FunctionTok{UtilLesionDistrVector}\NormalTok{(theData) }\CommentTok{\# RSM ROC fitting needs to know lesDistr}
-
-\NormalTok{ret }\OtherTok{\textless{}{-}} \FunctionTok{LesionLocLesionCls}\NormalTok{(mu, lambda, nu, lesDistr)}
-\NormalTok{L\_L }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{L\_L}
-\NormalTok{L\_C }\OtherTok{\textless{}{-}}\NormalTok{ ret}\SpecialCharTok{$}\NormalTok{L\_C}
-  
-\FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"VD data i=1 j=2:  L\_L = \%7.3f, L\_C = \%7.3f"}\NormalTok{, L\_L, L\_C), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## VD data i=1 j=2:  L_L =   0.582, L_C =   0.940
-\end{verbatim}
+The first four values are the fitted values for the RSM parameters \(\mu\), \(\lambda\), \(\nu\) and \(\zeta_1\). The next value is the AUC under the fitted RSM curve followed by its standard error. The last two values are the initial and final values of negative log-likelihood. The initial value is calculated using initial estimates of parameters and the final value is that resulting from the BFGS log-likelihood maximization procedure. Since negative log-likelihood (NLL) is being \emph{minimized}, the final value is smaller than the initial value.
 
 \hypertarget{rsm-parameters-franken-dataset-i-2-j-3}{%
 \subsection{RSM parameters Franken dataset i = 2, j= 3}\label{rsm-parameters-franken-dataset-i-2-j-3}}
@@ -4778,14 +4739,6 @@ Displayed next are RSM parameters for the Franken dataset, treatment 2 and reade
 ## NLLini =  132.6265 
 ## NLLfin =  127.9418
 \end{verbatim}
-
-Shown next are the lesion-localization and lesion-classification performances for this dataset.
-
-\begin{verbatim}
-## FR data i=2, j=3:  L_L =   0.093, L_C =   0.969
-\end{verbatim}
-
-While the lesion-classification performances are similar for the two examples, the lesion-localization performances are different, with the Van Dyke dataset showing a greater value. This is evident from the location of the end-points in the two plots shown in Fig. \ref{fig:rsm-3-fits-plots-vd-12} and Fig. \ref{fig:rsm-3-fits-plots-fr-23} (an end-point closer to the top-left corner implies greater lesion-localization performance).
 
 \hypertarget{rsm-3-fits-cbm-parameters}{%
 \section{CBM parameters}\label{rsm-3-fits-cbm-parameters}}
@@ -5103,8 +5056,8 @@ The following screen shot shows the pre-analyzed files created by the function \
 \caption{Screen shot of `R/compare-3-fits/RSM6` showing the results files created by  `Compare3ProperRocFits()`.}\label{fig:rsm-3-fits-all-results-rsm6}
 \end{figure}
 
-\hypertarget{rsm-3-fits-representative-plots-van-dyke}{%
-\subsection{Plots for the Van Dyke dataset}\label{rsm-3-fits-representative-plots-van-dyke}}
+\hypertarget{rsm-3-fits-all-plots-van-dyke}{%
+\subsection{Plots for the Van Dyke dataset}\label{rsm-3-fits-all-plots-van-dyke}}
 
 The following plots are arranged in pairs, with the left plot corresponding to treatment 1 and the right to treatment 2.
 
@@ -5910,7 +5863,7 @@ They are identified in the code by dataset\texttt{dd} (where \texttt{dd} is an i
 \hypertarget{datasets-dataset14}{%
 \subsection{Dataset14}\label{datasets-dataset14}}
 
-\texttt{dataset14} ``FEDERICA-REAL-ROC'' (Federica Zanca) \emph{real} ROC dataset \citep{RN2318}
+\texttt{dataset14} ``FEDERICA-REAL-ROC'' (Federica Zanca) \emph{real} ROC dataset \citep{zanca2012correlation}
 
 \begin{verbatim}
 ## List of 3

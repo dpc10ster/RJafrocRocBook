@@ -185,7 +185,7 @@ They are identified in the code by dataset`dd` (where `dd` is an integer in the 
 ### Dataset14 {#datasets-dataset14}
 
 
-`dataset14` "FEDERICA-REAL-ROC" (Federica Zanca) *real* ROC dataset [@RN2318]
+`dataset14` "FEDERICA-REAL-ROC" (Federica Zanca) *real* ROC dataset [@zanca2012correlation]
 
 
 

@@ -189,6 +189,7 @@ fig:proper-roc-models-bigamma-plots-lr
 eq:rsm-fitting-roc-p1r
 eq:rsm-fitting-roc-p2r
 eq:rsm-fitting-roc-ll2
+fig:rsm-fitting-example-fit
 fig:rsm-3-fits-plots-vd-12
 fig:rsm-3-fits-plots-fr-23
 eq:rsm-3-fits-slopes-equation1
@@ -392,7 +393,7 @@ rsm-fitting
 rsm-fitting-how-much-finished
 rsm-fitting-intro
 rsm-fitting-roc-likelihood
-rsm-fitting-fitrsmroc-implementation
+rsm-fitting-fit-rsm
 rsm-fitting-fitrsmroc-usage-example
 rsm-fitting-discussion-summary
 rsm-3-fits
@@ -413,7 +414,7 @@ rsm-3-fits-discussion-summary
 rsm-3-fits-appendices
 rsm-3-fits-one-dataset-proproc
 rsm-3-fits-pre-analyzed-results
-rsm-3-fits-representative-plots-van-dyke
+rsm-3-fits-all-plots-van-dyke
 rsm-3-fits-representative-plots-franken
 bivariate-binormal-model
 bivariate-binormal-model-how-much-finished
