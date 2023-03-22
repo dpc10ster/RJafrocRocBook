@@ -1089,7 +1089,7 @@ print(data.frame(retFit[1:5]))
 print(retFit$fittedPlot)
 ```             
 
-Note the usage of the `RJafroc` package [@R-RJafroc]. Specifically, the function `FitBinormalRoc`. The ratings table is converted to an `RJafroc` dataset object, followed by application of the fitting function. The results, contained in `retFit` should be compared to those obtained from the [website implementation of ROCFIT](http://www.rad.jhmi.edu/jeng/javarad/roc/JROCFITi.html).
+Note the usage of the R-package `RJafroc` [@R-RJafroc]. Specifically, the function `FitBinormalRoc()` is used. The ratings table is converted to an `RJafroc` dataset object, followed by application of the fitting function. The results, contained in `retFit` should be compared to those obtained from the [website implementation of ROCFIT](http://www.rad.jhmi.edu/jeng/javarad/roc/JROCFITi.html).
 
 ### Validating the fit {#binormal-model-curve-fitting-validation}
 
