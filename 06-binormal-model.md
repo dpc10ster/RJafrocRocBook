@@ -797,7 +797,7 @@ print(retFit$fittedPlot)
 <p class="caption">(\#fig:binormal-model-fit)Operating points and fitted binormal ROC curve. The fitting values are $a = 1.3205$ and $b = 0.6075$. Confidence intervals are shown for the lowest and uppermost non-trivial points.</p>
 </div>
 
-Note the usage of the `RJafroc` package [@R-RJafroc]. Specifically, the function `FitBinormalRoc`. The ratings table is converted to an `RJafroc` dataset object, followed by application of the fitting function. The results, contained in `retFit` should be compared to those obtained from the [website implementation of ROCFIT](http://www.rad.jhmi.edu/jeng/javarad/roc/JROCFITi.html).
+Note the usage of the R-package `RJafroc` [@R-RJafroc]. Specifically, the function `FitBinormalRoc()` is used. The ratings table is converted to an `RJafroc` dataset object, followed by application of the fitting function. The results, contained in `retFit` should be compared to those obtained from the [website implementation of ROCFIT](http://www.rad.jhmi.edu/jeng/javarad/roc/JROCFITi.html).
 
 ### Validating the fit {#binormal-model-curve-fitting-validation}
 

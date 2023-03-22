@@ -25,7 +25,7 @@ The improper behavior is often not readily visible. One may need to "zoom-in" on
 
 * The binormal model-based proper ROC fitting algorithm [@metz1999proper; @pan1997proper] developed by Metz and Pan implemented in PROPROC software available as part of DBM-MRMC software. 
 
-* The bigamma model [@dorfman1997proper] fitting algorithm for which no software currently exists but is fairly easy to implement. 
+* The bigamma model [@dorfman1997proper] fitting algorithm for which no software is currently readily available but it is fairly easy to implement. 
 
 * LROCFIT, based on the location ROC (LROC) paradigm [@swensson1996unified], which also predicts proper ROC curves, but the data has to be acquired according to the LROC paradigm while all of the other methods described in this chapter work with ROC data (no localization information). 
 
@@ -557,200 +557,274 @@ Likelihood ratio plots are shown next, Fig. \@ref(fig:proper-roc-models-cbm-plot
 All plots are monotonic with $z$: as $z$ increases the slope increases. The reader using $z$ to make decisions, where z is sampled as in the CBM model, is a likelihood ratio observer. In addition, according to TBA Eqn. (20.26), the limiting slope at the upper right corner of the ROC plot approaches $1-\alpha$ as $z \rightarrow –\infty$.
 
 
-## The bigamma model (BGM) {#proper-roc-models-bigamma}
+<!-- ## The bigamma model (BGM) {#proper-roc-models-bigamma} -->
 
-The bigamma model [@dorfman1997proper] was introduced as a way of generating proper ROC curves. It was one of the first successful attempts at this. While of historical importance it nevertheless is interesting in its own right as the decision variable turns out to be a likelihood ratio (which pretty much ensures that the predicted ROC curve will be proper).
+<!-- The bigamma model [@dorfman1997proper] was introduced as a way of generating proper ROC curves. It was one of the first successful attempts at this. While of historical importance it nevertheless is interesting in its own right as the decision variable turns out to be a likelihood ratio (which pretty much ensures that the predicted ROC curve will be proper). -->
 
 
 
-### BGM formulae {#proper-roc-models-bigamma-formulae}
+<!-- ### BGM formulae {#proper-roc-models-bigamma-formulae} -->
 
-The gamma function is defined by [@abramowitz1964handbook]:
+<!-- The gamma function is defined by [@abramowitz1964handbook]: -->
 
 
-\begin{equation}
-\Gamma\left( x \right) = \int_{0}^{\infty}t^{x-1}e^{-t} dt
-(\#eq:proper-roc-models-gamma)
-\end{equation}
+<!-- \begin{equation} -->
+<!-- \Gamma\left( x \right) = \int_{0}^{\infty}t^{x-1}e^{-t} dt -->
+<!-- (\#eq:proper-roc-models-gamma) -->
+<!-- \end{equation} -->
 
 
-A random variable $X$ has a gamma distribution if its $\text{pdf}$ is [@larsen2005introduction]:
+<!-- A random variable $X$ has a gamma distribution if its $\text{pdf}$ is [@larsen2005introduction]: -->
 
 
-\begin{equation}
-\begin{matrix}
-f\left( x |r,\lambda\right) = \frac{\lambda^r}{\Gamma\left( r \right)}x^{r-1}e^{-\lambda x}; & 
-x\ge 0, r>0, \lambda >0
-\end{matrix}
-(\#eq:proper-roc-models-gamma-pdf)
-\end{equation}
+<!-- \begin{equation} -->
+<!-- \begin{matrix} -->
+<!-- f\left( x |r,\lambda\right) = \frac{\lambda^r}{\Gamma\left( r \right)}x^{r-1}e^{-\lambda x}; &  -->
+<!-- x\ge 0, r>0, \lambda >0 -->
+<!-- \end{matrix} -->
+<!-- (\#eq:proper-roc-models-gamma-pdf) -->
+<!-- \end{equation} -->
 
 
-$1/r$ is called the inverse scale or *rate* parameter and $r$ is called the *shape* parameter.
+<!-- $1/r$ is called the inverse scale or *rate* parameter and $r$ is called the *shape* parameter. -->
 
-<!-- It has the following interpretation: for integer $r$, assuming events are Poisson distributed with rate parameter $\lambda$, the $\text{pdf}$ of event $r$ follows Eqn. \@ref(eq:proper-roc-models-gamma-pdf). However, in this equation, $r$ is not restricted to integers. Alternatively, $l/r$ is called the scale parameter and $r$ is called the shape parameter of the gamma distribution.  -->
+<!-- <!-- It has the following interpretation: for integer $r$, assuming events are Poisson distributed with rate parameter $\lambda$, the $\text{pdf}$ of event $r$ follows Eqn. \@ref(eq:proper-roc-models-gamma-pdf). However, in this equation, $r$ is not restricted to integers. Alternatively, $l/r$ is called the scale parameter and $r$ is called the shape parameter of the gamma distribution.  --> -->
 
-The mean and variance of this distribution are given by:
+<!-- The mean and variance of this distribution are given by: -->
 
 
 
-\begin{equation}
-\left.\begin{aligned}
-E\left( X \right) &= \frac{r}{\lambda} \\
-Var\left( X \right) &= \frac{r}{\lambda^2} \\
-\end{aligned}\right\}
-(\#eq:proper-roc-models-gamma-mean-var)
-\end{equation} 
+<!-- \begin{equation} -->
+<!-- \left.\begin{aligned} -->
+<!-- E\left( X \right) &= \frac{r}{\lambda} \\ -->
+<!-- Var\left( X \right) &= \frac{r}{\lambda^2} \\ -->
+<!-- \end{aligned}\right\} -->
+<!-- (\#eq:proper-roc-models-gamma-mean-var) -->
+<!-- \end{equation}  -->
 
 
 
-The constant-shape bigamma model is defined [@dorfman1997proper] by the following pdfs (note $\lambda = 1$ for the non-diseased pdf and for either pdf $x \ge 0$): 
+<!-- The constant-shape bigamma model is defined [@dorfman1997proper] by the following pdfs (note $\lambda = 1$ for the non-diseased pdf and for either pdf $x \ge 0$):  -->
 
 
 
-\begin{equation}
-\left.\begin{aligned}
-\text{pdf}_N\left( x \right) &= f\left( x;r,1 \right)\\
-&= \frac{1}{\Gamma\left( r \right)}x^{r-1}e^{-x}\\
-\text{pdf}_D\left( x \right) &= f\left( x;r,\lambda \right)\\
-&= \frac{\lambda^r}{\Gamma\left( r \right)}x^{r-1}e^{-\lambda x} 
-\end{aligned}\right\}
-(\#eq:proper-roc-models-gamma-pdfs)
-\end{equation} 
+<!-- \begin{equation} -->
+<!-- \left.\begin{aligned} -->
+<!-- \text{pdf}_N\left( x \right) &= f\left( x;r,1 \right)\\ -->
+<!-- &= \frac{1}{\Gamma\left( r \right)}x^{r-1}e^{-x}\\ -->
+<!-- \text{pdf}_D\left( x \right) &= f\left( x;r,\lambda \right)\\ -->
+<!-- &= \frac{\lambda^r}{\Gamma\left( r \right)}x^{r-1}e^{-\lambda x}  -->
+<!-- \end{aligned}\right\} -->
+<!-- (\#eq:proper-roc-models-gamma-pdfs) -->
+<!-- \end{equation}  -->
 
 
 
-The reason for the name "bigamma" is because it involves two gamma distributions (just as "binormal" refers to two normal distributions). If the variance of the diseased distribution is to be larger than that of the non-diseased distribution the following constraint must hold:
+<!-- The reason for the name "bigamma" is because it involves two gamma distributions (just as "binormal" refers to two normal distributions). If the variance of the diseased distribution is to be larger than that of the non-diseased distribution the following constraint must hold: -->
 
 
-\begin{equation}
-0 < \lambda \le 1
-(\#eq:proper-roc-models-bigamma-lambda-inequality)
-\end{equation} 
+<!-- \begin{equation} -->
+<!-- 0 < \lambda \le 1 -->
+<!-- (\#eq:proper-roc-models-bigamma-lambda-inequality) -->
+<!-- \end{equation}  -->
 
 
-The limitation  $x \ge 0$ suggests that $x$ is equivalent to a likelihood ratio (since the ratio of two pdfs must be non-negative). The model assumes the same shape parameter $r$ for non-diseased and diseased cases. The likelihood ratio $l(x)$  is given by:
-	
+<!-- The limitation  $x \ge 0$ suggests that $x$ is equivalent to a likelihood ratio (since the ratio of two pdfs must be non-negative). The model assumes the same shape parameter $r$ for non-diseased and diseased cases. The likelihood ratio $l(x)$  is given by: -->
 
-\begin{equation}
-\left.\begin{aligned}
-l_\text{BGM}\left( x;r,\lambda \right) &= \frac{\text{pdf}_D\left( x \right)}{\text{pdf}_N\left( x \right)} \\
-&=\lambda^r e^{-\left( \lambda - 1 \right) x}
-\end{aligned}\right\}
-(\#eq:proper-roc-models-bigamma-likelihood)
-\end{equation} 
 
+<!-- \begin{equation} -->
+<!-- \left.\begin{aligned} -->
+<!-- l_\text{BGM}\left( x;r,\lambda \right) &= \frac{\text{pdf}_D\left( x \right)}{\text{pdf}_N\left( x \right)} \\ -->
+<!-- &=\lambda^r e^{-\left( \lambda - 1 \right) x} -->
+<!-- \end{aligned}\right\} -->
+<!-- (\#eq:proper-roc-models-bigamma-likelihood) -->
+<!-- \end{equation}  -->
 
-"BGM" stands for bigamma model. 
 
-Since the exponential is a monotonic function of its argument the likelihood ratio is a monotonic function of $x$. A BGM observer basing decisions on observed values of $x$ exceeding a threshold is a likelihood ratio observer. Notation: note the usage of $x$ rather than $z$ as the latter denotes samples from normal distributions. The bigamma model observer bases decisions on the x-sample while the binormal model observer bases decisions on the z-sample. For notational consistency $\xi$  denotes a threshold on the x-axis and the decision rule is that if $x \ge \xi$ the case is diagnosed as diseased and otherwise it is diagnosed non-diseased.
+<!-- "BGM" stands for bigamma model.  -->
 
+<!-- Since the exponential is a monotonic function of its argument the likelihood ratio is a monotonic function of $x$. A BGM observer basing decisions on observed values of $x$ exceeding a threshold is a likelihood ratio observer. Notation: note the usage of $x$ rather than $z$ as the latter denotes samples from normal distributions. The bigamma model observer bases decisions on the x-sample while the binormal model observer bases decisions on the z-sample. For notational consistency $\xi$  denotes a threshold on the x-axis and the decision rule is that if $x \ge \xi$ the case is diagnosed as diseased and otherwise it is diagnosed non-diseased. -->
 
-Since $0 < \lambda \le 1$ the slope at the upper right corner of the ROC (corresponding to $x = 0$) is $\lambda ^ r$ and the slope is infinite at the origin (corresponding to $x = \infty$). As with PROPROC and CBM, once again one encounters a proper ROC curve approaching the upper-right corner with finite slope. If $\lambda > 1$ the slope is zero at the origin, which would cause the ROC curve to start out below the chance diagonal. Therefore, constraint $0 < \lambda \le 1$ is needed not just to yield a wider distribution for diseased cases but to also assure the ROC curve is proper. If $\lambda = 1$ then regardless of the value of $r$, the ROC curve is the chance diagonal because the two pdfs become identical.
 
-The cumulative distribution function (CDF) of the gamma distribution is given by:
+<!-- Since $0 < \lambda \le 1$ the slope at the upper right corner of the ROC (corresponding to $x = 0$) is $\lambda ^ r$ and the slope is infinite at the origin (corresponding to $x = \infty$). As with PROPROC and CBM, once again one encounters a proper ROC curve approaching the upper-right corner with finite slope. If $\lambda > 1$ the slope is zero at the origin, which would cause the ROC curve to start out below the chance diagonal. Therefore, constraint $0 < \lambda \le 1$ is needed not just to yield a wider distribution for diseased cases but to also assure the ROC curve is proper. If $\lambda = 1$ then regardless of the value of $r$, the ROC curve is the chance diagonal because the two pdfs become identical. -->
 
- 
- \begin{equation}
-F\left( x;r,\lambda \right) = \int_{0}^{x}f\left( u;r,\lambda \right) du
-= \frac{\gamma\left( r, \lambda x \right)}{\Gamma\left( r \right)}
-(\#eq:proper-roc-models-gamma-cdf)
-\end{equation} 
+<!-- The cumulative distribution function (CDF) of the gamma distribution is given by: -->
 
 
-Here the lower incomplete gamma function [@abramowitz1964handbook] $\gamma\left( s,x \right)$ is defined by:
+<!--  \begin{equation} -->
+<!-- F\left( x;r,\lambda \right) = \int_{0}^{x}f\left( u;r,\lambda \right) du -->
+<!-- = \frac{\gamma\left( r, \lambda x \right)}{\Gamma\left( r \right)} -->
+<!-- (\#eq:proper-roc-models-gamma-cdf) -->
+<!-- \end{equation}  -->
 
- 
-\begin{equation}
-\gamma\left( s,x \right) = \int_{0}^{x} t^{s-1} e^{-t} dt
-(\#eq:proper-roc-models-gamma-incomplete)
-\end{equation} 
 
+<!-- Here the lower incomplete gamma function [@abramowitz1964handbook] $\gamma\left( s,x \right)$ is defined by: -->
 
- 
-`R` implements the CDF of the gamma distribution as `pgamma()`. The coordinates of the predicted ROC at threshold $\xi$  are (the complementary probability is needed as FPF and TPF are the probabilities of exceeding a threshold):
 
+<!-- \begin{equation} -->
+<!-- \gamma\left( s,x \right) = \int_{0}^{x} t^{s-1} e^{-t} dt -->
+<!-- (\#eq:proper-roc-models-gamma-incomplete) -->
+<!-- \end{equation}  -->
 
 
-\begin{equation}
-\left.\begin{aligned}
-\text{FPF}\left( \xi|r \right) &= 1 - \frac{\gamma\left( r,\xi \right)}{\Gamma\left( r \right)} \\
-&=\int_{\xi}^{\infty} du ~ f\left( u;r,1 \right) \\
-\text{TPF}\left( \xi|r, \lambda \right) &= 1 - \frac{\gamma\left( r,\lambda \xi \right)}{\Gamma\left( r \right)} \\
-&=\int_{\xi}^{\infty} du ~ f\left( u;r,\lambda \right) \\
-\end{aligned}\right\}
-(\#eq:proper-roc-models-gamma-fpf-tpf)
-\end{equation} 
 
+<!-- `R` implements the CDF of the gamma distribution as `pgamma()`. The coordinates of the predicted ROC at threshold $\xi$  are (the complementary probability is needed as FPF and TPF are the probabilities of exceeding a threshold): -->
 
 
 
+<!-- \begin{equation} -->
+<!-- \left.\begin{aligned} -->
+<!-- \text{FPF}\left( \xi|r \right) &= 1 - \frac{\gamma\left( r,\xi \right)}{\Gamma\left( r \right)} \\ -->
+<!-- &=\int_{\xi}^{\infty} du ~ f\left( u;r,1 \right) \\ -->
+<!-- \text{TPF}\left( \xi|r, \lambda \right) &= 1 - \frac{\gamma\left( r,\lambda \xi \right)}{\Gamma\left( r \right)} \\ -->
+<!-- &=\int_{\xi}^{\infty} du ~ f\left( u;r,\lambda \right) \\ -->
+<!-- \end{aligned}\right\} -->
+<!-- (\#eq:proper-roc-models-gamma-fpf-tpf) -->
+<!-- \end{equation}  -->
 
 
-### BGM ROC plots {#proper-roc-models-bigamma-code}
 
+<!-- ```{r echo=FALSE} -->
+<!-- aucIntegrand <- function (FPF, r, lambda)  -->
+<!-- { -->
+<!--   y <- 1 - pgamma(qgamma(1-FPF, r), r, scale = 1/lambda) -->
+<!--   return(y)   -->
+<!-- } -->
 
 
+<!-- biGammaRocY <- function (x, r, lambda) { -->
+<!--   y <- 1 - pgamma(x, r, scale = 1/lambda) -->
+<!--   return(y) -->
+<!-- } -->
+<!-- ``` -->
 
 
-The bigamma-model formulae coded in `R` were used to generate ROC plots Fig. \@ref(fig:proper-roc-models-bigamma-plots-roc), pdf plots Fig. \@ref(fig:proper-roc-models-bigamma-plots-pdf), and likelihood ratio plots Fig. \@ref(fig:proper-roc-models-bigamma-plots-lr) for four pairs of values of the bigamma model parameters $(r, \lambda)$. 
+<!-- ### BGM ROC plots {#proper-roc-models-bigamma-code} -->
 
-* Plot A is for $(r = 1, \lambda = 1)$ when the ROC becomes the chance diagonal; this is actually true regardless of the value of $r$. 
 
-* Plot B is for $(r = 4.39, \lambda = 0.439)$ identical to the values used in [@dorfman1997proper] for simulations. 
+<!-- ```{r echo=FALSE} -->
+<!-- rArray <- c(1,4.391,5,10);lambdaArray <- c(1,0.439,0.3,0.1) -->
+<!-- #r <-  4.391; lambda <-  0.439 # from Dorfman paper -->
+<!-- plotRoc <- list() -->
+<!-- plotSlope <- list() -->
+<!-- pdfs <- list() -->
+<!-- for (i in 1:length(rArray)) -->
+<!-- { -->
+<!--   r <- rArray[i];lambda <- lambdaArray[i] -->
+<!--   AUC <- integrate(aucIntegrand,0,1, r = r, lambda = lambda) -->
+<!--   # cat("r = ", r, ", lambda = ", lambda, ", AUC = ", AUC$value, "\n") -->
+<!--   # left limit below gets the upper end of the ROC curve  -->
+<!--   # the right limit gets the lower corner -->
+<!--   x <- seq(0, r/lambda + 10*sqrt(r/lambda^2), by = 0.01) -->
+<!--   FPF <- biGammaRocY(x, r, 1) -->
+<!--   TPF <- biGammaRocY(x, r, lambda) -->
 
-* Plot C is for $(r = 5, \lambda = 0.3)$. 
+<!--   rocPlot <- data.frame(FPF = FPF, TPF = TPF) -->
+<!--   plotRoc[[i]] <- ggplot( -->
+<!--     rocPlot, aes(x = FPF, y = TPF)) +  -->
+<!--     geom_line() +  -->
+<!--     ggtitle(paste0("Plot ",  -->
+<!--            LETTERS[i],  -->
+<!--            ":",  -->
+<!--            sprintf(" r = %3.2f, lambda = %3.2f",  -->
+<!--                    r, lambda))) -->
 
-* Plot D is for $(r = 10, \lambda = 0.1)$. 
 
-### BGM ROC plots {#proper-roc-models-bigamma-rocs}
+<!--   # taking mean + 3 times the standard deviation -->
+<!--   x <- seq(0.01, r/lambda + 3*sqrt(r/lambda^2), by = 0.01) -->
 
+<!--   Pdf1 <- dgamma(x, r) -->
+<!--   Pdf2 <- dgamma(x, r, scale = 1/lambda) -->
 
-<div class="figure">
-<img src="07-proper-roc-models_files/figure-html/proper-roc-models-bigamma-plots-roc-1.png" alt="ROC curves predicted by the bigamma model. The corresponding AUCs are 0.5, 0.879, 0.965 and 0.9999" width="672" />
-<p class="caption">(\#fig:proper-roc-models-bigamma-plots-roc)ROC curves predicted by the bigamma model. The corresponding AUCs are 0.5, 0.879, 0.965 and 0.9999</p>
-</div>
+<!--   df <- data.frame(x = c(x, x), pdf = c(Pdf1, Pdf2),  -->
+<!--                    truth = c(rep('non-diseased', length(Pdf1)),  -->
+<!--                              rep('diseased', length(Pdf2)))) -->
 
+<!--   pdfs[[i]] <- ggplot( -->
+<!--     df, aes(x = x, y = pdf, color = truth)) +  -->
+<!--     geom_line() +  -->
+<!--     scale_colour_manual(values=c("red","green")) +  -->
+<!--     theme(legend.title = element_blank(),  -->
+<!--           legend.position = c(0.9, 0.9)) -->
 
-The reader should check that the slopes in Fig. \@ref(fig:proper-roc-models-bigamma-plots-lr) are consistent with the pdfs shown in Fig. \@ref(fig:proper-roc-models-bigamma-plots-pdf). For example, for plot D, the mean of the diseased distribution is 100 relative to 10 for the non-diseased distribution and performance is close to perfect.
+<!--   # may need to adjust limits to view detail of slope plot -->
+<!--   x <- seq(0.01, 1, by = 0.01) -->
 
-I am unaware of an analytic expression for AUC of the bigamma model. However the ROC curve can be numerically integrated. This yields the following values of AUC of the ROCs shown in Fig. \@ref(fig:proper-roc-models-bigamma-plots-roc): 
+<!--   slope <- (dgamma(x, r, scale = 1/lambda))/pgamma(x, r) -->
 
-* Plot A: AUC = 0.5; 
+<!--   slopePlot <- data.frame(x = x, slope = slope) -->
+<!--   plotSlope[[i]] <- ggplot(slopePlot, aes(x = x, y = slope)) + geom_line() -->
+<!-- } -->
+<!-- ``` -->
 
-* Plot B: AUC = 0.8790038; 
 
-* Plot C: AUC = 0.9645528; 
+<!-- The bigamma-model formulae coded in `R` were used to generate ROC plots Fig. \@ref(fig:proper-roc-models-bigamma-plots-roc), pdf plots Fig. \@ref(fig:proper-roc-models-bigamma-plots-pdf), and likelihood ratio plots Fig. \@ref(fig:proper-roc-models-bigamma-plots-lr) for four pairs of values of the bigamma model parameters $(r, \lambda)$.  -->
 
-* Plot D: AUC = 0.9999984. 
+<!-- * Plot A is for $(r = 1, \lambda = 1)$ when the ROC becomes the chance diagonal; this is actually true regardless of the value of $r$.  -->
 
-[One can confirm that values of $\lambda > 1$ yield ROC curves below the chance diagonal and AUC less than 0.5. These ROC curves are actually "reflected" versions of proper ROC curves; for each such curve the slope starts at a finite positive value near the origin and increases to infinity near the top right corner.] 
+<!-- * Plot B is for $(r = 4.39, \lambda = 0.439)$ identical to the values used in [@dorfman1997proper] for simulations.  -->
 
+<!-- * Plot C is for $(r = 5, \lambda = 0.3)$.  -->
 
+<!-- * Plot D is for $(r = 10, \lambda = 0.1)$.  -->
 
-### BGM pdf plots {#proper-roc-models-bigamma-pdfs}
+<!-- ### BGM ROC plots {#proper-roc-models-bigamma-rocs} -->
 
-<div class="figure">
-<img src="07-proper-roc-models_files/figure-html/proper-roc-models-bigamma-plots-pdf-1.png" alt="Density functions predicted by bigamma model. For $\lambda = 1$ the two pdfs are identical." width="672" />
-<p class="caption">(\#fig:proper-roc-models-bigamma-plots-pdf)Density functions predicted by bigamma model. For $\lambda = 1$ the two pdfs are identical.</p>
-</div>
 
+<!-- ```{r echo=FALSE, proper-roc-models-bigamma-plots-roc, fig.cap="ROC curves predicted by the bigamma model. The corresponding AUCs are 0.5, 0.879, 0.965 and 0.9999", fig.show='hold'} -->
+<!-- grid.arrange(grobs = list(plotRoc[[1]], -->
+<!--                           plotRoc[[2]], -->
+<!--                           plotRoc[[3]], -->
+<!--                           plotRoc[[4]]), -->
+<!--                           nrow =2, ncol=2) -->
+<!-- ``` -->
 
 
-### BGM likelihood ratio plots {#proper-roc-models-bigamma-slopes}
+<!-- The reader should check that the slopes in Fig. \@ref(fig:proper-roc-models-bigamma-plots-lr) are consistent with the pdfs shown in Fig. \@ref(fig:proper-roc-models-bigamma-plots-pdf). For example, for plot D, the mean of the diseased distribution is 100 relative to 10 for the non-diseased distribution and performance is close to perfect. -->
 
+<!-- I am unaware of an analytic expression for AUC of the bigamma model. However the ROC curve can be numerically integrated. This yields the following values of AUC of the ROCs shown in Fig. \@ref(fig:proper-roc-models-bigamma-plots-roc):  -->
 
-<div class="figure">
-<img src="07-proper-roc-models_files/figure-html/proper-roc-models-bigamma-plots-lr-1.png" alt="Likelihood ratio (or ROC slope) plots predicted by the bigamma model." width="672" />
-<p class="caption">(\#fig:proper-roc-models-bigamma-plots-lr)Likelihood ratio (or ROC slope) plots predicted by the bigamma model.</p>
-</div>
+<!-- * Plot A: AUC = 0.5;  -->
 
+<!-- * Plot B: AUC = 0.8790038;  -->
 
+<!-- * Plot C: AUC = 0.9645528;  -->
 
-There used to be software called BIGAMMA, formerly MAXGAM [@dorfman1997proper], implementing the bigamma model, but the University of Iowa ROC website now states "BIGAMMA is not available for download at this time. Users who desire a proper ROC model should use PROPROC or CBM" (http://perception.radiology.uiowa.edu, accessed Apr. 29, 2017). 
+<!-- * Plot D: AUC = 0.9999984.  -->
 
+<!-- [One can confirm that values of $\lambda > 1$ yield ROC curves below the chance diagonal and AUC less than 0.5. These ROC curves are actually "reflected" versions of proper ROC curves; for each such curve the slope starts at a finite positive value near the origin and increases to infinity near the top right corner.]  -->
 
-I understand the de-emphasis of this method since the bigamma distribution is inconsistent with expectations based on the central limit theorem: when many random processes contribute to a measurement the net distribution tends to normality independent of the distributions of the individual processes.
+
+
+<!-- ### BGM pdf plots {#proper-roc-models-bigamma-pdfs} -->
+
+<!-- ```{r echo=FALSE, proper-roc-models-bigamma-plots-pdf, fig.cap="Density functions predicted by bigamma model. For $\\lambda = 1$ the two pdfs are identical.", fig.show='hold'} -->
+<!-- grid.arrange(grobs = list(pdfs[[1]], -->
+<!--                           pdfs[[2]], -->
+<!--                           pdfs[[3]], -->
+<!--                           pdfs[[4]]), -->
+<!--                           nrow =2, ncol=2) -->
+<!-- ``` -->
+
+
+
+<!-- ### BGM likelihood ratio plots {#proper-roc-models-bigamma-slopes} -->
+
+
+<!-- ```{r echo=FALSE, proper-roc-models-bigamma-plots-lr, fig.cap="Likelihood ratio (or ROC slope) plots predicted by the bigamma model.", fig.show='hold'} -->
+<!-- grid.arrange(grobs = list(plotSlope[[1]], -->
+<!--                           plotSlope[[2]], -->
+<!--                           plotSlope[[3]], -->
+<!--                           plotSlope[[4]]), -->
+<!--                           nrow =2, ncol=2) -->
+<!-- ``` -->
+
+
+
+<!-- There used to be software called BIGAMMA, formerly MAXGAM [@dorfman1997proper], implementing the bigamma model, but the University of Iowa ROC website now states "BIGAMMA is not available for download at this time. Users who desire a proper ROC model should use PROPROC or CBM" (http://perception.radiology.uiowa.edu, accessed Apr. 29, 2017).  -->
+
+
+<!-- I understand the de-emphasis of this method since the bigamma distribution is inconsistent with expectations based on the central limit theorem: when many random processes contribute to a measurement the net distribution tends to normality independent of the distributions of the individual processes. -->
 
 
 ## Discussion {#proper-roc-models-discussion}
