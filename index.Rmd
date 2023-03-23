@@ -17,7 +17,7 @@ description: "Modeling ROC data."
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown', 'ggplot2', 'mvtnorm', 
-  'binom', 'exactci', 'RJafroc', 'bbmle'), 'packages.bib')
+  'binom', 'exactci', 'RJafroc', 'bbmle', 'plotly'), 'packages.bib')
 ```
 
 

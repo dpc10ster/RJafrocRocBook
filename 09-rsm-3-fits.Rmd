@@ -40,7 +40,7 @@ The motivation for this work was a serendipitous finding [@chakraborty2011estima
 
 ## Application to datasets {#rsm-3-fits-applications}
 
-Both RSM and CBM are implemented in R-package `RJafroc` [@R-RJafroc]. `PROPROC` is implemented in Windows software OR DBM-MRMC 2.5 ^[Sept. 04, 2014; the version used in this chapter is no longer distributed.] that was available [here, last accessed 1/4/21](https://perception.lab.uiowa.edu/software). The PROPROC results-file locations are shown in \@ref(rsm-3-fits-one-dataset-proproc).
+Both RSM and CBM are implemented in R-package `RJafroc` [@R-RJafroc]. `PROPROC` is implemented in Windows software OR DBM-MRMC 2.5 ^[Sept. 04, 2014; the version used in this chapter is no longer distributed.] that was available [here, last accessed 1/4/21](https://perception.lab.uiowa.edu/software). The pre-analyzed PROPROC results-file locations are shown in Appendix \@ref(rsm-3-fits-one-dataset-proproc).
 
 
 The RSM, PROPROC and CBM algorithms were applied to datasets described in Chapter \@ref(datasets). These are named as follows:
