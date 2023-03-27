@@ -30,13 +30,7 @@ In [@chakraborty2017observer] Chapter 21 was devoted to the CORROC2 algorithm an
 In this chapter the bivariate extension of the (univariate) binormal model is described. Bivariate sampling is described at a relatively simple level. Interactive visualization of the probability density functions is demonstrated. Estimation of parameters of the bivariate binormal model from ratings data is addressed. 
 
 
-## The bivariate binormal model {#bivariate-models-contaminated-binormal-density}
-
-The bivariate binormal model is the bivariate extension of the univariate contaminated binormal model described in Chapter \@ref(proper-roc-models). For non-diseased cases the pdf is idential to that of the correlated binormal model (i.e., that used in CORROC2). 
-
-
-
-### The bivariate normal density function {#bivariate-binormal-model-density}
+## The bivariate binormal model {#bivariate-models-binormal}
 
 Sampling from the bivariate normal distribution $N_2$ is as follows:
 
@@ -49,13 +43,15 @@ Sampling from the bivariate normal distribution $N_2$ is as follows:
 
 Here $\overrightarrow{x}$ is a length-$2$ vector of the observed z-samples for each case, $\overrightarrow{\mu}$ is a length-$2$ vector containing the means of the bivariate normal distribution and $\Sigma$ is the $2 \times 2$ covariance matrix describing the variances and correlations between the observed samples. 
 
+### The bivariate normal density function {#bivariate-models-binormal-density}
+
 The bivariate normal probability density function $f\left( \overrightarrow{x} ~~ \bigg \rvert ~~\overrightarrow{\mu}, ~~ \Sigma \right)$ is defined by:
 
 
 \begin{equation} 
 f\left( x_1,x_2 ~~ \bigg \rvert ~~ \mu_1, \mu_2,  \sigma_1, \sigma_2, \rho \right)
 = \frac{1}{2 \pi \sigma_1 \sigma_2 \sqrt{1-\rho^2}}\exp\left( -\frac{t}{2\left( 1-\rho^2 \right)} \right)
-(\#eq:bivariate-binormal-model-density-function)
+(\#eq:bivariate-models-binormal-density-function)
 \end{equation} 
 
 
@@ -65,7 +61,7 @@ where
 \begin{equation} 
 t=\frac{\left( x_1-\mu_1 \right)^2}{\sigma_1^2}-\frac{2\rho\left( x_1-\mu_1 \right)\left( x_2-\mu_2 \right)}{\sigma_1 \sigma_2}
 +\frac{\left( x_2-\mu_2 \right)^2}{\sigma_2^2}
-(\#eq:bivariate-binormal-model-density-function2)
+(\#eq:bivariate-models-binormal-density-function2)
 \end{equation} 
 
 
@@ -80,13 +76,13 @@ For a bivariate distribution the covariance matrix is:
 \rho \sigma_1 \sigma_2 & 
 \sigma_2^2
 \end{matrix}
- \right)(\#eq:bivariate-binormal-model-covariance-matrix)
+ \right)(\#eq:bivariate-models-binormal-covariance-matrix)
 \end{equation} 
 
 
 In these equations $\mu_1$ and $\sigma_1^2$ is the mean and variance for modality 1, $\mu_2$ and $\sigma_2^2$ is the mean and variance for modality 2 and $\rho$ is the correlation between the two modalities.
 
-The `R` function to evaluate Eqn. \@ref(eq:bivariate-binormal-model-density-function) is `dmvnorm()`, for “density of multivariate normal distribution” available via `R` package `mvtnorm` [@R-mvtnorm]. Its usage is illustrated next for the following parameter values:
+The `R` function to evaluate Eqn. \@ref(eq:bivariate-models-binormal-density-function) is `dmvnorm()`, for “density of multivariate normal distribution” available via `R` package `mvtnorm` [@R-mvtnorm]. Its usage is illustrated next for the following parameter values:
 
 
 \begin{equation} 
@@ -118,7 +114,7 @@ The `R` function to evaluate Eqn. \@ref(eq:bivariate-binormal-model-density-func
 1.1^2 & 0.6 \times 1.1 \times 1.5 \\
 0.6 \times 1.1 \times 1.5  & 1.5^2
 \end{matrix}\right)\end{aligned}\right\}
-(\#eq:bivariate-binormal-model-parameters)
+(\#eq:bivariate-models-binormal-parameters)
 \end{equation} 
 
 In the following code the call to get the pdf occurs at line 10.
@@ -142,7 +138,7 @@ The parameters describing the bivariate normal distribution are $\overrightarrow
 
 
 
-### The bivariate binormal model {#bivariate-binormal-model-formulae}
+### The bivariate binormal model {#bivariate-models-binormal-formulae}
 
 The bivariate binormal model is an extension of the bivariate model, just described, to *two truth-states*: non-diseased and diseased, each modeled separately as a bivariate normal distribution. This could potentially result in a doubling of the number of parameters but by appropriate shifting and scaling transformations one can ensure that the two means of the bivariate distribution for non-diseased cases are zeroes and the corresponding variances are unity. This reduces the total number of parameters to six: $\mu_1$, $\mu_2$, $\sigma_1$, $\sigma_2$, $\rho_1$, $\rho_2$. Here $\mu_1$, $\mu_2$ are the means for diseased cases for modality 1 and modality 2, respectively, $\sigma_1^2$, $\sigma_2^2$ are the variances for diseased cases for modality 1 and modality 2, respectively, and $\rho_1$, $\rho_2$ are the correlations between the two modalities for non-diseased cases and diseased cases, respectively. 
 
@@ -180,7 +176,7 @@ The bivariate binormal parameters are:
 \end{matrix}
 \right)
 \end{aligned}\right\}
-(\#eq:bivariate-binormal-model-all-parameters)
+(\#eq:bivariate-models-binormal-all-parameters)
 \end{equation} 
 
 
@@ -196,7 +192,7 @@ The decision variable is $z_{ik_tt}$ where the $i$ subscript corresponds to the 
 z_{1k_tt}  \\
 z_{2k_tt}
 \end{matrix} \right)
-(\#eq:bivariate-binormal-model-notation)
+(\#eq:bivariate-models-binormal-notation)
 \end{equation} 
 
 
@@ -220,18 +216,18 @@ $\overrightarrow{z_{k_tt}}$ is sampled from $N_2\left( \overrightarrow{\mu_t}, \
 
 \begin{equation}
 \overrightarrow{z_{k_tt}} \sim  N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)
-(\#eq:bivariate-binormal-model-sampling)
+(\#eq:bivariate-models-binormal-sampling)
 \end{equation} 
 
 
 
-The parameters $\overrightarrow{\mu_t}, \Sigma_t$ are truth-state dependent as described in Eqn. \@ref(eq:bivariate-binormal-model-all-parameters). 
+The parameters $\overrightarrow{\mu_t}, \Sigma_t$ are truth-state dependent as described in Eqn. \@ref(eq:bivariate-models-binormal-all-parameters). 
 
-<!-- In Eqn. \@ref(eq:bivariate-binormal-model-sampling), the symbol $\sim  N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)$ denotes a vector sample of length two from the bivariate normal distribution with mean $\overrightarrow{\mu_t}$ and covariance matrix $\Sigma_t$.  -->
+<!-- In Eqn. \@ref(eq:bivariate-models-binormal-sampling), the symbol $\sim  N_2\left( \overrightarrow{\mu_t}, \Sigma_t \right)$ denotes a vector sample of length two from the bivariate normal distribution with mean $\overrightarrow{\mu_t}$ and covariance matrix $\Sigma_t$.  -->
 
 <!-- Each case yields two samples corresponding to the two modalities. The subscript 2 on $N$ distinguishes the bivariate distribution from the corresponding univariate distribution $N$ (which has an implicit 1 subscript).  -->
 
-For non-diseased cases the correlation coefficient of the paired samples is $\rho_1$ and the corresponding value for diseased cases is $\rho_2$. With reference to Eqn. \@ref(eq:bivariate-binormal-model-all-parameters) the ones along the diagonal of $\Sigma_1$ confirm that the variances of the individual modality samples for non-diseased cases are each equal to unity. The corresponding variances for diseased cases are $\sigma_1^2$ and $\sigma_2^2$. 
+For non-diseased cases the correlation coefficient of the paired samples is $\rho_1$ and the corresponding value for diseased cases is $\rho_2$. With reference to Eqn. \@ref(eq:bivariate-models-binormal-all-parameters) the ones along the diagonal of $\Sigma_1$ confirm that the variances of the individual modality samples for non-diseased cases are each equal to unity. The corresponding variances for diseased cases are $\sigma_1^2$ and $\sigma_2^2$. 
 
 
 To complete the model one needs to include threshold parameters and a decision rule. For an R-rating single modality ROC task with allowed ratings $r = 1, 2, ..., \text{R}$, one needs $\text{R}-1$ thresholds $\zeta_1,\zeta_2,...,\zeta_{\text{R}-1}$. Defining $\zeta_0 = -\infty$ and $\zeta_{\text{R}} = +\infty$ the decision rule is to label a case with rating $r$ if the realized z-sample satisfies $\zeta_{r-1} < z \le \zeta_r$. 
@@ -240,15 +236,15 @@ To complete the model one needs to include threshold parameters and a decision r
 In the two-modality task the decision variable and the thresholds are modality dependent: i.e., $z_{1k_tt}$ and $z_{2k_tt}$ and two sets of thresholds are needed: $\zeta_{11},\zeta_{12},...,\zeta_{1 (\text{R}-1)}$ and $\zeta_{21},\zeta_{22},...,\zeta_{2 (\text{R}-1)}$. As before $\zeta_{10} = -\infty$ and $\zeta_{20} = -\infty$ and $\zeta_{1\text{R}} = +\infty$ and $\zeta_{2\text{R}} = +\infty$. The decision rule is to rate a case in modality $1$ with rating $r$ if $\zeta_{1(r-1)} < z_{1k_tt} \le \zeta_{1r}$ and the same case in modality $2$ is rated $s$ if $\zeta_{2(s-1)} < z_{2k_tt} \le \zeta_{2s}$.
  	
  	
-The sampling model Eqn. \@ref(eq:bivariate-binormal-model-sampling) is a natural extension to two modalities of the single modality univariate binormal model described in Chapter \@ref(binormal-model): 
+The sampling model Eqn. \@ref(eq:bivariate-models-binormal-sampling) is a natural extension to two modalities of the single modality univariate binormal model described in Chapter \@ref(binormal-model): 
 
 >The univariate model yields one z-sample per case: samples for non-diseased cases have mean zero and unit variance; samples for diseased cases have mean $\mu$ and variance $\sigma^2$. In contrast the bivariate model yields two z-samples per case. For non-diseased cases the samples have zero mean and unit variance and correlation $\rho_1$. For diseased cases, the samples for the first modality have mean $\mu_1$ and variance $\sigma_1^2$, for the second modality they have mean $\mu_2$ and variance $\sigma_2^2$ and their correlation is $\rho_2$. 
 
 
 
-### Visualizing the bivariate density function {#bivariate-binormal-model-multivariate-density-visualization}
+### Visualizing the bivariate density function {#bivariate-models-binormal-multivariate-density-visualization}
 
-It is helpful to visualize the pdfs. Since one is dealing with a vector $\overrightarrow{x}$ of length 2, one needs two axes to depict $x_1$ and $x_2$ and a third axis to depict the pdf. The R-package `plotly` [@R-plotly] provides a visualization technique. It is interactive: by dragging the cursor over the plot one can visualize it from different angles. Shown in Fig. \@ref(fig:bivariate-binormal-model-pdf-plots) are four views of the bivariate distribution density function for $\mu_1 = 1.5$, $\mu_2 = 2.0$, $\sigma_1 = 1.0$, $\sigma_2 = 1.5$, $\rho_1 = 0.3$ and $\rho_2 = 0.6$.
+It is helpful to visualize the pdfs. Since one is dealing with a vector $\overrightarrow{x}$ of length 2, one needs two axes to depict $x_1$ and $x_2$ and a third axis to depict the pdf. The R-package `plotly` [@R-plotly] provides a visualization technique. It is interactive: by dragging the cursor over the plot one can visualize it from different angles. Shown in Fig. \@ref(fig:bivariate-models-binormal-pdf-plots) are four views of the bivariate distribution density function for $\mu_1 = 1.5$, $\mu_2 = 2.0$, $\sigma_1 = 1.0$, $\sigma_2 = 1.5$, $\rho_1 = 0.3$ and $\rho_2 = 0.6$.
 
 
 
@@ -294,7 +290,7 @@ It is helpful to visualize the pdfs. Since one is dealing with a vector $\overri
 <!-- ``` -->
 
 
-```{r echo=FALSE, bivariate-binormal-model-pdf-plots, fig.cap="Bivariate pdf plots for the bivariate distribution density function for $\\mu_1 = 1.5$, $\\mu_2 = 2.0$, $\\sigma_1 = 1.0$, $\\sigma_2 = 1.5$, $\\rho_1 = 0.3$ and $\\rho_2 = 0.6$.. Top-left is the default view. Top-right is the 'birds eye' view: the lower-left blob is the diseased distribution. Bottom-left is the view looking along the y-axis: the left distribution is non-diseased. Bottom-right is the view looking along the x-axis: the higher peak distribution is non-diseased.", fig.show='hold'}
+```{r echo=FALSE, bivariate-models-binormal-pdf-plots, fig.cap="Bivariate pdf plots for the bivariate distribution density function for $\\mu_1 = 1.5$, $\\mu_2 = 2.0$, $\\sigma_1 = 1.0$, $\\sigma_2 = 1.5$, $\\rho_1 = 0.3$ and $\\rho_2 = 0.6$.. Top-left is the default view. Top-right is the 'birds eye' view: the lower-left blob is the diseased distribution. Bottom-left is the view looking along the y-axis: the left distribution is non-diseased. Bottom-right is the view looking along the x-axis: the higher peak distribution is non-diseased.", fig.show='hold'}
 p1 <-  readPNG("images/bivariate/Fig1A.png")
 p2 <-  readPNG("images/bivariate/Fig1B.png") 
 p3 <-  readPNG("images/bivariate/Fig1C.png") 
@@ -305,7 +301,7 @@ grid.arrange(grobs = list(rasterGrob(p1),rasterGrob(p2),rasterGrob(p3),rasterGro
 
 
 
-### Estimating bivariate binormal model parameters {#bivariate-binormal-model-multivariate-density-estimation}
+### Estimating bivariate binormal model parameters {#bivariate-models-binormal-multivariate-density-estimation}
 
 In Chapter \@ref(binormal-model) a method for estimating the parameters of the univariate binormal model was described. The method involved maximizing the likelihood function, i.e., the probability of the observed data as a function of the model parameters. The likelihood function was maximized with respect to these parameters. The values of the parameters at the maximum are the maximum-likelihood estimates (MLEs).
 
@@ -346,11 +342,14 @@ CORROC2 was developed ca. 1980 by Metz, Wang and Kronman 5,10. Subsequent revisi
 
 As a final note, at the time of writing, 4/30/17, an extension of CORROC2 has been published1 [@zhai2017bivariate]. It is called CORCBM, for correlated CBM. Details are in a document CORCBM.pdf in the online supplementary material directory corresponding to this chapter. The title of the publication is: "A bivariate contaminated binormal model for robust fitting of proper ROC curves to a pair of correlated, possibly degenerate, ROC datasets". It replaces the bivariate binormal model with the bivariate contaminated binormal model; hence its name CORCBM, for correlated CBM. Since CBM was designed to fit practically any single dataset, including degenerate ones, CORCBM is likewise able to fit practically any paired dataset. An application of CORCBM to calibrating a simulator to a data set containing single-modality multiple-reader ratings is described in Chapter 23.
 
-## The bivariate contaminated binormal model {#bivariate-contaminated-binormal-model-density}
+## The bivariate contaminated binormal model {#bivariate-models-contaminated-binormal-density}
 
-
-### The bivariate contaminated binormal model 
 TBA
 
-## Discussion / Summary {#bivariate-binormal-model-corroc2-discussion}
+### The bivariate contaminated binormal model {#bivariate-models-contaminated-binormal} 
+
+The bivariate contaminated binormal model is the bivariate extension of the univariate contaminated binormal model described in Chapter \@ref(proper-roc-models). For non-diseased cases the sampling is identical to that of the correlated binormal model (i.e., that used in CORROC2), see Section \@ref(bivariate-models-binormal). The pdf is given by:
+TBA
+
+## Discussion / Summary {#bivariate-models-binormal-corroc2-discussion}
 
