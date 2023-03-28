@@ -32,6 +32,8 @@ In this chapter the bivariate extension of the (univariate) binormal model is de
 
 ## The bivariate binormal model {#bivariate-models-binormal}
 
+### The bivariate normal distribution
+
 Sampling from the bivariate normal distribution $N_2$ is as follows:
 
 
@@ -242,7 +244,7 @@ The sampling model Eqn. \@ref(eq:bivariate-models-binormal-sampling) is a natura
 
 
 
-### Visualizing the bivariate density function {#bivariate-models-binormal-multivariate-density-visualization}
+### Visualizing the bivariate binormal density functions {#bivariate-models-binormal-multivariate-density-visualization}
 
 It is helpful to visualize the pdfs. Since one is dealing with a vector $\overrightarrow{x}$ of length 2, one needs two axes to depict $x_1$ and $x_2$ and a third axis to depict the pdf. The R-package `plotly` [@R-plotly] provides a visualization technique. It is interactive: by dragging the cursor over the plot one can visualize it from different angles. Shown in Fig. \@ref(fig:bivariate-models-binormal-pdf-plots) are four views of the bivariate distribution density function for $\mu_1 = 1.5$, $\mu_2 = 2.0$, $\sigma_1 = 1.0$, $\sigma_2 = 1.5$, $\rho_1 = 0.3$ and $\rho_2 = 0.6$.
 
@@ -326,7 +328,7 @@ LL\left ( \mu_1, \mu_2, \sigma_1, \sigma_2, \rho_1, \rho_2, \overrightarrow{\zet
 
 The maximum likelihood estimates of the parameters are obtained by maximizing the LL function [@metz1980statistical, @metz1984new] which is implemented in CORROC2. The software measures ratings-correlations at the underlying z-sample level. Much as I have emphasized that ratings are not "hard" numbers the CORROC2 estimated correlations are valid because the algorithm models the ratings as continuous variables and estimates the correlation based on the bivariate binormal model.
 
-## Comments on the bivariate binormal model
+### Comments on the bivariate binormal model
 
 CORROC2 is one of the relatively under-utilized tools developed by Prof. Charles E. Metz. There are only four publications describing it TBA 4-6,8 and two of them are difficult to find5,8, nor has the software been maintained on a level comparable to ROCFIT. For example, a method for assessing the goodness of the fit is currently not implemented. With $R^2$ cells it is almost impossible to maintain at least five counts per cell. 
 
