@@ -346,12 +346,173 @@ As a final note, at the time of writing, 4/30/17, an extension of CORROC2 has be
 
 ## The bivariate contaminated binormal model {#bivariate-models-contaminated-binormal-density}
 
-TBA
+### Objective
+
+The objective was to design and implement a bivariate extension to the contaminated binormal model (CBM) to fit paired receiver operating characteristic (ROC) datasets – possibly degenerate - with proper ROC curves. Paired datasets yield two correlated ratings per case. Degenerate datasets have no interior operating points and proper ROC curves do not inappropriately cross the chance diagonal. The existing method, described above, utilizes a bivariate extension to the binormal model, implemented in CORROC2 software, which yields improper ROC curves and cannot fit degenerate datasets. CBM can fit proper ROC curves to unpaired (i.e., yielding one rating per case) and degenerate datasets and if extended to paired datasets it would represent a method of paired data analysis that is free of issues associated with the binormal model. 
+
+## Methods
+
+In CBM non-diseased cases are modeled by a probability density function (pdf) consisting of a unit variance peak centered at zero. Diseased cases are modeled with a mixture distribution whose pdf consists of two unit variance peaks, one centered at $\mu \ge 0$ with integrated probability $\alpha$, the mixing fraction parameter, corresponding to the fraction of diseased cases where the disease was visible to the radiologist, and one centered at zero, with integrated probability $(1 - \alpha)$, corresponding to disease that was not visible. It is shown that: (1) for non-diseased cases the bivariate extension is a unit variances bivariate normal distribution centered at (0,0) with a specified correlation $\rho_1$; (2) for diseased cases the bivariate extension is a mixture distribution with four peaks, corresponding to disease not visible in either modality, disease visible in only one modality, contributing 2 peaks, and disease visible in both modalities. Not counting threshold parameters needed for data binning, the model is characterized by 6 basic parameters: two mixing fractions, two separation parameters, and two correlations. An expression for the likelihood function is derived. A maximum likelihood estimation (MLE) algorithm, CORCBM, was implemented in the `R` programming language that yields parameter estimates and the covariance matrix of the parameters, and other statistics. 
+
+## Results
+
+CORCBM and CORROC2 were applied to two datasets containing nine readers each contributing paired interpretations. CORCBM successfully fitted the data for all readers whereas CORROC2 failed to fit a degenerate dataset. All fits were visually reasonable. All CORCBM fits were proper whereas all CORROC2 fits were improper. CORCBM and CORROC2 were in agreement (i) in declaring only one of the nine readers as having significantly different performances in the two modalities; (ii) in estimating higher correlations for diseased cases than for non-diseased ones and (iii) in finding that the inter-modality correlation estimates for non-diseased cases were consistent between the two methods. All CORCBM fits yielded higher area under curve (AUC) than the CORROC2 fits, consistent with the fact that a proper ROC model like CORCBM is based on a likelihood-ratio-equivalent decision variable, and consequently yields higher performance than the binormal model based CORROC2. 
+
+## Conclusions 
+
+CORCBM is a robust method for fitting paired ROC datasets, always yielding proper ROC curves, and able to fit degenerate datasets.
+
+
 
 ### The bivariate contaminated binormal model {#bivariate-models-contaminated-binormal} 
 
-The bivariate contaminated binormal model is the bivariate extension of the univariate contaminated binormal model described in Chapter \@ref(proper-roc-models). For non-diseased cases the sampling is identical to that of the correlated binormal model (i.e., that used in CORROC2), see Section \@ref(bivariate-models-binormal). The pdf is given by:
-TBA
+The bivariate contaminated binormal model (BCBM) is the bivariate extension of the univariate contaminated binormal model described in Chapter \@ref(proper-roc-models). Corresponding to the two truth states the BCBM is defined by two bivariate distributions. Following the notation in Eqn. \@ref(eq:bivariate-models-binormal-notation), for case $k_tt$ the bivariate distribution yields two samples $z_{1k_tt}$ and $z_{2k_tt}$. 
+
+
+#### Non-diseased cases
+
+
+For non-diseased cases the sampling is as follows:
+
+
+\begin{equation}
+\overrightarrow{z_{k_11}} \sim  N_2\left( \overrightarrow{\mu_1}, \Sigma_1 \right)
+(\#eq:bivariate-models-binormal-sampling-teq1)
+\end{equation} 
+
+
+where 
+
+
+\begin{equation} 
+\left.\begin{aligned}
+\overrightarrow{
+\mu_1}&=
+\left( \begin{matrix}
+0 \\
+0
+\end{matrix}
+\right)\\
+\Sigma_1&=
+\left( 
+\begin{matrix}
+1 & \rho_1 \\
+\rho_1  & 1
+\end{matrix}
+\right) \\
+\end{aligned}\right\}
+(\#eq:bivariate-models-cbm-non-diseased)
+\end{equation}
+
+
+Notice that for non-diseased cases $t = 1$ the sampling is identical to that of the correlated binormal model, Eqn. \@ref(eq:bivariate-models-binormal-sampling).
+
+#### Diseased cases
+
+Recall, Eqn. \@ref(eq:proper-roc-models-cbm-pdfd), that for the univariate CBM for diseased cases the pdf is a mixture of two unit variance distributions, one centered at zero and the other at $\mu$ with mixing fractions $(1-\alpha)$ and $\alpha$, respectively. For diseased cases the BCBM needs to account for the possibility that the mixing fractions can be different in the two modalities: these are modeled by $\alpha_1$ and $\alpha_2$. Likewise, the z-sample means for cases where the disease is visible can be different in the two modalities: these are modeled by $\mu_1$ and $\mu_2$. All distributions are unit variance but can have different correlations as described next. 
+
+Four types of mixings and the corresponding bivariate distributions need to be accounted for:
+
+1. The disease is not visible in either modality. The appropriate distribution, denoted $N_{00}$, is a bivariate $N_2$ distribution centered at $(0,0)$ and has correlation $\rho_{00}$ and mixing fraction $(1-\alpha_1)(1-\alpha_2)$.  
+    
+1. The disease is visible in modality 1 but not visible in modality 2. The appropriate distribution, denoted $N_{10}$, is a bivariate $N_2$  distribution centered at $(\mu_1,0)$ and has correlation $\rho_{10}$ and mixing fraction $\alpha_1(1-\alpha_2)$.
+    
+1. The disease is not visible in modality 1 but is visible in modality 2. The appropriate distribution, denoted  $N_{01}$, is a bivariate $N_2$ distribution centered at $(0,\mu_2)$ and has correlation $\rho_{01}$ and mixing fraction $(1-\alpha_1)\alpha_2$.
+    
+1. The disease is visible in both modalities 1 and 2. The appropriate distribution, denoted $N_{11}$, is a bivariate $N_2$ distribution centered at $(\mu_1,\mu_2)$ and has correlation $\rho_{11}$ and mixing fraction $\alpha_1\alpha_2$.
+
+
+The means vectors and covariance matrices for the four types of mixings are defined by:
+
+
+\begin{equation} 
+\left.\begin{aligned}
+\begin{matrix}
+\overrightarrow{
+\mu_{00}}&=
+\left( \begin{matrix}
+0 \\
+0
+\end{matrix}
+\right) 
+ & \Sigma_{00}&=
+\left( 
+\begin{matrix}
+1 & \rho_{00} \\
+\rho_{00}  & 1
+\end{matrix}
+\right) \\
+\\ 
+\overrightarrow{
+\mu_{10}}&=
+\left( \begin{matrix}
+\mu_1 \\
+0
+\end{matrix}
+\right)
+ & \Sigma_{10}&=
+\left( 
+\begin{matrix}
+1 & \rho_{10} \\
+\rho_{10}  & 1
+\end{matrix}
+\right) \\
+\\ 
+\overrightarrow{
+\mu_{01}}&=
+\left( \begin{matrix}
+0 \\
+\mu_2
+\end{matrix}
+\right)
+ & \Sigma_{01}&=
+\left( 
+\begin{matrix}
+1 & \rho_{01} \\
+\rho_{01} & 1
+\end{matrix}
+\right) \\
+\\ 
+\overrightarrow{
+\mu_{11}}&=
+\left( \begin{matrix}
+\mu_1 \\
+\mu_2
+\end{matrix}
+\right)
+ & \Sigma_{11}&=
+\left( 
+\begin{matrix}
+1 & \rho_{11} \\
+\rho_{11}  & 1
+\end{matrix}
+\right) \\ 
+\end{matrix}
+\end{aligned}\right\}
+(\#eq:bivariate-models-cbm-diseased)
+\end{equation}
+
+
+The pdf of the diseased case bivariate distribution is as follows:
+
+
+\begin{equation} 
+\left.\begin{aligned}
+f\left (z_{1k_22},z_{2k_22}  \right ) =
+&(1-\alpha_1)(1-\alpha_2)~~p\left ( z_{1k_22},z_{2k_22} ~| ~\overrightarrow{\mu_{00}}, \Sigma_{00}\right )\\ 
++& \alpha_1(1-\alpha_2)~~p\left ( z_{1k_22},z_{2k_22} ~| ~ \overrightarrow{\mu_{10}}, \Sigma_{10}\right )\\
++& (1-\alpha_1)\alpha_2~~p\left ( z_{1k_22},z_{2k_22} ~| ~ \overrightarrow{\mu_{01}}, \Sigma_{01}\right )\\ 
++& \alpha_1\alpha_2~~p\left ( z_{1k_22},z_{2k_22} ~| ~\overrightarrow{\mu_{11}}, \Sigma_{11}\right )\\ 
+\end{aligned}\right\}
+(\#eq:bivariate-models-cbm-pdf-diseased)
+\end{equation}
+
+In this equation $p$ denotes the bivariate normal pdf function with the specified mean-vectors and covariance matrices.  
+
+
+Appendix TBA proves that with the above mixing fractions the pdf and CDF of individual (or marginal) distributions for condition X and Y have the same structure as CBM, i.e., either condition, viewed in isolation, has the same sampling behavior as CBM.
+
+
 
 ## Discussion / Summary {#bivariate-models-binormal-corroc2-discussion}
 
