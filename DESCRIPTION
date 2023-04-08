@@ -18,6 +18,8 @@ Imports:
     kableExtra,
     mvtnorm,
     pBrackets,
+    plotly,
+    plot3D,
     png,
     RJafroc,
     Rmpfr,

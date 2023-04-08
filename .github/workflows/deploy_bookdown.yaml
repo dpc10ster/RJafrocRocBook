@@ -21,18 +21,13 @@ jobs:
       - uses: r-lib/actions/setup-tinytex@v2
       - name: Install rmarkdown
         run: > 
-            Rscript -e 'install.packages(c("foreach","doRNG","doParallel",
-            "rmarkdown","bookdown","here","remotes","exactci",
-            "ggplot2","kableExtra","abind","dplyr","grid","png",
-            "gridExtra","pBrackets","seqinr","mvtnorm","Rmpfr"))'
+            Rscript -e 'install.packages(c("foreach", "doRNG", "doParallel",
+            "rmarkdown", "bookdown", "here", "remotes", "exactci",
+            "ggplot2", "kableExtra", "abind", "dplyr", "grid", "png",
+            "gridExtra", "pBrackets", "seqinr", "mvtnorm", "Rmpfr",
+            "plotly", "plot3D"))'
       - name: Install Rjafroc
         run: Rscript -e 'remotes::install_github("dpc10ster/RJafroc")'
-      - name: Render PDF Book
-        run: Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
-      - uses: actions/upload-artifact@v3
-        with:
-          name: pdf
-          path: docs/
       - name: Render HTML Book
         run: Rscript -e 'bookdown::render_book("index.Rmd")'
       - uses: actions/upload-artifact@v3

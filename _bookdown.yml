@@ -14,7 +14,7 @@ rmd_files: [
   "07-proper-roc-models.Rmd",
   "08-rsm-fitting.Rmd",
   "09-rsm-3-fits.Rmd",
-  "10-bivariate-binormal-model.Rmd",
+  "10-bivariate-models.Rmd",
   "90-datasets.Rmd",
   "99-references.Rmd",
 ]

@@ -1,4 +1,4 @@
-# Bivariate binormal model {#bivariate-models}
+# Bivariate models {#bivariate-models}
 
 
 ```{r setup, include = FALSE}
@@ -12,6 +12,8 @@
   library(gridExtra)
   library(grid)
   library(png)
+  library(plot3D)
+  library(plotly)
 ```
 
 
@@ -24,8 +26,12 @@
 Until now the focus has been on the single rating per case scenario where a reader interprets a set of cases in a single modality. This chapter describes two approaches to the problem of two readers interpreting a common set of cases. Because of the paired interpretation the two ratings per case are correlated. The first approach extends the binormal model to paired interpretations while the second extends the contaminated binormal model to paired interpretations. The corresponding software implementations are CORROC2 and CORCBM, respectively.
 
 
-In [@chakraborty2017observer] Chapter 21 was devoted to the CORROC2 algorithm and usage of the software was described in detail. At that time [@zhai2017bivariate] was in press - this paper describes an alternate algorithm -- termed the correlated contaminated binormal model or CORCBM -- that has several advantages over CORROC2. Therefore, I have reconsidered the focus of this chapter: it now outlines the correlated binormal model fitting procedure but does not detail how to use it. Instead I now include a detailed explanation of the work presented in [@zhai2017bivariate] and how to use the CORCBM software implementing it. The included description of the CORROC2 model - basically how to extend the binormal model to a correlated binormal model - will help the reader better understand how to extend the contaminated binormal model to the correlated contaminated binormal model. 
+In [@chakraborty2017observer] Chapter 21 was devoted to the CORROC2 algorithm and usage of the software was described in detail. At that time [@zhai2017bivariate] was in press. This paper describes an alternate algorithm -- termed the correlated contaminated binormal model as implemented in CORCBM software -- that has several advantages over CORROC2. Therefore, I have reconsidered the focus of this chapter which now outlines the correlated binormal model fitting procedure but does not detail how to use CORROC2 software. Instead I now include the work presented in [@zhai2017bivariate] but using clearer notation and how to use the CORCBM software implementing it. The included description of the CORROC2 model - basically how to extend the binormal model to a correlated binormal model - will help the reader better understand how to extend the contaminated binormal model to the correlated contaminated binormal model. 
 
+
+This chapter consists of two sections ... TBA
+The bivariate binormal model
+The bivariate contaminated binormal model
 
 In this chapter the bivariate extension of the (univariate) binormal model is described. Bivariate sampling is described at a relatively simple level. Interactive visualization of the probability density functions is demonstrated. Estimation of parameters of the bivariate binormal model from ratings data is addressed. 
 
@@ -409,9 +415,7 @@ Notice that for non-diseased cases $t = 1$ the sampling is identical to that of 
 
 #### Diseased cases
 
-Recall, Eqn. \@ref(eq:proper-roc-models-cbm-pdfd), that for the univariate CBM for diseased cases the pdf is a mixture of two unit variance distributions, one centered at zero and the other at $\mu$ with mixing fractions $(1-\alpha)$ and $\alpha$, respectively. For diseased cases the BCBM needs to account for the possibility that the mixing fractions can be different in the two modalities: these are modeled by $\alpha_1$ and $\alpha_2$. Likewise, the z-sample means for cases where the disease is visible can be different in the two modalities: these are modeled by $\mu_1$ and $\mu_2$. All distributions are unit variance but can have different correlations as described next. 
-
-Four types of mixings and the corresponding bivariate distributions need to be accounted for:
+Recall, Eqn. \@ref(eq:proper-roc-models-cbm-pdfd), that in the (univariate) CBM, for diseased cases the pdf is a mixture of two unit variance distributions, one centered at zero and the other at $\mu$ with mixing fractions $(1-\alpha)$ and $\alpha$, respectively. For diseased cases the extension to bivariate sampling needs to account for the possibility that the mixing fractions can be different in the two modalities, modeled by $\alpha_1$ and $\alpha_2$. Likewise, the z-sample means for cases where the disease is visible can be different in the two modalities, modeled by $\mu_1$ and $\mu_2$. The correlation of the distributions are modeled as described next. Four types of mixtures and corresponding bivariate distributions need to be accounted for:
 
 1. The disease is not visible in either modality. The appropriate distribution, denoted $N_{00}$, is a bivariate $N_2$ distribution centered at $(0,0)$ and has correlation $\rho_{00}$ and mixing fraction $(1-\alpha_1)(1-\alpha_2)$.  
     
@@ -422,7 +426,7 @@ Four types of mixings and the corresponding bivariate distributions need to be a
 1. The disease is visible in both modalities 1 and 2. The appropriate distribution, denoted $N_{11}$, is a bivariate $N_2$ distribution centered at $(\mu_1,\mu_2)$ and has correlation $\rho_{11}$ and mixing fraction $\alpha_1\alpha_2$.
 
 
-The means vectors and covariance matrices for the four types of mixings are defined by:
+The means vectors and covariance matrices for the four types of mixtures are defined by:
 
 
 \begin{equation} 
@@ -507,11 +511,81 @@ f\left (z_{1k_22},z_{2k_22}  \right ) =
 (\#eq:bivariate-models-cbm-pdf-diseased)
 \end{equation}
 
-In this equation $p$ denotes the bivariate normal pdf function with the specified mean-vectors and covariance matrices.  
+In this equation $p$ denotes the bivariate normal pdf function with the specified mean-vectors and covariance matrices. Fig. \@ref(fig:bivariate-models-cbm-diseased) shows the four peaks.... 
+
+
+```{r echo=FALSE}
+#webshot::install_phantomjs()
+mu_1 <- 3
+mu_2 <- 3
+mu_00 <- c(0, 0)
+mu_01 <- c(0, mu_2)
+mu_10 <- c(mu_1, 0)
+mu_11 <- c(mu_1, mu_2)
+
+rho1 <- 0.3
+rho4 <- 0.8
+rho2 <- (rho1 + rho4) / 2
+rho3 <- rho2
+alphaX <- 0.5
+alphaY <- 0.6
+
+sigma1 <- rbind(c(1, rho1), c(rho1, 1))
+sigma2 <- rbind(c(1, rho2), c(rho2, 1))
+sigma3 <- rbind(c(1, rho3), c(rho3, 1))
+sigma4 <- rbind(c(1, rho4), c(rho4, 1))
+
+x <- seq(-3, 6, by = 0.05)
+y <- x
+
+M <- mesh(x, y)
+X <- M$x
+Y <- M$y
+PDF <- (1 - alphaX) * (1 - alphaY) * dmvnorm(cbind(as.vector(X), as.vector(Y)), sigma = sigma1) + 
+  (1 - alphaX) * alphaY * dmvnorm(cbind(as.vector(X), as.vector(Y)), mean = mu_01, sigma = sigma2) + 
+  alphaX * (1 - alphaY) * dmvnorm(cbind(as.vector(X), as.vector(Y)), mean = mu_10, sigma = sigma3) + 
+  alphaX * alphaY * dmvnorm(cbind(as.vector(X), as.vector(Y)), mean = mu_11, sigma = sigma4)
+dim(PDF) <- c(length(x), length(y))
+
+scene <- list(camera = list(eye = list(x = -1.25, y = -2, z = 1.25)))
+# https://plotly.com/python/3d-camera-controls/
+# scene <- list(camera = list(eye = list(x = 0, y = 0, z = 1)))
+
+p <- plot_ly(x = x, y = y, z = PDF, type = "surface") %>% layout(scene=scene)
+#print(hide_colorbar(p))
+```
+
+
+Fig. \@ref(fig:bivariate-models-cbm-diseased)
+
+```{r bivariate-models-cbm-diseased, fig.cap="Composite plots for Van Dyke dataset for treatment = 1, reader 2.", fig.show='hold', fig.align = "center", echo = F}
+p
+#knitr::include_graphics("images/bivariateModels/bivariate-cbm-diseased.png")
+```
 
 
 Appendix TBA proves that with the above mixing fractions the pdf and CDF of individual (or marginal) distributions for condition X and Y have the same structure as CBM, i.e., either condition, viewed in isolation, has the same sampling behavior as CBM.
 
+
+##### 	Assumptions regarding correlations
+The above model has four correlations. For parsimony the following assumptions are made: 
+
+1. For diseased cases where the disease is invisible in both conditions, the correlation is the same as that for non-diseased cases. 
+
+1. For diseased cases where the disease is visible in only one condition, the correlation is the mean of the non-diseased cases correlation and the correlation where disease is visible in both conditions. 
+
+By these assumptions:
+
+
+\begin{equation} 
+\left.\begin{aligned}
+\rho_{00} =& \rho_1 \\
+\rho_{11} =& \rho_2 \\
+\rho_{10} =& \frac{\rho_1 + \rho_2}{2} \\
+\rho_{01} =& \frac{\rho_1 + \rho_2}{2}
+\end{aligned}\right\}
+(\#eq:bivariate-models-cbm-diseased-rhos)
+\end{equation}
 
 
 ## Discussion / Summary {#bivariate-models-binormal-corroc2-discussion}
