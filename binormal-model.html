@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-03-31" />
+<meta name="date" content="2023-04-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,13 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -428,7 +435,7 @@ div.csl-indent {
 <li class="chapter" data-level="9.10.4" data-path="rsm-3-fits.html"><a href="rsm-3-fits.html#rsm-3-fits-representative-plots-franken"><i class="fa fa-check"></i><b>9.10.4</b> Plots for the Franken dataset</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="bivariate-models.html"><a href="bivariate-models.html"><i class="fa fa-check"></i><b>10</b> Bivariate binormal model</a>
+<li class="chapter" data-level="10" data-path="bivariate-models.html"><a href="bivariate-models.html"><i class="fa fa-check"></i><b>10</b> Bivariate models</a>
 <ul>
 <li class="chapter" data-level="10.1" data-path="bivariate-models.html"><a href="bivariate-models.html#bivariate-models-how-much-finished"><i class="fa fa-check"></i><b>10.1</b> How much finished 30%</a></li>
 <li class="chapter" data-level="10.2" data-path="bivariate-models.html"><a href="bivariate-models.html#bivariate-models-introduction"><i class="fa fa-check"></i><b>10.2</b> Introduction</a></li>
@@ -508,7 +515,7 @@ div.csl-indent {
 <div id="binormal-model-introduction" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Introduction<a href="binormal-model.html#binormal-model-introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The equal variance binormal model was described in Chapter <a href="binary-task.html#binary-task">2</a>. The ratings method of acquiring ROC data and calculation of operating points was discussed in Chapter <a href="ratings-paradigm.html#ratings-paradigm">4</a>. It was shown there that for a clinical dataset the unequal-variance binormal model visually fitted the data better than the equal-variance binormal model.</p>
-<p>This chapter deals with the unequal-variance binormal model, often abbreviated to <strong>binormal model</strong>. It is applicable to univariate datasets in which there is <em>one rating per case</em>, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier “univariate” is often omitted. In Chapter <a href="#bivariate-binormal-model"><strong>??</strong></a> a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality.</p>
+<p>This chapter deals with the unequal-variance binormal model, often abbreviated to <strong>binormal model</strong>. It is applicable to univariate datasets in which there is <em>one rating per case</em>, as in a single observer interpreting cases, one at a time, in a single modality. By convention the qualifier “univariate” is often omitted. In Chapter <a href="bivariate-models.html#bivariate-models">10</a> a bivariate model will be described where each case yields two ratings, as in a single observer interpreting cases in two modalities, or the similar problem of two observers interpreting the same cases in a single modality, but this is not the focus of this chapter.</p>
 </div>
 <div id="binormal-model-definition" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> Binormal model<a href="binormal-model.html#binormal-model-definition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
