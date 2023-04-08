@@ -9,7 +9,7 @@ bibliography: [packages.bib, myRefs.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: dpc10ster/RJafrocRocBook
-description: "Modeling ROC data."
+description: "Understanding and modeling receiver operating characteristic (ROC) data."
 ---
 
 
@@ -71,8 +71,7 @@ Fix these on final release.
 
 
 ## The pdf file of the book {-}
-Go [here](https://github.com/dpc10ster/RJafrocRocBook/blob/gh-pages/RJafrocRocBook.pdf) and then click on `Download` to get the `RJafrocRocBook.pdf` file.
-
+Support for the pdf file has been removed (4/8/23) as plots produced by `plotly` do not compile when using this format.
 
 ## The html version of the book {-}
 Go [here](https://dpc10ster.github.io/RJafrocRocBook/) to view the `html` version of the book.
