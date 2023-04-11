@@ -376,13 +376,13 @@ where
 
 Recall, Eqn. \@ref(eq:proper-roc-models-cbm-pdfd), that in the (univariate) CBM, for diseased cases the pdf is a mixture of two scaled unit variance distributions, one centered at zero and the other at $\mu$ that integrate (i.e., via the scaling factors) to $(1-\alpha)$ and $\alpha$, respectively. For diseased cases the extension to bivariate sampling needs to account for the possibility that the scaling factors can be different in the two modalities, modeled by $\alpha_1$ and $\alpha_2$ and the z-sample means for cases where the disease is visible can be different in the two modalities, modeled by $\mu_{12}$ and $\mu_{22}$. The scaling factors and correlations are modeled as described next:
 
-1. The disease is not visible in either modality. The appropriate distribution is a bivariate $N_2$ distribution centered at $(0,0)$ with correlation $\rho_{00}$ whose pdf integrates to $(1-\alpha_1)(1-\alpha_2)$.  
+1. The disease is not visible in either modality. The appropriate distribution is a scaled bivariate $N_2$ distribution centered at $(0,0)$ with correlation $\rho_{00}$ whose pdf integrates to $(1-\alpha_1)(1-\alpha_2)$.  
     
-1. The disease is visible in modality 1 but not visible in modality 2. The appropriate distribution is a bivariate $N_2$  distribution centered at $(\mu_{12},0)$ with correlation $\rho_{10}$ whose pdf integrates to $\alpha_1(1-\alpha_2)$.
+1. The disease is visible in modality 1 but not visible in modality 2. The appropriate distribution is a scaled bivariate $N_2$  distribution centered at $(\mu_{12},0)$ with correlation $\rho_{10}$ whose pdf integrates to $\alpha_1(1-\alpha_2)$.
     
-1. The disease is not visible in modality 1 but is visible in modality 2. The appropriate distribution is a bivariate $N_2$ distribution centered at $(0,\mu_{22})$ with correlation $\rho_{01}$ whose pdf integrates to $(1-\alpha_1)\alpha_2$.
+1. The disease is not visible in modality 1 but is visible in modality 2. The appropriate distribution is a scaled bivariate $N_2$ distribution centered at $(0,\mu_{22})$ with correlation $\rho_{01}$ whose pdf integrates to $(1-\alpha_1)\alpha_2$.
     
-1. The disease is visible in both modalities 1 and 2. The appropriate distribution is a bivariate $N_2$ distribution centered at $(\mu_{12},\mu_{22})$ with correlation $\rho_{11}$ whose pdf integrates to $\alpha_1\alpha_2$.
+1. The disease is visible in both modalities 1 and 2. The appropriate distribution is a scaled bivariate $N_2$ distribution centered at $(\mu_{12},\mu_{22})$ with correlation $\rho_{11}$ whose pdf integrates to $\alpha_1\alpha_2$.
 
 
 The means and covariance matrices for the four distributions are defined by:
@@ -456,7 +456,7 @@ The means and covariance matrices for the four distributions are defined by:
 \end{equation}
 
 
-The pdf of the diseased case bivariate distribution is as follows:
+Therefore, the pdf of the diseased case bivariate distribution is:
 
 
 \begin{equation} 
@@ -470,7 +470,8 @@ The pdf of the diseased case bivariate distribution is as follows:
 (\#eq:bivariate-models-cbm-pdf-diseased)
 \end{equation}
 
-In this equation $\text{pdf}$ denotes the bivariate normal pdf function with the specified mean-vectors and covariance matrices. Fig. \@ref(fig:bivariate-models-cbm-diseased) shows this pdf function as a surface plot in which four peaks are seen. This plot corresponds to the following values: $\mu_1 = 3.5$, $\mu_2 = 3$, $\rho_1 = 0.3$, $\rho_2 = 0.8$, $\alpha_1 = 0.5$ and $\alpha_2 = 0.6$. 
+In this equation $\text{pdf}\left ( z_{1k_22},z_{2k_22} ~| ~\overrightarrow{\mu}, \Sigma \right )$ denotes the bivariate normal pdf function with the specified mean-vector and covariance matrix, as defined in Eqn. \@ref(eq:bivariate-models-binormal-density-function).  
+
 
 
 ```{r}
@@ -527,28 +528,24 @@ p
 ```
 
 
-Appendix TBA proves that with the above mixing fractions the pdf and CDF of individual (or marginal) distributions for condition X and Y have the same structure as CBM, i.e., either condition, viewed in isolation, has the same sampling behavior as CBM.
+Fig. \@ref(fig:bivariate-models-cbm-diseased) shows this pdf function as a surface plot in which four peaks are seen. This plot corresponds to the following values: $\mu_1 = 3.5$, $\mu_2 = 3$, $\rho_1 = 0.3$, $\rho_2 = 0.8$, $\alpha_1 = 0.5$ and $\alpha_2 = 0.6$.
 
 
-### 	Assumptions regarding correlations
+[@zhai2017bivariate] proves that with the above mixing fractions the pdf and CDF (cumulative distribution function) of the marginal distributions for diseased cases in modalities 1 and 2 have the same structure as in the univariate CBM, i.e., either condition, viewed in isolation, has the same sampling behavior as in the univariate CBM.
+
+
 The above model has four correlations in contrast to the bivariate binormal model which has two correlations. For parsimony the following assumptions are made: 
 
-1. For diseased cases where the disease is invisible in both conditions, the correlation is the same as that for non-diseased cases. 
+1. When the disease is invisible in both modalities the correlation is the same as that for non-diseased cases, i.e., $\rho_{00} = \rho_1$. 
 
-1. For diseased cases where the disease is visible in only one condition, the correlation is the mean of the non-diseased cases correlation and the correlation where disease is visible in both conditions. 
+1. When the disease is visible in only one modality the correlation is the mean of the non-diseased cases correlation and the correlation where disease is visible in both conditions, i.e., $\rho_{10} = \rho_{01} = (\rho_1+\rho_2)/2$. 
 
-By these assumptions:
+1. When the disease is visible in both modalities the correlation is $\rho_{11} \equiv \rho_2$. 
 
 
-\begin{equation} 
-\left.\begin{aligned}
-\rho_{00} =& \rho_1 \\
-\rho_{11} =& \rho_2 \\
-\rho_{10} =& \frac{\rho_1 + \rho_2}{2} \\
-\rho_{01} =& \frac{\rho_1 + \rho_2}{2}
-\end{aligned}\right\}
-(\#eq:bivariate-models-cbm-diseased-rhos)
-\end{equation}
+### Estimation
+
+This follows the same route as that described above for the correlated binormal model. One introduces binning thresholds, the likelihood function and a procedure for maximizing it. Details are in [@zhai2017bivariate] which also shows that for large datasets the estimated parameters approach the simulation values.
 
 
 ## Discussion / Summary {#bivariate-models-binormal-corroc2-discussion}
