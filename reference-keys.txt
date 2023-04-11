@@ -206,7 +206,8 @@ eq:bivariate-models-binormal-parameters
 eq:bivariate-models-binormal-all-parameters
 eq:bivariate-models-binormal-notation
 eq:bivariate-models-binormal-sampling
-fig:bivariate-models-binormal-pdf-plots
+fig:bivariate-models-binormal-pdf-non-diseased
+fig:bivariate-models-binormal-pdf-diseased
 eq:bivariate-models-binormal-sampling-teq1
 eq:bivariate-models-cbm-non-diseased
 eq:bivariate-models-cbm-diseased
@@ -406,16 +407,10 @@ bivariate-models-how-much-finished
 bivariate-models-introduction
 bivariate-models-binormal
 the-bivariate-normal-distribution
-bivariate-models-binormal-density
 bivariate-models-binormal-formulae
 bivariate-models-binormal-multivariate-density-visualization
 bivariate-models-binormal-multivariate-density-estimation
 comments-on-the-bivariate-binormal-model
-bivariate-models-contaminated-binormal-density
-objective
-methods
-results
-conclusions
 bivariate-models-contaminated-binormal
 non-diseased-cases
 diseased-cases
