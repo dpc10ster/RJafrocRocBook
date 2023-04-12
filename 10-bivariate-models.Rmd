@@ -545,8 +545,21 @@ The above model has four correlations in contrast to the bivariate binormal mode
 
 ### Estimation
 
-This follows the same route as that described above for the correlated binormal model. One introduces binning thresholds, the likelihood function and a procedure for maximizing it. Details are in [@zhai2017bivariate] which also shows that for large datasets the estimated parameters approach the simulation values.
+This follows the procedure described previously for the correlated binormal model (i.e., CORROC2). One introduces binning thresholds, defines the likelihood function and applies a procedure for maximizing it. Details are in [@zhai2017bivariate] which also shows applications to two real datasets and a simulation study.
 
+
+### Figures
+
+```{r bivariate-models-figures, echo=FALSE,out.width="50%", fig.cap="(A) TBA.", fig.show='hold'}
+knitr::include_graphics("images/corcbm/plots/VanDykeM1R4.png")
+knitr::include_graphics("images/corcbm/plots/VanDykeM2R4.png")
+knitr::include_graphics("images/corcbm/plots/VanDykeM1R5.png")
+knitr::include_graphics("images/corcbm/plots/VanDykeM2R5.png")
+knitr::include_graphics("images/corcbm/plots/Simu-50-50.png")
+knitr::include_graphics("images/corcbm/plots/Simu-100-100.png")
+knitr::include_graphics("images/corcbm/plots/Simu-1000-1000.png")
+knitr::include_graphics("images/corcbm/plots/Simu-5000-5000.png")
+``` 
 
 ## Discussion / Summary {#bivariate-models-binormal-corroc2-discussion}
 
