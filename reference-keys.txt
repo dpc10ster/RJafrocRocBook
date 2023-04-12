@@ -213,7 +213,9 @@ eq:bivariate-models-cbm-non-diseased
 eq:bivariate-models-cbm-diseased
 eq:bivariate-models-cbm-pdf-diseased
 fig:bivariate-models-cbm-diseased
-fig:bivariate-models-figures
+fig:bivariate-models-figures1
+fig:bivariate-models-figures2
+fig:bivariate-models-figures3
 rationale-and-organization
 tba-acknowledgements
 temporary-comments
