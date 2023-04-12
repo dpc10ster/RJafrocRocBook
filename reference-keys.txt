@@ -213,7 +213,7 @@ eq:bivariate-models-cbm-non-diseased
 eq:bivariate-models-cbm-diseased
 eq:bivariate-models-cbm-pdf-diseased
 fig:bivariate-models-cbm-diseased
-eq:bivariate-models-cbm-diseased-rhos
+fig:bivariate-models-figures
 rationale-and-organization
 tba-acknowledgements
 temporary-comments
@@ -414,7 +414,8 @@ comments-on-the-bivariate-binormal-model
 bivariate-models-contaminated-binormal
 non-diseased-cases
 diseased-cases
-assumptions-regarding-correlations
+estimation
+figures
 bivariate-models-binormal-corroc2-discussion
 datasets
 datasets-datasetsdd
