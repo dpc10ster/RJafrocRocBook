@@ -550,16 +550,26 @@ This follows the procedure described previously for the correlated binormal mode
 
 ### Figures
 
-```{r bivariate-models-figures, echo=FALSE,out.width="50%", fig.cap="(A) TBA.", fig.show='hold'}
-knitr::include_graphics("images/corcbm/plots/VanDykeM1R4.png")
-knitr::include_graphics("images/corcbm/plots/VanDykeM2R4.png")
-knitr::include_graphics("images/corcbm/plots/VanDykeM1R5.png")
-knitr::include_graphics("images/corcbm/plots/VanDykeM2R5.png")
-knitr::include_graphics("images/corcbm/plots/Simu-50-50.png")
-knitr::include_graphics("images/corcbm/plots/Simu-100-100.png")
-knitr::include_graphics("images/corcbm/plots/Simu-1000-1000.png")
-knitr::include_graphics("images/corcbm/plots/Simu-5000-5000.png")
+```{r bivariate-models-figures1, echo=FALSE,out.width="50%", fig.cap="VanDyke dataset, modality 1 reader 4; due to degeneracy CORROC2 failed and only CORCBM plots are shown.", fig.show='hold'}
+
+knitr::include_graphics(c("images/corcbm/plots/VanDykeM1R4.png","images/corcbm/plots/VanDykeM2R4.png"))
 ``` 
+
+```{r bivariate-models-figures2, echo=FALSE,out.width="50%", fig.cap="VanDyke dataset, modality 1 reader 5; both CORROC2 and CORCBM plots are shown. Note that CORCBM has higher AUC than CORROC2.", fig.show='hold'}
+
+knitr::include_graphics(c("images/corcbm/plots/VanDykeM1R5.png","images/corcbm/plots/VanDykeM2R5.png"))
+``` 
+
+
+
+
+
+```{r bivariate-models-figures3, echo=FALSE,out.width="50%", fig.cap="CORCBM fits to simulated data for two modalities or "conditions". Top-left: 50 non-diseased and 50 diseased cases; Top-right: 100 non-diseased and 100 diseased cases;  Bottom-left: 1000 non-diseased and 1000 diseased cases;  Bottom-right: 5000 non-diseased and 5000 diseased cases.", fig.show='hold'}
+
+knitr::include_graphics(c("images/corcbm/plots/Simu-50-50.png","images/corcbm/plots/Simu-100-100.png", "images/corcbm/plots/Simu-1000-1000.png", "images/corcbm/plots/Simu-5000-5000.png"))
+``` 
+
+
 
 ## Discussion / Summary {#bivariate-models-binormal-corroc2-discussion}
 
