@@ -206,6 +206,7 @@ eq:bivariate-models-binormal-parameters
 eq:bivariate-models-binormal-all-parameters
 eq:bivariate-models-binormal-notation
 eq:bivariate-models-binormal-sampling
+eq:bivariate-models-correlated-binormal-parameters
 fig:bivariate-models-binormal-pdf-non-diseased
 fig:bivariate-models-binormal-pdf-diseased
 eq:bivariate-models-binormal-sampling-teq1
@@ -412,13 +413,14 @@ the-bivariate-normal-distribution
 bivariate-models-binormal-formulae
 bivariate-models-binormal-multivariate-density-visualization
 bivariate-models-binormal-multivariate-density-estimation
-comments-on-the-bivariate-binormal-model
+comments-on-corroc2
 bivariate-models-contaminated-binormal
 non-diseased-cases
 diseased-cases
 estimation
-figures
-bivariate-models-binormal-corroc2-discussion
+application-to-van-dyke-dataset
+simulation-study
+bivariate-models-discussion
 datasets
 datasets-datasetsdd
 datasets-dataset01
