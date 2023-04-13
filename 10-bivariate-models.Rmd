@@ -17,22 +17,23 @@
 ```
 
 
-## How much finished 70% {#bivariate-models-how-much-finished}
+## How much finished 90% {#bivariate-models-how-much-finished}
 
 
 
 ## Introduction {#bivariate-models-introduction}
 
-Until now the focus has been on the single rating per case scenario where a reader interprets a set of cases in a single modality. This chapter describes two approaches to the problem of two readers interpreting a common set of cases. Because of the paired interpretation the two ratings per case are correlated. The first approach extends the binormal model to paired interpretations while the second extends the contaminated binormal model to paired interpretations. The corresponding software implementations are CORROC2 and CORCBM, respectively.
+Until now the focus of this book has been on the single rating per case scenario where a reader interprets a set of cases in a single modality. This chapter describes two approaches to the problem of two readers interpreting a common set of cases. The first approach extends the binormal model to paired interpretations while the second extends the contaminated binormal model to paired interpretations. The corresponding software implementations are CORROC2 (for correlated ROC) and CORCBM (for correlated CBM), respectively (because of the paired interpretation the two ratings per case are correlated).
 
 
-In my book [@chakraborty2017observer] Chapter 21 was devoted to the CORROC2 algorithm and usage of the software was described in some detail. At that time [@zhai2017bivariate] was in press. It describes an alternate algorithm that has several advantages over CORROC2. Therefore, I have reconsidered the focus of this chapter which now outlines the correlated binormal model fitting procedure but does not detail how to use CORROC2 software. Instead I now include the work presented in [@zhai2017bivariate] but using clearer notation. The abbreviated description of the CORROC2 model - basically how to extend the binormal model to a correlated binormal model - will help the reader better understand how to extend the contaminated binormal model to the correlated contaminated binormal model. 
+In my book [@chakraborty2017observer] Chapter 21 was devoted to the CORROC2 algorithm and usage of the software was described in some detail. At that time [@zhai2017bivariate] was in press. It describes an alternate algorithm that has several advantages over CORROC2. Therefore, I have reconsidered the focus of this chapter which now outlines the correlated binormal model fitting procedure but does not detail how to use CORROC2 software. Instead I now include the work presented in [@zhai2017bivariate] including interactive 3D visualization of the distributions which is not possible in print. The abbreviated description showing how to extend the binormal model to a correlated binormal model, described in the first section, will help the reader better understand how to extend the contaminated binormal model to the correlated contaminated binormal model, described in the second section. 
 
-
-This chapter consists of two sections. In the first section the bivariate extension of the (univariate) binormal model is described. Bivariate sampling is described at a relatively simple level. Interactive visualization of the probability density functions is demonstrated. Estimation of parameters of the bivariate binormal model from ratings data is addressed. In the second section the the bivariate extension of the (univariate) contaminated binormal model is described. 
 
 
 ## The bivariate binormal model {#bivariate-models-binormal}
+
+Described next is the bivariate *normal* distribution followed by its extension to the bivariate *binormal* distribution.
+
 
 ### The bivariate normal distribution
 
@@ -45,7 +46,7 @@ Sampling from the bivariate normal distribution $N_2$ is as follows:
 \end{equation} 
 
 
-Here $\overrightarrow{z}$ is a length-$2$ vector, with components $(z_1,z_2)$, of the observed z-samples for each case, $\overrightarrow{\mu}$ is a length-$2$ vector containing the means of the bivariate normal distribution and $\Sigma$ is the $2 \times 2$ covariance matrix describing the variances and correlations of the observed z-samples. 
+Here $\overrightarrow{z}$ is a length-$2$ vector, with components $(z_1,z_2)$, of the observed z-samples for each case, $\overrightarrow{\mu}$ is a length-$2$ vector containing the means of the bivariate normal distribution and $\Sigma$ is a $2 \times 2$ covariance matrix describing the variances and correlations of the observed z-samples. 
 
 
 The bivariate normal probability density function $\text{pdf}\left( \overrightarrow{z} ~~ \bigg \rvert ~~\overrightarrow{\mu}, ~~ \Sigma \right)$ is defined by:
@@ -53,7 +54,7 @@ The bivariate normal probability density function $\text{pdf}\left( \overrightar
 
 \begin{equation} 
 \text{pdf}\left( z_1,z_2 ~~ \bigg \rvert ~~ \overrightarrow{\mu}, \Sigma \right)
-= \frac{1}{2 \pi \sigma_{12} \sigma_{22} \sqrt{1-\rho^2}}\exp\left( -\frac{t}{2\left( 1-\rho^2 \right)} \right)
+= \frac{1}{2 \pi \sigma_1 \sigma_2 \sqrt{1-\rho^2}}\exp\left( -\frac{t}{2\left( 1-\rho^2 \right)} \right)
 (\#eq:bivariate-models-binormal-density-function)
 \end{equation} 
 
@@ -62,8 +63,8 @@ where
 
 
 \begin{equation} 
-t=\frac{\left( z_1-\mu_{12} \right)^2}{\sigma_{12}^2}-\frac{2\rho\left( z_1-\mu_{12} \right)\left( z_2-\mu_{22} \right)}{\sigma_{12} \sigma_{22}}
-+\frac{\left( z_2-\mu_{22} \right)^2}{\sigma_{22}^2}
+t=\frac{\left( z_1-\mu_1 \right)^2}{\sigma_1^2}-\frac{2\rho\left( z_1-\mu_1 \right)\left( z_2-\mu_2 \right)}{\sigma_1 \sigma_2}
++\frac{\left( z_2-\mu_2 \right)^2}{\sigma_2^2}
 (\#eq:bivariate-models-binormal-density-function2)
 \end{equation} 
 
@@ -75,17 +76,17 @@ For a bivariate distribution the covariance matrix is:
 \begin{equation} 
 \Sigma=
 \left( \begin{matrix}
-\sigma_{12}^2 & \rho \sigma_{12} \sigma_{22} \\
-\rho \sigma_{12} \sigma_{22} & 
-\sigma_{22}^2
+\sigma_1^2 & \rho \sigma_1 \sigma_2 \\
+\rho \sigma_1 \sigma_2 & 
+\sigma_2^2
 \end{matrix}
  \right)(\#eq:bivariate-models-binormal-covariance-matrix)
 \end{equation} 
 
 
-In these equations $\mu_{12}$ and $\sigma_{12}^2$ is the mean and variance for modality 1, $\mu_{22}$ and $\sigma_{22}^2$ is the mean and variance for modality 2 and $\rho$ is the correlation between the two modalities.
+In these equations $\mu_1$ and $\sigma_1^2$ is the mean and variance for modality 1, $\mu_2$ and $\sigma_2^2$ is the mean and variance for modality 2 and $\rho$ is the correlation between the two modalities.
 
-The `R` function to evaluate Eqn. \@ref(eq:bivariate-models-binormal-density-function) is `dmvnorm()`, for “density of multivariate normal distribution” available via `R` package `mvtnorm` [@R-mvtnorm]. Its usage is illustrated next for the following parameter values:
+The `R` function to evaluate Eqn. \@ref(eq:bivariate-models-binormal-density-function) is `dmvnorm()`, for “density of multivariate normal distribution”, available via package `mvtnorm` [@R-mvtnorm]. Its usage is illustrated next for the following parameter values:
 
 
 \begin{equation} 
@@ -93,8 +94,8 @@ The `R` function to evaluate Eqn. \@ref(eq:bivariate-models-binormal-density-fun
 \overrightarrow{
 \mu}&=
 \left( \begin{matrix}
-\mu_{12} \\
-\mu_{22}
+\mu_1 \\
+\mu_2
 \end{matrix}
 \right)
 =\left( \begin{matrix}
@@ -102,14 +103,14 @@ The `R` function to evaluate Eqn. \@ref(eq:bivariate-models-binormal-density-fun
 2.0
 \end{matrix}
 \right) \\
-\sigma_{12} &= 1.1 \\
-\sigma_{22} &= 1.5 \\
+\sigma_1 &= 1.1 \\
+\sigma_2 &= 1.5 \\
 \rho &= 0.6 \\
 \Sigma&=
 \left( 
 \begin{matrix}
-\sigma_{12}^2 & \rho \sigma_{12} \sigma_{22} \\
-\rho \sigma_{12} \sigma_{22}  & \sigma_{22}^2
+\sigma_1^2 & \rho \sigma_1 \sigma_2 \\
+\rho \sigma_1 \sigma_2  & \sigma_2^2
 \end{matrix}\right)
 =
 \left( 
@@ -143,9 +144,9 @@ The parameters describing the bivariate normal distribution are $\overrightarrow
 
 ### The bivariate binormal model {#bivariate-models-binormal-formulae}
 
-The bivariate binormal model is an extension of the bivariate model, just described, to *two truth-states*: non-diseased and diseased, each modeled separately as a bivariate normal distribution. This could potentially result in a doubling of the number of parameters but by appropriate shifting and scaling transformations one can ensure that the two means of the bivariate distribution for non-diseased cases are zeroes and the corresponding variances are unity. This reduces the total number of parameters to six: $\mu_{12}$, $\mu_{22}$, $\sigma_{12}$, $\sigma_{22}$, $\rho_1$, $\rho_2$. Here $\mu_{12}$, $\mu_{22}$ are the means for diseased cases for modality 1 and modality 2, respectively, $\sigma_{12}^2$, $\sigma_{22}^2$ are the corresponding variances and $\rho_1$, $\rho_2$ are the correlations between the two modalities for non-diseased and diseased cases, respectively. 
+The bivariate binormal model is an extension of the bivariate model just described to *two truth-states*: non-diseased and diseased, each modeled separately and independently as a bivariate normal distribution. This could potentially result in a doubling of the number of parameters but by appropriate shifting and scale transformations one can ensure that the two means of the bivariate distribution for non-diseased cases are zeroes and the corresponding variances are unity. This reduces the total number of parameters to six: $\mu_{12}$, $\mu_{22}$, $\sigma_{12}$, $\sigma_{22}$, $\rho_1$, $\rho_2$. Here $\mu_{12}$, $\mu_{22}$ are the means for diseased cases for modality 1 and modality 2, respectively, $\sigma_{12}^2$, $\sigma_{22}^2$ are the corresponding variances and $\rho_1$, $\rho_2$ are the correlations between the two modalities for non-diseased and diseased cases, respectively. 
 
-> Notation: when there are two subscripts the first subscript refers to the modality and the second to the truth state. When there is only one subscript it refers to the truth state.
+> Notation: henceforth when there are two subscripts the first subscript refers to the modality and the second to the truth state. When there is only one subscript it refers to the truth state.
 
 
 The bivariate binormal parameters are:
@@ -199,22 +200,7 @@ z_{2k_tt}
 \end{equation} 
 
 
-<!-- The sampling for each modality is as follows: -->
-
-
-<!-- \begin{equation} -->
-<!-- \left.\begin{aligned} -->
-<!-- z_{k_11} &\sim  N\left( 0, 1 \right) \\ -->
-<!-- z_{k_22} &\sim  N\left( \mu, \sigma^2 \right) -->
-<!-- \end{aligned}\right\} -->
-<!-- (\#eq:univariate-binormal-model-sampling) -->
-<!-- \end{equation}  -->
-
-
-<!-- where the parameters $\mu$ and $\sigma$ are of course modality dependent.  -->
-
 $\overrightarrow{z_{k_tt}}$ is sampled as follows:
-
 
 
 \begin{equation}
@@ -230,14 +216,42 @@ The parameters $\overrightarrow{\mu_t}, \Sigma_t$ are truth-state dependent as d
 To complete the model one needs to include threshold parameters and a decision rule. Recall that for an R-rating *single* modality ROC task with allowed ratings $r = 1, 2, ..., \text{R}$, one needs $\text{R}-1$ thresholds $\zeta_1,\zeta_2,...,\zeta_{\text{R}-1}$. Defining $\zeta_0 = -\infty$ and $\zeta_{\text{R}} = +\infty$ the decision rule is to label a case with rating $r$ if the realized z-sample satisfies $\zeta_{r-1} < z \le \zeta_r$. 
 
 
-In the two-modality task the decision variable and the thresholds are modality dependent: i.e., $z_{1k_tt}$ and $z_{2k_tt}$ and two sets of thresholds are needed: $\zeta_{11},\zeta_{12},...,\zeta_{1 (\text{R}-1)}$ and $\zeta_{21},\zeta_{22},...,\zeta_{2 (\text{R}-1)}$. As before $\zeta_{10} = -\infty$ and $\zeta_{20} = -\infty$ and $\zeta_{1\text{R}} = +\infty$ and $\zeta_{2\text{R}} = +\infty$. The decision rule is to rate a case in modality $1$ with rating $r$ if $\zeta_{1(r-1)} < z_{1k_tt} \le \zeta_{1r}$ and the same case in modality $2$ is rated $s$ if $\zeta_{2(s-1)} < z_{2k_tt} \le \zeta_{2s}$.
+In the two-modality task the decision variable and the thresholds are modality dependent: i.e., $z_{1k_tt}$ and $z_{2k_tt}$ and two sets of thresholds are needed: $\overrightarrow{\zeta_1} \equiv \zeta_{11},\zeta_{12},...,\zeta_{1 (\text{R}-1)}$ and $\overrightarrow{\zeta_2} \equiv\zeta_{21},\zeta_{22},...,\zeta_{2 (\text{S}-1)}$, where $R$ is the number of allowed ratings in modality 1 and $S$ is the number of allowed ratings in modality 2 (they can be different). As before $\zeta_{10} = -\infty$ and $\zeta_{20} = -\infty$ and $\zeta_{1\text{R}} = +\infty$ and $\zeta_{2\text{S}} = +\infty$. The decision rule is to rate a case in modality $1$ with rating $r$ if $\zeta_{1(r-1)} < z_{1k_tt} \le \zeta_{1r}$ and the same case in modality $2$ is rated $s$ if $\zeta_{2(s-1)} < z_{2k_tt} \le \zeta_{2s}$.
 
 
 ### Visualizing the bivariate binormal density functions {#bivariate-models-binormal-multivariate-density-visualization}
 
-It is helpful to visualize the pdfs. One needs two axes to depict the two z-samples and a third to depict the pdf. This is done for the non-diseased case pdf, Fig. \@ref(fig:bivariate-models-binormal-pdf-non-diseased), and the diseased case pdf, Fig. \@ref(fig:bivariate-models-binormal-pdf-diseased). 
+It is helpful to visualize the pdfs. One needs two axes to depict the two z-samples and a third to depict the pdf. This is done for non-diseased cases in Fig. \@ref(fig:bivariate-models-binormal-pdf-non-diseased), and for diseased cases in Fig. \@ref(fig:bivariate-models-binormal-pdf-diseased). The plots are interactive and the reader may wish to experiment by clicking and dragging the cursor on them. Package `plotly` [@R-plotly] provides the visualization technique. 
 
 
+The parameters are as follows:
+
+\begin{equation} 
+\left.\begin{aligned}
+\overrightarrow{
+\mu_2}
+&=\left( \begin{matrix}
+1.5 \\
+2.0
+\end{matrix}
+\right)
+\\
+\Sigma_1&=
+\left( 
+\begin{matrix}
+1 & 0.3 \\
+0.3  & 1
+\end{matrix}
+\right) \\
+\Sigma_2 &= \left( 
+\begin{matrix}
+1.1^2 & 0.6 \times 1.1 \times 1.5 \\
+0.6 \times 1.1 \times 1.5  & 1.5^2
+\end{matrix}
+\right)
+\end{aligned}\right\}
+(\#eq:bivariate-models-correlated-binormal-parameters)
+\end{equation} 
 
 ```{r, echo=FALSE}
 mu1 <- 1.5 # diseased mean modality 1
@@ -269,32 +283,26 @@ p2 <- plot_ly(x = x, y = y, z = PDF2, type = "surface") %>% layout(scene=scene)
 ```
 
 
-```{r echo=FALSE, bivariate-models-binormal-pdf-non-diseased, fig.cap="Plot of the bivariate binormal pdf function for non-diseased cases for $\\rho_1 = 0.3$.", fig.show='hold'}
+```{r echo=FALSE, bivariate-models-binormal-pdf-non-diseased, fig.cap="Interactive plot of the bivariate binormal pdf function for non-diseased cases for $\\rho_1 = 0.3$. The peak is at (0,0) and each marginal distributions has unit variance. Modality 1 is plotted along x and modality 2 along y.", fig.show='hold'}
 p1
 ```
 
 
-```{r echo=FALSE, bivariate-models-binormal-pdf-diseased, fig.cap="Plot of the bivariate binormal pdf function for diseased cases for $\\mu_{12} = 1.5$, $\\mu_{22} = 2.0$, $\\sigma_{12} = 1.1$, $\\sigma_{22} = 1.5$ and $\\rho_2 = 0.6$.", fig.show='hold'}
+```{r echo=FALSE, bivariate-models-binormal-pdf-diseased, fig.cap="Interactive plot of the bivariate binormal pdf function for diseased cases for $\\rho_2 = 0.6$. The peak is at (1.5, 2.0) and the marginal distributions for modality 1 has standard deviation 1.1 and that for modality 2 has standard deviation 1.5.", fig.show='hold'}
 p2
 ```
-
-
-Package `plotly` [@R-plotly] provides a visualization technique. It is interactive: by dragging the cursor over the plot one can visualize it from different angles. 
-
-
-The non-diseased case pdf is centered at (0,0) and has unit variance in each modality and correlation $\rho_1$. The diseased case pdf is centered at $(\mu_{12},\mu_{22})$, has variances $(\sigma_{12}^2, \sigma_{22}^2)$ and correlation $\rho_2$.
 
 
 
 ### Estimating bivariate binormal model parameters {#bivariate-models-binormal-multivariate-density-estimation}
 
-In Chapter \@ref(binormal-model) a method for estimating the parameters of the univariate binormal model was described. The method involved maximizing the likelihood function, i.e., the probability of the observed data as a function of the model parameters. The likelihood function was maximized with respect to these parameters. The values of the parameters at the maximum are the maximum-likelihood estimates (MLEs).
+Chapter \@ref(binormal-model) described a method for estimating the parameters of the univariate binormal model. It involved maximizing the likelihood function, i.e., the probability of the observed data as a function of the model parameters. The values of the parameters at the maximum are the maximum-likelihood estimates (MLEs).
 
-With a bivariate model one is dealing with six non-threshold parameters $\overrightarrow{\mu_t}, \Sigma_t$ plus threshold parameters for each modality. Again, the starting point is the likelihood function, i.e., the probability of the observed data as a function of the parameter values. The non-diseased counts in bin $r$ of the first modality and bin $s$ of the second modality is denoted by $K_{rs1}$ (i.e., the binning indices occur before the truth index). The corresponding diseased counts are denoted  $K_{rs2}$. Each case yields two integer ratings, $r$ and $s$. To construct the matrix $K_{rs1}$ one starts with a zero-initialized R x R matrix, then one increments the cell at row $r$ and column $s$ by unity for each non-diseased case that received a $r$ rating in the first modality and an $s$ rating in the second modality. The procedure is repeated for the diseased cases yielding $K_{rs2}$.
+With a bivariate model one is dealing with six non-threshold parameters $\overrightarrow{\mu_t}, \Sigma_t$ plus threshold parameters for each modality. Again, the starting point is the likelihood function. The non-diseased case counts in bin $r$ of the first modality and bin $s$ of the second modality is denoted by $K_{rs1}$ (i.e., the binning indices occur before the truth index). The corresponding diseased counts are denoted  $K_{rs2}$. Each case yields two integer ratings, $r$ and $s$. 
 
-For non-diseased cases, the probability of a z-sample in bin r of the first modality and bin s of the second modality is determined by the “volume” under the bivariate distribution $N_2(\overrightarrow {\mu_{12}}, \sigma_{12})$ between modality-1 thresholds $\zeta_{1(r-1)}$ and $\zeta_{1r}$, and between modality-2 thresholds $\zeta_{2(s-1)}$ and $\zeta_{2s}$. For diseased cases the corresponding probability is the volume under the bivariate distribution $N_2(\overrightarrow {\mu_{22}}, \sigma_{22})$ between the same thresholds. The probabilities can be calculated using the `pmvnorm()` function, with appropriate parameters, in R package [@R-mvtnorm].    
+For non-diseased cases, the probability $p_{rs1}$ of a z-sample in bin $r$ of the first modality and bin $s$ of the second modality is determined by the “volume” under the bivariate distribution $N_2(\overrightarrow {\mu_1}, \Sigma_1)$ between modality-1 thresholds $\zeta_{1(r-1)}$ and $\zeta_{1r}$, and between modality-2 thresholds $\zeta_{2(s-1)}$ and $\zeta_{2s}$. For diseased cases the corresponding probability $p_{rs2}$ is the volume under the bivariate distribution $N_2(\overrightarrow {\mu_2}, \Sigma_2)$ between the same thresholds. These probabilities can be calculated using the `pmvnorm()` function in package [@R-mvtnorm].    
 
-The probability of observing $K_{rs1}$ non-diseased and $K_{rs2}$ diseased counts in bin $r$ in the first modality and bin $s$ in the second modality is:
+The probability of observing $K_{rs1}$ non-diseased cases and $K_{rs2}$ diseased cases in bin $r$ in the first modality and bin $s$ in the second modality is:
  
 
 \begin{equation} 
@@ -305,31 +313,21 @@ The probability of observing $K_{rs1}$ non-diseased and $K_{rs2}$ diseased count
 The logarithm of the likelihood function is given by (neglecting a combinatorial factor that does not depend on the parameters):
 
 \begin{equation} 
-LL\left ( \mu_{12}, \mu_{22}, \sigma_{12}, \sigma_{22}, \rho_1, \rho_2, \overrightarrow{\zeta_1},\overrightarrow{\zeta_2} \right ) = \sum_{t=1}^{2}\sum_{s=1}^{R}\sum_{r=1}^{R} K_{rst} \log(p_{rst})
+LL\left ( \overrightarrow{\mu_2}, \Sigma_1, \Sigma_2, \overrightarrow{\zeta_1},\overrightarrow{\zeta_2} \right ) = \sum_{t=1}^{2}\sum_{s=1}^{S}\sum_{r=1}^{R} K_{rst} \log(p_{rst})
 \end{equation} 
 
 
-The maximum likelihood estimates of the parameters are obtained by maximizing the LL function [@metz1980statistical, @metz1984new] which is implemented in CORROC2. The software measures ratings-correlations at the underlying z-sample level. Much as I have emphasized that ratings are not "hard" numbers the CORROC2 estimated correlations are valid because the algorithm models the ratings as continuous variables and estimates the correlation based on the bivariate binormal model.
+The MLEs of the parameters are obtained by maximizing the LL function, [@metz1980statistical; @metz1984new], implemented in CORROC2. A unique feature is that the software measures ratings-correlations at the underlying z-sample level. Much as I have emphasized that ratings are not "hard" numbers the CORROC2 estimated correlations are valid because the algorithm models the ratings as continuous variables and estimates the correlation based on the bivariate binormal model.
 
-### Comments on the bivariate binormal model
+### Comments on CORROC2
 
-CORROC2 is one of the relatively under-utilized tools developed by Prof. Charles E. Metz. There are only four publications describing it TBA 4-6,8 and two of them are difficult to find5,8, nor has the software been maintained on a level comparable to ROCFIT. For example, a method for assessing the goodness of the fit is currently not implemented. With $R^2$ cells it is almost impossible to maintain at least five counts per cell. 
+CORROC2 was developed as described in [@metz1984new]. Subsequent revisions to the
+program were made by Jong-Her Shen and more recently by Benjamin Herman [@metz1989corroc2; @metz1998statistical]. There are at least 116 citations to this software. One reason is that at the time (mid 1980s) it was the only software that allowed significance testing of paired single-reader datasets. However, no advances have been made in the intervening 3 decades, which would allow fitting proper ROC curves to paired datasets. There has been a shift to empirical AUC based analysis which does not require parametric modeling. CORROC2 is currently a relatively under-utilized tool. One reason is that it is not designed to analyze multiple readers interpreting a common set of cases in two or more modalities i.e., MRMC datasets, which is of current interest. The main weakness of CORROC2 is its dependence on the underlying binormal model which, as we have seen, is susceptible to improper ROC curves and degeneracy problems. 
 
-One reason for the relative under-utilization of CORROC2 could be that it is not designed to analyze multiple readers interpreting a common set of cases in two or more modalities i.e., MRMC datasets. For example, in a study in which CORROC2 was used9, four readers interpreted cases in four modalities. With four modalities, there are six possible combinations (4x3/2), so a conservative Bonferroni type correction for the p-value would be to divide 0.05 by 6. For each reader CORROC2 yields a p-value for the difference between the chosen pairs of modalities. If all readers agree, then there is an unambiguous answer, but the method does not allow for correlations between different readers, which undoubtedly leads to loss of power. More fundamentally, it does not address the question of interest: when averaged over all four readers, are the figures of merit in the four modalities different. 
-
-It is possible to analyze multiple reader multiple modality MRMC-ROC datasets without actually using CORROC2. In chapters Chapter 09 and Chapter 10, it was shown how one analyzes such datasets using the empirical AUCs. Alternatively, one could estimate AUC using the univariate binormal model software (e.g., ROCFIT, or more modern software). The correlations in the resulting AUC values – i.e., FOM  correlations as distinct from ratings correlations - are explicitly accounted for in the significance testing procedure, i.e., the procedure it is not concerned with ratings-level correlations. 
-
-The biggest weakness of CORROC2 is its dependence on the underlying binormal model which, as we have seen, is susceptible to improper ROC fits and degeneracy problems. 
-
- 
-
-CORROC2 was developed ca. 1980 by Metz, Wang and Kronman 5,10. Subsequent revisions to the program were made by Jong-Her Shen and more recently by Benjamin Herman6,7. Its impact cannot be overstated. There are well in excess of 116 citations to this software. One reason is that, at that time, it was the only software allowing analysis of paired datasets. However, no advances have been made in the intervening 3 decades, which would allow fitting, for example, proper ROC curves to paired - and possibly degenerate - datasets. Part of the reason for this neglect is the shift in emphasis to empirical AUC based analysis, which does not require parametric modeling or curve fitting – one simply calculates the trapezoidal AUC. However, empirical AUC based analysis has its own limitations, and pursuing an improvement over the parametric approach that removes the current limitations of CORROC2 would, in the author's judgment, quite apart from the specific interest in developing realistic simulators, be of scientific interest.
-
-As a final note, at the time of writing, 4/30/17, an extension of CORROC2 has been published1 [@zhai2017bivariate]. It is called CORCBM, for correlated CBM. Details are in a document CORCBM.pdf in the online supplementary material directory corresponding to this chapter. The title of the publication is: "A bivariate contaminated binormal model for robust fitting of proper ROC curves to a pair of correlated, possibly degenerate, ROC datasets". It replaces the bivariate binormal model with the bivariate contaminated binormal model; hence its name CORCBM, for correlated CBM. Since CBM was designed to fit practically any single dataset, including degenerate ones, CORCBM is likewise able to fit practically any paired dataset. An application of CORCBM to calibrating a simulator to a data set containing single-modality multiple-reader ratings is described in Chapter 23.
 
 ## The bivariate contaminated binormal model {#bivariate-models-contaminated-binormal} 
 
-The bivariate contaminated binormal model (BCBM) is the bivariate extension of the univariate contaminated binormal model described in Chapter \@ref(proper-roc-models). Corresponding to the two truth states the BCBM is defined by two bivariate distributions. Following the notation in Eqn. \@ref(eq:bivariate-models-binormal-notation), for case $k_tt$ the bivariate distribution yields two samples $z_{1k_tt}$ and $z_{2k_tt}$. 
+The bivariate contaminated binormal model (BCBM) is the bivariate extension of the univariate contaminated binormal model described in Chapter \@ref(proper-roc-models). Corresponding to the two truth states the BCBM is defined by two bivariate distributions as described next.  
 
 
 ### Non-diseased cases
@@ -370,15 +368,17 @@ where
 
 ### Diseased cases
 
-Recall, Eqn. \@ref(eq:proper-roc-models-cbm-pdfd), that in the (univariate) CBM, for diseased cases the pdf is a mixture of two scaled unit variance distributions, one centered at zero and the other at $\mu$ that integrate (i.e., via the scaling factors) to $(1-\alpha)$ and $\alpha$, respectively. For diseased cases the extension to bivariate sampling needs to account for the possibility that the scaling factors can be different in the two modalities, modeled by $\alpha_1$ and $\alpha_2$ and the z-sample means for cases where the disease is visible can be different in the two modalities, modeled by $\mu_{12}$ and $\mu_{22}$. The scaling factors and correlations are modeled as described next:
+Recall, Eqn. \@ref(eq:proper-roc-models-cbm-pdfd), that in the (univariate) CBM, for diseased cases the pdf is a mixture of two scaled unit variance distributions, one centered at zero and the other at $\mu$ that integrate (i.e., via the scale factors) to $(1-\alpha)$ and $\alpha$, respectively. 
 
-1. The disease is not visible in either modality. The appropriate distribution is a scaled bivariate $N_2$ distribution centered at $(0,0)$ with correlation $\rho_{00}$ whose pdf integrates to $(1-\alpha_1)(1-\alpha_2)$.  
+The extension to bivariate sampling needs to account for the possibility that the scale factors can be different in the two modalities, modeled by $\alpha_1$ and $\alpha_2$, and the z-sample means for cases where the disease is visible can be different in the two modalities, modeled by $\mu_{12}$ and $\mu_{22}$ and finally one must account for four possibilities described next:
+
+1. The disease is not visible in either modality. The appropriate distribution is a scaled bivariate $N_2$ distribution centered at $\overrightarrow{\mu_{00}} \equiv (0,0)$ with correlation $\rho_{00}$ whose pdf integrates to $(1-\alpha_1)(1-\alpha_2)$.  
     
-1. The disease is visible in modality 1 but not visible in modality 2. The appropriate distribution is a scaled bivariate $N_2$  distribution centered at $(\mu_{12},0)$ with correlation $\rho_{10}$ whose pdf integrates to $\alpha_1(1-\alpha_2)$.
+1. The disease is visible in modality 1 but not visible in modality 2. The appropriate distribution is a scaled bivariate $N_2$  distribution centered at $\overrightarrow{\mu_{10}} \equiv (\mu_{12},0)$ with correlation $\rho_{10}$ whose pdf integrates to $\alpha_1(1-\alpha_2)$.
     
-1. The disease is not visible in modality 1 but is visible in modality 2. The appropriate distribution is a scaled bivariate $N_2$ distribution centered at $(0,\mu_{22})$ with correlation $\rho_{01}$ whose pdf integrates to $(1-\alpha_1)\alpha_2$.
+1. The disease is not visible in modality 1 but is visible in modality 2. The appropriate distribution is a scaled bivariate $N_2$ distribution centered at $\overrightarrow{\mu_{01}} \equiv (0,\mu_{22})$ with correlation $\rho_{01}$ whose pdf integrates to $(1-\alpha_1)\alpha_2$.
     
-1. The disease is visible in both modalities 1 and 2. The appropriate distribution is a scaled bivariate $N_2$ distribution centered at $(\mu_{12},\mu_{22})$ with correlation $\rho_{11}$ whose pdf integrates to $\alpha_1\alpha_2$.
+1. The disease is visible in both modalities 1 and 2. The appropriate distribution is a scaled bivariate $N_2$ distribution centered at $\overrightarrow{\mu_{11}} \equiv (\mu_{12},\mu_{22})$ with correlation $\rho_{11}$ whose pdf integrates to $\alpha_1\alpha_2$.
 
 
 The means and covariance matrices for the four distributions are defined by:
@@ -469,6 +469,8 @@ Therefore, the pdf of the diseased case bivariate distribution is:
 In this equation $\text{pdf}\left ( z_{1k_22},z_{2k_22} ~| ~\overrightarrow{\mu}, \Sigma \right )$ denotes the bivariate normal pdf function with the specified mean-vector and covariance matrix, as defined in Eqn. \@ref(eq:bivariate-models-binormal-density-function).  
 
 
+3D interactive visualization plots that follow are for the following parameters:
+
 
 ```{r}
 mu_1 <- 3.5
@@ -524,19 +526,19 @@ p
 ```
 
 
-Fig. \@ref(fig:bivariate-models-cbm-diseased) shows this pdf function as a surface plot in which four peaks are seen. This plot corresponds to the following values: $\mu_1 = 3.5$, $\mu_2 = 3$, $\rho_1 = 0.3$, $\rho_2 = 0.8$, $\alpha_1 = 0.5$ and $\alpha_2 = 0.6$.
+Fig. \@ref(fig:bivariate-models-cbm-diseased) this pdf function is shown as a surface plot and four peaks are visible. 
 
 
-[@zhai2017bivariate] proves that with the above mixing fractions the pdf and CDF (cumulative distribution function) of the marginal distributions for diseased cases in modalities 1 and 2 have the same structure as in the univariate CBM, i.e., either condition, viewed in isolation, has the same sampling behavior as in the univariate CBM.
+[@zhai2017bivariate] prove that with the above scale factors the pdf and CDF (cumulative distribution function) of the marginal distributions for diseased cases in modalities 1 and 2 have the same structure as in the univariate CBM, i.e., either condition, viewed in isolation, has the same sampling behavior as the univariate CBM.
 
 
 The above model has four correlations in contrast to the bivariate binormal model which has two correlations. For parsimony the following assumptions are made: 
 
-1. When the disease is invisible in both modalities the correlation is the same as that for non-diseased cases, i.e., $\rho_{00} = \rho_1$. 
-
-1. When the disease is visible in only one modality the correlation is the mean of the non-diseased cases correlation and the correlation where disease is visible in both conditions, i.e., $\rho_{10} = \rho_{01} = (\rho_1+\rho_2)/2$. 
+1. When the disease is invisible in both modalities the correlation is the same as that for non-diseased cases, i.e., $\rho_{00} \equiv \rho_1$. 
 
 1. When the disease is visible in both modalities the correlation is $\rho_{11} \equiv \rho_2$. 
+
+1. When the disease is visible in only one modality the correlation is the mean of the non-diseased cases correlation and the correlation where disease is visible in both conditions, i.e., $\rho_{10} = \rho_{01} = (\rho_1+\rho_2)/2$. 
 
 
 ### Estimation
@@ -544,45 +546,51 @@ The above model has four correlations in contrast to the bivariate binormal mode
 This follows the procedure described previously for the correlated binormal model (i.e., CORROC2). One introduces binning thresholds, defines the likelihood function and applies a procedure for maximizing it. Details are in [@zhai2017bivariate] which also shows applications to two real datasets and a simulation study.
 
 
-### Figures
+### Application to Van Dyke dataset
 
-Fig. \@ref(fig:bivariate-models-figures1); CORCBM fits for Van Dyke data, modality 1 reader 4. due to degeneracy CORROC2 failed to converge.
+Fig. \@ref(fig:bivariate-models-figures1); CORCBM fits for Van Dyke data for reader 4. CORROC2 failed to converge.
 
 
-```{r bivariate-models-figures1, echo=FALSE,out.width="50%", fig.cap="VanDyke dataset, modality 1 reader 4; due to degeneracy CORROC2 failed and only CORCBM plots are shown.", fig.show='hold'}
+```{r bivariate-models-figures1, echo=FALSE,out.width="50%", fig.cap="VanDyke dataset, reader 4. Left plot: modality 1, right plot: modality 2. CORROC2 failed to converge and therefore only CORCBM plots are shown.", fig.show='hold'}
 
 knitr::include_graphics(c("images/corcbm/plots/VanDykeM1R4.png","images/corcbm/plots/VanDykeM2R4.png"))
 ``` 
 
 
-Fig. \@ref(fig:bivariate-models-figures2); CORROC2 and CORCBM fits for Van Dyke data, modality 1 reader 5.
+Fig. \@ref(fig:bivariate-models-figures2); CORROC2 (dashed line) and CORCBM (solid line) fits for Van Dyke data for reader 5.
 
-```{r bivariate-models-figures2, echo=FALSE,out.width="50%", fig.cap="VanDyke dataset, modality 1 reader 5; both CORROC2 and CORCBM plots are shown. Note that CORCBM has higher AUC than CORROC2.", fig.show='hold'}
+```{r bivariate-models-figures2, echo=FALSE,out.width="50%", fig.cap="VanDyke dataset, reader 5. Left plot: modality 1, right plot: modality 2; both CORROC2 (dashed line) and CORCBM (solid line) plots are shown. Note that CORCBM has higher AUC than CORROC2.", fig.show='hold'}
 
 knitr::include_graphics(c("images/corcbm/plots/VanDykeM1R5.png","images/corcbm/plots/VanDykeM2R5.png"))
 ``` 
 
 
+### Simulation study
+
 Fig. \@ref(fig:bivariate-models-figures3); simulation parameters were $\mu_1 = 1.5$, $\mu_2 = 3$, $\alpha_1 = 0.4$, $\alpha_2 = 0.7$,  $\rho_1 = 0.3$,   $\rho_2 = 0.8$.   
 
 
-```{r bivariate-models-figures3, echo=FALSE,out.width="50%", fig.cap="CORCBM fits to simulated data for two modalities or \"conditions\". Top-left: 50 non-diseased and 50 diseased cases; Top-right: 100 non-diseased and 100 diseased cases;  Bottom-left: 1000 non-diseased and 1000 diseased cases;  Bottom-right: 5000 non-diseased and 5000 diseased cases. For 5000-5000 cases the operating points are almost exactly fitted by CORCBM.", fig.show='hold'}
+```{r bivariate-models-figures3, echo=FALSE,out.width="50%", fig.cap="CORCBM fits to simulated data for two modalities labeled \"conditions\". Top-left: 50 non-diseased and 50 diseased cases; Top-right: 100 non-diseased and 100 diseased cases;  Bottom-left: 1000 non-diseased and 1000 diseased cases;  Bottom-right: 5000 non-diseased and 5000 diseased cases. For 5000-5000 cases the operating points are almost exactly fitted by CORCBM.", fig.show='hold'}
 
 knitr::include_graphics(c("images/corcbm/plots/Simu-50-50.png","images/corcbm/plots/Simu-100-100.png", "images/corcbm/plots/Simu-1000-1000.png", "images/corcbm/plots/Simu-5000-5000.png"))
 ``` 
 
 
 
-## Discussion / Summary {#bivariate-models-binormal-corroc2-discussion}
+## Discussion {#bivariate-models-discussion}
 
-Described is an approach to fitting single reader paired modality ROC datasets using a bivariate extension of the contaminated binormal model (CBM). Software implementing the method, CORCBM, was applied to two datasets that have been widely used to test methodological advances in ROC analysis. For comparison with an existing widely used standard, CORROC2, which implements the bivariate binormal model, was also applied to the same datasets. CORCBM was able to fit the paired data for all 9 readers (5 from the Van Dyke dataset and 4 from the Franken dataset) while CORROC2 was unable to fit one reader in the Van Dyke dataset. Inability to fit a dataset, especially for a reader whose performance is close to perfect, would tend to exclude near perfect radiologists from further data analysis – a serious shortcoming in our opinion ([@vannier1994craniosynostosis] have reported a study where CORROC2 was unable to fit 14 out of 16 datasets). Moreover, in the current study all CORROC2 fits were improper, implying a range of predicted performance for expert radiologists below the chance diagonal, a serious shortcoming, which, while it has been corrected for unpaired dataset analysis (i.e., single reader single modality) by several methods, until now, no method existed for fitting proper ROC curves to paired datasets, a need addressed by this work. 
 
-CORROC2 software has played an important role in the evolution of ROC analysis. However, it is inadequately described in the archival literature. One of the relevant papers [@metz1984new] is in a conference proceeding. This work corrects the current lack of adequate description in the archival literature on how to fit a bivariate ROC model. While the current work does not implement CORROC2, the detailed description of how the likelihood function is derived for bivariate CBM should allow the reader to understand how CORROC2 works, and, with appropriate modifications to the R code, re-implement CORROC2, if necessary, in open-source R code. The only difference is in the pdf of the diseased cases, which instead of four unit-variance bivariate peaks will consist of a single bivariate peak at $(a_1/b_1, a_2/b_2)$ with standard deviations $(1/b_1, 1/b_2)$ and correlation parameter $\rho_2$.
+Described is an approach to fitting paired ROC datasets using a bivariate extension of the contaminated binormal model. Software implementing the method, CORCBM, was applied to two datasets that have been widely used to test methodological advances in ROC analysis. For comparison CORROC2, which implements the bivariate binormal model, was also applied to the same datasets. CORCBM was able to fit the paired data for all 9 readers (5 from the Van Dyke dataset and 4 from the Franken dataset) while CORROC2 was unable to fit one reader in the Van Dyke dataset. Inability to fit a dataset, especially for a reader whose performance is close to perfect is, in my opinion, a serious shortcoming. [@vannier1994craniosynostosis] have reported a study where CORROC2 was unable to fit 14 out of 16 clinical datasets. All CORROC2 fits are improper implying a range of predicted performance that is below the chance diagonal for expert radiologists, another serious shortcoming. 
 
 
 In our opinion extending PROPROC, a relatively complex algorithm, whose software is not in the public domain, to paired data would be a challenge. Moreover, since it is based on the binormal model, it would still be unable to yield reasonable fits to degenerate datasets. The authors have confirmed that given a dataset with 100 non-diseased and 100 diseased cases yielding a single operating point at (0, TPF), where 0 < TPF < 1, PROPROC yields AUC = 1 regardless of how small the value of TPF is, which is unreasonable. Likewise, given a dataset yielding a single operating point at (FPF, 0), where 0 < FPF < 1, PROPROC still yields AUC = 1 regardless of how large the value of FPF is, which is also unreasonable. The CBM model is simpler and has no issues with fitting degenerate datasets. In my opinion, the CBM model parameters are easier to interpret than other proper ROC models, and as shown in this work, it can be extended to the bivariate situation.
 
-Our interest in this problem arose from a methodology validation issue. Multiple-reader multiple case (MRMC) study designs are widely used to compare modalities. Several analysis methods have been proposed. The Dorfman Berbaum Metz method or the substantially equivalent Obuchowski and Rockette method have been used in a few hundred publications (Prof. Kevin Berbaum, private communication, ca. 2010). With such wide usage, the results of any of which could be a critical driver of medical imaging technology, one needs to be sure that the analysis method is itself valid. Validating a methodology requires an MRMC ratings data simulator. The simulator used so far to validate DBM is that proposed by Roe and Metz. This simulator has several shortcomings. It assumes that the ratings are distributed like an equal-variance binormal model, which is not true for most clinical datasets (i.e., the b-parameter is usually less than one). While work extending this simulator to unequal variance has been published, CBM provides a natural explanation of the observed unequal variance, namely since there are two types of disease – visible and not visible –the mixing of the two gives arise to a diseased case pdf that appears wider than a non-diseased case pdf. The Roe-Metz simulator is out dated: the parameter values are based on datasets then available (i.e., prior to 1997). Medical imaging technology has changed substantially in the intervening decades, and modalities that did not exist then, like digital mammography, breast and chest tomosynthesis61, are in wide usage in the US. There is need to update the simulator to reflect changes in technology. Finally, the methodology used to arrive at the Roe and Metz parameter values is not clearly described. Needed is a realistic simulator that is calibrated, by a clearly defined method, to current datasets. The author's approach to this problem originally used CORROC2 to determine the different types of ratings-level correlations present in an ROC-MRMC dataset: between different readers in the same modality, between the same reader in different modalities and between different readers in different modalities. The correlations were used to design a new simulator that incorporated the measured values. However, CORROC2 frequently failed to converge and other discrepancies were found when CORROC2 was applied to newer datasets (CORROC2 gave reasonable results for the Van Dyke and the Franken datasets, but failed on almost all newer datasets). This is what led to this work.
+
+Our interest in this problem arose from a methodology validation issue. Multiple-reader multiple case (MRMC) study designs are widely used to compare modalities and several analysis methods have been proposed. The Dorfman Berbaum Metz method or the substantially equivalent Obuchowski and Rockette method have been used in a few hundred publications (Prof. Kevin Berbaum, private communication, ca. 2010). With such wide usage the results of any of which could be a critical driver of medical imaging technology, one needs to be sure that the analysis method is valid. Validating a methodology requires an MRMC ratings data simulator. The simulator used so far to validate DBM is that proposed by Roe and Metz. This simulator has several shortcomings. It assumes that the ratings are distributed like an equal-variance binormal model, which is not true for most clinical datasets. CBM provides a natural explanation of the observed unequal variance: since there are two types of disease – visible and not visible –the mixing of the two gives arise to a diseased case pdf that appears wider than a non-diseased case pdf. The Roe-Metz simulator is out dated: the parameter values are based on datasets then available (i.e., prior to 1997). Medical imaging technology has changed substantially in the intervening decades, and modalities that did not exist then, like digital mammography, breast and chest tomosynthesis, are in wide usage in the US. Finally, the method used to arrive at the Roe and Metz parameter values is not clearly described. Needed is a realistic simulator that is calibrated by a clearly defined method to current datasets. 
 
 
-In conclusion, CORCBM is a robust method for fitting paired ROC datasets, always yielding proper ROC curves, is able to fit degenerate datasets and has passed an initial simulation validation test.
+My approach to this problem originally used CORROC2 to determine the different types of ratings-level correlations present in an ROC-MRMC dataset. The correlations were used to design a simulator that incorporated the measured values. However, CORROC2 frequently failed to converge in many instances and other discrepancies were found when CORROC2 was applied to newer datasets (CORROC2 gave reasonable results for the Van Dyke and the Franken datasets, but failed to converge on almost all newer datasets). This is what led to this work. 
+
+
+An application of CORCBM to calibrating a simulator to a clinical data set is described in the next Chapter TBA 23.
+
