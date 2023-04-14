@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 The Binary Task | Modeling ROC data</title>
+  <title>Chapter 11 CAD simulator | Modeling ROC data</title>
   <meta name="description" content="Understanding and modeling receiver operating characteristic (ROC) data." />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 The Binary Task | Modeling ROC data" />
+  <meta property="og:title" content="Chapter 11 CAD simulator | Modeling ROC data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Understanding and modeling receiver operating characteristic (ROC) data." />
   <meta name="github-repo" content="dpc10ster/RJafrocRocBook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 The Binary Task | Modeling ROC data" />
+  <meta name="twitter:title" content="Chapter 11 CAD simulator | Modeling ROC data" />
   
   <meta name="twitter:description" content="Understanding and modeling receiver operating characteristic (ROC) data." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="overview.html"/>
-<link rel="next" href="binary-task-model.html"/>
+<link rel="prev" href="bivariate-models.html"/>
+<link rel="next" href="datasets.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -520,448 +520,264 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="binary-task" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Chapter 2</span> The Binary Task<a href="binary-task.html#binary-task" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="binary-task-how-much-finished" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> How much finished 90%<a href="binary-task.html#binary-task-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="cad-simulator" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Chapter 11</span> CAD simulator<a href="cad-simulator.html#cad-simulator" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Introduction<a href="cad-simulator.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Single-modality multiple-reader decision variable simulator</p>
+<p>CAD and a group of radiologists interpreting the same cases is a single-modality multiple-reader paradigm. It is necessary to calibrate the simulator to an actual clinical dataset, i.e., assign realistic values to the parameters of the simulation model. A calibrated simulator will yield samples not identical, but statistically identical to the original dataset. The criteria used to assess statistical identity, is described later. Traditional Roe-Metz simulator, involving univariate sampling, is described in the online appendix material. This chapter describes a new method, involving multivariate sampling, were used.</p>
+<div id="calibrating-the-simulator-to-a-specific-dataset" class="section level3 hasAnchor" number="11.1.1">
+<h3><span class="header-section-number">11.1.1</span> Calibrating the simulator to a specific dataset<a href="cad-simulator.html#calibrating-the-simulator-to-a-specific-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The multivariate simulator was calibrated to the dataset used to illustrate the analysis8 in Chapter 22, i.e., the Hupse-Karssemeijer dataset. The study used the location receiver operating characteristic (LROC) paradigm. For the purpose of the current chapter, the indicated location was ignored, i.e., only the ROC rating is used.</p>
+<div id="calibrating-parameters-to-individual-radiologists" class="section level4 hasAnchor" number="11.1.1.1">
+<h4><span class="header-section-number">11.1.1.1</span> Calibrating parameters to individual radiologists<a href="cad-simulator.html#calibrating-parameters-to-individual-radiologists" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For each radiologist , , one fits the clinical data using CBM , yielding , and a 2 x 2 covariance matrix . In the study in question J = 9. Threshold related covariance terms are excluded from this and the following description. Since each radiologist is an equally valid sample from the population, for parsimony, the values were averaged over , obtaining , where the dot symbol represents an average over the replaced index. For clarity, these are henceforth denoted , where the “1R” subscript denotes single radiologist-based estimates, i.e.,</p>
+<pre><code>.   (23.5)</code></pre>
+<p>In Eqn. (23.5), is the CBM separation parameter when readers are analyzed individually using the CBM method and the parameters averaged. Similarly, the parameter is the average CBM disease-visibility parameter. These are the calibrated CBM parameters for the individual readers.</p>
 </div>
-<div id="binary-taskIntro" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Introduction<a href="binary-task.html#binary-taskIntro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In the previous chapter four observer performance paradigms were introduced: the receiver operating characteristic (ROC), the free-response ROC (FROC), the location ROC (LROC) and the region of interest (ROI). The next few chapters focus on the ROC paradigm, where each case is rated for confidence in presence of disease. While a multiple point rating scale is generally used, in this chapter it is assumed that the ratings are binary, and the allowed values are “1” vs. “2”. Equivalently, the ratings could be “non-diseased” vs. “diseased”, “negative” vs. “positive”, etc. In the literature this method of data acquisition is also termed the “yes/no” procedure <span class="citation">(<a href="#ref-green1966signal" role="doc-biblioref">Green, Swets, et al. 1966</a>; <a href="#ref-egan1975book" role="doc-biblioref">Egan 1975a</a>)</span>. The reason for restricting, for now, to the binary task is that the multiple rating task can be shown to be equivalent to a number of simultaneously conducted binary tasks. Therefore, understanding the simpler method is a good starting point.</p>
-<p>Since the truth is also binary one can define a 2 x 2 table summarizing the outcomes in such studies and useful fractions that can be defined from the counts in this table, the most important ones being true positive fraction (TPF) and false positive fraction (FPF). These are used to construct measures of performance, some of which are desirable from the researcher’s point of view, but others are more relevant to radiologists. The concept of disease prevalence is introduced and used to derive relations between the different types of measures. An <code>R</code> example of calculation of these quantities is given.</p>
+<div id="calibrating-parameters-to-paired-radiologists" class="section level4 hasAnchor" number="11.1.1.2">
+<h4><span class="header-section-number">11.1.1.2</span> Calibrating parameters to paired radiologists<a href="cad-simulator.html#calibrating-parameters-to-paired-radiologists" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Reader index 0 is reserved for CAD. For each pairing of different radiologists in the clinical dataset, , one fits the data using CORCBM1 yielding , and the 6 x 6 covariance matrix . The first index on each is the case-truth index . Since for each pairing there exists a pairing , upon averaging over all pairings the results must be symmetric with respect to and , yielding and the average covariance matrix . This is cast in more transparent notation as follows:</p>
+<pre><code>.   (23.6)</code></pre>
+<p>The “2R” and “RR” subscripts denote that the paired-radiologist fitting-method was used to estimate each parameter. Since different algorithms are used, one does not expect estimate to equal .</p>
 </div>
-<div id="binary-task-2-2-table" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> The 2x2 table<a href="binary-task.html#binary-task-2-2-table" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this book, the term “case” is used for images obtained for diagnostic purposes, of a patient; often multiple images of a patient, sometimes from different modalities, are involved in an interpretation; all images of a single patient that are used in the interpretation are collectively referred to as a case. A familiar example is the 4-view presentation used in screening mammography, where two views of each breast are viewed.</p>
-<p>Let <span class="math inline">\(\text{D}\)</span> represent the radiologist’s decision with <span class="math inline">\(\text{D}=1\)</span> representing the decision “case is diagnosed as non-diseased” and <span class="math inline">\(\text{D}=2\)</span> representing the decision “case is diagnosed as diseased”. Let <span class="math inline">\(\text{T}\)</span> denote the truth with <span class="math inline">\(\text{T}=1\)</span> representing “case is actually non-diseased” and <span class="math inline">\(\text{T}=2\)</span> representing “case is actually diseased”. Each decision, one of two values, will be associated with one of two truth states, resulting in an entry in one of 4 cells arranged in a 2 x 2 layout, termed the decision vs. truth table, Table <a href="binary-task.html#tab:binary-task-truth-table">2.1</a> which is of fundamental importance in observer performance. The cells are labeled as follows. The abbreviation <span class="math inline">\(\text{TN}\)</span>, for true negative, represents a <span class="math inline">\(\text{D}=1\)</span> decision on a <span class="math inline">\(\text{T}=1\)</span> case. <span class="math inline">\(\text{FN}\)</span>, for false negative, represents a <span class="math inline">\(\text{D}=1\)</span> decision on a <span class="math inline">\(\text{T}=2\)</span> case (also termed a “miss”). <span class="math inline">\(\text{FP}\)</span>, for false positive, represents a <span class="math inline">\(\text{D}=2\)</span> decision on a <span class="math inline">\(\text{T}=1\)</span> case (a “false-alarm”) and <span class="math inline">\(\text{TP}\)</span>, for true positive, represents a <span class="math inline">\(\text{D}=2\)</span> decision on a <span class="math inline">\(\text{T}=2\)</span> case (a “hit”).</p>
-<table>
-<caption>
-<span id="tab:binary-task-truth-table">TABLE 2.1: </span>Truth Table.
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-T=1
-</th>
-<th style="text-align:left;">
-T=2
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-D=1
-</td>
-<td style="text-align:left;">
-TN
-</td>
-<td style="text-align:left;">
-FN
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-D=2
-</td>
-<td style="text-align:left;">
-FP
-</td>
-<td style="text-align:left;">
-TP
-</td>
-</tr>
-</tbody>
-</table>
-<p>Table <a href="binary-task.html#tab:binary-task-truth-table2">2.2</a> shows the number of decisions in each of the four categories defined in Table <a href="binary-task.html#tab:binary-task-truth-table">2.1</a>. <span class="math inline">\(n(\text{TN})\)</span> is the number of true negative decisions, <span class="math inline">\(n(\text{FN})\)</span> is the number of false negative decisions, etc. The last row is the sum of the corresponding columns. The sum of the number of true negative decisions <span class="math inline">\(n(\text{TN})\)</span> and the number of false positive decisions <span class="math inline">\(n(\text{FP})\)</span> must equal the total number of non-diseased cases, denoted <span class="math inline">\(K_1\)</span>. Likewise, the sum of the number of false negative decisions <span class="math inline">\(n(\text{FN})\)</span> and the number of true positive decisions <span class="math inline">\(n(\text{TP})\)</span> must equal the total number of diseased cases, denoted <span class="math inline">\(K_2\)</span>. The last column is the sum of the corresponding rows. The sum of the number of true negative <span class="math inline">\(n(\text{TN})\)</span> and false negative <span class="math inline">\(n(\text{FN})\)</span> decisions is the total number of negative decisions, denoted <span class="math inline">\(n(N)\)</span>. Likewise, the sum of the number of false positive <span class="math inline">\(n(\text{FP})\)</span> and true positive <span class="math inline">\(n(\text{TP})\)</span> decisions is the total number of positive decisions, denoted <span class="math inline">\(n(P)\)</span>. Since each case yields a decision, the bottom-right corner cell is <span class="math inline">\(n(N) + n(P)\)</span>, which must also equal <span class="math inline">\(K_1+K_2\)</span>, the total number of cases denoted <span class="math inline">\(K\)</span>. These statements are summarized in Eqn. <a href="binary-task.html#eq:binary-task-truth-table-eqns">(2.1)</a>.</p>
-<p><span class="math display" id="eq:binary-task-truth-table-eqns">\[\begin{equation}
-\left.
-\begin{aligned}
-K_1&amp;=n(TN)+n(FP)\\
-K_2&amp;=n(FN)+n(TN)\\
-n(N)&amp;=n(TN)+n(FN)\\
-n(P)&amp;=n(TP)+n(FP)\\
-K=K_1+K_2&amp;=n(N)+n(P)
-\end{aligned}
-\right\}
-\tag{2.1}
-\end{equation}\]</span></p>
-<table>
-<caption>
-<span id="tab:binary-task-truth-table2">TABLE 2.2: </span>Individual 2x2 table cell counts and row and column sums. <span class="math inline">\(K_1\)</span> is the number of non-diseased cases, <span class="math inline">\(K_2\)</span> is the number of diseased cases and <span class="math inline">\(K\)</span> is the total number of cases.
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-T=1
-</th>
-<th style="text-align:left;">
-T=2
-</th>
-<th style="text-align:left;">
-RowSums
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-D=1
-</td>
-<td style="text-align:left;">
-n(TN)
-</td>
-<td style="text-align:left;">
-n(FN)
-</td>
-<td style="text-align:left;">
-n(N)=n(TN)+n(FN)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-D=2
-</td>
-<td style="text-align:left;">
-n(FP)
-</td>
-<td style="text-align:left;">
-n(TP)
-</td>
-<td style="text-align:left;">
-n(P)=n(FP)+n(TP)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ColSums
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K_1\)</span>=n(TN)+n(FP)
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K_2\)</span>=n(FN)+n(TP)
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K=K_1+K_2\)</span>=n(N)+n(P)
-</td>
-</tr>
-</tbody>
-</table>
+<div id="reconciling-single-radiologist-and-paired-radiologist-parameters" class="section level4 hasAnchor" number="11.1.1.3">
+<h4><span class="header-section-number">11.1.1.3</span> Reconciling single radiologist and paired radiologist parameters<a href="cad-simulator.html#reconciling-single-radiologist-and-paired-radiologist-parameters" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>To simultaneously simulate all readers according to a multivariate distribution, see below, one needs a unique value for the radiologist separation parameter. This is accomplished by averaging the two estimates:</p>
+<pre><code>.   (23.7)</code></pre>
+<p>A similar averaging is applied to the CBM visibility parameter:</p>
+<pre><code>.   (23.8)</code></pre>
+<p>Therefore, the final calibrated CBM parameters for paired radiologists are:</p>
+<pre><code>.   (23.9)</code></pre>
 </div>
-<div id="sensitivity-and-specificity" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Sensitivity and specificity<a href="binary-task.html#sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The notation <span class="math inline">\(\text{P(D|T)}\)</span> indicates the probability of diagnosis <span class="math inline">\(\text{D}\)</span> for a given truth state <span class="math inline">\(\text{T}\)</span>. The vertical bar is used to denote a conditional probability, i.e., the probability of what is to the left of the bar occurring when what is to the right of the bar is true:</p>
-<p><span class="math display" id="eq:binary-task-p-d-given-t">\[\begin{equation}
-\text{P(D|T)} \equiv P(\text{diagnosis is D} | \text{truth is T})
-\tag{2.2}
-\end{equation}\]</span></p>
-<p>Therefore the probability that the radiologist will diagnose “case is diseased” when the case is actually diseased is <span class="math inline">\(\text{P(D=2|T=2)}\)</span>, the probability of a true positive <span class="math inline">\(\text{P(TP)}\)</span>.</p>
-<p><span class="math display" id="eq:binary-task-p-tp">\[\begin{equation}
-\text{P(TP)} = \text{P(D = 2 | T = 2)}
-\tag{2.3}
-\end{equation}\]</span></p>
-<p>Likewise, the probability that the radiologist will diagnose “case is non-diseased” when the case is actually diseased is <span class="math inline">\(\text{P(D=1|T=2)}\)</span>, the probability of a false negative <span class="math inline">\(\text{P(FN)}\)</span>.</p>
-<p><span class="math display" id="eq:binary-task-p-fn">\[\begin{equation}
-\text{P(FN)} = \text{P(D = 1 | T = 2)}
-\tag{2.4}
-\end{equation}\]</span></p>
-<p>The corresponding probabilities for non-diseased cases, <span class="math inline">\(P(TN)\)</span> and <span class="math inline">\(P(FP)\)</span>, are defined by:</p>
-<p><span class="math display" id="eq:binary-task-p-tn-fp">\[\begin{equation}
-\left.
-\begin{aligned}
-\text{P(TN)}&amp;=\text{P(D=1|T=1)}\\
-\text{P(FP)}&amp;=\text{P(D=2|T=1)}
-\end{aligned}
-\right\}
-\tag{2.5}
-\end{equation}\]</span></p>
-<p>Since the diagnosis must be either <span class="math inline">\(D=1\)</span> or <span class="math inline">\(D=2\)</span>, the following must be true:</p>
-<p><span class="math display" id="eq:binary-task-p-sum-to-unity">\[\begin{equation}
-\left.
-\begin{aligned}  
-\text{P(D=1|T=1)+P(D=2|T=1)}=&amp;1\\
-\text{P(D=1|T=2)+P(D=2|T=2)}=&amp;1
-\end{aligned}
-\right \}
-\tag{2.6}
-\end{equation}\]</span></p>
-<p>Equivalently, these equations can be written:</p>
-<p><span class="math display" id="eq:binary-task-p-sum-to-unity2">\[\begin{equation}
-\left.
-\begin{aligned}  
-\text{P(TN)+P(FP)}=&amp; 1\\
-\text{P(FN)+P(TP)}=&amp; 1
-\end{aligned}
-\right \}
-\tag{2.7}
-\end{equation}\]</span></p>
-<p>Comments:</p>
-<ul>
-<li><p>An easy way to remember Eqn. <a href="binary-task.html#eq:binary-task-p-sum-to-unity2">(2.7)</a> is to start by writing down one of the four probabilities, e.g., <span class="math inline">\(\text{P(TN)}\)</span>, and “reversing” both terms inside the parentheses, i.e., <span class="math inline">\(\text{T} \Rightarrow \text{F}\)</span>, and <span class="math inline">\(\text{N} \Rightarrow \text{P}\)</span>. This yields the term <span class="math inline">\(\text{P(FP)}\)</span> which when added to the previous probability yields unity, i.e., the first equation in Eqn. <a href="binary-task.html#eq:binary-task-p-sum-to-unity2">(2.7)</a>.</p></li>
-<li><p>Because there are two equations in four unknowns, only two of the four probabilities are independent. By tradition these are chosen to be <span class="math inline">\(\text{P(D=1|T=1)}\)</span> and <span class="math inline">\(\text{P(D=2|T=2)}\)</span>, i.e., <span class="math inline">\(P(TN)\)</span> and <span class="math inline">\(P(TP)\)</span>, the probabilities of correct decisions on non-diseased and diseased cases, respectively. The two basic probabilities are so important that they have names: <span class="math inline">\(\text{P(D=2|T=2)=P(TP)}\)</span> is termed <strong>sensitivity</strong> (Se) and <span class="math inline">\(\text{P(D=1|T=1)=P(TN)}\)</span> is termed <strong>specificity</strong> (Sp):</p></li>
-</ul>
-<p><span class="math display" id="eq:binary-task-se-sp">\[\begin{equation}
-\left.
-\begin{aligned}  
-\text{Se}=\text{P(TP)=P(D=2|T=2)}\\
-\text{Sp}=\text{P(TN)=P(D=1|T=1)}
-\end{aligned}
-\right \}
-\tag{2.8}
-\end{equation}\]</span></p>
-<blockquote>
-<p>The radiologist can be regarded as a diagnostic-test yielding a binary decision under the binary truth condition. More generally, any test (e.g., a blood test for HIV) yielding a binary result (positive or negative) under a binary truth condition is said to be sensitive if it correctly detects the diseased condition most of the time. The test is said to be specific if it correctly detects the non-diseased condition most of the time. Sensitivity is how correct the test is at detecting a diseased condition, and specificity is how correct the test is at detecting a non-diseased condition.</p>
-</blockquote>
-<!-- ### Reasons for the names sensitivity and specificity -->
-<!-- It is important to understand the reason for these names and an analogy may be helpful. Most of us are sensitive to temperature, especially if the choice is between ice-cold vs. steaming hot. The sense of touch is said to be sensitive to temperature. One can imagine some neurological condition rendering a person hypersensitive to temperature, such that the person responds "hot" no matter what is being touched. For such a person the sense of touch is not very specific, as it is unable to distinguish between the two temperatures. This person would be characterized by unit sensitivity (since the response is “hot” to all steaming hot objects) and zero specificity (since the response is never “cold” to ice-cold objects). Likewise, a different neurological condition could render a person hypersensitive to cold, and the response is "cold" no matter what is being touched. Such a person would have zero sensitivity (since the response is never “hot” when touching steaming hot) and unit specificity (since the response is “cold” when touching ice-cold). Already one suspects that there is an inverse relation between sensitivity and specificity. -->
-<div id="estimating-sensitivity-and-specificity" class="section level3 hasAnchor" number="2.4.1">
-<h3><span class="header-section-number">2.4.1</span> Estimating sensitivity and specificity<a href="binary-task.html#estimating-sensitivity-and-specificity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Sensitivity and specificity are the probabilities of correct decisions over diseased and non-diseased cases, respectively. The true values of these probabilities would require interpreting all diseased and non-diseased cases in the entire population of cases. In reality, one has a finite sample of cases and the corresponding quantities, calculated from this finite sample, are termed <strong>estimates</strong>. Population values are fixed, and in general unknown, while estimates are realizations of random variables. Intuitively, an estimate calculated over a larger number of cases is expected to be closer to the population value than an estimate calculated over a smaller number of cases.</p>
-<p>Estimates of sensitivity and specificity follow from counting the numbers of TP and TN decisions in Table <a href="binary-task.html#tab:binary-task-truth-table2">2.2</a> and dividing by the appropriate denominators. For sensitivity, the denominator is the number of diseased cases <span class="math inline">\(K_2\)</span> and for specificity, the appropriate denominator is the number of non-diseased cases <span class="math inline">\(K_1\)</span>. The estimation equations for sensitivity specificity are (estimates are often denoted by the “hat” or circumflex symbol ^):</p>
-<p><span class="math display" id="eq:binary-task-se-sp-est">\[\begin{equation}
-\left.
-\begin{aligned}  
-\widehat{\text{Se}}=\widehat{\text{P(TP)}}=\frac{\text{n(TP)}}{K_2}\\
-\widehat{\text{Sp}}=\widehat{\text{P(TN)}}=\frac{\text{n(TN)}}{K_1}
-\end{aligned}
-\right \}
-\tag{2.9}
-\end{equation}\]</span></p>
-<blockquote>
-<p>The ratio of the number of TP decisions to the number of actually diseased cases is termed <strong>true positive fraction</strong> <span class="math inline">\(\widehat{\text{TPF}}\)</span>, an estimate of sensitivity, or equivalently an estimate of <span class="math inline">\(\widehat{\text{P(TP)}}\)</span>. Likewise, the ratio of the number of TN decisions to the number of actually non-diseased cases is termed <strong>true negative fraction</strong> <span class="math inline">\(\widehat{\text{TNF}}\)</span>, an estimate of specificity, or equivalently an estimate of <span class="math inline">\(\widehat{\text{P(TN)}}\)</span>. The complements of <span class="math inline">\(\widehat{\text{TPF}}\)</span> and <span class="math inline">\(\widehat{\text{TNF}}\)</span> are termed <strong>false negative fraction</strong> <span class="math inline">\(\widehat{\text{FNF}}\)</span> and <strong>false positive fraction</strong> <span class="math inline">\(\widehat{\text{FPF}}\)</span>, respectively.</p>
-</blockquote>
+<div id="calibrating-parameters-to-cad" class="section level4 hasAnchor" number="11.1.1.4">
+<h4><span class="header-section-number">11.1.1.4</span> Calibrating parameters to CAD<a href="cad-simulator.html#calibrating-parameters-to-cad" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Like the calibration of individual radiologists, the individual performance of CAD (regarded as reader “0”) can be estimated using CBM model, yielding:</p>
+<pre><code>.   (23.10)</code></pre>
+</div>
+<div id="cad-radiologist-pairings" class="section level4 hasAnchor" number="11.1.1.5">
+<h4><span class="header-section-number">11.1.1.5</span> CAD-Radiologist pairings<a href="cad-simulator.html#cad-radiologist-pairings" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Upon pairing CAD with radiologist , CORCBM yields and . Here represents the estimate of the CBM separation parameter when CAD is paired with radiologist and likewise for the other model parameters. As before, one averages over the radiologist index, yielding and , where the subscript “CR” denotes a CAD vs. radiologist pairing. To reconcile parameters, the CAD based estimates of the non-correlation parameters are averaged with the corresponding CAD vs. radiologist values, yielding:</p>
+<pre><code>.   (23.11)</code></pre>
+<p>This can be written in more transparent notation as follows (C = CAD; CR = CAD vs. Radiologist):</p>
+<pre><code>.   (23.12)</code></pre>
+<p>Therefore, the final calibrated parameters for CAD paired with radiologist data are:</p>
+<pre><code>.   (23.13)</code></pre>
+<p>Eqn. (23.5), Eqn. (23.9) and Eqn. (23.13) complete the calibration process. Here is the separation parameter for CAD while is the separation parameter for the average radiologist (when measured paired with CAD). Likewise, is the disease-visibility parameter for CAD while is the corresponding parameter for the average radiologist (when measured paired with CAD). Under the null hypothesis the CAD and the radiologist parameters must be identical:</p>
+<pre><code>.   (23.14)</code></pre>
 </div>
 </div>
-<div id="disease-prevalence" class="section level2 hasAnchor" number="2.5">
-<h2><span class="header-section-number">2.5</span> Disease prevalence<a href="binary-task.html#disease-prevalence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Disease prevalence, often abbreviated to prevalence, is defined as the probability that a randomly sampled case is of a diseased patient, i.e., the fraction of the entire population that is diseased. It is denoted <span class="math inline">\(\text{P(D|pop)}\)</span> when patients are randomly sampled from the population (“pop”) and otherwise it is denoted <span class="math inline">\(\text{P(D|lab)}\)</span>, where the condition “lab” stands for a laboratory study, where cases may be artificially enriched, and thus not representative of the population:</p>
-<p><span class="math display" id="eq:binary-task-dis-prev">\[\begin{equation}
-\left.
-\begin{aligned}  
-P(\text{D}|\text{pop})=&amp;P(\text{T}=2|\text{pop})\\
-P(\text{D}|\text{lab})=&amp;P(\text{T}=2|\text{lab})
-\end{aligned}
-\right \}
-\tag{2.10}
-\end{equation}\]</span></p>
-<p>Since the patients must be either diseased on non-diseased it follows with either sampling method that:</p>
-<p><span class="math display">\[\begin{equation}
-\left.
-\begin{aligned}  
-P(\text{T}=1|\text{pop})+P(\text{T}=2|\text{pop})&amp;=1\\
-P(\text{T}=1|\text{lab})+P(\text{T}=2|\text{lab})&amp;=1
-\end{aligned}
-\right \}
-\end{equation}\]</span></p>
-<p>If a finite number of patients are sampled randomly from the population the fraction of diseased patients in the sample is an estimate of true disease prevalence.</p>
-<p><span class="math display" id="eq:binary-task-dis-prev-est">\[\begin{equation}
-\left.
-\begin{aligned}  
-\widehat{P(\text{D}|\text{pop})}=
-\frac{K_2}{K_1+K_2}
-\end{aligned}
-\right \}
-\tag{2.11}
-\end{equation}\]</span></p>
-<p>It is important to appreciate the distinction between population prevalence and the laboratory prevalence. As an example true disease prevalence for breast cancer is about five per 1000 patients in the US, but most mammography studies are conducted with comparable numbers of non-diseased and diseased cases:</p>
-<p><span class="math display" id="eq:binary-task-dis-prev-lab-vs-pop">\[\begin{equation}
-\left.
-\begin{aligned}  
-\widehat{P(\text{D}|\text{pop})}\sim&amp; 0.005\\
-\widehat{P(\text{D}|\text{lab})}\sim&amp; 0.5\gg \widehat{P(\text{D}|\text{pop})}
-\end{aligned}
-\right \}
-\tag{2.12}
-\end{equation}\]</span></p>
+<div id="simulating-data-using-the-calibrated-simulator" class="section level3 hasAnchor" number="11.1.2">
+<h3><span class="header-section-number">11.1.2</span> Simulating data using the calibrated simulator<a href="cad-simulator.html#simulating-data-using-the-calibrated-simulator" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let denote the number of radiologists, non-diseased and diseased cases, respectively, to be simulated, and CAD is reader “0”. For each pair of different readers , , where the range of either or is 0 to J, each sample from the multivariate normal distribution yields a row-vector of 6 – parameters (C = CAD, R = radiologist):</p>
+<pre><code>.   (23.15)</code></pre>
+<p>The two parameters, characterizing the first (i.e., “X”) arm of the pairing, are and the corresponding ones characterizing the second (i.e., “Y”) arm are . The last two parameters are the decision variable correlations for non-diseased and diseased cases, respectively, assuming, for diseased cases, that the disease is visible in both X- and Y-arms to the radiologist (intermediate visibility conditions will be accommodated later).</p>
+<p>• In Eqn. (23.15), the upper line on the right hand side expresses the sampling when one of the readers is CAD, or . In this situation the other reader is the radiologist and one samples . The first two samples, , correspond to CAD and the next two correspond to the radiologist paired with CAD.
+• In Eqn. (23.15), the lower line on the right hand side expresses the sampling when none of the readers is CAD, and . In this situation both readers are radiologist and one samples . The first two samples, , correspond to one radiologist and the next two correspond to another radiologist.
+• Because of the nature of random sampling, a parameter value for pairing was not necessarily identical to that for ; the different values were replaced by their average.</p>
+<p>An average (and therefore more stable) value for reader , , is obtained by averaging over , when or averaging over , when . This can be expressed by:</p>
+<pre><code>.   (23.16) </code></pre>
+<p>A similar expression applies to average value :</p>
+<pre><code>.   (23.17) </code></pre>
+<p>One may wonder why the correlations do not have to be likewise averaged. This is because the correlation is between the two arms of the pairing, while the other parameters are specific to one or the other arm of the pairing.</p>
+<div id="example-with-j-3" class="section level4 hasAnchor" number="11.1.2.1">
+<h4><span class="header-section-number">11.1.2.1</span> Example with J = 3<a href="cad-simulator.html#example-with-j-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Following is an example of generating Z-samples for CAD and three radiologists, J = 3 (four readers total).</p>
+<div id="non-diseased-cases-1" class="section level5 hasAnchor" number="11.1.2.1.1">
+<h5><span class="header-section-number">11.1.2.1.1</span> Non-diseased cases<a href="cad-simulator.html#non-diseased-cases-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>For non-diseased cases, one need only construct the covariance matrix . The subscript “1” indicates its truth state, and “J + 1” indicates its dimension along one “edge” of the matrix. All diagonal elements are set to unity. The off-diagonal elements are filled as follows:</p>
+<pre><code>.   (23.18)</code></pre>
+<p>The covariance matrix is shown below. The correlations were sampled in Eqn. (23.15). One is using the non-diseased case correlation as the intent is to sample new non-diseased case z-samples.</p>
+<pre><code>.   (23.19)</code></pre>
 </div>
-<div id="accuracy" class="section level2 hasAnchor" number="2.6">
-<h2><span class="header-section-number">2.6</span> Accuracy<a href="binary-task.html#accuracy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Accuracy is defined as the fraction of all decisions that are correct. Denoting it by <span class="math inline">\(\text{Ac}\)</span> one has for the corresponding estimate:</p>
-<p><span class="math display" id="eq:binary-task-ac-est">\[\begin{equation}
-\widehat{\text{Ac}}=\frac{n(TN)+n(TP)}{n(TN)+n(TP)+n(FP)+n(FN)}
-\tag{2.13}
-\end{equation}\]</span></p>
-<p>Explanation: the numerator is the total number of correct decisions and the denominator is the total number of decisions. An equivalent expression is:</p>
-<p><span class="math display" id="eq:binary-task-ac-est2">\[\begin{equation}
-\widehat{\text{Ac}}=\widehat{\text{Sp}}\widehat{P(!D)}+\widehat{\text{Se}}\widehat{P(D)}
-\tag{2.14}
-\end{equation}\]</span></p>
-<p>The exclamation mark symbol is used to denote the “not” or negation operator. For example, <span class="math inline">\(P(!D)\)</span> means the probability that the patient is not diseased. Eqn. <a href="binary-task.html#eq:binary-task-ac-est2">(2.14)</a> applies equally to laboratory or population studies, <em>provided sensitivity and specificity are estimated consistently</em>. One cannot, for example, combine a population estimate of prevalence with a laboratory estimate of sensitivity.</p>
-<p>Eqn. <a href="binary-task.html#eq:binary-task-ac-est2">(2.14)</a> can be understood from the following argument. <span class="math inline">\(\widehat{Sp}\)</span> is the fraction of correct decisions on non-diseased cases. Multiplying this by <span class="math inline">\(\widehat{P(!D)}\)</span> yields the fraction of correct negative decisions on all cases. Similarly <span class="math inline">\(\widehat{Se}\)</span> is the fraction of correct decisions on diseased cases. Multiplying this by <span class="math inline">\(\widehat{P(D)}\)</span> yields the fraction of correct positive decisions on all cases. Their sum is the fraction of correct decisions on all cases.</p>
-<p>A formal mathematical derivation follows: Eqn. <a href="binary-task.html#eq:binary-task-se-sp">(2.8)</a> yields:</p>
-<p><span class="math display" id="eq:binary-task-ntp-ntn">\[\begin{equation}
-\left.
-\begin{aligned}  
-n(TP)=K_2 \widehat{Se}\\
-n(TN)=K_1 \widehat{Sp}
-\end{aligned}
-\right \}
-\tag{2.15}
-\end{equation}\]</span></p>
-<p>Therefore,</p>
-<p><span class="math display" id="eq:binary-task-ac">\[\begin{equation}
-\left.
-\begin{aligned}  
-\widehat{Ac}&amp;=\frac{n(TN)+n(TP)}{K}\\
-&amp;=\frac{K_1 \widehat{Sp}+K_2 \widehat{Se}}{K}\\
-&amp;=\widehat{Sp} \widehat{P(!D)}+\widehat{Se}\widehat{P(D)}
-\end{aligned}
-\right \}
-\tag{2.16}
-\end{equation}\]</span></p>
-<p>For the population one can dispense with the carets:</p>
-<p><span class="math display" id="eq:binary-task-ac-pop">\[\begin{equation}
-\left.
-\begin{aligned}  
-\text{Ac}&amp;=\frac{n(TN)+n(TP)}{K}\\
-&amp;=\frac{K_1 \text{Sp}+K_2 \text{Se}}{K}\\
-&amp;=\text{Sp} \text{P(!D)}+\text{Se}\widehat{P(D)}
-\end{aligned}
-\right \}
-\tag{2.17}
-\end{equation}\]</span></p>
+<div id="diseased-cases-1" class="section level5 hasAnchor" number="11.1.2.1.2">
+<h5><span class="header-section-number">11.1.2.1.2</span> Diseased cases<a href="cad-simulator.html#diseased-cases-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>For diseased cases, define the visibility-condition (row) vector indexed by . Each row contains elements, each of which indicate whether disease was visible to the reader specified by the column number in the row-vector. If the disease was visible, the corresponding element is one and otherwise it is zero. For example, if the element of is one, then the disease was visible to reader , .</p>
+<p>For J = 3, there are visibility conditions, for which the visibility-condition vectors are shown in Table 23.1 under . For example, , means that in visibility-condition , disease was visible to CAD (the first “one” in the array) and to all radiologists. Likewise, means disease was invisible to CAD but was visible to all radiologists; means disease was invisible to CAD and the first radiologist, but was visible to the other radiologists and finally, means the disease was invisible to CAD or any of the radiologists.</p>
+<p> 
+Table 23.1: Shown in this table, for J = 3, are 16 visibility conditions. The visibility-condition row-vectors are shown in column 2. the corresponding vector is in column= 2. The covariance matrices are listed in column 3 and the last column lists the probability of occurrence of each condition. All matrices are symmetric.</p>
+<p>The corresponding vectors follow from the second column in Table 23.1. For example, since , it follows that . Since the disease was visible, the first value is the separation parameter for CAD, i.e., , the second value is the separation parameter for the first radiologist, i.e., , etc. The needed were calculated via Eqn. (23.16). As another example, from , it follows that . Since the disease was invisible to CAD and the first radiologist, the first two values are zeroes and the third value is the separation parameter for the second radiologist, i.e., , and the last value is the separation parameter for the third radiologist, i.e., .</p>
+<p>In Table 23.1, the covariance matrix has ones along the diagonal (this is true of all covariance matrices in Table 23.1), the value at row 1 (CAD, = 0) and column 2 (radiologist 1, = 1) is . One is using because the disease was visible to both readers implied by row 1 and column 2, and the “01” indexing follows from the readers specified by the row and column indices. As another example, the value at row 2 (radiologist 1, = 1) and column 3 (radiologist 2, = 2) is . One is using because the disease was visible to both readers implied by the specified row and column indices. The “12” indexing follows from the readers implied by the specified row and column indices.</p>
+<p>As a more complicated example, consider . Since , the disease was invisible to CAD or the first radiologist. This implies that the correlation at row 1 ( = 0) and column 2 ( = 1) must be , subscripted with the appropriate reader indices, i.e., “01”. The value at row 1 and column 3 is the average of and , i.e., , subscripted with the appropriate reader indices, . As a final example, the value at row 3 and column 4 is , because disease was visible to the second and third radiologists ( = 2, = 3), and these are the appropriate indices.</p>
+<p>The last column of Table 23.1 lists the probabilities associate with each visibility-condition. For example, for visibility-condition = 1, because disease was visible to CAD, the probability of which is , it was visible to radiologist 1, the probability of which is , it was visible to radiologist 2, the probability of which is and it was visible to radiologist 3, the probability of which is . Because the radiologists are independent, the probability of the visibility-condition = 1 is the product of the component probabilities, which is . Similarly, the probability of observing visibility-condition = 2 is , because disease was invisible to CAD, the probability of which is , etc. One can confirm that the probabilities listed in the last column of Table 23.1 sum to unity.</p>
+<p>To determine the number of diseased cases in each visibility-condition one samples the multinomial distribution with trial size and cell probabilities specified by .</p>
 </div>
-<div id="negative-and-positive-predictive-values" class="section level2 hasAnchor" number="2.7">
-<h2><span class="header-section-number">2.7</span> Negative and positive predictive values<a href="binary-task.html#negative-and-positive-predictive-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Sensitivity and specificity have desirable characteristics insofar as they reward the observer for correct decisions on diseased and non-diseased cases, respectively. They are expected to be independent of disease prevalence as one is dividing by the relevant denominator. However, radiologists interpret cases in a “mixed” situation where cases could be diseased or non-diseased. Therefore disease prevalence plays a crucial role in their decision-making – this point will be clarified shortly. Therefore a measure of performance that is desirable from the researcher’s point of view is not necessarily desirable from the radiologist’s point of view. As an example if most cases are non-diseased, i.e., disease prevalence is close to zero, specificity, being correct on non-diseased cases, is more important to the radiologist than sensitivity. Otherwise, the radiologist would be generating false positives most of the time. The radiologist who makes too many false positives would know this from subsequent clinical audits or daily case conferences which are held in most large imaging departments. There is a cost to unnecessary false positives – the cost of additional imaging and / or needle-biopsy to rule out cancer, and the pain and emotional trauma inflicted on the patient. Conversely, if disease prevalence is high, then sensitivity, being correct on diseased cases, is more important to the radiologist than specificity. With intermediate disease prevalence a weighted average of sensitivity and specificity, where the weighting involves disease prevalence, would appear to be desirable from the radiologist’s point of view.</p>
-<blockquote>
-<p>The radiologist is not interested in specificity, the normalized probability of a correct decision on non-diseased cases; rather the radiologist’s interest is in the probability that a patient diagnosed as non-diseased is actually non-diseased. The reader may notice how the conditioning variable in two conditional probabilities are reversed – more on this later. Likewise, the radiologist is not interested in sensitivity, the normalized probability of a correct decision on diseased cases; rather the radiologist’s interest is in the probability that a patient diagnosed as diseased is actually diseased. These are termed negative and positive predictive values, respectively, and denoted <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span>.</p>
-</blockquote>
-<p><span class="math inline">\(\text{NPV}\)</span> is the probability, given a non-diseased diagnosis, that the patient is actually non-diseased:</p>
-<p><span class="math display" id="eq:binary-task-npv">\[\begin{equation}
-\text{NPV} = P(T=1|D=1)
-\tag{2.18}
-\end{equation}\]</span></p>
-<p><span class="math inline">\(\text{PPV}\)</span> is the probability, given a diseased diagnosis, that the patient is actually diseased:</p>
-<p><span class="math display" id="eq:binary-task-ppv">\[\begin{equation}
-\text{PPV} = P(T=2|D=2)
-\tag{2.19}
-\end{equation}\]</span></p>
-<p>Note that the conditioning in both equations are reversed from those in the definition of specificity and sensitivity, namely <span class="math inline">\(\text{Sp}=P(D=1|T=1)\)</span> and <span class="math inline">\(\text{Se}=P(D=2|T=2)\)</span>.</p>
-<p>To estimate <span class="math inline">\(\text{NPV}\)</span> one divides the number of correct negative decisions <span class="math inline">\(n(TN)\)</span> by the total number of negative decisions <span class="math inline">\(n(N)\)</span>. The latter is the sum of the number of correct negative decisions <span class="math inline">\(n(TN)\)</span> and the number of incorrect negative decisions <span class="math inline">\(n(FN)\)</span>. Therefore,</p>
-<p><span class="math display" id="eq:binary-task-npv2">\[\begin{equation}
-\widehat{\text{NPV}}=\frac{n(TN)}{n(TN)+n(FN)}
-\tag{2.20}
-\end{equation}\]</span></p>
-<p>Dividing the numerator and denominator by the number of negative cases, one gets:</p>
-<p><span class="math display" id="eq:binary-task-npv3">\[\begin{equation}
-\widehat{\text{NPV}}=\frac{\widehat{P(TN)}}{\widehat{P(TN)}+\widehat{P(FN)}}
-\tag{2.21}
-\end{equation}\]</span></p>
-<p><span class="math inline">\(\widehat{P(TN)}\)</span> equals the estimate of true negative fraction <span class="math inline">\(1-\widehat{FPF}\)</span> multiplied by the estimate of the a-priori probability that the patient is non-diseased, i.e., <span class="math inline">\(\widehat{P(!D)}\)</span>:</p>
-<p><span class="math display" id="eq:binary-task-p-tn-est">\[\begin{equation}
-\widehat{P(TN)}=\widehat{P(!D)}(1-\widehat{FPF})
-\tag{2.22}
-\end{equation}\]</span></p>
-<p>Explanation: A similar logic to that used earlier applies: <span class="math inline">\((1-\widehat{FPF})\)</span> is the probability of being correct on non-diseased cases. Multiplying this by the estimate of probability of disease absence yields the estimate of <span class="math inline">\(\widehat{P(TN)}\)</span>.</p>
-<p>Likewise <span class="math inline">\(\widehat{P(FN)}\)</span> equals the estimate of false negative fraction, which is <span class="math inline">\((1-\widehat{TPF})\)</span> multiplied by the estimate of the probability that the patient is diseased, i.e., <span class="math inline">\((\widehat{P(D)}\)</span> :</p>
-<p><span class="math display" id="eq:binary-task-p-fn-est">\[\begin{equation}
-\widehat{P(FN)}=\widehat{P(D)}(1-\widehat{TPF})
-\tag{2.23}
-\end{equation}\]</span></p>
-<p>Putting this all together, one has:</p>
-<p><span class="math display" id="eq:binary-task-npv-est">\[\begin{equation}
-\widehat{\text{NPV}}=\frac{\widehat{P(!D)}(1-\widehat{FPF})}{(\widehat{P(!D)}(1-\widehat{FPF})+(\widehat{P(D)}(1-\widehat{TPF})}
-\tag{2.24}
-\end{equation}\]</span></p>
-<p>For the population one can dispense with the carets:</p>
-<p><span class="math display" id="eq:binary-task-npv-pop">\[\begin{equation}
-\text{NPV}=\frac{P(!D)(1-FPF)}{(P(!D)(1-FPF)+(P(D)(1-TPF)}
-\tag{2.25}
-\end{equation}\]</span></p>
-<p>Likewise, it can be shown that <span class="math inline">\(\text{PPV}\)</span> is given by:</p>
-<p><span class="math display" id="eq:binary-task-ppv-pop">\[\begin{equation}
-\text{PPV} =\frac{P(D)(TPF)}{P(D)(TPF)+P(!D)FPF}
-\tag{2.26}
-\end{equation}\]</span></p>
-<p>The equations defining <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span> are actually special cases of Bayes’ theorem <span class="citation">(<a href="#ref-larsen2005introduction" role="doc-biblioref">Larsen and Marx 2005</a>)</span>. The theorem is:</p>
-<p><span class="math display" id="eq:binary-task-bayes">\[\begin{equation}
-\left.
-\begin{aligned}
-P(A|B)=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
-\end{aligned}
-\right \}
-\tag{2.27}
-\end{equation}\]</span></p>
-<p>An easy way to remember Eqn. <a href="binary-task.html#eq:binary-task-bayes">(2.27)</a> is to start with the numerator on the right hand side which has the “reversed” form of the desired conditioning on the left hand side. If the desired probability is <span class="math inline">\(P(A|B)\)</span> one starts with the “reversed” form of the conditioning, i.e., <span class="math inline">\(P(B|A)\)</span>, and multiplies by <span class="math inline">\(P(A)\)</span>. This yields the numerator. The denominator is the sum of two probabilities: the probability of <span class="math inline">\(B\)</span> given <span class="math inline">\(A\)</span>, i.e., <span class="math inline">\(P(B|A)\)</span>, multiplied by <span class="math inline">\(P(A)\)</span>, plus the probability of <span class="math inline">\(B\)</span> given <span class="math inline">\(!A\)</span>, i.e., <span class="math inline">\(P(B|!A)\)</span>, multiplied by <span class="math inline">\(P(!A)\)</span>.</p>
-</div>
-<div id="binary-taskNpvPpvCode" class="section level2 hasAnchor" number="2.8">
-<h2><span class="header-section-number">2.8</span> Examples: PPV, NPV and Accuracy<a href="binary-task.html#binary-taskNpvPpvCode" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><p>Typical disease prevalence in the US in screening mammography is 0.005.</p></li>
-<li><p>A typical operating point, for an expert mammographer, is FPF = 0.1, TPF = 0.8. What are <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span>?</p></li>
-<li><p>What is Accuracy?</p></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb1-1"><a href="binary-task.html#cb1-1"></a><span class="co"># disease prevalence in </span></span>
-<span id="cb1-2"><a href="binary-task.html#cb1-2"></a><span class="co"># USA screening mammography </span></span>
-<span id="cb1-3"><a href="binary-task.html#cb1-3"></a>prev <span class="ot">&lt;-</span> <span class="fl">0.005</span> <span class="co"># Line 3 </span></span>
-<span id="cb1-4"><a href="binary-task.html#cb1-4"></a>FPF <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="co"># typical operating point </span></span>
-<span id="cb1-5"><a href="binary-task.html#cb1-5"></a>TPF <span class="ot">&lt;-</span> <span class="fl">0.8</span> <span class="co">#        do: </span></span>
-<span id="cb1-6"><a href="binary-task.html#cb1-6"></a>sp <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>FPF </span>
-<span id="cb1-7"><a href="binary-task.html#cb1-7"></a>se <span class="ot">&lt;-</span> TPF </span>
-<span id="cb1-8"><a href="binary-task.html#cb1-8"></a>NPV <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">*</span>(sp)<span class="sc">/</span>((<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">*</span>(sp)<span class="sc">+</span>prev<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>se)) </span>
-<span id="cb1-9"><a href="binary-task.html#cb1-9"></a>PPV <span class="ot">&lt;-</span> prev<span class="sc">*</span>se<span class="sc">/</span>(prev<span class="sc">*</span>se<span class="sc">+</span>(<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sp)) </span>
-<span id="cb1-10"><a href="binary-task.html#cb1-10"></a><span class="fu">cat</span>(<span class="st">&quot;NPV = &quot;</span>, NPV, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">PPV = &quot;</span>, PPV, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1-11"><a href="binary-task.html#cb1-11"></a><span class="co">#&gt; NPV =  0.9988846 </span></span>
-<span id="cb1-12"><a href="binary-task.html#cb1-12"></a><span class="co">#&gt; PPV =  0.03864734</span></span>
-<span id="cb1-13"><a href="binary-task.html#cb1-13"></a>ac <span class="ot">&lt;-</span>(<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">*</span>sp<span class="sc">+</span>prev<span class="sc">*</span>se </span>
-<span id="cb1-14"><a href="binary-task.html#cb1-14"></a><span class="fu">cat</span>(<span class="st">&quot;accuracy = &quot;</span>, ac, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb1-15"><a href="binary-task.html#cb1-15"></a><span class="co">#&gt; accuracy =  0.8995</span></span></code></pre></div>
-<ul>
-<li>Line 3 initializes the variable <code>prev</code>, the disease prevalence, to 0.005.</li>
-<li>Line 4 assigns <code>0.1</code> to <code>FPF</code> and line 5 assigns <code>0.8</code> to <code>TPF</code>.</li>
-<li>Lines 6 and 7 initialize sp and se.</li>
-<li>Line 8 calculates <code>NPV</code> using Eqn. <a href="binary-task.html#eq:binary-task-npv-pop">(2.25)</a>.</li>
-<li>Line 9 calculates <code>PPV</code> using Eqn. <a href="binary-task.html#eq:binary-task-ppv-pop">(2.26)</a>.</li>
-<li>Line 13 calculates accuracy using Eqn. <a href="binary-task.html#eq:binary-task-ac-pop">(2.17)</a></li>
-</ul>
-<div id="binary-task-npv-ppv-comments" class="section level3 hasAnchor" number="2.8.1">
-<h3><span class="header-section-number">2.8.1</span> Comments<a href="binary-task.html#binary-task-npv-ppv-comments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If a woman has a negative diagnosis, chances are very small that she has breast cancer: the probability that the radiologist is incorrect in the negative diagnosis is <span class="math inline">\(1 - \text{NPV}\)</span> = 0.0011154. Even is she has a positive diagnosis the probability that she actually has cancer is still only <span class="math inline">\(\text{PPV}\)</span> = 0.0386473. That is why following a positive screening diagnosis the woman is recalled for further imaging and if that reveals cause for reasonable suspicion additional imaging is performed, perhaps augmented with a needle-biopsy, to confirm actual disease status. If the biopsy turns out positive only then is the woman referred for cancer therapy. Overall, accuracy is <span class="math inline">\(\text{Ac}\)</span> = 0.8995. The numbers in this illustration are for expert radiologists.</p>
-</div>
-<div id="binary-task-npv-ppv-irrel-lab" class="section level3 hasAnchor" number="2.8.2">
-<h3><span class="header-section-number">2.8.2</span> PPV and NPV are irrelevant to laboratory tasks<a href="binary-task.html#binary-task-npv-ppv-irrel-lab" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>According to the hierarchy of assessment methods described in (book) Chapter 01, TBA Table 1.1, <span class="math inline">\(\text{PPV}\)</span> and <span class="math inline">\(\text{NPV}\)</span> are level- 3 measurements. These are calculated from “live” interpretations as opposed to retrospectively calculated quantities like sensitivity and specificity. The radiologist adjusts the reporting threshold to achieve a balance between sensitivity and specificity. The balance depends critically on the expected disease prevalence. Based on geographical location and type of practice, the radiologist over time develops a feel for disease prevalence or it can be found in various databases.</p>
-<p>For example, a breast-imaging clinic that specializes in imaging high-risk women will have higher disease prevalence than the general population and the radiologist is expected to err more on the side of reduced specificity because of the expected benefit from increased sensitivity.</p>
-<p>In a laboratory study where one uses enriched case sets, the concepts of <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span> are meaningless. For example, it would be impossible to perform a laboratory study with 10,000 randomly sampled women, which would ensure about 50 actually diseased patients, which is large enough to get a reasonably precise estimate of sensitivity (estimating specificity is inherently more precise because most women are actually non-diseased). Rather, in a laboratory study one uses enriched data sets where the numbers of diseased-cases is much larger than in the general population, Eqn. <a href="binary-task.html#eq:binary-task-dis-prev-lab-vs-pop">(2.12)</a>. The radiologist cannot interpret enriched cases pretending that the actual prevalence is very low. Negative and positive predictive values while they can be calculated from laboratory data, have very little, if any, clinical meaning. No diagnostic decisions are riding on laboratory interpretations of retrospectively acquired patient images. In contrast <span class="math inline">\(\text{PPV}\)</span> and <span class="math inline">\(\text{NPV}\)</span> do have clinical meanings when calculated from large population based “live” studies. For example, the <span class="citation">(<a href="#ref-fenton2007influence" role="doc-biblioref">Fenton et al. 2007</a>)</span> study sampled 684,956 women and used the results of “live” interpretations. Laboratory ROC studies are typically conducted with 50-100 non-diseased and 50-100 diseased cases. A study using about 300 cases total would be considered a “large” ROC study.</p>
+<div id="illustration-using-r-code" class="section level5 hasAnchor" number="11.1.2.1.3">
+<h5><span class="header-section-number">11.1.2.1.3</span> Illustration using R code<a href="cad-simulator.html#illustration-using-r-code" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The software implementing the method described above is implemented in a file, in the software directory, named mainCadVsRadCalibValidate.R.</p>
+<ol style="list-style-type: decimal">
+<li><p>Highlight lines 1 – 26 and click Run. Echoed lines are not shown below (warnings are ignorable). Enter q &lt;- 1 in console window. Highlight lines 28 – 29 and click Run. Highlight lines 35– 91 and click Run. Highlight simuMu, line 85, and click Run. Highlight simuAlpha, line 86, and click Run. Highlight rhoNorMatr, line 88, and click Run. Highlight rhoAbn2Matr, line 89, and click Run. Highlight rhoNorMatr, line 88, and click Run. Highlight rhoAbn2Matr, line 89, and click Run. This should yield all values shown below under Part A. Highlight lines 96 – 111 and click Run.</p></li>
+<li><p>Enter l &lt;- 16 in console window. Highlight lines 113 – 131 and click Run. Highlight conditionArray, line 96, and click Run. Highlight probVector, line 101, and click Run. Highlight muTemp, line 114, and click Run. Highlight sigmaTemp, line 116, and click Run. This should yield all values shown below under Part B. This corresponds to c = 1 in Table 23.1. None of the elements of muTemp are zero, consistent with the fact that in this condition disease was visible to CAD and all radiologists.</p></li>
+<li><p>Enter l &lt;- 14 and repeat #2. This corresponds to c = 2 in Table 23.1. The first element of muTemp is zero, consistent with the fact that in this condition disease was invisible to CAD.</p></li>
+<li><p>Enter l &lt;- 13 and repeat #2. This corresponds to c = 3 in Table 23.1. The first two elements of muTemp are zero, consistent with the fact that in this condition disease was invisible to CAD and the first radiologist.</p></li>
+<li><p>Enter l &lt;- 1 and repeat #2. This corresponds to c = 16 in Table 23.1. Note that all elements of muTemp are zero, consistent with the fact that in this condition disease was invisible to CAD and all radiologists.
+23.3.2.1.3.1: Code output (partial)</p></li>
+</ol>
+<p>Part A
+seed = 1 , binning= TRUE , simuJ= 4 , K1= 120 , K2= 80
+&gt; simuMu
+[1] 2.011985 2.061436 2.035396 2.092945
+&gt; simuAlpha
+[1] 0.8879874 0.8728608 0.8820709 0.8531668
+&gt; rhoNorMatr
+[,1] [,2] [,3] [,4]
+[1,] 1.0000000 0.2430901 0.1093731 0.1802754
+[2,] 0.2430901 1.0000000 0.5145082 0.5683869
+[3,] 0.1093731 0.5145082 1.0000000 0.4721771
+[4,] 0.1802754 0.5683869 0.4721771 1.0000000
+&gt; rhoAbn2Matr
+[,1] [,2] [,3] [,4]
+[1,] 1.0000000 0.7539593 0.4511450 0.7447770
+[2,] 0.7539593 1.0000000 0.7295952 0.7648653
+[3,] 0.4511450 0.7295952 1.0000000 0.7859280
+[4,] 0.7447770 0.7648653 0.7859280 1.0000000</p>
+<p>CAD and a group of radiologists interpreting the same cases is a single-modality multiple-reader paradigm. It is necessary to calibrate the simulator to an actual clinical dataset, i.e., assign realistic values to the parameters of the simulation model. A calibrated simulator will yield samples not identical, but statistically identical to the original dataset. The criteria used to assess statistical identity, is described later. Traditional Roe-Metz simulator, involving univariate sampling, is described in the online appendix material. This chapter describes a new method, involving multivariate sampling, were used.</p>
 </div>
 </div>
-<div id="binary-task-discussion" class="section level2 hasAnchor" number="2.9">
-<h2><span class="header-section-number">2.9</span> Discussion<a href="binary-task.html#binary-task-discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This chapter introduced the terms sensitivity, specificity, disease prevalence, positive and negative predictive values and accuracy. Due to its strong dependence on disease prevalence, accuracy is a relatively poor measure of performance. Radiologists generally have a good understanding of positive and negative predictive values, as these terms are relevant in the clinical context, being in effect their “batting averages”. They do not care as much for sensitivity and specificity. A caveat on the use of <span class="math inline">\(\text{PPV}\)</span> and <span class="math inline">\(\text{NPV}\)</span> calculated from laboratory studies is noted.</p>
 </div>
-<div id="binary-task-references" class="section level2 hasAnchor" number="2.10">
-<h2><span class="header-section-number">2.10</span> Chapter References<a href="binary-task.html#binary-task-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="calibrating-the-simulator-to-a-specific-dataset-1" class="section level3 hasAnchor" number="11.1.3">
+<h3><span class="header-section-number">11.1.3</span> Calibrating the simulator to a specific dataset<a href="cad-simulator.html#calibrating-the-simulator-to-a-specific-dataset-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The multivariate simulator was calibrated to the dataset used to illustrate the analysis8 in Chapter 22, i.e., the Hupse-Karssemeijer dataset. The study used the location receiver operating characteristic (LROC) paradigm9. For the purpose of the current demonstration, the indicated location was ignored, i.e., only the ROC rating is used.</p>
+<div id="calibrating-parameters-to-individual-radiologists-1" class="section level4 hasAnchor" number="11.1.3.1">
+<h4><span class="header-section-number">11.1.3.1</span> Calibrating parameters to individual radiologists<a href="cad-simulator.html#calibrating-parameters-to-individual-radiologists-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For each radiologist , , one fits the clinical data using CBM , yielding , and a 2 x 2 covariance matrix . In the study in question J = 9. Threshold related covariance terms are excluded from this and the following description. Since each radiologist is an equally valid sample from the population, for parsimony, the values were averaged over , obtaining , where the dot symbol represents an average over the replaced index. For clarity, these are henceforth denoted , where the “1R” subscript denotes single radiologist-based estimates, i.e.,</p>
+<pre><code>.   (23.5)</code></pre>
+<p>In Eqn. (23.5), is the CBM separation parameter when readers are analyzed individually using the CBM method and the parameters averaged. Similarly, the parameter is the average CBM disease-visibility parameter. These are the calibrated CBM parameters for the individual readers.</p>
+</div>
+<div id="calibrating-parameters-to-paired-radiologists-1" class="section level4 hasAnchor" number="11.1.3.2">
+<h4><span class="header-section-number">11.1.3.2</span> Calibrating parameters to paired radiologists<a href="cad-simulator.html#calibrating-parameters-to-paired-radiologists-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Reader index 0 is reserved for CAD. For each pairing of different radiologists in the clinical dataset, , one fits the data using CORCBM1 yielding , and the 6 x 6 covariance matrix . The first index on each is the case-truth index . Since for each pairing there exists a pairing , upon averaging over all pairings the results must be symmetric with respect to and , yielding and the average covariance matrix . This is cast in more transparent notation as follows:</p>
+<pre><code>.   (23.6)</code></pre>
+<p>The “2R” and “RR” subscripts denote that the paired-radiologist fitting-method was used to estimate each parameter. Since different algorithms are used, one does not expect estimate to equal .</p>
+</div>
+<div id="reconciling-single-radiologist-and-paired-radiologist-parameters-1" class="section level4 hasAnchor" number="11.1.3.3">
+<h4><span class="header-section-number">11.1.3.3</span> Reconciling single radiologist and paired radiologist parameters<a href="cad-simulator.html#reconciling-single-radiologist-and-paired-radiologist-parameters-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>To simultaneously simulate all readers according to a multivariate distribution, see below, one needs a unique value for the radiologist separation parameter. This is accomplished by averaging the two estimates:</p>
+<pre><code>.   (23.7)</code></pre>
+<p>A similar averaging is applied to the CBM visibility parameter:</p>
+<pre><code>.   (23.8)</code></pre>
+<p>Therefore, the final calibrated CBM parameters for paired radiologists are:</p>
+<pre><code>.   (23.9)</code></pre>
+</div>
+<div id="calibrating-parameters-to-cad-1" class="section level4 hasAnchor" number="11.1.3.4">
+<h4><span class="header-section-number">11.1.3.4</span> Calibrating parameters to CAD<a href="cad-simulator.html#calibrating-parameters-to-cad-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Like the calibration of individual radiologists, the individual performance of CAD (regarded as reader “0”) can be estimated using CBM model, yielding:</p>
+<pre><code>.   (23.10)</code></pre>
+</div>
+<div id="cad-radiologist-pairings-1" class="section level4 hasAnchor" number="11.1.3.5">
+<h4><span class="header-section-number">11.1.3.5</span> CAD-Radiologist pairings<a href="cad-simulator.html#cad-radiologist-pairings-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Upon pairing CAD with radiologist , CORCBM yields and . Here represents the estimate of the CBM separation parameter when CAD is paired with radiologist and likewise for the other model parameters. As before, one averages over the radiologist index, yielding and , where the subscript “CR” denotes a CAD vs. radiologist pairing. To reconcile parameters, the CAD based estimates of the non-correlation parameters are averaged with the corresponding CAD vs. radiologist values, yielding:</p>
+<pre><code>.   (23.11)</code></pre>
+<p>This can be written in more transparent notation as follows (C = CAD; CR = CAD vs. Radiologist):</p>
+<pre><code>.   (23.12)</code></pre>
+<p>Therefore, the final calibrated parameters for CAD paired with radiologist data are:</p>
+<pre><code>.   (23.13)</code></pre>
+<p>Eqn. (23.5), Eqn. (23.9) and Eqn. (23.13) complete the calibration process. Here is the separation parameter for CAD while is the separation parameter for the average radiologist (when measured paired with CAD). Likewise, is the disease-visibility parameter for CAD while is the corresponding parameter for the average radiologist (when measured paired with CAD). Under the null hypothesis the CAD and the radiologist parameters must be identical:</p>
+<pre><code>.   (23.14)</code></pre>
+</div>
+</div>
+<div id="simulating-data-using-the-calibrated-simulator-1" class="section level3 hasAnchor" number="11.1.4">
+<h3><span class="header-section-number">11.1.4</span> Simulating data using the calibrated simulator<a href="cad-simulator.html#simulating-data-using-the-calibrated-simulator-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let denote the number of radiologists, non-diseased and diseased cases, respectively, to be simulated, and CAD is reader “0”. For each pair of different readers , , where the range of either or is 0 to J, each sample from the multivariate normal distribution yields a row-vector of 6 – parameters (C = CAD, R = radiologist):</p>
+<pre><code>.   (23.15)</code></pre>
+<p>The two parameters, characterizing the first (i.e., “X”) arm of the pairing, are and the corresponding ones characterizing the second (i.e., “Y”) arm are . The last two parameters are the decision variable correlations for non-diseased and diseased cases, respectively, assuming, for diseased cases, that the disease is visible in both X- and Y-arms to the radiologist (intermediate visibility conditions will be accommodated later).</p>
+<p>• In Eqn. (23.15), the upper line on the right hand side expresses the sampling when one of the readers is CAD, or . In this situation the other reader is the radiologist and one samples . The first two samples, , correspond to CAD and the next two correspond to the radiologist paired with CAD.
+• In Eqn. (23.15), the lower line on the right hand side expresses the sampling when none of the readers is CAD, and . In this situation both readers are radiologist and one samples . The first two samples, , correspond to one radiologist and the next two correspond to another radiologist.
+• Because of the nature of random sampling, a parameter value for pairing was not necessarily identical to that for ; the different values were replaced by their average.</p>
+<p>An average (and therefore more stable) value for reader , , is obtained by averaging over , when or averaging over , when . This can be expressed by:</p>
+<pre><code>.   (23.16) </code></pre>
+<p>A similar expression applies to average value :</p>
+<pre><code>.   (23.17) </code></pre>
+<p>One may wonder why the correlations do not have to be likewise averaged. This is because the correlation is between the two arms of the pairing, while the other parameters are specific to one or the other arm of the pairing.</p>
+<div id="example-with-j-3-1" class="section level4 hasAnchor" number="11.1.4.1">
+<h4><span class="header-section-number">11.1.4.1</span> Example with J = 3<a href="cad-simulator.html#example-with-j-3-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Following is an example of generating Z-samples for CAD and three radiologists, J = 3 (four readers total).</p>
+<div id="non-diseased-cases-2" class="section level5 hasAnchor" number="11.1.4.1.1">
+<h5><span class="header-section-number">11.1.4.1.1</span> Non-diseased cases<a href="cad-simulator.html#non-diseased-cases-2" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>For non-diseased cases, one need only construct the covariance matrix . The subscript “1” indicates its truth state, and “J + 1” indicates its dimension along one “edge” of the matrix. All diagonal elements are set to unity. The off-diagonal elements are filled as follows:</p>
+<pre><code>.   (23.18)</code></pre>
+<p>The covariance matrix is shown below. The correlations were sampled in Eqn. (23.15). One is using the non-diseased case correlation as the intent is to sample new non-diseased case z-samples.</p>
+<pre><code>.   (23.19)</code></pre>
+</div>
+<div id="diseased-cases-2" class="section level5 hasAnchor" number="11.1.4.1.2">
+<h5><span class="header-section-number">11.1.4.1.2</span> Diseased cases<a href="cad-simulator.html#diseased-cases-2" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>For diseased cases, define the visibility-condition (row) vector indexed by . Each row contains elements, each of which indicate whether disease was visible to the reader specified by the column number in the row-vector. If the disease was visible, the corresponding element is one and otherwise it is zero. For example, if the element of is one, then the disease was visible to reader , .</p>
+<p>For J = 3, there are visibility conditions, for which the visibility-condition vectors are shown in Table 23.1 under . For example, , means that in visibility-condition , disease was visible to CAD (the first “one” in the array) and to all radiologists. Likewise, means disease was invisible to CAD but was visible to all radiologists; means disease was invisible to CAD and the first radiologist, but was visible to the other radiologists and finally, means the disease was invisible to CAD or any of the radiologists.</p>
+<p>Table 23.1: Shown in this table, for J = 3, are 16 visibility conditions. The visibility-condition row-vectors are shown in column 2. the corresponding vector is in column= 2. The covariance matrices are listed in column 3 and the last column lists the probability of occurrence of each condition. All matrices are symmetric.</p>
+<p>The corresponding vectors follow from the second column in Table 23.1. For example, since , it follows that . Since the disease was visible, the first value is the separation parameter for CAD, i.e., , the second value is the separation parameter for the first radiologist, i.e., , etc. The needed were calculated via Eqn. (23.16). As another example, from , it follows that . Since the disease was invisible to CAD and the first radiologist, the first two values are zeroes and the third value is the separation parameter for the second radiologist, i.e., , and the last value is the separation parameter for the third radiologist, i.e., .</p>
+<p>In Table 23.1, the covariance matrix has ones along the diagonal (this is true of all covariance matrices in Table 23.1), the value at row 1 (CAD, = 0) and column 2 (radiologist 1, = 1) is . One is using because the disease was visible to both readers implied by row 1 and column 2, and the “01” indexing follows from the readers specified by the row and column indices. As another example, the value at row 2 (radiologist 1, = 1) and column 3 (radiologist 2, = 2) is . One is using because the disease was visible to both readers implied by the specified row and column indices. The “12” indexing follows from the readers implied by the specified row and column indices.</p>
+<p>As a more complicated example, consider . Since , the disease was invisible to CAD or the first radiologist. This implies that the correlation at row 1 ( = 0) and column 2 ( = 1) must be , subscripted with the appropriate reader indices, i.e., “01”. The value at row 1 and column 3 is the average of and , i.e., , subscripted with the appropriate reader indices, . As a final example, the value at row 3 and column 4 is , because disease was visible to the second and third radiologists ( = 2, = 3), and these are the appropriate indices.</p>
+<p>The last column of Table 23.1 lists the probabilities associate with each visibility-condition. For example, for visibility-condition = 1, because disease was visible to CAD, the probability of which is , it was visible to radiologist 1, the probability of which is , it was visible to radiologist 2, the probability of which is and it was visible to radiologist 3, the probability of which is . Because the radiologists are independent, the probability of the visibility-condition = 1 is the product of the component probabilities, which is . Similarly, the probability of observing visibility-condition = 2 is , because disease was invisible to CAD, the probability of which is , etc. One can confirm that the probabilities listed in the last column of Table 23.1 sum to unity.</p>
+<p>To determine the number of diseased cases in each visibility-condition one samples the multinomial distribution with trial size and cell probabilities specified by .</p>
+</div>
+<div id="illustration-using-r-code-1" class="section level5 hasAnchor" number="11.1.4.1.3">
+<h5><span class="header-section-number">11.1.4.1.3</span> Illustration using R code<a href="cad-simulator.html#illustration-using-r-code-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The software implementing the method described above is implemented in a file, in the software directory, named mainCadVsRadCalibValidate.R.</p>
+<ol style="list-style-type: decimal">
+<li>Highlight lines 1 – 26 and click Run. Echoed lines are not shown below (warnings are ignorable). Enter q &lt;- 1 in console window. Highlight lines 28 – 29 and click Run. Highlight lines 35– 91 and click Run. Highlight simuMu, line 85, and click Run. Highlight simuAlpha, line 86, and click Run. Highlight rhoNorMatr, line 88, and click Run. Highlight rhoAbn2Matr, line 89, and click Run. Highlight rhoNorMatr, line 88, and click Run. Highlight rhoAbn2Matr, line 89, and click Run. This should yield all values shown below under Part A. Highlight lines 96 – 111 and click Run.</li>
+<li>Enter l &lt;- 16 in console window. Highlight lines 113 – 131 and click Run. Highlight conditionArray, line 96, and click Run. Highlight probVector, line 101, and click Run. Highlight muTemp, line 114, and click Run. Highlight sigmaTemp, line 116, and click Run. This should yield all values shown below under Part B. This corresponds to c = 1 in Table 23.1. None of the elements of muTemp are zero, consistent with the fact that in this condition disease was visible to CAD and all radiologists.</li>
+<li>Enter l &lt;- 14 and repeat #2. This corresponds to c = 2 in Table 23.1. The first element of muTemp is zero, consistent with the fact that in this condition disease was invisible to CAD.</li>
+<li>Enter l &lt;- 13 and repeat #2. This corresponds to c = 3 in Table 23.1. The first two elements of muTemp are zero, consistent with the fact that in this condition disease was invisible to CAD and the first radiologist.</li>
+<li>Enter l &lt;- 1 and repeat #2. This corresponds to c = 16 in Table 23.1. Note that all elements of muTemp are zero, consistent with the fact that in this condition disease was invisible to CAD and all radiologists.</li>
+</ol>
+<p>23.3.2.1.3.1: Code output (partial)</p>
+</div>
+</div>
+<div id="general-case" class="section level4 hasAnchor" number="11.1.4.2">
+<h4><span class="header-section-number">11.1.4.2</span> General case<a href="cad-simulator.html#general-case" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Let denote column of the row vector (consisting of zeroes and ones) specified by . The rule for calculating the elements of the mean vector for visibility-condition is:</p>
+<pre><code>.   (23.20)</code></pre>
+<p>The rule for calculating the covariance matrix for visibility-condition is:</p>
+<pre><code>.   (23.21)</code></pre>
+<p>The rule for calculating the probability vector of the different visibility-conditions is:</p>
+<pre><code>.   (23.22)</code></pre>
+</div>
+<div id="using-the-simulator" class="section level4 hasAnchor" number="11.1.4.3">
+<h4><span class="header-section-number">11.1.4.3</span> Using the simulator<a href="cad-simulator.html#using-the-simulator" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The non-diseased ratings are generated as follows:</p>
+<pre><code>.   (23.23)</code></pre>
+<p>For diseased cases, one samples the multinomial distribution times with cell probabilities as specified in . This yields the number of diseased cases in each visibility-condition . Let denote the number of diseased cases in visibility-condition . One generates samples from the multivariate normal distribution:</p>
+<pre><code>.   (23.24)</code></pre>
+<p>This is repeated for all values of . This completes the simulation of continuous ratings for a single-modality and (J +1) readers ROC dataset, of which the first reader is CAD. Since the original dataset was binned into 6 bins, the simulated datasets were likewise binned into 6 bins.
+23.4: Calibration, validation of simulator and testing its NH behavior
+Table 23.2, Table 23.3 and Table 23.4, summarize the results of the calibration process.</p>
+</div>
+</div>
+</div>
+<div id="calibration-validation-of-simulator-and-testing-its-nh-behavior" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Calibration, validation of simulator and testing its NH behavior<a href="cad-simulator.html#calibration-validation-of-simulator-and-testing-its-nh-behavior" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Table 23.2, Table 23.3 and Table 23.4, summarize the results of the calibration process.</p>
+<div id="calibration-of-the-simulator" class="section level3 hasAnchor" number="11.2.1">
+<h3><span class="header-section-number">11.2.1</span> Calibration of the simulator<a href="cad-simulator.html#calibration-of-the-simulator" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Table 23.2: This table shows, for the clinical dataset, the calibrated values for the parameter vectors needed in Eqn. (23.15).</p>
+<p>Table 23.3: This table shows, for the clinical dataset, the calibrated values for needed in Eqn. (23.15).</p>
+<p>Table 23.3: This table shows, for the clinical dataset, the calibrated values for needed in Eqn. (23.15).</p>
+</div>
+<div id="validation-of-simulator-and-testing-its-nh-behavior" class="section level3 hasAnchor" number="11.2.2">
+<h3><span class="header-section-number">11.2.2</span> Validation of simulator and testing its NH behavior<a href="cad-simulator.html#validation-of-simulator-and-testing-its-nh-behavior" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The code was run with different values of , as indicated in Table 23.5. The seed variable was set to NULL, line 28, which generates random seeds . Data binning to 6 bins was used, line 26 and line 138 - 140. When the total number of cases is different from that in the clinical dataset, the values of and corresponding to simulated dataset , need to be multiplied by , line 143. Here NEW refers to the simulated datasets and ORG refers to the original dataset. Confidence intervals for and were obtained by bootstrapping readers and cases 2000 times.</p>
+<p>Table 23.5: This table summarizes results of validation of the simulation method and results of NH testing. For the original dataset = 0.00033 (0.000216, 0.000573) an = 0.00087 (0.000636, 0.00109). In the table = average of 2000 values of , = average of 2000 values of , where s is the simulation index . Instances where the 95% confidence interval for the original dataset did not include the corresponding simulation averaged estimate are indicated with an asterisk. The NH rejection rates were within that expected for 2000 simulations, i.e., they are all in the range (0.04, 0.06).</p>
+<p>Results of the evaluation, summarized in Table 23.5 show that, with one exception, as indicated by the asterisk, the estimates of and are contained within the 95% confidence interval of the corresponding values for the original data. The estimates of (average of rows 1 – 7 yields 0.00081) are close to that for the original dataset: = 0.00087 (0.000636, 0.00109). The estimates of (corresponding average = 0.00023) are smaller by about 30% than that for the original dataset: = 0.00033 (0.000216, 0.000573). Row 8 in Table 23.5 is identical to row 7, except that the data was not binned. The variance is smaller, suggesting that binning introduces additional noise into the data, which seems intuitively reasonable to the author. The tendency for the covariance term to be underestimated could be due to over-simplification of the model in our attempt at parsimony. If parameter averaging were not performed, one expects greater variability.</p>
+</div>
+</div>
+<div id="discussion" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Discussion<a href="cad-simulator.html#discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This chapter describes a method for designing a ratings simulator that is statistically matched (“calibrated”) to the single-modality multiple-reader ROC Hupse-Karssemeijer dataset. Showing that it yields, upon analysis with the ORH method, a figure-of-merit variance structure that is consistent with that of the original dataset validates the method. Furthermore, when the NH condition was imposed, the analysis method described in Chapter 22 rejects the NH consistent with the nominal , thereby validation the analysis method.</p>
+<p>It was noted in previous chapters that the Roe and Metz (RM) simulator is outdated and moreover, there does not exist a systematic way of estimating its parameters. The online appendix to this chapter details the calibration of the Roe and Metz model to the Hupse-Karssemeijer dataset (it is specific to CAD vs. radiologists). When calibrated and the null hypothesis imposed, simulations yield the correct rejection rate, consistent with 5%. The method yielded = 0.00048, consistent with the original data, but = 0.00133, which is outside the 95% CI of the original data estimate.</p>
+<p>The method described in this chapter is currently being extended to multiple modalities. It will then be used to test the NH behavior of DBMH and ORH analyses for simulators calibrated to different clinical datasets.</p>
 
 </div>
 </div>
-<h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-egan1975book" class="csl-entry">
-———. 1975a. <em>Signal Detection Theory and <span>ROC</span> Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.
-</div>
-<div id="ref-fenton2007influence" class="csl-entry">
-Fenton, Joshua J, Stephen H Taplin, Patricia A Carney, Linn Abraham, Edward A Sickles, Carl D’Orsi, Eric A Berns, et al. 2007. <span>“Influence of Computer-Aided Detection on Performance of Screening Mammography.”</span> <em>New England Journal of Medicine</em> 356 (14): 1399–409.
-</div>
-<div id="ref-green1966signal" class="csl-entry">
-Green, David Marvin, John A Swets, et al. 1966. <em>Signal Detection Theory and Psychophysics</em>. Vol. 1. Wiley New York.
-</div>
-<div id="ref-larsen2005introduction" class="csl-entry">
-Larsen, Richard J, and Morris L Marx. 2005. <em>An Introduction to Mathematical Statistics</em>. Prentice Hall Hoboken, NJ.
-</div>
-</div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="overview.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="binary-task-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="bivariate-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="datasets.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
