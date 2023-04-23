@@ -15,7 +15,6 @@ rmd_files: [
   "08-rsm-fitting.Rmd",
   "09-rsm-3-fits.Rmd",
   "10-bivariate-models.Rmd",
-  "11-cad-simulator.Rmd",
   "90-datasets.Rmd",
   "99-references.Rmd",
 ]
