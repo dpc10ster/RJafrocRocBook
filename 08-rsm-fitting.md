@@ -4,8 +4,7 @@
 
 
 
-## How much finished 99% {#rsm-fitting-how-much-finished}
-
+## How much finished 95% {#rsm-fitting-how-much-finished}
 
 
 
@@ -59,7 +58,7 @@ The Broyden–Fletcher–Goldfarb–Shanno (BFGS) [@shanno1970optimal; @shanno19
 
 ## Implementation {#rsm-fitting-fit-rsm}
 
-Function `FitRsmROC()` fits an RSM-predicted ROC curve to a binned single-modality single-reader ROC dataset. It is called by `ret <- FitRsmRoc(binnedRocData, lesDistr, trt = 1, rdr = 1)`, where `binnedRocData` is a binned multi-treatment multi-reader ROC dataset, `lesDistr` is the lesion distribution vector $\overrightarrow{f_L}$ for the dataset and `trt` and `rdr` are the desired treatment and reader to extract from the dataset, each of which defaults to one. 
+Function `FitRsmROC()` fits an RSM-predicted ROC curve to a **binned single-modality single-reader ROC** dataset. It is called by `ret <- FitRsmRoc(binnedRocData, lesDistr$Freq, trt = 1, rdr = 1)`, where `binnedRocData` is a binned multi-treatment multi-reader ROC dataset, `lesDistr` is the lesion distribution vector $\overrightarrow{f_L}$ for the dataset and `trt` and `rdr` are the desired treatment and reader to extract from the dataset, each of which defaults to one. 
 
 
 The return value `ret` is a `list` with the following elements:
@@ -86,8 +85,8 @@ The return value `ret` is a `list` with the following elements:
 
 ```r
 rocData <- DfFroc2Roc(dataset04)
-lesDistr <- UtilLesionDistrVector(dataset04)
-ret <- FitRsmRoc(rocData, lesDistr = lesDistr)
+lesDistr <- UtilLesDistr(dataset04)
+ret <- FitRsmRoc(rocData, lesDistr = lesDistr$Freq)
 ```
 
 The lesion distribution vector is 0.69, 0.2, 0.11. This means that fraction 0.69 of diseased cases contain one lesion, fraction 0.2 contain two lesions and fraction 0.11 contain three lesions.    

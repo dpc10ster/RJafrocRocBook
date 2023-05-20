@@ -188,7 +188,7 @@ The following displays RSM parameters for the Van Dyke dataset, treatment 1 and 
 <!-- f <- which(datasetNames == "VD") -->
 <!-- fileName <- datasetNames[f] -->
 <!-- theData <- get(sprintf("dataset%02d", f)) # the datasets already exist as R objects -->
-<!-- lesDistr <- UtilLesionDistrVector(theData) # RSM ROC fitting needs to know lesDistr -->
+<!-- lesDistr <- UtilLesDistr(theData) # RSM ROC fitting needs to know lesDistr -->
 
 <!-- ret <- LesionLocLesionCls(mu, lambda, nu, lesDistr) -->
 <!-- L_L <- ret$L_L -->
@@ -230,7 +230,7 @@ Displayed next are RSM parameters for the Franken dataset, treatment 2 and reade
 <!-- f <- which(datasetNames == "FR") -->
 <!-- fileName <- datasetNames[f] -->
 <!-- theData <- get(sprintf("dataset%02d", f)) # the datasets already exist as R objects -->
-<!-- lesDistr <- UtilLesionDistrVector(theData) # RSM ROC fitting needs to know lesDistr -->
+<!-- lesDistr <- UtilLesDistr(theData) # RSM ROC fitting needs to know lesDistr -->
 
 <!-- ret <- LesionLocLesionCls(mu, lambda, nu, lesDistr) -->
 <!-- L_L <- ret$L_L -->

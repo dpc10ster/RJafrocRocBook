@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 RSM fitting | Modeling ROC data</title>
   <meta name="description" content="Understanding and modeling receiver operating characteristic (ROC) data." />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 RSM fitting | Modeling ROC data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-04-23" />
+<meta name="date" content="2023-05-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -128,6 +128,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -400,7 +404,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="8" data-path="rsm-fitting.html"><a href="rsm-fitting.html"><i class="fa fa-check"></i><b>8</b> RSM fitting</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-how-much-finished"><i class="fa fa-check"></i><b>8.1</b> How much finished 99%</a></li>
+<li class="chapter" data-level="8.1" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-how-much-finished"><i class="fa fa-check"></i><b>8.1</b> How much finished 95%</a></li>
 <li class="chapter" data-level="8.2" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-intro"><i class="fa fa-check"></i><b>8.2</b> Introduction</a></li>
 <li class="chapter" data-level="8.3" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-roc-likelihood"><i class="fa fa-check"></i><b>8.3</b> ROC Likelihood function</a></li>
 <li class="chapter" data-level="8.4" data-path="rsm-fitting.html"><a href="rsm-fitting.html#rsm-fitting-fit-rsm"><i class="fa fa-check"></i><b>8.4</b> Implementation</a></li>
@@ -507,7 +511,7 @@ div.csl-indent {
 <div id="rsm-fitting" class="section level1 hasAnchor" number="8">
 <h1><span class="header-section-number">Chapter 8</span> RSM fitting<a href="rsm-fitting.html#rsm-fitting" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="rsm-fitting-how-much-finished" class="section level2 hasAnchor" number="8.1">
-<h2><span class="header-section-number">8.1</span> How much finished 99%<a href="rsm-fitting.html#rsm-fitting-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">8.1</span> How much finished 95%<a href="rsm-fitting.html#rsm-fitting-how-much-finished" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
 <div id="rsm-fitting-intro" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Introduction<a href="rsm-fitting.html#rsm-fitting-intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -542,7 +546,7 @@ LL_{ROC} \left ( \mu, \lambda, \nu, \overrightarrow{f_L} \right )= \sum_{r=0}^{R
 </div>
 <div id="rsm-fitting-fit-rsm" class="section level2 hasAnchor" number="8.4">
 <h2><span class="header-section-number">8.4</span> Implementation<a href="rsm-fitting.html#rsm-fitting-fit-rsm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Function <code>FitRsmROC()</code> fits an RSM-predicted ROC curve to a binned single-modality single-reader ROC dataset. It is called by <code>ret &lt;- FitRsmRoc(binnedRocData, lesDistr, trt = 1, rdr = 1)</code>, where <code>binnedRocData</code> is a binned multi-treatment multi-reader ROC dataset, <code>lesDistr</code> is the lesion distribution vector <span class="math inline">\(\overrightarrow{f_L}\)</span> for the dataset and <code>trt</code> and <code>rdr</code> are the desired treatment and reader to extract from the dataset, each of which defaults to one.</p>
+<p>Function <code>FitRsmROC()</code> fits an RSM-predicted ROC curve to a <strong>binned single-modality single-reader ROC</strong> dataset. It is called by <code>ret &lt;- FitRsmRoc(binnedRocData, lesDistr$Freq, trt = 1, rdr = 1)</code>, where <code>binnedRocData</code> is a binned multi-treatment multi-reader ROC dataset, <code>lesDistr</code> is the lesion distribution vector <span class="math inline">\(\overrightarrow{f_L}\)</span> for the dataset and <code>trt</code> and <code>rdr</code> are the desired treatment and reader to extract from the dataset, each of which defaults to one.</p>
 <p>The return value <code>ret</code> is a <code>list</code> with the following elements:</p>
 <blockquote>
 <ul>
@@ -566,8 +570,8 @@ LL_{ROC} \left ( \mu, \lambda, \nu, \overrightarrow{f_L} \right )= \sum_{r=0}^{R
 <li>The following example uses the <em>first</em> treatment in <code>dataset04</code>; this is a 5 treatment 4 radiologist FROC dataset <span class="citation">(<a href="#ref-zanca2009evaluation" role="doc-biblioref">Zanca et al. 2009</a>)</span> consisting of 200 cases acquired on a 5-point integer scale, i.e., it is already binned. If not one needs to bin the dataset using <code>DfBinDataset()</code>. The number of parameters to be estimated increases with the number of bins since for each additional bin one needs to estimate an additional cutoff parameter.</li>
 </ul>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="rsm-fitting.html#cb24-1" aria-hidden="true" tabindex="-1"></a>rocData <span class="ot">&lt;-</span> <span class="fu">DfFroc2Roc</span>(dataset04)</span>
-<span id="cb24-2"><a href="rsm-fitting.html#cb24-2" aria-hidden="true" tabindex="-1"></a>lesDistr <span class="ot">&lt;-</span> <span class="fu">UtilLesionDistrVector</span>(dataset04)</span>
-<span id="cb24-3"><a href="rsm-fitting.html#cb24-3" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">FitRsmRoc</span>(rocData, <span class="at">lesDistr =</span> lesDistr)</span></code></pre></div>
+<span id="cb24-2"><a href="rsm-fitting.html#cb24-2" aria-hidden="true" tabindex="-1"></a>lesDistr <span class="ot">&lt;-</span> <span class="fu">UtilLesDistr</span>(dataset04)</span>
+<span id="cb24-3"><a href="rsm-fitting.html#cb24-3" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">FitRsmRoc</span>(rocData, <span class="at">lesDistr =</span> lesDistr<span class="sc">$</span>Freq)</span></code></pre></div>
 <p>The lesion distribution vector is 0.69, 0.2, 0.11. This means that fraction 0.69 of diseased cases contain one lesion, fraction 0.2 contain two lesions and fraction 0.11 contain three lesions.</p>
 <p>The fitted parameter values are as follows (not shown are cutoffs excepting <span class="math inline">\(\zeta_1\)</span>, the chi-square statistic and the covariance matrix):</p>
 <blockquote>
