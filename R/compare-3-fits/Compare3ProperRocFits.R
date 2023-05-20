@@ -48,7 +48,7 @@ Compare3ProperRocFits <- function(datasetNames,
   options(warn = 2) # warnings AS errors
   fileName <- datasetNames[f]
   theData <- get(sprintf("dataset%02d", f)) # the datasets already exist as R objects
-  lesDistr <- UtilLesionDistrVector(theData) # RSM ROC fitting needs to know lesDistr
+  lesDistr <- UtilLesDistr(theData) # RSM ROC fitting needs to know lesDistr
   
   # convert to HR ROC data; and remove negative infinities
   if (theData$descriptions$type == "FROC") rocData <- DfFroc2Roc(theData) else rocData <- theData  
@@ -255,7 +255,7 @@ gpfRsmOperatingCharacteristic <- function(mu, lambda, nu, lesDistr){
   
   FPF_R <- sapply(plotZeta, RSM_FPF, lambda = lambda)
   TPF_R <- sapply(plotZeta, RSM_TPF, mu = mu, lambda = lambda, 
-                  nu = nu, lesDistr = lesDistr)
+                  nu = nu, lesDistr = lesDistr$Freq)
   
   return(list(FPF = FPF_R,
               TPF = TPF_R
