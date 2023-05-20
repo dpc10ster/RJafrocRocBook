@@ -187,7 +187,7 @@ cat("RSM parameters, Van Dyke Dataset, i=1, j=2:",
 <!-- f <- which(datasetNames == "VD") -->
 <!-- fileName <- datasetNames[f] -->
 <!-- theData <- get(sprintf("dataset%02d", f)) # the datasets already exist as R objects -->
-<!-- lesDistr <- UtilLesionDistrVector(theData) # RSM ROC fitting needs to know lesDistr -->
+<!-- lesDistr <- UtilLesDistr(theData) # RSM ROC fitting needs to know lesDistr -->
 
 <!-- ret <- LesionLocLesionCls(mu, lambda, nu, lesDistr) -->
 <!-- L_L <- ret$L_L -->
@@ -228,7 +228,7 @@ cat("RSM parameters, Franken dataset, i=2, j=3:",
 <!-- f <- which(datasetNames == "FR") -->
 <!-- fileName <- datasetNames[f] -->
 <!-- theData <- get(sprintf("dataset%02d", f)) # the datasets already exist as R objects -->
-<!-- lesDistr <- UtilLesionDistrVector(theData) # RSM ROC fitting needs to know lesDistr -->
+<!-- lesDistr <- UtilLesDistr(theData) # RSM ROC fitting needs to know lesDistr -->
 
 <!-- ret <- LesionLocLesionCls(mu, lambda, nu, lesDistr) -->
 <!-- L_L <- ret$L_L -->
