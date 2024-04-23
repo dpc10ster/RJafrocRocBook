@@ -42,7 +42,7 @@ rownames(df) <- c("D=1", "D=2")
 ```
 
 ```{r binary-task-truth-table, echo=FALSE}
-kable(df, caption = "Truth Table.", escape = FALSE)
+kable(df, caption = "Truth vs. Decision Table", escape = FALSE)
 ```
 
 Table \@ref(tab:binary-task-truth-table2) shows the number of decisions in each of the four categories defined in Table \@ref(tab:binary-task-truth-table). $n(\text{TN})$ is the number of true negative decisions, $n(\text{FN})$ is the number of false negative decisions, etc. The last row is the sum of the corresponding columns. The sum of the number of true negative decisions $n(\text{TN})$ and the number of false positive decisions $n(\text{FP})$ must equal the total number of non-diseased cases, denoted $K_1$. Likewise, the sum of the number of false negative decisions $n(\text{FN})$ and the number of true positive decisions $n(\text{TP})$ must equal the total number of diseased cases, denoted $K_2$. The last column is the sum of the corresponding rows. The sum of the number of true negative $n(\text{TN})$ and false negative $n(\text{FN})$ decisions is the total number of negative decisions, denoted $n(N)$. Likewise, the sum of the number of false positive $n(\text{FP})$ and true positive $n(\text{TP})$ decisions is the total number of positive decisions, denoted $n(P)$. Since each case yields a decision, the bottom-right corner cell is $n(N) + n(P)$, which must also equal $K_1+K_2$, the total number of cases denoted $K$. These statements are summarized in Eqn. \@ref(eq:binary-task-truth-table-eqns).
