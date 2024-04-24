@@ -137,7 +137,7 @@ A few facts concerning the normal distribution are summarized next.
 
 ## The normal distribution {#binary-task-model-normal-distribution}
 
-A probability density function (pdf) or density of a continuous random variable is a function giving the relative chance that the random variable takes on a given value. For a continuous distribution, the probability of the random variable being exactly equal to a given value is zero. The probability of the random variable falling in a range of values is given by the integral of this variable’s pdf function over that range. For the normal distribution $N(\mu,\sigma^2)$ the pdf is denoted $\phi(z|\mu,\sigma)$. The special case $N(0,1)$ is referred to as the **unit normal distribution**; it has zero mean and unit variance and the corresponding pdf is denoted $\phi(z)$. 
+A probability density function (pdf) or density of a continuous random variable is a function giving the relative chance that the random variable takes on a given value. For a continuous distribution, the probability of the random variable being exactly equal to a given value is zero. The probability of the random variable falling in a range of values is given by the integral of this variable’s pdf function over that range. For the normal distribution $N(\mu,\sigma^2)$ the pdf is denoted $\phi(z|\mu,\sigma)$. 
 
 By definition, 
 
@@ -146,7 +146,9 @@ By definition,
 (\#eq:binary-task-model-phi-def)
 \end{equation}
 
-The right hand side of Eqn. \@ref(eq:binary-task-model-phi-def) is the probability that the random variable $Z$ sampled from $N(\mu,\sigma^2)$ falls between the fixed limits z and z + dz. For this reason $\phi(z|\mu,\sigma)$  is termed the probability density function. The defining equation for the pdf of this distribution is:
+The right hand side of Eqn. \@ref(eq:binary-task-model-phi-def) is the probability that the random variable $Z$ sampled from $N(\mu,\sigma^2)$ falls between the fixed limits z and z + dz. For this reason $\phi(z|\mu,\sigma)$  is termed the probability density function. 
+
+The special case $N(0,1)$ is referred to as the **unit normal distribution**; it has zero mean and unit variance and the corresponding pdf is denoted $\phi(z)$. The defining equation for the pdf of the unit normal distribution is:
 
 
 \begin{equation} 
