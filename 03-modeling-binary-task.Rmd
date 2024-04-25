@@ -232,7 +232,7 @@ Lines 5 and 7 demonstrate that `pnorm` and `qnorm`, applied in either order, are
 
 Eqn. \@ref(eq:binary-task-model-Phi-Inv-alpha-by2) means that the (rounded) value -1.96 is such that the area under the pdf to the left of this value is 0.025. Similarly, Eqn. \@ref(eq:binary-task-model-phi-inv-alpha) means that the (rounded) value +1.96 is such that the area under the pdf to the left of this value is 1-0.025 = 0.975. In other words, -1.96 captures, to its left, the 2.5th percentile of the unit-normal distribution, and 1.96 captures, to its left, the 97.5th percentile of the unit-normal distribution, Fig. \@ref(fig:binary-task-model-shaded-tails). Since between them they capture 95 percent of the unit-normal pdf, these two values can be used to estimate 95 percent confidence intervals. 
 
-```{r binary-task-model-shaded-tails, fig.cap= "Illustrating that 95 percent of the total area under the unit normal pdf is contained in the range |Z| < 1.96, which can be used to construct a 95 percent confidence interval for an estimate of a suitably normalized statistic. The area in each shaded tail is 0.025.", fig.show='hold', echo=FALSE}
+```{r binary-task-model-shaded-tails, fig.cap= "Illustrating that 95 percent of the total area under the unit normal pdf is contained in the range |z| < 1.96; this is used to construct a 95 percent confidence interval for an estimate of a suitably normalized statistic. The area in each shaded tail is 0.025.", fig.show='hold', echo=FALSE}
 mu <- 0;sigma <- 1
 zeta <- -qnorm(0.025)
 step <- 0.1
