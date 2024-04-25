@@ -94,17 +94,17 @@ The lesion distribution vector is 0.69, 0.2, 0.11. This means that fraction 0.69
 The fitted parameter values are as follows (not shown are cutoffs excepting $\zeta_1$, the chi-square statistic and the covariance matrix):
 
 >
-* $\mu$ = 3.658
-* $\lambda$ = 9.935
+* $\mu$ = 3.642
+* $\lambda$ = 9.529
 * $\nu$ = 0.796
-* $\zeta_1$ = 1.504
-* $\text{AUC}$ = 0.9064
+* $\zeta_1$ = 1.482
+* $\text{AUC}$ = 0.9065
 * $\sigma (\text{AUC})$ = 0.023
 * $\text{NLLIni}$ = 281.4
 * $\text{NLLFin}$ = 267.27
 
 
-<!-- The relatively large separation parameter $\mu$ implies good lesion-classification performance. The large $\lambda$ parameter implies poor lesion-localization performance. On the average the observer generates 9.94 latent NL marks per image. However, because of the relatively large value of $\zeta_1$, i.e., 1.5, only fraction 0.066 of these are actually marked, resulting in 0.66 actual marks per image. Lesion-localization performance depends on the numbers of latent marks, i.e., $\lambda$ and $\nu$, not the actual numbers of marks.  -->
+<!-- The relatively large separation parameter $\mu$ implies good lesion-classification performance. The large $\lambda$ parameter implies poor lesion-localization performance. On the average the observer generates 9.53 latent NL marks per image. However, because of the relatively large value of $\zeta_1$, i.e., 1.48, only fraction 0.069 of these are actually marked, resulting in 0.66 actual marks per image. Lesion-localization performance depends on the numbers of latent marks, i.e., $\lambda$ and $\nu$, not the actual numbers of marks.  -->
 
 
 The fitting program decreased the negative log-likelihood (NLL) from 281.4 to 267.27. A decrease in negative log-likelihood is expected since one is maximizing the log-likelihood. Because the RSM contains 3 parameters, which is one more than conventional ROC models, the chi-square goodness of fit statistic usually cannot be calculated except for large datasets - the criterion of at least 5 counts in each bin for true positives and false positives is usually hard to meet. Using the method described in Section \@ref(binormal-model-curve-fitting-validation) the degrees of freedom is $\text{df} = R_{FROC} - 3$^[The expansive form of the relevant equation is $R_{FROC} + R_{FROC} - (3 + R_{FROC}) = R_{FROC} - 3$].
@@ -119,7 +119,7 @@ Shown next is the fitted plot and exact 95% confidence intervals for the lowest 
 </div>
 
 
-The fitted ROC curve in Fig. \@ref(fig:rsm-fitting-example-fit) is proper. The area under the proper ROC (calculated by numerical integration of the RSM-predicted curve) is 0.906 which will be shown in Chapter \@ref(rsm-3-fits) to be close to that yielded by CBM and PROPROC and higher than the binormal model fitted value.
+The fitted ROC curve in Fig. \@ref(fig:rsm-fitting-example-fit) is proper. The area under the proper ROC (calculated by numerical integration of the RSM-predicted curve) is 0.907 which will be shown in Chapter \@ref(rsm-3-fits) to be close to that yielded by CBM and PROPROC and higher than the binormal model fitted value.
 
 
 ## Discussion / Summary {#rsm-fitting-discussion-summary}

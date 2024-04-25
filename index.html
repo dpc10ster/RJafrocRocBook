@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Modeling ROC data</title>
   <meta name="description" content="Understanding and modeling receiver operating characteristic (ROC) data." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Modeling ROC data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-05-20" />
+<meta name="date" content="2024-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,18 +54,19 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -137,6 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -511,7 +513,7 @@ div.csl-indent {
 <div id="header">
 <h1 class="title">Modeling ROC data</h1>
 <p class="author"><em>Dev P. Chakraborty, PhD</em></p>
-<p class="date"><em>2023-05-20</em></p>
+<p class="date"><em>2024-04-25</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered hasAnchor">
 <h1>Preface<a href="index.html#preface" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -519,8 +521,8 @@ div.csl-indent {
 <div id="rationale-and-organization" class="section level2 hasAnchor" number="0.1">
 <h2><span class="header-section-number">0.1</span> Rationale and Organization<a href="index.html#rationale-and-organization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Intended as an online update to my print book <span class="citation">(<a href="#ref-chakraborty2017observer" role="doc-biblioref">Dev P. Chakraborty 2017</a>)</span>.</li>
-<li>All references in this book to <code>RJafroc</code> refer to the R package with that name (case sensitive) <span class="citation">(<a href="#ref-R-RJafroc" role="doc-biblioref">Dev Chakraborty and Zhai 2022</a>)</span>.</li>
+<li>Intended as an online update to my print book <span class="citation">(<a href="#ref-chakraborty2017observer">Dev P. Chakraborty 2017</a>)</span>.</li>
+<li>All references in this book to <code>RJafroc</code> refer to the R package with that name (case sensitive) <span class="citation">(<a href="#ref-R-RJafroc">Dev Chakraborty and Zhai 2023</a>)</span>.</li>
 <li>Since its publication in 2017 <code>RJafroc</code>, on which the <code>R</code> code examples in the print book depend, has evolved considerably causing many of the examples to “break” if one uses the most current version of <code>RJafroc</code>. The code will still run if one uses <a href="https://cran.r-project.org/src/contrib/Archive/RJafroc/"><code>RJafroc</code> 0.0.1</a> but this is inconvenient and misses out on many of the software improvements made since the print book appeared.</li>
 <li>This gives me the opportunity to update the print book.</li>
 <li>The online book has been divided into 3 books.
@@ -544,7 +546,7 @@ div.csl-indent {
 <p>Chapter <code>TempComment \@ref(proper-roc-models)</code></p>
 <p>Fix these on final release.</p>
 <ul>
-<li>It is intended as an online update to my “physical” book <span class="citation">(<a href="#ref-chakraborty2017observer" role="doc-biblioref">Dev P. Chakraborty 2017</a>)</span>.</li>
+<li>It is intended as an online update to my “physical” book <span class="citation">(<a href="#ref-chakraborty2017observer">Dev P. Chakraborty 2017</a>)</span>.</li>
 <li>Since its publication in 2017 the <code>RJafroc</code> package, on which the <code>R</code> code examples in the book depend, has evolved considerably, causing many of the examples to “break”.</li>
 <li>This also gives me the opportunity to improve on the book and include additional material.</li>
 </ul>
@@ -568,7 +570,7 @@ div.csl-indent {
 <div id="a-note-on-the-online-distribution-mechanism-of-the-book" class="section level2 unnumbered hasAnchor">
 <h2>A note on the online distribution mechanism of the book<a href="index.html#a-note-on-the-online-distribution-mechanism-of-the-book" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>In the hard-copy version of my book <span class="citation">(<a href="#ref-chakraborty2017observer" role="doc-biblioref">Dev P. Chakraborty 2017</a>)</span> the online distribution mechanism was <code>BitBucket</code>.</li>
+<li>In the hard-copy version of my book <span class="citation">(<a href="#ref-chakraborty2017observer">Dev P. Chakraborty 2017</a>)</span> the online distribution mechanism was <code>BitBucket</code>.</li>
 <li><code>BitBucket</code> allows code sharing within a <em>closed</em> group of a few users (e.g., myself and a grad student).</li>
 <li>Since the purpose of open-source code is to encourage collaborations, this was, in hindsight, an unfortunate choice. Moreover, as my experience with R-packages grew, it became apparent that the vast majority of R-packages are shared on <code>GitHub</code>, not <code>BitBucket</code>.</li>
 <li>For these reasons I have switched to <code>GitHub</code>. All previous instructions pertaining to <code>BitBucket</code> are obsolete.</li>
@@ -645,12 +647,12 @@ Execution halted</li>
 
 
 <h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-chakraborty2017observer" class="csl-entry">
 ———. 2017. <em>Observer Performance Methods for Diagnostic Imaging: Foundations, Modeling, and Applications with r-Based Examples</em>. Boca Raton, FL: CRC Press.
 </div>
 <div id="ref-R-RJafroc" class="csl-entry">
-Chakraborty, Dev, and Xuetong Zhai. 2022. <em>RJafroc: Artificial Intelligence Systems and Observer Performance</em>. <a href="https://dpc10ster.github.io/RJafroc/">https://dpc10ster.github.io/RJafroc/</a>.
+Chakraborty, Dev, and Xuetong Zhai. 2023. <em>RJafroc: Artificial Intelligence Systems and Observer Performance</em>. <a href="https://dpc10ster.github.io/RJafroc/">https://dpc10ster.github.io/RJafroc/</a>.
 </div>
 </div>
             </section>

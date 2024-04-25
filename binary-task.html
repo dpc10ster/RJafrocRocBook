@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 The Binary Task | Modeling ROC data</title>
   <meta name="description" content="Understanding and modeling receiver operating characteristic (ROC) data." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 The Binary Task | Modeling ROC data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-05-20" />
+<meta name="date" content="2024-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,18 +54,19 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -137,6 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -515,7 +517,7 @@ div.csl-indent {
 </div>
 <div id="binary-taskIntro" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Introduction<a href="binary-task.html#binary-taskIntro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In the previous chapter four observer performance paradigms were introduced: the receiver operating characteristic (ROC), the free-response ROC (FROC), the location ROC (LROC) and the region of interest (ROI). The next few chapters focus on the ROC paradigm, where each case is rated for confidence in presence of disease. While a multiple point rating scale is generally used, in this chapter it is assumed that the ratings are binary, and the allowed values are “1” vs. “2”. Equivalently, the ratings could be “non-diseased” vs. “diseased”, “negative” vs. “positive”, etc. In the literature this method of data acquisition is also termed the “yes/no” procedure <span class="citation">(<a href="#ref-green1966signal" role="doc-biblioref">Green, Swets, et al. 1966</a>; <a href="#ref-egan1975book" role="doc-biblioref">Egan 1975a</a>)</span>. The reason for restricting, for now, to the binary task is that the multiple rating task can be shown to be equivalent to a number of simultaneously conducted binary tasks. Therefore, understanding the simpler method is a good starting point.</p>
+<p>In the previous chapter four observer performance paradigms were introduced: the receiver operating characteristic (ROC), the free-response ROC (FROC), the location ROC (LROC) and the region of interest (ROI). The next few chapters focus on the ROC paradigm, where each case is rated for confidence in presence of disease. While a multiple point rating scale is generally used, in this chapter it is assumed that the ratings are binary, and the allowed values are “1” vs. “2”. Equivalently, the ratings could be “non-diseased” vs. “diseased”, “negative” vs. “positive”, etc. In the literature this method of data acquisition is also termed the “yes/no” procedure <span class="citation">(<a href="#ref-green1966signal">Green, Swets, et al. 1966</a>; <a href="#ref-egan1975book">Egan 1975a</a>)</span>. The reason for restricting, for now, to the binary task is that the multiple rating task can be shown to be equivalent to a number of simultaneously conducted binary tasks. Therefore, understanding the simpler method is a good starting point.</p>
 <p>Since the truth is also binary one can define a 2 x 2 table summarizing the outcomes in such studies and useful fractions that can be defined from the counts in this table, the most important ones being true positive fraction (TPF) and false positive fraction (FPF). These are used to construct measures of performance, some of which are desirable from the researcher’s point of view, but others are more relevant to radiologists. The concept of disease prevalence is introduced and used to derive relations between the different types of measures. An <code>R</code> example of calculation of these quantities is given.</p>
 </div>
 <div id="binary-task-2-2-table" class="section level2 hasAnchor" number="2.3">
@@ -523,43 +525,24 @@ div.csl-indent {
 <p>In this book, the term “case” is used for images obtained for diagnostic purposes, of a patient; often multiple images of a patient, sometimes from different modalities, are involved in an interpretation; all images of a single patient that are used in the interpretation are collectively referred to as a case. A familiar example is the 4-view presentation used in screening mammography, where two views of each breast are viewed.</p>
 <p>Let <span class="math inline">\(\text{D}\)</span> represent the radiologist’s decision with <span class="math inline">\(\text{D}=1\)</span> representing the decision “case is diagnosed as non-diseased” and <span class="math inline">\(\text{D}=2\)</span> representing the decision “case is diagnosed as diseased”. Let <span class="math inline">\(\text{T}\)</span> denote the truth with <span class="math inline">\(\text{T}=1\)</span> representing “case is actually non-diseased” and <span class="math inline">\(\text{T}=2\)</span> representing “case is actually diseased”. Each decision, one of two values, will be associated with one of two truth states, resulting in an entry in one of 4 cells arranged in a 2 x 2 layout, termed the decision vs. truth table, Table <a href="binary-task.html#tab:binary-task-truth-table">2.1</a> which is of fundamental importance in observer performance. The cells are labeled as follows. The abbreviation <span class="math inline">\(\text{TN}\)</span>, for true negative, represents a <span class="math inline">\(\text{D}=1\)</span> decision on a <span class="math inline">\(\text{T}=1\)</span> case. <span class="math inline">\(\text{FN}\)</span>, for false negative, represents a <span class="math inline">\(\text{D}=1\)</span> decision on a <span class="math inline">\(\text{T}=2\)</span> case (also termed a “miss”). <span class="math inline">\(\text{FP}\)</span>, for false positive, represents a <span class="math inline">\(\text{D}=2\)</span> decision on a <span class="math inline">\(\text{T}=1\)</span> case (a “false-alarm”) and <span class="math inline">\(\text{TP}\)</span>, for true positive, represents a <span class="math inline">\(\text{D}=2\)</span> decision on a <span class="math inline">\(\text{T}=2\)</span> case (a “hit”).</p>
 <table>
-<caption>
-<span id="tab:binary-task-truth-table">TABLE 2.1: </span>Truth Table.
-</caption>
+<caption><span id="tab:binary-task-truth-table">TABLE 2.1: </span>Truth vs. Decision Table</caption>
 <thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-T=1
-</th>
-<th style="text-align:left;">
-T=2
-</th>
+<tr class="header">
+<th align="left"></th>
+<th align="left">T=1</th>
+<th align="left">T=2</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-D=1
-</td>
-<td style="text-align:left;">
-TN
-</td>
-<td style="text-align:left;">
-FN
-</td>
+<tr class="odd">
+<td align="left">D=1</td>
+<td align="left">TN</td>
+<td align="left">FN</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-D=2
-</td>
-<td style="text-align:left;">
-FP
-</td>
-<td style="text-align:left;">
-TP
-</td>
+<tr class="even">
+<td align="left">D=2</td>
+<td align="left">FP</td>
+<td align="left">TP</td>
 </tr>
 </tbody>
 </table>
@@ -577,66 +560,33 @@ K=K_1+K_2&amp;=n(N)+n(P)
 \tag{2.1}
 \end{equation}\]</span></p>
 <table>
-<caption>
-<span id="tab:binary-task-truth-table2">TABLE 2.2: </span>Individual 2x2 table cell counts and row and column sums. <span class="math inline">\(K_1\)</span> is the number of non-diseased cases, <span class="math inline">\(K_2\)</span> is the number of diseased cases and <span class="math inline">\(K\)</span> is the total number of cases.
-</caption>
+<caption><span id="tab:binary-task-truth-table2">TABLE 2.2: </span>Individual 2x2 table cell counts and row and column sums. <span class="math inline">\(K_1\)</span> is the number of non-diseased cases, <span class="math inline">\(K_2\)</span> is the number of diseased cases and <span class="math inline">\(K\)</span> is the total number of cases.</caption>
 <thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-T=1
-</th>
-<th style="text-align:left;">
-T=2
-</th>
-<th style="text-align:left;">
-RowSums
-</th>
+<tr class="header">
+<th align="left"></th>
+<th align="left">T=1</th>
+<th align="left">T=2</th>
+<th align="left">RowSums</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-D=1
-</td>
-<td style="text-align:left;">
-n(TN)
-</td>
-<td style="text-align:left;">
-n(FN)
-</td>
-<td style="text-align:left;">
-n(N)=n(TN)+n(FN)
-</td>
+<tr class="odd">
+<td align="left">D=1</td>
+<td align="left">n(TN)</td>
+<td align="left">n(FN)</td>
+<td align="left">n(N)=n(TN)+n(FN)</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-D=2
-</td>
-<td style="text-align:left;">
-n(FP)
-</td>
-<td style="text-align:left;">
-n(TP)
-</td>
-<td style="text-align:left;">
-n(P)=n(FP)+n(TP)
-</td>
+<tr class="even">
+<td align="left">D=2</td>
+<td align="left">n(FP)</td>
+<td align="left">n(TP)</td>
+<td align="left">n(P)=n(FP)+n(TP)</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-ColSums
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K_1\)</span>=n(TN)+n(FP)
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K_2\)</span>=n(FN)+n(TP)
-</td>
-<td style="text-align:left;">
-<span class="math inline">\(K=K_1+K_2\)</span>=n(N)+n(P)
-</td>
+<tr class="odd">
+<td align="left">ColSums</td>
+<td align="left"><span class="math inline">\(K_1\)</span>=n(TN)+n(FP)</td>
+<td align="left"><span class="math inline">\(K_2\)</span>=n(FN)+n(TP)</td>
+<td align="left"><span class="math inline">\(K=K_1+K_2\)</span>=n(N)+n(P)</td>
 </tr>
 </tbody>
 </table>
@@ -867,7 +817,7 @@ n(TN)=K_1 \widehat{Sp}
 \text{PPV} =\frac{P(D)(TPF)}{P(D)(TPF)+P(!D)FPF}
 \tag{2.26}
 \end{equation}\]</span></p>
-<p>The equations defining <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span> are actually special cases of Bayes’ theorem <span class="citation">(<a href="#ref-larsen2005introduction" role="doc-biblioref">Larsen and Marx 2005</a>)</span>. The theorem is:</p>
+<p>The equations defining <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span> are actually special cases of Bayes’ theorem <span class="citation">(<a href="#ref-larsen2005introduction">Larsen and Marx 2005</a>)</span>. The theorem is:</p>
 <p><span class="math display" id="eq:binary-task-bayes">\[\begin{equation}
 \left.
 \begin{aligned}
@@ -916,7 +866,7 @@ P(A|B)=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
 <h3><span class="header-section-number">2.8.2</span> PPV and NPV are irrelevant to laboratory tasks<a href="binary-task.html#binary-task-npv-ppv-irrel-lab" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>According to the hierarchy of assessment methods described in (book) Chapter 01, TBA Table 1.1, <span class="math inline">\(\text{PPV}\)</span> and <span class="math inline">\(\text{NPV}\)</span> are level- 3 measurements. These are calculated from “live” interpretations as opposed to retrospectively calculated quantities like sensitivity and specificity. The radiologist adjusts the reporting threshold to achieve a balance between sensitivity and specificity. The balance depends critically on the expected disease prevalence. Based on geographical location and type of practice, the radiologist over time develops a feel for disease prevalence or it can be found in various databases.</p>
 <p>For example, a breast-imaging clinic that specializes in imaging high-risk women will have higher disease prevalence than the general population and the radiologist is expected to err more on the side of reduced specificity because of the expected benefit from increased sensitivity.</p>
-<p>In a laboratory study where one uses enriched case sets, the concepts of <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span> are meaningless. For example, it would be impossible to perform a laboratory study with 10,000 randomly sampled women, which would ensure about 50 actually diseased patients, which is large enough to get a reasonably precise estimate of sensitivity (estimating specificity is inherently more precise because most women are actually non-diseased). Rather, in a laboratory study one uses enriched data sets where the numbers of diseased-cases is much larger than in the general population, Eqn. <a href="binary-task.html#eq:binary-task-dis-prev-lab-vs-pop">(2.12)</a>. The radiologist cannot interpret enriched cases pretending that the actual prevalence is very low. Negative and positive predictive values while they can be calculated from laboratory data, have very little, if any, clinical meaning. No diagnostic decisions are riding on laboratory interpretations of retrospectively acquired patient images. In contrast <span class="math inline">\(\text{PPV}\)</span> and <span class="math inline">\(\text{NPV}\)</span> do have clinical meanings when calculated from large population based “live” studies. For example, the <span class="citation">(<a href="#ref-fenton2007influence" role="doc-biblioref">Fenton et al. 2007</a>)</span> study sampled 684,956 women and used the results of “live” interpretations. Laboratory ROC studies are typically conducted with 50-100 non-diseased and 50-100 diseased cases. A study using about 300 cases total would be considered a “large” ROC study.</p>
+<p>In a laboratory study where one uses enriched case sets, the concepts of <span class="math inline">\(\text{NPV}\)</span> and <span class="math inline">\(\text{PPV}\)</span> are meaningless. For example, it would be impossible to perform a laboratory study with 10,000 randomly sampled women, which would ensure about 50 actually diseased patients, which is large enough to get a reasonably precise estimate of sensitivity (estimating specificity is inherently more precise because most women are actually non-diseased). Rather, in a laboratory study one uses enriched data sets where the numbers of diseased-cases is much larger than in the general population, Eqn. <a href="binary-task.html#eq:binary-task-dis-prev-lab-vs-pop">(2.12)</a>. The radiologist cannot interpret enriched cases pretending that the actual prevalence is very low. Negative and positive predictive values while they can be calculated from laboratory data, have very little, if any, clinical meaning. No diagnostic decisions are riding on laboratory interpretations of retrospectively acquired patient images. In contrast <span class="math inline">\(\text{PPV}\)</span> and <span class="math inline">\(\text{NPV}\)</span> do have clinical meanings when calculated from large population based “live” studies. For example, the <span class="citation">(<a href="#ref-fenton2007influence">Fenton et al. 2007</a>)</span> study sampled 684,956 women and used the results of “live” interpretations. Laboratory ROC studies are typically conducted with 50-100 non-diseased and 50-100 diseased cases. A study using about 300 cases total would be considered a “large” ROC study.</p>
 </div>
 </div>
 <div id="binary-task-discussion" class="section level2 hasAnchor" number="2.9">
@@ -929,7 +879,7 @@ P(A|B)=\frac{P(A)P(B|A)}{P(A)P(B|A)+P(!A)P(B|!A)}
 </div>
 </div>
 <h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-egan1975book" class="csl-entry">
 ———. 1975a. <em>Signal Detection Theory and <span>ROC</span> Analysis</em>. Book. First. Academic Press Series in Cognition and Perception. New York: Academic Press, Inc.
 </div>

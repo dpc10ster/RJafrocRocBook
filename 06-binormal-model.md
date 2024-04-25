@@ -71,6 +71,14 @@ In an R-rating ROC study the observed ratings $r$ take on integer values 1 throu
 
 
 
+```
+#> Warning: A numeric `legend.position` argument in `theme()` was deprecated in ggplot2
+#> 3.5.0.
+#> ℹ Please use the `legend.position.inside` argument of `theme()` instead.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
+```
 
 
 
@@ -525,63 +533,23 @@ for (i in 1:length(a_arr)) {
 
 
 
-<table>
-<caption>(\#tab:summary-table-partial-normalized-areas)Summary of normalized $A_c^{XN}$ and $A_c^{YN}$ partial AUCs for different values of the $a$ parameter, where $b = 1$ and $c = 0.1$.</caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> $a$ </th>
-   <th style="text-align:right;"> $A^{XN}_c$ </th>
-   <th style="text-align:right;"> $A^{YN}_c$ </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0.5000 </td>
-   <td style="text-align:right;"> 0.5000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 0.6260 </td>
-   <td style="text-align:right;"> 0.7015 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 0.7785 </td>
-   <td style="text-align:right;"> 0.8208 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 3 </td>
-   <td style="text-align:right;"> 0.9144 </td>
-   <td style="text-align:right;"> 0.8842 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 4 </td>
-   <td style="text-align:right;"> 0.9822 </td>
-   <td style="text-align:right;"> 0.9189 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 5 </td>
-   <td style="text-align:right;"> 0.9981 </td>
-   <td style="text-align:right;"> 0.9393 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 0.9999 </td>
-   <td style="text-align:right;"> 0.9521 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 7 </td>
-   <td style="text-align:right;"> 1.0000 </td>
-   <td style="text-align:right;"> 0.9608 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 8 </td>
-   <td style="text-align:right;"> 1.0000 </td>
-   <td style="text-align:right;"> 0.9670 </td>
-  </tr>
-</tbody>
-</table>
+
+
+Table: (\#tab:summary-table-partial-normalized-areas)Summary of normalized $A_c^{XN}$ and $A_c^{YN}$ partial AUCs for different values of the $a$ parameter, where $b = 1$ and $c = 0.1$.
+
+| $a$| $A^{XN}_c$| $A^{YN}_c$|
+|---:|----------:|----------:|
+|   0|     0.5000|     0.5000|
+|   1|     0.6260|     0.7015|
+|   2|     0.7785|     0.8208|
+|   3|     0.9144|     0.8842|
+|   4|     0.9822|     0.9189|
+|   5|     0.9981|     0.9393|
+|   6|     0.9999|     0.9521|
+|   7|     1.0000|     0.9608|
+|   8|     1.0000|     0.9670|
+
+
 
 
 Table \@ref(tab:summary-table-partial-normalized-areas) shows $A_c^{XN}$ and $A_c^{YN}$ partial AUCs for different values of the $a$ parameter for $b = 1$ and $c = 0.1$. It demonstrates that the normalized areas are constrained between 0.5 and 1 (as long as $a$ in non-negative). For numerical reasons (basically a zero-divided-by-zero condition) it is difficult to show that $A_c^{YN}$ approaches 1 in the limit of very large a-parameter (since the green shaded area shrinks to zero).
@@ -784,10 +752,10 @@ retFit <- FitBinormalRoc(dataset)
 # display the results
 print(data.frame(retFit[1:5]))
 #>                   a           b         zetas         AUC       StdAUC
-#> zetaFwd1 1.32045261 0.607492932 0.00768054675 0.870452157 0.0379042262
-#> zetaFwd2 1.32045261 0.607492932 0.89627306763 0.870452157 0.0379042262
-#> zetaFwd3 1.32045261 0.607492932 1.51564784977 0.870452157 0.0379042262
-#> zetaFwd4 1.32045261 0.607492932 2.39672209865 0.870452157 0.0379042262
+#> zetaFwd1 1.32045261 0.607492932 0.00768054684 0.870452157 0.0379042263
+#> zetaFwd2 1.32045261 0.607492932 0.89627306766 0.870452157 0.0379042263
+#> zetaFwd3 1.32045261 0.607492932 1.51564784964 0.870452157 0.0379042263
+#> zetaFwd4 1.32045261 0.607492932 2.39672209849 0.870452157 0.0379042263
 # display the plot
 print(retFit$fittedPlot)
 ```

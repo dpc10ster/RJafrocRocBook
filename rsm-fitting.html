@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 RSM fitting | Modeling ROC data</title>
   <meta name="description" content="Understanding and modeling receiver operating characteristic (ROC) data." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 RSM fitting | Modeling ROC data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-05-20" />
+<meta name="date" content="2024-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,18 +54,19 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -137,6 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -515,7 +517,7 @@ div.csl-indent {
 </div>
 <div id="rsm-fitting-intro" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Introduction<a href="rsm-fitting.html#rsm-fitting-intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Radiological Search Model (RSM) is detailed in my <a href="https://dpc10ster.github.io/RJafrocFrocBook/">FROC paradigm book</a>. Early efforts at estimating RSM parameters revealed that an FROC curve based estimation method patterned after <span class="citation">(<a href="#ref-edwards2002maximum" role="doc-biblioref">Edwards et al. 2002</a>)</span> worked only for designer level CAD data and not for human observer data. Subsequent effort focused on ROC curve-based fitting, and this proved successful at fitting human observer datasets. A preliminary account of this work is in <span class="citation">(<a href="#ref-chakraborty2011estimating" role="doc-biblioref">DP Chakraborty and Svahn 2011</a>)</span>.</p>
+<p>The Radiological Search Model (RSM) is detailed in my <a href="https://dpc10ster.github.io/RJafrocFrocBook/">FROC paradigm book</a>. Early efforts at estimating RSM parameters revealed that an FROC curve based estimation method patterned after <span class="citation">(<a href="#ref-edwards2002maximum">Edwards et al. 2002</a>)</span> worked only for designer level CAD data and not for human observer data. Subsequent effort focused on ROC curve-based fitting, and this proved successful at fitting human observer datasets. A preliminary account of this work is in <span class="citation">(<a href="#ref-chakraborty2011estimating">DP Chakraborty and Svahn 2011</a>)</span>.</p>
 <blockquote>
 <p>It may be surprising that the ROC curve based fitting works, which implies that one does not even need FROC data to estimate RSM parameters. I have previously stated that the ROC paradigm ignores search so how can one estimate search-model parameters from ROC data? The reason is that the <em>shape</em> of the RSM-predicted ROC curve and the <em>location</em> of the end-point depend on the RSM parameters.</p>
 </blockquote>
@@ -542,7 +544,7 @@ LL_{ROC} \left ( \mu, \lambda, \nu, \overrightarrow{f_L} \right )= \sum_{r=0}^{R
 \tag{8.3}
 \end{equation}\]</span></p>
 <p>The total number of parameters to be estimated, including thresholds, is <span class="math inline">\(3+R_{FROC}\)</span>. Maximizing the likelihood function yields parameter estimates.</p>
-<p>The Broyden–Fletcher–Goldfarb–Shanno (BFGS) <span class="citation">(<a href="#ref-shanno1970optimal" role="doc-biblioref">Shanno and Kettler 1970</a>; <a href="#ref-shanno1970conditioning" role="doc-biblioref">Shanno 1970</a>; <a href="#ref-goldfarb1970family" role="doc-biblioref">Goldfarb 1970</a>; <a href="#ref-fletcher1970new" role="doc-biblioref">Fletcher 1970</a>, <a href="#ref-fletcher2013practical" role="doc-biblioref">2013</a>; <a href="#ref-broyden1970convergence" role="doc-biblioref">Broyden 1970</a>)</span> minimization algorithm, as implemented as function <code>mle2()</code> in R-package <span class="citation">(<a href="#ref-R-bbmle" role="doc-biblioref">Bolker and R Development Core Team 2022</a>)</span> was used to minimize the negative of the likelihood function. Since the BFGS-algorithm varies each parameter in an unrestricted range <span class="math inline">\((-\infty, \infty)\)</span>, which would cause problems (e.g., RSM parameters cannot be negative and thresholds are subject to an ordering constraint) appropriate transformations (“forward” and “inverse”) were used so that, irrespective of values chosen by the BFGS-algorithm, the values supplied to the log-likelihood function were always valid.</p>
+<p>The Broyden–Fletcher–Goldfarb–Shanno (BFGS) <span class="citation">(<a href="#ref-shanno1970optimal">Shanno and Kettler 1970</a>; <a href="#ref-shanno1970conditioning">Shanno 1970</a>; <a href="#ref-goldfarb1970family">Goldfarb 1970</a>; <a href="#ref-fletcher1970new">Fletcher 1970</a>, <a href="#ref-fletcher2013practical">2013</a>; <a href="#ref-broyden1970convergence">Broyden 1970</a>)</span> minimization algorithm, as implemented as function <code>mle2()</code> in R-package <span class="citation">(<a href="#ref-R-bbmle">Bolker and R Development Core Team 2023</a>)</span> was used to minimize the negative of the likelihood function. Since the BFGS-algorithm varies each parameter in an unrestricted range <span class="math inline">\((-\infty, \infty)\)</span>, which would cause problems (e.g., RSM parameters cannot be negative and thresholds are subject to an ordering constraint) appropriate transformations (“forward” and “inverse”) were used so that, irrespective of values chosen by the BFGS-algorithm, the values supplied to the log-likelihood function were always valid.</p>
 </div>
 <div id="rsm-fitting-fit-rsm" class="section level2 hasAnchor" number="8.4">
 <h2><span class="header-section-number">8.4</span> Implementation<a href="rsm-fitting.html#rsm-fitting-fit-rsm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -567,26 +569,26 @@ LL_{ROC} \left ( \mu, \lambda, \nu, \overrightarrow{f_L} \right )= \sum_{r=0}^{R
 <div id="rsm-fitting-fitrsmroc-usage-example" class="section level2 hasAnchor" number="8.5">
 <h2><span class="header-section-number">8.5</span> <code>FitRsmROC</code> usage example<a href="rsm-fitting.html#rsm-fitting-fitrsmroc-usage-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>The following example uses the <em>first</em> treatment in <code>dataset04</code>; this is a 5 treatment 4 radiologist FROC dataset <span class="citation">(<a href="#ref-zanca2009evaluation" role="doc-biblioref">Zanca et al. 2009</a>)</span> consisting of 200 cases acquired on a 5-point integer scale, i.e., it is already binned. If not one needs to bin the dataset using <code>DfBinDataset()</code>. The number of parameters to be estimated increases with the number of bins since for each additional bin one needs to estimate an additional cutoff parameter.</li>
+<li>The following example uses the <em>first</em> treatment in <code>dataset04</code>; this is a 5 treatment 4 radiologist FROC dataset <span class="citation">(<a href="#ref-zanca2009evaluation">Zanca et al. 2009</a>)</span> consisting of 200 cases acquired on a 5-point integer scale, i.e., it is already binned. If not one needs to bin the dataset using <code>DfBinDataset()</code>. The number of parameters to be estimated increases with the number of bins since for each additional bin one needs to estimate an additional cutoff parameter.</li>
 </ul>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="rsm-fitting.html#cb24-1" aria-hidden="true" tabindex="-1"></a>rocData <span class="ot">&lt;-</span> <span class="fu">DfFroc2Roc</span>(dataset04)</span>
-<span id="cb24-2"><a href="rsm-fitting.html#cb24-2" aria-hidden="true" tabindex="-1"></a>lesDistr <span class="ot">&lt;-</span> <span class="fu">UtilLesDistr</span>(dataset04)</span>
-<span id="cb24-3"><a href="rsm-fitting.html#cb24-3" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">FitRsmRoc</span>(rocData, <span class="at">lesDistr =</span> lesDistr<span class="sc">$</span>Freq)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="rsm-fitting.html#cb26-1" tabindex="-1"></a>rocData <span class="ot">&lt;-</span> <span class="fu">DfFroc2Roc</span>(dataset04)</span>
+<span id="cb26-2"><a href="rsm-fitting.html#cb26-2" tabindex="-1"></a>lesDistr <span class="ot">&lt;-</span> <span class="fu">UtilLesDistr</span>(dataset04)</span>
+<span id="cb26-3"><a href="rsm-fitting.html#cb26-3" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">FitRsmRoc</span>(rocData, <span class="at">lesDistr =</span> lesDistr<span class="sc">$</span>Freq)</span></code></pre></div>
 <p>The lesion distribution vector is 0.69, 0.2, 0.11. This means that fraction 0.69 of diseased cases contain one lesion, fraction 0.2 contain two lesions and fraction 0.11 contain three lesions.</p>
 <p>The fitted parameter values are as follows (not shown are cutoffs excepting <span class="math inline">\(\zeta_1\)</span>, the chi-square statistic and the covariance matrix):</p>
 <blockquote>
 <ul>
-<li><span class="math inline">\(\mu\)</span> = 3.658</li>
-<li><span class="math inline">\(\lambda\)</span> = 9.935</li>
+<li><span class="math inline">\(\mu\)</span> = 3.642</li>
+<li><span class="math inline">\(\lambda\)</span> = 9.529</li>
 <li><span class="math inline">\(\nu\)</span> = 0.796</li>
-<li><span class="math inline">\(\zeta_1\)</span> = 1.504</li>
-<li><span class="math inline">\(\text{AUC}\)</span> = 0.9064</li>
+<li><span class="math inline">\(\zeta_1\)</span> = 1.482</li>
+<li><span class="math inline">\(\text{AUC}\)</span> = 0.9065</li>
 <li><span class="math inline">\(\sigma (\text{AUC})\)</span> = 0.023</li>
 <li><span class="math inline">\(\text{NLLIni}\)</span> = 281.4</li>
 <li><span class="math inline">\(\text{NLLFin}\)</span> = 267.27</li>
 </ul>
 </blockquote>
-<!-- The relatively large separation parameter $\mu$ implies good lesion-classification performance. The large $\lambda$ parameter implies poor lesion-localization performance. On the average the observer generates 9.94 latent NL marks per image. However, because of the relatively large value of $\zeta_1$, i.e., 1.5, only fraction 0.066 of these are actually marked, resulting in 0.66 actual marks per image. Lesion-localization performance depends on the numbers of latent marks, i.e., $\lambda$ and $\nu$, not the actual numbers of marks.  -->
+<!-- The relatively large separation parameter $\mu$ implies good lesion-classification performance. The large $\lambda$ parameter implies poor lesion-localization performance. On the average the observer generates 9.53 latent NL marks per image. However, because of the relatively large value of $\zeta_1$, i.e., 1.48, only fraction 0.069 of these are actually marked, resulting in 0.66 actual marks per image. Lesion-localization performance depends on the numbers of latent marks, i.e., $\lambda$ and $\nu$, not the actual numbers of marks.  -->
 <p>The fitting program decreased the negative log-likelihood (NLL) from 281.4 to 267.27. A decrease in negative log-likelihood is expected since one is maximizing the log-likelihood. Because the RSM contains 3 parameters, which is one more than conventional ROC models, the chi-square goodness of fit statistic usually cannot be calculated except for large datasets - the criterion of at least 5 counts in each bin for true positives and false positives is usually hard to meet. Using the method described in Section <a href="binormal-model.html#binormal-model-curve-fitting-validation">6.12.5</a> the degrees of freedom is <span class="math inline">\(\text{df} = R_{FROC} - 3\)</span><a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>.</p>
 <p>Shown next is the fitted plot and exact 95% confidence intervals for the lowest and highest operating points.</p>
 <div class="figure"><span style="display:block;" id="fig:rsm-fitting-example-fit"></span>
@@ -595,20 +597,20 @@ LL_{ROC} \left ( \mu, \lambda, \nu, \overrightarrow{f_L} \right )= \sum_{r=0}^{R
 FIGURE 8.1: RSM-fitted ROC curve for treatment one and reader one of <code>dataset04</code>.
 </p>
 </div>
-<p>The fitted ROC curve in Fig. <a href="rsm-fitting.html#fig:rsm-fitting-example-fit">8.1</a> is proper. The area under the proper ROC (calculated by numerical integration of the RSM-predicted curve) is 0.906 which will be shown in Chapter <a href="rsm-3-fits.html#rsm-3-fits">9</a> to be close to that yielded by CBM and PROPROC and higher than the binormal model fitted value.</p>
+<p>The fitted ROC curve in Fig. <a href="rsm-fitting.html#fig:rsm-fitting-example-fit">8.1</a> is proper. The area under the proper ROC (calculated by numerical integration of the RSM-predicted curve) is 0.907 which will be shown in Chapter <a href="rsm-3-fits.html#rsm-3-fits">9</a> to be close to that yielded by CBM and PROPROC and higher than the binormal model fitted value.</p>
 </div>
 <div id="rsm-fitting-discussion-summary" class="section level2 hasAnchor" number="8.6">
 <h2><span class="header-section-number">8.6</span> Discussion / Summary<a href="rsm-fitting.html#rsm-fitting-discussion-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Over the years, there have been several attempts at fitting FROC data. Prior to the RSM-based ROC curve approach described in this chapter all methods aimed at fitting FROC curves in the mistaken belief that this approach was using all the data. The earliest was <span class="citation">(<a href="#ref-chakraborty1989maximum" role="doc-biblioref">Dev P. Chakraborty 1989</a>)</span>. This was followed by <span class="citation">(<a href="#ref-swensson1996unified" role="doc-biblioref">Swensson 1996</a>)</span>, subsequently shown to be equivalent to my earlier work as far as predicting the FROC curve was concerned <span class="citation">(<a href="#ref-chakraborty2008operating" role="doc-biblioref">DP Chakraborty and Yoon 2008</a>)</span>. In the meantime CAD developers, who relied heavily on the FROC curve to evaluate their algorithms, developed an empirical approach that was subsequently put on a formal basis in <span class="citation">(<a href="#ref-edwards2002maximum" role="doc-biblioref">Edwards et al. 2002</a>)</span>. While this method works with CAD data it fails with radiologist data – the reason is that it assumes <span class="math inline">\(\zeta_1 = -\infty\)</span> (i.e., the algorithm marks every suspcioius region) which is not true for radiologists as discussed in my 2017 print book.</p>
+<p>Over the years, there have been several attempts at fitting FROC data. Prior to the RSM-based ROC curve approach described in this chapter all methods aimed at fitting FROC curves in the mistaken belief that this approach was using all the data. The earliest was <span class="citation">(<a href="#ref-chakraborty1989maximum">Dev P. Chakraborty 1989</a>)</span>. This was followed by <span class="citation">(<a href="#ref-swensson1996unified">Swensson 1996</a>)</span>, subsequently shown to be equivalent to my earlier work as far as predicting the FROC curve was concerned <span class="citation">(<a href="#ref-chakraborty2008operating">DP Chakraborty and Yoon 2008</a>)</span>. In the meantime CAD developers, who relied heavily on the FROC curve to evaluate their algorithms, developed an empirical approach that was subsequently put on a formal basis in <span class="citation">(<a href="#ref-edwards2002maximum">Edwards et al. 2002</a>)</span>. While this method works with CAD data it fails with radiologist data – the reason is that it assumes <span class="math inline">\(\zeta_1 = -\infty\)</span> (i.e., the algorithm marks every suspcioius region) which is not true for radiologists as discussed in my 2017 print book.</p>
 <p>This chapter describes an approach to fitting ROC curves using the RSM. On the face of it fitting the ROC curve seems to be ignoring much of the data (since the ROC rating on a case is the rating of the highest-rated mark on that case). If the case has several marks only the highest rated one is used. In fact the highest rated mark contains information about the other marks on the case, namely that they were all rated lower. For example the highest of a number of samples from a uniform distribution is a sufficient statistic, i.e., it contains all the information contained in the observed samples. Neglect of the marks rated lower is not as bad as might seem at first.</p>
 <p>The next chapter describes application of the RSM and other available proper ROC fitting methods to a number of datasets.</p>
 
 </div>
 </div>
 <h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-R-bbmle" class="csl-entry">
-Bolker, Ben, and R Development Core Team. 2022. <em>Bbmle: Tools for General Maximum Likelihood Estimation</em>. <a href="https://github.com/bbolker/bbmle">https://github.com/bbolker/bbmle</a>.
+Bolker, Ben, and R Development Core Team. 2023. <em>Bbmle: Tools for General Maximum Likelihood Estimation</em>. <a href="https://github.com/bbolker/bbmle">https://github.com/bbolker/bbmle</a>.
 </div>
 <div id="ref-broyden1970convergence" class="csl-entry">
 Broyden, Charles George. 1970. <span>“The Convergence of a Class of Double-Rank Minimization Algorithms 1. General Considerations.”</span> <em>IMA Journal of Applied Mathematics</em> 6 (1): 76–90.

@@ -31,52 +31,16 @@ The empirical method is also termed "non-parametric" as it does not involve para
 
 Cases are indexed by $k_tt$  where $t$ indicates the truth-status at the case (i.e., patient) level, with $t=1$ for non diseased cases and $t=2$ for diseased cases. Index $k_1$ ranges from one to $K_1$ for non-diseased cases and $k_2$ ranges from one to $K_2$ for diseased cases where $K_1$ and $K_2$ are the total number of non-diseased and diseased cases respectively. In Table \@ref(tab:empirical-ROC-2index-notation) each case is represented as a shaded box using lighter shading for non-diseased cases and darker shading for diseased cases. There are 11 non-diseased cases, labeled N1 – N11, in the upper row of boxes and there are seven diseased cases, labeled D1 – D7, in the lower row.
 
-<table>
-<caption>(\#tab:empirical-ROC-2index-notation)On the need for two indices to label cases in an ROC study.</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:left;">  </th>
-   <th style="text-align:left;">  </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> N1 </td>
-   <td style="text-align:left;"> N2 </td>
-   <td style="text-align:left;"> N3 </td>
-   <td style="text-align:left;"> N4 </td>
-   <td style="text-align:left;"> N5 </td>
-   <td style="text-align:left;"> N6 </td>
-   <td style="text-align:left;"> N7 </td>
-   <td style="text-align:left;"> N8 </td>
-   <td style="text-align:left;"> N9 </td>
-   <td style="text-align:left;"> N10 </td>
-   <td style="text-align:left;"> N11 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> D1 </td>
-   <td style="text-align:left;"> D2 </td>
-   <td style="text-align:left;"> D3 </td>
-   <td style="text-align:left;"> D4 </td>
-   <td style="text-align:left;"> D5 </td>
-   <td style="text-align:left;"> D6 </td>
-   <td style="text-align:left;"> D7 </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:left;">  </td>
-  </tr>
-</tbody>
-</table>
+
+
+Table: (\#tab:empirical-ROC-2index-notation)On the need for two indices to label cases in an ROC study.
+
+|   |   |   |   |   |   |   |   |   |    |    |
+|:--|:--|:--|:--|:--|:--|:--|:--|:--|:---|:---|
+|N1 |N2 |N3 |N4 |N5 |N6 |N7 |N8 |N9 |N10 |N11 |
+|D1 |D2 |D3 |D4 |D5 |D6 |D7 |   |   |    |    |
+
+
 
 
 
@@ -282,6 +246,22 @@ In this chapter, a simple method for estimating the empirical area under the ROC
 
 The following proof is adapted from [@bamber1975area] and while it may appear to be restricted to discrete ratings, the result is in fact quite general, i.e., it is applicable even if the ratings are acquired on a continuous scale. The reason is that in an R-rating ROC study the observed z-samples or ratings take on integer values, 1 through R. If R is large enough, ordering information present in the continuous data is not lost upon binning. In the following it is helpful to keep in mind that one is dealing with discrete distributions of the ratings, described by probability mass functions as opposed to probability density functions, e.g., $P(Z_2 = \zeta_i)$ is not zero, as would be the case for continuous ratings. The proof is illustrated with Fig. \@ref(fig:empirical-auc-bamber-theorem).
 
+
+
+```
+#> Warning in geom_segment(aes(x = zeta1_x - 0.05, y = 0.1, xend = zeta1_x, : All aesthetics have length 1, but the data has 6 rows.
+#> ℹ Please consider using `annotate()` or provide this layer with data containing
+#>   a single row.
+#> Warning in geom_segment(aes(x = zeta2_x + 0.05, y = 0.1, xend = zeta2_x, : All aesthetics have length 1, but the data has 6 rows.
+#> ℹ Please consider using `annotate()` or provide this layer with data containing
+#>   a single row.
+#> Warning in geom_segment(aes(x = 0.95, y = zeta1_y - 0.1, xend = 1, yend = zeta1_y), : All aesthetics have length 1, but the data has 6 rows.
+#> ℹ Please consider using `annotate()` or provide this layer with data containing
+#>   a single row.
+#> Warning in geom_segment(aes(x = 0.88, y = zeta2_y + 0.03, xend = 1, yend = zeta2_y), : All aesthetics have length 1, but the data has 6 rows.
+#> ℹ Please consider using `annotate()` or provide this layer with data containing
+#>   a single row.
+```
 
 <div class="figure">
 <img src="05-empirical-auc_files/figure-html/empirical-auc-bamber-theorem-1.png" alt=":Illustration of the derivation of Bamber's equivalence theorem. Shows an empirical ROC plot for R = 5; the shaded area is due to points labeled i and i + 1." width="672" />

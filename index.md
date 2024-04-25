@@ -1,7 +1,7 @@
 --- 
 title: "Modeling ROC data"
 author: "Dev P. Chakraborty, PhD"
-date: "2023-05-20"
+date: "2024-04-25"
 site: bookdown::bookdown_site
 output: bookdown::html_document
 documentclass: book

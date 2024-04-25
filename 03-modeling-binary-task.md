@@ -130,7 +130,7 @@ A few facts concerning the normal distribution are summarized next.
 
 ## The normal distribution {#binary-task-model-normal-distribution}
 
-A probability density function (pdf) or density of a continuous random variable is a function giving the relative chance that the random variable takes on a given value. For a continuous distribution, the probability of the random variable being exactly equal to a given value is zero. The probability of the random variable falling in a range of values is given by the integral of this variable’s pdf function over that range. For the normal distribution $N(\mu,\sigma^2)$ the pdf is denoted $\phi(z|\mu,\sigma)$. The special case $N(0,1)$ is referred to as the **unit normal distribution**; it has zero mean and unit variance and the corresponding pdf is denoted $\phi(z)$. 
+A probability density function (pdf) or density of a continuous random variable is a function giving the relative chance that the random variable takes on a given value. For a continuous distribution, the probability of the random variable being exactly equal to a given value is zero. The probability of the random variable falling in a range of values is given by the integral of this variable’s pdf function over that range. For the normal distribution $N(\mu,\sigma^2)$ the pdf is denoted $\phi(z|\mu,\sigma)$. 
 
 By definition, 
 
@@ -139,7 +139,9 @@ By definition,
 (\#eq:binary-task-model-phi-def)
 \end{equation}
 
-The right hand side of Eqn. \@ref(eq:binary-task-model-phi-def) is the probability that the random variable $Z$ sampled from $N(\mu,\sigma^2)$ falls between the fixed limits z and z + dz. For this reason $\phi(z|\mu,\sigma)$  is termed the probability density function. The defining equation for the pdf of this distribution is:
+The right hand side of Eqn. \@ref(eq:binary-task-model-phi-def) is the probability that the random variable $Z$ sampled from $N(\mu,\sigma^2)$ falls between the fixed limits z and z + dz. For this reason $\phi(z|\mu,\sigma)$  is termed the probability density function. 
+
+The special case $N(0,1)$ is referred to as the **unit normal distribution**; it has zero mean and unit variance and the corresponding pdf is denoted $\phi(z)$. The defining equation for the pdf of the unit normal distribution is:
 
 
 \begin{equation} 
@@ -221,8 +223,8 @@ Lines 5 and 7 demonstrate that `pnorm` and `qnorm`, applied in either order, are
 Eqn. \@ref(eq:binary-task-model-Phi-Inv-alpha-by2) means that the (rounded) value -1.96 is such that the area under the pdf to the left of this value is 0.025. Similarly, Eqn. \@ref(eq:binary-task-model-phi-inv-alpha) means that the (rounded) value +1.96 is such that the area under the pdf to the left of this value is 1-0.025 = 0.975. In other words, -1.96 captures, to its left, the 2.5th percentile of the unit-normal distribution, and 1.96 captures, to its left, the 97.5th percentile of the unit-normal distribution, Fig. \@ref(fig:binary-task-model-shaded-tails). Since between them they capture 95 percent of the unit-normal pdf, these two values can be used to estimate 95 percent confidence intervals. 
 
 <div class="figure">
-<img src="03-modeling-binary-task_files/figure-html/binary-task-model-shaded-tails-1.png" alt="Illustrating that 95 percent of the total area under the unit normal pdf is contained in the range |Z| &lt; 1.96, which can be used to construct a 95 percent confidence interval for an estimate of a suitably normalized statistic. The area in each shaded tail is 0.025." width="672" />
-<p class="caption">(\#fig:binary-task-model-shaded-tails)Illustrating that 95 percent of the total area under the unit normal pdf is contained in the range |Z| < 1.96, which can be used to construct a 95 percent confidence interval for an estimate of a suitably normalized statistic. The area in each shaded tail is 0.025.</p>
+<img src="03-modeling-binary-task_files/figure-html/binary-task-model-shaded-tails-1.png" alt="Illustrating that 95 percent of the total area under the unit normal pdf is contained in the range |z| &lt; 1.96; this is used to construct a 95 percent confidence interval for an estimate of a suitably normalized statistic. The area in each shaded tail is 0.025." width="672" />
+<p class="caption">(\#fig:binary-task-model-shaded-tails)Illustrating that 95 percent of the total area under the unit normal pdf is contained in the range |z| < 1.96; this is used to construct a 95 percent confidence interval for an estimate of a suitably normalized statistic. The area in each shaded tail is 0.025.</p>
 </div>
 
 > If one knows that a variable is distributed as a unit-normal random variable, then the observed value minus 1.96 defines the lower limit of its 95 percent confidence interval, and the observed value plus 1.96 defines the upper limit of its 95 percent confidence interval.
@@ -637,37 +639,17 @@ The observed range of sensitivity (TPF) was 53 percent and the range of FPF was 
 
 
 
-<table>
-<caption>(\#tab:binary-task-model-table-beam-study)The variability of 108 radiologists on a common dataset of screening mammograms. Note the reduced variability when one uses AUC which accounts for variations in reporting thresholds (AUC variability range is 21 percent compared to 53 percent for sensitivity and 63 percent for specificity).</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Min </th>
-   <th style="text-align:right;"> Max </th>
-   <th style="text-align:right;"> Range </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Sensitivity </td>
-   <td style="text-align:right;"> 46.70 </td>
-   <td style="text-align:right;"> 100.00 </td>
-   <td style="text-align:right;"> 53.30 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Specificity </td>
-   <td style="text-align:right;"> 36.30 </td>
-   <td style="text-align:right;"> 99.30 </td>
-   <td style="text-align:right;"> 63.00 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AUC </td>
-   <td style="text-align:right;"> 0.74 </td>
-   <td style="text-align:right;"> 0.95 </td>
-   <td style="text-align:right;"> 0.21 </td>
-  </tr>
-</tbody>
-</table>
+
+
+Table: (\#tab:binary-task-model-table-beam-study)The variability of 108 radiologists on a common dataset of screening mammograms. Note the reduced variability when one uses AUC which accounts for variations in reporting thresholds (AUC variability range is 21 percent compared to 53 percent for sensitivity and 63 percent for specificity).
+
+|            |   Min|    Max| Range|
+|:-----------|-----:|------:|-----:|
+|Sensitivity | 46.70| 100.00| 53.30|
+|Specificity | 36.30|  99.30| 63.00|
+|AUC         |  0.74|   0.95|  0.21|
+
+
 
 
 
@@ -776,93 +758,23 @@ Notice that now the values are less sensitive to seed. Table \@ref(tab:binary-ta
 
 
 
-<table>
-<caption>(\#tab:binary-task-model-table)Effect of sample size and seed on estimates of sensitivity, specificity and the mu-parameter.</caption>
- <thead>
-  <tr>
-   <th style="text-align:right;"> K1 </th>
-   <th style="text-align:right;"> K2 </th>
-   <th style="text-align:right;"> seed </th>
-   <th style="text-align:right;"> Se </th>
-   <th style="text-align:right;"> Sp </th>
-   <th style="text-align:right;"> mu </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 0.889 </td>
-   <td style="text-align:right;"> 0.909 </td>
-   <td style="text-align:right;"> 2.556 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 101 </td>
-   <td style="text-align:right;"> 0.778 </td>
-   <td style="text-align:right;"> 0.545 </td>
-   <td style="text-align:right;"> 0.879 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 90 </td>
-   <td style="text-align:right;"> 110 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 0.778 </td>
-   <td style="text-align:right;"> 0.836 </td>
-   <td style="text-align:right;"> 1.744 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 90 </td>
-   <td style="text-align:right;"> 110 </td>
-   <td style="text-align:right;"> 101 </td>
-   <td style="text-align:right;"> 0.811 </td>
-   <td style="text-align:right;"> 0.755 </td>
-   <td style="text-align:right;"> 1.571 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 900 </td>
-   <td style="text-align:right;"> 1100 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 0.764 </td>
-   <td style="text-align:right;"> 0.761 </td>
-   <td style="text-align:right;"> 1.430 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 900 </td>
-   <td style="text-align:right;"> 1100 </td>
-   <td style="text-align:right;"> 101 </td>
-   <td style="text-align:right;"> 0.807 </td>
-   <td style="text-align:right;"> 0.759 </td>
-   <td style="text-align:right;"> 1.569 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 9000 </td>
-   <td style="text-align:right;"> 11000 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 0.774 </td>
-   <td style="text-align:right;"> 0.772 </td>
-   <td style="text-align:right;"> 1.496 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 9000 </td>
-   <td style="text-align:right;"> 11000 </td>
-   <td style="text-align:right;"> 101 </td>
-   <td style="text-align:right;"> 0.771 </td>
-   <td style="text-align:right;"> 0.775 </td>
-   <td style="text-align:right;"> 1.498 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> Inf </td>
-   <td style="text-align:right;"> Inf </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 0.773 </td>
-   <td style="text-align:right;"> 0.773 </td>
-   <td style="text-align:right;"> 1.500 </td>
-  </tr>
-</tbody>
-</table>
+
+
+Table: (\#tab:binary-task-model-table)Effect of sample size and seed on estimates of sensitivity, specificity and the mu-parameter.
+
+|   K1|    K2| seed|    Se|    Sp|    mu|
+|----:|-----:|----:|-----:|-----:|-----:|
+|    9|    11|  100| 0.889| 0.909| 2.556|
+|    9|    11|  101| 0.778| 0.545| 0.879|
+|   90|   110|  100| 0.778| 0.836| 1.744|
+|   90|   110|  101| 0.811| 0.755| 1.571|
+|  900|  1100|  100| 0.764| 0.761| 1.430|
+|  900|  1100|  101| 0.807| 0.759| 1.569|
+| 9000| 11000|  100| 0.774| 0.772| 1.496|
+| 9000| 11000|  101| 0.771| 0.775| 1.498|
+|  Inf|   Inf|   NA| 0.773| 0.773| 1.500|
+
+
 
 As the numbers of cases increase, the sensitivity and specificity converge to a common value, around 0.773 and the estimate of the separation parameter converges to the known value.
 

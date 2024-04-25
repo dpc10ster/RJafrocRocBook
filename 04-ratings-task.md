@@ -39,37 +39,16 @@ At the conclusion of the ROC study an ROC **counts table** is constructed. This 
 Table \@ref(tab:ratings-paradigm-example-table) is a representative counts table for a 5-rating study. It is the starting point for analysis. It lists the number of counts in each ratings bin, listed separately for non-diseased and diseased cases respectively. The data is from an actual clinical study [@barnes1989comparison]. 
 
 
-<table>
-<caption>(\#tab:ratings-paradigm-example-table)Representative counts table.</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> $r = 5$ </th>
-   <th style="text-align:right;"> $r = 4$ </th>
-   <th style="text-align:right;"> $r = 3$ </th>
-   <th style="text-align:right;"> $r = 2$ </th>
-   <th style="text-align:right;"> $r = 1$ </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> non-diseased </td>
-   <td style="text-align:right;"> 1 </td>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 8 </td>
-   <td style="text-align:right;"> 19 </td>
-   <td style="text-align:right;"> 30 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> diseased </td>
-   <td style="text-align:right;"> 22 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 5 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 5 </td>
-  </tr>
-</tbody>
-</table>
+
+
+Table: (\#tab:ratings-paradigm-example-table)Representative counts table.
+
+|             | $r = 5$| $r = 4$| $r = 3$| $r = 2$| $r = 1$|
+|:------------|-------:|-------:|-------:|-------:|-------:|
+|non-diseased |       1|       2|       8|      19|      30|
+|diseased     |      22|      12|       5|       6|       5|
+
+
 
 In this table: $r = 5$ means "rating equal to 5", $r = 4$ means "rating equal to 4", etc. 
 
@@ -100,37 +79,16 @@ A little thought should convince the reader that the observed tilting of the cou
 Table \@ref(tab:ratings-paradigm-table-2) illustrates how ROC operating points are calculated from the cell counts. In this table: $r\geq 5$ means "counting ratings greater than or equal to 5", $r\geq 4$ means "counting ratings greater than or equal to 4", etc.
 
 
-<table>
-<caption>(\#tab:ratings-paradigm-table-2)Computation of operating points from cell counts.</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> $r\geq 5$ </th>
-   <th style="text-align:right;"> $r\geq 4$ </th>
-   <th style="text-align:right;"> $r\geq 3$ </th>
-   <th style="text-align:right;"> $r\geq 2$ </th>
-   <th style="text-align:right;"> $r\geq 1$ </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> FPF </td>
-   <td style="text-align:right;"> 0.0167 </td>
-   <td style="text-align:right;"> 0.05 </td>
-   <td style="text-align:right;"> 0.1833 </td>
-   <td style="text-align:right;"> 0.5 </td>
-   <td style="text-align:right;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TPF </td>
-   <td style="text-align:right;"> 0.4400 </td>
-   <td style="text-align:right;"> 0.68 </td>
-   <td style="text-align:right;"> 0.7800 </td>
-   <td style="text-align:right;"> 0.9 </td>
-   <td style="text-align:right;"> 1 </td>
-  </tr>
-</tbody>
-</table>
+
+
+Table: (\#tab:ratings-paradigm-table-2)Computation of operating points from cell counts.
+
+|    | $r\geq 5$| $r\geq 4$| $r\geq 3$| $r\geq 2$| $r\geq 1$|
+|:---|---------:|---------:|---------:|---------:|---------:|
+|FPF |    0.0167|      0.05|    0.1833|       0.5|         1|
+|TPF |    0.4400|      0.68|    0.7800|       0.9|         1|
+
+
 
 
 One starts with non-diseased cases that were rated five or more (in this example, since 5 is the highest allowed rating, the “or more” clause is inconsequential) and divides by the total number of non-diseased cases, $K_1 = 60$. This yields the abscissa of the lowest non-trivial operating point, namely  $\text{FPF}_{\ge5}$ = 1/60 = 0.017. The subscript on FPF is intended to make explicit which ratings are being cumulated. The corresponding ordinate is obtained by dividing the number of diseased cases rated "5" or more and dividing by the total number of diseased cases, $K_2 = 50$, yielding $\text{TPF}_{\ge5}$ = 22/50 = 0.440. Therefore, the coordinates of the lowest operating point are (0.017, 0.44). The abscissa of the next higher operating point is obtained by dividing the number of non-diseased cases that were rated "4" or more and dividing by the total number of non-diseased cases, i.e., $\text{FPF}_{\ge4}$ = 3/60 = 0.05. Similarly the ordinate of this operating point is obtained by dividing the number of diseased cases that were rated "4" or more and dividing by the total number of diseased cases, i.e., $\text{TPF}_{\ge4}$ = 34/50 = 0.680. The procedure, which at each stage cumulates the number of cases equal to or greater (in the sense of increased confidence level for disease presence) than a specified ordered label, is repeated to yield the rest of the operating points listed in Table \@ref(tab:ratings-paradigm-table-2). Since they are computed directly from the data without any assumptions they are called **empirical** operating points. 
@@ -478,18 +436,18 @@ The reported ROC analyses used the BIRADS assessments labels ordered as follows:
 
 
 <table class="table" style="margin-left: auto; margin-right: auto;">
-<caption>(\#tab:BIRADS-study)The Barlow et al study: the ordering of the BI-RADS ratings in the first column correlates with cancer-rate in the last column.</caption>
+<caption>(\#tab:BIRADS-study)(\#tab:BIRADS-study)The Barlow et al study: the ordering of the BI-RADS ratings in the first column correlates with cancer-rate in the last column.</caption>
  <thead>
   <tr>
-   <th style="text-align:left;">   </th>
+   <th style="text-align:left;">  </th>
    <th style="text-align:left;"> Total number 
 of mammograms </th>
-   <th style="text-align:left;"> Mammograms without 
-breast cancer (percent) </th>
-   <th style="text-align:left;"> Mammograms with 
-breast cancer  (percent) </th>
-   <th style="text-align:left;"> Cancers per 1000 
-screening mammograms </th>
+   <th style="text-align:left;"> |Mammograms without 
+breast cancer (percent </th>
+   <th style="text-align:left;"> |Mammograms with 
+breast cancer  (percen </th>
+   <th style="text-align:left;"> ) |Cancers per 1000 
+screening mammogr </th>
   </tr>
  </thead>
 <tbody>
@@ -510,45 +468,47 @@ screening mammograms </th>
   <tr>
    <td style="text-align:left;width: 11em; "> 3: Probably benign, 
 recommend normal or short term follow up </td>
-   <td style="text-align:left;width: 8em; "> 8,692 </td>
-   <td style="text-align:left;width: 8em; "> 8,627 (1.8) </td>
-   <td style="text-align:left;width: 8em; "> 65 (2.7) </td>
-   <td style="text-align:left;width: 8em; "> 7.48 </td>
+   <td style="text-align:left;width: 8em; "> |8,692 </td>
+   <td style="text-align:left;width: 8em; "> |8,627 (1.8) </td>
+   <td style="text-align:left;width: 8em; "> |65 (2.7) </td>
+   <td style="text-align:left;width: 8em; "> |7.48 </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 11em; "> 3+: Probably benign, 
 recommend immediate follow up </td>
-   <td style="text-align:left;width: 8em; "> 3,094 </td>
-   <td style="text-align:left;width: 8em; "> 3,049 (0.7) </td>
-   <td style="text-align:left;width: 8em; "> 45 (1.9) </td>
-   <td style="text-align:left;width: 8em; "> 14.54 </td>
+   <td style="text-align:left;width: 8em; "> |3,094 </td>
+   <td style="text-align:left;width: 8em; "> |3,049 (0.7) </td>
+   <td style="text-align:left;width: 8em; "> |45 (1.9) </td>
+   <td style="text-align:left;width: 8em; "> |14.54 </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 11em; "> 0: Need additional 
 imaging evaluation </td>
-   <td style="text-align:left;width: 8em; "> 42,823 </td>
-   <td style="text-align:left;width: 8em; "> 41,442 (8.9) </td>
-   <td style="text-align:left;width: 8em; "> 1,381 (57.5) </td>
-   <td style="text-align:left;width: 8em; "> 32.25 </td>
+   <td style="text-align:left;width: 8em; "> |42,823 </td>
+   <td style="text-align:left;width: 8em; "> |41,442 (8.9) </td>
+   <td style="text-align:left;width: 8em; "> |1,381 (57.5) </td>
+   <td style="text-align:left;width: 8em; "> |32.25 </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 11em; "> 4: Suspicious finding, 
 biopsy should be considered </td>
-   <td style="text-align:left;width: 8em; "> 2,022 </td>
-   <td style="text-align:left;width: 8em; "> 1,687 (0.4) </td>
-   <td style="text-align:left;width: 8em; "> 335 (13.9) </td>
-   <td style="text-align:left;width: 8em; "> 165.68 </td>
+   <td style="text-align:left;width: 8em; "> |2,022 </td>
+   <td style="text-align:left;width: 8em; "> |1,687 (0.4) </td>
+   <td style="text-align:left;width: 8em; "> |335 (13.9) </td>
+   <td style="text-align:left;width: 8em; "> |165.68 </td>
   </tr>
   <tr>
    <td style="text-align:left;width: 11em; "> 5: Highly suggestive 
 of malignancy </td>
-   <td style="text-align:left;width: 8em; "> 237 </td>
-   <td style="text-align:left;width: 8em; "> 38 (0.0) </td>
-   <td style="text-align:left;width: 8em; "> 199 (8.3) </td>
-   <td style="text-align:left;width: 8em; "> 839.66 </td>
+   <td style="text-align:left;width: 8em; "> |237 </td>
+   <td style="text-align:left;width: 8em; "> |38 (0.0) </td>
+   <td style="text-align:left;width: 8em; "> |199 (8.3) </td>
+   <td style="text-align:left;width: 8em; "> |839.66 </td>
   </tr>
 </tbody>
 </table>
+
+
 
 
 

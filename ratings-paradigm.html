@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Ratings Paradigm | Modeling ROC data</title>
   <meta name="description" content="Understanding and modeling receiver operating characteristic (ROC) data." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Ratings Paradigm | Modeling ROC data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-05-20" />
+<meta name="date" content="2024-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,18 +54,19 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -137,6 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -530,72 +532,35 @@ div.csl-indent {
 <li>“5”: definitely diseased.</li>
 </ul>
 <p>At the conclusion of the ROC study an ROC <strong>counts table</strong> is constructed. This is the generalization to rating studies of the 2 x 2 table introduced in Table <a href="binary-task.html#tab:binary-task-truth-table">2.1</a>. <a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
-<p>Table <a href="ratings-paradigm.html#tab:ratings-paradigm-example-table">4.1</a> is a representative counts table for a 5-rating study. It is the starting point for analysis. It lists the number of counts in each ratings bin, listed separately for non-diseased and diseased cases respectively. The data is from an actual clinical study <span class="citation">(<a href="#ref-barnes1989comparison" role="doc-biblioref">Barnes et al. 1989</a>)</span>.</p>
+<p>Table <a href="ratings-paradigm.html#tab:ratings-paradigm-example-table">4.1</a> is a representative counts table for a 5-rating study. It is the starting point for analysis. It lists the number of counts in each ratings bin, listed separately for non-diseased and diseased cases respectively. The data is from an actual clinical study <span class="citation">(<a href="#ref-barnes1989comparison">Barnes et al. 1989</a>)</span>.</p>
 <table>
-<caption>
-<span id="tab:ratings-paradigm-example-table">TABLE 4.1: </span>Representative counts table.
-</caption>
+<caption><span id="tab:ratings-paradigm-example-table">TABLE 4.1: </span>Representative counts table.</caption>
 <thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-<span class="math inline">\(r = 5\)</span>
-</th>
-<th style="text-align:right;">
-<span class="math inline">\(r = 4\)</span>
-</th>
-<th style="text-align:right;">
-<span class="math inline">\(r = 3\)</span>
-</th>
-<th style="text-align:right;">
-<span class="math inline">\(r = 2\)</span>
-</th>
-<th style="text-align:right;">
-<span class="math inline">\(r = 1\)</span>
-</th>
+<tr class="header">
+<th align="left"></th>
+<th align="right"><span class="math inline">\(r = 5\)</span></th>
+<th align="right"><span class="math inline">\(r = 4\)</span></th>
+<th align="right"><span class="math inline">\(r = 3\)</span></th>
+<th align="right"><span class="math inline">\(r = 2\)</span></th>
+<th align="right"><span class="math inline">\(r = 1\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-non-diseased
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-19
-</td>
-<td style="text-align:right;">
-30
-</td>
+<tr class="odd">
+<td align="left">non-diseased</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">8</td>
+<td align="right">19</td>
+<td align="right">30</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-diseased
-</td>
-<td style="text-align:right;">
-22
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-5
-</td>
+<tr class="even">
+<td align="left">diseased</td>
+<td align="right">22</td>
+<td align="right">12</td>
+<td align="right">5</td>
+<td align="right">6</td>
+<td align="right">5</td>
 </tr>
 </tbody>
 </table>
@@ -625,70 +590,33 @@ diseased
 <h2><span class="header-section-number">4.4</span> Operating points from counts table<a href="ratings-paradigm.html#ratings-task-operating-points-from-counts-table" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Table <a href="ratings-paradigm.html#tab:ratings-paradigm-table-2">4.2</a> illustrates how ROC operating points are calculated from the cell counts. In this table: <span class="math inline">\(r\geq 5\)</span> means “counting ratings greater than or equal to 5”, <span class="math inline">\(r\geq 4\)</span> means “counting ratings greater than or equal to 4”, etc.</p>
 <table>
-<caption>
-<span id="tab:ratings-paradigm-table-2">TABLE 4.2: </span>Computation of operating points from cell counts.
-</caption>
+<caption><span id="tab:ratings-paradigm-table-2">TABLE 4.2: </span>Computation of operating points from cell counts.</caption>
 <thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-<span class="math inline">\(r\geq 5\)</span>
-</th>
-<th style="text-align:right;">
-<span class="math inline">\(r\geq 4\)</span>
-</th>
-<th style="text-align:right;">
-<span class="math inline">\(r\geq 3\)</span>
-</th>
-<th style="text-align:right;">
-<span class="math inline">\(r\geq 2\)</span>
-</th>
-<th style="text-align:right;">
-<span class="math inline">\(r\geq 1\)</span>
-</th>
+<tr class="header">
+<th align="left"></th>
+<th align="right"><span class="math inline">\(r\geq 5\)</span></th>
+<th align="right"><span class="math inline">\(r\geq 4\)</span></th>
+<th align="right"><span class="math inline">\(r\geq 3\)</span></th>
+<th align="right"><span class="math inline">\(r\geq 2\)</span></th>
+<th align="right"><span class="math inline">\(r\geq 1\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-FPF
-</td>
-<td style="text-align:right;">
-0.0167
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:right;">
-0.1833
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-1
-</td>
+<tr class="odd">
+<td align="left">FPF</td>
+<td align="right">0.0167</td>
+<td align="right">0.05</td>
+<td align="right">0.1833</td>
+<td align="right">0.5</td>
+<td align="right">1</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-TPF
-</td>
-<td style="text-align:right;">
-0.4400
-</td>
-<td style="text-align:right;">
-0.68
-</td>
-<td style="text-align:right;">
-0.7800
-</td>
-<td style="text-align:right;">
-0.9
-</td>
-<td style="text-align:right;">
-1
-</td>
+<tr class="even">
+<td align="left">TPF</td>
+<td align="right">0.4400</td>
+<td align="right">0.68</td>
+<td align="right">0.7800</td>
+<td align="right">0.9</td>
+<td align="right">1</td>
 </tr>
 </tbody>
 </table>
@@ -794,18 +722,18 @@ TPF_{r&#39;}=\frac {1} {K_2} \sum_{s={r&#39;}}^{R+1}K_{2s} = \frac {1} {K_2} \su
 <span id="cb10-16"><a href="ratings-paradigm.html#cb10-16"></a><span class="co">#&gt; corresponding estimate of Az_ev =  0.818</span></span></code></pre></div>
 <p>Notice that the values of the arrays <code>FPF</code> and <code>TPF</code> are identical to those listed in Table <a href="ratings-paradigm.html#tab:ratings-paradigm-table-2">4.2</a>. Regarding lines 10 and 11 of code it was shown in Chapter <a href="binary-task.html#binary-task">2</a> that in the equal variance binormal model the operating point determines the parameters <span class="math inline">\(\mu_{ev}\)</span> = 1.282, Eqn. <a href="binary-task-model.html#eq:binary-task-model-solve-mu">(3.17)</a>, or equivalently <span class="math inline">\(A_{z;\sigma = 1}\)</span> = 0.818, Eqn. <a href="binary-task-model.html#eq:binary-task-model-az-var">(3.23)</a>. These lines illustrate the application of these formulae using the coordinates (0.5, 0.9) of the uppermost non-trivial operating point, i.e., one is fitting the equal variance model to the uppermost operating point.</p>
 <p>Shown next is the equal-variance model fit to the uppermost non-trivial operating point, left panel, and for comparison, the right panel is the unequal variance model fit to all operating points (the unequal variance model is described in the next chapter).</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="ratings-paradigm.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># equal variance fit to uppermost operating point</span></span>
-<span id="cb11-2"><a href="ratings-paradigm.html#cb11-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">plotROC</span> (mu_ev, sigma_ev, FPF, TPF)</span>
-<span id="cb11-3"><a href="ratings-paradigm.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the following values are from unequal-variance model fitting</span></span>
-<span id="cb11-4"><a href="ratings-paradigm.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># to be discussed in the next chapter</span></span>
-<span id="cb11-5"><a href="ratings-paradigm.html#cb11-5" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fl">2.17</span>;sigma <span class="ot">&lt;-</span> <span class="fl">1.65</span></span>
-<span id="cb11-6"><a href="ratings-paradigm.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># following formula is discussed in the next chapter</span></span>
-<span id="cb11-7"><a href="ratings-paradigm.html#cb11-7" aria-hidden="true" tabindex="-1"></a>Az <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(mu<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">+</span>sigma<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb11-8"><a href="ratings-paradigm.html#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;binormal unequal variance model estimate of Az = &quot;</span>, Az, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb11-9"><a href="ratings-paradigm.html#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; binormal unequal variance model estimate of Az =  0.87</span></span>
-<span id="cb11-10"><a href="ratings-paradigm.html#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># unequal variance fit to all operating points</span></span>
-<span id="cb11-11"><a href="ratings-paradigm.html#cb11-11" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">plotROC</span> (mu, sigma, FPF, TPF)</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="ratings-paradigm.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1,p2,<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="ratings-paradigm.html#cb11-1" tabindex="-1"></a><span class="co"># equal variance fit to uppermost operating point</span></span>
+<span id="cb11-2"><a href="ratings-paradigm.html#cb11-2" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">plotROC</span> (mu_ev, sigma_ev, FPF, TPF)</span>
+<span id="cb11-3"><a href="ratings-paradigm.html#cb11-3" tabindex="-1"></a><span class="co"># the following values are from unequal-variance model fitting</span></span>
+<span id="cb11-4"><a href="ratings-paradigm.html#cb11-4" tabindex="-1"></a><span class="co"># to be discussed in the next chapter</span></span>
+<span id="cb11-5"><a href="ratings-paradigm.html#cb11-5" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fl">2.17</span>;sigma <span class="ot">&lt;-</span> <span class="fl">1.65</span></span>
+<span id="cb11-6"><a href="ratings-paradigm.html#cb11-6" tabindex="-1"></a><span class="co"># following formula is discussed in the next chapter</span></span>
+<span id="cb11-7"><a href="ratings-paradigm.html#cb11-7" tabindex="-1"></a>Az <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(mu<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">+</span>sigma<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb11-8"><a href="ratings-paradigm.html#cb11-8" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;binormal unequal variance model estimate of Az = &quot;</span>, Az, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb11-9"><a href="ratings-paradigm.html#cb11-9" tabindex="-1"></a><span class="co">#&gt; binormal unequal variance model estimate of Az =  0.87</span></span>
+<span id="cb11-10"><a href="ratings-paradigm.html#cb11-10" tabindex="-1"></a><span class="co"># unequal variance fit to all operating points</span></span>
+<span id="cb11-11"><a href="ratings-paradigm.html#cb11-11" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">plotROC</span> (mu, sigma, FPF, TPF)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="ratings-paradigm.html#cb12-1" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1,p2,<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:ratings-paradigm-eq-var-fit"></span>
 <img src="04-ratings-task_files/figure-html/ratings-paradigm-eq-var-fit-1.png" alt="A: This panel is the predicted ROC curve for $\mu=1.28$ superposed on the operating points. B: This panel is the same data fitted with a unequal variance model described in a following chapter." width="672" />
 <p class="caption">
@@ -822,12 +750,12 @@ FIGURE 4.2: A: This panel is the predicted ROC curve for <span class="math inlin
 \tag{4.3}
 \end{equation*}\]</span></p>
 <p>These are coded below:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="ratings-paradigm.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sp = 1 - FPF = 1 - 0.5</span></span>
-<span id="cb13-2"><a href="ratings-paradigm.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Se = 0.9</span></span>
-<span id="cb13-3"><a href="ratings-paradigm.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;zeta from Sp = &quot;</span>, <span class="fu">qnorm</span>(<span class="dv">1</span><span class="fl">-0.5</span>),<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb13-4"><a href="ratings-paradigm.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; zeta from Sp =  0</span></span>
-<span id="cb13-5"><a href="ratings-paradigm.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;zeta from Se = &quot;</span>, mu_ev<span class="sc">-</span><span class="fu">qnorm</span>(<span class="fl">0.9</span>),<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb13-6"><a href="ratings-paradigm.html#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; zeta from Se =  0</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="ratings-paradigm.html#cb13-1" tabindex="-1"></a><span class="co"># Sp = 1 - FPF = 1 - 0.5</span></span>
+<span id="cb13-2"><a href="ratings-paradigm.html#cb13-2" tabindex="-1"></a><span class="co"># Se = 0.9</span></span>
+<span id="cb13-3"><a href="ratings-paradigm.html#cb13-3" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;zeta from Sp = &quot;</span>, <span class="fu">qnorm</span>(<span class="dv">1</span><span class="fl">-0.5</span>),<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb13-4"><a href="ratings-paradigm.html#cb13-4" tabindex="-1"></a><span class="co">#&gt; zeta from Sp =  0</span></span>
+<span id="cb13-5"><a href="ratings-paradigm.html#cb13-5" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;zeta from Se = &quot;</span>, mu_ev<span class="sc">-</span><span class="fu">qnorm</span>(<span class="fl">0.9</span>),<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb13-6"><a href="ratings-paradigm.html#cb13-6" tabindex="-1"></a><span class="co">#&gt; zeta from Se =  0</span></span></code></pre></div>
 <p>Either way, one gets the same result: <span class="math inline">\(\zeta\)</span> = 0. This should make sense as FPF = 0.5 is consistent with half of the (symmetrical) unit-normal non-diseased distribution being above <span class="math inline">\(\zeta\)</span> = 0.</p>
 <p>Exercise: calculate <span class="math inline">\(\zeta\)</span> for each of the remaining operating points. Notice that <span class="math inline">\(\zeta\)</span> increases as one moves down the curve.</p>
 <ul>
@@ -843,7 +771,7 @@ FIGURE 4.2: A: This panel is the predicted ROC curve for <span class="math inlin
 <p>The R-rating task can be viewed as <span class="math inline">\(R-1\)</span> simultaneously conducted binary tasks each with its own fixed threshold <span class="math inline">\(\zeta_r\)</span>, where r = 1, 2, …, R-1. It is efficient compared to <span class="math inline">\(R-1\)</span> sequentially conducted binary tasks; however, the onus is on the observer to maintain fixed-multiple thresholds through the duration of the study.</p>
 </blockquote>
 <p>The rating method is a more efficient way of collecting the data compared to running the study repeatedly with appropriate instructions to cause the observer to adopt different fixed thresholds. In the clinical context such repeated studies would be impractical because it would introduce memory effects wherein the diagnosis of a case would depend on how many times the case had been seen in previous sessions.</p>
-<p>In order to model the binning, one defines dummy thresholds <span class="math inline">\(\zeta_0 = - \infty\)</span> and <span class="math inline">\(\zeta_R = + \infty\)</span>, in which case the thresholds satisfy the ordering requirement <span class="math inline">\(\zeta_{r-1} \le \zeta_r\)</span> , r = 1, 2, …, R. The rating or binning rule is:</p>
+<p>In order to model the binning, one defines dummy thresholds <span class="math inline">\(\zeta_0 = - \infty\)</span> and <span class="math inline">\(\zeta_R = + \infty\)</span>, in which case the thresholds satisfy the ordering requirement <span class="math inline">\(\zeta_{r-1} \le  \zeta_r\)</span> , r = 1, 2, …, R. The rating or binning rule is:</p>
 <p><span class="math display" id="eq:ratings-paradigm-binning-rule">\[\begin{equation}
 \left.
 \begin{aligned}  
@@ -881,7 +809,7 @@ r &amp;= 0, 1, ..., R-1\\
 <div id="binary-task-clinical-operating-point" class="section level2 hasAnchor" number="4.8">
 <h2><span class="header-section-number">4.8</span> A single “clinical” operating point from ratings data<a href="ratings-paradigm.html#binary-task-clinical-operating-point" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The reason for the quotes in the title to this section is that a single operating point on a laboratory ROC plot, no matter how obtained, has little relevance to how radiologists operate in the clinic. However, some consider it useful to quote an operating point from an ROC study. For a 5-rating ROC study, Table <a href="ratings-paradigm.html#tab:ratings-paradigm-example-table">4.1</a>, it is not possible to unambiguously calculate the operating point of the observer in the binary task of discriminating between non-diseased and diseased cases. One possibility would be to use the “three and above” ratings to define the operating point, but one might jus have well have chosen “two and above”. A second possibility is to instruct the radiologist that a “four and above” rating, for example, implies the case would be reported “clinically” as diseased. However, the radiologist can only pretend so far that this study, which has no clinical consequences, is somehow a “clinical” study.</p>
-<p>If a single laboratory study based operating point is desired <span class="citation">(<a href="#ref-RN2660" role="doc-biblioref">Nishikawa 2012</a>)</span>, the best strategy, in my opinion, is to obtain the rating via two questions. This method is also illustrated in Table 3.1 of a book on detection theory <span class="citation">(<a href="#ref-macmillan2004detection" role="doc-biblioref">Macmillan and Creelman 2004</a>)</span>. The first question is “is the case diseased?” The binary (Yes/No) response to this question allows unambiguous calculation of the operating point. The second question is: “what is your confidence in your previous decision?” and allow three responses, namely Low, Medium and High. The dual-question approach is equivalent to a 6-point rating scale, Fig. <a href="ratings-paradigm.html#fig:SixPointScale">4.3</a>. The answer to the first question, is the patient diseased, allows unambiguous construction of a single “clinical” operating point for disease presence. The answer to the second question yields multiple operating points.</p>
+<p>If a single laboratory study based operating point is desired <span class="citation">(<a href="#ref-RN2660">Nishikawa 2012</a>)</span>, the best strategy, in my opinion, is to obtain the rating via two questions. This method is also illustrated in Table 3.1 of a book on detection theory <span class="citation">(<a href="#ref-macmillan2004detection">Macmillan and Creelman 2004</a>)</span>. The first question is “is the case diseased?” The binary (Yes/No) response to this question allows unambiguous calculation of the operating point. The second question is: “what is your confidence in your previous decision?” and allow three responses, namely Low, Medium and High. The dual-question approach is equivalent to a 6-point rating scale, Fig. <a href="ratings-paradigm.html#fig:SixPointScale">4.3</a>. The answer to the first question, is the patient diseased, allows unambiguous construction of a single “clinical” operating point for disease presence. The answer to the second question yields multiple operating points.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:SixPointScale"></span>
 <img src="images/AcquiringData6PointScale.png" alt="A method for acquiring ROC data on an effectively 6-point scale that also yields an unambiguous single operating point for declaring patients diseased. Note the reversal of the ordering of the final ratings in the last &quot;column&quot; in the lower half of the figure." width="410" />
 <p class="caption">
@@ -892,8 +820,8 @@ FIGURE 4.3: A method for acquiring ROC data on an effectively 6-point scale that
 </div>
 <div id="binary-task-2afc" class="section level2 hasAnchor" number="4.9">
 <h2><span class="header-section-number">4.9</span> The forced choice paradigm<a href="ratings-paradigm.html#binary-task-2afc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In each of the four paradigms (ROC, FROC, LROC and ROI) described in Chapter <a href="overview.html#preliminaries-intro">1.2</a>, patient images are displayed one patient at a time. A fifth paradigm involves presentation of multiple images simultaneously to the observer, where one image is from a diseased patient, and the rest are from non-diseased patients. The observer’s task is to pick the image that is most likely to be from the diseased patient. If the observer is correct, the event is scored as a “one” and otherwise it is scored as a “zero”. The process is repeated with other sets of independent patient images, each time satisfying the condition that one patient is diseased and the rest are non-diseased. The sum of the scores divided by the total number of scores is the probability of a correct choice, denoted <span class="math inline">\(P(C)\)</span>. If the total number of cases presented at the same time is denoted <span class="math inline">\(n\)</span>, then the task is termed n-alternative forced choice or nAFC <span class="citation">(<a href="#ref-green1966signal" role="doc-biblioref">Green, Swets, et al. 1966</a>)</span>. If only two cases are presented, one diseased and the other non-diseased, then n = 2 and the task is 2AFC. In Fig. <a href="ratings-paradigm.html#fig:2AFC">4.4</a>, in the left image a Gaussian nodule is superposed on a square region extracted from a non-diseased mammogram. The right image is a region extracted from a different non-diseased mammogram (one should not use the same background in the two images – the analysis assumes that different, i.e., independent images, are shown). If the observer clicks on the left image, a correct choice is recorded. [In some 2AFC-studies, the backgrounds are simulated non-diseased images. They resemble mammograms; the resemblance depends on the expertise of the observer: expert radiologists can tell that they are not true mammograms. They are actually created by filtering the random white noise with a <span class="math inline">\(1/f^3\)</span> spatial filter <span class="citation">(<a href="#ref-burgess2011visual" role="doc-biblioref">Burgess 2011</a>)</span>.]</p>
-<p>The 2AFC paradigm is popular because its analysis is straightforward and there is a theorem <span class="citation">(<a href="#ref-green1966signal" role="doc-biblioref">Green, Swets, et al. 1966</a>)</span> that <span class="math inline">\(P(C)\)</span>, the probability of a correct choice in the 2AFC task equals the area under the true (not fitted, not empirical) ROC curve. Another reason for its popularity is possibly the speed at which data can be collected, sometimes only limited by the speed at which disk stored images can be displayed on the monitor. While useful for studies into human visual perception on relatively simple images, and the model observer community has performed many studies using this paradigm, I cannot recommend it for clinical studies because it does not resemble any clinical task. Additionally, the forced-choice paradigm is wasteful of known-truth images, often a difficult/expensive resource to come by, because narrower confidence intervals are obtained using the ratings ROC method or by utilizing location specific extensions of the ROC paradigm.</p>
+<p>In each of the four paradigms (ROC, FROC, LROC and ROI) described in Chapter <a href="overview.html#preliminaries-intro">1.2</a>, patient images are displayed one patient at a time. A fifth paradigm involves presentation of multiple images simultaneously to the observer, where one image is from a diseased patient, and the rest are from non-diseased patients. The observer’s task is to pick the image that is most likely to be from the diseased patient. If the observer is correct, the event is scored as a “one” and otherwise it is scored as a “zero”. The process is repeated with other sets of independent patient images, each time satisfying the condition that one patient is diseased and the rest are non-diseased. The sum of the scores divided by the total number of scores is the probability of a correct choice, denoted <span class="math inline">\(P(C)\)</span>. If the total number of cases presented at the same time is denoted <span class="math inline">\(n\)</span>, then the task is termed n-alternative forced choice or nAFC <span class="citation">(<a href="#ref-green1966signal">Green, Swets, et al. 1966</a>)</span>. If only two cases are presented, one diseased and the other non-diseased, then n = 2 and the task is 2AFC. In Fig. <a href="ratings-paradigm.html#fig:2AFC">4.4</a>, in the left image a Gaussian nodule is superposed on a square region extracted from a non-diseased mammogram. The right image is a region extracted from a different non-diseased mammogram (one should not use the same background in the two images – the analysis assumes that different, i.e., independent images, are shown). If the observer clicks on the left image, a correct choice is recorded. [In some 2AFC-studies, the backgrounds are simulated non-diseased images. They resemble mammograms; the resemblance depends on the expertise of the observer: expert radiologists can tell that they are not true mammograms. They are actually created by filtering the random white noise with a <span class="math inline">\(1/f^3\)</span> spatial filter <span class="citation">(<a href="#ref-burgess2011visual">Burgess 2011</a>)</span>.]</p>
+<p>The 2AFC paradigm is popular because its analysis is straightforward and there is a theorem <span class="citation">(<a href="#ref-green1966signal">Green, Swets, et al. 1966</a>)</span> that <span class="math inline">\(P(C)\)</span>, the probability of a correct choice in the 2AFC task equals the area under the true (not fitted, not empirical) ROC curve. Another reason for its popularity is possibly the speed at which data can be collected, sometimes only limited by the speed at which disk stored images can be displayed on the monitor. While useful for studies into human visual perception on relatively simple images, and the model observer community has performed many studies using this paradigm, I cannot recommend it for clinical studies because it does not resemble any clinical task. Additionally, the forced-choice paradigm is wasteful of known-truth images, often a difficult/expensive resource to come by, because narrower confidence intervals are obtained using the ratings ROC method or by utilizing location specific extensions of the ROC paradigm.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:2AFC"></span>
 <img src="images/2AFC.png" alt="Example of image presentation in a 2AFC study." width="360" />
 <p class="caption">
@@ -905,7 +833,7 @@ FIGURE 4.4: Example of image presentation in a 2AFC study.
 <div id="binary-task-observer-studies-as-simulations" class="section level2 hasAnchor" number="4.10">
 <h2><span class="header-section-number">4.10</span> Observer performance studies as laboratory simulations of clinical tasks<a href="ratings-paradigm.html#binary-task-observer-studies-as-simulations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><p>Observer performance paradigms (ROC, FROC, LROC and ROI) should be regarded as experiments conducted in a laboratory (i.e., controlled) setting that are intended to be representative of the actual clinical task. They should not to be confused with performance in a real “live” clinical setting: there is a known “laboratory effect” <span class="citation">(<a href="#ref-RN2026" role="doc-biblioref">Gur et al. 2008</a>)</span>. For example, in the just cited study radiologists performed better during live clinical interpretations than they did later, on the same cases, in a laboratory ROC study. This is to be expected because there is more at stake during live interpretations: e.g., the patient’s health and the radiologist’s reputation, than during laboratory ROC studies.</p></li>
+<li><p>Observer performance paradigms (ROC, FROC, LROC and ROI) should be regarded as experiments conducted in a laboratory (i.e., controlled) setting that are intended to be representative of the actual clinical task. They should not to be confused with performance in a real “live” clinical setting: there is a known “laboratory effect” <span class="citation">(<a href="#ref-RN2026">Gur et al. 2008</a>)</span>. For example, in the just cited study radiologists performed better during live clinical interpretations than they did later, on the same cases, in a laboratory ROC study. This is to be expected because there is more at stake during live interpretations: e.g., the patient’s health and the radiologist’s reputation, than during laboratory ROC studies.</p></li>
 <li><p>Real clinical interpretations happen every day in radiology departments all over the world. On the other hand, in the laboratory, the radiologist is asked to interpret the images “as if in a clinical setting” and render a “diagnosis”. The laboratory decisions have no clinical consequences. Usually laboratory ROC studies are conducted on retrospectively acquired images. Patients, whose images are used in an ROC study, have already been imaged in the clinic and decisions have already been made on how to manage them.</p></li>
 <li><p>There is no guarantee that results of the laboratory study are directly applicable to clinical practice. Indeed there is an assumption that the laboratory study correlates with clinical performance. The correlation is taken to be an axiomatic truth by researchers when, in fact, it is an assumption.</p></li>
 <li><p>This section should not be interpreted as expressing my lack of trust in laboratory studies. Simulations are widely used in “hard” sciences, e.g., they are used in astrophysics to determine conditions dating to <span class="math inline">\(10^{-31}\)</span> seconds after the big bang. Conducting clinical studies is very difficult as there are many factors not under the researcher’s control. Observer performance studies of the type described in this book are the closest that one can come to the “real thing” as they include key elements of the actual clinical task: the entire imaging system, radiologists (assuming the radiologists’ brings their full expertise to bear on each image interpretation) and real clinical images.</p></li>
@@ -914,15 +842,15 @@ FIGURE 4.4: Example of image presentation in a 2AFC study.
 <div id="binary-task-discrete-vs-continuous-ratings" class="section level2 hasAnchor" number="4.11">
 <h2><span class="header-section-number">4.11</span> Discrete vs. continuous ratings: the Miller study<a href="ratings-paradigm.html#binary-task-discrete-vs-continuous-ratings" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><p>There is controversy about the merits of discrete vs. continuous ratings <span class="citation">(<a href="#ref-rockette1992use" role="doc-biblioref">Rockette, Gur, and Metz 1992</a>; <a href="#ref-wagner2001continuous" role="doc-biblioref">Wagner, Beiden, and Metz 2001</a>)</span>. The late Prof. Charles E. Metz and the late Dr. Robert F. Wagner have both backed the latter (i.e., continuous or quasi-continuous ratings) and new ROC study designs sometimes tend to follow their advice. I recommend a 6-point rating scale as outlined in Fig. <a href="ratings-paradigm.html#fig:SixPointScale">4.3</a>. This section provides the background for the recommendation.</p></li>
-<li><p>A widely cited (39,704 citations at the time of writing, ca. March 2023) paper by Miller <span class="citation">(<a href="#ref-miller1956magical" role="doc-biblioref">Miller 1956</a>)</span> titled “The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information” is relevant. It is a readable paper, freely downloadable in several languages (www.musanim.com/miller1956/). In my judgment, this paper has not received the attention it should have in the ROC community, and for this reason portions from it are reproduced below. [George Armitage Miller, February 3, 1920 – July 22, 2012, was one of the founders of the field of cognitive psychology.]</p></li>
-<li><p>Miller’s first objective was to comment on absolute judgments of unidimensional stimuli. Since all (univariate, i.e., single decision per case) ROC models assume a unidimensional decision variable, Miller’s work is highly relevant. He comments on two papers by Pollack <span class="citation">(<a href="#ref-pollack1952information" role="doc-biblioref">Pollack 1952</a>, <a href="#ref-pollack1953information" role="doc-biblioref">1953</a>)</span>. Pollack asked listeners to identify tones by assigning numerals to them, analogous to a rating task described above. The tones differed in frequency, covering the range 100 to 8000 Hz in equal logarithmic steps. A tone was sounded and the listener responded by giving a numeral (i.e., a rating, with higher values corresponding to higher frequencies). After the listener had made his response, he was told the correct identification of the tone. When only two or three tones were used, the listeners never confused them. With four different tones, confusions were quite rare, but with five or more tones, confusions were frequent. With fourteen different tones, the listeners made many mistakes. Since it is so succinct, the entire content of the first (1952) paper by Pollack is reproduced below:</p></li>
+<li><p>There is controversy about the merits of discrete vs. continuous ratings <span class="citation">(<a href="#ref-rockette1992use">Rockette, Gur, and Metz 1992</a>; <a href="#ref-wagner2001continuous">Wagner, Beiden, and Metz 2001</a>)</span>. The late Prof. Charles E. Metz and the late Dr. Robert F. Wagner have both backed the latter (i.e., continuous or quasi-continuous ratings) and new ROC study designs sometimes tend to follow their advice. I recommend a 6-point rating scale as outlined in Fig. <a href="ratings-paradigm.html#fig:SixPointScale">4.3</a>. This section provides the background for the recommendation.</p></li>
+<li><p>A widely cited (39,704 citations at the time of writing, ca. March 2023) paper by Miller <span class="citation">(<a href="#ref-miller1956magical">Miller 1956</a>)</span> titled “The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information” is relevant. It is a readable paper, freely downloadable in several languages (www.musanim.com/miller1956/). In my judgment, this paper has not received the attention it should have in the ROC community, and for this reason portions from it are reproduced below. [George Armitage Miller, February 3, 1920 – July 22, 2012, was one of the founders of the field of cognitive psychology.]</p></li>
+<li><p>Miller’s first objective was to comment on absolute judgments of unidimensional stimuli. Since all (univariate, i.e., single decision per case) ROC models assume a unidimensional decision variable, Miller’s work is highly relevant. He comments on two papers by Pollack <span class="citation">(<a href="#ref-pollack1952information">Pollack 1952</a>, <a href="#ref-pollack1953information">1953</a>)</span>. Pollack asked listeners to identify tones by assigning numerals to them, analogous to a rating task described above. The tones differed in frequency, covering the range 100 to 8000 Hz in equal logarithmic steps. A tone was sounded and the listener responded by giving a numeral (i.e., a rating, with higher values corresponding to higher frequencies). After the listener had made his response, he was told the correct identification of the tone. When only two or three tones were used, the listeners never confused them. With four different tones, confusions were quite rare, but with five or more tones, confusions were frequent. With fourteen different tones, the listeners made many mistakes. Since it is so succinct, the entire content of the first (1952) paper by Pollack is reproduced below:</p></li>
 </ul>
 <blockquote>
 <p>“In contrast to the extremely acute sensitivity of a human listener to discriminate small differences in the frequency or intensity between two sounds is his relative inability to identify (and name) sounds presented individually. When the frequency of a single tone is varied in equal‐logarithmic steps in the range between 100 cps and 8000 cps (and when the level of the tone is randomly adjusted to reduce loudness cues), the amount of information transferred is about 2.3 bits per stimulus presentation. This is equivalent to perfect identification among only 5 tones. The information transferred, under the conditions of measurement employed, is reasonably invariant under wide variations in stimulus conditions.”</p>
 </blockquote>
 <ul>
-<li><p>By “information” is meant the number of levels, measured in bits (binary digits), thereby making it independent of the unit of measurement: 1 bit corresponds to a binary rating scale, 2 bits to a four-point rating scale and 2.3 bits to <span class="math inline">\(2^{2.3}\)</span> = 4.9, i.e., about 5 ratings bins. Based on Pollack’s’ original unpublished data, Miller put an upper limit of 2.5 bits (corresponding to about 6 ratings bins) on the amount of information that is transmitted by listeners who make absolute judgments of auditory pitch. The second paper <span class="citation">(@ <a href="#ref-pollack1953information" role="doc-biblioref">Pollack 1953</a>)</span> by Pollack was related to: (1) the frequency range of tones; (2) the utilization of objective reference tones presented with the unknown tone; and (3) the “dimensionality”—the number of independently varying stimulus aspects. Little additional gain in information transmission was associated with the first factor; a moderate gain was associated with the second; and a relatively substantial gain was associated with the third (we return to the dimensionality issue below).</p></li>
+<li><p>By “information” is meant the number of levels, measured in bits (binary digits), thereby making it independent of the unit of measurement: 1 bit corresponds to a binary rating scale, 2 bits to a four-point rating scale and 2.3 bits to <span class="math inline">\(2^{2.3}\)</span> = 4.9, i.e., about 5 ratings bins. Based on Pollack’s’ original unpublished data, Miller put an upper limit of 2.5 bits (corresponding to about 6 ratings bins) on the amount of information that is transmitted by listeners who make absolute judgments of auditory pitch. The second paper <span class="citation">(@ <a href="#ref-pollack1953information">Pollack 1953</a>)</span> by Pollack was related to: (1) the frequency range of tones; (2) the utilization of objective reference tones presented with the unknown tone; and (3) the “dimensionality”—the number of independently varying stimulus aspects. Little additional gain in information transmission was associated with the first factor; a moderate gain was associated with the second; and a relatively substantial gain was associated with the third (we return to the dimensionality issue below).</p></li>
 <li><p>As an interesting side-note, Miller states:</p></li>
 </ul>
 <blockquote>
@@ -936,28 +864,28 @@ FIGURE 4.4: Example of image presentation in a 2AFC study.
 </blockquote>
 <ul>
 <li><p>DPC comment: I was unable to find a single study in the medical imaging field of the number of discrete rating levels that an observer can support.</p></li>
-<li><p>There is no question that for multidimensional data, as observed in the second study by Pollack <span class="citation">(<a href="#ref-pollack1953information" role="doc-biblioref">Pollack 1953</a>)</span>, the observer can support more than 7 ratings bins. To quote Miller:</p></li>
+<li><p>There is no question that for multidimensional data, as observed in the second study by Pollack <span class="citation">(<a href="#ref-pollack1953information">Pollack 1953</a>)</span>, the observer can support more than 7 ratings bins. To quote Miller:</p></li>
 </ul>
 <blockquote>
 <p>“You may have noticed that I have been careful to say that this magical number seven applies to one-dimensional judgments. Everyday experience teaches us that we can identify accurately any one of several hundred faces, any one of several thousand words, any one of several thousand objects, etc. The story certainly would not be complete if we stopped at this point. We must have some understanding of why the one-dimensional variables we judge in the laboratory give results so far out of line with what we do constantly in our behavior outside the laboratory. A possible explanation lies in the number of independently variable attributes of the stimuli that are being judged. Objects, faces, words, and the like differ from one another in many ways, whereas the simple stimuli we have considered thus far differ from one another in only one respect.”</p>
 </blockquote>
 <ul>
-<li><p>DPC comment: In the medical imaging context, a trivial way to increase the number of ratings would be to color-code the images: e.g., red, green and blue; now one can assign a red image rated 3, a green image rated 2, etc., which would be meaningless unless the colors encode relevant diagnostic information. Another ability, quoted in the publication <span class="citation">(<a href="#ref-wagner2001continuous" role="doc-biblioref">Wagner, Beiden, and Metz 2001</a>)</span> advocating continuous ratings is the ability to recognize faces, again a multidimensional categorization task, addressed by Miller (see above). Also quoted as an argument for continuous ratings is the ability of computer aided detection schemes that calculate many features for each perceived lesion and combine them into a single probability of malignancy, which is on a highly precise floating point 0 to 1 scale. Radiologists are not computers. Other arguments for greater number of bins: it cannot hurt and one should acquire the rating data at greater precision than the noise, especially if the radiologist is able to maintain the finer distinctions. I worry that radiologists who are willing to go along with greater precision are over-anxious to co-operate with the study designer. Expert radiologists will not modify their reading style and one should be suspicious when they do accede to an investigators request to interpret images in a style that does not resemble the clinic. Radiologists, especially experts, do not like more than about four ratings. I once worked closely with a famous chest radiologist (the late Dr. Robert Fraser) who refused to use more than four ratings. <a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p></li>
+<li><p>DPC comment: In the medical imaging context, a trivial way to increase the number of ratings would be to color-code the images: e.g., red, green and blue; now one can assign a red image rated 3, a green image rated 2, etc., which would be meaningless unless the colors encode relevant diagnostic information. Another ability, quoted in the publication <span class="citation">(<a href="#ref-wagner2001continuous">Wagner, Beiden, and Metz 2001</a>)</span> advocating continuous ratings is the ability to recognize faces, again a multidimensional categorization task, addressed by Miller (see above). Also quoted as an argument for continuous ratings is the ability of computer aided detection schemes that calculate many features for each perceived lesion and combine them into a single probability of malignancy, which is on a highly precise floating point 0 to 1 scale. Radiologists are not computers. Other arguments for greater number of bins: it cannot hurt and one should acquire the rating data at greater precision than the noise, especially if the radiologist is able to maintain the finer distinctions. I worry that radiologists who are willing to go along with greater precision are over-anxious to co-operate with the study designer. Expert radiologists will not modify their reading style and one should be suspicious when they do accede to an investigators request to interpret images in a style that does not resemble the clinic. Radiologists, especially experts, do not like more than about four ratings. I once worked closely with a famous chest radiologist (the late Dr. Robert Fraser) who refused to use more than four ratings. <a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p></li>
 <li><p>Another reason given for using continuous ratings is it reduces instances of data degeneracy. Data is sometimes said to be degenerate if the curve-fitting algorithm cannot fit it (in simple terms, the program “crashes” or reports unphysical parameter values). This occurs if there are no interior points on the ROC plot. Modifying radiologist behavior to accommodate the limitations of analytical methods seems to be inherently dubious. One could simply randomly add or subtract half an integer from the observed ratings thereby making the rating scale more granular and thus reduce instances of degeneracy (this is actually done in some ROC software to overcome this problem). Another possibility is to use the empirical (trapezoidal) area under the ROC curve, which can always be calculated. Actually, fitting methods now exist that are robust to data degeneracy, such as discussed in Chapter <a href="proper-roc-models.html#proper-roc-models">7</a> and in the RSM fitting chapter in TBA <code>RJafrocFrocBook</code>, so this reason for acquiring continuous data is no longer valid.</p></li>
 <li><p>The rating task involves a unidimensional scale and I see no way of getting around the basic channel-limitation noted by Miller and for this reason I recommend a 6 point scale, as in Fig. <a href="ratings-paradigm.html#fig:SixPointScale">4.3</a>.</p></li>
-<li><p>On the other side of the controversy <span class="citation">(<a href="#ref-berbaum2002empirical" role="doc-biblioref">Berbaum et al. 2002</a>)</span>, a position that I agree with, it has been argued that given a large number of allowed ratings levels the cooperating observer essentially bins the data into a much smaller number of bins (e.g., 0, 20, 40, 60, 80, 100) and then adds a zero-mean noise term to appear to be “spreading out the ratings”. This ensures that the binormal model does not “crash”. However, if the intent is to get the observer to spread the ratings, so that the binormal model does not “crash”, a better approach is to use alternate models that do not “crash” and are, in fact, very robust with respect to degeneracy of the data.</p></li>
+<li><p>On the other side of the controversy <span class="citation">(<a href="#ref-berbaum2002empirical">Berbaum et al. 2002</a>)</span>, a position that I agree with, it has been argued that given a large number of allowed ratings levels the cooperating observer essentially bins the data into a much smaller number of bins (e.g., 0, 20, 40, 60, 80, 100) and then adds a zero-mean noise term to appear to be “spreading out the ratings”. This ensures that the binormal model does not “crash”. However, if the intent is to get the observer to spread the ratings, so that the binormal model does not “crash”, a better approach is to use alternate models that do not “crash” and are, in fact, very robust with respect to degeneracy of the data.</p></li>
 </ul>
 </div>
 <div id="binary-task-birads-rating-scale" class="section level2 hasAnchor" number="4.12">
 <h2><span class="header-section-number">4.12</span> The BI-RADS ratings scale and ROC studies<a href="ratings-paradigm.html#binary-task-birads-rating-scale" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>It is desirable that the rating scale be relevant to the radiologists’ daily practice. This assures greater consistency – the fitting algorithms assume that the thresholds are held constant for the duration of the ROC study. Depending on the clinical task, a natural rating scale may already exist. For example, the American College of Radiology has developed the Breast Imaging Reporting and Data System (BI-RADS) to standardize mammography reporting <span class="citation">(<a href="#ref-liberman2002breast" role="doc-biblioref">Liberman and Menell 2002</a>)</span>. There are six assessment categories: category 0 indicates need for additional imaging; category 1 is a negative (clearly non-diseased); category 2 is a benign finding; category 3 is probably benign, with short-interval follow-up suggested; category 4 is a suspicious abnormality for which biopsy should be considered; category 5 is highly suggestive of malignancy and appropriate action should be taken. The 4th edition of the BI-RADS manual divides category 4 into three subcategories 4A, 4B and 4C and adds category 6 for a proven malignancy. The 3-category may be further subdivided into “probably benign with a recommendation for normal or short-term follow-up” and a 3+ category, “probably benign with a recommendation for immediate follow-up”. Apart from categories 0 and 2, the categories form an ordered set with higher categories representing greater confidence in presence of cancer. How to handle the 0s and the 2s is the subject of some controversy, described next.</p>
+<p>It is desirable that the rating scale be relevant to the radiologists’ daily practice. This assures greater consistency – the fitting algorithms assume that the thresholds are held constant for the duration of the ROC study. Depending on the clinical task, a natural rating scale may already exist. For example, the American College of Radiology has developed the Breast Imaging Reporting and Data System (BI-RADS) to standardize mammography reporting <span class="citation">(<a href="#ref-liberman2002breast">Liberman and Menell 2002</a>)</span>. There are six assessment categories: category 0 indicates need for additional imaging; category 1 is a negative (clearly non-diseased); category 2 is a benign finding; category 3 is probably benign, with short-interval follow-up suggested; category 4 is a suspicious abnormality for which biopsy should be considered; category 5 is highly suggestive of malignancy and appropriate action should be taken. The 4th edition of the BI-RADS manual divides category 4 into three subcategories 4A, 4B and 4C and adds category 6 for a proven malignancy. The 3-category may be further subdivided into “probably benign with a recommendation for normal or short-term follow-up” and a 3+ category, “probably benign with a recommendation for immediate follow-up”. Apart from categories 0 and 2, the categories form an ordered set with higher categories representing greater confidence in presence of cancer. How to handle the 0s and the 2s is the subject of some controversy, described next.</p>
 <div id="binary-task-birads-rating-scale-controversy" class="section level3 hasAnchor" number="4.12.1">
 <h3><span class="header-section-number">4.12.1</span> The controversy<a href="ratings-paradigm.html#binary-task-birads-rating-scale-controversy" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Two large clinical studies have been reported in which BI-RADS category data were acquired for &gt; 400,00 screening mammograms interpreted by many (124 in the 1st study) radiologists <span class="citation">(<a href="#ref-barlow2004accuracy" role="doc-biblioref">Barlow et al. 2004</a>; <a href="#ref-fenton2007influence" role="doc-biblioref">Fenton et al. 2007</a>)</span>. The purpose of the first study was to relate radiologist characteristics to actual performance (e.g., does performance depend on reading volume – the number of cases interpreted per year), so it could be regarded as a more elaborate version of <span class="citation">(<a href="#ref-beam1996variability" role="doc-biblioref">Beam, Layde, and Sullivan 1996</a>)</span>, described in Chapter <a href="binary-task.html#binary-task">2</a>. The purpose of the second study was to determine the effectiveness of computer-aided detection (CAD) in screening mammography.</p>
+<p>Two large clinical studies have been reported in which BI-RADS category data were acquired for &gt; 400,00 screening mammograms interpreted by many (124 in the 1st study) radiologists <span class="citation">(<a href="#ref-barlow2004accuracy">Barlow et al. 2004</a>; <a href="#ref-fenton2007influence">Fenton et al. 2007</a>)</span>. The purpose of the first study was to relate radiologist characteristics to actual performance (e.g., does performance depend on reading volume – the number of cases interpreted per year), so it could be regarded as a more elaborate version of <span class="citation">(<a href="#ref-beam1996variability">Beam, Layde, and Sullivan 1996</a>)</span>, described in Chapter <a href="binary-task.html#binary-task">2</a>. The purpose of the second study was to determine the effectiveness of computer-aided detection (CAD) in screening mammography.</p>
 <p>The reported ROC analyses used the BIRADS assessments labels ordered as follows: <span class="math inline">\(1 &lt; 2 &lt; 3 &lt; 3+ &lt; 0 &lt; 4 &lt; 5\)</span>. The last column of Table <a href="ratings-paradigm.html#tab:BIRADS-study">4.3</a> shows that with this ordering the numbers of cancer per 1000 patients increases monotonically. The CAD study is discussed later, for now the focus is on the adopted BIRADS scale ordering that is common to both studies and which has raised controversy.</p>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:BIRADS-study">TABLE 4.3: </span>The Barlow et al study: the ordering of the BI-RADS ratings in the first column correlates with cancer-rate in the last column.
+<span id="tab:BIRADS-study">TABLE 4.3: </span><span id="tab:BIRADS-study">TABLE 4.4: </span>The Barlow et al study: the ordering of the BI-RADS ratings in the first column correlates with cancer-rate in the last column.
 </caption>
 <thead>
 <tr>
@@ -968,16 +896,16 @@ Total number
 of mammograms
 </th>
 <th style="text-align:left;">
-Mammograms without
-breast cancer (percent)
+|Mammograms without
+breast cancer (percent
 </th>
 <th style="text-align:left;">
-Mammograms with
-breast cancer (percent)
+|Mammograms with
+breast cancer (percen
 </th>
 <th style="text-align:left;">
-Cancers per 1000
-screening mammograms
+) |Cancers per 1000
+screening mammogr
 </th>
 </tr>
 </thead>
@@ -1022,16 +950,16 @@ screening mammograms
 recommend normal or short term follow up
 </td>
 <td style="text-align:left;width: 8em; ">
-8,692
+|8,692
 </td>
 <td style="text-align:left;width: 8em; ">
-8,627 (1.8)
+|8,627 (1.8)
 </td>
 <td style="text-align:left;width: 8em; ">
-65 (2.7)
+|65 (2.7)
 </td>
 <td style="text-align:left;width: 8em; ">
-7.48
+|7.48
 </td>
 </tr>
 <tr>
@@ -1040,16 +968,16 @@ recommend normal or short term follow up
 recommend immediate follow up
 </td>
 <td style="text-align:left;width: 8em; ">
-3,094
+|3,094
 </td>
 <td style="text-align:left;width: 8em; ">
-3,049 (0.7)
+|3,049 (0.7)
 </td>
 <td style="text-align:left;width: 8em; ">
-45 (1.9)
+|45 (1.9)
 </td>
 <td style="text-align:left;width: 8em; ">
-14.54
+|14.54
 </td>
 </tr>
 <tr>
@@ -1058,16 +986,16 @@ recommend immediate follow up
 imaging evaluation
 </td>
 <td style="text-align:left;width: 8em; ">
-42,823
+|42,823
 </td>
 <td style="text-align:left;width: 8em; ">
-41,442 (8.9)
+|41,442 (8.9)
 </td>
 <td style="text-align:left;width: 8em; ">
-1,381 (57.5)
+|1,381 (57.5)
 </td>
 <td style="text-align:left;width: 8em; ">
-32.25
+|32.25
 </td>
 </tr>
 <tr>
@@ -1076,16 +1004,16 @@ imaging evaluation
 biopsy should be considered
 </td>
 <td style="text-align:left;width: 8em; ">
-2,022
+|2,022
 </td>
 <td style="text-align:left;width: 8em; ">
-1,687 (0.4)
+|1,687 (0.4)
 </td>
 <td style="text-align:left;width: 8em; ">
-335 (13.9)
+|335 (13.9)
 </td>
 <td style="text-align:left;width: 8em; ">
-165.68
+|165.68
 </td>
 </tr>
 <tr>
@@ -1094,27 +1022,27 @@ biopsy should be considered
 of malignancy
 </td>
 <td style="text-align:left;width: 8em; ">
-237
+|237
 </td>
 <td style="text-align:left;width: 8em; ">
-38 (0.0)
+|38 (0.0)
 </td>
 <td style="text-align:left;width: 8em; ">
-199 (8.3)
+|199 (8.3)
 </td>
 <td style="text-align:left;width: 8em; ">
-839.66
+|839.66
 </td>
 </tr>
 </tbody>
 </table>
-<p>The use of the BI-RADS ratings shown in Table <a href="ratings-paradigm.html#tab:BIRADS-study">4.3</a> has been criticized <span class="citation">(<a href="#ref-RN2166" role="doc-biblioref">Jiang and Metz 2010</a>)</span> in an editorial titled:</p>
+<p>The use of the BI-RADS ratings shown in Table <a href="ratings-paradigm.html#tab:BIRADS-study">4.3</a> has been criticized <span class="citation">(<a href="#ref-RN2166">Jiang and Metz 2010</a>)</span> in an editorial titled:</p>
 <blockquote>
 <p>BI-RADS Data Should Not Be Used to Estimate ROC Curves</p>
 </blockquote>
 <p>Since BI-RADS is a clinical rating scheme widely used in mammography, the editorial, if correct, implies that ROC analysis of clinical mammography data is not possible. Since the BI-RADS scale was arrived at after considerable deliberation, the inability to perform ROC analysis with it would strike at the root of clinical utility of the ROC method. The purpose of this section is to express the reasons why I have a different take on this controversy.</p>
 <p>It is claimed in the editorial that the Barlow et al. study confuses cancer yield with confidence level and that BI-RADS categories 1 and 2 should not be separate entries of the confidence scale, because both indicate no suspicion for cancer.</p>
-<p>I agree with the Barlow et al. suggested ordering of the “2s” as more likely to have cancer than the “1s”. A category-2 means the radiologist found something to report, and the location of the finding is part of the clinical report. Even if the radiologist believes the finding is definitely benign, there is a non-zero probability that a category-2 finding is cancer, as evident in the last column of Table <a href="ratings-paradigm.html#tab:BIRADS-study">4.3</a> (<span class="math inline">\(1.43 &gt; 0.83\)</span>). In contrast, there are no findings associated with a category-1 report. A paper <span class="citation">(<a href="#ref-hartmann2005benign" role="doc-biblioref">Hartmann et al. 2005</a>)</span> titled:</p>
+<p>I agree with the Barlow et al. suggested ordering of the “2s” as more likely to have cancer than the “1s”. A category-2 means the radiologist found something to report, and the location of the finding is part of the clinical report. Even if the radiologist believes the finding is definitely benign, there is a non-zero probability that a category-2 finding is cancer, as evident in the last column of Table <a href="ratings-paradigm.html#tab:BIRADS-study">4.3</a> (<span class="math inline">\(1.43 &gt; 0.83\)</span>). In contrast, there are no findings associated with a category-1 report. A paper <span class="citation">(<a href="#ref-hartmann2005benign">Hartmann et al. 2005</a>)</span> titled:</p>
 <blockquote>
 <p>Benign breast disease and the risk of breast cancer</p>
 </blockquote>
@@ -1123,13 +1051,13 @@ of malignancy
 <blockquote>
 <p>Moreover, the last column of Table <a href="ratings-paradigm.html#tab:BIRADS-study">4.3</a> suggests that any other ordering would violate an important principle, namely, optimal ordering is achieved when each case is rated according to it’s likelihood ratio (defined as the probability of the case being diseased divided by the probability of the case being non-diseased). The likelihood ratio is the “betting odds” of the case being diseased, which is expected to be monotonic with the empirical probability of the case being diseased, i.e., the last column of Table <a href="ratings-paradigm.html#tab:BIRADS-study">4.3</a>. Therefore, the ordering adopted in Table <a href="ratings-paradigm.html#tab:BIRADS-study">4.3</a> is equivalent to adopting a likelihood ratio scale and any other ordering would not be monotonic with likelihood ratio.</p>
 </blockquote>
-<p>The likelihood ratio is described in more detail in Chapter <a href="proper-roc-models.html#proper-roc-models">7</a>, which describes ROC fitting methods that yield “proper” ROC curves, i.e., ones that have monotonically decreasing slope as the operating point moves up the curve from (0,0) to (1,1) and therefore do not inappropriately cross the chance diagonal. Key to these fitting methods is adoption of a likelihood ratio scale to rank-order cases. The fitting algorithm implemented in PROPROC software <strong>reorders</strong> confidence levels assumed by the binormal model, Chapter <a href="proper-roc-models.html#proper-roc-models">7</a>, paragraph following TBA Fig. 20.4. This is analogous to the reordering of the clinical ratings based on cancer rates assumed in Table <a href="ratings-paradigm.html#tab:BIRADS-study">4.3</a>. It is illogical to allow reordering of ratings in software but question the same when done in a principled way by a researcher. As expected, the modeled ROC curves in the Barlow publication, their Fig. 4, show no evidence of improper behavior. This is in contrast to a clinical study (about fifty thousands patients spread over 33 hospitals with each mammogram interpreted by two radiologists) using a non-BIRADS 7-point rating scale which yielded markedly improper ROC curves <span class="citation">(<a href="#ref-pisano2005diagnostic" role="doc-biblioref">Pisano et al. 2005</a>)</span> for the film modality when using ROC ratings (not BIRADS). This suggests that use of a non-clinical ratings scale for clinical studies, without independent confirmation of the ordering implied by the scale, is problematical.</p>
+<p>The likelihood ratio is described in more detail in Chapter <a href="proper-roc-models.html#proper-roc-models">7</a>, which describes ROC fitting methods that yield “proper” ROC curves, i.e., ones that have monotonically decreasing slope as the operating point moves up the curve from (0,0) to (1,1) and therefore do not inappropriately cross the chance diagonal. Key to these fitting methods is adoption of a likelihood ratio scale to rank-order cases. The fitting algorithm implemented in PROPROC software <strong>reorders</strong> confidence levels assumed by the binormal model, Chapter <a href="proper-roc-models.html#proper-roc-models">7</a>, paragraph following TBA Fig. 20.4. This is analogous to the reordering of the clinical ratings based on cancer rates assumed in Table <a href="ratings-paradigm.html#tab:BIRADS-study">4.3</a>. It is illogical to allow reordering of ratings in software but question the same when done in a principled way by a researcher. As expected, the modeled ROC curves in the Barlow publication, their Fig. 4, show no evidence of improper behavior. This is in contrast to a clinical study (about fifty thousands patients spread over 33 hospitals with each mammogram interpreted by two radiologists) using a non-BIRADS 7-point rating scale which yielded markedly improper ROC curves <span class="citation">(<a href="#ref-pisano2005diagnostic">Pisano et al. 2005</a>)</span> for the film modality when using ROC ratings (not BIRADS). This suggests that use of a non-clinical ratings scale for clinical studies, without independent confirmation of the ordering implied by the scale, is problematical.</p>
 <p>The reader might be interested as to reason for the 0-ratings being more predictive of cancer than a 3+ rating, Table <a href="ratings-paradigm.html#tab:BIRADS-study">4.3</a>. In the clinic the zero rating implies, in effect, “defer decision, incomplete information, additional imaging necessary”. A zero rating could be due to technical problems with the images: e.g., improper positioning (e.g., missing breast tissue close to the chest wall) or incorrect imaging technique (improper selection of kilovoltage and/or tube charge) making it impossible to properly interpret the images. Since the images are part of the permanent patient record, there are both healthcare and legal reasons why the images need to be optimal. Incorrect technical factors are expected to occur randomly and therefore not predictive of cancer. However, if there is a suspicious finding and the image quality is sub-optimal, the radiologist may be unable to commit to a decision, they may seek additional imaging, perhaps better compression or a slightly different view angle to resolve the ambiguity. Such zero ratings are expected with suspicious findings and are expected to be predictive of cancer.</p>
 </div>
 </div>
 <div id="ratings-paradigm-discussion" class="section level2 hasAnchor" number="4.13">
 <h2><span class="header-section-number">4.13</span> Discussion<a href="ratings-paradigm.html#ratings-paradigm-discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this chapter the widely used ratings paradigm was described and illustrated with a sample dataset. The calculation of ROC operating points from this table was explained. A formal notation was introduced to describe the counts in this table and the construction of operating points and an <code>R</code> example was given. I do not wish to leave the impression that the ratings paradigm is used only in medical imaging. In fact the historical reference <span class="citation">(<a href="#ref-macmillan2004detection" role="doc-biblioref">Macmillan and Creelman 2004</a>)</span> to the two-question six-point scale in Fig. <a href="ratings-paradigm.html#fig:SixPointScale">4.3</a> was for a rating study on performance in recognizing odors.</p>
+<p>In this chapter the widely used ratings paradigm was described and illustrated with a sample dataset. The calculation of ROC operating points from this table was explained. A formal notation was introduced to describe the counts in this table and the construction of operating points and an <code>R</code> example was given. I do not wish to leave the impression that the ratings paradigm is used only in medical imaging. In fact the historical reference <span class="citation">(<a href="#ref-macmillan2004detection">Macmillan and Creelman 2004</a>)</span> to the two-question six-point scale in Fig. <a href="ratings-paradigm.html#fig:SixPointScale">4.3</a> was for a rating study on performance in recognizing odors.</p>
 <p>While it is possible to use the equal variance binormal model to obtain a measure of performance, the results depend upon the choice of operating point, and evidence was presented for the generally observed fact that most ROC ratings datasets are inconsistent with the equal variance binormal model. This indicates the need for an extended model, to be discussed in Chapter <a href="binormal-model.html#binormal-model">6</a>.</p>
 <p>The rating paradigm is a more efficient way of collecting the data compared to repeating the binary paradigm with instructions to cause the observer to adopt different fixed thresholds specific to each repetition. The rating paradigm is also more efficient than the 2AFC paradigm – and the rating paradigm is more clinically realistic.</p>
 <p>Two controversial but important issues were addressed: the reason for my recommendation for adopting a discrete 6-point rating scale and correct usage of clinical BIRADS ratings in ROC studies. When a clinical scale exists, the empirical disease occurrence rate associated with each rating should be used to order the ratings.</p>
@@ -1141,7 +1069,7 @@ of malignancy
 </div>
 </div>
 <h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-barlow2004accuracy" class="csl-entry">
 Barlow, William E, Chen Chi, Patricia A Carney, Stephen H Taplin, Carl D’Orsi, Gary Cutter, R Edward Hendrick, and Joann G Elmore. 2004. <span>“Accuracy of Screening Mammography Interpretation by Characteristics of Radiologists.”</span> <em>Journal of the National Cancer Institute</em> 96 (24): 1840–50.
 </div>
@@ -1208,7 +1136,7 @@ Wagner, Robert F, Sergey V Beiden, and Charles E Metz. 2001. <span>“Continuous
 <ol start="6">
 <li id="fn6"><p>This type of data representation is sometimes called a frequency table, but frequency means a rate of number of events per some unit of time, so I prefer the clearer term “counts”.<a href="ratings-paradigm.html#fnref6" class="footnote-back">↩︎</a></p></li>
 <li id="fn7"><p>The estimates in the preceding chapter were for a single operating point. Since the multiple operating points discussed here are correlated –- some of the counts used to calculate them are common to two or more operating points –- the method described in the previous chapter overestimates the confidence intervals. A modeling approach accounts for these correlations and yields narrower confidence intervals.<a href="ratings-paradigm.html#fnref7" class="footnote-back">↩︎</a></p></li>
-<li id="fn8"><p>Dr. Fraser famously termed – off the record – our statistical analysis in <span class="citation">(<a href="#ref-Chakraborty1986DigitalVsConv" role="doc-biblioref">D. P. Chakraborty et al. 1986</a>)</span> “gobbledygook”.<a href="ratings-paradigm.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>Dr. Fraser famously termed – off the record – our statistical analysis in <span class="citation">(<a href="#ref-Chakraborty1986DigitalVsConv">D. P. Chakraborty et al. 1986</a>)</span> “gobbledygook”.<a href="ratings-paradigm.html#fnref8" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

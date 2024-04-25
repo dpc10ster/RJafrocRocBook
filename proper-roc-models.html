@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Proper ROC models | Modeling ROC data</title>
   <meta name="description" content="Understanding and modeling receiver operating characteristic (ROC) data." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Proper ROC models | Modeling ROC data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-05-20" />
+<meta name="date" content="2024-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,18 +54,19 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -137,6 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -521,11 +523,11 @@ div.csl-indent {
 </blockquote>
 <p>The improper behavior is often not readily visible. One may need to “zoom-in” on the upper-right corner to see it. Any fit that predicts worse than chance level performance anywhere on the ROC plot, visible or not, is scientifically indefensible. Much effort has gone into developing models that always predict proper ROC curves, i.e., those that do not cross the chance diagonal. These are called “proper” ROC curves (some of literature uses the quotes and some does not). There are at least four methods for fitting proper ROC curves, and these are listed in reverse chronological order.</p>
 <ul>
-<li><p>The most recent (2016) one <span class="citation">(<a href="#ref-chakraborty2011estimating" role="doc-biblioref">DP Chakraborty and Svahn 2011</a>; <a href="#ref-chakraborty2012inverse" role="doc-biblioref">DP Chakraborty, Yoon, and Mello-Thoms 2012</a>)</span> is based on the radiological search model (RSM) and is implemented in the <code>RJafroc</code> package.</p></li>
-<li><p>A method <span class="citation">(<a href="#ref-dorfman2000contaminated1" role="doc-biblioref">Dorfman, Berbaum, and Brandser 2000</a>; <a href="#ref-dorfman2000contaminated2" role="doc-biblioref">Dorfman and Berbaum 2000b</a>, <a href="#ref-dorfman2000contaminated3" role="doc-biblioref">2000a</a>)</span> based on the contaminated binormal model (CBM), available as part of DBM-MRMC software from a University of Iowa website and also implemented in the <code>RJafroc</code> package.</p></li>
-<li><p>The binormal model-based proper ROC fitting algorithm <span class="citation">(<a href="#ref-metz1999proper" role="doc-biblioref">Charles E. Metz and Pan 1999</a>; <a href="#ref-pan1997proper" role="doc-biblioref">Pan and Metz 1997</a>)</span> developed by Metz and Pan implemented in PROPROC software available as part of DBM-MRMC software.</p></li>
-<li><p>The bigamma model <span class="citation">(<a href="#ref-dorfman1997proper" role="doc-biblioref">Dorfman et al. 1997</a>)</span> fitting algorithm for which no software is currently readily available but it is fairly easy to implement.</p></li>
-<li><p>LROCFIT, based on the location ROC (LROC) paradigm <span class="citation">(<a href="#ref-swensson1996unified" role="doc-biblioref">Swensson 1996</a>)</span>, which also predicts proper ROC curves, but the data has to be acquired according to the LROC paradigm while all of the other methods described in this chapter work with ROC data (no localization information).</p></li>
+<li><p>The most recent (2016) one <span class="citation">(<a href="#ref-chakraborty2011estimating">DP Chakraborty and Svahn 2011</a>; <a href="#ref-chakraborty2012inverse">DP Chakraborty, Yoon, and Mello-Thoms 2012</a>)</span> is based on the radiological search model (RSM) and is implemented in the <code>RJafroc</code> package.</p></li>
+<li><p>A method <span class="citation">(<a href="#ref-dorfman2000contaminated1">Dorfman, Berbaum, and Brandser 2000</a>; <a href="#ref-dorfman2000contaminated2">Dorfman and Berbaum 2000b</a>, <a href="#ref-dorfman2000contaminated3">2000a</a>)</span> based on the contaminated binormal model (CBM), available as part of DBM-MRMC software from a University of Iowa website and also implemented in the <code>RJafroc</code> package.</p></li>
+<li><p>The binormal model-based proper ROC fitting algorithm <span class="citation">(<a href="#ref-metz1999proper">Charles E. Metz and Pan 1999</a>; <a href="#ref-pan1997proper">Pan and Metz 1997</a>)</span> developed by Metz and Pan implemented in PROPROC software available as part of DBM-MRMC software.</p></li>
+<li><p>The bigamma model <span class="citation">(<a href="#ref-dorfman1997proper">Dorfman et al. 1997</a>)</span> fitting algorithm for which no software is currently readily available but it is fairly easy to implement.</p></li>
+<li><p>LROCFIT, based on the location ROC (LROC) paradigm <span class="citation">(<a href="#ref-swensson1996unified">Swensson 1996</a>)</span>, which also predicts proper ROC curves, but the data has to be acquired according to the LROC paradigm while all of the other methods described in this chapter work with ROC data (no localization information).</p></li>
 </ul>
 <p>A related issue is data degeneracy that occurs when a reader fails to provide an interior ROC point. The binormal model does not yield reasonable fits to such data and the researcher has no option but to discard the data or use the empirical AUC.</p>
 <blockquote>
@@ -573,11 +575,11 @@ l_{\text{BIN}}\left( z | a,b\right) &amp;\equiv \frac{\text{pdf}_D\left( z \righ
 l_{\text{BIN}}\left( z | a,b\right) = m\left( z | a,b\right)
 \tag{7.5}
 \end{equation}\]</span></p>
-<p>While illustrated for the binormal model, this theorem is actually independent of any distributional assumptions <span class="citation">(<a href="#ref-Egan1975" role="doc-biblioref">Egan 1975b</a>)</span>. The reason for the name “likelihood ratio” is that early researchers in the field used the term “likelihood function” for what statisticians now term “probability density function”. Hence the ratio of two likelihood functions was termed a “likelihood ratio” when in fact it is a ratio of two pdfs.</p>
+<p>While illustrated for the binormal model, this theorem is actually independent of any distributional assumptions <span class="citation">(<a href="#ref-Egan1975">Egan 1975b</a>)</span>. The reason for the name “likelihood ratio” is that early researchers in the field used the term “likelihood function” for what statisticians now term “probability density function”. Hence the ratio of two likelihood functions was termed a “likelihood ratio” when in fact it is a ratio of two pdfs.</p>
 </div>
 <div id="proper-roc-models-likelihood-ratio-theorem2" class="section level2 hasAnchor" number="7.4">
 <h2><span class="header-section-number">7.4</span> The likelihood ratio observer maximizes AUC<a href="proper-roc-models.html#proper-roc-models-likelihood-ratio-theorem2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>An observer who maximizes TPF at each FPF for all values <span class="math inline">\(0 \le \text{FPF} \le 1\)</span> is called a Neyman-Pearson observer <span class="citation">(<a href="#ref-neyman1933ix" role="doc-biblioref">Neyman and Pearson 1933</a>)</span>. It can be shown that the Neyman-Pearson observer uses the likelihood ratio as the decision variable <span class="citation">(<a href="#ref-green1966signal" role="doc-biblioref">Green, Swets, et al. 1966</a>)</span>.</p>
+<p>An observer who maximizes TPF at each FPF for all values <span class="math inline">\(0 \le \text{FPF} \le 1\)</span> is called a Neyman-Pearson observer <span class="citation">(<a href="#ref-neyman1933ix">Neyman and Pearson 1933</a>)</span>. It can be shown that the Neyman-Pearson observer uses the likelihood ratio as the decision variable <span class="citation">(<a href="#ref-green1966signal">Green, Swets, et al. 1966</a>)</span>.</p>
 <blockquote>
 <p>A consequence is that AUC for a likelihood ratio observer represents an upper limit on performance, and such an observer is called an “ideal observer”. Moreover use of the likelihood ratio as the decision variable always yields proper ROC curves.</p>
 </blockquote>
@@ -631,7 +633,7 @@ FIGURE 7.1: These plots of likelihood ratio <span class="math inline">\(\text{lr
 </div>
 <div id="proper-roc-models-proproc" class="section level2 hasAnchor" number="7.6">
 <h2><span class="header-section-number">7.6</span> PROPROC<a href="proper-roc-models.html#proper-roc-models-proproc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>An algorithm <span class="citation">(<a href="#ref-metz1999proper" role="doc-biblioref">Charles E. Metz and Pan 1999</a>)</span>, based on the observer using the binormal model likelihood ratio, has been implemented. The software is called PROPROC, for proper ROC. <a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
+<p>An algorithm <span class="citation">(<a href="#ref-metz1999proper">Charles E. Metz and Pan 1999</a>)</span>, based on the observer using the binormal model likelihood ratio, has been implemented. The software is called PROPROC, for proper ROC. <a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
 <div id="proper-roc-models-proproc-formulae" class="section level3 hasAnchor" number="7.6.1">
 <h3><span class="header-section-number">7.6.1</span> PROPROC formulae<a href="proper-roc-models.html#proper-roc-models-proproc-formulae" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The method uses two parameters <span class="math inline">\(c,d_a\)</span> defined as follows:</p>
@@ -658,7 +660,7 @@ b &amp;= -\frac{c+1}{c-1} \\
 \end{aligned}\right\}
 \tag{7.10}
 \end{equation}\]</span></p>
-<p>Since <span class="math inline">\(b &lt; 1\)</span> with most clinical datasets, one expects to find <span class="math inline">\(c &lt; 0\)</span>. The proper ROC curve is defined by <span class="citation">(<a href="#ref-metz1999proper" role="doc-biblioref">Charles E. Metz and Pan 1999</a>)</span> (the threshold variable <span class="math inline">\(v\)</span>, which is the PROPROC analog of <span class="math inline">\(\zeta\)</span>, is defined below):</p>
+<p>Since <span class="math inline">\(b &lt; 1\)</span> with most clinical datasets, one expects to find <span class="math inline">\(c &lt; 0\)</span>. The proper ROC curve is defined by <span class="citation">(<a href="#ref-metz1999proper">Charles E. Metz and Pan 1999</a>)</span> (the threshold variable <span class="math inline">\(v\)</span>, which is the PROPROC analog of <span class="math inline">\(\zeta\)</span>, is defined below):</p>
 <p><span class="math display" id="eq:proper-roc-models-v-range">\[\begin{equation}
 \left.\begin{aligned}
 FPF\left( v \right) &amp;= \Phi\left( -\left( 1-c \right)v -\frac{d_a}{2}\sqrt{1+c^2}  \right) \\
@@ -692,7 +694,7 @@ H\left( x &gt; 0 \right) &amp;= 1 \\
 \end{aligned}\right\}
 \tag{7.13}
 \end{equation}\]</span></p>
-<p>PROPROC software implements a maximum likelihood method to estimate the <span class="math inline">\(c, d_a\)</span> parameters from ratings data. The 1999 publication <span class="citation">(<a href="#ref-metz1999proper" role="doc-biblioref">Charles E. Metz and Pan 1999</a>)</span> states, without proof, that the area under the proper ROC is give by:</p>
+<p>PROPROC software implements a maximum likelihood method to estimate the <span class="math inline">\(c, d_a\)</span> parameters from ratings data. The 1999 publication <span class="citation">(<a href="#ref-metz1999proper">Charles E. Metz and Pan 1999</a>)</span> states, without proof, that the area under the proper ROC is give by:</p>
 <p><span class="math display" id="eq:proper-roc-models-metz-36">\[\begin{equation}
 A_{\text{prop}}=\Phi\left( \frac{d_a}{\sqrt{2}} \right) + 2F\left\{-\frac{d_a}{\sqrt{2}},0;-\frac{1-c^2}{1+c^2}  \right\}
 \tag{7.14}
@@ -734,63 +736,63 @@ A_{\text{prop}}\ge A_z
 <div id="proper-roc-models-proproc-code" class="section level3 hasAnchor" number="7.6.2">
 <h3><span class="header-section-number">7.6.2</span> PROPROC code implementation<a href="proper-roc-models.html#proper-roc-models-proproc-code" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here is the code to generate PROPROC ROC curve and slope plots.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb22-1"><a href="proper-roc-models.html#cb22-1"></a></span>
-<span id="cb22-2"><a href="proper-roc-models.html#cb22-2"></a>c1Arr <span class="ot">&lt;-</span>   <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1322804</span>, <span class="fl">0.2225588</span>)</span>
-<span id="cb22-3"><a href="proper-roc-models.html#cb22-3"></a>daArr  <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="fl">1.197239</span>,<span class="fl">1.740157</span>)</span>
-<span id="cb22-4"><a href="proper-roc-models.html#cb22-4"></a>plotRoc <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb22-5"><a href="proper-roc-models.html#cb22-5"></a>plotSlope <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb22-6"><a href="proper-roc-models.html#cb22-6"></a></span>
-<span id="cb22-7"><a href="proper-roc-models.html#cb22-7"></a>npts <span class="ot">&lt;-</span>  <span class="dv">10000</span></span>
-<span id="cb22-8"><a href="proper-roc-models.html#cb22-8"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
-<span id="cb22-9"><a href="proper-roc-models.html#cb22-9"></a>{</span>
-<span id="cb22-10"><a href="proper-roc-models.html#cb22-10"></a>  <span class="co"># initialize proproc c and d_a parameters</span></span>
-<span id="cb22-11"><a href="proper-roc-models.html#cb22-11"></a>  <span class="co"># cant use c, as it is an operator in R</span></span>
-<span id="cb22-12"><a href="proper-roc-models.html#cb22-12"></a>  c1 <span class="ot">&lt;-</span> c1Arr[i]</span>
-<span id="cb22-13"><a href="proper-roc-models.html#cb22-13"></a>  d_a <span class="ot">&lt;-</span> daArr[i]</span>
-<span id="cb22-14"><a href="proper-roc-models.html#cb22-14"></a>  </span>
-<span id="cb22-15"><a href="proper-roc-models.html#cb22-15"></a>  ret <span class="ot">&lt;-</span> <span class="fu">GetLimits</span>(d_a,c1)</span>
-<span id="cb22-16"><a href="proper-roc-models.html#cb22-16"></a>  LL <span class="ot">&lt;-</span> ret<span class="sc">$</span>LL</span>
-<span id="cb22-17"><a href="proper-roc-models.html#cb22-17"></a>  UL <span class="ot">&lt;-</span> ret<span class="sc">$</span>UL</span>
-<span id="cb22-18"><a href="proper-roc-models.html#cb22-18"></a>  </span>
-<span id="cb22-19"><a href="proper-roc-models.html#cb22-19"></a>  lambda  <span class="ot">&lt;-</span>  <span class="fu">seq</span> (LL, UL, <span class="at">length.out =</span> npts)</span>
-<span id="cb22-20"><a href="proper-roc-models.html#cb22-20"></a>  TPF  <span class="ot">&lt;-</span>  <span class="fu">TruePositiveFraction</span> (lambda, d_a, c1)</span>
-<span id="cb22-21"><a href="proper-roc-models.html#cb22-21"></a>  FPF <span class="ot">&lt;-</span> <span class="fu">FalsePositiveFraction</span> (lambda, d_a, c1)</span>
-<span id="cb22-22"><a href="proper-roc-models.html#cb22-22"></a>  FPF <span class="ot">&lt;-</span> <span class="fu">rev</span>(FPF);TPF <span class="ot">&lt;-</span> <span class="fu">rev</span>(TPF)</span>
-<span id="cb22-23"><a href="proper-roc-models.html#cb22-23"></a>  df2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FPF =</span> FPF, <span class="at">TPF =</span> TPF)</span>
-<span id="cb22-24"><a href="proper-roc-models.html#cb22-24"></a>  plotRoc[[i]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df2, <span class="fu">aes</span>(<span class="at">x =</span> FPF, <span class="at">y =</span> TPF)) <span class="sc">+</span> </span>
-<span id="cb22-25"><a href="proper-roc-models.html#cb22-25"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb22-26"><a href="proper-roc-models.html#cb22-26"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
-<span id="cb22-27"><a href="proper-roc-models.html#cb22-27"></a>                   LETTERS[i], </span>
-<span id="cb22-28"><a href="proper-roc-models.html#cb22-28"></a>                   <span class="st">&quot;:&quot;</span>, </span>
-<span id="cb22-29"><a href="proper-roc-models.html#cb22-29"></a>                   <span class="fu">sprintf</span>(<span class="st">&quot; c = %5.3f, d_a = %5.3f&quot;</span>, </span>
-<span id="cb22-30"><a href="proper-roc-models.html#cb22-30"></a>                           c1, d_a)))</span>
-<span id="cb22-31"><a href="proper-roc-models.html#cb22-31"></a>  </span>
-<span id="cb22-32"><a href="proper-roc-models.html#cb22-32"></a>  <span class="co"># Implement Eqn. 36 from Metz-Pan paper </span></span>
-<span id="cb22-33"><a href="proper-roc-models.html#cb22-33"></a>  rho <span class="ot">&lt;-</span> <span class="sc">-</span>(<span class="dv">1</span><span class="sc">-</span>c1<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>c1<span class="sc">^</span><span class="dv">2</span>);sigma <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, rho), <span class="fu">c</span>(rho, <span class="dv">1</span>))</span>
-<span id="cb22-34"><a href="proper-roc-models.html#cb22-34"></a>  lower <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="sc">-</span><span class="cn">Inf</span>,<span class="dv">2</span>);upper <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span>d_a<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span>),<span class="dv">0</span>)</span>
-<span id="cb22-35"><a href="proper-roc-models.html#cb22-35"></a>  A_prop <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(d_a<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span>)) <span class="sc">+</span> </span>
-<span id="cb22-36"><a href="proper-roc-models.html#cb22-36"></a>    <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmvnorm</span>(lower, upper, <span class="at">sigma =</span> sigma)</span>
-<span id="cb22-37"><a href="proper-roc-models.html#cb22-37"></a>  A_prop <span class="ot">&lt;-</span>  <span class="fu">as.numeric</span>(A_prop)</span>
-<span id="cb22-38"><a href="proper-roc-models.html#cb22-38"></a>  </span>
-<span id="cb22-39"><a href="proper-roc-models.html#cb22-39"></a>  <span class="co"># may need to adjust limits to view detail of slope plot</span></span>
-<span id="cb22-40"><a href="proper-roc-models.html#cb22-40"></a>  ret <span class="ot">&lt;-</span> <span class="fu">Transform2ab</span>(d_a, c1)</span>
-<span id="cb22-41"><a href="proper-roc-models.html#cb22-41"></a>  a <span class="ot">&lt;-</span> ret<span class="sc">$</span>a;b <span class="ot">&lt;-</span> ret<span class="sc">$</span>b</span>
-<span id="cb22-42"><a href="proper-roc-models.html#cb22-42"></a>  <span class="cf">if</span> (i <span class="sc">==</span> <span class="dv">1</span>) z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb22-43"><a href="proper-roc-models.html#cb22-43"></a>  <span class="cf">if</span> (i <span class="sc">==</span> <span class="dv">2</span>) z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb22-44"><a href="proper-roc-models.html#cb22-44"></a>  slope <span class="ot">&lt;-</span>b<span class="sc">*</span><span class="fu">dnorm</span>(a<span class="sc">-</span>b<span class="sc">*</span>z)<span class="sc">/</span><span class="fu">dnorm</span>(<span class="sc">-</span>z)</span>
-<span id="cb22-45"><a href="proper-roc-models.html#cb22-45"></a>  </span>
-<span id="cb22-46"><a href="proper-roc-models.html#cb22-46"></a>  slopePlot <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">z =</span> z, <span class="at">slope =</span> slope)</span>
-<span id="cb22-47"><a href="proper-roc-models.html#cb22-47"></a>  plotSlope[[i]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
-<span id="cb22-48"><a href="proper-roc-models.html#cb22-48"></a>    slopePlot, <span class="fu">aes</span>(<span class="at">x =</span> z, <span class="at">y =</span> slope)) <span class="sc">+</span> </span>
-<span id="cb22-49"><a href="proper-roc-models.html#cb22-49"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb22-50"><a href="proper-roc-models.html#cb22-50"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
-<span id="cb22-51"><a href="proper-roc-models.html#cb22-51"></a>                   LETTERS[i<span class="sc">+</span><span class="dv">2</span>], </span>
-<span id="cb22-52"><a href="proper-roc-models.html#cb22-52"></a>                   <span class="st">&quot;:&quot;</span>, </span>
-<span id="cb22-53"><a href="proper-roc-models.html#cb22-53"></a>                   <span class="fu">sprintf</span>(<span class="st">&quot; c = %5.3f, d_a = %5.3f&quot;</span>, </span>
-<span id="cb22-54"><a href="proper-roc-models.html#cb22-54"></a>                           c1, d_a)))</span>
-<span id="cb22-55"><a href="proper-roc-models.html#cb22-55"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r numberLines"><code class="sourceCode r"><span id="cb24-1"><a href="proper-roc-models.html#cb24-1"></a></span>
+<span id="cb24-2"><a href="proper-roc-models.html#cb24-2"></a>c1Arr <span class="ot">&lt;-</span>   <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1322804</span>, <span class="fl">0.2225588</span>)</span>
+<span id="cb24-3"><a href="proper-roc-models.html#cb24-3"></a>daArr  <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="fl">1.197239</span>,<span class="fl">1.740157</span>)</span>
+<span id="cb24-4"><a href="proper-roc-models.html#cb24-4"></a>plotRoc <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb24-5"><a href="proper-roc-models.html#cb24-5"></a>plotSlope <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb24-6"><a href="proper-roc-models.html#cb24-6"></a></span>
+<span id="cb24-7"><a href="proper-roc-models.html#cb24-7"></a>npts <span class="ot">&lt;-</span>  <span class="dv">10000</span></span>
+<span id="cb24-8"><a href="proper-roc-models.html#cb24-8"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
+<span id="cb24-9"><a href="proper-roc-models.html#cb24-9"></a>{</span>
+<span id="cb24-10"><a href="proper-roc-models.html#cb24-10"></a>  <span class="co"># initialize proproc c and d_a parameters</span></span>
+<span id="cb24-11"><a href="proper-roc-models.html#cb24-11"></a>  <span class="co"># cant use c, as it is an operator in R</span></span>
+<span id="cb24-12"><a href="proper-roc-models.html#cb24-12"></a>  c1 <span class="ot">&lt;-</span> c1Arr[i]</span>
+<span id="cb24-13"><a href="proper-roc-models.html#cb24-13"></a>  d_a <span class="ot">&lt;-</span> daArr[i]</span>
+<span id="cb24-14"><a href="proper-roc-models.html#cb24-14"></a>  </span>
+<span id="cb24-15"><a href="proper-roc-models.html#cb24-15"></a>  ret <span class="ot">&lt;-</span> <span class="fu">GetLimits</span>(d_a,c1)</span>
+<span id="cb24-16"><a href="proper-roc-models.html#cb24-16"></a>  LL <span class="ot">&lt;-</span> ret<span class="sc">$</span>LL</span>
+<span id="cb24-17"><a href="proper-roc-models.html#cb24-17"></a>  UL <span class="ot">&lt;-</span> ret<span class="sc">$</span>UL</span>
+<span id="cb24-18"><a href="proper-roc-models.html#cb24-18"></a>  </span>
+<span id="cb24-19"><a href="proper-roc-models.html#cb24-19"></a>  lambda  <span class="ot">&lt;-</span>  <span class="fu">seq</span> (LL, UL, <span class="at">length.out =</span> npts)</span>
+<span id="cb24-20"><a href="proper-roc-models.html#cb24-20"></a>  TPF  <span class="ot">&lt;-</span>  <span class="fu">TruePositiveFraction</span> (lambda, d_a, c1)</span>
+<span id="cb24-21"><a href="proper-roc-models.html#cb24-21"></a>  FPF <span class="ot">&lt;-</span> <span class="fu">FalsePositiveFraction</span> (lambda, d_a, c1)</span>
+<span id="cb24-22"><a href="proper-roc-models.html#cb24-22"></a>  FPF <span class="ot">&lt;-</span> <span class="fu">rev</span>(FPF);TPF <span class="ot">&lt;-</span> <span class="fu">rev</span>(TPF)</span>
+<span id="cb24-23"><a href="proper-roc-models.html#cb24-23"></a>  df2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FPF =</span> FPF, <span class="at">TPF =</span> TPF)</span>
+<span id="cb24-24"><a href="proper-roc-models.html#cb24-24"></a>  plotRoc[[i]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df2, <span class="fu">aes</span>(<span class="at">x =</span> FPF, <span class="at">y =</span> TPF)) <span class="sc">+</span> </span>
+<span id="cb24-25"><a href="proper-roc-models.html#cb24-25"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb24-26"><a href="proper-roc-models.html#cb24-26"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
+<span id="cb24-27"><a href="proper-roc-models.html#cb24-27"></a>                   LETTERS[i], </span>
+<span id="cb24-28"><a href="proper-roc-models.html#cb24-28"></a>                   <span class="st">&quot;:&quot;</span>, </span>
+<span id="cb24-29"><a href="proper-roc-models.html#cb24-29"></a>                   <span class="fu">sprintf</span>(<span class="st">&quot; c = %5.3f, d_a = %5.3f&quot;</span>, </span>
+<span id="cb24-30"><a href="proper-roc-models.html#cb24-30"></a>                           c1, d_a)))</span>
+<span id="cb24-31"><a href="proper-roc-models.html#cb24-31"></a>  </span>
+<span id="cb24-32"><a href="proper-roc-models.html#cb24-32"></a>  <span class="co"># Implement Eqn. 36 from Metz-Pan paper </span></span>
+<span id="cb24-33"><a href="proper-roc-models.html#cb24-33"></a>  rho <span class="ot">&lt;-</span> <span class="sc">-</span>(<span class="dv">1</span><span class="sc">-</span>c1<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>c1<span class="sc">^</span><span class="dv">2</span>);sigma <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, rho), <span class="fu">c</span>(rho, <span class="dv">1</span>))</span>
+<span id="cb24-34"><a href="proper-roc-models.html#cb24-34"></a>  lower <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="sc">-</span><span class="cn">Inf</span>,<span class="dv">2</span>);upper <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span>d_a<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span>),<span class="dv">0</span>)</span>
+<span id="cb24-35"><a href="proper-roc-models.html#cb24-35"></a>  A_prop <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(d_a<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span>)) <span class="sc">+</span> </span>
+<span id="cb24-36"><a href="proper-roc-models.html#cb24-36"></a>    <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmvnorm</span>(lower, upper, <span class="at">sigma =</span> sigma)</span>
+<span id="cb24-37"><a href="proper-roc-models.html#cb24-37"></a>  A_prop <span class="ot">&lt;-</span>  <span class="fu">as.numeric</span>(A_prop)</span>
+<span id="cb24-38"><a href="proper-roc-models.html#cb24-38"></a>  </span>
+<span id="cb24-39"><a href="proper-roc-models.html#cb24-39"></a>  <span class="co"># may need to adjust limits to view detail of slope plot</span></span>
+<span id="cb24-40"><a href="proper-roc-models.html#cb24-40"></a>  ret <span class="ot">&lt;-</span> <span class="fu">Transform2ab</span>(d_a, c1)</span>
+<span id="cb24-41"><a href="proper-roc-models.html#cb24-41"></a>  a <span class="ot">&lt;-</span> ret<span class="sc">$</span>a;b <span class="ot">&lt;-</span> ret<span class="sc">$</span>b</span>
+<span id="cb24-42"><a href="proper-roc-models.html#cb24-42"></a>  <span class="cf">if</span> (i <span class="sc">==</span> <span class="dv">1</span>) z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb24-43"><a href="proper-roc-models.html#cb24-43"></a>  <span class="cf">if</span> (i <span class="sc">==</span> <span class="dv">2</span>) z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb24-44"><a href="proper-roc-models.html#cb24-44"></a>  slope <span class="ot">&lt;-</span>b<span class="sc">*</span><span class="fu">dnorm</span>(a<span class="sc">-</span>b<span class="sc">*</span>z)<span class="sc">/</span><span class="fu">dnorm</span>(<span class="sc">-</span>z)</span>
+<span id="cb24-45"><a href="proper-roc-models.html#cb24-45"></a>  </span>
+<span id="cb24-46"><a href="proper-roc-models.html#cb24-46"></a>  slopePlot <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">z =</span> z, <span class="at">slope =</span> slope)</span>
+<span id="cb24-47"><a href="proper-roc-models.html#cb24-47"></a>  plotSlope[[i]] <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb24-48"><a href="proper-roc-models.html#cb24-48"></a>    slopePlot, <span class="fu">aes</span>(<span class="at">x =</span> z, <span class="at">y =</span> slope)) <span class="sc">+</span> </span>
+<span id="cb24-49"><a href="proper-roc-models.html#cb24-49"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb24-50"><a href="proper-roc-models.html#cb24-50"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Plot &quot;</span>, </span>
+<span id="cb24-51"><a href="proper-roc-models.html#cb24-51"></a>                   LETTERS[i<span class="sc">+</span><span class="dv">2</span>], </span>
+<span id="cb24-52"><a href="proper-roc-models.html#cb24-52"></a>                   <span class="st">&quot;:&quot;</span>, </span>
+<span id="cb24-53"><a href="proper-roc-models.html#cb24-53"></a>                   <span class="fu">sprintf</span>(<span class="st">&quot; c = %5.3f, d_a = %5.3f&quot;</span>, </span>
+<span id="cb24-54"><a href="proper-roc-models.html#cb24-54"></a>                           c1, d_a)))</span>
+<span id="cb24-55"><a href="proper-roc-models.html#cb24-55"></a>}</span></code></pre></div>
 <p>The analytic expressions for PROPROC ROC curves are implemented in the preceding code which plots PROPROC ROC curves predicted by the model parameters <span class="math inline">\((c,d_a)\)</span> and also plots the slopes as a function of binormal model decision variable <span class="math inline">\(z\)</span>.</p>
-<p>The dataset <span class="citation">(<a href="#ref-andersson2008breast" role="doc-biblioref">Andersson et al. 2008</a>)</span> is from an FROC study in breast tomosynthesis. Highest rating ROC data were analyzed by PROPROC and the resulting parameter values were used. The radiologists were chosen as they demonstrate significant differences in the shapes of their respective proper ROC curves and slope plots.</p>
+<p>The dataset <span class="citation">(<a href="#ref-andersson2008breast">Andersson et al. 2008</a>)</span> is from an FROC study in breast tomosynthesis. Highest rating ROC data were analyzed by PROPROC and the resulting parameter values were used. The radiologists were chosen as they demonstrate significant differences in the shapes of their respective proper ROC curves and slope plots.</p>
 <p>In Fig. <a href="proper-roc-models.html#fig:proper-roc-models-plots-3">7.2</a> plot A is the ROC for <span class="math inline">\(c = -0.132, d_a = 1.197\)</span> while plot B is the ROC for <span class="math inline">\(c = 0.226, d_a = 1.74\)</span>. Plots C and D are the corresponding slope plots.</p>
 <p>Code explanation: at lines 12-13 the <span class="math inline">\(c\)</span> and <span class="math inline">\(d_a\)</span> parameters are initialized. Lines 15-17 initializes the upper and lower limits of the v-variable defined in Eqn. <a href="proper-roc-models.html#eq:proper-roc-models-v-range">(7.11)</a>, equivalent to <span class="math inline">\(\lambda\)</span> in our notation. Line 19 defines an array of 10,000 <span class="math inline">\(\lambda\)</span> values at which to evaluate the model and generate the ROC curve. Lines 20-22 calculate the ordinate and abscissa arrays for the predicted ROC curve. Lines 23-30 saves the plots to list arrays for subsequent plotting. Lines 22-27 computes the PROPROC predicted AUC <span class="math inline">\(A_{\text{prop}}\)</span> using Eqn. <a href="proper-roc-models.html#eq:proper-roc-models-metz-36">(7.14)</a>, i.e., Metz’s magic equation. Lines 29-34 computes the slope arrays using the binormal model and Eqn. <a href="proper-roc-models.html#eq:proper-roc-models-likelihood-ratio-definition">(7.6)</a>. The rest of the code generates the slope plot arrays.</p>
 <div class="figure"><span style="display:block;" id="fig:proper-roc-models-plots-3"></span>
@@ -808,7 +810,7 @@ FIGURE 7.2: The plots are labeled by the values of <span class="math inline">\(c
 </div>
 <div id="proper-roc-models-cbm" class="section level2 hasAnchor" number="7.7">
 <h2><span class="header-section-number">7.7</span> The contaminated binormal model (CBM)<a href="proper-roc-models.html#proper-roc-models-cbm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The contaminated binormal model <span class="citation">(<a href="#ref-dorfman2000contaminated1" role="doc-biblioref">Dorfman, Berbaum, and Brandser 2000</a>; <a href="#ref-dorfman2000contaminated2" role="doc-biblioref">Dorfman and Berbaum 2000b</a>, <a href="#ref-dorfman2000contaminated3" role="doc-biblioref">2000a</a>)</span>, or CBM, is an alternate model for decision variable sampling in an ROC study. Like the binormal model, it is a two-parameter model, excluding cutoffs. The first parameter is <span class="math inline">\(\mu_\text{CBM}\)</span>, the separation of two unit-variance normal distributions. The sampling for non-diseased cases is from the <span class="math inline">\(N(0,1)\)</span> distribution, while sampling for diseased cases is from the <span class="math inline">\(N(\mu_\text{CBM},1)\)</span> distribution, provided the disease is visible, otherwise it is from the <span class="math inline">\(N(0,1)\)</span> distribution. In other words, for diseased cases the sampling is from a mixture distribution of two unit variance normal distributions, one centered at <span class="math inline">\(\mu\)</span> and the other centered at 0, with mixing fraction <span class="math inline">\(\alpha\)</span>, the fraction of diseased cases where the abnormality is actually visible. The binning is accomplished, as usual, by the cutoff vector <span class="math inline">\(\overrightarrow{\zeta}=\left( \zeta_1,...,\zeta_{\text{ROC}-1} \right)\)</span>, where <span class="math inline">\(R_\text{ROC}\)</span> is the number of ROC bins. Defining dummy cutoffs <span class="math inline">\(\zeta_0=-\infty\)</span> and <span class="math inline">\(\zeta_{\text{ROC}}=\infty\)</span>, the binning rule is as before:</p>
+<p>The contaminated binormal model <span class="citation">(<a href="#ref-dorfman2000contaminated1">Dorfman, Berbaum, and Brandser 2000</a>; <a href="#ref-dorfman2000contaminated2">Dorfman and Berbaum 2000b</a>, <a href="#ref-dorfman2000contaminated3">2000a</a>)</span>, or CBM, is an alternate model for decision variable sampling in an ROC study. Like the binormal model, it is a two-parameter model, excluding cutoffs. The first parameter is <span class="math inline">\(\mu_\text{CBM}\)</span>, the separation of two unit-variance normal distributions. The sampling for non-diseased cases is from the <span class="math inline">\(N(0,1)\)</span> distribution, while sampling for diseased cases is from the <span class="math inline">\(N(\mu_\text{CBM},1)\)</span> distribution, provided the disease is visible, otherwise it is from the <span class="math inline">\(N(0,1)\)</span> distribution. In other words, for diseased cases the sampling is from a mixture distribution of two unit variance normal distributions, one centered at <span class="math inline">\(\mu\)</span> and the other centered at 0, with mixing fraction <span class="math inline">\(\alpha\)</span>, the fraction of diseased cases where the abnormality is actually visible. The binning is accomplished, as usual, by the cutoff vector <span class="math inline">\(\overrightarrow{\zeta}=\left( \zeta_1,...,\zeta_{\text{ROC}-1} \right)\)</span>, where <span class="math inline">\(R_\text{ROC}\)</span> is the number of ROC bins. Defining dummy cutoffs <span class="math inline">\(\zeta_0=-\infty\)</span> and <span class="math inline">\(\zeta_{\text{ROC}}=\infty\)</span>, the binning rule is as before:</p>
 <p><span class="math display" id="eq:proper-roc-models-binning-rule">\[\begin{equation}
 \left.\begin{aligned}
 \text{if}~\left (\zeta_{r-1} \le z &lt; \zeta_r  \right ) \text{rating} = r\\
@@ -1061,7 +1063,7 @@ FIGURE 7.5: The slope plots are labeled by the values of <span class="math inlin
 </div>
 <div id="proper-roc-models-metz-eqn-36" class="section level2 hasAnchor" number="7.9">
 <h2><span class="header-section-number">7.9</span> Appendix: Metz Eqn 36 numerical check<a href="proper-roc-models.html#proper-roc-models-metz-eqn-36" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The <span class="math inline">\(c\)</span> and <span class="math inline">\(d_a\)</span> parameters used here are from an FROC study in breast tomosynthesis <span class="citation">(<a href="#ref-andersson2008breast" role="doc-biblioref">Andersson et al. 2008</a>)</span>. There are two modalities and five readers.</p>
+<p>The <span class="math inline">\(c\)</span> and <span class="math inline">\(d_a\)</span> parameters used here are from an FROC study in breast tomosynthesis <span class="citation">(<a href="#ref-andersson2008breast">Andersson et al. 2008</a>)</span>. There are two modalities and five readers.</p>
 <div id="main-code-and-output" class="section level3 hasAnchor" number="7.9.1">
 <h3><span class="header-section-number">7.9.1</span> Main code and output<a href="proper-roc-models.html#main-code-and-output" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <pre><code>#&gt;    i j           c        da aucProproc     normDiff
@@ -1075,7 +1077,7 @@ FIGURE 7.5: The slope plots are labeled by the values of <span class="math inlin
 #&gt; 8  2 3 -0.13261262 1.1558707  0.7931787 3.472577e-08
 #&gt; 9  2 4  0.11822263 1.6201757  0.8740274 3.922161e-08
 #&gt; 10 2 5  0.07810330 0.8928816  0.7360989 3.798459e-08</code></pre>
-<p>Note the close correspondence between the formula, Eqn. 36 in <span class="citation">(<a href="#ref-metz1999proper" role="doc-biblioref">Charles E. Metz and Pan 1999</a>)</span>, and the numerical estimate. Eqn. 31 and Eqn. 36 in the paper (they differ only in parameterizations) are provided without proof – it was probably obvious to Prof Metz or he wanted to leave it to us “mere mortals” to figure it out as a final parting gesture of his legacy. The author once put a significant effort into proving it and even had a bright graduate student from the biostatistics department work on it to no avail. I have observed that these equations always yield very close to the numerical estimates so the theorem is obviously empirically correct, but I have been unable to prove it analytically.</p>
+<p>Note the close correspondence between the formula, Eqn. 36 in <span class="citation">(<a href="#ref-metz1999proper">Charles E. Metz and Pan 1999</a>)</span>, and the numerical estimate. Eqn. 31 and Eqn. 36 in the paper (they differ only in parameterizations) are provided without proof – it was probably obvious to Prof Metz or he wanted to leave it to us “mere mortals” to figure it out as a final parting gesture of his legacy. The author once put a significant effort into proving it and even had a bright graduate student from the biostatistics department work on it to no avail. I have observed that these equations always yield very close to the numerical estimates so the theorem is obviously empirically correct, but I have been unable to prove it analytically.</p>
 </div>
 </div>
 <div id="proper-roc-models-references" class="section level2 hasAnchor" number="7.10">
@@ -1084,7 +1086,7 @@ FIGURE 7.5: The slope plots are labeled by the values of <span class="math inlin
 </div>
 </div>
 <h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-andersson2008breast" class="csl-entry">
 Andersson, Ingvar, Debra M Ikeda, Sophia Zackrisson, Mark Ruschin, Tony Svahn, Pontus Timberg, and Anders Tingberg. 2008. <span>“Breast Tomosynthesis and Digital Mammography: A Comparison of Breast Cancer Visibility and BIRADS Classification in a Population of Cancers with Subtle Mammographic Findings.”</span> <em>European Radiology</em> 18 (12): 2817–25.
 </div>

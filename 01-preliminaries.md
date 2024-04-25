@@ -136,41 +136,20 @@ Table \@ref(tab:fryback-thornbury): Fryback and Thornbury proposed hierarchy of 
 
 
 
-<table>
-<caption>(\#tab:fryback-thornbury)Fryback Thornbury hierarchy of efficacies.</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Level Designation </th>
-   <th style="text-align:left;"> Essential Characteristic </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 1. Technical efficacy </td>
-   <td style="text-align:left;"> Engineering measures: MTF, NPS, DQE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 2. Diagnostic accuracy efficacy </td>
-   <td style="text-align:left;"> Sensitivity, specificity, ROC or FROC area </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 3. Diagnostic thinking efficacy </td>
-   <td style="text-align:left;"> Positive and negative predictive values </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 4. Therapeutic efficacy </td>
-   <td style="text-align:left;"> Treatment benefits from imaging test? </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 5. Patient outcome efficacy </td>
-   <td style="text-align:left;"> Patients benefit from imaging test? </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 6. Societal efficacy </td>
-   <td style="text-align:left;"> Society benefits from imaging test? </td>
-  </tr>
-</tbody>
-</table>
+
+
+Table: (\#tab:fryback-thornbury)Fryback Thornbury hierarchy of efficacies.
+
+|Level Designation               |Essential Characteristic                   |
+|:-------------------------------|:------------------------------------------|
+|1. Technical efficacy           |Engineering measures: MTF, NPS, DQE        |
+|2. Diagnostic accuracy efficacy |Sensitivity, specificity, ROC or FROC area |
+|3. Diagnostic thinking efficacy |Positive and negative predictive values    |
+|4. Therapeutic efficacy         |Treatment benefits from imaging test?      |
+|5. Patient outcome efficacy     |Patients benefit from imaging test?        |
+|6. Societal efficacy            |Society benefits from imaging test?        |
+
+
 
 
 The term "clinical relevance" is used rather loosely in the literature. The author is not aware of an accepted definition of "clinical relevance" apart from its obvious English language meaning. As a working definition I have proposed [63] that the clinical relevance of a measurement be defined as its hierarchy-level. A level-5 patient outcome measurement (do patients, on the average, benefit from the imaging study) is clinically more relevant than a technical measurement like noise on a uniform background phantom or an ROC study. This is because it relates directly to the benefit, or lack thereof, to a group of patients (it is impossible to define outcome efficacy at the individual patient level – at the patient level outcome is a binary random variable, e.g., 1 if the outcome was good or 0 if the outcome was bad). 

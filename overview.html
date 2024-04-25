@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 An overview of the field | Modeling ROC data</title>
   <meta name="description" content="Understanding and modeling receiver operating characteristic (ROC) data." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 An overview of the field | Modeling ROC data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-05-20" />
+<meta name="date" content="2024-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,18 +54,19 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -137,6 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -518,7 +520,7 @@ div.csl-indent {
 <blockquote>
 <p>The question addressed by this book is “how good are radiologists using medical imaging devices at diagnosing disease?” Equivalently, “how good is a computer aided detection (CAD) algorithm at detecting cancers in breast images?”, or “how good is an artificial intelligence (AI) algorithm at detecting objects of interest?”.</p>
 </blockquote>
-<p>Observer performance measurements originally developed for medical imaging, and widely used for this purpose, require data collection and analyses methods that fall under the rubric of what is loosely termed “ROC analysis”, where ROC is an abbreviation for Receiver Operating Characteristic <span class="citation">(<a href="#ref-metz1978rocmethodology" role="doc-biblioref">C. E. Metz 1978</a>)</span>. ROC analysis and its extensions form a specialized branch of science encompassing knowledge of diagnostic medical physics, perception of stimuli, signal detection theory as commonly studied by psychologists and engineers, human observer visual system modeling and statistics. Its importance in medical imaging is due to the evolution of technology and the need to objectively assess such advances. The Food and Drug Administration, Center for Devices and Radiological Health (FDA/CDRH), which regulates medical-imaging devices, requires ROC studies as part of its device approval process. There are, conservatively, at least several hundred publications using ROC studies and a paper <span class="citation">(<a href="#ref-metz1978rocmethodology" role="doc-biblioref">C. E. Metz 1978</a>)</span> by the late Prof. C.E. Metz has been cited over 1800 times. Numerous reviews and tutorial papers have appeared <span class="citation">Charles E. Metz (<a href="#ref-metz1986rocmethodology" role="doc-biblioref">1986</a>)</span> and there are books on the statistical analysis <span class="citation">(<a href="#ref-RN1443" role="doc-biblioref">Zhou, Obuchowski, and McClish 2002</a>)</span> of ROC data. However, in my experience, basic aspects of the subject are sometimes misunderstood and lessons from the past are sometimes forgotten.</p>
+<p>Observer performance measurements originally developed for medical imaging, and widely used for this purpose, require data collection and analyses methods that fall under the rubric of what is loosely termed “ROC analysis”, where ROC is an abbreviation for Receiver Operating Characteristic <span class="citation">(<a href="#ref-metz1978rocmethodology">C. E. Metz 1978</a>)</span>. ROC analysis and its extensions form a specialized branch of science encompassing knowledge of diagnostic medical physics, perception of stimuli, signal detection theory as commonly studied by psychologists and engineers, human observer visual system modeling and statistics. Its importance in medical imaging is due to the evolution of technology and the need to objectively assess such advances. The Food and Drug Administration, Center for Devices and Radiological Health (FDA/CDRH), which regulates medical-imaging devices, requires ROC studies as part of its device approval process. There are, conservatively, at least several hundred publications using ROC studies and a paper <span class="citation">(<a href="#ref-metz1978rocmethodology">C. E. Metz 1978</a>)</span> by the late Prof. C.E. Metz has been cited over 1800 times. Numerous reviews and tutorial papers have appeared <span class="citation">Charles E. Metz (<a href="#ref-metz1986rocmethodology">1986</a>)</span> and there are books on the statistical analysis <span class="citation">(<a href="#ref-RN1443">Zhou, Obuchowski, and McClish 2002</a>)</span> of ROC data. However, in my experience, basic aspects of the subject are sometimes misunderstood and lessons from the past are sometimes forgotten.</p>
 <p>It is the aim of this book to describe the field in some depth while assuming little statistical background of the reader. This is a tall order. Key to accomplishing it is the ability to illustrate abstract statistical concepts and analysis methods with free, cross-platform, open-source software <code>R</code> (a programming language) and <code>RStudio</code> (a “helper” software that makes it easier to work with <code>R</code>). Both are popular in the scientific community.</p>
 <p>This chapter provides background material and an outline of the book. It starts with diagnostic interpretations occurring everyday in hospitals. The process of imaging device development by manufacturers is described, stressing the role of physical measurements using simple objects in optimizing the design. Once the device is deployed medical physicists working in hospitals use phantom-based quality control measurements to maintain image quality. Lacking the complexity of clinical images, phantom measurements are not expected to correlate with clinical image quality. Model observers, that reduce the imaging process to mathematical formulae, are intended to bridge the gap. However, since they are as yet restricted to relatively simple tasks their potential is yet to be realized.</p>
 <blockquote>
@@ -607,85 +609,47 @@ FIGURE 1.1: (A) Image of an ACR phantom, (B) Clinical image.
 </div>
 <div id="hierarchy-of-assessment-methods" class="section level2 hasAnchor" number="1.9">
 <h2><span class="header-section-number">1.9</span> Hierarchy of assessment methods<a href="overview.html#hierarchy-of-assessment-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The methods described in this book need to be placed in context of a six-level hierarchy of assessment methods<span class="citation">Fryback and Thornbury (<a href="#ref-fryback1991efficacy" role="doc-biblioref">1991</a>)</span>. The term efficacy is defined generically as “the probability of benefit to individuals in a defined population from a medical technology applied for a given medical problem under ideal conditions of use”. Demonstration of efficacy at each lower level is a necessary but not sufficient condition to assure efficacy at higher level. The different assessment methods are, in increasing order of efficacy : technical, diagnostic accuracy, diagnostic thinking, therapeutic, patient outcome and societal, Table <a href="overview.html#tab:fryback-thornbury">1.1</a>.</p>
+<p>The methods described in this book need to be placed in context of a six-level hierarchy of assessment methods<span class="citation">Fryback and Thornbury (<a href="#ref-fryback1991efficacy">1991</a>)</span>. The term efficacy is defined generically as “the probability of benefit to individuals in a defined population from a medical technology applied for a given medical problem under ideal conditions of use”. Demonstration of efficacy at each lower level is a necessary but not sufficient condition to assure efficacy at higher level. The different assessment methods are, in increasing order of efficacy : technical, diagnostic accuracy, diagnostic thinking, therapeutic, patient outcome and societal, Table <a href="overview.html#tab:fryback-thornbury">1.1</a>.</p>
 <p>Table <a href="overview.html#tab:fryback-thornbury">1.1</a>: Fryback and Thornbury proposed hierarchy of assessment methods. Demonstration of efficacy at each lower level is a necessary but not sufficient condition to assure efficacy at higher level. [MTF = modulation transfer function; NPS(f) = noise power spectra as a function of spatial frequency f; DQE(f) = detective quantum efficiency]</p>
 <table>
-<caption>
-<span id="tab:fryback-thornbury">TABLE 1.1: </span>Fryback Thornbury hierarchy of efficacies.
-</caption>
+<caption><span id="tab:fryback-thornbury">TABLE 1.1: </span>Fryback Thornbury hierarchy of efficacies.</caption>
+<colgroup>
+<col width="42%" />
+<col width="57%" />
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:left;">
-Level Designation
-</th>
-<th style="text-align:left;">
-Essential Characteristic
-</th>
+<tr class="header">
+<th align="left">Level Designation</th>
+<th align="left">Essential Characteristic</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-<ol style="list-style-type: decimal">
-<li>Technical efficacy
-</td>
-<td style="text-align:left;">
-Engineering measures: MTF, NPS, DQE
-</td>
+<tr class="odd">
+<td align="left">1. Technical efficacy</td>
+<td align="left">Engineering measures: MTF, NPS, DQE</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<ol start="2" style="list-style-type: decimal">
-<li>Diagnostic accuracy efficacy
-</td>
-<td style="text-align:left;">
-Sensitivity, specificity, ROC or FROC area
-</td>
+<tr class="even">
+<td align="left">2. Diagnostic accuracy efficacy</td>
+<td align="left">Sensitivity, specificity, ROC or FROC area</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<ol start="3" style="list-style-type: decimal">
-<li>Diagnostic thinking efficacy
-</td>
-<td style="text-align:left;">
-Positive and negative predictive values
-</td>
+<tr class="odd">
+<td align="left">3. Diagnostic thinking efficacy</td>
+<td align="left">Positive and negative predictive values</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<ol start="4" style="list-style-type: decimal">
-<li>Therapeutic efficacy
-</td>
-<td style="text-align:left;">
-Treatment benefits from imaging test?
-</td>
+<tr class="even">
+<td align="left">4. Therapeutic efficacy</td>
+<td align="left">Treatment benefits from imaging test?</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<ol start="5" style="list-style-type: decimal">
-<li>Patient outcome efficacy
-</td>
-<td style="text-align:left;">
-Patients benefit from imaging test?
-</td>
+<tr class="odd">
+<td align="left">5. Patient outcome efficacy</td>
+<td align="left">Patients benefit from imaging test?</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-<ol start="6" style="list-style-type: decimal">
-<li>Societal efficacy
-</td>
-<td style="text-align:left;">
-Society benefits from imaging test?
-</td>
+<tr class="even">
+<td align="left">6. Societal efficacy</td>
+<td align="left">Society benefits from imaging test?</td>
 </tr>
 </tbody>
-</table></li>
-</ol></li>
-</ol></li>
-</ol></li>
-</ol></li>
-</ol></li>
-</ol>
+</table>
 <p>The term “clinical relevance” is used rather loosely in the literature. The author is not aware of an accepted definition of “clinical relevance” apart from its obvious English language meaning. As a working definition I have proposed [63] that the clinical relevance of a measurement be defined as its hierarchy-level. A level-5 patient outcome measurement (do patients, on the average, benefit from the imaging study) is clinically more relevant than a technical measurement like noise on a uniform background phantom or an ROC study. This is because it relates directly to the benefit, or lack thereof, to a group of patients (it is impossible to define outcome efficacy at the individual patient level – at the patient level outcome is a binary random variable, e.g., 1 if the outcome was good or 0 if the outcome was bad).</p>
 <p>One could make physical measurements ad-infinitum, but one cannot (yet) predict the average benefit to patients. Successful virtual clinical trials would prove me wrong. ROC studies are more clinically relevant than physical measurements, and it is more likely that a modality with higher performance will yield better outcomes, but it is not a foregone conclusion. Therefore, higher-level measurements are needed.</p>
 <p>However, the time and cost of the measurement increases rapidly with the hierarchy level. Technical efficacy, although requiring sophistical mathematical methods, take relatively little time. ROC and FROC, both of which are level-2 diagnostic accuracy measurements, take more time, often a few months to complete. However, since ROC measurements include the entire imaging chain and the radiologist, they are more clinically relevant than technical measurements, but they do not tell us the effect on diagnostic thinking. After the results of “live” interpretations are available, e.g., patients are diagnosed as diseased or non-diseased, what does the physician do with the information. Does the physician recommend further tests or recommends immediate treatment. This is where the level-3 measurements come in, which measure the effect on diagnostic thinking. Typical level-3 measurements are positive predictive value (PPV) and negative predictive value (NPV). PPV is the probability that the patient is actually diseased when the diagnosis is diseased and NPV is the probability that the patient is actually non-diseased when the diagnosis is non-diseased. These are discussed in more detail in Chapter 02.</p>
@@ -734,7 +698,7 @@ Society benefits from imaging test?
 
 
 <h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-fryback1991efficacy" class="csl-entry">
 Fryback, Dennis G, and John R Thornbury. 1991. <span>“The Efficacy of Diagnostic Imaging.”</span> <em>Medical Decision Making</em> 11 (2): 88–94.
 </div>

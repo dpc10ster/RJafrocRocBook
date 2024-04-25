@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Modeling the binary Task | Modeling ROC data</title>
   <meta name="description" content="Understanding and modeling receiver operating characteristic (ROC) data." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Modeling the binary Task | Modeling ROC data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dev P. Chakraborty, PhD" />
 
 
-<meta name="date" content="2023-05-20" />
+<meta name="date" content="2024-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,18 +54,19 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -137,6 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -607,13 +609,14 @@ Z_{k_tt} \sim&amp; N(\mu_t,1) \\
 </div>
 <div id="binary-task-model-normal-distribution" class="section level2 hasAnchor" number="3.7">
 <h2><span class="header-section-number">3.7</span> The normal distribution<a href="binary-task-model.html#binary-task-model-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A probability density function (pdf) or density of a continuous random variable is a function giving the relative chance that the random variable takes on a given value. For a continuous distribution, the probability of the random variable being exactly equal to a given value is zero. The probability of the random variable falling in a range of values is given by the integral of this variable’s pdf function over that range. For the normal distribution <span class="math inline">\(N(\mu,\sigma^2)\)</span> the pdf is denoted <span class="math inline">\(\phi(z|\mu,\sigma)\)</span>. The special case <span class="math inline">\(N(0,1)\)</span> is referred to as the <strong>unit normal distribution</strong>; it has zero mean and unit variance and the corresponding pdf is denoted <span class="math inline">\(\phi(z)\)</span>.</p>
+<p>A probability density function (pdf) or density of a continuous random variable is a function giving the relative chance that the random variable takes on a given value. For a continuous distribution, the probability of the random variable being exactly equal to a given value is zero. The probability of the random variable falling in a range of values is given by the integral of this variable’s pdf function over that range. For the normal distribution <span class="math inline">\(N(\mu,\sigma^2)\)</span> the pdf is denoted <span class="math inline">\(\phi(z|\mu,\sigma)\)</span>.</p>
 <p>By definition,</p>
 <p><span class="math display" id="eq:binary-task-model-phi-def">\[\begin{equation}
 \phi\left ( z|\mu,\sigma \right )=P(z&lt;Z&lt;(z+dz)|Z \sim N(\mu,\sigma^2))
 \tag{3.4}
 \end{equation}\]</span></p>
-<p>The right hand side of Eqn. <a href="binary-task-model.html#eq:binary-task-model-phi-def">(3.4)</a> is the probability that the random variable <span class="math inline">\(Z\)</span> sampled from <span class="math inline">\(N(\mu,\sigma^2)\)</span> falls between the fixed limits z and z + dz. For this reason <span class="math inline">\(\phi(z|\mu,\sigma)\)</span> is termed the probability density function. The defining equation for the pdf of this distribution is:</p>
+<p>The right hand side of Eqn. <a href="binary-task-model.html#eq:binary-task-model-phi-def">(3.4)</a> is the probability that the random variable <span class="math inline">\(Z\)</span> sampled from <span class="math inline">\(N(\mu,\sigma^2)\)</span> falls between the fixed limits z and z + dz. For this reason <span class="math inline">\(\phi(z|\mu,\sigma)\)</span> is termed the probability density function.</p>
+<p>The special case <span class="math inline">\(N(0,1)\)</span> is referred to as the <strong>unit normal distribution</strong>; it has zero mean and unit variance and the corresponding pdf is denoted <span class="math inline">\(\phi(z)\)</span>. The defining equation for the pdf of the unit normal distribution is:</p>
 <p><span class="math display" id="eq:binary-task-model-phi">\[\begin{equation}
 \phi\left ( z \right )=\frac{1}{\sqrt{2\pi}}\exp\left ( -\frac{z^2}{2} \right )
 \tag{3.5}
@@ -668,9 +671,9 @@ p \equiv \Phi\left ( z \right )=\int_{-\infty }^{z}\phi(t)dt
 <p>Lines 5 and 7 demonstrate that <code>pnorm</code> and <code>qnorm</code>, applied in either order, are inverses of each other.</p>
 <p>Eqn. <a href="binary-task-model.html#eq:binary-task-model-Phi-Inv-alpha-by2">(3.10)</a> means that the (rounded) value -1.96 is such that the area under the pdf to the left of this value is 0.025. Similarly, Eqn. <a href="binary-task-model.html#eq:binary-task-model-phi-inv-alpha">(3.11)</a> means that the (rounded) value +1.96 is such that the area under the pdf to the left of this value is 1-0.025 = 0.975. In other words, -1.96 captures, to its left, the 2.5th percentile of the unit-normal distribution, and 1.96 captures, to its left, the 97.5th percentile of the unit-normal distribution, Fig. <a href="binary-task-model.html#fig:binary-task-model-shaded-tails">3.2</a>. Since between them they capture 95 percent of the unit-normal pdf, these two values can be used to estimate 95 percent confidence intervals.</p>
 <div class="figure"><span style="display:block;" id="fig:binary-task-model-shaded-tails"></span>
-<img src="03-modeling-binary-task_files/figure-html/binary-task-model-shaded-tails-1.png" alt="Illustrating that 95 percent of the total area under the unit normal pdf is contained in the range |Z| &lt; 1.96, which can be used to construct a 95 percent confidence interval for an estimate of a suitably normalized statistic. The area in each shaded tail is 0.025." width="672" />
+<img src="03-modeling-binary-task_files/figure-html/binary-task-model-shaded-tails-1.png" alt="Illustrating that 95 percent of the total area under the unit normal pdf is contained in the range |z| &lt; 1.96; this is used to construct a 95 percent confidence interval for an estimate of a suitably normalized statistic. The area in each shaded tail is 0.025." width="672" />
 <p class="caption">
-FIGURE 3.2: Illustrating that 95 percent of the total area under the unit normal pdf is contained in the range |Z| &lt; 1.96, which can be used to construct a 95 percent confidence interval for an estimate of a suitably normalized statistic. The area in each shaded tail is 0.025.
+FIGURE 3.2: Illustrating that 95 percent of the total area under the unit normal pdf is contained in the range |z| &lt; 1.96; this is used to construct a 95 percent confidence interval for an estimate of a suitably normalized statistic. The area in each shaded tail is 0.025.
 </p>
 </div>
 <blockquote>
@@ -753,7 +756,7 @@ FIGURE 3.3: The equal-variance binormal model for <span class="math inline">\(\m
 <div id="binary-task-model-sensitivity-specificity-inverse-variation" class="section level2 hasAnchor" number="3.9">
 <h2><span class="header-section-number">3.9</span> Inverse variation of sensitivity and specificity<a href="binary-task-model.html#binary-task-model-sensitivity-specificity-inverse-variation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The variation of sensitivity and specificity is modeled in the binormal model by the threshold parameter <span class="math inline">\(\zeta\)</span>. From Eqn. <a href="binary-task-model.html#eq:binary-task-model-specificity">(3.12)</a> specificity at threshold <span class="math inline">\(\zeta\)</span> is <span class="math inline">\(\text{Sp} = \Phi(\zeta)\)</span> and sensitivity is <span class="math inline">\(\text{Se} = \Phi(\mu-\zeta)\)</span>. Since the threshold <span class="math inline">\(\zeta\)</span> appears with different signs the dependence of sensitivity on <span class="math inline">\(\zeta\)</span> will be the opposite of that of specificity. In Fig. <a href="binary-task-model.html#fig:binary-task-model-shaded-plots">3.3</a>, the left edge of the blue shaded region represents the threshold <span class="math inline">\(\zeta = 1\)</span>. As <span class="math inline">\(\zeta = 1\)</span> is moved towards the left, specificity decreases but sensitivity increases. Specificity decreases because less of the non-diseased distribution lies to the left of the lowered threshold, in other words fewer non-diseased cases are correctly diagnosed as non-diseased. Sensitivity increases because more of the diseased distribution lies to the right of the lowered threshold, in other words more diseased cases are correctly diagnosed as diseased.</p>
-<p>If Observer 1 has higher sensitivity than Observer 2 but lower specificity it is difficult to unambiguously compare them; it is not impossible <span class="citation">(<a href="#ref-RN2637" role="doc-biblioref">Skaane et al. 2013</a>)</span>. The unambiguous comparison is difficult for the following reason: assuming the Observer 2 can be coaxed into adopting a lower threshold, thereby decreasing specificity to match that of Observer 1 then it is possible that the Observer 2’s sensitivity, formerly smaller, could (and here is the ambiguity because if might not happen) now be greater than that of Observer 1.</p>
+<p>If Observer 1 has higher sensitivity than Observer 2 but lower specificity it is difficult to unambiguously compare them; it is not impossible <span class="citation">(<a href="#ref-RN2637">Skaane et al. 2013</a>)</span>. The unambiguous comparison is difficult for the following reason: assuming the Observer 2 can be coaxed into adopting a lower threshold, thereby decreasing specificity to match that of Observer 1 then it is possible that the Observer 2’s sensitivity, formerly smaller, could (and here is the ambiguity because if might not happen) now be greater than that of Observer 1.</p>
 <p>A single figure of merit is desirable to the sensitivity - specificity analysis. It is possible to leverage the inverse variation of sensitivity and specificity by combing them into a single scalar measure, as was done with the <span class="math inline">\(\mu\)</span> parameter in the previous section, Eqn. <a href="binary-task-model.html#eq:binary-task-model-solve-mu">(3.17)</a>.</p>
 <p>An equivalent way is by using the area under the ROC plot, discussed next.</p>
 </div>
@@ -882,7 +885,7 @@ FIGURE 3.5: ROC curve predicted by equal variance binormal model for <span class
 </div>
 <div id="binary-task-model-mu-parameter-intepretation" class="section level3 hasAnchor" number="3.10.7">
 <h3><span class="header-section-number">3.10.7</span> Physical interpretation of the mu-parameter<a href="binary-task-model.html#binary-task-model-mu-parameter-intepretation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The <span class="math inline">\(\mu\)</span> parameter is equivalent <span class="citation">(<a href="#ref-macmillan2004detection" role="doc-biblioref">Macmillan and Creelman 2004</a>)</span> to a signal detection theory variable denoted <span class="math inline">\(d&#39;\)</span> in the literature (pronounced “dee-prime”). It can be thought of as the <em>perceptual signal to noise ratio</em> (pSNR) of diseased cases relative to non-diseased ones. It is a measure of reader expertise and / or ease of detectability of the disease. SNR is a term widely used in engineering, specifically in signal detection theory <span class="citation">(<a href="#ref-green1966signal" role="doc-biblioref">Green, Swets, et al. 1966</a>; <a href="#ref-egan1975book" role="doc-biblioref">Egan 1975a</a>)</span>. It dates to the early 1940s when one had the problem <span class="citation">Jess Marcum (<a href="#ref-marcum1960statistical" role="doc-biblioref">1960</a>)</span> of detecting faint radar reflections from a plane against a background of noise. The radar radio “receiver” is the origin of the term in Receiver Operating Characteristic.</p>
+<p>The <span class="math inline">\(\mu\)</span> parameter is equivalent <span class="citation">(<a href="#ref-macmillan2004detection">Macmillan and Creelman 2004</a>)</span> to a signal detection theory variable denoted <span class="math inline">\(d&#39;\)</span> in the literature (pronounced “dee-prime”). It can be thought of as the <em>perceptual signal to noise ratio</em> (pSNR) of diseased cases relative to non-diseased ones. It is a measure of reader expertise and / or ease of detectability of the disease. SNR is a term widely used in engineering, specifically in signal detection theory <span class="citation">(<a href="#ref-green1966signal">Green, Swets, et al. 1966</a>; <a href="#ref-egan1975book">Egan 1975a</a>)</span>. It dates to the early 1940s when one had the problem <span class="citation">Jess Marcum (<a href="#ref-marcum1960statistical">1960</a>)</span> of detecting faint radar reflections from a plane against a background of noise. The radar radio “receiver” is the origin of the term in Receiver Operating Characteristic.</p>
 <p>The reader may be aware of the “rule-of-thumb” that if SNR exceeds three the target is likely to be detected. It will be shown later that the area under the ROC curve is the probability that a diseased case Z-sample is greater than that of a non-diseased one. The following code snippet shows that for <span class="math inline">\(\mu = 3\)</span>, the probability of detection is 98.3 percent.</p>
 <pre><code>#&gt; pnorm(3/sqrt(2)) =  0.983</code></pre>
 <p>For electrical signals, SNR can be measured with instruments but, in the context of decisions made by humans, what is measured is the <em>perceptual</em> SNR. Physical characteristics that differentiate non-diseased from diseased cases, and how well they are displayed will affect it; in addition the eye-sight of the observer is an obvious factor; not so obvious is how information is processed by the cognitive system, and the role of the observer’s expertise.</p>
@@ -991,69 +994,36 @@ CI_{1-\alpha}^{\text{TPF}}=\left ( \widehat{\text{TPF}} - z_{\alpha/2} \sigma_{\
 </div>
 <div id="binary-task-model-beam-study" class="section level2 hasAnchor" number="3.12">
 <h2><span class="header-section-number">3.12</span> Variability: the Beam study<a href="binary-task-model.html#binary-task-model-beam-study" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this study <span class="citation">(<a href="#ref-beam1996variability" role="doc-biblioref">Beam, Layde, and Sullivan 1996</a>)</span> fifty accredited mammography centers were randomly sampled in the United States. “Accredited” is a legal/regulatory term implying, among other things, that the radiologists interpreting the breast cases were “board certified” by the American Board of Radiology. One hundred eight (108) certified radiologists from these centers gave blinded interpretation to a common set of 79 randomly sampled (stratified sampling) enriched screening cases containing 45 cases with cancer and the rest with benign lesions. Ground truth for these women had been established either by biopsy or by 2-year follow-up.</p>
+<p>In this study <span class="citation">(<a href="#ref-beam1996variability">Beam, Layde, and Sullivan 1996</a>)</span> fifty accredited mammography centers were randomly sampled in the United States. “Accredited” is a legal/regulatory term implying, among other things, that the radiologists interpreting the breast cases were “board certified” by the American Board of Radiology. One hundred eight (108) certified radiologists from these centers gave blinded interpretation to a common set of 79 randomly sampled (stratified sampling) enriched screening cases containing 45 cases with cancer and the rest with benign lesions. Ground truth for these women had been established either by biopsy or by 2-year follow-up.</p>
 <p>The observed range of sensitivity (TPF) was 53 percent and the range of FPF was 63 percent; the corresponding range for the AUC was 21 percent, Table <a href="binary-task-model.html#tab:binary-task-model-table-beam-study">3.1</a>. Empirical AUC was estimated using a 5-point BIRADS ratings of the images (the zero category was not allowed). Explanation of empirical AUC is deferred to Chapter <a href="empirical-auc.html#empirical-auc">5</a>.</p>
 <table>
-<caption>
-<span id="tab:binary-task-model-table-beam-study">TABLE 3.1: </span>The variability of 108 radiologists on a common dataset of screening mammograms. Note the reduced variability when one uses AUC which accounts for variations in reporting thresholds (AUC variability range is 21 percent compared to 53 percent for sensitivity and 63 percent for specificity).
-</caption>
+<caption><span id="tab:binary-task-model-table-beam-study">TABLE 3.1: </span>The variability of 108 radiologists on a common dataset of screening mammograms. Note the reduced variability when one uses AUC which accounts for variations in reporting thresholds (AUC variability range is 21 percent compared to 53 percent for sensitivity and 63 percent for specificity).</caption>
 <thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-Min
-</th>
-<th style="text-align:right;">
-Max
-</th>
-<th style="text-align:right;">
-Range
-</th>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Min</th>
+<th align="right">Max</th>
+<th align="right">Range</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-Sensitivity
-</td>
-<td style="text-align:right;">
-46.70
-</td>
-<td style="text-align:right;">
-100.00
-</td>
-<td style="text-align:right;">
-53.30
-</td>
+<tr class="odd">
+<td align="left">Sensitivity</td>
+<td align="right">46.70</td>
+<td align="right">100.00</td>
+<td align="right">53.30</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-Specificity
-</td>
-<td style="text-align:right;">
-36.30
-</td>
-<td style="text-align:right;">
-99.30
-</td>
-<td style="text-align:right;">
-63.00
-</td>
+<tr class="even">
+<td align="left">Specificity</td>
+<td align="right">36.30</td>
+<td align="right">99.30</td>
+<td align="right">63.00</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-AUC
-</td>
-<td style="text-align:right;">
-0.74
-</td>
-<td style="text-align:right;">
-0.95
-</td>
-<td style="text-align:right;">
-0.21
-</td>
+<tr class="odd">
+<td align="left">AUC</td>
+<td align="right">0.74</td>
+<td align="right">0.95</td>
+<td align="right">0.21</td>
 </tr>
 </tbody>
 </table>
@@ -1131,219 +1101,97 @@ FIGURE 3.6: Schematic patterned from the Beam et al study showing the ROC operat
 #&gt; Est. of mu =  1.57</code></pre>
 <p>Notice that now the values are less sensitive to seed. Table <a href="binary-task-model.html#tab:binary-task-model-table">3.2</a> illustrates this trend with increasing sample size.</p>
 <table>
-<caption>
-<span id="tab:binary-task-model-table">TABLE 3.2: </span>Effect of sample size and seed on estimates of sensitivity, specificity and the mu-parameter.
-</caption>
+<caption><span id="tab:binary-task-model-table">TABLE 3.2: </span>Effect of sample size and seed on estimates of sensitivity, specificity and the mu-parameter.</caption>
 <thead>
-<tr>
-<th style="text-align:right;">
-K1
-</th>
-<th style="text-align:right;">
-K2
-</th>
-<th style="text-align:right;">
-seed
-</th>
-<th style="text-align:right;">
-Se
-</th>
-<th style="text-align:right;">
-Sp
-</th>
-<th style="text-align:right;">
-mu
-</th>
+<tr class="header">
+<th align="right">K1</th>
+<th align="right">K2</th>
+<th align="right">seed</th>
+<th align="right">Se</th>
+<th align="right">Sp</th>
+<th align="right">mu</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-0.889
-</td>
-<td style="text-align:right;">
-0.909
-</td>
-<td style="text-align:right;">
-2.556
-</td>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">11</td>
+<td align="right">100</td>
+<td align="right">0.889</td>
+<td align="right">0.909</td>
+<td align="right">2.556</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-101
-</td>
-<td style="text-align:right;">
-0.778
-</td>
-<td style="text-align:right;">
-0.545
-</td>
-<td style="text-align:right;">
-0.879
-</td>
+<tr class="even">
+<td align="right">9</td>
+<td align="right">11</td>
+<td align="right">101</td>
+<td align="right">0.778</td>
+<td align="right">0.545</td>
+<td align="right">0.879</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-90
-</td>
-<td style="text-align:right;">
-110
-</td>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-0.778
-</td>
-<td style="text-align:right;">
-0.836
-</td>
-<td style="text-align:right;">
-1.744
-</td>
+<tr class="odd">
+<td align="right">90</td>
+<td align="right">110</td>
+<td align="right">100</td>
+<td align="right">0.778</td>
+<td align="right">0.836</td>
+<td align="right">1.744</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-90
-</td>
-<td style="text-align:right;">
-110
-</td>
-<td style="text-align:right;">
-101
-</td>
-<td style="text-align:right;">
-0.811
-</td>
-<td style="text-align:right;">
-0.755
-</td>
-<td style="text-align:right;">
-1.571
-</td>
+<tr class="even">
+<td align="right">90</td>
+<td align="right">110</td>
+<td align="right">101</td>
+<td align="right">0.811</td>
+<td align="right">0.755</td>
+<td align="right">1.571</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-900
-</td>
-<td style="text-align:right;">
-1100
-</td>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-0.764
-</td>
-<td style="text-align:right;">
-0.761
-</td>
-<td style="text-align:right;">
-1.430
-</td>
+<tr class="odd">
+<td align="right">900</td>
+<td align="right">1100</td>
+<td align="right">100</td>
+<td align="right">0.764</td>
+<td align="right">0.761</td>
+<td align="right">1.430</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-900
-</td>
-<td style="text-align:right;">
-1100
-</td>
-<td style="text-align:right;">
-101
-</td>
-<td style="text-align:right;">
-0.807
-</td>
-<td style="text-align:right;">
-0.759
-</td>
-<td style="text-align:right;">
-1.569
-</td>
+<tr class="even">
+<td align="right">900</td>
+<td align="right">1100</td>
+<td align="right">101</td>
+<td align="right">0.807</td>
+<td align="right">0.759</td>
+<td align="right">1.569</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-9000
-</td>
-<td style="text-align:right;">
-11000
-</td>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-0.774
-</td>
-<td style="text-align:right;">
-0.772
-</td>
-<td style="text-align:right;">
-1.496
-</td>
+<tr class="odd">
+<td align="right">9000</td>
+<td align="right">11000</td>
+<td align="right">100</td>
+<td align="right">0.774</td>
+<td align="right">0.772</td>
+<td align="right">1.496</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-9000
-</td>
-<td style="text-align:right;">
-11000
-</td>
-<td style="text-align:right;">
-101
-</td>
-<td style="text-align:right;">
-0.771
-</td>
-<td style="text-align:right;">
-0.775
-</td>
-<td style="text-align:right;">
-1.498
-</td>
+<tr class="even">
+<td align="right">9000</td>
+<td align="right">11000</td>
+<td align="right">101</td>
+<td align="right">0.771</td>
+<td align="right">0.775</td>
+<td align="right">1.498</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-Inf
-</td>
-<td style="text-align:right;">
-Inf
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-0.773
-</td>
-<td style="text-align:right;">
-0.773
-</td>
-<td style="text-align:right;">
-1.500
-</td>
+<tr class="odd">
+<td align="right">Inf</td>
+<td align="right">Inf</td>
+<td align="right">NA</td>
+<td align="right">0.773</td>
+<td align="right">0.773</td>
+<td align="right">1.500</td>
 </tr>
 </tbody>
 </table>
 <p>As the numbers of cases increase, the sensitivity and specificity converge to a common value, around 0.773 and the estimate of the separation parameter converges to the known value.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="binary-task-model.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">0.75</span>) <span class="co"># example 1</span></span>
-<span id="cb9-2"><a href="binary-task-model.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.773</span></span>
-<span id="cb9-3"><a href="binary-task-model.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="fu">qnorm</span>(<span class="fu">pnorm</span>(zeta)) <span class="co"># example 2</span></span>
-<span id="cb9-4"><a href="binary-task-model.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="binary-task-model.html#cb9-1" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">0.75</span>) <span class="co"># example 1</span></span>
+<span id="cb9-2"><a href="binary-task-model.html#cb9-2" tabindex="-1"></a><span class="co">#&gt; [1] 0.773</span></span>
+<span id="cb9-3"><a href="binary-task-model.html#cb9-3" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="fu">qnorm</span>(<span class="fu">pnorm</span>(zeta)) <span class="co"># example 2</span></span>
+<span id="cb9-4"><a href="binary-task-model.html#cb9-4" tabindex="-1"></a><span class="co">#&gt; [1] 1.5</span></span></code></pre></div>
 <p>Because the threshold is halfway between the two distributions, as in this example, sensitivity and specificity are identical. In words, with two unit variance distributions separated by 1.5, the area under the diseased distribution (centered at 1.5) above 0.75, namely sensitivity, equals the area under the non-diseased distribution (centered at zero) below 0.75, namely specificity, and the common value is <span class="math inline">\(\Phi(0.75)= 0.773\)</span>, yielding the last row of Table <a href="binary-task-model.html#tab:binary-task-model-table">3.2</a>, and example 1 in the above code snippet. Example 2 in the above code snippet illustrates Eqn. <a href="binary-task-model.html#eq:binary-task-model-solve-mu">(3.17)</a>. The factor of two arises since in this example sensitivity and specificity are identical.</p>
 <p>From Table <a href="binary-task-model.html#tab:binary-task-model-table">3.2</a>, for the same numbers of cases but different seeds, comparing pairs of sensitivity and specificity values is more difficult as two pairs of numbers (i.e., four numbers) are involved. Comparing a single pair of <span class="math inline">\(\mu\)</span> values is easier as only two numbers are involved. The tendency of the pairs to become independent of case sample is discernible with fewer cases with <span class="math inline">\(\mu\)</span>, around 90/110 cases, than with sensitivity and specificity pairs.</p>
 <p>The numbers in the table might appear disheartening in terms of the implied numbers of cases needed to detect a difference in specificity. Even with 200 cases, the difference in specificity for two seed values is 0.081, which is large considering that the scale extends from 0 to 1.0. A similar comment applies to differences in sensitivity. The situation is not quite that bad:</p>
@@ -1358,7 +1206,7 @@ NA
 </div>
 </div>
 <h3>REFERENCES<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-beam1996variability" class="csl-entry">
 Beam, Craig A, Peter M Layde, and Daniel C Sullivan. 1996. <span>“Variability in the Interpretation of Screening Mammograms by US Radiologists: Findings from a National Sample.”</span> <em>Archives of Internal Medicine</em> 156 (2): 209–13.
 </div>
